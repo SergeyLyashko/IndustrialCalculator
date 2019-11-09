@@ -34,7 +34,7 @@ public class MenuData {
     }
     
     // Получение элемента меню (строки) из БД
-    public static String getElementMenu(String keyString){
+    public static String getElementMenu(String keyString){            
         File file = new File(MenuData.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         //File file = new File ("defaultMenu.properties");
         Properties properties = new Properties();

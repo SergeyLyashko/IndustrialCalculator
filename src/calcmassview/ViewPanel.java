@@ -117,7 +117,7 @@ public final class ViewPanel extends JPanel implements IViewController {
     private void addTab(){
         GeneralPanel.addToGeneralPanel("Калькулятор", this);
         GeneralPanel.addToGeneralPanel("Настройки", new SettingsPanel());
-        GeneralPanel.addToGeneralPanel("Info", new InfoPanel());        
+        GeneralPanel.addToGeneralPanel("Справка", new InfoPanel());        
     }    
     
     // слушатель ввода <Enter> в поле "длина"
