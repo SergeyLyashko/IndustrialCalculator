@@ -20,7 +20,6 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 
 /**
  * панель Информации о приложении (инструкция)
@@ -42,7 +41,7 @@ public class InfoPanel extends JPanel {
         //панель прокрутки текста
         JScrollPane scroller = new JScrollPane(infoText);        
         scroller.getViewport().setBackground(Color.black);
-        scroller.setPreferredSize(new Dimension(350,138));
+        scroller.setPreferredSize(new Dimension(345,136));
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.setBorder(null);
         
