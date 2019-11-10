@@ -58,6 +58,7 @@ public class Detail implements Massable {
                     return selectedProfile(type);
             case "Ўвеллер":
             case "”голок":
+            case "ƒвутавр":
                     detail = new AssortmentSteelDetail(name, length);
                     return detail.getMass();
             case "ƒругое":                
