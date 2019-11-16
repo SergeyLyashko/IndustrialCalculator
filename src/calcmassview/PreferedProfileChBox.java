@@ -11,16 +11,14 @@ import java.awt.event.ItemEvent;
  *
  * @author Korvin
  */
-public class PreferedProfileChBox extends SettingChBox {
+public class PreferedProfileChBox extends AbstractSettingChBox {    
     
-    private final SettingsPanel setting;
-    
-    public PreferedProfileChBox(SettingsPanel setting){
-        super();
-        this.setting = setting;
+    public PreferedProfileChBox(){
+        super();        
         super.setSize(220, 20);
         super.setText("часто используемые профили");
-        super.setSelected(false);                        
+        super.setSelected(false);       
+        Theme.addTheme(this);
     }
 
     @Override

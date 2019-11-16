@@ -28,6 +28,7 @@ public class Marker extends JLabel {
         super();        
         super.setVisible(true);
         super.setSize(25, 20);
-        super.setForeground(Color.white);
+        super.setForeground(Color.white);        
+        Theme.addTheme(this);
     }
 }

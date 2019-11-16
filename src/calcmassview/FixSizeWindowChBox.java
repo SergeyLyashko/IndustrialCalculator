@@ -11,22 +11,18 @@ import java.awt.event.ItemEvent;
  *
  * @author Korvin
  */
-public class FixSizeWindowChBox extends SettingChBox {
+public class FixSizeWindowChBox extends AbstractSettingChBox {   
     
-    private final SettingsPanel setting;
-    
-    public FixSizeWindowChBox(SettingsPanel setting){
-        super();
-        this.setting = setting;
+    public FixSizeWindowChBox(){
+        super();        
         super.setSelected(true);
         super.setSize(200, 20);
-        super.setText("зафиксировать размер окна");
+        super.setText("зафиксировать размер окна");             
+        Theme.addTheme(this);
     }
     
     @Override
     public void actionChooser(ItemEvent e) {
         System.out.println("test Size Win");             
-    }
-    
-    
+    }    
 }

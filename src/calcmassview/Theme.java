@@ -6,71 +6,37 @@
 package calcmassview;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JComponent;
 
 /**
  *
  * @author Korvin
  */
-public class Theme {
+public class Theme {       
     
-    //private ViewPanel vp;
-    private SettingsPanel sp;    
-    //private InfoPanel ip;
-    //private ThemeChBox themeChBox;
+    private static ArrayList<JComponent> componentList = new ArrayList<JComponent>(); 
     
-    //private final Theme theme = new Theme(vp, sp, ip, themeChBox);
+    //private static ResultMarker rm;
+    private Color color;
     
-    /*public Theme(ViewPanel vp, SettingsPanel sp, InfoPanel ip, ThemeChBox themeChBox){        
-        this.vp = vp;
-        this.sp = sp;
-        this.ip = ip;
-        this.themeChBox = themeChBox;        
-    }*/
-        
-    public Theme(){        
-        setSp(sp);       
-    }
-    
-    private void setSp(SettingsPanel sp){
-        this.sp = sp;
-    }
-    
-    private SettingsPanel getSp(){
-        return sp;
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public Theme addTheme(){        
-        return new Theme();
-    }    
+    public static void addTheme(JComponent component){
+        componentList.add(component);
+    }     
     
     public void dark(){
-        sp = getSp();
-        sp.setBackground(Color.BLACK);
-        sp.setForeground(Color.WHITE);
-        /*themeChBox.setBackground(Color.BLACK);
-        themeChBox.setForeground(Color.WHITE);
-        vp.setBackground(Color.BLACK);
-        vp.setForeground(Color.WHITE);
-        vp.resultMarker.setForeground(Color.green);
-        ip.setBackground(Color.BLACK);
-        ip.setForeground(Color.WHITE);*/
+        color = Color.BLACK;
+        for(int i=0; i<componentList.size(); i++){
+            componentList.get(i).setBackground(color);
+            componentList.get(i).setForeground(Color.WHITE);        
+        }        
     }
     
     public void light(){
-        Color light = new Color(250, 236, 229);
-        this.sp = getSp();
-        sp.setBackground(light);
-        sp.setForeground(Color.BLACK);
-        /*themeChBox.setBackground(light);
-        themeChBox.setForeground(Color.BLACK);
-        vp.setBackground(light);
-        vp.setForeground(Color.BLACK);
-        vp.resultMarker.setForeground(Color.blue);
-        ip.setBackground(light);
-        ip.setForeground(Color.BLACK);*/
+        color = new Color(250, 236, 229);        
+        for(int i=0; i<componentList.size(); i++){
+            componentList.get(i).setBackground(color);
+            componentList.get(i).setForeground(Color.BLACK);
+        }        
     }
 }

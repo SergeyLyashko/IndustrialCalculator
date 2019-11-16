@@ -11,16 +11,16 @@ import java.awt.event.ItemEvent;
  *
  * @author Korvin
  */
-public class ThemeChBox extends SettingChBox {
+public class ThemeChBox extends AbstractSettingChBox {
 
     private Theme theme;
     
-    public ThemeChBox(Theme theme){
-        super();
-        this.theme = theme;
+    public ThemeChBox(){
+        super();        
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText("темная тема оформления");        
+        Theme.addTheme(this);
     }
     
     // смена темы оформления

@@ -13,19 +13,13 @@ import javax.swing.JCheckBox;
  *
  * @author Korvin
  */
-public abstract class SettingChBox extends JCheckBox {   
+public abstract class AbstractSettingChBox extends JCheckBox { 
     
-    public SettingChBox(){
+    public AbstractSettingChBox(){
         super();       
         super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);                
+        super.setForeground(Color.white);        
     }    
     
     protected abstract void actionChooser(ItemEvent e);
-    
-    
-
-    
-    
-    
 }

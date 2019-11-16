@@ -26,46 +26,43 @@ import javax.swing.JPanel;
  */
 public class SettingsPanel extends JPanel implements ItemListener{
     
-    private final SettingChBox themeChooser, fixSizeWindow, preferedProfileList;
+    private final AbstractSettingChBox themeChooser, fixSizeWindow, preferedProfileList;   
     
-    private final Theme theme;
-    
-    public SettingsPanel(Theme theme){
+    public SettingsPanel(){
         super(false);        
-        super.setBackground(Color.black);
-        
-        this.theme = theme;
+        super.setBackground(Color.black);     
         
         Marker infoText = new Marker();
         infoText.setText("Настройки");
         infoText.setSize(300, 20);
-        infoText.setLocation(15, 10);
+        infoText.setLocation(15, 10);       
         
         // тема оформления
-        themeChooser = new ThemeChBox(theme);
+        Theme.addTheme(this);
+        themeChooser = new ThemeChBox();
         themeChooser.setLocation(15, 40);        
         themeChooser.addItemListener(this);        
         
         // фиксация размера окна
-        fixSizeWindow = new FixSizeWindowChBox(this);
+        fixSizeWindow = new FixSizeWindowChBox();
         fixSizeWindow.setLocation(15, 70);               
         fixSizeWindow.addItemListener(this);
         
         // включение списка часто используемых профилей
-        preferedProfileList = new PreferedProfileChBox(this);
+        preferedProfileList = new PreferedProfileChBox();
         preferedProfileList.setLocation(15, 100);        
-        preferedProfileList.addItemListener(this);
+        preferedProfileList.addItemListener(this);        
         
-        super.add(preferedProfileList);
-        super.add(fixSizeWindow);
         super.add(themeChooser);
+        super.add(fixSizeWindow);
+        super.add(preferedProfileList);
         super.add(infoText);
         super.setLayout(null);
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        SettingChBox source = (SettingChBox) e.getItemSelectable();
+        AbstractSettingChBox source = (AbstractSettingChBox) e.getItemSelectable();
         source.actionChooser(e);     
     }
 }

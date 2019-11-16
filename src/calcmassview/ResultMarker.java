@@ -31,6 +31,7 @@ public class ResultMarker extends JLabel {
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
         super.setForeground(Color.green);
+        Theme.addTheme(this);
     }
     
     // установка значения в строку результата
@@ -47,6 +48,6 @@ public class ResultMarker extends JLabel {
     
     protected void resetResultMarker(){
         super.setText("0.0");
-        super.setForeground(Color.green);
+        super.setForeground(Color.green);        
     }
 }

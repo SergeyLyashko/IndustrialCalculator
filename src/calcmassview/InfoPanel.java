@@ -31,6 +31,8 @@ public class InfoPanel extends JPanel {
         super(false);
         super.setBackground(Color.black);
         
+        Theme.addTheme(this);
+        
         // заголовок
         Marker headerText = new Marker();
         headerText.setText("О программе");               
