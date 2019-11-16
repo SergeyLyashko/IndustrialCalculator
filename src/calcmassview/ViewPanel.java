@@ -41,7 +41,9 @@ public final class ViewPanel extends JPanel implements IViewController {
     // строка результата
     protected ResultMarker resultMarker;
     //данные из выпадающих меню
-    protected String detailName, detailLength, detailWidth;   
+    protected String detailName, detailLength, detailWidth;
+    
+    private Theme theme;
     
     public ViewPanel() {
         super();
@@ -119,7 +121,7 @@ public final class ViewPanel extends JPanel implements IViewController {
     // добавление вкладок в основное окно приложения
     private void addTab(){
         InfoPanel ip = new InfoPanel();
-        SettingsPanel sp = new SettingsPanel(this, ip);
+        SettingsPanel sp = new SettingsPanel(theme);
         GeneralPanel.addToGeneralPanel("Калькулятор", this);       
         GeneralPanel.addToGeneralPanel("Настройки", sp);
         GeneralPanel.addToGeneralPanel("Справка", ip);

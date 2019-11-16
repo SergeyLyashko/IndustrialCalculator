@@ -5,7 +5,6 @@
  */
 package calcmassview;
 
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 
 /**
@@ -13,20 +12,15 @@ import java.awt.event.ItemEvent;
  * @author Korvin
  */
 public class ThemeChBox extends SettingChBox {
+
+    private Theme theme;
     
-    private SettingsPanel sp;
-    private ViewPanel vp;
-    private InfoPanel ip;
-    
-    public ThemeChBox(ViewPanel vp, SettingsPanel sp, InfoPanel ip){
-        super();        
-        this.vp = vp;
-        this.sp = sp;
-        this.ip = ip;
+    public ThemeChBox(Theme theme){
+        super();
+        this.theme = theme;
         super.setSelected(true);
         super.setSize(180, 20);
-        super.setText("темная тема оформления");
-        
+        super.setText("темная тема оформления");        
     }
     
     // смена темы оформления
@@ -34,45 +28,18 @@ public class ThemeChBox extends SettingChBox {
     public void actionChooser(ItemEvent e) {
         //System.out.println("test Size Win");        
         setTheme(e.getStateChange());
-        //setTheme(newTheme);                
     } 
     
     private void setTheme(int stateChange){      
         switch(stateChange){
             case ItemEvent.SELECTED:
-                dark();
+                theme = new Theme();
+                theme.dark();
                 break;
             case ItemEvent.DESELECTED:
-                light();
-                break;
-            //default:
-                //return null;
+                theme = new Theme();
+                theme.light();
+                break;            
         }        
-    }
-    
-    private void dark(){        
-        sp.setBackground(Color.BLACK);
-        sp.setForeground(Color.WHITE);
-        super.setBackground(Color.BLACK);
-        super.setForeground(Color.WHITE);
-        vp.setBackground(Color.BLACK);
-        vp.setForeground(Color.WHITE);
-        vp.resultMarker.setForeground(Color.green);
-        ip.setBackground(Color.BLACK);
-        ip.setForeground(Color.WHITE);
-    }
-    
-    private void light(){
-        Color light = new Color(250, 236, 229);
-        
-        sp.setBackground(light);
-        sp.setForeground(Color.BLACK);
-        super.setBackground(light);
-        super.setForeground(Color.BLACK);
-        vp.setBackground(light);
-        vp.setForeground(Color.BLACK);
-        vp.resultMarker.setForeground(Color.blue);
-        ip.setBackground(light);
-        ip.setForeground(Color.BLACK);
-    }
+    }   
 }

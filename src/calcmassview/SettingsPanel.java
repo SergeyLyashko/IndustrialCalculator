@@ -27,13 +27,14 @@ import javax.swing.JPanel;
 public class SettingsPanel extends JPanel implements ItemListener{
     
     private final SettingChBox themeChooser, fixSizeWindow, preferedProfileList;
-    private final ViewPanel vp;
-    private final InfoPanel ip;
-    public SettingsPanel(ViewPanel vp, InfoPanel ip){
-        super(false);
-        this.vp = vp;
-        this.ip = ip;
+    
+    private final Theme theme;
+    
+    public SettingsPanel(Theme theme){
+        super(false);        
         super.setBackground(Color.black);
+        
+        this.theme = theme;
         
         Marker infoText = new Marker();
         infoText.setText("Настройки");
@@ -41,7 +42,7 @@ public class SettingsPanel extends JPanel implements ItemListener{
         infoText.setLocation(15, 10);
         
         // тема оформления
-        themeChooser = new ThemeChBox(vp, this, ip);
+        themeChooser = new ThemeChBox(theme);
         themeChooser.setLocation(15, 40);        
         themeChooser.addItemListener(this);        
         
