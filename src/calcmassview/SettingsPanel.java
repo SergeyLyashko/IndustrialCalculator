@@ -16,16 +16,23 @@
 package calcmassview;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JPanel;
 
 /**
  * панель настроек программы
  * @author Sergei Lyashko
  */
-public class SettingsPanel extends JPanel {    
+public class SettingsPanel extends JPanel implements ItemListener{
     
-    public SettingsPanel(){
+    private final SettingChBox themeChooser, fixSizeWindow, preferedProfileList;
+    private final ViewPanel vp;
+    private final InfoPanel ip;
+    public SettingsPanel(ViewPanel vp, InfoPanel ip){
         super(false);
+        this.vp = vp;
+        this.ip = ip;
         super.setBackground(Color.black);
         
         Marker infoText = new Marker();
@@ -33,7 +40,31 @@ public class SettingsPanel extends JPanel {
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);
         
+        // тема оформления
+        themeChooser = new ThemeChBox(vp, this, ip);
+        themeChooser.setLocation(15, 40);        
+        themeChooser.addItemListener(this);        
+        
+        // фиксация размера окна
+        fixSizeWindow = new FixSizeWindowChBox(this);
+        fixSizeWindow.setLocation(15, 70);               
+        fixSizeWindow.addItemListener(this);
+        
+        // включение списка часто используемых профилей
+        preferedProfileList = new PreferedProfileChBox(this);
+        preferedProfileList.setLocation(15, 100);        
+        preferedProfileList.addItemListener(this);
+        
+        super.add(preferedProfileList);
+        super.add(fixSizeWindow);
+        super.add(themeChooser);
         super.add(infoText);
         super.setLayout(null);
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        SettingChBox source = (SettingChBox) e.getItemSelectable();
+        source.actionChooser(e);     
     }
 }

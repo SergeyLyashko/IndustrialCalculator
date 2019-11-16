@@ -35,8 +35,8 @@ public class MenuData {
     
     // Получение элемента меню (строки) из БД
     public static String getElementMenu(String keyString){            
-        File file = new File(MenuData.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        //File file = new File ("./src/calcmassview/defaultMenu.properties");
+        //File file = new File(MenuData.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        File file = new File ("./src/calcmassview/defaultMenu.properties");
         Properties properties = new Properties();
         String s = null;
         try{

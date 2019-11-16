@@ -29,8 +29,8 @@ public class AreaCutData {
     
     // Получение значения площади из (строки) из БД
     public static String getAreaCut(String detailName){
-        File file = new File(AreaCutData.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        //File file = new File("./src/calcmassmodel/detailAreaCut.properties");
+        //File file = new File(AreaCutData.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        File file = new File("./src/calcmassmodel/detailAreaCut.properties");
         Properties properties = new Properties();
         String s = null;
         try{

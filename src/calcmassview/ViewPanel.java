@@ -27,6 +27,9 @@ import javax.swing.JPanel;
  */
 public final class ViewPanel extends JPanel implements IViewController {   
     
+    /**
+     *
+     */
     public static final ViewPanel VIEW_PANEL = new ViewPanel();
     
     // combo-boxes
@@ -115,9 +118,11 @@ public final class ViewPanel extends JPanel implements IViewController {
     
     // добавление вкладок в основное окно приложения
     private void addTab(){
-        GeneralPanel.addToGeneralPanel("Калькулятор", this);
-        GeneralPanel.addToGeneralPanel("Настройки", new SettingsPanel());
-        GeneralPanel.addToGeneralPanel("Справка", new InfoPanel());        
+        InfoPanel ip = new InfoPanel();
+        SettingsPanel sp = new SettingsPanel(this, ip);
+        GeneralPanel.addToGeneralPanel("Калькулятор", this);       
+        GeneralPanel.addToGeneralPanel("Настройки", sp);
+        GeneralPanel.addToGeneralPanel("Справка", ip);
     }    
     
     // слушатель ввода <Enter> в поле "длина"
