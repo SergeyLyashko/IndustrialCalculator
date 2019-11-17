@@ -23,7 +23,7 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 public class ResultMarker extends JLabel {   
-     
+    
     public ResultMarker(){
         super();        
         super.setVisible(true);
@@ -47,7 +47,7 @@ public class ResultMarker extends JLabel {
     }
     
     protected void resetResultMarker(){
-        super.setText("0.0");
-        super.setForeground(Color.green);        
+        super.setText("0.0");              
+        Theme.addThemeRM(this);       
     }
 }

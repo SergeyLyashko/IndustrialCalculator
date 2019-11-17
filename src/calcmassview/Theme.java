@@ -15,28 +15,46 @@ import javax.swing.JComponent;
  */
 public class Theme {       
     
-    private static ArrayList<JComponent> componentList = new ArrayList<JComponent>(); 
+    private static ArrayList<JComponent> componentList = new ArrayList<JComponent>();    
     
-    //private static ResultMarker rm;
-    private Color color;
+    private static Color color, colorResultMarker;    
     
     public static void addTheme(JComponent component){
         componentList.add(component);
-    }     
+        
+    }
+    
+    public static void addThemeBox(boolean select){
+        colorResultMarker = select ? Color.GREEN: Color.BLUE;
+    }
+    
+    public static void addThemeRM(ResultMarker rm){        
+        rm.setForeground(colorResultMarker);        
+    }
     
     public void dark(){
         color = Color.BLACK;
+        colorResultMarker = Color.GREEN;
         for(int i=0; i<componentList.size(); i++){
-            componentList.get(i).setBackground(color);
-            componentList.get(i).setForeground(Color.WHITE);        
+            if(componentList.get(i).getClass().getName().equals(ResultMarker.class.getName())){
+                componentList.get(i).setForeground(colorResultMarker);
+            }else{
+                componentList.get(i).setBackground(color);
+                componentList.get(i).setForeground(Color.WHITE);
+            }
         }        
     }
     
     public void light(){
-        color = new Color(250, 236, 229);        
+        color = new Color(250, 236, 229);
+        colorResultMarker = Color.BLUE;        
         for(int i=0; i<componentList.size(); i++){
-            componentList.get(i).setBackground(color);
-            componentList.get(i).setForeground(Color.BLACK);
-        }        
+            if(componentList.get(i).getClass().getName().equals(ResultMarker.class.getName())){
+                componentList.get(i).setForeground(colorResultMarker);
+            }else{
+                componentList.get(i).setBackground(color);
+                componentList.get(i).setForeground(Color.BLACK);
+            }
+        }              
     }
 }

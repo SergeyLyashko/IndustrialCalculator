@@ -21,16 +21,16 @@ public class ThemeChBox extends AbstractSettingChBox {
         super.setSize(180, 20);
         super.setText("темная тема оформления");        
         Theme.addTheme(this);
+        setTheme(super.isSelected());
     }
     
     // смена темы оформления
     @Override
-    public void actionChooser(ItemEvent e) {
-        //System.out.println("test Size Win");        
+    public void actionChooser(ItemEvent e) {              
         setTheme(e.getStateChange());
     } 
     
-    private void setTheme(int stateChange){      
+    private void setTheme(int stateChange){    
         switch(stateChange){
             case ItemEvent.SELECTED:
                 theme = new Theme();
@@ -41,5 +41,9 @@ public class ThemeChBox extends AbstractSettingChBox {
                 theme.light();
                 break;            
         }        
-    }   
+    }
+    
+    private void setTheme(boolean select){
+        Theme.addThemeBox(select);
+    }
 }
