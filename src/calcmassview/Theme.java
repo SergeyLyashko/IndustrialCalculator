@@ -8,6 +8,7 @@ package calcmassview;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 /**
  *
@@ -15,46 +16,51 @@ import javax.swing.JComponent;
  */
 public class Theme {       
     
-    private static ArrayList<JComponent> componentList = new ArrayList<JComponent>();    
+    private static ArrayList<JComponent> componentList = new ArrayList<>();    
     
-    private static Color color, colorResultMarker;    
+    private static Color colorBackGround, colorForeGround, colorMarker;    
     
     public static void addTheme(JComponent component){
-        componentList.add(component);
-        
+        componentList.add(component);        
     }
     
     public static void addThemeBox(boolean select){
-        colorResultMarker = select ? Color.GREEN: Color.BLUE;
+        colorMarker = select ? Color.GREEN: Color.BLUE;
     }
     
-    public static void addThemeRM(ResultMarker rm){        
-        rm.setForeground(colorResultMarker);        
+    public static void addThemeMarker(JLabel marker){        
+        marker.setForeground(colorMarker);        
     }
     
     public void dark(){
-        color = Color.BLACK;
-        colorResultMarker = Color.GREEN;
-        for(int i=0; i<componentList.size(); i++){
-            if(componentList.get(i).getClass().getName().equals(ResultMarker.class.getName())){
-                componentList.get(i).setForeground(colorResultMarker);
-            }else{
-                componentList.get(i).setBackground(color);
-                componentList.get(i).setForeground(Color.WHITE);
-            }
-        }        
+        colorBackGround = Color.BLACK;
+        colorForeGround = Color.WHITE;
+        colorMarker = Color.GREEN;
+        setColorTheme(colorBackGround, colorForeGround, colorMarker);               
     }
     
     public void light(){
-        color = new Color(250, 236, 229);
-        colorResultMarker = Color.BLUE;        
+        colorBackGround = new Color(250, 236, 229);
+        colorForeGround = Color.BLACK;
+        colorMarker = Color.BLUE;
+        setColorTheme(colorBackGround, colorForeGround, colorMarker);                     
+    }
+    
+    private void setColorTheme(Color backGround, Color foreGround, Color marker){
         for(int i=0; i<componentList.size(); i++){
-            if(componentList.get(i).getClass().getName().equals(ResultMarker.class.getName())){
-                componentList.get(i).setForeground(colorResultMarker);
+            if(componentList.get(i)
+                    .getClass()
+                    .getName()
+                    .equals(ResultMarker.class.getName()) || 
+               componentList.get(i)
+                    .getClass()
+                    .getName()
+                    .equals(ServiceMarker.class.getName())){
+                componentList.get(i).setForeground(marker);
             }else{
-                componentList.get(i).setBackground(color);
-                componentList.get(i).setForeground(Color.BLACK);
+                componentList.get(i).setBackground(backGround);
+                componentList.get(i).setForeground(foreGround);
             }
-        }              
+        } 
     }
 }

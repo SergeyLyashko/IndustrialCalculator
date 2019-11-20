@@ -59,11 +59,6 @@ public class Controller {
                 String detailLength = view.getDetailLength();
                 String detailWidth = view.getDetailWidth();
                 
-                // test
-                //System.out.println(detaiAssortment);// test
-                //System.out.println(detailType);// test
-                //System.out.println(detailName);// test
-                
                 try{
                     double length = getValueFromView(detailLength);
                     double width = detailWidth == null ? 0 : getValueFromView(detailWidth);

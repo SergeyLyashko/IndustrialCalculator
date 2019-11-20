@@ -22,13 +22,14 @@ import javax.swing.JLabel;
  * информационна строка внизу основного окна
  * @author Sergei Lyashko
  */
-public class ServiceMarker extends JLabel {  
+public class ServiceMarker extends JLabel {
     
     public ServiceMarker(){
         super();   
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
-        super.setSize(315, 15);        
+        super.setSize(315, 15);
+        Theme.addTheme(this);
     }
     
     protected void resetServiceMarker(){
@@ -42,8 +43,8 @@ public class ServiceMarker extends JLabel {
     protected void setMarker(String eventStr){
         String text;
         switch(eventStr){
-            case "copy":
-                super.setForeground(Color.green);
+            case "copy":                
+                Theme.addThemeMarker(this);
                 text = "результат скопирован в буфер обмена";
                 break;
             case "error":

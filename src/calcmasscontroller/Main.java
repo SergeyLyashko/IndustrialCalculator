@@ -18,16 +18,18 @@ package calcmasscontroller;
 
 import calcmassmodel.Detail;
 import static calcmassview.ViewPanel.VIEW_PANEL;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Korvin
  */
-public class Runner {  
-    
+public class Main { 
     public static void main (String[] args) {
         
-        Detail model = new Detail();        
-        new Controller(model, VIEW_PANEL);
+        SwingUtilities.invokeLater(() -> {
+            Detail model = new Detail();
+            new Controller(model, VIEW_PANEL);
+        });
     }
 }

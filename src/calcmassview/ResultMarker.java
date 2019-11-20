@@ -48,6 +48,6 @@ public class ResultMarker extends JLabel {
     
     protected void resetResultMarker(){
         super.setText("0.0");              
-        Theme.addThemeRM(this);       
+        Theme.addThemeMarker(this);       
     }
 }
