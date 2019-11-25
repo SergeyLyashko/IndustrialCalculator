@@ -21,7 +21,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * поле ввода ширины
- * @author Sergei Lyashko
+ * 
  */
 public class WidthField extends LengthField {
     
@@ -48,7 +48,7 @@ public class WidthField extends LengthField {
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
         super.setText("");
-        viewPanel.resultMarker.resetResultMarker();
+        new ResultMarker().resetResultMarker();
     }    
     
     @Override
@@ -65,11 +65,6 @@ public class WidthField extends LengthField {
     @Override
     public void focusLost(FocusEvent e) {
         String text = super.getText();
-        setDetailWidth(text);
-    }
-    
-    //установка ширины детали
-    private void setDetailWidth(String text){        
-        viewPanel.detailWidth = text;       
-    }    
+        viewPanel.setDetailWidth(text);
+    }   
 }

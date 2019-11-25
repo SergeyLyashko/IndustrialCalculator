@@ -16,75 +16,68 @@
 package calcmassview;
 
 import java.awt.Color;
-import java.io.IOException;
-import java.net.URL;
-import javax.swing.JEditorPane;
+import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author Korvin
  */
-public class InfoText  extends JEditorPane {
+public class InfoText extends JPanel {    
     
-    private URL infoURL;
+    private final JLabel htmlText;
         
     public InfoText(){
-        super();        
-        //super.setText(loadText());
-        loadText();        
-        super.setEditable(false);
-        //super.setForeground(Color.white);
-        super.setBackground(Color.black);       
-    }
+        super();
+        super.setBackground(Color.black); 
+        Theme.addTheme(this);
+        htmlText = new JLabel(loadText());
+        htmlText.setPreferredSize(new Dimension(280, 510));
+        Theme.addTheme(htmlText);
+        htmlText.setHorizontalAlignment(SwingConstants.CENTER);
+        htmlText.setVerticalAlignment(SwingConstants.CENTER);
+        htmlText.setForeground(Color.WHITE);
+        
+        JScrollPane scroller = new JScrollPane(htmlText);
+        scroller.getViewport().setBackground(Color.BLACK);        
+        Theme.addTheme(scroller.getViewport());
+        scroller.setPreferredSize(new Dimension(345,132));
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.setBorder(null);        
+        super.add(scroller);
+    }  
     
-    private void loadText(){
-        String text =  "infoText.html";
-        infoURL = getClass().getResource(text);
-        displayURL(infoURL);
-    }    
-    /*
-    private String loadText(){
-        //String text =  "infoText.html";
-        //infoURL = getClass().getResource(text);
-        //displayURL(infoURL);
-        String text =                 
+    private String loadText(){        
+        String text =         
         "<html>"+
         "Управление.<br>"+
-        "Переключение между вкладками можно осуществлять<br>"+
-        "с помощью клавиш <button>Tab</button> (или <button>Shift</button> + <button>Tab</button>) клавиатуры<br>"+
-        "(либо с помощью мыши).<br>"+
-        "Стрелками <button>&#8595;</button> и <button>&#8593;</button> (либо с помощью мыши) осуществляется<br>"+
-        "выбор пунктов в меню выпадающих списков.<br>"+
-        "Поле ввода длина становится активно при выборе<br>"+
-        "необходимого профиля в третьем нижнем выпадающем меню.<br>"+
-        "Поле ввода ширина становится активно в том же самом случае,<br>"+
-        "а также если выбраны детали, имеющие ширину (лист, пластина и т.п.).<br>"+
-        "Переключение между полями ввода значений осуществляется<br>"+
-        "как во всем приложении или по нажатию <button>Enter</button><br>"+
-        "Результат вычислений выводится в поле длина<br>"+
-        "по нажатию <button>Enter</button> и автоматически копируется в буфер обмена<br>"+
-        "для вставки в стороннее приложение по нажатию <button>Ctrl</button>+<button>V</button><br>"+
+        "Навигация по меню осуществляется с помощью<br>"+
+        "клавиш [Tab], [Shift] + [Tab] и стрелками &#8595; и &#8593; (либо с помощью мыши).<br>"+             
+        "Поле ввода [длина]становится активно при выборе необходимого профиля в выпадающем меню<br>"+        
+        "[№ профиля]<br>"+
+        "Поле ввода [ширина] становится активно в том же самом случае, а также если выбраны детали, имеющие ширину (лист, пластина и т.п.).\n"+
+        "Переключение между полями ввода значений осуществляется"+
+        "с помощью <b>[Tab]</b>, нажатию <b>[Enter]</b> или с помощью мыши.<br>"+
+        "Результат вычислений выводится по нажатию [Enter] "+
+        "в поле [длина] и автоматически копируется в буфер обмена.<br>"+
+        "Для вставки в стороннее приложение воспользуйтесь комбинацией [Ctrl]+[ V ]"+
         "<br>"+
-        "Для расчетов используются следующие ГОСТы:<br>"+
-        "<ul><br>"+
-        "<li>Сталь прокатная угловая равнополочная <a href=http://docs.cntd.ru/document/1200001025>ГОСТ 8509-93</a><br>"+
-        "<li>Сталь прокатная угловая неравнополочная <a href=http://docs.cntd.ru/document/1200001023>ГОСТ 8510-86</a><br>"+
-        "<li>Сталь прокатная швеллеры <a href=http://docs.cntd.ru/document/1200019824>ГОСТ 8240-97</a><br>"+
-        "<li>Сталь горячекатаная квадратная <a href=http://docs.cntd.ru/document/1200109199>ГОСТ 2591-51</a><br>"+
-        "<li>Прокат стальной горячекатаный круглый <a href=http://docs.cntd.ru/document/1200004404>ГОСТ 2590-88</a><br>"+
-        "<li>Листы стальные с ромбическим рифлением. <a href=http://docs.cntd.ru/document/1200005122/>ГОСТ 8568-77</a><br>"+
-        "<li>Пластины резиновые и резинотканевые <a href=http://docs.cntd.ru/document/1200005719>ГОСТ 7338-90</a><br>"+
-        "</ul><br>"+
+        "Для расчетов используются следующие ГОСТы:<br>"+               
+        "&nbsp; &bull;<font size=-2> Сталь прокатная угловая равнополочная <a href=http://docs.cntd.ru/document/1200001025>ГОСТ 8509-93</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Сталь прокатная угловая неравнополочная <a href=http://docs.cntd.ru/document/1200001023>ГОСТ 8510-86</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Сталь прокатная швеллеры <a href=http://docs.cntd.ru/document/1200019824>ГОСТ 8240-97</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Двутавры стальные горячекатаные с параллельными гранями полок <a href=http://docs.cntd.ru/document/901711178>ГОСТ ГОСТ 26020-83</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Сталь горячекатаная квадратная <a href=http://docs.cntd.ru/document/1200109199>ГОСТ 2591-51</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Прокат стальной горячекатаный круглый <a href=http://docs.cntd.ru/document/1200004404>ГОСТ 2590-88</a></font><br>"+
+        "&nbsp; &bull;<font size=-2> Листы стальные с ромбическим рифлением. <a href=http://docs.cntd.ru/document/1200005122/>ГОСТ 8568-77</a></font><br>"+        
+        "&nbsp; &bull;<font size=-2> Пластины резиновые и резинотканевые <a href=http://docs.cntd.ru/document/1200005719>ГОСТ 7338-90</a></font><br>"+
+        "<br>"+
         "Copyright &#169; 2019 Sergei Lyashko.<br>"+
-        "Contacts: <a href=mailto:slyashko@mail.ru>написать автору</a><br>";
+        "Contacts: <a href=mailto:slyashko@mail.ru>написать автору</a>";
         return text;
-    }*/
-
-    private void displayURL(URL url) {
-        try{
-            super.setPage(url);
-        }catch(IOException e){
-            System.err.println("Html файл для отображения Справки не найден "+ e);
-        }
-    }
+    }   
 }

@@ -45,6 +45,6 @@ public class TypeProfileMenuBox extends BaseMenuBox {
     @Override
     protected void updateView(String menuName){
         MenuBoxModel numberProfileMenuModel = MenuData.createMenuModelFromData(menuName);
-        viewPanel.nameProfileMenuBox.setModel(numberProfileMenuModel);        
+        viewPanel.nameProfileMenuBox.setModel(numberProfileMenuModel);      
     }
 }

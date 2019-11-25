@@ -16,38 +16,27 @@
 package calcmassview;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 /**
  * панель Информации о приложении (инструкция)
- * @author Sergei Lyashko
+ * 
  */
 public class InfoPanel extends JPanel {   
     
     public InfoPanel(){
         super(false);
-        super.setBackground(Color.black);
-        
-        Theme.addTheme(this);
+        super.setBackground(Color.black);        
+        Theme.addTheme(this);        
         
         // заголовок
         Marker headerText = new Marker();
         headerText.setText("О программе");               
         
         // текстовая панель
-        InfoText infoText = new InfoText();
-        
-        //панель прокрутки текста
-        JScrollPane scroller = new JScrollPane(infoText);        
-        scroller.getViewport().setBackground(Color.black);
-        scroller.setPreferredSize(new Dimension(345,136));
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroller.setBorder(null);
+        InfoText infoText = new InfoText();       
         
         super.add(headerText);
-        super.add(scroller);        
+        super.add(infoText);            
     }    
 }

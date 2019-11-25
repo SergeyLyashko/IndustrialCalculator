@@ -22,8 +22,8 @@ import javax.swing.JLabel;
  * строка вывода результата вычислений
  * @author Sergei Lyashko
  */
-public class ResultMarker extends JLabel {   
-    
+public class ResultMarker extends JLabel {
+         
     public ResultMarker(){
         super();        
         super.setVisible(true);
@@ -35,19 +35,19 @@ public class ResultMarker extends JLabel {
     }
     
     // установка значения в строку результата
-    protected void setValue(String value){
+    public void setResult(String result){        
         StringBuilder s = new StringBuilder();
-        if(!value.equals("error")){
-            s.append(value).append(" "+"кг");
+        if(!result.equals("error")){
+            s.append(result).append(" "+"кг");
         }else{
             super.setForeground(Color.red);
-            s.append(value);
+            s.append(result);
         }
         super.setText(s.toString());
     }
     
-    protected void resetResultMarker(){
+    public void resetResultMarker(){        
         super.setText("0.0");              
         Theme.addThemeMarker(this);       
-    }
+    }   
 }

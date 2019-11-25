@@ -20,7 +20,7 @@ import javax.swing.JComboBox;
 
 /**
  * Панель меню профилей
- * @author Sergei Lyashko
+ * 
  */
 public class NameProfileMenuBox extends BaseMenuBox {  
     
@@ -38,21 +38,7 @@ public class NameProfileMenuBox extends BaseMenuBox {
         // сброс значений
         viewPanel.reset();
         // установка имени номера профиля
-        actionField(menuName);
-        viewPanel.detailName = menuName;        
-    }
-    
-    // активация полей
-    private void actionField(String menuName){
-    // длина
-        if(!menuName.equals("№_профиля")){
-            viewPanel.lengthField.actionField();
-            // активация поля ширина для детали "Лист" и "Резиновая_пластина"
-            if(((String)viewPanel.baseMenuBox.getSelectedItem()).equals("Лист") ||
-                    ((String)viewPanel.typeProfileMenuBox.getSelectedItem()).equals("Резиновая_пластина")){
-                viewPanel.widthField.actionField();
-            }
-        }        
-    }
-    
+        viewPanel.actionField(menuName);        
+        viewPanel.setDetailName(menuName);
+    }       
 }

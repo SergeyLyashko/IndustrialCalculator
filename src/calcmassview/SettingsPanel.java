@@ -21,12 +21,12 @@ import java.awt.event.ItemListener;
 import javax.swing.JPanel;
 
 /**
- * панель настроек программы
- * @author Sergei Lyashko
+ * панель настроек приложения
+ * 
  */
 public class SettingsPanel extends JPanel implements ItemListener{
     
-    private final AbstractSettingChBox themeChooser, fixSizeWindow, preferedProfileList;   
+    private final AbstractSettingChBox themeChooser, toolTipsOffBox, fixSizeWindow, preferedProfileList;   
     
     public SettingsPanel(){
         super(false);        
@@ -40,20 +40,26 @@ public class SettingsPanel extends JPanel implements ItemListener{
         // тема оформления
         Theme.addTheme(this);
         themeChooser = new ThemeChBox();
-        themeChooser.setLocation(15, 40);        
-        themeChooser.addItemListener(this);        
+        themeChooser.setLocation(15, 35);        
+        themeChooser.addItemListener(this);
+        
+        // всплывающие подсказки
+        toolTipsOffBox = new ToolTipsOffBox();
+        toolTipsOffBox.setLocation(15, 60);
+        toolTipsOffBox.addItemListener(this);
         
         // фиксация размера окна
         fixSizeWindow = new FixSizeWindowChBox();
-        fixSizeWindow.setLocation(15, 70);               
+        fixSizeWindow.setLocation(15, 85);               
         fixSizeWindow.addItemListener(this);
         
         // включение списка часто используемых профилей
         preferedProfileList = new PreferedProfileChBox();
-        preferedProfileList.setLocation(15, 100);        
+        preferedProfileList.setLocation(15, 110);        
         preferedProfileList.addItemListener(this);        
         
         super.add(themeChooser);
+        super.add(toolTipsOffBox);
         super.add(fixSizeWindow);
         super.add(preferedProfileList);
         super.add(infoText);

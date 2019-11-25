@@ -26,7 +26,7 @@ import javax.swing.JFormattedTextField;
 
 /**
  * поле ввода длины
- * @author Sergei Lyashko
+ * 
  */
 public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
     
@@ -44,7 +44,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     }
     
     //активация поля
-    protected void actionField(){
+    public void actionField(){
         setEditable(true);
         setBackground(Color.white);        
         addFocusListener(this);
@@ -66,7 +66,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
         super.setText("");
-        viewPanel.resultMarker.resetResultMarker();
+        new ResultMarker().resetResultMarker();
     }   
     
     // установка текста из поля в метод по нажатию клавиши <Enter>
@@ -74,27 +74,23 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             String text = super.getText();
-            setDetailLength(text);                   
+            viewPanel.setDetailLength(text);                   
         }
-    }
-    
-    //установка длины детали
-    private void setDetailLength(String text){        
-        viewPanel.detailLength = text;        
     }
     
     // копирование результата в буфер обмена при отпускании клавиши <Enter>
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = viewPanel.resultMarker.getText(); 
+        String value = viewPanel.getResultation(); 
         setResultToSystemClipboard(value);
     }
     
     // метод копирования в буфер обмена при выводе результата
     private void setResultToSystemClipboard(String value){                
-        Toolkit.getDefaultToolkit().getSystemClipboard()
-            .setContents(new StringSelection(value), null);        
-    }
+        Toolkit.getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(value), null);       
+    }    
     
     @Override
     public void focusLost(FocusEvent e){}

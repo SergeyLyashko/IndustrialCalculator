@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 
 /**
  * основная панель приложения
- * @author Sergei Lyashko
+ * 
  */
 public final class ViewPanel extends JPanel implements IViewController {   
     
@@ -37,12 +37,12 @@ public final class ViewPanel extends JPanel implements IViewController {
     // сервисная строка
     private final ServiceMarker serviceMarker;
     // поля ввода значений
-    protected LengthField lengthField, widthField;
+    private final LengthField lengthField, widthField;
     // строка результата
-    protected ResultMarker resultMarker;
+    private final ResultMarker resultMarker;
     //данные из выпадающих меню
-    protected String detailName, detailLength, detailWidth;   
-    
+    private String detailName, detailLength, detailWidth;   
+        
     public ViewPanel() {
         super();
         super.setBackground(Color.BLACK);
@@ -75,7 +75,12 @@ public final class ViewPanel extends JPanel implements IViewController {
         baseMenuBox.setLocation(20, 20);       
         // создание модели меню из БД
         MenuBoxModel baseMenuModel = MenuData.createMenuModelFromData("baseMenu");
-        baseMenuBox.setModel(baseMenuModel);        
+        baseMenuBox.setModel(baseMenuModel);
+        // модель основного списка для создания своего меню
+        CustomMenuFrame.setProfileModelList(baseMenuModel);
+        
+        //baseMenu = new ToolTips("выберите сортамент");
+        //ToolTips.setToolTipComponent(baseMenuBox, "выберите сортамент");
         
         // <№ профиля>
         nameProfileMenuBox = new NameProfileMenuBox(this);
@@ -117,6 +122,31 @@ public final class ViewPanel extends JPanel implements IViewController {
         policy.add(lengthField);       
         super.setFocusCycleRoot(true);
         super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
+    }
+    
+    // активация полей
+    public void actionField(String menuName){
+    // длина
+        if(!menuName.equals("№_профиля")){
+            lengthField.actionField();
+            // активация поля ширина для детали "Лист" и "Резиновая_пластина"
+            if(((String)baseMenuBox.getSelectedItem()).equals("Лист") ||
+                    ((String)typeProfileMenuBox.getSelectedItem()).equals("Резиновая_пластина")){
+                widthField.actionField();
+            }
+        }        
+    }
+    
+    public void setDetailName(String detailName){
+        this.detailName = detailName;
+    }
+    
+    public void setDetailWidth(String detailWidth){
+        this.detailWidth = detailWidth;
+    }
+    
+    public void setDetailLength(String detailLength){
+        this.detailLength = detailLength;
     }
     
     // добавление вкладок в основное окно приложения
@@ -180,7 +210,11 @@ public final class ViewPanel extends JPanel implements IViewController {
     
     @Override
     public void setResultation(String value){        
-        resultMarker.setValue(value);
-        setServiceMarker("copy");
+        resultMarker.setResult(value);
+        setServiceMarker("copy");        
+    }
+    
+    public String getResultation(){
+        return resultMarker.getText();
     }
 }

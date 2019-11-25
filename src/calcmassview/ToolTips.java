@@ -13,23 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package calcmassview;
 
-
-import calcmassmodel.Detail;
-import static calcmassview.ViewPanel.VIEW_PANEL;
-import javax.swing.SwingUtilities;
+import javax.swing.JComponent;
+import javax.swing.JToolTip;
 
 /**
  *
- *
+ * @author Korvin
  */
-public class Main { 
-    public static void main (String[] args) {
+public class ToolTips extends JToolTip { 
+    
         
-        SwingUtilities.invokeLater(() -> {
-            Detail model = new Detail();
-            new Controller(model, VIEW_PANEL);
-        });
+    private ToolTips(){
+        super();
+        
+    }
+    
+    public static void setToolTipComponent(JComponent component, String text){
+        new ToolTips();
+        component.setToolTipText(text);
+    }
+    
+    public void oFF(){
+        
+    }
+    
+    public void oN(){
+        
     }
 }

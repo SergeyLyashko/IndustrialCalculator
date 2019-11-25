@@ -6,24 +6,34 @@
 package calcmassview;
 
 import java.awt.event.ItemEvent;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Korvin
  */
-public class PreferedProfileChBox extends AbstractSettingChBox {    
+public class PreferedProfileChBox extends AbstractSettingChBox {
+    
+    private CustomMenuFrame menuFrame;
     
     public PreferedProfileChBox(){
         super();        
         super.setSize(220, 20);
         super.setText("часто используемые профили");
         super.setSelected(false);       
-        Theme.addTheme(this);
+        Theme.addTheme(this);        
     }
 
     @Override
     protected void actionChooser(ItemEvent e) {
-        System.out.println("test Profile");
+        switch(e.getStateChange()){
+            case ItemEvent.SELECTED:
+                menuFrame = new CustomMenuFrame();
+                break;
+            case ItemEvent.DESELECTED:                
+                menuFrame.setEnabled(false);
+                break;            
+        } 
     }
     
 }
