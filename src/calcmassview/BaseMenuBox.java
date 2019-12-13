@@ -40,17 +40,10 @@ public class BaseMenuBox extends JComboBox<String> implements ActionListener {
         JComboBox cb = (JComboBox)e.getSource();
         String menuName = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
-        updateView(menuName);
+        viewPanel.updateView(menuName, this);
         //установка начальных позиций меню
-        viewPanel.typeProfileMenuBox.setSelectedIndex(0);
-        viewPanel.nameProfileMenuBox.setSelectedIndex(0);
+        viewPanel.startPosition();        
         //сброс параметров полей        
         viewPanel.reset();
-    }
-
-    //задание имени сортамента и переключение вида меню в панели типов профиля
-    protected void updateView(String menuName){
-        MenuBoxModel typeProfileMenuModel = MenuData.createMenuModelFromData(menuName);
-        viewPanel.typeProfileMenuBox.setModel(typeProfileMenuModel);        
     }
 }

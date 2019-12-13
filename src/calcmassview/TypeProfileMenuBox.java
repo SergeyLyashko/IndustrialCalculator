@@ -38,13 +38,6 @@ public class TypeProfileMenuBox extends BaseMenuBox {
         // сброс значений
         viewPanel.reset();
         // обновление меню номеров профилей
-        updateView(menuName);        
-    }
-
-    //задание имени типа профиля и переключение вида меню в панели номера профиля
-    @Override
-    protected void updateView(String menuName){
-        MenuBoxModel numberProfileMenuModel = MenuData.createMenuModelFromData(menuName);
-        viewPanel.nameProfileMenuBox.setModel(numberProfileMenuModel);      
+        viewPanel.updateView(menuName, this);        
     }
 }

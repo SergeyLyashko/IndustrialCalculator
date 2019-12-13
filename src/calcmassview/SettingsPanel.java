@@ -59,9 +59,9 @@ public class SettingsPanel extends JPanel implements ItemListener{
         preferedProfileList.addItemListener(this);        
         
         super.add(themeChooser);
-        super.add(toolTipsOffBox);
-        super.add(fixSizeWindow);
-        super.add(preferedProfileList);
+        //super.add(toolTipsOffBox);
+        //super.add(fixSizeWindow);
+        //super.add(preferedProfileList);
         super.add(infoText);
         super.setLayout(null);
     }

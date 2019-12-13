@@ -19,7 +19,7 @@ package calcmassmodel;
  *
  * @author Sergei Lyashko
  */
-public class Detail implements Massable {
+public class Detail {
     
     private AbstractDetail detail;
     
@@ -91,7 +91,6 @@ public class Detail implements Massable {
     }
     
     //метод интерфейса, получение массы детали из модели
-    @Override
     public double getResult(){
         return result;
     }

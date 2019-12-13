@@ -19,13 +19,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 /**
  * основная панель приложения
  * 
  */
-public final class ViewPanel extends JPanel implements IViewController {   
+public final class ViewPanel extends JPanel {   
     
     /**
      *
@@ -33,7 +34,7 @@ public final class ViewPanel extends JPanel implements IViewController {
     public static final ViewPanel VIEW_PANEL = new ViewPanel();
     
     // combo-boxes
-    protected BaseMenuBox baseMenuBox, typeProfileMenuBox, nameProfileMenuBox;
+    private final BaseMenuBox baseMenuBox, typeProfileMenuBox, nameProfileMenuBox;
     // сервисная строка
     private final ServiceMarker serviceMarker;
     // поля ввода значений
@@ -95,8 +96,8 @@ public final class ViewPanel extends JPanel implements IViewController {
         serviceMarker.setLocation(20, 140);
         
         // обновление вида меню        
-        baseMenuBox.updateView((String)baseMenuBox.getSelectedItem());
-        typeProfileMenuBox.updateView((String)typeProfileMenuBox.getSelectedItem());       
+        updateView((String)baseMenuBox.getSelectedItem(), baseMenuBox);
+        updateView((String)typeProfileMenuBox.getSelectedItem(), typeProfileMenuBox);
         
         //добавление компонентов на панель в интерфейсе окна
         super.add(baseMenuBox);        
@@ -122,6 +123,23 @@ public final class ViewPanel extends JPanel implements IViewController {
         policy.add(lengthField);       
         super.setFocusCycleRoot(true);
         super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
+    }
+    
+    // установка начальных позиций в меню
+    public void startPosition(){
+        typeProfileMenuBox.setSelectedIndex(0);
+        nameProfileMenuBox.setSelectedIndex(0);
+    }
+    
+    // обновление списка в меню 
+    public void updateView(String menuName, JComboBox<String> menu){
+        MenuBoxModel model = MenuData.createMenuModelFromData(menuName);        
+        if(menu.equals(baseMenuBox)){
+            typeProfileMenuBox.setModel(model);
+        }
+        if(menu.equals(typeProfileMenuBox)){
+            nameProfileMenuBox.setModel(model);
+        }
     }
     
     // активация полей
@@ -182,33 +200,27 @@ public final class ViewPanel extends JPanel implements IViewController {
         serviceMarker.setMarker(eventStr);
     }
     
-    @Override
     public String getAssortmentName(){
         return (String)baseMenuBox.getSelectedItem();
     }
     
-    @Override
     public String getTypeDetailName(){
         return (String)typeProfileMenuBox.getSelectedItem();
     }
     
     // методы интерфейса     
-    @Override 
     public String getDetailName(){
         return detailName;
     }
 
-    @Override
     public String getDetailLength() {        
         return detailLength;
     }
     
-    @Override
     public String getDetailWidth(){
         return detailWidth;
     }
     
-    @Override
     public void setResultation(String value){        
         resultMarker.setResult(value);
         setServiceMarker("copy");        
