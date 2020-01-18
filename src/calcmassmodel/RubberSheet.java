@@ -19,39 +19,37 @@ package calcmassmodel;
  * Резиновые пластины ТМКЩ ГОСТ 7338-90
  * @author Korvin
  */
-public class RubberSheet extends AbstractDetail {
+public class RubberSheet implements Massable {
     
-    private final String depthDetail;       //толщина детали  
-    private final double lengthDetail;      // длина детали
+    private final String detailLength;      // длина детали
     private double areaCut;                 //площадь сечения детали
-    private final double density;           //плотность детали
-    private double mass;                    //масса детали
-    private final double widthDetail;       //ширина детали
     
-    public RubberSheet(String depthDetail, double lengthDetail, double widthDetail){        
-        this.depthDetail = depthDetail;
-        this.lengthDetail = lengthDetail;
-        this.widthDetail = widthDetail;
-        density = DENSITY_RUBBER;        
-        setAreaCut();
-        setMass();
+    /**
+     * Конструктор детали Резиновая пластина
+     * @param detailDepth толщина детали
+     * @param detailLength длина детали
+     * @param detailWidth ширина детали
+     */
+    public RubberSheet(String detailDepth, String detailLength, String detailWidth){        
+        this.detailLength = detailLength;
+        setAreaCut(detailDepth, detailWidth);
     }
-    
     // сечение детали
-    @Override
-    protected void setAreaCut(){
-        areaCut = widthDetail * super.getValueFromString(depthDetail);
+    private void setAreaCut(String detailDepth, String detailWidth){
+        this.areaCut = Massable.getValueFromString(detailDepth) * Massable.getValueFromString(detailWidth);
     }
-    
-    // масса детали
-    @Override
-    protected void setMass(){
-        mass = density * lengthDetail * areaCut;
+    private double getAreaCut(){
+        return areaCut;
     }
-   
-    
+    private double getLength(){
+        return Massable.getValueFromString(detailLength);
+    }
+    /**
+     *  Вычисление массы детали
+     * @return массу детали
+     */
     @Override
     public double getMass(){
-        return mass;
+        return Massable.DENSITY_RUBBER * getLength() * getAreaCut();
     }
 }

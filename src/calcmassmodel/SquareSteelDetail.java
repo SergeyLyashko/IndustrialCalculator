@@ -19,38 +19,37 @@ package calcmassmodel;
  * —таль гор€четканна€ квадратна€ √ќ—“ 8240-97
  * @author Sergei Lyashko
  */
-public final class SquareSteelDetail extends AbstractDetail {
+public final class SquareSteelDetail implements Massable {
     
-    private final String sideDetail;          //сторона детали
-    private final double lengthDetail;        //длина детали
-    private final double density;             //плотность детали
+    private final String detailLength;        //длина детали
     private double areaCut;             //площадь сечени€ детали
-    private double mass;                //масса детали
     
-    public SquareSteelDetail(String sideDetail, double lengthDetail){        
-        this.sideDetail = sideDetail;
-        this.lengthDetail = lengthDetail;
-        density = DENSITY_STEEL;
-        setAreaCut();
-        setMass();
+    /**
+     *  онструктор детали (пруток квадратного сечени€)
+     * @param detailSide сторона сечени€
+     * @param detailLength длина детали
+     */
+    public SquareSteelDetail(String detailSide, String detailLength){        
+        this.detailLength = detailLength;
+        setAreaCut(detailSide);
     }
-    
     // сечение детали
-    @Override
-    protected void setAreaCut(){
-        double value = super.getValueFromString(sideDetail);
-        areaCut = value * value;
+    private void setAreaCut(String detailSide){
+        double value = Massable.getValueFromString(detailSide);
+        this.areaCut = value * value;
     }
-    
-    // масса детали
-    @Override
-    protected void setMass(){
-        mass = density * lengthDetail * areaCut;
+    private double getLength(){
+        return Massable.getValueFromString(detailLength);
     }
-    
-    //метод интерфейса, получение массы детали из модели
+    private double getAreaCut(){
+        return areaCut;
+    }
+    /**
+     * ¬ычисление массы детали
+     * @return масса детали
+     */
     @Override
     public double getMass(){
-        return mass;
+        return Massable.DENSITY_STEEL * getLength() * getAreaCut();
     }
 }

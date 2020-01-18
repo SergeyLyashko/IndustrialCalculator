@@ -19,34 +19,41 @@ package calcmassmodel;
  * Сталь листовая рифленая (ромбическая) ГОСТ 8568-77
  * @author Sergei Lyashko
  */
-public final class RiffledSteelPlate extends AbstractDetail {
+public final class RiffledSteelPlate implements Massable {
     
-    private final String depthDetail;         //толщина детали
-    private final double lengthDetail;        //длина детали
-    private double mass;                //масса детали
-    private final double widthDetail;         //ширина детали
+    private final String detailLength;        //длина детали
+    private final String detailWidth;         //ширина детали
+    private double valueFromDataBase;         // значения для расчета массы из БД
     
-    public RiffledSteelPlate(String depthDetail, double lengthDetail, double widthDetail){
-        this.depthDetail = depthDetail;
-        this.lengthDetail = lengthDetail;
-        this.widthDetail = widthDetail;        
-        setAreaCut();
-        setMass();        
+    /**
+     * Конструктор детали (Рифленый стальной лист)
+     * @param detailDepth толщина детали
+     * @param detailLength длина детали
+     * @param detailWidth ширина детали
+     */
+    public RiffledSteelPlate(String detailDepth, String detailLength, String detailWidth){
+        this.detailLength = detailLength;
+        this.detailWidth = detailWidth;
+        setValueFromDataBase(detailDepth);
     }
-    
-    // масса детали
-    @Override
-    protected void setMass(){
-        double referenceMass = getValueFromString(AreaCutData.getAreaCut(depthDetail));
-        mass = (lengthDetail * widthDetail / 1000000) * referenceMass ;
+    private double getLength(){
+        return Massable.getValueFromString(this.detailLength);
     }
-    
-    @Override
-    protected void setAreaCut(){}
-    
-    //метод интерфейса, получение массы детали из модели
+    private double getWidth(){
+        return Massable.getValueFromString(this.detailWidth);
+    }
+    private void setValueFromDataBase(String detailDepth){
+        this.valueFromDataBase = Massable.getValueFromString(AreaCutData.getAreaCut(detailDepth));
+    }
+    private double getValueFromDataBase(){
+        return valueFromDataBase;
+    }
+    /**
+     * Вычисление массы детали
+     * @return масса детали
+     */
     @Override
     public double getMass(){
-        return mass;
+        return (getLength() * getWidth() / 1000000) * getValueFromDataBase();
     }
 }

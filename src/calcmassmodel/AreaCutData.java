@@ -21,10 +21,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Получение площади сечений сортамента из БД
- * @author Sergei Lyashko
+ * Получение площади сечений деталей из БД
+ * 
  */
-// 
 public class AreaCutData {     
     
     // Получение значения площади из (строки) из БД

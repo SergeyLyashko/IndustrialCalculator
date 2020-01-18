@@ -16,27 +16,31 @@
 package calcmassmodel;
 
 /**
- * абстрактный класс деталей для наследования и создания новых классов для разных материалов
- * @author Sergey Lyashko
+ * интерфейс для реализации моделью для получения массы детали
+ * Содержит статический метод преобразования String значения из View
+ * в значение double (для расчета массы).
+ * Также содержит константы:
+ *  - плотность стали;
+ *  - плотность резины;
+ * 
  */
-public abstract class AbstractDetail {
+interface Massable {
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
-    protected static final double DENSITY_STEEL = 7.85e-6;
+    final double DENSITY_STEEL = 7.85e-6;
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
-    protected static final double DENSITY_RUBBER = 1.25e-6;   
-    
-    // преобразование значений из БД
-    protected double getValueFromString(String valueStr) {
+    final double DENSITY_RUBBER = 1.25e-6;   
+    // преобразование строки в число
+    static double getValueFromString(String valueStr) {
         try{
             return Double.parseDouble(valueStr);
-        }catch(NumberFormatException | NullPointerException e){
-            System.err.println("Ошибка значения в БД: " + e);
-            return 0;
+        }catch(NumberFormatException e){
+            System.err.println("Ошибка преобразования значения: " + e);
+        }catch (NullPointerException ex){
+            System.err.println("Нулевой указатель: " + ex);
         }
+        return 0;
     }
-    
-    protected abstract void setMass();
-    protected abstract void setAreaCut();
-    protected abstract double getMass();
+    // получение массы детали
+    double getMass();
 }

@@ -18,39 +18,37 @@ package calcmassmodel;
 /**
  * Швеллеры стальные горячекатаные ГОСТ 8240-97
  * 
- * @author Sergei Lyashko
  */
-public class AssortmentSteelDetail extends AbstractDetail {
+public class AssortmentSteelDetail implements Massable {
     
-    private final String nameDetail;   //наименование профиля детали
-    private final double lengthDetail;        //длина детали
+    private final String detailLength;        //длина детали
     private double areaCut;                    //площадь сечения детали
-    private final double density;             //плотность детали
-    private double mass;                    //масса детали    
-    
-    public AssortmentSteelDetail (String nameDetail, double lengthDetail){
-        this.nameDetail = nameDetail;
-        this.lengthDetail = lengthDetail;
-        density = DENSITY_STEEL;        
-        setAreaCut();
-        setMass();
+    /**
+     * Конструктор для деталей (Швеллер, Уголок, Двутавр)
+     * @param detailName Наименование детали для БД сечений детали
+     * @param detailLength Длина детали
+     */
+    public AssortmentSteelDetail (String detailName, String detailLength){
+        this.detailLength = detailLength;
+        setAreaCut(detailName);
     }
-    
     // сечение детали
-    @Override
-    protected void setAreaCut(){
-        areaCut = super.getValueFromString(AreaCutData.getAreaCut(nameDetail)) * 100;
+    private void setAreaCut(String detailName){
+        this.areaCut = Massable.getValueFromString(AreaCutData.getAreaCut(detailName)) * 100;
     }
     
-    // масса детали
-    @Override
-    protected void setMass(){
-        mass = density * lengthDetail * areaCut;
+    private double getLength(){
+        return Massable.getValueFromString(detailLength);
     }
-   
-    //метод интерфейса, получение массы детали из модели
+    private double getAreaCut(){
+        return areaCut;
+    }
+    /**
+     * Вычисление массы детали
+     * @return масса детали
+     */
     @Override
     public double getMass(){
-        return mass;
+        return Massable.DENSITY_STEEL * getLength() * getAreaCut();
     }
 }

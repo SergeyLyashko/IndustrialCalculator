@@ -16,41 +16,40 @@
 package calcmassmodel;
 
 /**
- * класс "стальной лист"
+ * Лист стальной по ГОСТ 
  * @author Sergei Lyashko
  */
-public class SteelPlate extends AbstractDetail {
+public class SteelPlate implements Massable {
     
-    private final String depthDetail;       //толщина детали  
-    private final double lengthDetail;            // длина детали
+    private final String detailLength;            // длина детали
     private double areaCut;                    //площадь сечения детали
-    private final double density;             //плотность детали
-    private double mass;                //масса детали
-    private final double widthDetail;         //ширина детали
     
-    public SteelPlate(String depthDetail, double lengthDetail, double widthDetail){        
-        this.depthDetail = depthDetail;
-        this.lengthDetail = lengthDetail;
-        this.widthDetail = widthDetail;
-        density = DENSITY_STEEL;        
-        setAreaCut();
-        setMass();
+    /**
+     * Конструктор детали Стальной лист
+     * @param detailDepth толщина листа
+     * @param detailLength длина листа
+     * @param detailWidth ширина листа
+     */
+    public SteelPlate(String detailDepth, String detailLength, String detailWidth){        
+        this.detailLength = detailLength;
+        setAreaCut(detailDepth, detailWidth);
     }
-    
     // сечение детали
-    @Override
-    protected void setAreaCut(){
-        areaCut = widthDetail * super.getValueFromString(depthDetail);
+    private void setAreaCut(String detailDepth, String detailWidth){
+        this.areaCut = Massable.getValueFromString(detailDepth) * Massable.getValueFromString(detailWidth);
     }
-    
-    // масса детали
-    @Override
-    protected void setMass(){
-        mass = density * lengthDetail * areaCut;
-    }   
-    
+    private double getLength(){
+        return Massable.getValueFromString(detailLength);
+    }
+    private double getAreaCut(){
+        return areaCut;
+    }
+    /**
+     * Вычисление массы детали
+     * @return масса детали
+     */
     @Override
     public double getMass(){
-        return mass;
+        return Massable.DENSITY_STEEL * getLength() * getAreaCut();
     }
 }
