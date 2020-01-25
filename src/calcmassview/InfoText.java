@@ -66,7 +66,8 @@ public class InfoText extends JPanel {
         "в поле [длина] и автоматически копируется в буфер обмена.<br>"+
         "Для вставки в стороннее приложение воспользуйтесь комбинацией [Ctrl]+[ V ]"+
         "<br>"+
-        "Для расчетов используются следующие ГОСТы:<br>"+               
+        "Для расчетов используются следующие ГОСТы:<br>"+
+        "&nbsp; &bull;<font size=-2> Прокат листовой горячетканный <a href=http://docs.cntd.ru/document/1200001025>ГОСТ 19903-74</a></font><br>"+
         "&nbsp; &bull;<font size=-2> Сталь прокатная угловая равнополочная <a href=http://docs.cntd.ru/document/1200001025>ГОСТ 8509-93</a></font><br>"+
         "&nbsp; &bull;<font size=-2> Сталь прокатная угловая неравнополочная <a href=http://docs.cntd.ru/document/1200001023>ГОСТ 8510-86</a></font><br>"+
         "&nbsp; &bull;<font size=-2> Сталь прокатная швеллеры <a href=http://docs.cntd.ru/document/1200019824>ГОСТ 8240-97</a></font><br>"+
