@@ -25,16 +25,18 @@ public class AssortmentSteelDetail implements Massable {
     private double areaCut;                    //площадь сечения детали
     /**
      * Конструктор для деталей (Швеллер, Уголок, Двутавр)
-     * @param detailName Наименование детали для БД сечений детали
+     * @param profileAssortment
+     * @param profileType
+     * @param profileNumber
      * @param detailLength Длина детали
      */
-    public AssortmentSteelDetail (String detailName, String detailLength){
+    public AssortmentSteelDetail (String profileAssortment, String profileType, String profileNumber, String detailLength){
         this.detailLength = detailLength;
-        setAreaCut(detailName);
+        setAreaCut(profileAssortment, profileType, profileNumber);
     }
     // сечение детали
-    private void setAreaCut(String detailName){
-        this.areaCut = Massable.getValueFromString(AreaCutData.getAreaCut(detailName)) * 100;
+    private void setAreaCut(String profileAssortment, String profileType, String profileNumber){
+        this.areaCut = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
     }
     
     private double getLength(){
@@ -49,6 +51,6 @@ public class AssortmentSteelDetail implements Massable {
      */
     @Override
     public double getMass(){
-        return Massable.DENSITY_STEEL * getLength() * getAreaCut();
+        return Massable.DENSITY_STEEL * getLength() * getAreaCut() * 100;
     }
 }

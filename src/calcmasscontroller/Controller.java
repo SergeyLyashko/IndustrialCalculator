@@ -34,7 +34,7 @@ public class Controller {
     } 
     //форматирование строки результата из Model для View
     private String resultFromModel(){
-        double valueFromModel = model.getMass();
+        double valueFromModel = model.getResult();
         String formatResult = new DecimalFormat("#.###").format(valueFromModel);      
         return formatResult;
     }    

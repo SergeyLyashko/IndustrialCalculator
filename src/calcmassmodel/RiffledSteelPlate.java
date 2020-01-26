@@ -27,14 +27,16 @@ public final class RiffledSteelPlate implements Massable {
     
     /**
      * Конструктор детали (Рифленый стальной лист)
-     * @param detailDepth толщина детали
+     * @param profileAssortment
+     * @param profileType
+     * @param profileNumber толщина детали
      * @param detailLength длина детали
      * @param detailWidth ширина детали
      */
-    public RiffledSteelPlate(String detailDepth, String detailLength, String detailWidth){
+    public RiffledSteelPlate(String profileAssortment, String profileType, String profileNumber, String detailLength, String detailWidth){
         this.detailLength = detailLength;
         this.detailWidth = detailWidth;
-        setValueFromDataBase(detailDepth);
+        setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
     private double getLength(){
         return Massable.getValueFromString(this.detailLength);
@@ -42,8 +44,8 @@ public final class RiffledSteelPlate implements Massable {
     private double getWidth(){
         return Massable.getValueFromString(this.detailWidth);
     }
-    private void setValueFromDataBase(String detailDepth){
-        this.valueFromDataBase = Massable.getValueFromString(AreaCutData.getAreaCut(detailDepth));
+    private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
+        this.valueFromDataBase = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
     }
     private double getValueFromDataBase(){
         return valueFromDataBase;

@@ -16,137 +16,41 @@
 package calcmassmodel;
 
 /**
- * Фасад 
- * 
+ * Фасад, создает фабрику по обработке сообщений от View
+ * @author Sergei Lyashko
  */
-public class Facade implements Massable {
+public class Facade {
     
     private static final Facade INSTANCE = new Facade();
-    
-    private String assortment;
-    private String type;
-    private String name;
-    private String length;
-    private String width;
-    private double mass;
+    private Massable detail;
     /**
      * создание единственного экземпляра класса
      * @return singleton
      */
     public static Facade getInstance(){
         return INSTANCE;
-    }  
-    
-    private void setAssortmentName(String assortment) {
-        this.assortment = assortment;
     }
-    private String getAssortment(){
-        return assortment;
-    }    
-
-    private void setTypeName(String type) {
-        this.type = type;
+    private void setDetail(Massable detail){
+        this.detail = detail;
     }
-    private String getType(){
-        return type;
-    }
-
-    private void setDetailName(String detailName) {
-        this.name = detailName;
-    }
-    private String getDetailName(){
-        return name;
-    }
-
-    public void setDetailLength(String value) {
-        this.length = value;
-    }
-    private String getLength(){
-        return length;
-    }
-
-    private void setDetailWidth(String value) {
-        this.width = value;
-    }
-    private String getWidth(){
-        return width;
-    }
-    private void setMass(double mass){
-        this.mass = mass;
-    }
-    
-    @Override
-    public double getMass() {
-        return mass;
+    /**
+     * Возвращает массу детали по запросу из View
+     * @return массу детали
+     */
+    public double getResult(){
+        return detail.getMass();
     }
     /**
      * Создание детали с параметрами из View
-     * @param assortment наименование сортамента
-     * @param type наименование типа дтали
-     * @param name наименование детали
+     * @param profileAssortment наименование сортамента
+     * @param profileType наименование типа дтали
+     * @param profileNumber наименование детали
      * @param length длина детали
-     * @param width ширина детали (если есть)
+     * @param width ширина детали (когда она есть)
      */
-    public void createDetail(String assortment, String type, String name, String length, String width){
-        this.setAssortmentName(assortment);
-        this.setTypeName(type);
-        this.setDetailName(name);
-        this.setDetailLength(length);
-        this.setDetailWidth(width);
-        double value;
-        switch(getAssortment()){
-            case "Лист":
-                    value = selectedProfile(getType());
-                    this.setMass(value);
-                    break;
-            case "Швеллер":
-            case "Уголок":
-            case "Двутавр":
-                        this.setMass(
-                        new AssortmentSteelDetail(
-                                getDetailName(),
-                                getLength())
-                                .getMass());
-                        break;
-            case "Другое":               
-                    value = selectedProfile(getType());
-                    this.setMass(value);
-                    break;
-        }
+    public void createDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
+        Massable currentDetail = new FactoryDetail()
+                .getCurrentDetail(profileAssortment, profileType, profileNumber, length, width);
+        setDetail(currentDetail);
     }
-    
-    private double selectedProfile(String type){
-        switch (type){
-            case "рифленая(ромб)":
-                            return new RiffledSteelPlate(
-                                    getDetailName(),
-                                    getLength(),
-                                    getWidth())
-                                    .getMass();
-            case "тонколистовая":
-            case "толстолистовая":
-                            return new SteelPlate(
-                                    getDetailName(),
-                                    getLength(),
-                                    getWidth())
-                                    .getMass();
-            case "Круг":
-                            return new CircleSteelDetail(
-                                    getDetailName(),
-                                    getLength())
-                                    .getMass();
-            case "Квадрат":
-                            return new SquareSteelDetail(
-                                    getDetailName(),
-                                    getLength())
-                                    .getMass();
-            case "Резиновая_пластина":
-                            return new RubberSheet(
-                                    getDetailName(),
-                                    getLength(),
-                                    getWidth())
-                                    .getMass();
-        }
-        return 0;
-    }    
 }

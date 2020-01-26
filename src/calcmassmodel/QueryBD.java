@@ -16,7 +16,9 @@
 package calcmassmodel;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 //запрос в БД
@@ -28,6 +30,9 @@ import java.sql.SQLException;
 public class QueryBD {
     
     private Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    
     private static final String SQL_QUERY = "select AreaCut_Value from "
     + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
     + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
@@ -36,22 +41,48 @@ public class QueryBD {
     + "Profiles.ProfileName = ? and "
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
-        
+    
     // получение значения из БД
     public double getAreaCutBD(String profile, String type, String number) {
         double result = 0;
         try{
-            connection = ConnectorDB.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY);        
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(SQL_QUERY);        
             // передача значений входных параметров
             preparedStatement.setString(1, profile);
             preparedStatement.setString(2, type);
             preparedStatement.setString(3, number);
             // регистрация возвращаемого параметра
-            result = preparedStatement.getResultSet().getDouble(1);
+            resultSet = preparedStatement.executeQuery();
+            // test System.out.println(SQL_QUERY);
+            result = resultSet.getDouble("AreaCut_Value");
+            // закрытие
+            closeQueryBD(connection, preparedStatement, resultSet);
         }catch(SQLException e){
-            System.err.println("Ошибка sql: "+e);
+            System.err.println("Ошибка sql: ");
+            e.printStackTrace();
         }
         return result;
-    }    
+    }
+    // закрытие соединений
+    private void closeQueryBD(Connection con, PreparedStatement pre, ResultSet res){
+        try{
+            con.close();
+            pre.close();
+            res.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    // подключение к БД
+    private Connection getConnection(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:./src/database/calculator.db");
+        } catch (SQLException ex) {
+            System.err.print("Ошибка подключения к БД. ");
+            ex.printStackTrace();
+        }
+        return connection;
+    }
 }
