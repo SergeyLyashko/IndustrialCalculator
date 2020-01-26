@@ -43,6 +43,14 @@ public class QueryBD {
     + "ProfileNumbers.ProfileNumberName = ?";
     
     // получение значения из БД
+
+    /**
+     * Запрос значения площади сечения детали из БД
+     * @param profile Наименование профиля (сортамент)
+     * @param type Наименование типа детали
+     * @param number Номер профиля детали
+     * @return площадь сечения (в см2)
+     */
     public double getAreaCutBD(String profile, String type, String number) {
         double result = 0;
         try{
@@ -65,11 +73,11 @@ public class QueryBD {
         return result;
     }
     // закрытие соединений
-    private void closeQueryBD(Connection con, PreparedStatement pre, ResultSet res){
+    private void closeQueryBD(Connection c, PreparedStatement p, ResultSet r){
         try{
-            con.close();
-            pre.close();
-            res.close();
+            c.close();
+            p.close();
+            r.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
