@@ -21,8 +21,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//запрос в БД
-
 /**
  * SQL запрос в БД
  * @author Sergei Lyashko
@@ -41,8 +39,6 @@ public class QueryBD {
     + "Profiles.ProfileName = ? and "
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
-    
-    // получение значения из БД
 
     /**
      * Запрос значения площади сечения детали из БД

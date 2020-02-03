@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview;
+package calcmassview.settingpanel;
 
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -21,5 +21,9 @@ public abstract class AbstractSettingChBox extends JCheckBox {
         super.setForeground(Color.white);        
     }    
     
-    protected abstract void actionChooser(ItemEvent e);
+    /**
+     *
+     * @param e
+     */
+    public abstract void actionChooser(ItemEvent e);
 }

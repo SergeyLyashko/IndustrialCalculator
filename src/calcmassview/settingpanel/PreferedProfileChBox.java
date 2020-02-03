@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview;
+package calcmassview.settingpanel;
 
+import calcmassview.CustomMenuFrame;
+import calcmassview.Theme;
 import java.awt.event.ItemEvent;
-import javax.swing.JFrame;
 
 /**
  *
@@ -25,7 +26,7 @@ public class PreferedProfileChBox extends AbstractSettingChBox {
     }
 
     @Override
-    protected void actionChooser(ItemEvent e) {
+    public void actionChooser(ItemEvent e) {
         switch(e.getStateChange()){
             case ItemEvent.SELECTED:
                 menuFrame = new CustomMenuFrame();

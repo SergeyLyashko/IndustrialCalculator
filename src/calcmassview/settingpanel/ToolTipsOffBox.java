@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview;
+package calcmassview.settingpanel;
 
+import calcmassview.Theme;
 import java.awt.event.ItemEvent;
 
 /**
  *  Всплывающие подсказки
  *
  */
-class ToolTipsOffBox extends AbstractSettingChBox {   
+public class ToolTipsOffBox extends AbstractSettingChBox {   
     
     public ToolTipsOffBox(){
         super();        

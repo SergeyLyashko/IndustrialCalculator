@@ -15,6 +15,7 @@
  */
 package calcmassview;
 
+import calcmassview.settingpanel.SettingsPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
