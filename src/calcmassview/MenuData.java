@@ -45,7 +45,7 @@ public class MenuData {
                 s = properties.getProperty(keyString);            
             }
         }catch(IOException e){
-            System.err.println("ОШИБКА: отсутствует файл с данными для создания меню!");
+            System.err.println("ОШИБКА MenuData: отсутствует файл с данными для создания меню!");
         }
         return s;
     }
@@ -64,7 +64,7 @@ public class MenuData {
             }
             return menu;
         }catch(NullPointerException e){
-            System.err.println("ОШИБКА: отстутствуют данные для создания меню!");
+            System.err.println("ОШИБКА MunuData: отстутствуют данные для создания меню!");
             menu.add("empty!");
             return menu;
         }        

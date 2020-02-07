@@ -29,10 +29,7 @@ import javax.swing.JPanel;
  */
 public final class ViewPanel extends JPanel {   
     
-    /**
-     *
-     */
-    public static final ViewPanel VIEW_PANEL = new ViewPanel();
+    private static final ViewPanel INSTANCE = new ViewPanel();
     
     // combo-boxes
     private final BaseMenuBox baseMenuBox, typeProfileMenuBox, nameProfileMenuBox;
@@ -43,9 +40,17 @@ public final class ViewPanel extends JPanel {
     // строка результата
     private final ResultMarker resultMarker;
     //данные из выпадающих меню
-    private String detailName, detailLength, detailWidth;   
+    private String detailName, detailLength, detailWidth;
+    
+    /**
+     * Синглтон-метод создания основной панели вида приложения
+     * @return объект основной панели View
+     */
+    public static final ViewPanel getInstance(){
+        return INSTANCE;
+    }
         
-    public ViewPanel() {
+    private ViewPanel() {
         super();
         super.setBackground(Color.BLACK);
         
@@ -75,14 +80,14 @@ public final class ViewPanel extends JPanel {
         // <Тип изделия>
         baseMenuBox = new BaseMenuBox(this);
         baseMenuBox.setLocation(20, 20);       
-        // создание модели меню из БД
-        MenuBoxModel baseMenuModel = MenuData.createMenuModelFromData("baseMenu");
-        baseMenuBox.setModel(baseMenuModel);
-        // модель основного списка для создания своего меню
-        CustomMenuFrame.setProfileModelList(baseMenuModel);
         
-        //baseMenu = new ToolTips("выберите сортамент");
-        //ToolTips.setToolTipComponent(baseMenuBox, "выберите сортамент");
+        // создание модели меню из БД
+        MenuBoxModel baseMenuModel = MenuCreator.getInstance().getModel();
+        baseMenuBox.setModel(baseMenuModel);
+        
+        // In working
+        // модель основного списка для создания своего меню
+        //CustomMenuFrame.setProfileModelList(baseMenuModel);
         
         // <№ профиля>
         nameProfileMenuBox = new NameProfileMenuBox(this);
@@ -131,26 +136,28 @@ public final class ViewPanel extends JPanel {
         typeProfileMenuBox.setSelectedIndex(0);
         nameProfileMenuBox.setSelectedIndex(0);
     }
-    
+
     // обновление списка в меню 
     public void updateView(String menuName, JComboBox<String> menu){
-        MenuBoxModel model = MenuData.createMenuModelFromData(menuName);        
         if(menu.equals(baseMenuBox)){
-            typeProfileMenuBox.setModel(model);
+            MenuBoxModel typeMenuModel = MenuCreator.getInstance().getModel(menuName);
+            typeProfileMenuBox.setModel(typeMenuModel);
         }
         if(menu.equals(typeProfileMenuBox)){
-            nameProfileMenuBox.setModel(model);
+            String selectedAssortment = baseMenuBox.getSelect();
+            MenuBoxModel numberMenuModel = MenuCreator.getInstance().getModel(selectedAssortment, menuName);
+            nameProfileMenuBox.setModel(numberMenuModel);
         }
     }
-    
-    // активация полей
+
+    // TODO активация полей
     public void actionField(String menuName){
     // длина
-        if(!menuName.equals("№_профиля")){
+        if(!menuName.equals("№ профиля")){
             lengthField.actionField();
             // активация поля ширина для детали "Лист" и "Резиновая_пластина"
             if(((String)baseMenuBox.getSelectedItem()).equals("Лист") ||
-                    ((String)typeProfileMenuBox.getSelectedItem()).equals("Резиновая_пластина")){
+                    ((String)typeProfileMenuBox.getSelectedItem()).equals("Резиновая пластина")){
                 widthField.actionField();
             }
         }        

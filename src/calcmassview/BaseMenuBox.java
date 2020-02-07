@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 public class BaseMenuBox extends JComboBox<String> implements ActionListener {    
         
     private final ViewPanel viewPanel;
+    private String select;
     
     public BaseMenuBox(ViewPanel viewPanel){
         super();
@@ -38,12 +39,16 @@ public class BaseMenuBox extends JComboBox<String> implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {        
         JComboBox cb = (JComboBox)e.getSource();
-        String menuName = (String)cb.getSelectedItem();
+        this.select = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
-        viewPanel.updateView(menuName, this);
+        viewPanel.updateView(select, this);
         //установка начальных позиций меню
         viewPanel.startPosition();        
         //сброс параметров полей        
         viewPanel.reset();
+    }
+    
+    public String getSelect(){
+        return select;
     }
 }

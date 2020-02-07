@@ -16,7 +16,7 @@
 package calcmassmodel;
 
 /**
- *
+ * Фабрика для создания объектов деталей
  * @author Sergei Lyashko
  */
 public class FactoryDetail {
@@ -57,7 +57,7 @@ public class FactoryDetail {
                             return new CircleSteelDetail(profileNumber, length);                                    
             case "Квадрат":
                             return new SquareSteelDetail(profileNumber, length);                                    
-            case "Резиновая_пластина":
+            case "Резиновая пластина":
                             return new RubberSheet(profileNumber, length, width);
         }
         return detail;

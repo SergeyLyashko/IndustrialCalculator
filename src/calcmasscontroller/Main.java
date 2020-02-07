@@ -17,7 +17,7 @@ package calcmasscontroller;
 
 
 import calcmassmodel.Facade;
-import static calcmassview.ViewPanel.VIEW_PANEL;
+import calcmassview.ViewPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -28,7 +28,7 @@ public class Main {
     public static void main (String[] args) {
         
         SwingUtilities.invokeLater(() -> {
-            new Controller(Facade.getInstance(), VIEW_PANEL);
+            new Controller(Facade.getInstance(), ViewPanel.getInstance());
         });
     }
 }

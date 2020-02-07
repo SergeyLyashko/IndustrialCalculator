@@ -16,7 +16,6 @@
 package calcmassview;
 
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
 
 /**
  * Панель меню профилей
@@ -33,7 +32,7 @@ public class NameProfileMenuBox extends BaseMenuBox {
         
     @Override
     public void actionPerformed(ActionEvent e) {
-        JComboBox cb = (JComboBox)e.getSource();
+        BaseMenuBox cb = (BaseMenuBox)e.getSource();
         String menuName = (String)cb.getSelectedItem();
         // сброс значений
         viewPanel.reset();
