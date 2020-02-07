@@ -13,39 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package calcmassview;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
- * Панель меню типов профилей
+ *
  * @author Sergei Lyashko
  */
-public class TypeProfileMenuBox extends AbstractMenuBox {   
-    
-    private final ViewPanel viewPanel;
-    private String select;
-    
-    public TypeProfileMenuBox(ViewPanel viewPanel){
-        this.viewPanel = viewPanel;        
+public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {   
+
+    public AbstractMenuBox() {
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
     }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
-        this.select = (String)cb.getSelectedItem();
-        // сброс значений
-        viewPanel.reset();
-        // обновление меню номеров профилей
-        viewPanel.updateView(select, this);        
-    }   
     
     /**
      * Строковое предстваление выбранного пункта меню
      * @return выбранный пункт меню
      */
-    @Override
-    public String getSelectMenuName() {
-        return select;
-    }
+    public abstract String getSelectMenuName();    
 }

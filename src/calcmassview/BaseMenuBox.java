@@ -16,39 +16,37 @@
 package calcmassview;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
 
 /**
- * ¬ыпадающий список базового меню
+ * ѕанель базового меню
  * @author Sergei Lyashko
  */
-public class BaseMenuBox extends JComboBox<String> implements ActionListener {    
+public class BaseMenuBox extends AbstractMenuBox {    
         
     private final ViewPanel viewPanel;
-    private String select;
+    private String selectMenuName;
     
     public BaseMenuBox(ViewPanel viewPanel){
-        super();
         this.viewPanel = viewPanel;        
-        super.setSize(155, 25);
-        super.setSelectedIndex(-1);
-        super.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {        
-        JComboBox cb = (JComboBox)e.getSource();
-        this.select = (String)cb.getSelectedItem();
+        AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
+        this.selectMenuName = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
-        viewPanel.updateView(select, this);
+        viewPanel.updateView(selectMenuName, this);
         //установка начальных позиций меню
         viewPanel.startPosition();        
         //сброс параметров полей        
         viewPanel.reset();
     }
     
-    public String getSelect(){
-        return select;
+    /**
+     * —троковое предстваление выбранного пункта меню
+     * @return выбранный пункт меню
+     */
+    public String getSelectMenuName(){
+        return selectMenuName;
     }
 }

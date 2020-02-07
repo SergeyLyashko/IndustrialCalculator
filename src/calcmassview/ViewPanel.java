@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 /**
@@ -32,8 +31,7 @@ public final class ViewPanel extends JPanel {
     private static final ViewPanel INSTANCE = new ViewPanel();
     
     // combo-boxes
-    private final BaseMenuBox baseMenuBox, typeProfileMenuBox, nameProfileMenuBox;
-    // сервисная строка
+    private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     private final ServiceMarker serviceMarker;
     // поля ввода значений
     private final LengthField lengthField, widthField;
@@ -90,8 +88,8 @@ public final class ViewPanel extends JPanel {
         //CustomMenuFrame.setProfileModelList(baseMenuModel);
         
         // <№ профиля>
-        nameProfileMenuBox = new NameProfileMenuBox(this);
-        nameProfileMenuBox.setLocation(20, 100);
+        numberProfileMenuBox = new NumberProfileMenuBox(this);
+        numberProfileMenuBox.setLocation(20, 100);
         
         // <Тип профиля>
         typeProfileMenuBox = new TypeProfileMenuBox(this);
@@ -108,7 +106,7 @@ public final class ViewPanel extends JPanel {
         //добавление компонентов на панель в интерфейсе окна
         super.add(baseMenuBox);        
         super.add(typeProfileMenuBox);
-        super.add(nameProfileMenuBox);
+        super.add(numberProfileMenuBox);
         super.add(lengthField);
         super.add(widthField);
         super.add(serviceMarker);
@@ -124,7 +122,7 @@ public final class ViewPanel extends JPanel {
         ArrayList<Component> policy = new ArrayList<>();
         policy.add(baseMenuBox);
         policy.add(typeProfileMenuBox);
-        policy.add(nameProfileMenuBox);
+        policy.add(numberProfileMenuBox);
         policy.add(widthField);
         policy.add(lengthField);       
         super.setFocusCycleRoot(true);
@@ -134,19 +132,19 @@ public final class ViewPanel extends JPanel {
     // установка начальных позиций в меню
     public void startPosition(){
         typeProfileMenuBox.setSelectedIndex(0);
-        nameProfileMenuBox.setSelectedIndex(0);
+        numberProfileMenuBox.setSelectedIndex(0);
     }
 
     // обновление списка в меню 
-    public void updateView(String menuName, JComboBox<String> menu){
+    public void updateView(String menuName, AbstractMenuBox menu){
         if(menu.equals(baseMenuBox)){
             MenuBoxModel typeMenuModel = MenuCreator.getInstance().getModel(menuName);
             typeProfileMenuBox.setModel(typeMenuModel);
         }
         if(menu.equals(typeProfileMenuBox)){
-            String selectedAssortment = baseMenuBox.getSelect();
+            String selectedAssortment = baseMenuBox.getSelectMenuName();
             MenuBoxModel numberMenuModel = MenuCreator.getInstance().getModel(selectedAssortment, menuName);
-            nameProfileMenuBox.setModel(numberMenuModel);
+            numberProfileMenuBox.setModel(numberMenuModel);
         }
     }
 

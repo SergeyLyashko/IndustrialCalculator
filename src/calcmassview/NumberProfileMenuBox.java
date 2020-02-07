@@ -18,26 +18,35 @@ package calcmassview;
 import java.awt.event.ActionEvent;
 
 /**
- * Панель меню профилей
- * 
+ * Панель меню номеров профилей
+ * @author Sergei Lyashko
  */
-public class NameProfileMenuBox extends BaseMenuBox {  
+public class NumberProfileMenuBox extends AbstractMenuBox {  
     
     private final ViewPanel viewPanel;
+    private String selectMenu;
     
-    public NameProfileMenuBox(ViewPanel viewPanel){
-        super(viewPanel);
-        this.viewPanel = viewPanel;        
+    public NumberProfileMenuBox(ViewPanel viewPanel){
+        this.viewPanel = viewPanel;       
     }
         
     @Override
     public void actionPerformed(ActionEvent e) {
-        BaseMenuBox cb = (BaseMenuBox)e.getSource();
-        String menuName = (String)cb.getSelectedItem();
+        AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
+        this.selectMenu = (String)cb.getSelectedItem();
         // сброс значений
         viewPanel.reset();
         // установка имени номера профиля
-        viewPanel.actionField(menuName);        
-        viewPanel.setDetailName(menuName);
+        viewPanel.actionField(selectMenu);        
+        viewPanel.setDetailName(selectMenu);
     }       
+
+    /**
+     * Строковое предстваление выбранного пункта меню
+     * @return выбранный пункт меню
+     */
+    @Override
+    public String getSelectMenuName() {
+        return selectMenu;
+    }
 }
