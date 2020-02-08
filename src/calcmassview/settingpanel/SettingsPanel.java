@@ -17,11 +17,6 @@ package calcmassview.settingpanel;
 
 import calcmassview.Marker;
 import calcmassview.Theme;
-import calcmassview.settingpanel.AbstractSettingChBox;
-import calcmassview.settingpanel.PreferedProfileChBox;
-import calcmassview.settingpanel.FixSizeWindowChBox;
-import calcmassview.settingpanel.ToolTipsOffBox;
-import calcmassview.settingpanel.ThemeChBox;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -29,7 +24,7 @@ import javax.swing.JPanel;
 
 /**
  * панель настроек приложения
- * 
+ * @author Sergei Lyashko
  */
 public class SettingsPanel extends JPanel implements ItemListener{
     
