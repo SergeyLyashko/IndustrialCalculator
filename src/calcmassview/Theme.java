@@ -5,6 +5,8 @@
  */
 package calcmassview;
 
+import calcmassview.viewpanelcomponent.ServiceMarker;
+import calcmassview.viewpanelcomponent.ResultMarker;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComponent;

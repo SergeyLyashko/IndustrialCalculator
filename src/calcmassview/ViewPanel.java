@@ -15,6 +15,16 @@
  */
 package calcmassview;
 
+import calcmassview.viewpanelcomponent.MenuBoxModel;
+import calcmassview.viewpanelcomponent.FieldMarker;
+import calcmassview.viewpanelcomponent.ServiceMarker;
+import calcmassview.viewpanelcomponent.ResultMarker;
+import calcmassview.viewpanelcomponent.LengthField;
+import calcmassview.viewpanelcomponent.WidthField;
+import calcmassview.viewpanelcomponent.TypeProfileMenuBox;
+import calcmassview.viewpanelcomponent.NumberProfileMenuBox;
+import calcmassview.viewpanelcomponent.BaseMenuBox;
+import calcmassview.viewpanelcomponent.AbstractMenuBox;
 import calcmassview.settingpanel.SettingsPanel;
 import java.awt.Color;
 import java.awt.Component;
@@ -63,7 +73,7 @@ public final class ViewPanel extends JPanel {
         widthField = new WidthField(this);
         widthField.setLocation(190, 20);        
         //надпись мм
-        Marker mmWf = new Marker();
+        FieldMarker mmWf = new FieldMarker();
         mmWf.setText("мм");
         mmWf.setLocation(320, 22);
         
@@ -71,7 +81,7 @@ public final class ViewPanel extends JPanel {
         lengthField = new LengthField(this);
         lengthField.setLocation(190, 60);        
         //надпись мм
-        Marker mmLf = new Marker();
+        FieldMarker mmLf = new FieldMarker();
         mmLf.setText("мм");
         mmLf.setLocation(320, 62);
         
@@ -188,7 +198,7 @@ public final class ViewPanel extends JPanel {
     }
     
     // сброс значений при активации панели BaseMenuBox 
-    protected void reset(){        
+    public void reset(){        
         // сброс надписей
         resultMarker.resetResultMarker();
         serviceMarker.resetServiceMarker();

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
+import calcmassview.ViewPanel;
 import java.awt.event.ActionEvent;
 
 /**
@@ -46,6 +47,7 @@ public class BaseMenuBox extends AbstractMenuBox {
      * Строковое предстваление выбранного пункта меню
      * @return выбранный пункт меню
      */
+    @Override
     public String getSelectMenuName(){
         return selectMenuName;
     }

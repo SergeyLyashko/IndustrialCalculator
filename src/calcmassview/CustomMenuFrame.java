@@ -18,6 +18,7 @@
 
 package calcmassview;
 
+import calcmassview.viewpanelcomponent.MenuBoxModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;

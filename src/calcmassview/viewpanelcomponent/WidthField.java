@@ -13,29 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
+import calcmassview.ViewPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 
 /**
- * поле ввода ширины
- * 
+ * Класс поле ввода ширины
+ * @author Sergei Lyashko
  */
 public class WidthField extends LengthField {
     
     private final ViewPanel viewPanel;
     
+    /**
+     * Конструктор класса
+     * @param viewPanel основная видовая панель
+     */
     public WidthField(ViewPanel viewPanel){
         super(viewPanel);
         this.viewPanel = viewPanel;
         super.setText("ширина");
     }
     
-    //деактивация поля Ширина
+    /**
+     * деактивация (закрытие) поля
+     */
     @Override
-    protected void closeField(){        
+    public void closeField(){        
         setEditable(false);
         setBackground(Color.DARK_GRAY);
         setForeground(Color.GRAY);
@@ -44,6 +51,10 @@ public class WidthField extends LengthField {
         removeKeyListener(this);
     }
     
+    /**
+     * очистка поля при установке фокуса на нем
+     * @param e установка фокуса
+     */
     @Override
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
@@ -54,7 +65,10 @@ public class WidthField extends LengthField {
     @Override
     public void keyPressed(KeyEvent e){}
     
-    // переход в поле "длина" после нажатия <Enter>
+    /**
+     * переход в поле "длина" после нажатия "Enter"
+     * @param e нажатие клавиши "Enter"
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -62,6 +76,10 @@ public class WidthField extends LengthField {
         }
     }
     
+    /**
+     * установка значения из поля при потери фокуса
+     * @param e событие потери фокуса на поле
+     */
     @Override
     public void focusLost(FocusEvent e) {
         String text = super.getText();

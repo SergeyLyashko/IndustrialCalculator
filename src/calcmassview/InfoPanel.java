@@ -15,6 +15,7 @@
  */
 package calcmassview;
 
+import calcmassview.viewpanelcomponent.FieldMarker;
 import java.awt.Color;
 import javax.swing.JPanel;
 
@@ -30,7 +31,7 @@ public class InfoPanel extends JPanel {
         Theme.addTheme(this);        
         
         // заголовок
-        Marker headerText = new Marker();
+        FieldMarker headerText = new FieldMarker();
         headerText.setText("О программе");               
         
         // текстовая панель

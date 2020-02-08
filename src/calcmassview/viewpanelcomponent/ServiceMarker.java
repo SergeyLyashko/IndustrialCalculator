@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
+import calcmassview.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
@@ -32,15 +33,19 @@ public class ServiceMarker extends JLabel {
         Theme.addTheme(this);
     }
     
-    protected void resetServiceMarker(){
+    /**
+     * Сброс надписи служебной строки на панели View
+     */
+    public void resetServiceMarker(){
         super.setText(null);
     }
     
     /**
-     * вывод служебной строки 
-     * @param eventStr
+     * выбор служебной строки для вывода на панель View в зависимости
+     * от произошедшего события
+     * @param eventStr строковое представление события
      */
-    protected void setMarker(String eventStr){
+    public void setMarker(String eventStr){
         String text;
         switch(eventStr){
             case "copy":                

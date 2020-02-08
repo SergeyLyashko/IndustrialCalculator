@@ -15,7 +15,7 @@
  */
 package calcmassview.settingpanel;
 
-import calcmassview.Marker;
+import calcmassview.viewpanelcomponent.FieldMarker;
 import calcmassview.Theme;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -34,7 +34,7 @@ public class SettingsPanel extends JPanel implements ItemListener{
         super(false);        
         super.setBackground(Color.black);     
         
-        Marker infoText = new Marker();
+        FieldMarker infoText = new FieldMarker();
         infoText.setText("Настройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       

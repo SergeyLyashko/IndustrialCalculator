@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
+import calcmassview.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
- * Маркеры полей
+ * Надписи (мм) для полей длина и ширина
  * @author Sergei Lyashko
  */
-public class Marker extends JLabel {   
+public class FieldMarker extends JLabel {
     
-    public Marker(){
+    public FieldMarker(){
         super();        
         super.setVisible(true);
         super.setSize(25, 20);

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
+import calcmassview.ViewPanel;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -26,15 +27,19 @@ import javax.swing.JFormattedTextField;
 
 /**
  * поле ввода длины
- * 
+ * @author Sergei Lyashko
  */
 public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
     
     private final ViewPanel viewPanel;
         
-    public LengthField(ViewPanel basePanel){
+    /**
+     * Конструктор класса
+     * @param viewPanel основная видовая панель
+     */
+    public LengthField(ViewPanel viewPanel){
         super();
-        this.viewPanel = basePanel;
+        this.viewPanel = viewPanel;
         super.setText("длина");
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
@@ -43,16 +48,20 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);        
     }
     
-    //активация поля
+    /**
+     * активация поля
+     */
     public void actionField(){
         setEditable(true);
         setBackground(Color.white);        
         addFocusListener(this);
         addKeyListener(this);
     }
-    
-    //деактивация поля Длина
-    protected void closeField(){        
+
+    /**
+     * деактивация (закрытие) поля
+     */
+    public void closeField(){        
         setEditable(false);
         setBackground(Color.DARK_GRAY);
         setForeground(Color.GRAY);        
@@ -60,8 +69,11 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         removeFocusListener(this);
         removeKeyListener(this);
     }
-    
-    // очистка поля при фокусе
+        
+    /**
+     * очистка поля при установке фокуса на нем
+     * @param e установка фокуса
+     */
     @Override
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
@@ -69,7 +81,10 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         new ResultMarker().resetResultMarker();
     }   
     
-    // установка текста из поля в метод по нажатию клавиши <Enter>
+    /**
+     * установка текста из поля в метод по нажатию клавиши
+     * @param e нажатие клавиши "Enter"
+     */
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -78,7 +93,10 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         }
     }
     
-    // копирование результата в буфер обмена при отпускании клавиши <Enter>
+    /**
+     * копирование результата в буфер обмена при отпускании клавиши
+     * @param e отпускание клавиши "Enter" после нажатия
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         String value = viewPanel.getResultation(); 

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package calcmassview;
+package calcmassview.viewpanelcomponent;
 
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 /**
- *
+ * Абстрактный класс для комбо-боксов выпадающих меню
  * @author Sergei Lyashko
  */
 public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {   
