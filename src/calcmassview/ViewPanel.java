@@ -29,6 +29,7 @@ import calcmassview.viewpanel.NumberProfileMenuBox;
 import calcmassview.viewpanel.BaseMenuBox;
 import calcmassview.viewpanel.AbstractMenuBox;
 import calcmassview.settingpanel.SettingsPanel;
+import calcmassview.viewpanel.AbstractField;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
@@ -37,9 +38,9 @@ import javax.swing.JPanel;
 
 /**
  * основная панель приложения
- * 
+ * @author Sergei Lyashko
  */
-public final class ViewPanel extends JPanel {   
+public class ViewPanel extends JPanel {   
     
     // статическое создание экземпляра класса
     private static final ViewPanel INSTANCE = new ViewPanel();
@@ -49,7 +50,7 @@ public final class ViewPanel extends JPanel {
     // сервисная строка
     private final ServiceMarker serviceMarker;
     // поля ввода значений
-    private final LengthField lengthField, widthField;
+    private final AbstractField lengthField, widthField;
     // строка результата
     private final ResultMarker resultMarker;
     //строковые данные из выпадающих меню (combo-boxes)
@@ -65,9 +66,8 @@ public final class ViewPanel extends JPanel {
     
     // конструктор
     private ViewPanel() {
-        super();
-        super.setBackground(Color.BLACK);
-        
+        // цвет фона по умолчанию
+        super.setBackground(Color.BLACK);        
         // тема оформления
         Theme.addTheme(this);
         
@@ -76,7 +76,7 @@ public final class ViewPanel extends JPanel {
         resultMarker.setLocation(190, 100);
         
         //текстовое поле Ширина (для листа)
-        widthField = new WidthField(this);
+        widthField = WidthField.getInstance();
         widthField.setLocation(190, 20);       
         //надпись мм для поля
         FieldMarker mmWf = new FieldMarker();
@@ -84,7 +84,7 @@ public final class ViewPanel extends JPanel {
         mmWf.setLocation(320, 22);
         
         //текстовое поле Длина
-        lengthField = new LengthField(this);
+        lengthField = LengthField.getInstance();
         lengthField.setLocation(190, 60);        
         //надпись мм для поля
         FieldMarker mmLf = new FieldMarker();
@@ -92,7 +92,7 @@ public final class ViewPanel extends JPanel {
         mmLf.setLocation(320, 62);
         
         // <Тип изделия>
-        baseMenuBox = new BaseMenuBox(this);
+        baseMenuBox = BaseMenuBox.getInstance();
         baseMenuBox.setLocation(20, 20);       
         
         // создание модели меню из БД
@@ -104,20 +104,18 @@ public final class ViewPanel extends JPanel {
         //CustomMenuFrame.setProfileModelList(baseMenuModel);
         
         // <№ профиля>
-        numberProfileMenuBox = new NumberProfileMenuBox(this);
+        numberProfileMenuBox = NumberProfileMenuBox.getInstance();
         numberProfileMenuBox.setLocation(20, 100);
+        numberProfileMenuBox.setModel(MenuCreator.getInstance().getModel("", ""));
         
         // <Тип профиля>
-        typeProfileMenuBox = new TypeProfileMenuBox(this);
+        typeProfileMenuBox = TypeProfileMenuBox.getInstance();
         typeProfileMenuBox.setLocation(20, 60);
+        typeProfileMenuBox.setModel(MenuCreator.getInstance().getModel(""));
         
         // <Сервисная строка>
         serviceMarker = new ServiceMarker();
         serviceMarker.setLocation(20, 140);
-        
-        // обновление вида меню        
-        updateView((String)baseMenuBox.getSelectedItem(), baseMenuBox);
-        updateView((String)typeProfileMenuBox.getSelectedItem(), typeProfileMenuBox);
         
         //добавление компонентов на панель в интерфейсе окна
         super.add(baseMenuBox);        
@@ -129,6 +127,7 @@ public final class ViewPanel extends JPanel {
         super.add(mmLf);
         super.add(mmWf);
         super.add(resultMarker);
+        
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // инициализация вкладок
@@ -145,38 +144,23 @@ public final class ViewPanel extends JPanel {
         super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
     }
     
-    // установка начальных позиций в меню
-    public void startPosition(){
-        typeProfileMenuBox.setSelectedIndex(0);
-        numberProfileMenuBox.setSelectedIndex(0);
-    }
-
-    // обновление списка в меню 
-    public void updateView(String menuName, AbstractMenuBox menu){
-        if(menu.equals(baseMenuBox)){
+    /**
+     * обновление списка в меню 
+     * @param menuName строковое представление наименования пунка меню
+     * @param source панель выпадающего меню
+     */
+    public void updateView(String menuName, AbstractMenuBox source){
+        if(source.equals(baseMenuBox)){
             MenuBoxModel typeMenuModel = MenuCreator.getInstance().getModel(menuName);
             typeProfileMenuBox.setModel(typeMenuModel);
         }
-        if(menu.equals(typeProfileMenuBox)){
+        if(source.equals(typeProfileMenuBox)){
             String selectedAssortment = baseMenuBox.getSelectMenuName();
             MenuBoxModel numberMenuModel = MenuCreator.getInstance().getModel(selectedAssortment, menuName);
             numberProfileMenuBox.setModel(numberMenuModel);
         }
     }
 
-    // TODO активация полей
-    public void actionField(String menuName){
-    // длина
-        if(!menuName.equals("№ профиля")){
-            lengthField.actionField();
-            // активация поля ширина для детали "Лист" и "Резиновая_пластина"
-            if(((String)baseMenuBox.getSelectedItem()).equals("Лист") ||
-                    ((String)typeProfileMenuBox.getSelectedItem()).equals("Резиновая пластина")){
-                widthField.actionField();
-            }
-        }        
-    }
-    
     public void setDetailName(String detailName){
         this.detailName = detailName;
     }
@@ -232,8 +216,7 @@ public final class ViewPanel extends JPanel {
     public String getTypeDetailName(){
         return (String)typeProfileMenuBox.getSelectedItem();
     }
-    
-        
+            
     public String getDetailName(){
         return detailName;
     }

@@ -30,6 +30,7 @@ interface Massable {
     final double DENSITY_STEEL = 7.85e-6;
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
     final double DENSITY_RUBBER = 1.25e-6;   
+    
     // преобразование строки в число
     static double getValueFromString(String valueStr) {
         try{

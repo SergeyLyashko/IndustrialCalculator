@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package calcmassview.viewpanel;
 
-import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
+import javax.swing.JFormattedTextField;
 
 /**
- * Абстрактный класс для комбо-боксов выпадающих меню
+ * Абстрактный класс для полей ввода значений
  * @author Sergei Lyashko
  */
-public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {   
-
+public abstract class AbstractField extends JFormattedTextField implements FocusListener, KeyListener {
+    
     /**
-     * Строковое предстваление выбранного пункта меню
-     * @return выбранный пункт меню
+     * активация (открытие) поля
      */
-    public abstract String getSelectMenuName();    
+    abstract public void actionField();
+    
+    /**
+     * деактивация (закрытие) поля
+     */
+    abstract public void closeField();
 }

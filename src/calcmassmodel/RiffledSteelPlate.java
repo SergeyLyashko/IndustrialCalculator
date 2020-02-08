@@ -39,10 +39,10 @@ public final class RiffledSteelPlate implements Massable {
         setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
     private double getLength(){
-        return Massable.getValueFromString(this.detailLength);
+        return Massable.getValueFromString(detailLength);
     }
     private double getWidth(){
-        return Massable.getValueFromString(this.detailWidth);
+        return Massable.getValueFromString(detailWidth);
     }
     private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
         this.valueFromDataBase = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      

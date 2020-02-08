@@ -24,11 +24,24 @@ import java.awt.event.ActionEvent;
  */
 public class TypeProfileMenuBox extends AbstractMenuBox {   
     
-    private final ViewPanel viewPanel;
     private String select;
     
-    public TypeProfileMenuBox(ViewPanel viewPanel){
-        this.viewPanel = viewPanel;        
+    // статическое создание экземпляра класса
+    private static final TypeProfileMenuBox INSTANCE = new TypeProfileMenuBox();
+    
+    /**
+     * Синглтон-метод создания панели выпадающего меню
+     * @return объект "меню типы профилей"
+     */
+    public static final TypeProfileMenuBox getInstance(){
+        return INSTANCE;
+    }    
+    
+    // конструктор
+    private TypeProfileMenuBox() {
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
     }
     
     @Override
@@ -36,10 +49,10 @@ public class TypeProfileMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         this.select = (String)cb.getSelectedItem();
         // сброс значений
-        viewPanel.reset();
+        ViewPanel.getInstance().reset();
         // обновление меню номеров профилей
-        viewPanel.updateView(select, this);        
-    }   
+        ViewPanel.getInstance().updateView(select, this);        
+    }
     
     /**
      * Строковое предстваление выбранного пункта меню

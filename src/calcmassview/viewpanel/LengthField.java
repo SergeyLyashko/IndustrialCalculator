@@ -20,37 +20,36 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JFormattedTextField;
 
 /**
  * поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
+public class LengthField extends AbstractField {
     
-    private final ViewPanel viewPanel;
-        
+    private static final LengthField INSTANCE = new LengthField();
+    
+    public static final LengthField getInstance(){
+        return INSTANCE;
+    }
     /**
      *  онструктор класса
-     * @param viewPanel основна€ видова€ панель
      */
-    public LengthField(ViewPanel viewPanel){
-        super();
-        this.viewPanel = viewPanel;
+    private LengthField(){
         super.setText("длина");
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
-        super.setHorizontalAlignment(JFormattedTextField.RIGHT);        
+        super.setHorizontalAlignment(JFormattedTextField.RIGHT);     
     }
     
     /**
      * активаци€ пол€
      */
+    @Override
     public void actionField(){
         setEditable(true);
         setBackground(Color.white);        
@@ -61,6 +60,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     /**
      * деактиваци€ (закрытие) пол€
      */
+    @Override
     public void closeField(){        
         setEditable(false);
         setBackground(Color.DARK_GRAY);
@@ -89,7 +89,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             String text = super.getText();
-            viewPanel.setDetailLength(text);                   
+            ViewPanel.getInstance().setDetailLength(text);                   
         }
     }
     
@@ -99,7 +99,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = viewPanel.getResultation(); 
+        String value = ViewPanel.getInstance().getResultation(); 
         setResultToSystemClipboard(value);
     }
     

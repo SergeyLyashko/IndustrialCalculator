@@ -26,8 +26,8 @@ public class CircleSteelDetail implements Massable {
     private final String detailLength;        //длина детали
     private double areaCut;             //площадь сечения детали
     
-    public CircleSteelDetail(String detailDiametr, String lengthDetail){        
-        this.detailLength = lengthDetail;
+    public CircleSteelDetail(String detailDiametr, String detailLength){        
+        this.detailLength = detailLength;
         setAreaCut(detailDiametr);
     }
     private double getLength(){

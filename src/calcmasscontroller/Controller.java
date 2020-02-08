@@ -58,7 +58,7 @@ public class Controller {
                     //получение результата из Model и установка во View
                     view.setResultation(resultFromModel());                    
                     model = null;
-                }catch(NumberFormatException | NullPointerException ex){
+                }catch(NullPointerException ex){
                     //неопределенный результат
                     String err = "error";
                     view.setResultation(err);

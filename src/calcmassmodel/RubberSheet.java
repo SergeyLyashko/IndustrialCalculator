@@ -26,7 +26,7 @@ public class RubberSheet implements Massable {
     
     /**
      * Конструктор детали Резиновая пластина
-     * @param detailDepth толщина детали
+     * @param detailDepth значение номера профиля из БД - толщина детали
      * @param detailLength длина детали
      * @param detailWidth ширина детали
      */

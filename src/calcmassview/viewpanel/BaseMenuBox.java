@@ -24,11 +24,23 @@ import java.awt.event.ActionEvent;
  */
 public class BaseMenuBox extends AbstractMenuBox {    
         
-    private final ViewPanel viewPanel;
     private String selectMenuName;
     
-    public BaseMenuBox(ViewPanel viewPanel){
-        this.viewPanel = viewPanel;        
+    // статическое создание экземпл€ра класса
+    private static final BaseMenuBox INSTANCE = new BaseMenuBox();
+    
+    /**
+     * —инглтон-метод создани€ панели выпадающего меню
+     * @return объект "базовое меню сортаментов"
+     */
+    public static final BaseMenuBox getInstance(){
+        return INSTANCE;
+    }
+    
+    private BaseMenuBox() {
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
     }
     
     @Override
@@ -36,11 +48,17 @@ public class BaseMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         this.selectMenuName = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
-        viewPanel.updateView(selectMenuName, this);
+        ViewPanel.getInstance().updateView(selectMenuName, this);
         //установка начальных позиций меню
-        viewPanel.startPosition();        
+        startPosition();
         //сброс параметров полей        
-        viewPanel.reset();
+        ViewPanel.getInstance().reset();
+    }
+    
+    // установка начальных значений меню
+    private void startPosition(){
+        TypeProfileMenuBox.getInstance().setSelectedIndex(0);
+        NumberProfileMenuBox.getInstance().setSelectedIndex(0);
     }
     
     /**

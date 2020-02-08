@@ -24,11 +24,23 @@ import java.awt.event.ActionEvent;
  */
 public class NumberProfileMenuBox extends AbstractMenuBox {  
     
-    private final ViewPanel viewPanel;
     private String selectMenu;
     
-    public NumberProfileMenuBox(ViewPanel viewPanel){
-        this.viewPanel = viewPanel;       
+    // статическое создание экземпляра класса
+    private static final NumberProfileMenuBox INSTANCE = new NumberProfileMenuBox();
+    
+    /**
+     * Синглтон-метод создания панели выпадающего меню
+     * @return объект "меню номера профилей"
+     */
+    public static final NumberProfileMenuBox getInstance(){
+        return INSTANCE;
+    }
+    
+    private NumberProfileMenuBox() {
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
     }
         
     @Override
@@ -36,11 +48,23 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         this.selectMenu = (String)cb.getSelectedItem();
         // сброс значений
-        viewPanel.reset();
-        // установка имени номера профиля
-        viewPanel.actionField(selectMenu);        
-        viewPanel.setDetailName(selectMenu);
-    }       
+        ViewPanel.getInstance().reset();
+        // активаци полей ввода значений
+        actionFields(selectMenu);
+        // выбранная детали в выпадающем меню 
+        ViewPanel.getInstance().setDetailName(selectMenu);
+    }
+    
+    // активация полей ввода значений
+    private void actionFields(String selectMenu){
+        if(!selectMenu.equals("№ профиля")){
+            LengthField.getInstance().actionField();
+            if(((String)BaseMenuBox.getInstance().getSelectedItem()).equals("Лист") ||
+                    ((String)TypeProfileMenuBox.getInstance().getSelectedItem()).equals("Резиновая пластина")){
+                WidthField.getInstance().actionField();
+            }
+        }
+    }
 
     /**
      * Строковое предстваление выбранного пункта меню

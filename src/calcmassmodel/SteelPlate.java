@@ -26,7 +26,7 @@ public class SteelPlate implements Massable {
     
     /**
      * Конструктор детали Стальной лист
-     * @param detailDepth толщина листа
+     * @param detailDepth значение номера профиля из БД - толщина листа
      * @param detailLength длина листа
      * @param detailWidth ширина листа
      */

@@ -19,23 +19,42 @@ import calcmassview.ViewPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JFormattedTextField;
 
 /**
  *  ласс поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends LengthField {
+public class WidthField extends AbstractField {
     
-    private final ViewPanel viewPanel;
+    private static final WidthField INSTANCE = new WidthField();
+    
+    public static final WidthField getInstance(){
+        return INSTANCE;
+    }
     
     /**
      *  онструктор класса
-     * @param viewPanel основна€ видова€ панель
      */
-    public WidthField(ViewPanel viewPanel){
-        super(viewPanel);
-        this.viewPanel = viewPanel;
+    private WidthField(){
+        //super();
         super.setText("ширина");
+        super.setSize(125, 25);
+        super.setForeground(Color.GRAY);        
+        super.setEditable(false);
+        super.setBackground(Color.DARK_GRAY);
+        super.setHorizontalAlignment(JFormattedTextField.RIGHT);
+    }
+    
+    /**
+     * активаци€ пол€
+     */
+    @Override
+    public void actionField() {
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
     }
     
     /**
@@ -62,9 +81,6 @@ public class WidthField extends LengthField {
         new ResultMarker().resetResultMarker();
     }    
     
-    @Override
-    public void keyPressed(KeyEvent e){}
-    
     /**
      * переход в поле "длина" после нажати€ "Enter"
      * @param e нажатие клавиши "Enter"
@@ -83,6 +99,14 @@ public class WidthField extends LengthField {
     @Override
     public void focusLost(FocusEvent e) {
         String text = super.getText();
-        viewPanel.setDetailWidth(text);
-    }   
+        ViewPanel.getInstance().setDetailWidth(text);
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e){}
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    
 }
