@@ -15,33 +15,44 @@
  */
 package calcmassview;
 
-import static calcmassview.AppFrame.APP_FRAME;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * ќсновна€ панель окна
+ * ќсновна€ панель окна приложени€
  * @author Sergei Lyashko
  */
 public class GeneralPanel extends JPanel {      
-       
-    public static final GeneralPanel GENERAL_PANEL = new GeneralPanel();
     
-    private static JTabbedPane tabbedPane;    
+    // статическое создание экземплра класса
+    private static final GeneralPanel INSTANCE = new GeneralPanel();
     
-    public GeneralPanel() {
-        // менеджер компоновки
-        super(new GridLayout(1, 1));        
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP);       
-           
-        //добавление вкладок в панель
-        super.add(tabbedPane);
-        APP_FRAME.add(this);        
+    /**
+     * ћетод получени€ экземпл€ра класса-синглтона
+     * @return экземпл€р класса
+     */
+    public static final GeneralPanel getInstance(){
+        return INSTANCE;
     }
     
-    // добавление в панель вкладок
-    public static void addToGeneralPanel(String namePanel, JPanel panel){        
+    private final JTabbedPane tabbedPane;    
+    
+    private GeneralPanel() {
+        // менеджер компоновки
+        super(new GridLayout(1, 1));        
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        //добавление вкладок в панель
+        super.add(tabbedPane);
+        AppFrame.getInstance().add(this);  
+    }
+    
+    /**
+     * метод добавл€ющий панели в основную панель вкладок
+     * @param namePanel наименование панели
+     * @param panel добавл€ема€ панель
+     */
+    public void addToGeneralPanel(String namePanel, JPanel panel){        
         tabbedPane.addTab(namePanel, panel);        
     }    
 }

@@ -13,42 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanelcomponent;
+package calcmassview.viewpanel;
 
 import calcmassview.ViewPanel;
 import java.awt.event.ActionEvent;
 
 /**
- * Панель базового меню
+ * Панель меню типов профилей
  * @author Sergei Lyashko
  */
-public class BaseMenuBox extends AbstractMenuBox {    
-        
-    private final ViewPanel viewPanel;
-    private String selectMenuName;
+public class TypeProfileMenuBox extends AbstractMenuBox {   
     
-    public BaseMenuBox(ViewPanel viewPanel){
+    private final ViewPanel viewPanel;
+    private String select;
+    
+    public TypeProfileMenuBox(ViewPanel viewPanel){
         this.viewPanel = viewPanel;        
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {        
+    public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
-        this.selectMenuName = (String)cb.getSelectedItem();
-        //обновление меню типов профилей        
-        viewPanel.updateView(selectMenuName, this);
-        //установка начальных позиций меню
-        viewPanel.startPosition();        
-        //сброс параметров полей        
+        this.select = (String)cb.getSelectedItem();
+        // сброс значений
         viewPanel.reset();
-    }
+        // обновление меню номеров профилей
+        viewPanel.updateView(select, this);        
+    }   
     
     /**
      * Строковое предстваление выбранного пункта меню
      * @return выбранный пункт меню
      */
     @Override
-    public String getSelectMenuName(){
-        return selectMenuName;
+    public String getSelectMenuName() {
+        return select;
     }
 }

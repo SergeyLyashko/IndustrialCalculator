@@ -13,23 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanelcomponent;
+package calcmassview.settingpanel;
 
-import calcmassview.Theme;
-import java.awt.Color;
-import javax.swing.JLabel;
+import javax.swing.JComponent;
+import javax.swing.JToolTip;
 
 /**
- * Надписи (мм) для полей длина и ширина
+ * Класс всплывающие подсказки
  * @author Sergei Lyashko
  */
-public class FieldMarker extends JLabel {
+public class ToolTips extends JToolTip { 
+        
+    private ToolTips(){
+        super();
+        
+    }
     
-    public FieldMarker(){
-        super();        
-        super.setVisible(true);
-        super.setSize(25, 20);
-        super.setForeground(Color.white);        
-        Theme.addTheme(this);
+    public static void setToolTipComponent(JComponent component, String text){
+        new ToolTips();
+        component.setToolTipText(text);
+    }
+    
+    public void oFF(){
+        
+    }
+    
+    public void oN(){
+        
     }
 }

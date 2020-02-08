@@ -16,9 +16,9 @@
 
 //https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/dnd/ChooseDropActionDemoProject/src/dnd/ChooseDropActionDemo.java
 
-package calcmassview;
+package calcmassview.settingpanel;
 
-import calcmassview.viewpanelcomponent.MenuBoxModel;
+import calcmassview.viewpanel.MenuBoxModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -104,7 +104,7 @@ public class CustomMenuFrame extends JFrame {
     }   
     
     /*
-    // класс трансвера из
+    // класс трансфера из
     class FromTransfer extends TransferHandler {
         
         @Override

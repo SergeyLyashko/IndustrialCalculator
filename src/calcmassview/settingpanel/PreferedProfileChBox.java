@@ -5,8 +5,6 @@
  */
 package calcmassview.settingpanel;
 
-import calcmassview.CustomMenuFrame;
-import calcmassview.Theme;
 import java.awt.event.ItemEvent;
 
 /**

@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanel;
 
-import calcmassview.viewpanelcomponent.FieldMarker;
+import calcmassview.settingpanel.Theme;
 import java.awt.Color;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 /**
- * панель Информации о приложении (инструкция)
- * 
+ * Надписи (мм) для полей длина и ширина
+ * @author Sergei Lyashko
  */
-public class InfoPanel extends JPanel {   
+public class FieldMarker extends JLabel {
     
-    public InfoPanel(){
-        super(false);
-        super.setBackground(Color.black);        
-        Theme.addTheme(this);        
-        
-        // заголовок
-        FieldMarker headerText = new FieldMarker();
-        headerText.setText("О программе");               
-        
-        // текстовая панель
-        InfoText infoText = new InfoText();       
-        
-        super.add(headerText);
-        super.add(infoText);            
-    }    
+    public FieldMarker(){
+        super();        
+        super.setVisible(true);
+        super.setSize(25, 20);
+        super.setForeground(Color.white);        
+        Theme.addTheme(this);
+    }
 }

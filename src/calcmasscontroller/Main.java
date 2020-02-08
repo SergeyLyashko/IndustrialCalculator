@@ -21,8 +21,8 @@ import calcmassview.ViewPanel;
 import javax.swing.SwingUtilities;
 
 /**
- *
- *
+ * Класс запуска приложения
+ * @author Sergei Lyashko
  */
 public class Main { 
     public static void main (String[] args) {

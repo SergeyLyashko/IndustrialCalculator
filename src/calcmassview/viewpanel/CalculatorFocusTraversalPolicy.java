@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.viewpanel;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -21,7 +21,7 @@ import java.awt.FocusTraversalPolicy;
 import java.util.ArrayList;
 
 /**
- * Политика обхода компонентов фокусом
+ * Политика обхода компонентов панели View фокусом
  * @author Sergei Lyashko
  */
 

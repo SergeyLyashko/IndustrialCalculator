@@ -39,7 +39,7 @@ public class Controller {
         return formatResult;
     }    
     // inner class
-    class ViewListener implements KeyListener {
+    private class ViewListener implements KeyListener {
         
         @Override
         public void keyReleased(KeyEvent e){

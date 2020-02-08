@@ -15,16 +15,19 @@
  */
 package calcmassview;
 
-import calcmassview.viewpanelcomponent.MenuBoxModel;
-import calcmassview.viewpanelcomponent.FieldMarker;
-import calcmassview.viewpanelcomponent.ServiceMarker;
-import calcmassview.viewpanelcomponent.ResultMarker;
-import calcmassview.viewpanelcomponent.LengthField;
-import calcmassview.viewpanelcomponent.WidthField;
-import calcmassview.viewpanelcomponent.TypeProfileMenuBox;
-import calcmassview.viewpanelcomponent.NumberProfileMenuBox;
-import calcmassview.viewpanelcomponent.BaseMenuBox;
-import calcmassview.viewpanelcomponent.AbstractMenuBox;
+import calcmassview.viewpanel.CalculatorFocusTraversalPolicy;
+import calcmassview.settingpanel.Theme;
+import calcmassview.infopanel.InfoPanel;
+import calcmassview.viewpanel.MenuBoxModel;
+import calcmassview.viewpanel.FieldMarker;
+import calcmassview.viewpanel.ServiceMarker;
+import calcmassview.viewpanel.ResultMarker;
+import calcmassview.viewpanel.LengthField;
+import calcmassview.viewpanel.WidthField;
+import calcmassview.viewpanel.TypeProfileMenuBox;
+import calcmassview.viewpanel.NumberProfileMenuBox;
+import calcmassview.viewpanel.BaseMenuBox;
+import calcmassview.viewpanel.AbstractMenuBox;
 import calcmassview.settingpanel.SettingsPanel;
 import java.awt.Color;
 import java.awt.Component;
@@ -38,16 +41,18 @@ import javax.swing.JPanel;
  */
 public final class ViewPanel extends JPanel {   
     
+    // статическое создание экземпляра класса
     private static final ViewPanel INSTANCE = new ViewPanel();
     
     // combo-boxes
     private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    // сервисная строка
     private final ServiceMarker serviceMarker;
     // поля ввода значений
     private final LengthField lengthField, widthField;
     // строка результата
     private final ResultMarker resultMarker;
-    //данные из выпадающих меню
+    //строковые данные из выпадающих меню (combo-boxes)
     private String detailName, detailLength, detailWidth;
     
     /**
@@ -57,7 +62,8 @@ public final class ViewPanel extends JPanel {
     public static final ViewPanel getInstance(){
         return INSTANCE;
     }
-        
+    
+    // конструктор
     private ViewPanel() {
         super();
         super.setBackground(Color.BLACK);
@@ -71,8 +77,8 @@ public final class ViewPanel extends JPanel {
         
         //текстовое поле Ширина (для листа)
         widthField = new WidthField(this);
-        widthField.setLocation(190, 20);        
-        //надпись мм
+        widthField.setLocation(190, 20);       
+        //надпись мм для поля
         FieldMarker mmWf = new FieldMarker();
         mmWf.setText("мм");
         mmWf.setLocation(320, 22);
@@ -80,7 +86,7 @@ public final class ViewPanel extends JPanel {
         //текстовое поле Длина
         lengthField = new LengthField(this);
         lengthField.setLocation(190, 60);        
-        //надпись мм
+        //надпись мм для поля
         FieldMarker mmLf = new FieldMarker();
         mmLf.setText("мм");
         mmLf.setLocation(320, 62);
@@ -185,19 +191,22 @@ public final class ViewPanel extends JPanel {
     
     // добавление вкладок в основное окно приложения
     private void addTab(){
-        InfoPanel ip = new InfoPanel();
-        SettingsPanel sp = new SettingsPanel();
-        GeneralPanel.addToGeneralPanel("Калькулятор", this);       
-        GeneralPanel.addToGeneralPanel("Настройки", sp);
-        GeneralPanel.addToGeneralPanel("Справка", ip);
+        GeneralPanel.getInstance().addToGeneralPanel("Калькулятор", this);       
+        GeneralPanel.getInstance().addToGeneralPanel("Настройки", SettingsPanel.getInstance());
+        GeneralPanel.getInstance().addToGeneralPanel("Справка", InfoPanel.getInstance());
     }    
     
-    // слушатель ввода <Enter> в поле "длина"
+    /**
+     * слушатель нажатия клавиши в поле "длина"
+     * @param e событие нажатия клавиши
+     */
     public void addViewListener(KeyListener e){
         lengthField.addKeyListener(e);        
     }
     
-    // сброс значений при активации панели BaseMenuBox 
+    /**
+     * сброс значений при активации панели BaseMenuBox
+     */
     public void reset(){        
         // сброс надписей
         resultMarker.resetResultMarker();
@@ -224,7 +233,7 @@ public final class ViewPanel extends JPanel {
         return (String)typeProfileMenuBox.getSelectedItem();
     }
     
-    // методы интерфейса     
+        
     public String getDetailName(){
         return detailName;
     }

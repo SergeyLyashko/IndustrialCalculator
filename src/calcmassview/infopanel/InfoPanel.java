@@ -13,34 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.infopanel;
 
-import javax.swing.JFrame;
+import calcmassview.settingpanel.Theme;
+import calcmassview.viewpanel.FieldMarker;
+import java.awt.Color;
+import javax.swing.JPanel;
 
 /**
- * Основное окно приложения
+ * панель Информации о приложении (инструкция)
  * @author Sergei Lyashko
  */
-public class AppFrame extends JFrame {
+public class InfoPanel extends JPanel {
     
     // статическое создание экземпляра класса
-    private static final AppFrame INSTANCE = new AppFrame();
+    private static final InfoPanel INSTANCE = new InfoPanel();
     
     /**
      * Метод получения экземпляра класса-синглтона
      * @return экземпляр класса
      */
-    public static final AppFrame getInstance(){
+    public static final InfoPanel getInstance(){
         return INSTANCE;
     }
     
+    private final FieldMarker headerText;
+    private final InfoText infoText;
+    
     // конструктор
-    private AppFrame(){
-        super("Калькулятор масс");   
-        super.setBounds(300, 300, 360, 220);        
-        super.setResizable(false);
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
-        //отображение окна
-        super.setVisible(true);
-    }          
+    private InfoPanel(){
+        super(false);
+        super.setBackground(Color.black);        
+        Theme.addTheme(this);
+        // заголовок
+        headerText = new FieldMarker();
+        headerText.setText("О программе");
+        // текстовая панель
+        infoText = new InfoText();       
+        super.add(headerText);
+        super.add(infoText);            
+    }    
 }

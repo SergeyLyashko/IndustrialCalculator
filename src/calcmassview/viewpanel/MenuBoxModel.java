@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanelcomponent;
+package calcmassview.viewpanel;
 
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;

@@ -13,33 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
 
-import javax.swing.JComponent;
-import javax.swing.JToolTip;
+package calcmassview.viewpanel;
+
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
- *
- * @author Korvin
+ * јбстрактный класс дл€ комбо-боксов выпадающих меню
+ * @author Sergei Lyashko
  */
-public class ToolTips extends JToolTip { 
-    
-        
-    private ToolTips(){
-        super();
-        
+public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {   
+
+    public AbstractMenuBox() {
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
     }
     
-    public static void setToolTipComponent(JComponent component, String text){
-        new ToolTips();
-        component.setToolTipText(text);
-    }
-    
-    public void oFF(){
-        
-    }
-    
-    public void oN(){
-        
-    }
+    /**
+     * —троковое предстваление выбранного пункта меню
+     * @return выбранный пункт меню
+     */
+    public abstract String getSelectMenuName();    
 }

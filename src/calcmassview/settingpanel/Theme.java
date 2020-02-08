@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview;
+package calcmassview.settingpanel;
 
-import calcmassview.viewpanelcomponent.ServiceMarker;
-import calcmassview.viewpanelcomponent.ResultMarker;
+import calcmassview.viewpanel.ServiceMarker;
+import calcmassview.viewpanel.ResultMarker;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComponent;

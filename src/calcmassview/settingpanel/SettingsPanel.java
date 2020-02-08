@@ -15,8 +15,7 @@
  */
 package calcmassview.settingpanel;
 
-import calcmassview.viewpanelcomponent.FieldMarker;
-import calcmassview.Theme;
+import calcmassview.viewpanel.FieldMarker;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -28,18 +27,36 @@ import javax.swing.JPanel;
  */
 public class SettingsPanel extends JPanel implements ItemListener{
     
-    private final AbstractSettingChBox themeChooser, toolTipsOffBox, fixSizeWindow, preferedProfileList;   
+    // статическое создание экземпляра класса
+    private static final SettingsPanel INSTANCE = new SettingsPanel();
     
-    public SettingsPanel(){
+    /**
+     * Синглтон-метод создания основной панели вида приложения
+     * @return объект основной панели View
+     */    
+    public static final SettingsPanel getInstance(){
+        return INSTANCE;
+    }
+    
+    // чек-боксы
+    private final AbstractSettingChBox 
+            themeChooser,
+            toolTipsOffBox,
+            fixSizeWindow,
+            preferedProfileList;   
+    
+    // конструктор
+    private SettingsPanel(){
         super(false);        
         super.setBackground(Color.black);     
         
+        // маркеры полей длина и ширина
         FieldMarker infoText = new FieldMarker();
         infoText.setText("Настройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       
         
-        // тема оформления
+        // цветовая тема оформления
         Theme.addTheme(this);
         themeChooser = new ThemeChBox();
         themeChooser.setLocation(15, 35);        

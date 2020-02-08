@@ -15,7 +15,6 @@
  */
 package calcmassview.settingpanel;
 
-import calcmassview.Theme;
 import java.awt.event.ItemEvent;
 
 /**
