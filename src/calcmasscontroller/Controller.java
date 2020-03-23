@@ -16,28 +16,43 @@
 package calcmasscontroller;
 
 import calcmassmodel.Facade;
+import calcmassmodel.Subject;
 import calcmassview.ViewPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
-public class Controller {
+public class Controller implements Observer {
     
-    private Facade model;    
+    private final Subject model;
     private final ViewPanel view;
+    private double mass;
     
-    public Controller(Facade model, ViewPanel view){
+    public static Controller newInstance(Subject model, ViewPanel view){
+        return new Controller(model, view);
+    }
+    
+    private Controller(Subject model, ViewPanel view){
         this.model = model;
         this.view = view;        
         //слушатели View
-        view.addViewListener(new ViewListener());  
-    } 
+        view.addViewListener(new ViewListener());
+        model.registerObserver(this);
+    }
+    
     //форматирование строки результата из Model для View
     private String resultFromModel(){
-        double valueFromModel = model.getResult();
-        String formatResult = new DecimalFormat("#.###").format(valueFromModel);      
+        //double valueFromModel = model.getResult();
+        String formatResult = new DecimalFormat("#.###").format(mass);      
         return formatResult;
     }    
+
+    @Override
+    public void update(double mass) {
+        this.mass = mass;
+        view.setResultation(resultFromModel());
+    }
+    
     // inner class
     private class ViewListener implements KeyListener {
         
@@ -46,8 +61,7 @@ public class Controller {
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
                 try{
                     // создание детали
-                    model = Facade.getInstance();
-                    model.createDetail(
+                    Facade.getInstance().createDetail(
                         // получение параметров из View
                         view.getAssortmentName(),
                         view.getTypeDetailName(),               
@@ -56,8 +70,8 @@ public class Controller {
                         view.getDetailWidth()
                     );
                     //получение результата из Model и установка во View
-                    view.setResultation(resultFromModel());                    
-                    model = null;
+                    //view.setResultation(resultFromModel());                    
+                    //model = null;
                 }catch(NullPointerException ex){
                     //неопределенный результат
                     String err = "error";

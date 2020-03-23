@@ -28,21 +28,25 @@ public class FactoryDetail {
      * @param profileNumber
      * @param length
      * @param width
-     * @return объект интерфейса Massable
      */
-    public Massable getCurrentDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
-        Massable detail = null;
+    public void getCurrentDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
+        Massable detail;
         switch(profileAssortment){
             case "Лист":
-                    return selectedProfile(profileAssortment, profileType, profileNumber, length, width);
+                    detail = selectedProfile(profileAssortment, profileType, profileNumber, length, width);
+                    Facade.getInstance().setMass(detail.getMass());
+                    break;
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
-                    return new AssortmentSteelDetail(profileAssortment, profileType, profileNumber, length);
+                    detail = new AssortmentSteelDetail(profileAssortment, profileType, profileNumber, length);
+                    Facade.getInstance().setMass(detail.getMass());
+                    break;
             case "Другое":               
-                    return selectedProfile(profileAssortment, profileType, profileNumber, length, width);
+                    detail = selectedProfile(profileAssortment, profileType, profileNumber, length, width);
+                    Facade.getInstance().setMass(detail.getMass());
+                    break;
         }
-        return detail;
     }
     
     private Massable selectedProfile(String profileAssortment, String profileType, String profileNumber, String length, String width){
@@ -61,5 +65,5 @@ public class FactoryDetail {
                             return new RubberSheet(profileNumber, length, width);
         }
         return detail;
-    }    
+    }
 }

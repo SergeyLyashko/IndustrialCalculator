@@ -15,31 +15,56 @@
  */
 package calcmassmodel;
 
+import calcmasscontroller.Observer;
+import java.util.ArrayList;
+
 /**
- * Фасад, создает фабрику по обработке сообщений от View
+ * Фасад модели
+ * реализует интерфейс Subject делающий рассылку вычисления массы
+ * детали в зависимости от посутпивших к нему данных
  * @author Sergei Lyashko
  */
-public class Facade {
+public class Facade implements Subject {
     
     private static final Facade INSTANCE = new Facade();
-    private Massable detail;
-    /**
-     * создание единственного экземпляра класса
-     * @return singleton
-     */
+    
     public static Facade getInstance(){
         return INSTANCE;
     }
-    private void setDetail(Massable detail){
-        this.detail = detail;
+    
+    private final ArrayList<Observer> observers;
+    private double mass;
+    
+    private Facade(){
+        observers = new ArrayList<>();
     }
-    /**
-     * Возвращает массу детали по запросу из View
-     * @return массу детали
-     */
-    public double getResult(){
-        return detail.getMass();
+
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
     }
+
+    @Override
+    public void removeObserver(Observer o) {
+        int i = observers.indexOf(o);
+        if(i >= 0){
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(int i=0; i<observers.size(); i++){
+            Observer observer = observers.get(i);
+            observer.update(mass);
+        }
+    }
+    
+    // оповещение наблюдателей о появлении новых данных
+    private void massChanged(){
+        notifyObservers();
+    }
+    
     /**
      * Создание детали с параметрами из View
      * @param profileAssortment наименование сортамента
@@ -49,8 +74,15 @@ public class Facade {
      * @param width ширина детали (когда она есть)
      */
     public void createDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
-        Massable currentDetail = new FactoryDetail()
-                .getCurrentDetail(profileAssortment, profileType, profileNumber, length, width);
-        setDetail(currentDetail);
+        new FactoryDetail().getCurrentDetail(profileAssortment, profileType, profileNumber, length, width);
+    }
+    
+    /**
+     * Установка поля массы детали
+     * @param mass
+     */
+    public void setMass(double mass){
+        this.mass = mass;
+        massChanged();
     }
 }

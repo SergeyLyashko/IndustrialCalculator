@@ -16,21 +16,13 @@
 package calcmasscontroller;
 
 /**
- * Собственный класс исключений
+ * интерфейс Наблюдатель
  * @author Korvin
  */
-public class ValueLogicException extends Exception {
-    public ValueLogicException(){}
-    
-    public ValueLogicException(String message, Throwable exception){
-        super(message, exception);
-    }
-    
-    public ValueLogicException(String message){
-        super(message);
-    }
-    
-    public ValueLogicException(Throwable exception){
-        super(exception);
-    }
+public interface Observer {
+    /**
+     * передача значения массы наблюдателям при ее изменении
+     * @param mass масса детали
+     */
+    public void update(double mass);
 }

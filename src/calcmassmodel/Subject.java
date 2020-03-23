@@ -13,21 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package calcmassmodel;
 
-import calcmassmodel.Facade;
-import calcmassview.ViewPanel;
-import javax.swing.SwingUtilities;
+import calcmasscontroller.Observer;
 
 /**
- * Класс запуска приложения
- * @author Sergei Lyashko
+ * Интерфейс Субьект
+ * @author Korvin
  */
-public class Main { 
-    public static void main (String[] args) {
-        
-        SwingUtilities.invokeLater(() -> {
-            Controller.newInstance(Facade.getInstance(), ViewPanel.getInstance());
-        });
-    }
+public interface Subject {
+    
+    /**
+     * Регистрация наблюдателей
+     * @param o экземпляр интерфейса Наблюдатель
+     */
+    public void registerObserver(Observer o);
+
+    /**
+     * Удаление наблюдателя
+     * @param o экземпляр интерфейса Наблюдатель
+     */
+    public void removeObserver(Observer o);
+    
+    /**
+     * оповещение наблюдателей об изменении состояния
+     */
+    public void notifyObservers();
 }
