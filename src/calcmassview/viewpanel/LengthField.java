@@ -19,9 +19,7 @@ import calcmassview.ViewPanel;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.JFormattedTextField;
 
 /**
  * поле ввода длины
@@ -34,29 +32,11 @@ public class LengthField extends AbstractField {
     public static final LengthField getInstance(){
         return INSTANCE;
     }
-    /**
-     * Конструктор класса
-     */
+    
     private LengthField(){
-        super.setText("длина");
-        super.setSize(125, 25);
-        super.setForeground(Color.GRAY);        
-        super.setEditable(false);
-        super.setBackground(Color.DARK_GRAY);
-        super.setHorizontalAlignment(JFormattedTextField.RIGHT);     
+        super.setText("длина");            
     }
     
-    /**
-     * активация поля
-     */
-    @Override
-    public void actionField(){
-        setEditable(true);
-        setBackground(Color.white);        
-        addFocusListener(this);
-        addKeyListener(this);
-    }
-
     /**
      * деактивация (закрытие) поля
      */
@@ -69,17 +49,6 @@ public class LengthField extends AbstractField {
         removeFocusListener(this);
         removeKeyListener(this);
     }
-        
-    /**
-     * очистка поля при установке фокуса на нем
-     * @param e установка фокуса
-     */
-    @Override
-    public void focusGained(FocusEvent e){
-        super.setForeground(Color.BLACK);
-        super.setText("");
-        new ResultMarker().resetResultMarker();
-    }   
     
     /**
      * установка текста из поля в метод по нажатию клавиши
@@ -108,11 +77,5 @@ public class LengthField extends AbstractField {
         Toolkit.getDefaultToolkit()
             .getSystemClipboard()
             .setContents(new StringSelection(value), null);       
-    }    
-    
-    @Override
-    public void focusLost(FocusEvent e){}
-
-    @Override
-    public void keyTyped(KeyEvent e) {}    
+    }
 }

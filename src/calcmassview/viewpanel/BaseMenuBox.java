@@ -37,11 +37,7 @@ public class BaseMenuBox extends AbstractMenuBox {
         return INSTANCE;
     }
     
-    private BaseMenuBox() {
-        super.setSize(155, 25);
-        super.setSelectedIndex(-1);
-        super.addActionListener(this);
-    }
+    private BaseMenuBox() {}
     
     @Override
     public void actionPerformed(ActionEvent e) {        

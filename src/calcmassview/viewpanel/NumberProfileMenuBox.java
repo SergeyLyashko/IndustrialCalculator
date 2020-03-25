@@ -37,11 +37,7 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
         return INSTANCE;
     }
     
-    private NumberProfileMenuBox() {
-        super.setSize(155, 25);
-        super.setSelectedIndex(-1);
-        super.addActionListener(this);
-    }
+    private NumberProfileMenuBox() {}
         
     @Override
     public void actionPerformed(ActionEvent e) {

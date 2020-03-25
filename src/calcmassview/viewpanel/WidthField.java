@@ -19,7 +19,6 @@ import calcmassview.ViewPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.JFormattedTextField;
 
 /**
  * Класс поле ввода ширины
@@ -33,28 +32,8 @@ public class WidthField extends AbstractField {
         return INSTANCE;
     }
     
-    /**
-     * Конструктор класса
-     */
     private WidthField(){
-        //super();
         super.setText("ширина");
-        super.setSize(125, 25);
-        super.setForeground(Color.GRAY);        
-        super.setEditable(false);
-        super.setBackground(Color.DARK_GRAY);
-        super.setHorizontalAlignment(JFormattedTextField.RIGHT);
-    }
-    
-    /**
-     * активация поля
-     */
-    @Override
-    public void actionField() {
-        setEditable(true);
-        setBackground(Color.white);        
-        addFocusListener(this);
-        addKeyListener(this);
     }
     
     /**
@@ -69,17 +48,6 @@ public class WidthField extends AbstractField {
         removeFocusListener(this);
         removeKeyListener(this);
     }
-    
-    /**
-     * очистка поля при установке фокуса на нем
-     * @param e установка фокуса
-     */
-    @Override
-    public void focusGained(FocusEvent e){
-        super.setForeground(Color.BLACK);
-        super.setText("");
-        new ResultMarker().resetResultMarker();
-    }    
     
     /**
      * переход в поле "длина" после нажатия "Enter"
@@ -101,12 +69,4 @@ public class WidthField extends AbstractField {
         String text = super.getText();
         ViewPanel.getInstance().setDetailWidth(text);
     }
-    
-    @Override
-    public void keyPressed(KeyEvent e){}
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    
 }

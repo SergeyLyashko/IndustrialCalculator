@@ -38,11 +38,7 @@ public class TypeProfileMenuBox extends AbstractMenuBox {
     }    
     
     // конструктор
-    private TypeProfileMenuBox() {
-        super.setSize(155, 25);
-        super.setSelectedIndex(-1);
-        super.addActionListener(this);
-    }
+    private TypeProfileMenuBox() {}
     
     @Override
     public void actionPerformed(ActionEvent e) {

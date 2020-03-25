@@ -23,7 +23,13 @@ import javax.swing.JComboBox;
  * Абстрактный класс для комбо-боксов выпадающих меню
  * @author Sergei Lyashko
  */
-public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {   
+public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {
+    
+    public AbstractMenuBox(){
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
+    }
 
     /**
      * Строковое предстваление выбранного пункта меню

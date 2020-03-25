@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 public class ServiceMarker extends JLabel {
     
     public ServiceMarker(){
-        super();   
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);

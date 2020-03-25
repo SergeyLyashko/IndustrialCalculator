@@ -22,7 +22,7 @@ import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import calcmassmodel.ISubject;
 
-public class Controller implements IObserver {
+class Controller implements IObserver {
     
     private final ISubject model;
     private final ViewPanel view;
@@ -69,9 +69,6 @@ public class Controller implements IObserver {
                         view.getDetailLength(),
                         view.getDetailWidth()
                     );
-                    //получение результата из Model и установка во View
-                    //view.setResultation(resultFromModel());                    
-                    //model = null;
                 }catch(NullPointerException ex){
                     //неопределенный результат
                     String err = "error";

@@ -15,7 +15,10 @@
  */
 package calcmassview.viewpanel;
 
+import java.awt.Color;
+import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFormattedTextField;
 
@@ -25,13 +28,49 @@ import javax.swing.JFormattedTextField;
  */
 public abstract class AbstractField extends JFormattedTextField implements FocusListener, KeyListener {
     
+    public AbstractField(){
+        super.setSize(125, 25);
+        super.setForeground(Color.GRAY);        
+        super.setEditable(false);
+        super.setBackground(Color.DARK_GRAY);
+        super.setHorizontalAlignment(JFormattedTextField.RIGHT);
+    }
+    
     /**
-     * активация (открытие) поля
+     * активация поля
      */
-    abstract public void actionField();
+    public void actionField(){
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
+    }
+    
+    /**
+     * очистка поля при установке фокуса на нем
+     * @param e установка фокуса
+     */
+    @Override
+    public void focusGained(FocusEvent e){
+        super.setForeground(Color.BLACK);
+        super.setText("");
+        new ResultMarker().resetResultMarker();
+    }
+    
+    @Override
+    public void focusLost(FocusEvent e){}
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    
+    @Override
+    public void keyPressed(KeyEvent e){}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
     
     /**
      * деактивация (закрытие) поля
      */
-    abstract public void closeField();
+    public abstract void closeField();
 }

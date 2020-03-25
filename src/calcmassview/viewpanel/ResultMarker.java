@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 public class ResultMarker extends JLabel {
          
     public ResultMarker(){
-        super();        
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);

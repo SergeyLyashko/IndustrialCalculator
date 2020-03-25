@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 public class FieldMarker extends JLabel {
     
     public FieldMarker(){
-        super();        
         super.setVisible(true);
         super.setSize(25, 20);
         super.setForeground(Color.white);        
