@@ -13,44 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package calcmassmodel;
 
 /**
  * Швеллеры стальные горячекатаные ГОСТ 8240-97
- * 
+ * Уголок стальной
+ * Двутавр стальной
+ * @author Sergei Lyashko
  */
-public class AssortmentSteelDetail implements Massable {
-    
+class SteelAssortmentDetail extends AbstractDetail {
+
     private final String detailLength;        //длина детали
     private double areaCut;                    //площадь сечения детали
+    
     /**
      * Конструктор для деталей (Швеллер, Уголок, Двутавр)
      * @param profileAssortment
      * @param profileType
      * @param profileNumber
-     * @param detailLength Длина детали
+     * @param length
+     * @param width
      */
-    public AssortmentSteelDetail (String profileAssortment, String profileType, String profileNumber, String detailLength){
-        this.detailLength = detailLength;
+    public SteelAssortmentDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {
+        super(profileAssortment, profileType, profileNumber, length, width);
+        this.detailLength = length;
         setAreaCut(profileAssortment, profileType, profileNumber);
     }
-    // сечение детали
+    
+    // площадь сечения детали
     private void setAreaCut(String profileAssortment, String profileType, String profileNumber){
         this.areaCut = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
     }
     
-    private double getLength(){
-        return Massable.getValueFromString(detailLength);
-    }
-    private double getAreaCut(){
-        return areaCut;
-    }
-    /**
-     * Вычисление массы детали
-     * @return масса детали
-     */
     @Override
-    public double getMass(){
-        return Massable.DENSITY_STEEL * getLength() * getAreaCut() * 100;
+    public double getMass() {
+        return DENSITY_STEEL * areaCut * getValueFromString(detailLength) * 100;
     }
+    
 }

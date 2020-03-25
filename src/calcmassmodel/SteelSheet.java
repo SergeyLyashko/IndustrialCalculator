@@ -16,27 +16,27 @@
 package calcmassmodel;
 
 /**
- * Резиновые пластины ТМКЩ ГОСТ 7338-90
+ * Лист стальной по ГОСТ 
  * @author Sergei Lyashko
  */
-class RubberSheet extends AbstractDetail {
+class SteelSheet extends AbstractDetail {
 
-    private final String detailLength;      // длина детали
-    private double areaCut;                 //площадь сечения детали
+    private final String detailLength;         // длина детали
+    private double areaCut;                    //площадь сечения детали
         
-    public RubberSheet(String profileAssortment, String profileType, String profileNumber, String length, String width) {
+    public SteelSheet(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
         this.detailLength = length;
-        setAreaCut(profileNumber, width);        
+        setAreaCut(profileNumber, width);
     }
 
-    // площадь сечения детали
+    // Площадь сечения детали
     private void setAreaCut(String detailDepth, String detailWidth){
         this.areaCut = getValueFromString(detailDepth) * getValueFromString(detailWidth);
     }
-    
+        
     @Override
     public double getMass() {
-        return DENSITY_RUBBER * getValueFromString(detailLength) * areaCut;
+        return DENSITY_STEEL * getValueFromString(detailLength) * areaCut;
     }
 }

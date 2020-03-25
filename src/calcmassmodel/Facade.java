@@ -15,16 +15,16 @@
  */
 package calcmassmodel;
 
-import calcmasscontroller.Observer;
 import java.util.ArrayList;
+import calcmasscontroller.IObserver;
 
 /**
  * Фасад модели
- * реализует интерфейс Subject делающий рассылку вычисления массы
- * детали в зависимости от посутпивших к нему данных
+ реализует интерфейс ISubject делающий рассылку вычисления массы
+ детали в зависимости от посутпивших к нему данных
  * @author Sergei Lyashko
  */
-public class Facade implements Subject {
+public class Facade implements ISubject {
     
     private static final Facade INSTANCE = new Facade();
     
@@ -32,7 +32,7 @@ public class Facade implements Subject {
         return INSTANCE;
     }
     
-    private final ArrayList<Observer> observers;
+    private final ArrayList<IObserver> observers;
     private double mass;
     
     private Facade(){
@@ -40,12 +40,12 @@ public class Facade implements Subject {
     }
 
     @Override
-    public void registerObserver(Observer o) {
+    public void registerObserver(IObserver o) {
         observers.add(o);
     }
 
     @Override
-    public void removeObserver(Observer o) {
+    public void removeObserver(IObserver o) {
         int i = observers.indexOf(o);
         if(i >= 0){
             observers.remove(i);
@@ -55,14 +55,9 @@ public class Facade implements Subject {
     @Override
     public void notifyObservers() {
         for(int i=0; i<observers.size(); i++){
-            Observer observer = observers.get(i);
+            IObserver observer = observers.get(i);
             observer.update(mass);
         }
-    }
-    
-    // оповещение наблюдателей о появлении новых данных
-    private void massChanged(){
-        notifyObservers();
     }
     
     /**
@@ -74,14 +69,20 @@ public class Facade implements Subject {
      * @param width ширина детали (когда она есть)
      */
     public void createDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
-        new FactoryDetail().getCurrentDetail(profileAssortment, profileType, profileNumber, length, width);
+        double massDetail = new DetailFactory().createDetail(profileAssortment, profileType, profileNumber, length, width).getMass();
+        setMass(massDetail);
     }
-    
+        
+    // оповещение наблюдателей о появлении новых данных
+    private void massChanged(){
+        notifyObservers();
+    }
+        
     /**
      * Установка поля массы детали
      * @param mass
      */
-    public void setMass(double mass){
+    private void setMass(double mass){
         this.mass = mass;
         massChanged();
     }

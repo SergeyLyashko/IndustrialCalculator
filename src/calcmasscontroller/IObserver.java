@@ -13,30 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
-
-import calcmasscontroller.Observer;
+package calcmasscontroller;
 
 /**
- * Интерфейс Субьект
+ * интерфейс Наблюдатель паттерна Наблюдатель
  * @author Korvin
  */
-public interface Subject {
-    
+public interface IObserver {
     /**
-     * Регистрация наблюдателей
-     * @param o экземпляр интерфейса Наблюдатель
+     * передача значения массы наблюдателям при ее изменении
+     * @param mass масса детали
      */
-    public void registerObserver(Observer o);
-
-    /**
-     * Удаление наблюдателя
-     * @param o экземпляр интерфейса Наблюдатель
-     */
-    public void removeObserver(Observer o);
-    
-    /**
-     * оповещение наблюдателей об изменении состояния
-     */
-    public void notifyObservers();
+    public void update(double mass);
 }

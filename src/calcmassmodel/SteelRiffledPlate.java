@@ -13,49 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package calcmassmodel;
 
 /**
  * Сталь листовая рифленая (ромбическая) ГОСТ 8568-77
  * @author Sergei Lyashko
  */
-public final class RiffledSteelPlate implements Massable {
-    
+class SteelRiffledPlate extends AbstractDetail {
+
     private final String detailLength;        //длина детали
     private final String detailWidth;         //ширина детали
     private double valueFromDataBase;         // значения для расчета массы из БД
-    
-    /**
-     * Конструктор детали (Рифленый стальной лист)
-     * @param profileAssortment
-     * @param profileType
-     * @param profileNumber толщина детали
-     * @param detailLength длина детали
-     * @param detailWidth ширина детали
-     */
-    public RiffledSteelPlate(String profileAssortment, String profileType, String profileNumber, String detailLength, String detailWidth){
-        this.detailLength = detailLength;
-        this.detailWidth = detailWidth;
+        
+    public SteelRiffledPlate(String profileAssortment, String profileType, String profileNumber, String length, String width) {
+        super(profileAssortment, profileType, profileNumber, length, width);
+        this.detailLength = length;
+        this.detailWidth = width;
         setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
-    private double getLength(){
-        return Massable.getValueFromString(detailLength);
-    }
-    private double getWidth(){
-        return Massable.getValueFromString(detailWidth);
-    }
+    
+    // значение из базы данных
     private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
         this.valueFromDataBase = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
     }
-    private double getValueFromDataBase(){
-        return valueFromDataBase;
-    }
-    /**
-     * Вычисление массы детали
-     * @return масса детали
-     */
+
     @Override
-    public double getMass(){
-        return (getLength() * getWidth() / 1000000) * getValueFromDataBase();
+    public double getMass() {
+        return (getValueFromString(detailLength) * getValueFromString(detailWidth) / 1000000) * valueFromDataBase;
     }
 }

@@ -21,32 +21,25 @@ import static java.lang.Math.PI;
  * Сталь горячетканная круглая ГОСТ 2590-88
  * @author Sergei Lyashko
  */
-public class CircleSteelDetail implements Massable {
+class SteelCircleDetail extends AbstractDetail {
+
+    private final String detailLength;      //длина детали
+    private double areaCut;                 //площадь сечения детали
+        
+    public SteelCircleDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {
+        super(profileAssortment, profileType, profileNumber, length, width);
+        this.detailLength = length;
+        setAreaCut(profileNumber);
+    }
     
-    private final String detailLength;        //длина детали
-    private double areaCut;             //площадь сечения детали
-    
-    public CircleSteelDetail(String detailDiametr, String detailLength){        
-        this.detailLength = detailLength;
-        setAreaCut(detailDiametr);
-    }
-    private double getLength(){
-        return Massable.getValueFromString(detailLength);
-    }
-    private double getAreaCut(){
-        return areaCut;
-    }
-    // сечение детали
+    // Площадь сечения детали
     private void setAreaCut(String detailDiametr){
-        double value = Massable.getValueFromString(detailDiametr);
+        double value = getValueFromString(detailDiametr);
         areaCut = (value * value) / 4 * PI;
     }
-    /**
-     *  Вычисление массы детали
-     * @return массу детали
-     */
+    
     @Override
-    public double getMass(){
-        return Massable.DENSITY_STEEL * getLength() * getAreaCut();
+    public double getMass() {
+        return DENSITY_STEEL * getValueFromString(detailLength) * areaCut;
     }
 }

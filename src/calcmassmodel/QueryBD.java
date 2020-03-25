@@ -25,7 +25,7 @@ import java.sql.SQLException;
  * SQL запрос в БД
  * @author Sergei Lyashko
  */
-public class QueryBD {
+class QueryBD {
     
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -68,6 +68,7 @@ public class QueryBD {
         }
         return result;
     }
+    
     // закрытие соединений
     private void closeQueryBD(Connection c, PreparedStatement p, ResultSet r){
         try{
@@ -78,6 +79,7 @@ public class QueryBD {
             e.printStackTrace();
         }
     }
+    
     // подключение к БД
     private Connection getConnection(){
         Connection connection = null;

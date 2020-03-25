@@ -16,23 +16,23 @@
 package calcmasscontroller;
 
 import calcmassmodel.Facade;
-import calcmassmodel.Subject;
 import calcmassview.ViewPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
+import calcmassmodel.ISubject;
 
-public class Controller implements Observer {
+public class Controller implements IObserver {
     
-    private final Subject model;
+    private final ISubject model;
     private final ViewPanel view;
     private double mass;
     
-    public static Controller newInstance(Subject model, ViewPanel view){
+    public static Controller newInstance(ISubject model, ViewPanel view){
         return new Controller(model, view);
     }
     
-    private Controller(Subject model, ViewPanel view){
+    private Controller(ISubject model, ViewPanel view){
         this.model = model;
         this.view = view;        
         //слушатели View
