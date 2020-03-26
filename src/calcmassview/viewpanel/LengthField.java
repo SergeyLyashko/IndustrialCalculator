@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.ViewPanel;
+import calcmassview.View;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -28,6 +28,8 @@ import java.awt.event.KeyEvent;
 public class LengthField extends AbstractField {
     
     private static final LengthField INSTANCE = new LengthField();
+    
+    private String text;
     
     public static final LengthField getInstance(){
         return INSTANCE;
@@ -57,9 +59,12 @@ public class LengthField extends AbstractField {
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            String text = super.getText();
-            ViewPanel.getInstance().setDetailLength(text);                   
+            this.text = super.getText();
         }
+    }
+    
+    public double getLengthValue(){
+        return getValue(text);
     }
     
     /**
@@ -68,7 +73,7 @@ public class LengthField extends AbstractField {
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = ViewPanel.getInstance().getResultation(); 
+        String value = View.getInstance().getResultation(); 
         setResultToSystemClipboard(value);
     }
     
@@ -77,5 +82,10 @@ public class LengthField extends AbstractField {
         Toolkit.getDefaultToolkit()
             .getSystemClipboard()
             .setContents(new StringSelection(value), null);       
+    }
+
+    @Override
+    public String getStringValue() {
+        return text;
     }
 }

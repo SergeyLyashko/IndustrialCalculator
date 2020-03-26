@@ -40,10 +40,10 @@ import javax.swing.JPanel;
  * основна€ панель приложени€
  * @author Sergei Lyashko
  */
-public class ViewPanel extends JPanel {   
+public class View extends JPanel {   
     
     // статическое создание экземпл€ра класса
-    private static final ViewPanel INSTANCE = new ViewPanel();
+    private static final View INSTANCE = new View();
     
     // combo-boxes
     private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
@@ -53,19 +53,17 @@ public class ViewPanel extends JPanel {
     private final AbstractField lengthField, widthField;
     // строка результата
     private final ResultMarker resultMarker;
-    //строковые данные из выпадающих меню (combo-boxes)
-    private String detailName, detailLength, detailWidth;
     
     /**
      * —инглтон-метод создани€ основной панели вида приложени€
      * @return объект основной панели View
      */
-    public static final ViewPanel getInstance(){
+    public static final View getInstance(){
         return INSTANCE;
     }
     
     // конструктор
-    private ViewPanel() {
+    private View() {
         // цвет фона по умолчанию
         super.setBackground(Color.BLACK);        
         // тема оформлени€
@@ -155,22 +153,10 @@ public class ViewPanel extends JPanel {
             typeProfileMenuBox.setModel(typeMenuModel);
         }
         if(source.equals(typeProfileMenuBox)){
-            String selectedAssortment = baseMenuBox.getSelectMenuName();
+            String selectedAssortment = baseMenuBox.getStringValue();
             MenuBoxModel numberMenuModel = MenuCreator.getInstance().getModel(selectedAssortment, menuName);
             numberProfileMenuBox.setModel(numberMenuModel);
         }
-    }
-
-    public void setDetailName(String detailName){
-        this.detailName = detailName;
-    }
-    
-    public void setDetailWidth(String detailWidth){
-        this.detailWidth = detailWidth;
-    }
-    
-    public void setDetailLength(String detailLength){
-        this.detailLength = detailLength;
     }
     
     // добавление вкладок в основное окно приложени€
@@ -198,10 +184,6 @@ public class ViewPanel extends JPanel {
         //сброс полей ввода
         widthField.closeField();
         lengthField.closeField();        
-        //установка начальных значений
-        detailName = null; 
-        detailLength = null; 
-        detailWidth = null;        
     }
     
     // сервисна€ строка
@@ -209,24 +191,24 @@ public class ViewPanel extends JPanel {
         serviceMarker.setMarker(eventStr);
     }
     
-    public String getAssortmentName(){
-        return (String)baseMenuBox.getSelectedItem();
+    public AbstractMenuBox getBaseMenuBox(){
+        return baseMenuBox;
     }
     
-    public String getTypeDetailName(){
-        return (String)typeProfileMenuBox.getSelectedItem();
+    public AbstractMenuBox getTypeProfileMenuBox(){
+        return typeProfileMenuBox;
     }
             
-    public String getDetailName(){
-        return detailName;
+    public AbstractMenuBox getNumberProfileMenuBox(){
+        return numberProfileMenuBox;
     }
 
-    public String getDetailLength() {        
-        return detailLength;
+    public AbstractField getLengthField() {        
+        return lengthField;
     }
     
-    public String getDetailWidth(){
-        return detailWidth;
+    public AbstractField getWidthField(){
+        return widthField;
     }
     
     public void setResultation(String value){        

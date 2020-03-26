@@ -16,33 +16,32 @@
 package calcmasscontroller;
 
 import calcmassmodel.Facade;
-import calcmassview.ViewPanel;
+import calcmassview.View;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
-import calcmassmodel.ISubject;
+import calcmassview.viewpanel.AbstractField;
+import calcmassview.viewpanel.AbstractMenuBox;
 
 class Controller implements IObserver {
     
-    private final ISubject model;
-    private final ViewPanel view;
+    private final View view;
+    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AbstractField lengthField, widthField;
     private double mass;
     
-    public static Controller newInstance(ISubject model, ViewPanel view){
-        return new Controller(model, view);
+    public static Controller newInstance(){
+        return new Controller();
     }
     
-    private Controller(ISubject model, ViewPanel view){
-        this.model = model;
-        this.view = view;        
-        //слушатели View
+    private Controller(){
+        view = View.getInstance();
+        //слушатель View
         view.addViewListener(new ViewListener());
-        model.registerObserver(this);
     }
     
     //форматирование строки результата из Model для View
     private String resultFromModel(){
-        //double valueFromModel = model.getResult();
         String formatResult = new DecimalFormat("#.###").format(mass);      
         return formatResult;
     }    
@@ -53,22 +52,24 @@ class Controller implements IObserver {
         view.setResultation(resultFromModel());
     }
     
+    private void createDetail(){
+        Facade facade = new Facade(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
+        facade.registerObserver(this);
+        facade.createDetail();
+    }
+    
     // inner class
     private class ViewListener implements KeyListener {
-        
         @Override
         public void keyReleased(KeyEvent e){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
                 try{
-                    // создание детали
-                    Facade.getInstance().createDetail(
-                        // получение параметров из View
-                        view.getAssortmentName(),
-                        view.getTypeDetailName(),               
-                        view.getDetailName(),
-                        view.getDetailLength(),
-                        view.getDetailWidth()
-                    );
+                    baseMenuBox = view.getBaseMenuBox();
+                    typeProfileMenuBox = view.getTypeProfileMenuBox();
+                    numberProfileMenuBox = view.getNumberProfileMenuBox();
+                    lengthField = view.getLengthField();
+                    widthField = view.getWidthField();
+                    createDetail();
                 }catch(NullPointerException ex){
                     //неопределенный результат
                     String err = "error";

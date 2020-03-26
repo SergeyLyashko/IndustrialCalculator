@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.ViewPanel;
+import calcmassview.View;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
@@ -27,6 +27,8 @@ import java.awt.event.KeyEvent;
 public class WidthField extends AbstractField {
     
     private static final WidthField INSTANCE = new WidthField();
+    
+    private String text;
     
     public static final WidthField getInstance(){
         return INSTANCE;
@@ -66,7 +68,11 @@ public class WidthField extends AbstractField {
      */
     @Override
     public void focusLost(FocusEvent e) {
-        String text = super.getText();
-        ViewPanel.getInstance().setDetailWidth(text);
+        this.text = super.getText();
+    }
+
+    @Override
+    public String getStringValue() {
+        return  text;
     }
 }

@@ -36,10 +36,21 @@ public abstract class AbstractField extends JFormattedTextField implements Focus
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
     }
     
+    public double getValue(String valueStr) {
+        try{
+            return Double.parseDouble(valueStr);
+        }catch(NumberFormatException e){
+            System.err.println("Ошибка преобразования значения: " + e);
+        }catch (NullPointerException ex){
+            System.err.println("Нулевой указатель: " + ex);
+        }
+        return 0;
+    }
+    
     /**
      * активация поля
      */
-    public void actionField(){
+    public final void actionField(){
         setEditable(true);
         setBackground(Color.white);        
         addFocusListener(this);
@@ -73,4 +84,6 @@ public abstract class AbstractField extends JFormattedTextField implements Focus
      * деактивация (закрытие) поля
      */
     public abstract void closeField();
+
+    public abstract String getStringValue();
 }

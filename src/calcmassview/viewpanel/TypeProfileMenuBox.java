@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.ViewPanel;
+import calcmassview.View;
 import java.awt.event.ActionEvent;
 
 /**
@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
  */
 public class TypeProfileMenuBox extends AbstractMenuBox {   
     
-    private String select;
+    private String selectMenu;
     
     // статическое создание экземпляра класса
     private static final TypeProfileMenuBox INSTANCE = new TypeProfileMenuBox();
@@ -43,19 +43,16 @@ public class TypeProfileMenuBox extends AbstractMenuBox {
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
-        this.select = (String)cb.getSelectedItem();
+        String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        ViewPanel.getInstance().reset();
+        View.getInstance().reset();
         // обновление меню номеров профилей
-        ViewPanel.getInstance().updateView(select, this);        
+        View.getInstance().updateView(currentMenu, this);
+        this.selectMenu = currentMenu;
     }
     
-    /**
-     * Строковое предстваление выбранного пункта меню
-     * @return выбранный пункт меню
-     */
     @Override
-    public String getSelectMenuName() {
-        return select;
+    public String getStringValue() {
+        return selectMenu;
     }
 }

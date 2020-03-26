@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.ViewPanel;
+import calcmassview.View;
 import java.awt.event.ActionEvent;
 
 /**
@@ -42,13 +42,13 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
-        this.selectMenu = (String)cb.getSelectedItem();
+        String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        ViewPanel.getInstance().reset();
+        View.getInstance().reset();
         // активаци полей ввода значений
-        actionFields(selectMenu);
+        actionFields(currentMenu);
         // выбранна€ детали в выпадающем меню 
-        ViewPanel.getInstance().setDetailName(selectMenu);
+        this.selectMenu = currentMenu;
     }
     
     // активаци€ полей ввода значений
@@ -62,12 +62,8 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
         }
     }
 
-    /**
-     * —троковое предстваление выбранного пункта меню
-     * @return выбранный пункт меню
-     */
     @Override
-    public String getSelectMenuName() {
+    public String getStringValue() {
         return selectMenu;
     }
 }

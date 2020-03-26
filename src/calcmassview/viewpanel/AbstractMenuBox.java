@@ -31,9 +31,5 @@ public abstract class AbstractMenuBox extends JComboBox<String> implements Actio
         super.addActionListener(this);
     }
 
-    /**
-     * Строковое предстваление выбранного пункта меню
-     * @return выбранный пункт меню
-     */
-    public abstract String getSelectMenuName();    
+    public abstract String getStringValue();
 }

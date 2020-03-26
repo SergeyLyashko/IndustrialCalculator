@@ -17,28 +17,35 @@ package calcmassmodel;
 
 import java.util.ArrayList;
 import calcmasscontroller.IObserver;
+import calcmassview.viewpanel.AbstractField;
+import calcmassview.viewpanel.AbstractMenuBox;
 
 /**
  * Фасад модели
- реализует интерфейс ISubject делающий рассылку вычисления массы
- детали в зависимости от посутпивших к нему данных
+ * реализует интерфейс ISubject делающий рассылку вычисления массы
+ * детали в зависимости от посутпивших к нему данных
  * @author Sergei Lyashko
  */
 public class Facade implements ISubject {
     
-    private static final Facade INSTANCE = new Facade();
-    
-    public static Facade getInstance(){
-        return INSTANCE;
-    }
-    
     private final ArrayList<IObserver> observers;
     private double mass;
+    private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private final AbstractField lengthField, widthField;
+    private String profileAssortment, profileType, profileNumber, length, width;
+    private DetailFactory detailFactory;
+    private AbstractDetail detail;
     
-    private Facade(){
+    public Facade(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
+            AbstractField lengthField, AbstractField widthField){
         observers = new ArrayList<>();
+        this.baseMenuBox = baseMenuBox;
+        this.typeProfileMenuBox = typeProfileMenuBox;
+        this.numberProfileMenuBox = numberProfileMenuBox;
+        this.lengthField = lengthField;
+        this.widthField = widthField;        
     }
-
+    
     @Override
     public void registerObserver(IObserver o) {
         observers.add(o);
@@ -61,29 +68,35 @@ public class Facade implements ISubject {
     }
     
     /**
-     * Создание детали с параметрами из View
-     * @param profileAssortment наименование сортамента
-     * @param profileType наименование типа дтали
-     * @param profileNumber наименование детали
-     * @param length длина детали
-     * @param width ширина детали (когда она есть)
+     * Создание детали
      */
-    public void createDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
-        double massDetail = new DetailFactory().createDetail(profileAssortment, profileType, profileNumber, length, width).getMass();
-        setMass(massDetail);
+    public void createDetail(){
+        setValueOfFields();
+        detailFactory = new DetailFactory();
+        detail = detailFactory.createDetail(profileAssortment, profileType, profileNumber, length, width);
+        setMass();
     }
-        
-    // оповещение наблюдателей о появлении новых данных
-    private void massChanged(){
-        notifyObservers();
+    
+    private void setValueOfFields(){
+        this.profileAssortment = baseMenuBox.getStringValue();
+        this.profileType = typeProfileMenuBox.getStringValue();
+        this.profileNumber = numberProfileMenuBox.getStringValue();
+        this.length = lengthField.getStringValue();
+        this.width = widthField.getStringValue();
     }
         
     /**
      * Установка поля массы детали
      * @param mass
      */
-    private void setMass(double mass){
-        this.mass = mass;
+    private void setMass(){
+        this.mass = detail.getMass();
+        System.out.println("test facade set mass: "+mass);
         massChanged();
+    }
+    
+    // оповещение наблюдателей о появлении новых данных
+    private void massChanged(){
+        notifyObservers();
     }
 }
