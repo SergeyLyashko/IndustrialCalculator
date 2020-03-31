@@ -6,16 +6,26 @@
 package calcmassmodel;
 
 import calcmassview.MassObserver;
+import calcmassview.viewpanel.AbstractField;
+import calcmassview.viewpanel.AbstractMenuBox;
 
 /**
- *
+ * Наблюдатель
  * @author Korvin
  */
 public interface CalculatorModelInterface {
     
+    /**
+     * Регистрация наблюдателей
+     * @param baseMenuBox
+     * @param typeProfileMenuBox
+     * @param numberProfileMenuBox
+     * @param lengthField
+     * @param widthField
+     */
+    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
+            AbstractField lengthField, AbstractField widthField);
         
-    public double getMass();
-    
     /**
      * Регистрация наблюдателей
      * @param o экземпляр интерфейса Наблюдатель

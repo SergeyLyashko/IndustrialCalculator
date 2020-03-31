@@ -25,7 +25,8 @@ public class CalculatorModel implements CalculatorModelInterface {
         facade = new Facade();
     }
     
-    public void addParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
+    @Override
+    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
             AbstractField lengthField, AbstractField widthField){
         facade.addParametrs(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
         massChanged();
@@ -52,11 +53,6 @@ public class CalculatorModel implements CalculatorModelInterface {
         }
     }
 
-    @Override
-    public double getMass() {
-        return mass;
-    }
-    
     // оповещение наблюдателей о появлении новых данных
     private void massChanged(){
         this.mass = facade.getDetail().getMass();

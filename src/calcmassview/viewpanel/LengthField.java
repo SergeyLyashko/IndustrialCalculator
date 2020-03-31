@@ -73,7 +73,7 @@ public class LengthField extends AbstractField {
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = BasePanel.getInstance().getResultation(); 
+        String value = BasePanel.getInstance().getResultation();
         setResultToSystemClipboard(value);
     }
     

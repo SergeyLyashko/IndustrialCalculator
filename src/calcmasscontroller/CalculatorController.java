@@ -15,70 +15,33 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.Facade;
-import calcmassview.BasePanel;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.DecimalFormat;
+import calcmassmodel.CalculatorModel;
+import calcmassmodel.CalculatorModelInterface;
+import calcmassview.CalculatorView;
 import calcmassview.viewpanel.AbstractField;
 import calcmassview.viewpanel.AbstractMenuBox;
 
-class CalculatorController {
+/**
+ *
+ * @author Sergei Lyashko
+ */
+public class CalculatorController implements CalculatorControllerInterface {
     
-    private final BasePanel view;
-    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
-    private AbstractField lengthField, widthField;
-    private String profileAssortment, profileType, profileNumber, length, width;
-    private double mass;
+    private static CalculatorModelInterface model;
     
-    public static CalculatorController newInstance(){
-        return new CalculatorController();
+    public static void start(){
+        model = new CalculatorModel();
+        new CalculatorController(model);
     }
     
-    private CalculatorController(){
-        // создание BasePanel
-        view = BasePanel.getInstance();
-        //слушатель BasePanel
-        view.addViewListener(new ViewListener());
+    private CalculatorController(CalculatorModelInterface model){
+        // создание View
+        new CalculatorView(model, this);
     }
     
-    //форматирование строки результата из Model для BasePanel
-    private String resultFromModel(){
-        String formatResult = new DecimalFormat("#.###").format(mass);      
-        return formatResult;
-    }    
-    
-    private void setParameters(){
-        this.profileAssortment = baseMenuBox.getStringValue();
-        this.profileType = typeProfileMenuBox.getStringValue();
-        this.profileNumber = numberProfileMenuBox.getStringValue();
-        this.length = lengthField.getStringValue();
-        this.width = widthField.getStringValue();
+    @Override
+    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
+            AbstractField lengthField, AbstractField widthField) {
+        model.setParametrs(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
     }
-    
-    // inner class
-    private class ViewListener implements KeyListener {
-        @Override
-        public void keyReleased(KeyEvent e){
-            if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                try{
-                    baseMenuBox = view.getBaseMenuBox();
-                    typeProfileMenuBox = view.getTypeProfileMenuBox();
-                    numberProfileMenuBox = view.getNumberProfileMenuBox();
-                    lengthField = view.getLengthField();
-                    widthField = view.getWidthField();
-                    setParameters();
-                }catch(NullPointerException ex){
-                    //неопределенный результат
-                    String err = "error";
-                    view.setResultation(err);
-                    view.setServiceMarker(err);
-                }
-            }
-        }    
-        @Override
-        public void keyTyped(KeyEvent e) {}
-        @Override
-        public void keyPressed(KeyEvent e) {}
-    } // end iner class
 }

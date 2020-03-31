@@ -16,8 +16,6 @@
 package calcmassview;
 
 import calcmassview.viewpanel.CalculatorFocusTraversalPolicy;
-import calcmassview.settingpanel.Theme;
-import calcmassview.infopanel.InfoPanel;
 import calcmassview.viewpanel.MenuBoxModel;
 import calcmassview.viewpanel.FieldMarker;
 import calcmassview.viewpanel.ServiceMarker;
@@ -28,7 +26,6 @@ import calcmassview.viewpanel.TypeProfileMenuBox;
 import calcmassview.viewpanel.NumberProfileMenuBox;
 import calcmassview.viewpanel.BaseMenuBox;
 import calcmassview.viewpanel.AbstractMenuBox;
-import calcmassview.settingpanel.SettingsPanel;
 import calcmassview.viewpanel.AbstractField;
 import java.awt.Color;
 import java.awt.Component;
@@ -66,8 +63,6 @@ public class BasePanel extends JPanel {
     private BasePanel() {
         // цвет фона по умолчанию
         super.setBackground(Color.BLACK);        
-        // тема оформления
-        Theme.addTheme(this);
         
         // текстовая строка результата
         resultMarker = new ResultMarker();
@@ -128,9 +123,7 @@ public class BasePanel extends JPanel {
         
         // отключение автокомпоновки элементов
         super.setLayout(null);       
-        // инициализация вкладок
-        this.addTab();    
-        
+               
         // политика обхода фокуса
         ArrayList<Component> policy = new ArrayList<>();
         policy.add(baseMenuBox);
@@ -158,14 +151,6 @@ public class BasePanel extends JPanel {
             numberProfileMenuBox.setModel(numberMenuModel);
         }
     }
-    
-    // добавление вкладок в основное окно приложения
-    private void addTab(){
-        GeneralPanel.getInstance().addToGeneralPanel("Калькулятор", this);       
-        GeneralPanel.getInstance().addToGeneralPanel("Настройки", SettingsPanel.getInstance());
-        GeneralPanel.getInstance().addToGeneralPanel("Справка", InfoPanel.getInstance());
-    }    
-    
     /**
      * слушатель нажатия клавиши в поле "длина"
      * @param e событие нажатия клавиши

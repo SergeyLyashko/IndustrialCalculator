@@ -1,18 +1,93 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package calcmassview;
 
+import calcmasscontroller.CalculatorControllerInterface;
+import calcmassmodel.CalculatorModelInterface;
+import calcmassview.infopanel.InfoPanel;
+import calcmassview.settingpanel.SettingsPanel;
+import calcmassview.settingpanel.Theme;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
+
 /**
- *
- * @author Korvin
+ * View
+ * @author Sergei Lyashko
  */
-public class CalculatorView {
+public class CalculatorView implements MassObserver {
     
-    public CalculatorView(){
-        
+    private final CalculatorControllerInterface controller;
+    private final BasePanel basePanel;
+    private double mass;
+    private String result;
+    
+    public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
+        this.controller = controller;
+        basePanel = BasePanel.getInstance();
+        // тема оформления
+        Theme.addTheme(basePanel);
+        addTab();
+        model.registerObserver(this);
+        addViewListener(new ViewListener());
     }
     
+    // добавление вкладок в основное окно приложения
+    private void addTab(){
+        GeneralPanel.getInstance().addToGeneralPanel("Калькулятор", basePanel);       
+        GeneralPanel.getInstance().addToGeneralPanel("Настройки", SettingsPanel.getInstance());
+        GeneralPanel.getInstance().addToGeneralPanel("Справка", InfoPanel.getInstance());
+    }
+
+    @Override
+    public void update(double mass) {
+        this.mass = mass;
+        formatResult();
+        basePanel.setResultation(result);
+    }
+    
+    //форматирование строки результата
+    private void formatResult(){
+        this.result = new DecimalFormat("#.###").format(mass);
+        System.out.println("test result: "+result);
+    }
+    
+    private void addViewListener(KeyListener e){
+        basePanel.addViewListener(e);
+    }
+    
+    public void setParametrs(){
+        controller.setParametrs(basePanel.getBaseMenuBox(),
+                basePanel.getTypeProfileMenuBox(),
+                basePanel.getNumberProfileMenuBox(),
+                basePanel.getLengthField(),
+                basePanel.getWidthField());
+    }
+    
+    // inner class
+    private class ViewListener implements KeyListener {
+        @Override
+        public void keyReleased(KeyEvent e){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                setParametrs();
+            }
+        }    
+        @Override
+        public void keyTyped(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {}
+    } // end iner class
 }
