@@ -15,8 +15,6 @@
  */
 package calcmassmodel;
 
-import java.util.ArrayList;
-import calcmasscontroller.IObserver;
 import calcmassview.viewpanel.AbstractField;
 import calcmassview.viewpanel.AbstractMenuBox;
 
@@ -26,55 +24,22 @@ import calcmassview.viewpanel.AbstractMenuBox;
  * детали в зависимости от посутпивших к нему данных
  * @author Sergei Lyashko
  */
-public class Facade implements ISubject {
+public class Facade {
     
-    private final ArrayList<IObserver> observers;
-    private double mass;
-    private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
-    private final AbstractField lengthField, widthField;
-    private String profileAssortment, profileType, profileNumber, length, width;
     private DetailFactory detailFactory;
     private AbstractDetail detail;
-    
-    public Facade(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
+    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AbstractField lengthField, widthField;
+    private String profileAssortment, profileType, profileNumber, length, width;
+       
+    public void addParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
             AbstractField lengthField, AbstractField widthField){
-        observers = new ArrayList<>();
         this.baseMenuBox = baseMenuBox;
         this.typeProfileMenuBox = typeProfileMenuBox;
         this.numberProfileMenuBox = numberProfileMenuBox;
         this.lengthField = lengthField;
-        this.widthField = widthField;        
-    }
-    
-    @Override
-    public void registerObserver(IObserver o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void removeObserver(IObserver o) {
-        int i = observers.indexOf(o);
-        if(i >= 0){
-            observers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        for(int i=0; i<observers.size(); i++){
-            IObserver observer = observers.get(i);
-            observer.update(mass);
-        }
-    }
-    
-    /**
-     * Создание детали
-     */
-    public void createDetail(){
+        this.widthField = widthField;
         setValueOfFields();
-        detailFactory = new DetailFactory();
-        detail = detailFactory.createDetail(profileAssortment, profileType, profileNumber, length, width);
-        setMass();
     }
     
     private void setValueOfFields(){
@@ -83,20 +48,18 @@ public class Facade implements ISubject {
         this.profileNumber = numberProfileMenuBox.getStringValue();
         this.length = lengthField.getStringValue();
         this.width = widthField.getStringValue();
-    }
-        
-    /**
-     * Установка поля массы детали
-     * @param mass
-     */
-    private void setMass(){
-        this.mass = detail.getMass();
-        System.out.println("test facade set mass: "+mass);
-        massChanged();
+        createDetail();
     }
     
-    // оповещение наблюдателей о появлении новых данных
-    private void massChanged(){
-        notifyObservers();
+    /**
+     * Создание детали
+     */
+    private void createDetail(){
+        detailFactory = new DetailFactory();
+        detail = detailFactory.orderDetail(profileAssortment, profileType, profileNumber, length, width);
+    }
+    
+    public AbstractDetail getDetail(){
+        return detail;
     }
 }

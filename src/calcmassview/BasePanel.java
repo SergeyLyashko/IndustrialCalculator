@@ -40,10 +40,10 @@ import javax.swing.JPanel;
  * основная панель приложения
  * @author Sergei Lyashko
  */
-public class View extends JPanel {   
+public class BasePanel extends JPanel {
     
     // статическое создание экземпляра класса
-    private static final View INSTANCE = new View();
+    private static final BasePanel INSTANCE = new BasePanel();
     
     // combo-boxes
     private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
@@ -56,14 +56,14 @@ public class View extends JPanel {
     
     /**
      * Синглтон-метод создания основной панели вида приложения
-     * @return объект основной панели View
+     * @return объект основной панели BasePanel
      */
-    public static final View getInstance(){
+    public static final BasePanel getInstance(){
         return INSTANCE;
     }
     
     // конструктор
-    private View() {
+    private BasePanel() {
         // цвет фона по умолчанию
         super.setBackground(Color.BLACK);        
         // тема оформления

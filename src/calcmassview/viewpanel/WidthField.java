@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.View;
+import calcmassview.BasePanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;

@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.View;
+import calcmassview.BasePanel;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -73,7 +73,7 @@ public class LengthField extends AbstractField {
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = View.getInstance().getResultation(); 
+        String value = BasePanel.getInstance().getResultation(); 
         setResultToSystemClipboard(value);
     }
     

@@ -16,46 +16,44 @@
 package calcmasscontroller;
 
 import calcmassmodel.Facade;
-import calcmassview.View;
+import calcmassview.BasePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import calcmassview.viewpanel.AbstractField;
 import calcmassview.viewpanel.AbstractMenuBox;
 
-class Controller implements IObserver {
+class CalculatorController {
     
-    private final View view;
+    private final BasePanel view;
     private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     private AbstractField lengthField, widthField;
+    private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     
-    public static Controller newInstance(){
-        return new Controller();
+    public static CalculatorController newInstance(){
+        return new CalculatorController();
     }
     
-    private Controller(){
-        view = View.getInstance();
-        //слушатель View
+    private CalculatorController(){
+        // создание BasePanel
+        view = BasePanel.getInstance();
+        //слушатель BasePanel
         view.addViewListener(new ViewListener());
     }
     
-    //форматирование строки результата из Model для View
+    //форматирование строки результата из Model для BasePanel
     private String resultFromModel(){
         String formatResult = new DecimalFormat("#.###").format(mass);      
         return formatResult;
     }    
-
-    @Override
-    public void update(double mass) {
-        this.mass = mass;
-        view.setResultation(resultFromModel());
-    }
     
-    private void createDetail(){
-        Facade facade = new Facade(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
-        facade.registerObserver(this);
-        facade.createDetail();
+    private void setParameters(){
+        this.profileAssortment = baseMenuBox.getStringValue();
+        this.profileType = typeProfileMenuBox.getStringValue();
+        this.profileNumber = numberProfileMenuBox.getStringValue();
+        this.length = lengthField.getStringValue();
+        this.width = widthField.getStringValue();
     }
     
     // inner class
@@ -69,7 +67,7 @@ class Controller implements IObserver {
                     numberProfileMenuBox = view.getNumberProfileMenuBox();
                     lengthField = view.getLengthField();
                     widthField = view.getWidthField();
-                    createDetail();
+                    setParameters();
                 }catch(NullPointerException ex){
                     //неопределенный результат
                     String err = "error";

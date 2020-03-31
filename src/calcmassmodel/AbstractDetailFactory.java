@@ -16,7 +16,7 @@
 package calcmassmodel;
 
 /**
- * Абстрактная фабрика
+ * Паттерн Фабричный метод
  * @author Sergei Lyashko
  */
 abstract class AbstractDetailFactory {
@@ -32,8 +32,7 @@ abstract class AbstractDetailFactory {
      */
     public AbstractDetail orderDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){
         AbstractDetail detail = createDetail(profileAssortment, profileType, profileNumber, length, width);
-        double mass = detail.getMass();
-        System.out.println("test facade set mass: "+mass);
+        detail.getMass();
         return detail;
     }
     
