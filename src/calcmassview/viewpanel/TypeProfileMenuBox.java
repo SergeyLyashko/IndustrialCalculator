@@ -19,35 +19,27 @@ import calcmassview.BasePanel;
 import java.awt.event.ActionEvent;
 
 /**
- * Панель меню типов профилей
+ * Выпадающее меню типов профилей
+ * для выбранного сортамента
  * @author Sergei Lyashko
  */
 public class TypeProfileMenuBox extends AbstractMenuBox {   
     
+    private final BasePanel basePanel;
     private String selectMenu;
     
-    // статическое создание экземпляра класса
-    private static final TypeProfileMenuBox INSTANCE = new TypeProfileMenuBox();
-    
-    /**
-     * Синглтон-метод создания панели выпадающего меню
-     * @return объект "меню типы профилей"
-     */
-    public static final TypeProfileMenuBox getInstance(){
-        return INSTANCE;
-    }    
-    
-    // конструктор
-    private TypeProfileMenuBox() {}
+    public TypeProfileMenuBox(BasePanel basePanel) {
+        this.basePanel = basePanel;
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        BasePanel.getInstance().reset();
+        basePanel.reset();
         // обновление меню номеров профилей
-        BasePanel.getInstance().updateView(currentMenu, this);
+        basePanel.updateView(currentMenu, this);
         this.selectMenu = currentMenu;
     }
     

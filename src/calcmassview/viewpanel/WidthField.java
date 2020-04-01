@@ -21,20 +21,16 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 
 /**
- * Класс поле ввода ширины
+ * Поле ввода ширины
  * @author Sergei Lyashko
  */
 public class WidthField extends AbstractField {
     
-    private static final WidthField INSTANCE = new WidthField();
-    
+    private final BasePanel basePanel;
     private String text;
     
-    public static final WidthField getInstance(){
-        return INSTANCE;
-    }
-    
-    private WidthField(){
+    public WidthField(BasePanel basePanel){
+        this.basePanel = basePanel;
         super.setText("ширина");
     }
     

@@ -26,7 +26,6 @@ import javax.swing.JCheckBox;
 public abstract class AbstractSettingChBox extends JCheckBox { 
     
     public AbstractSettingChBox(){
-        super();       
         super.setBackground(Color.BLACK);
         super.setForeground(Color.white);        
     }    

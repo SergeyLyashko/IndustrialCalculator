@@ -21,13 +21,17 @@ import java.awt.event.ItemEvent;
  * ¬сплывающие подсказки
  * @author Sergei Lyashko
  */
-public class ToolTipsOffBox extends AbstractSettingChBox {   
+class ToolTipsOffBox extends AbstractSettingChBox {   
     
     public ToolTipsOffBox(){
+        create();
+    }
+    
+    private void create(){
         super.setSelected(true);
         super.setSize(250, 20);
         super.setText("отключить всплывающие подсказки");             
-        Theme.addTheme(this);        
+        Theme.addTheme(this);
     }
     
     @Override
@@ -35,14 +39,14 @@ public class ToolTipsOffBox extends AbstractSettingChBox {
         setToolTips(e.getStateChange());
     }
     
-    //TODO
+    // установка всплывающих подсказок
     private void setToolTips(int stateChange){
         switch(stateChange){
             case ItemEvent.SELECTED:
-                
+                //TODO
                 break;
             case ItemEvent.DESELECTED:
-                
+                //TODO
                 break;            
         }
     }    

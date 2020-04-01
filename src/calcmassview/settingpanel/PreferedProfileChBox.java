@@ -16,7 +16,6 @@ public class PreferedProfileChBox extends AbstractSettingChBox {
     private CustomMenuFrame menuFrame;
     
     public PreferedProfileChBox(){
-        super();        
         super.setSize(220, 20);
         super.setText("часто используемые профили");
         super.setSelected(false);       
@@ -34,5 +33,4 @@ public class PreferedProfileChBox extends AbstractSettingChBox {
                 break;            
         } 
     }
-    
 }

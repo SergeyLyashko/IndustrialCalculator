@@ -27,15 +27,11 @@ import java.awt.event.KeyEvent;
  */
 public class LengthField extends AbstractField {
     
-    private static final LengthField INSTANCE = new LengthField();
-    
+    private final BasePanel basePanel;
     private String text;
     
-    public static final LengthField getInstance(){
-        return INSTANCE;
-    }
-    
-    private LengthField(){
+    public LengthField(BasePanel basePanel){
+        this.basePanel = basePanel;
         super.setText("длина");            
     }
     
@@ -73,7 +69,7 @@ public class LengthField extends AbstractField {
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        String value = BasePanel.getInstance().getResultation();
+        String value = basePanel.getResultation();
         setResultToSystemClipboard(value);
     }
     

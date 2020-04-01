@@ -17,9 +17,7 @@ package calcmassview;
 
 import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
-import calcmassview.infopanel.InfoPanel;
 import calcmassview.settingpanel.SettingsPanel;
-import calcmassview.settingpanel.Theme;
 import calcmassview.viewpanel.AbstractField;
 import calcmassview.viewpanel.AbstractMenuBox;
 import java.awt.event.KeyEvent;
@@ -34,7 +32,10 @@ public class CalculatorView implements MassObserver {
     
     private final CalculatorControllerInterface controller;
     private final CalculatorModelInterface model;
+    private GeneralPanel generalPanel;
     private BasePanel basePanel;
+    private SettingsPanel settingsPanel;
+    private InfoPanel infoPanel;
     private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     private AbstractField lengthField, widthField;
     private String profileAssortment, profileType, profileNumber, length, width;
@@ -48,9 +49,10 @@ public class CalculatorView implements MassObserver {
     }
     
     private void create(){
-        this.basePanel = BasePanel.getInstance();
-        // тема оформления
-        Theme.addTheme(basePanel);
+        this.generalPanel = new GeneralPanel();
+        this.basePanel = new BasePanel();
+        this.settingsPanel = new SettingsPanel();
+        this.infoPanel = new InfoPanel();
         addTab();
         model.registerObserver(this);
         addViewListener(new ViewListener());
@@ -58,9 +60,9 @@ public class CalculatorView implements MassObserver {
     
     // добавление вкладок в основное окно приложения
     private void addTab(){
-        GeneralPanel.getInstance().addToGeneralPanel("Калькулятор", basePanel);       
-        GeneralPanel.getInstance().addToGeneralPanel("Настройки", SettingsPanel.getInstance());
-        GeneralPanel.getInstance().addToGeneralPanel("Справка", InfoPanel.getInstance());
+        generalPanel.addPanel("Калькулятор", basePanel);       
+        generalPanel.addPanel("Настройки", settingsPanel);
+        generalPanel.addPanel("Справка", infoPanel);
     }
 
     @Override
@@ -79,6 +81,20 @@ public class CalculatorView implements MassObserver {
     private void addViewListener(KeyListener e){
         basePanel.addViewListener(e);
     }
+    
+    // inner class
+    private class ViewListener implements KeyListener {
+        @Override
+        public void keyReleased(KeyEvent e){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                setParametrs();
+            }
+        }    
+        @Override
+        public void keyTyped(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {}
+    } // end iner class
     
     public void setParametrs(){
         setFields();
@@ -101,18 +117,4 @@ public class CalculatorView implements MassObserver {
         this.length = lengthField.getStringValue();
         this.width = widthField.getStringValue();
     }
-    
-    // inner class
-    private class ViewListener implements KeyListener {
-        @Override
-        public void keyReleased(KeyEvent e){
-            if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                setParametrs();
-            }
-        }    
-        @Override
-        public void keyTyped(KeyEvent e) {}
-        @Override
-        public void keyPressed(KeyEvent e) {}
-    } // end iner class
 }

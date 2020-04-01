@@ -15,74 +15,72 @@
  */
 package calcmassview.settingpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.viewpanel.FieldMarker;
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.JPanel;
 
 /**
  * панель настроек приложения
  * @author Sergei Lyashko
  */
-public class SettingsPanel extends JPanel implements ItemListener{
-    
-    // статическое создание экземпляра класса
-    private static final SettingsPanel INSTANCE = new SettingsPanel();
-    
-    /**
-     * Синглтон-метод создания основной панели вида приложения
-     * @return объект основной панели View
-     */    
-    public static final SettingsPanel getInstance(){
-        return INSTANCE;
-    }
+public class SettingsPanel extends AbstractPanel implements ItemListener{
     
     // чек-боксы
-    private final AbstractSettingChBox 
+    private AbstractSettingChBox 
             themeChooser,
             toolTipsOffBox,
             fixSizeWindow,
             preferedProfileList;   
     
-    // конструктор
-    private SettingsPanel(){
-        super(false);        
-        super.setBackground(Color.black);     
-        
-        // маркеры полей длина и ширина
+    public SettingsPanel(){
+        createFieldsMarker();
+        createThemeCheckBox();
+        //createToolTipsCheckBox();
+        //createFixSizeWindowCheckBox();
+        //createPreferedProfileCheckBox();
+        super.setLayout(null);
+    }
+    
+    // включение списка часто используемых профилей
+    private void createPreferedProfileCheckBox(){
+        preferedProfileList = new PreferedProfileChBox();
+        preferedProfileList.setLocation(15, 110);        
+        preferedProfileList.addItemListener(this);        
+        super.add(preferedProfileList);
+    }
+    
+    // фиксация размера окна
+    private void createFixSizeWindowCheckBox(){
+        fixSizeWindow = new FixSizeWindowChBox();
+        fixSizeWindow.setLocation(15, 85);               
+        fixSizeWindow.addItemListener(this);
+        super.add(fixSizeWindow);
+    }
+    
+    // чекбокс включения/отключения всплывающих подсказок
+    private void createToolTipsCheckBox(){
+        toolTipsOffBox = new ToolTipsOffBox();
+        toolTipsOffBox.setLocation(15, 60);
+        toolTipsOffBox.addItemListener(this);
+        super.add(toolTipsOffBox);
+    }
+    
+    // чекбокс выбора цветовой темы оформления
+    private void createThemeCheckBox(){
+        themeChooser = new ThemeChBox();
+        themeChooser.setLocation(15, 35);        
+        themeChooser.addItemListener(this);
+        super.add(themeChooser);
+    }
+    
+    // маркеры полей длина и ширина
+    private void createFieldsMarker(){
         FieldMarker infoText = new FieldMarker();
         infoText.setText("Настройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       
-        
-        // цветовая тема оформления
-        Theme.addTheme(this);
-        themeChooser = new ThemeChBox();
-        themeChooser.setLocation(15, 35);        
-        themeChooser.addItemListener(this);
-        
-        // всплывающие подсказки
-        toolTipsOffBox = new ToolTipsOffBox();
-        toolTipsOffBox.setLocation(15, 60);
-        toolTipsOffBox.addItemListener(this);
-        
-        // фиксация размера окна
-        fixSizeWindow = new FixSizeWindowChBox();
-        fixSizeWindow.setLocation(15, 85);               
-        fixSizeWindow.addItemListener(this);
-        
-        // включение списка часто используемых профилей
-        preferedProfileList = new PreferedProfileChBox();
-        preferedProfileList.setLocation(15, 110);        
-        preferedProfileList.addItemListener(this);        
-        
-        super.add(themeChooser);
-        //super.add(toolTipsOffBox);
-        //super.add(fixSizeWindow);
-        //super.add(preferedProfileList);
         super.add(infoText);
-        super.setLayout(null);
     }
 
     @Override

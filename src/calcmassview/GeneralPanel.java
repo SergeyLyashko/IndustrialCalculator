@@ -24,27 +24,20 @@ import javax.swing.JTabbedPane;
  * @author Sergei Lyashko
  */
 public class GeneralPanel extends JPanel {      
+        
+    private JTabbedPane tabbedPane;    
     
-    // статическое создание экземплра класса
-    private static final GeneralPanel INSTANCE = new GeneralPanel();
-    
-    /**
-     * Метод получения экземпляра класса-синглтона
-     * @return экземпляр класса
-     */
-    public static final GeneralPanel getInstance(){
-        return INSTANCE;
+    public GeneralPanel() {
+        // менеджер компоновки
+        super(new GridLayout(1, 1));  
+        create();
     }
     
-    private final JTabbedPane tabbedPane;    
-    
-    private GeneralPanel() {
-        // менеджер компоновки
-        super(new GridLayout(1, 1));        
+    private void create(){
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         //добавление вкладок в панель
         super.add(tabbedPane);
-        AppFrame.getInstance().add(this);  
+        new WindowApp().add(this);
     }
     
     /**
@@ -52,7 +45,7 @@ public class GeneralPanel extends JPanel {
      * @param namePanel наименование панели
      * @param panel добавляемая панель
      */
-    public void addToGeneralPanel(String namePanel, JPanel panel){        
+    public void addPanel(String namePanel, JPanel panel){        
         tabbedPane.addTab(namePanel, panel);        
     }    
 }

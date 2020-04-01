@@ -25,26 +25,18 @@ import java.awt.event.ActionEvent;
 public class NumberProfileMenuBox extends AbstractMenuBox {  
     
     private String selectMenu;
+    private final BasePanel basePanel;
     
-    // статическое создание экземпляра класса
-    private static final NumberProfileMenuBox INSTANCE = new NumberProfileMenuBox();
-    
-    /**
-     * Синглтон-метод создания панели выпадающего меню
-     * @return объект "меню номера профилей"
-     */
-    public static final NumberProfileMenuBox getInstance(){
-        return INSTANCE;
+    public NumberProfileMenuBox(BasePanel basePanel) {
+        this.basePanel = basePanel;
     }
-    
-    private NumberProfileMenuBox() {}
         
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        BasePanel.getInstance().reset();
+        basePanel.reset();
         // активаци полей ввода значений
         actionFields(currentMenu);
         // выбранная детали в выпадающем меню 
@@ -54,10 +46,10 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
     // активация полей ввода значений
     private void actionFields(String selectMenu){
         if(!selectMenu.equals("№ профиля")){
-            LengthField.getInstance().actionField();
-            if(((String)BaseMenuBox.getInstance().getSelectedItem()).equals("Лист") ||
-                    ((String)TypeProfileMenuBox.getInstance().getSelectedItem()).equals("Резиновая пластина")){
-                WidthField.getInstance().actionField();
+            basePanel.getLengthField().actionField();
+            if(((String)basePanel.getBaseMenuBox().getSelectedItem()).equals("Лист") ||
+                    ((String)basePanel.getTypeProfileMenuBox().getSelectedItem()).equals("Резиновая пластина")){
+                basePanel.getWidthField().actionField();
             }
         }
     }

@@ -27,20 +27,15 @@ import calcmassview.viewpanel.NumberProfileMenuBox;
 import calcmassview.viewpanel.BaseMenuBox;
 import calcmassview.viewpanel.AbstractMenuBox;
 import calcmassview.viewpanel.AbstractField;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
 /**
  * основная панель приложения
  * @author Sergei Lyashko
  */
-public class BasePanel extends JPanel {
-    
-    // статическое создание экземпляра класса
-    private static final BasePanel INSTANCE = new BasePanel();
+public class BasePanel extends AbstractPanel {
     
     // combo-boxes
     private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
@@ -51,25 +46,13 @@ public class BasePanel extends JPanel {
     // строка результата
     private final ResultMarker resultMarker;
     
-    /**
-     * Синглтон-метод создания основной панели вида приложения
-     * @return объект основной панели BasePanel
-     */
-    public static final BasePanel getInstance(){
-        return INSTANCE;
-    }
-    
-    // конструктор
-    private BasePanel() {
-        // цвет фона по умолчанию
-        super.setBackground(Color.BLACK);        
-        
+    public BasePanel() {
         // текстовая строка результата
         resultMarker = new ResultMarker();
         resultMarker.setLocation(190, 100);
         
         //текстовое поле Ширина (для листа)
-        widthField = WidthField.getInstance();
+        widthField = new WidthField(this);
         widthField.setLocation(190, 20);       
         //надпись мм для поля
         FieldMarker mmWf = new FieldMarker();
@@ -77,7 +60,7 @@ public class BasePanel extends JPanel {
         mmWf.setLocation(320, 22);
         
         //текстовое поле Длина
-        lengthField = LengthField.getInstance();
+        lengthField = new LengthField(this);
         lengthField.setLocation(190, 60);        
         //надпись мм для поля
         FieldMarker mmLf = new FieldMarker();
@@ -85,7 +68,7 @@ public class BasePanel extends JPanel {
         mmLf.setLocation(320, 62);
         
         // <Тип изделия>
-        baseMenuBox = BaseMenuBox.getInstance();
+        baseMenuBox = new BaseMenuBox(this);
         baseMenuBox.setLocation(20, 20);       
         
         // создание модели меню из БД
@@ -97,12 +80,12 @@ public class BasePanel extends JPanel {
         //CustomMenuFrame.setProfileModelList(baseMenuModel);
         
         // <№ профиля>
-        numberProfileMenuBox = NumberProfileMenuBox.getInstance();
+        numberProfileMenuBox = new NumberProfileMenuBox(this);
         numberProfileMenuBox.setLocation(20, 100);
         numberProfileMenuBox.setModel(MenuCreator.getInstance().getModel("", ""));
         
         // <Тип профиля>
-        typeProfileMenuBox = TypeProfileMenuBox.getInstance();
+        typeProfileMenuBox = new TypeProfileMenuBox(this);
         typeProfileMenuBox.setLocation(20, 60);
         typeProfileMenuBox.setModel(MenuCreator.getInstance().getModel(""));
         

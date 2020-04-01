@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-//https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/dnd/ChooseDropActionDemoProject/src/dnd/ChooseDropActionDemo.java
+//https://docs.oracle.com/javase/tutorial/uiswing/examples/dnd/ChooseDropActionDemoProject/src/dnd/ChooseDropActionDemo.java
 
 package calcmassview.settingpanel;
 
@@ -37,11 +37,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.TransferHandler;
 
 /**
- *
- * @author Korvin
+ * TODO
+ * @author Sergei Lyashko
  */
 // окно выбора элементов меню выпадающих списков
-public class CustomMenuFrame extends JFrame {
+class CustomMenuFrame extends JFrame {
 
     // модель списка
     private static MenuBoxModel profileModel;

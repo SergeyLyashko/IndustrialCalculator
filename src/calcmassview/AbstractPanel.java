@@ -13,31 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
+package calcmassview;
 
-import java.awt.event.ItemEvent;
+import calcmassview.settingpanel.Theme;
+import java.awt.Color;
+import javax.swing.JPanel;
 
 /**
- * Фиксация размеров окна
+ *
  * @author Sergei Lyashko
  */
-class FixSizeWindowChBox extends AbstractSettingChBox {   
+public abstract class AbstractPanel extends JPanel {
     
-    public FixSizeWindowChBox(){
-        create();
-    }
-    
-    private void create(){
-        super.setSelected(true);
-        super.setSize(200, 20);
-        super.setText("зафиксировать размер окна");             
+    public AbstractPanel(){
+        // цвет фона по умолчанию
+        super.setBackground(Color.BLACK);
         Theme.addTheme(this);
     }
     
-    //TODO
-    @Override
-    public void actionChooser(ItemEvent e) {
-        //TODO
-        //System.out.println("test Size Win");        
-    }    
 }

@@ -35,10 +35,10 @@ public class ToolTips extends JToolTip {
     }
     
     public void oFF(){
-        
+        //TODO
     }
     
     public void oN(){
-        
+        //TODO
     }
 }

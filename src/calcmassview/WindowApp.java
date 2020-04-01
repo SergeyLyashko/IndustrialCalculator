@@ -21,26 +21,18 @@ import javax.swing.JFrame;
  * Основное окно приложения
  * @author Sergei Lyashko
  */
-public class AppFrame extends JFrame {
+public class WindowApp extends JFrame {
     
-    // статическое создание экземпляра класса
-    private static final AppFrame INSTANCE = new AppFrame();
-    
-    /**
-     * Метод получения экземпляра класса-синглтона
-     * @return экземпляр класса
-     */
-    public static final AppFrame getInstance(){
-        return INSTANCE;
+    public WindowApp(){
+        create();
     }
     
-    // конструктор
-    private AppFrame(){
-        super("Калькулятор масс");   
+    private void create(){
+        super.setTitle("Калькулятор масс");
         super.setBounds(300, 300, 360, 220);        
         super.setResizable(false);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
         //отображение окна
         super.setVisible(true);
-    }          
+    }
 }

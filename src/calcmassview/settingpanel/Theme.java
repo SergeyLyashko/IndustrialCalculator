@@ -13,17 +13,17 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
- *
+ * Тема оформления окна приложения
  * @author Korvin
  */
 public class Theme {       
     
-    private static ArrayList<JComponent> componentList = new ArrayList<>();    
+    private static final ArrayList<JComponent> COMPONENT_LIST = new ArrayList<>();    
     
     private static Color colorBackGround, colorForeGround, colorMarker;    
     
     public static void addTheme(JComponent component){
-        componentList.add(component);        
+        COMPONENT_LIST.add(component);        
     }
     
     public static void addThemeBox(boolean select){
@@ -49,19 +49,19 @@ public class Theme {
     }
     
     private void setColorTheme(Color backGround, Color foreGround, Color marker){
-        for(int i=0; i<componentList.size(); i++){
-            if(componentList.get(i)
+        for(int i=0; i<COMPONENT_LIST.size(); i++){
+            if(COMPONENT_LIST.get(i)
                     .getClass()
                     .getName()
                     .equals(ResultMarker.class.getName()) || 
-               componentList.get(i)
+               COMPONENT_LIST.get(i)
                     .getClass()
                     .getName()
                     .equals(ServiceMarker.class.getName())){
-                componentList.get(i).setForeground(marker);
+                COMPONENT_LIST.get(i).setForeground(marker);
             }else{
-                componentList.get(i).setBackground(backGround);
-                componentList.get(i).setForeground(foreGround);
+                COMPONENT_LIST.get(i).setBackground(backGround);
+                COMPONENT_LIST.get(i).setForeground(foreGround);
             }
         } 
     }

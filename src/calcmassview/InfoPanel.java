@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Korvin.
+ * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,44 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.infopanel;
+package calcmassview;
 
 import calcmassview.settingpanel.Theme;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 
 /**
- *
- * @author Korvin
+ * панель Информации
+ * @author Sergei Lyashko
  */
-public class InfoText extends JPanel {    
+class InfoPanel extends AbstractPanel {
+        
+    private JLabel htmlText;
+    private JScrollPane scroller;
     
-    private final JLabel htmlText;
-        
-    public InfoText(){
-        super();
-        super.setBackground(Color.black); 
-        Theme.addTheme(this);
-        htmlText = new JLabel(loadText());
-        htmlText.setPreferredSize(new Dimension(280, 510));
-        Theme.addTheme(htmlText);
-        htmlText.setHorizontalAlignment(SwingConstants.CENTER);
-        htmlText.setVerticalAlignment(SwingConstants.CENTER);
-        htmlText.setForeground(Color.WHITE);
-        
-        JScrollPane scroller = new JScrollPane(htmlText);
+    // конструктор
+    public InfoPanel(){
+        super.setLayout(new BorderLayout());
+        super.add(addScroller(), BorderLayout.CENTER);
+    }
+    
+    private JScrollPane addScroller(){
+        scroller = new JScrollPane(addText());
         scroller.getViewport().setBackground(Color.BLACK);        
         Theme.addTheme(scroller.getViewport());
-        scroller.setPreferredSize(new Dimension(345,132));
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroller.setBorder(null);        
-        super.add(scroller);
-    }  
+        return scroller;
+    }
+    
+    private JLabel addText(){
+        htmlText = new JLabel(loadText());
+        htmlText.setPreferredSize(new Dimension(250, 510));
+        htmlText.setForeground(Color.WHITE);
+        Theme.addTheme(htmlText);
+        return htmlText;
+    }
     
     private String loadText(){        
         String text =         
@@ -81,5 +84,5 @@ public class InfoText extends JPanel {
         "Copyright &#169; 2019 Sergei Lyashko.<br>"+
         "Contacts: <a href=mailto:slyashko@mail.ru>написать автору</a>";
         return text;
-    }   
+    }
 }
