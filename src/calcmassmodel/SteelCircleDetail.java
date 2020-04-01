@@ -25,17 +25,23 @@ class SteelCircleDetail extends AbstractDetail {
 
     private final String detailLength;      //длина детали
     private double areaCut;                 //площадь сечени€ детали
+    private double dbValue;         // значени€ дл€ расчета массы из Ѕƒ
         
     public SteelCircleDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
         this.detailLength = length;
-        setAreaCut(profileNumber);
+        setValueFromDataBase(profileAssortment, profileType, profileNumber);
+    }
+    
+    // значение из базы данных
+    private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
+        this.dbValue = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);
+        setAreaCut();
     }
     
     // ѕлощадь сечени€ детали
-    private void setAreaCut(String detailDiametr){
-        double value = getValueFromString(detailDiametr);
-        areaCut = (value * value) / 4 * PI;
+    private void setAreaCut(){
+        areaCut = (dbValue * dbValue) / 4 * PI;
     }
     
     @Override

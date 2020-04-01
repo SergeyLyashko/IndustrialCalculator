@@ -18,11 +18,9 @@ package calcmasscontroller;
 import calcmassmodel.CalculatorModel;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.CalculatorView;
-import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.AbstractMenuBox;
 
 /**
- *
+ * Контроллер
  * @author Sergei Lyashko
  */
 public class CalculatorController implements CalculatorControllerInterface {
@@ -40,8 +38,7 @@ public class CalculatorController implements CalculatorControllerInterface {
     }
     
     @Override
-    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
-            AbstractField lengthField, AbstractField widthField) {
-        model.setParametrs(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
+    public void setParametrs(String assortment, String type, String number, String length, String width) {
+        model.setParametrs(assortment, type, number, length, width);
     }
 }

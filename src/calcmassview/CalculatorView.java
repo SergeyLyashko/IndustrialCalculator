@@ -20,6 +20,8 @@ import calcmassmodel.CalculatorModelInterface;
 import calcmassview.infopanel.InfoPanel;
 import calcmassview.settingpanel.SettingsPanel;
 import calcmassview.settingpanel.Theme;
+import calcmassview.viewpanel.AbstractField;
+import calcmassview.viewpanel.AbstractMenuBox;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
@@ -31,13 +33,22 @@ import java.text.DecimalFormat;
 public class CalculatorView implements MassObserver {
     
     private final CalculatorControllerInterface controller;
-    private final BasePanel basePanel;
+    private final CalculatorModelInterface model;
+    private BasePanel basePanel;
+    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AbstractField lengthField, widthField;
+    private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     private String result;
     
     public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
         this.controller = controller;
-        basePanel = BasePanel.getInstance();
+        this.model = model;
+        create();
+    }
+    
+    private void create(){
+        this.basePanel = BasePanel.getInstance();
         // тема оформления
         Theme.addTheme(basePanel);
         addTab();
@@ -70,11 +81,25 @@ public class CalculatorView implements MassObserver {
     }
     
     public void setParametrs(){
-        controller.setParametrs(basePanel.getBaseMenuBox(),
-                basePanel.getTypeProfileMenuBox(),
-                basePanel.getNumberProfileMenuBox(),
-                basePanel.getLengthField(),
-                basePanel.getWidthField());
+        setFields();
+        setValueOfFields();
+        controller.setParametrs(profileAssortment, profileType, profileNumber, length, width);
+    }
+    
+    private void setFields(){
+        this.baseMenuBox = basePanel.getBaseMenuBox();
+        this.typeProfileMenuBox = basePanel.getTypeProfileMenuBox();
+        this.numberProfileMenuBox = basePanel.getNumberProfileMenuBox();
+        this.lengthField = basePanel.getLengthField();
+        this.widthField = basePanel.getWidthField();        
+    } 
+    
+    private void setValueOfFields(){
+        this.profileAssortment = baseMenuBox.getStringValue();
+        this.profileType = typeProfileMenuBox.getStringValue();
+        this.profileNumber = numberProfileMenuBox.getStringValue();
+        this.length = lengthField.getStringValue();
+        this.width = widthField.getStringValue();
     }
     
     // inner class

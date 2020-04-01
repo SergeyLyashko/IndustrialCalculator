@@ -5,16 +5,12 @@
  */
 package calcmasscontroller;
 
-import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.AbstractMenuBox;
-
 /**
  *
  * @author Korvin
  */
 public interface CalculatorControllerInterface {
     
-    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
-            AbstractField lengthField, AbstractField widthField);
+    public void setParametrs(String assortment, String type, String number, String length, String width);
     
 }

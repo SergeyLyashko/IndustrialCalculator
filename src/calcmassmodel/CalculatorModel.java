@@ -6,29 +6,26 @@
 package calcmassmodel;
 
 import calcmassview.MassObserver;
-import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.AbstractMenuBox;
 import java.util.ArrayList;
 
 /**
  * Модель
- * @author Korvin
+ * @author Sergei Lyashko
  */
 public class CalculatorModel implements CalculatorModelInterface {
     
     private final ArrayList<MassObserver> observers;
-    private final Facade facade;
+    private final CalculatorFacade facade;
     private double mass;
     
     public CalculatorModel(){
         observers = new ArrayList<>();
-        facade = new Facade();
+        facade = new CalculatorFacade();
     }
     
     @Override
-    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
-            AbstractField lengthField, AbstractField widthField){
-        facade.addParametrs(baseMenuBox, typeProfileMenuBox, numberProfileMenuBox, lengthField, widthField);
+    public void setParametrs(String assortment, String type, String number, String length, String width){
+        facade.setParametrs(assortment, type, number, length, width);
         massChanged();
     }
     
@@ -53,7 +50,7 @@ public class CalculatorModel implements CalculatorModelInterface {
         }
     }
 
-    // оповещение наблюдателей о появлении новых данных
+    // оповещение наблюдателей о вычислении массы
     private void massChanged(){
         this.mass = facade.getDetail().getMass();
         notifyObservers();

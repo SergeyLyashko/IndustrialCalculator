@@ -17,14 +17,13 @@ public interface CalculatorModelInterface {
     
     /**
      * Регистрация наблюдателей
-     * @param baseMenuBox
-     * @param typeProfileMenuBox
-     * @param numberProfileMenuBox
-     * @param lengthField
-     * @param widthField
+     * @param assortment
+     * @param type
+     * @param number
+     * @param length
+     * @param width
      */
-    public void setParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
-            AbstractField lengthField, AbstractField widthField);
+    public void setParametrs(String assortment, String type, String number, String length, String width);
         
     /**
      * Регистрация наблюдателей

@@ -15,39 +15,22 @@
  */
 package calcmassmodel;
 
-import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.AbstractMenuBox;
-
 /**
  * Фасад модели
- * реализует интерфейс ISubject делающий рассылку вычисления массы
- * детали в зависимости от посутпивших к нему данных
  * @author Sergei Lyashko
  */
-public class Facade {
+class CalculatorFacade {
     
     private DetailFactory detailFactory;
     private AbstractDetail detail;
-    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
-    private AbstractField lengthField, widthField;
     private String profileAssortment, profileType, profileNumber, length, width;
        
-    public void addParametrs(AbstractMenuBox baseMenuBox, AbstractMenuBox typeProfileMenuBox, AbstractMenuBox numberProfileMenuBox,
-            AbstractField lengthField, AbstractField widthField){
-        this.baseMenuBox = baseMenuBox;
-        this.typeProfileMenuBox = typeProfileMenuBox;
-        this.numberProfileMenuBox = numberProfileMenuBox;
-        this.lengthField = lengthField;
-        this.widthField = widthField;
-        setValueOfFields();
-    }
-    
-    private void setValueOfFields(){
-        this.profileAssortment = baseMenuBox.getStringValue();
-        this.profileType = typeProfileMenuBox.getStringValue();
-        this.profileNumber = numberProfileMenuBox.getStringValue();
-        this.length = lengthField.getStringValue();
-        this.width = widthField.getStringValue();
+    public void setParametrs(String assortment, String type, String number, String length, String width){
+        this.profileAssortment = assortment;
+        this.profileType = type;
+        this.profileNumber = number;
+        this.length = length;
+        this.width = width;
         createDetail();
     }
     
