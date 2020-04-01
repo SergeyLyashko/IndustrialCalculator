@@ -35,7 +35,7 @@ class SteelRiffledPlate extends AbstractDetail {
     
     // значение из базы данных
     private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
-        this.valueFromDataBase = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
+        this.valueFromDataBase = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);      
     }
 
     @Override

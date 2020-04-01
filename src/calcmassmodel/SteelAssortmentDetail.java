@@ -43,7 +43,7 @@ class SteelAssortmentDetail extends AbstractDetail {
     
     // площадь сечения детали
     private void setAreaCut(String profileAssortment, String profileType, String profileNumber){
-        this.areaCut = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);      
+        this.areaCut = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);      
     }
     
     @Override

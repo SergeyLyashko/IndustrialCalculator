@@ -42,7 +42,7 @@ public abstract class AbstractDetail {
      * @param valueStr
      * @return число с плавающей точкой
      */
-    static double getValueFromString(String valueStr) {
+    static final double getValueFromString(String valueStr) {
         try{
             return Double.parseDouble(valueStr);
         }catch(NumberFormatException e){

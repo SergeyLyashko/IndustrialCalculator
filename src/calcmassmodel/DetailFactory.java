@@ -16,7 +16,7 @@
 package calcmassmodel;
 
 /**
- * Фабрика для создания объектов деталей
+ * Фабрика для создания деталей
  * @author Sergei Lyashko
  */
 class DetailFactory extends AbstractDetailFactory {

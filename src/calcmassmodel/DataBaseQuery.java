@@ -25,7 +25,7 @@ import java.sql.SQLException;
  * SQL запрос в БД
  * @author Sergei Lyashko
  */
-class QueryBD {
+class DataBaseQuery {
     
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -47,7 +47,7 @@ class QueryBD {
      * @param number Номер профиля детали
      * @return площадь сечения (в см2)
      */
-    public double getAreaCutBD(String profile, String type, String number) {
+    public double getDataBaseValue(String profile, String type, String number) {
         double result = 0;
         try{
             connection = getConnection();
@@ -61,7 +61,7 @@ class QueryBD {
             // test System.out.println(SQL_QUERY);
             result = resultSet.getDouble("AreaCut_Value");
             // закрытие
-            closeQueryBD(connection, preparedStatement, resultSet);
+            close(connection, preparedStatement, resultSet);
         }catch(SQLException e){
             System.err.println("Ошибка sql: ");
             e.printStackTrace();
@@ -70,7 +70,7 @@ class QueryBD {
     }
     
     // закрытие соединений
-    private void closeQueryBD(Connection c, PreparedStatement p, ResultSet r){
+    private void close(Connection c, PreparedStatement p, ResultSet r){
         try{
             c.close();
             p.close();

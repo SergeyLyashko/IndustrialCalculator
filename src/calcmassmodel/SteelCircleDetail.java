@@ -35,7 +35,7 @@ class SteelCircleDetail extends AbstractDetail {
     
     // значение из базы данных
     private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
-        this.dbValue = new QueryBD().getAreaCutBD(profileAssortment, profileType, profileNumber);
+        this.dbValue = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
         setAreaCut();
     }
     

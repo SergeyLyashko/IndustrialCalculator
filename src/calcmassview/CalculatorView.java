@@ -75,7 +75,6 @@ public class CalculatorView implements MassObserver {
     //форматирование строки результата
     private void formatResult(){
         this.result = new DecimalFormat("#.###").format(mass);
-        System.out.println("test result: "+result);
     }
     
     private void addViewListener(KeyListener e){
@@ -96,7 +95,7 @@ public class CalculatorView implements MassObserver {
         public void keyPressed(KeyEvent e) {}
     } // end iner class
     
-    public void setParametrs(){
+    private void setParametrs(){
         setFields();
         setValueOfFields();
         controller.setParametrs(profileAssortment, profileType, profileNumber, length, width);
