@@ -16,6 +16,7 @@
 
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
@@ -25,11 +26,9 @@ import javax.swing.JComboBox;
  */
 public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {
     
-    public AbstractMenuBox(){
+    public AbstractMenuBox(AbstractPanel panel){
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.addActionListener(this);
     }
-
-    public abstract String getStringValue();
 }

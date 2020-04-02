@@ -18,8 +18,7 @@ package calcmassview;
 import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.settingpanel.SettingsPanel;
-import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.AbstractMenuBox;
+import calcmassview.viewpanel.ValueReceivable;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
@@ -36,8 +35,6 @@ public class CalculatorView implements MassObserver {
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
     private InfoPanel infoPanel;
-    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
-    private AbstractField lengthField, widthField;
     private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     private String result;
@@ -55,7 +52,7 @@ public class CalculatorView implements MassObserver {
         this.infoPanel = new InfoPanel();
         addTab();
         model.registerObserver(this);
-        addViewListener(new ViewListener());
+        addViewListener();
     }
     
     // добавление вкладок в основное окно приложения
@@ -77,43 +74,32 @@ public class CalculatorView implements MassObserver {
         this.result = new DecimalFormat("#.###").format(mass);
     }
     
-    private void addViewListener(KeyListener e){
-        basePanel.addViewListener(e);
-    }
-    
-    // inner class
-    private class ViewListener implements KeyListener {
-        @Override
-        public void keyReleased(KeyEvent e){
-            if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                setParametrs();
+    // слушатель нажатия клавиши
+    private void addViewListener(){
+        basePanel.getLengthField().addKeyListener(new KeyListener() {
+            @Override
+            public void keyReleased(KeyEvent e){
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    setParametrs();
+                }
             }
-        }    
-        @Override
-        public void keyTyped(KeyEvent e) {}
-        @Override
-        public void keyPressed(KeyEvent e) {}
-    } // end iner class
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {}
+        });
+    }
     
     private void setParametrs(){
         setFields();
-        setValueOfFields();
         controller.setParametrs(profileAssortment, profileType, profileNumber, length, width);
     }
     
     private void setFields(){
-        this.baseMenuBox = basePanel.getBaseMenuBox();
-        this.typeProfileMenuBox = basePanel.getTypeProfileMenuBox();
-        this.numberProfileMenuBox = basePanel.getNumberProfileMenuBox();
-        this.lengthField = basePanel.getLengthField();
-        this.widthField = basePanel.getWidthField();        
-    } 
-    
-    private void setValueOfFields(){
-        this.profileAssortment = baseMenuBox.getStringValue();
-        this.profileType = typeProfileMenuBox.getStringValue();
-        this.profileNumber = numberProfileMenuBox.getStringValue();
-        this.length = lengthField.getStringValue();
-        this.width = widthField.getStringValue();
+        this.profileAssortment = ((ValueReceivable) basePanel.getBaseMenuBox()).getValueOfField();
+        this.profileType = ((ValueReceivable) basePanel.getTypeProfileMenuBox()).getValueOfField();
+        this.profileNumber = ((ValueReceivable) basePanel.getNumberProfileMenuBox()).getValueOfField();
+        this.length = ((ValueReceivable) basePanel.getLengthField()).getValueOfField();
+        this.width = ((ValueReceivable) basePanel.getWidthField()).getValueOfField();
     }
 }

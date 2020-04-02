@@ -15,6 +15,7 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.settingpanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -25,10 +26,14 @@ import javax.swing.JLabel;
  */
 public class FieldMarker extends JLabel {
     
-    public FieldMarker(){
+    private AbstractPanel panel;
+    
+    public FieldMarker(AbstractPanel panel){
         super.setVisible(true);
         super.setSize(25, 20);
-        super.setForeground(Color.white);        
+        super.setForeground(Color.white);
+        this.panel = panel;
+        panel.add(this);
         Theme.addTheme(this);
     }
 }

@@ -27,8 +27,10 @@ import calcmassview.viewpanel.NumberProfileMenuBox;
 import calcmassview.viewpanel.BaseMenuBox;
 import calcmassview.viewpanel.AbstractMenuBox;
 import calcmassview.viewpanel.AbstractField;
+import calcmassview.viewpanel.ValueReceivable;
 import java.awt.Component;
-import java.awt.event.KeyListener;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 
 /**
@@ -38,110 +40,66 @@ import java.util.ArrayList;
 public class BasePanel extends AbstractPanel {
     
     // combo-boxes
-    private final AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     // сервисная строка
-    private final ServiceMarker serviceMarker;
+    private ServiceMarker serviceMarker;
     // поля ввода значений
-    private final AbstractField lengthField, widthField;
+    private AbstractField lengthField, widthField;
     // строка результата
-    private final ResultMarker resultMarker;
+    private ResultMarker resultMarker;
+    // создание выпадающего меню в комбо-боксах
+    private MenuCreator menuCreator;
+    // политика обхода фокуса
+    private final ArrayList<Component> policy = new ArrayList<>();
     
     public BasePanel() {
-        // текстовая строка результата
-        resultMarker = new ResultMarker();
-        resultMarker.setLocation(190, 100);
-        
-        //текстовое поле Ширина (для листа)
-        widthField = new WidthField(this);
-        widthField.setLocation(190, 20);       
-        //надпись мм для поля
-        FieldMarker mmWf = new FieldMarker();
-        mmWf.setText("мм");
-        mmWf.setLocation(320, 22);
-        
-        //текстовое поле Длина
-        lengthField = new LengthField(this);
-        lengthField.setLocation(190, 60);        
-        //надпись мм для поля
-        FieldMarker mmLf = new FieldMarker();
-        mmLf.setText("мм");
-        mmLf.setLocation(320, 62);
-        
-        // <Тип изделия>
-        baseMenuBox = new BaseMenuBox(this);
-        baseMenuBox.setLocation(20, 20);       
-        
-        // создание модели меню из БД
-        MenuBoxModel baseMenuModel = MenuCreator.getInstance().getModel();
-        baseMenuBox.setModel(baseMenuModel);
-        
-        // In working
-        // модель основного списка для создания своего меню
-        //CustomMenuFrame.setProfileModelList(baseMenuModel);
-        
-        // <№ профиля>
-        numberProfileMenuBox = new NumberProfileMenuBox(this);
-        numberProfileMenuBox.setLocation(20, 100);
-        numberProfileMenuBox.setModel(MenuCreator.getInstance().getModel("", ""));
-        
-        // <Тип профиля>
-        typeProfileMenuBox = new TypeProfileMenuBox(this);
-        typeProfileMenuBox.setLocation(20, 60);
-        typeProfileMenuBox.setModel(MenuCreator.getInstance().getModel(""));
-        
-        // <Сервисная строка>
-        serviceMarker = new ServiceMarker();
-        serviceMarker.setLocation(20, 140);
-        
-        //добавление компонентов на панель в интерфейсе окна
-        super.add(baseMenuBox);        
-        super.add(typeProfileMenuBox);
-        super.add(numberProfileMenuBox);
-        super.add(lengthField);
-        super.add(widthField);
-        super.add(serviceMarker);
-        super.add(mmLf);
-        super.add(mmWf);
-        super.add(resultMarker);
-        
+        createMenuApplication();
+        createMenuDecorations();
         // отключение автокомпоновки элементов
         super.setLayout(null);       
-               
         // политика обхода фокуса
-        ArrayList<Component> policy = new ArrayList<>();
-        policy.add(baseMenuBox);
-        policy.add(typeProfileMenuBox);
-        policy.add(numberProfileMenuBox);
-        policy.add(widthField);
-        policy.add(lengthField);       
         super.setFocusCycleRoot(true);
         super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
     }
     
-    /**
-     * обновление списка в меню 
-     * @param menuName строковое представление наименования пунка меню
-     * @param source панель выпадающего меню
-     */
-    public void updateView(String menuName, AbstractMenuBox source){
-        if(source.equals(baseMenuBox)){
-            MenuBoxModel typeMenuModel = MenuCreator.getInstance().getModel(menuName);
-            typeProfileMenuBox.setModel(typeMenuModel);
-        }
-        if(source.equals(typeProfileMenuBox)){
-            String selectedAssortment = baseMenuBox.getStringValue();
-            MenuBoxModel numberMenuModel = MenuCreator.getInstance().getModel(selectedAssortment, menuName);
-            numberProfileMenuBox.setModel(numberMenuModel);
-        }
-    }
-    /**
-     * слушатель нажатия клавиши в поле "длина"
-     * @param e событие нажатия клавиши
-     */
-    public void addViewListener(KeyListener e){
-        lengthField.addKeyListener(e);        
+    private void createMenuDecorations(){
+        //надпись мм для поля
+        FieldMarker mmWf = new FieldMarker(this);
+        mmWf.setText("мм");
+        mmWf.setLocation(320, 22);
+        //надпись мм для поля
+        FieldMarker mmLf = new FieldMarker(this);
+        mmLf.setText("мм");
+        mmLf.setLocation(320, 62);
+        // текстовая строка результата
+        resultMarker = new ResultMarker(this);
+        // <Сервисная строка>
+        serviceMarker = new ServiceMarker(this);
     }
     
+    private void createMenuApplication(){
+        // создание модели меню из БД
+        menuCreator = new MenuCreator();
+        // <Тип изделия>
+        baseMenuBox = new BaseMenuBox(this);        
+        // <Тип профиля>
+        typeProfileMenuBox = new TypeProfileMenuBox(this);
+        // <№ профиля>
+        numberProfileMenuBox = new NumberProfileMenuBox(this);
+        //текстовое поле Ширина (для листа)
+        widthField = new WidthField(this);
+        //текстовое поле Длина
+        lengthField = new LengthField(this);
+        //setValueOfFields();
+    }
+    // добавление компонентов в политику обхода фокуса
+    public void addPolicy(Component component){
+        policy.add(component);
+    }
+    
+    public MenuCreator getMenuCreator(){
+        return menuCreator;
+    }
     /**
      * сброс значений при активации панели BaseMenuBox
      */
@@ -170,7 +128,7 @@ public class BasePanel extends AbstractPanel {
     public AbstractMenuBox getNumberProfileMenuBox(){
         return numberProfileMenuBox;
     }
-
+    
     public AbstractField getLengthField() {        
         return lengthField;
     }
@@ -179,12 +137,16 @@ public class BasePanel extends AbstractPanel {
         return widthField;
     }
     
-    public void setResultation(String value){        
+    public void setResultation(String value){
         resultMarker.setResult(value);
+        setResultToSystemClipboard(value);
         setServiceMarker("copy");        
     }
     
-    public String getResultation(){
-        return resultMarker.getText();
+    // метод копирования в буфер обмена при выводе результата
+    private void setResultToSystemClipboard(String value){                
+        Toolkit.getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(value), null);       
     }
 }

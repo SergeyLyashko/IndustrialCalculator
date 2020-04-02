@@ -15,6 +15,7 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.BasePanel;
 import calcmassview.settingpanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -25,10 +26,15 @@ import javax.swing.JLabel;
  */
 public class ServiceMarker extends JLabel {
     
-    public ServiceMarker(){
+    private BasePanel basePanel;
+    
+    public ServiceMarker(BasePanel basePanel){
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
+        this.basePanel = basePanel;
+        this.setLocation(20, 140);
+        basePanel.add(this);
         Theme.addTheme(this);
     }
     

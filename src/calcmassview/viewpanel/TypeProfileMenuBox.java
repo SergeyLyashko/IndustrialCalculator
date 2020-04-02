@@ -15,7 +15,9 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.BasePanel;
+import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
@@ -23,13 +25,24 @@ import java.awt.event.ActionEvent;
  * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class TypeProfileMenuBox extends AbstractMenuBox {   
+public class TypeProfileMenuBox extends AbstractMenuBox implements ValueReceivable {   
     
-    private final BasePanel basePanel;
+    private final AbstractPanel panel;
+    private MenuCreator creator;
     private String selectMenu;
     
-    public TypeProfileMenuBox(BasePanel basePanel) {
-        this.basePanel = basePanel;
+    public TypeProfileMenuBox(AbstractPanel panel) {
+        super(panel);
+        this.panel = panel;
+        create();
+    }
+    
+    private void create(){
+        panel.add(this);
+        this.setLocation(20, 60);
+        ((BasePanel)panel).addPolicy(this);
+        creator = ((BasePanel)panel).getMenuCreator();
+        this.setModel(creator.getModel(null));
     }
     
     @Override
@@ -37,14 +50,17 @@ public class TypeProfileMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        basePanel.reset();
+        ((BasePanel)panel).reset();
         // обновление меню номеров профилей
-        basePanel.updateView(currentMenu, this);
+        AbstractMenuBox baseMenuBox = ((BasePanel)panel).getBaseMenuBox();
+        String selectedAssortment = ((ValueReceivable)baseMenuBox).getValueOfField();
+        MenuBoxModel numberMenuModel = creator.getModel(selectedAssortment, currentMenu);
+        ((BasePanel)panel).getNumberProfileMenuBox().setModel(numberMenuModel);
         this.selectMenu = currentMenu;
     }
     
     @Override
-    public String getStringValue() {
+    public String getValueOfField() {
         return selectMenu;
     }
 }

@@ -53,16 +53,6 @@ public class MenuCreator {
       + "Profiles.ProfileName = ? and "
       + "ProfileTypes.ProfileTypeName = ?";
     
-    private static final MenuCreator INSTANCE = new MenuCreator();
-    
-    /**
-     * Создание синглтон-объекта меню
-     * @return singleton
-     */
-    public static MenuCreator getInstance(){
-        return INSTANCE;
-    }
-    
     /**
      * создание модели меню для базовой панели выпадающего меню
      * @return модель базового меню
@@ -176,7 +166,6 @@ public class MenuCreator {
     
     // подключение к БД
     private Connection getConnection(){
-        Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:./src/database/calculator.db");
         } catch (SQLException ex) {

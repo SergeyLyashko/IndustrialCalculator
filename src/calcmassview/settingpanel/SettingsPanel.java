@@ -76,7 +76,7 @@ public class SettingsPanel extends AbstractPanel implements ItemListener{
     
     // маркеры полей длина и ширина
     private void createFieldsMarker(){
-        FieldMarker infoText = new FieldMarker();
+        FieldMarker infoText = new FieldMarker(this);
         infoText.setText("Настройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       

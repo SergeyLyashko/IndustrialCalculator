@@ -15,6 +15,7 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.settingpanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -24,18 +25,23 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 public class ResultMarker extends JLabel {
+    
+    private final AbstractPanel panel;
          
-    public ResultMarker(){
+    public ResultMarker(AbstractPanel panel){
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
         super.setForeground(Color.green);
+        this.panel = panel;
+        this.setLocation(190, 100);
+        panel.add(this);
         Theme.addTheme(this);
     }
     
     // установка значения в строку результата
-    public void setResult(String result){        
+    public void setResult(String result){
         StringBuilder s = new StringBuilder();
         if(!result.equals("error")){
             s.append(result).append(" "+"кг");

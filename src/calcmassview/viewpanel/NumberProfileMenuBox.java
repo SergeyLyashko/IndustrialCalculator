@@ -15,20 +15,33 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.BasePanel;
+import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumberProfileMenuBox extends AbstractMenuBox {  
+public class NumberProfileMenuBox extends AbstractMenuBox implements ValueReceivable {  
     
     private String selectMenu;
-    private final BasePanel basePanel;
+    private final AbstractPanel panel;
+    private MenuCreator creator;
     
-    public NumberProfileMenuBox(BasePanel basePanel) {
-        this.basePanel = basePanel;
+    public NumberProfileMenuBox(AbstractPanel panel) {
+        super(panel);
+        this.panel = panel;
+        create();
+    }
+    
+    private void create(){
+        panel.add(this);
+        this.setLocation(20, 100);
+        ((BasePanel)panel).addPolicy(this);
+        creator = ((BasePanel)panel).getMenuCreator();
+        this.setModel(creator.getModel(null, null));
     }
         
     @Override
@@ -36,7 +49,7 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        basePanel.reset();
+        ((BasePanel)panel).reset();
         // активаци полей ввода значений
         actionFields(currentMenu);
         // выбранная детали в выпадающем меню 
@@ -44,18 +57,19 @@ public class NumberProfileMenuBox extends AbstractMenuBox {
     }
     
     // активация полей ввода значений
+    //TODO переписать код
     private void actionFields(String selectMenu){
         if(!selectMenu.equals("№ профиля")){
-            basePanel.getLengthField().actionField();
-            if(((String)basePanel.getBaseMenuBox().getSelectedItem()).equals("Лист") ||
-                    ((String)basePanel.getTypeProfileMenuBox().getSelectedItem()).equals("Резиновая пластина")){
-                basePanel.getWidthField().actionField();
+            ((BasePanel)panel).getLengthField().actionField();
+            if(((String)((BasePanel)panel).getBaseMenuBox().getSelectedItem()).equals("Лист") ||
+                    ((String)((BasePanel)panel).getTypeProfileMenuBox().getSelectedItem()).equals("Резиновая пластина")){
+                ((BasePanel)panel).getWidthField().actionField();
             }
         }
     }
 
     @Override
-    public String getStringValue() {
+    public String getValueOfField() {
         return selectMenu;
     }
 }

@@ -15,20 +15,33 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.BasePanel;
+import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
  * Выпадающее меню типов сортамента
  * @author Sergei Lyashko
  */
-public class BaseMenuBox extends AbstractMenuBox {    
+public class BaseMenuBox extends AbstractMenuBox implements ValueReceivable {    
         
     private String selectMenu;
-    private final BasePanel basePanel;
+    private final AbstractPanel panel;
+    private MenuCreator creator;
     
-    public BaseMenuBox(BasePanel basePanel) {
-        this.basePanel = basePanel;
+    public BaseMenuBox(AbstractPanel panel) {
+        super(panel);
+        this.panel = panel;
+        create();
+    }
+    
+    private void create(){
+        panel.add(this);
+        this.setLocation(20, 20);
+        ((BasePanel)panel).addPolicy(this);
+        creator = ((BasePanel)panel).getMenuCreator();
+        this.setModel(creator.getModel());
     }
     
     @Override
@@ -36,22 +49,23 @@ public class BaseMenuBox extends AbstractMenuBox {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
-        basePanel.updateView(currentMenu, this);
+        MenuBoxModel typeMenuModel = creator.getModel(currentMenu);
+        ((BasePanel)panel).getTypeProfileMenuBox().setModel(typeMenuModel);
         //установка начальных позиций меню
         startPosition();
         //сброс параметров полей        
-        basePanel.reset();
+        ((BasePanel)panel).reset();
         this.selectMenu = currentMenu;
     }
     
     // установка начальных значений меню
     private void startPosition(){
-        basePanel.getTypeProfileMenuBox().setSelectedIndex(0);
-        basePanel.getNumberProfileMenuBox().setSelectedIndex(0);
+        ((BasePanel)panel).getTypeProfileMenuBox().setSelectedIndex(0);
+        ((BasePanel)panel).getNumberProfileMenuBox().setSelectedIndex(0);
     }
     
     @Override
-    public String getStringValue() {
+    public String getValueOfField() {
         return selectMenu;
     }
 }

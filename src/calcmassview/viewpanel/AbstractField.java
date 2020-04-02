@@ -15,6 +15,7 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -28,23 +29,15 @@ import javax.swing.JFormattedTextField;
  */
 public abstract class AbstractField extends JFormattedTextField implements FocusListener, KeyListener {
     
-    public AbstractField(){
+    private final AbstractPanel panel;
+    
+    public AbstractField(AbstractPanel panel){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
-    }
-    
-    public double getValue(String valueStr) {
-        try{
-            return Double.parseDouble(valueStr);
-        }catch(NumberFormatException e){
-            System.err.println("Ошибка преобразования значения: " + e);
-        }catch (NullPointerException ex){
-            System.err.println("Нулевой указатель: " + ex);
-        }
-        return 0;
+        this.panel = panel;
     }
     
     /**
@@ -65,12 +58,11 @@ public abstract class AbstractField extends JFormattedTextField implements Focus
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
         super.setText("");
-        new ResultMarker().resetResultMarker();
     }
     
     @Override
     public void focusLost(FocusEvent e){}
-
+    
     @Override
     public void keyTyped(KeyEvent e) {}
     
@@ -84,6 +76,4 @@ public abstract class AbstractField extends JFormattedTextField implements Focus
      * деактивация (закрытие) поля
      */
     public abstract void closeField();
-
-    public abstract String getStringValue();
 }

@@ -15,24 +15,31 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.BasePanel;
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 /**
  * поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends AbstractField {
+public class LengthField extends AbstractField implements ValueReceivable {
     
-    private final BasePanel basePanel;
+    private final AbstractPanel panel;
     private String text;
     
-    public LengthField(BasePanel basePanel){
-        this.basePanel = basePanel;
-        super.setText("длина");            
+    public LengthField(AbstractPanel panel){
+        super(panel);
+        this.panel = panel;
+        create();
+    }
+    
+    private void create(){
+        panel.add(this);
+        super.setText("длина");
+        this.setLocation(190, 60);
+        ((BasePanel)panel).addPolicy(this);
     }
     
     /**
@@ -59,29 +66,8 @@ public class LengthField extends AbstractField {
         }
     }
     
-    public double getLengthValue(){
-        return getValue(text);
-    }
-    
-    /**
-     * копирование результата в буфер обмена при отпускании клавиши
-     * @param e отпускание клавиши "Enter" после нажатия
-     */
     @Override
-    public void keyReleased(KeyEvent e) {
-        String value = basePanel.getResultation();
-        setResultToSystemClipboard(value);
-    }
-    
-    // метод копирования в буфер обмена при выводе результата
-    private void setResultToSystemClipboard(String value){                
-        Toolkit.getDefaultToolkit()
-            .getSystemClipboard()
-            .setContents(new StringSelection(value), null);       
-    }
-
-    @Override
-    public String getStringValue() {
+    public String getValueOfField() {
         return text;
     }
 }

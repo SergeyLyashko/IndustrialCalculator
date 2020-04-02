@@ -15,6 +15,7 @@
  */
 package calcmassview.viewpanel;
 
+import calcmassview.AbstractPanel;
 import calcmassview.BasePanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
@@ -24,14 +25,22 @@ import java.awt.event.KeyEvent;
  * Поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends AbstractField {
+public class WidthField extends AbstractField implements ValueReceivable {
     
-    private final BasePanel basePanel;
+    private final AbstractPanel panel;
     private String text;
     
-    public WidthField(BasePanel basePanel){
-        this.basePanel = basePanel;
+    public WidthField(AbstractPanel panel){
+        super(panel);
+        this.panel = panel;
+        create();
+    }
+    
+    private void create(){
+        panel.add(this);
+        this.setLocation(190, 20);   
         super.setText("ширина");
+        ((BasePanel)panel).addPolicy(this);
     }
     
     /**
@@ -68,7 +77,7 @@ public class WidthField extends AbstractField {
     }
 
     @Override
-    public String getStringValue() {
+    public String getValueOfField() {
         return  text;
     }
 }
