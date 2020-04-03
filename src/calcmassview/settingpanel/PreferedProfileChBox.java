@@ -19,7 +19,6 @@ public class PreferedProfileChBox extends AbstractSettingChBox {
         super.setSize(220, 20);
         super.setText("часто используемые профили");
         super.setSelected(false);       
-        Theme.addTheme(this);        
     }
 
     @Override

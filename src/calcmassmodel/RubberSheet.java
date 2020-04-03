@@ -20,23 +20,16 @@ package calcmassmodel;
  * @author Sergei Lyashko
  */
 class RubberSheet extends AbstractDetail {
-
-    private final String detailLength;      // длина детали
-    private double areaCut;                 //площадь сечения детали
-        
+ 
     public RubberSheet(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
-        this.detailLength = length;
-        setAreaCut(profileNumber, width);        
-    }
-
-    // площадь сечения детали
-    private void setAreaCut(String detailDepth, String detailWidth){
-        this.areaCut = getValueFromString(detailDepth) * getValueFromString(detailWidth);
+        setLength(length);
+        setWidth(width);
+        setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
     
     @Override
     public double getMass() {
-        return DENSITY_RUBBER * getValueFromString(detailLength) * areaCut;
+        return DENSITY_RUBBER * getLength() * getWidth() * getValueFromDataBase();
     }
 }

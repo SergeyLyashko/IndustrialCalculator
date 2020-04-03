@@ -31,7 +31,6 @@ class FixSizeWindowChBox extends AbstractSettingChBox {
         super.setSelected(true);
         super.setSize(200, 20);
         super.setText("зафиксировать размер окна");             
-        Theme.addTheme(this);
     }
     
     //TODO

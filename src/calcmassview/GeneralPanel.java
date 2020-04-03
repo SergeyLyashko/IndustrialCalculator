@@ -37,7 +37,7 @@ public class GeneralPanel extends JPanel {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         //добавление вкладок в панель
         super.add(tabbedPane);
-        new WindowApp().add(this);
+        new ApplicationWindow().add(this);
     }
     
     /**

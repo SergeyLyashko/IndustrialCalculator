@@ -69,6 +69,13 @@ public class CalculatorView implements MassObserver {
         basePanel.setResultation(result);
     }
     
+    @Override
+    public void updateErrorMessage(String message) {
+        if(message != null){
+            basePanel.setError(message);
+        }
+    }
+    
     //форматирование строки результата
     private void formatResult(){
         this.result = new DecimalFormat("#.###").format(mass);
@@ -92,14 +99,29 @@ public class CalculatorView implements MassObserver {
     
     private void setParametrs(){
         setFields();
-        controller.setParametrs(profileAssortment, profileType, profileNumber, length, width);
+        controller.setValueFromView(profileAssortment, profileType, profileNumber, length, width);
     }
     
     private void setFields(){
-        this.profileAssortment = ((ValueReceivable) basePanel.getBaseMenuBox()).getValueOfField();
-        this.profileType = ((ValueReceivable) basePanel.getTypeProfileMenuBox()).getValueOfField();
-        this.profileNumber = ((ValueReceivable) basePanel.getNumberProfileMenuBox()).getValueOfField();
-        this.length = ((ValueReceivable) basePanel.getLengthField()).getValueOfField();
-        this.width = ((ValueReceivable) basePanel.getWidthField()).getValueOfField();
+        this.profileAssortment = 
+                ((ValueReceivable) basePanel
+                    .getBaseMenuBox())
+                    .getValueOfField();
+        this.profileType = 
+                ((ValueReceivable) basePanel
+                    .getTypeProfileMenuBox())
+                    .getValueOfField();
+        this.profileNumber = 
+                ((ValueReceivable) basePanel
+                    .getNumberProfileMenuBox())
+                    .getValueOfField();
+        this.length = 
+                ((ValueReceivable) basePanel
+                    .getLengthField())
+                    .getValueOfField();
+        this.width = 
+                ((ValueReceivable) basePanel
+                    .getWidthField())
+                    .getValueOfField();
     }
 }

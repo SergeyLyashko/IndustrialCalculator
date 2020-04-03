@@ -16,9 +16,8 @@
 package calcmassview;
 
 import calcmassview.viewpanel.CalculatorFocusTraversalPolicy;
-import calcmassview.viewpanel.MenuBoxModel;
 import calcmassview.viewpanel.FieldMarker;
-import calcmassview.viewpanel.ServiceMarker;
+import calcmassview.viewpanel.ServiceInfo;
 import calcmassview.viewpanel.ResultMarker;
 import calcmassview.viewpanel.LengthField;
 import calcmassview.viewpanel.WidthField;
@@ -27,7 +26,6 @@ import calcmassview.viewpanel.NumberProfileMenuBox;
 import calcmassview.viewpanel.BaseMenuBox;
 import calcmassview.viewpanel.AbstractMenuBox;
 import calcmassview.viewpanel.AbstractField;
-import calcmassview.viewpanel.ValueReceivable;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -42,7 +40,7 @@ public class BasePanel extends AbstractPanel {
     // combo-boxes
     private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     // сервисная строка
-    private ServiceMarker serviceMarker;
+    private ServiceInfo serviceInfo;
     // поля ввода значений
     private AbstractField lengthField, widthField;
     // строка результата
@@ -53,8 +51,8 @@ public class BasePanel extends AbstractPanel {
     private final ArrayList<Component> policy = new ArrayList<>();
     
     public BasePanel() {
-        createMenuApplication();
-        createMenuDecorations();
+        createComponents();
+        createDecorations();
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // политика обхода фокуса
@@ -62,7 +60,7 @@ public class BasePanel extends AbstractPanel {
         super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
     }
     
-    private void createMenuDecorations(){
+    private void createDecorations(){
         //надпись мм для поля
         FieldMarker mmWf = new FieldMarker(this);
         mmWf.setText("мм");
@@ -74,10 +72,10 @@ public class BasePanel extends AbstractPanel {
         // текстовая строка результата
         resultMarker = new ResultMarker(this);
         // <Сервисная строка>
-        serviceMarker = new ServiceMarker(this);
+        serviceInfo = new ServiceInfo(this);
     }
     
-    private void createMenuApplication(){
+    private void createComponents(){
         // создание модели меню из БД
         menuCreator = new MenuCreator();
         // <Тип изделия>
@@ -90,7 +88,6 @@ public class BasePanel extends AbstractPanel {
         widthField = new WidthField(this);
         //текстовое поле Длина
         lengthField = new LengthField(this);
-        //setValueOfFields();
     }
     // добавление компонентов в политику обхода фокуса
     public void addPolicy(Component component){
@@ -106,15 +103,10 @@ public class BasePanel extends AbstractPanel {
     public void reset(){        
         // сброс надписей
         resultMarker.resetResultMarker();
-        serviceMarker.resetServiceMarker();
+        serviceInfo.resetServiceMarker();
         //сброс полей ввода
         widthField.closeField();
         lengthField.closeField();        
-    }
-    
-    // сервисная строка
-    public void setServiceMarker(String eventStr){        
-        serviceMarker.setMarker(eventStr);
     }
     
     public AbstractMenuBox getBaseMenuBox(){
@@ -140,7 +132,13 @@ public class BasePanel extends AbstractPanel {
     public void setResultation(String value){
         resultMarker.setResult(value);
         setResultToSystemClipboard(value);
-        setServiceMarker("copy");        
+        serviceInfo.setMessage("результат скопирован в буфер обмена");
+    }
+    
+    // сервисная строка
+    public void setError(String message){
+        resultMarker.setResult("error");
+        serviceInfo.setErrorMessage(message);
     }
     
     // метод копирования в буфер обмена при выводе результата

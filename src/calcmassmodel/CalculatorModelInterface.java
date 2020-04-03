@@ -22,16 +22,6 @@ import calcmassview.MassObserver;
  * @author Korvin
  */
 public interface CalculatorModelInterface {
-    
-    /**
-     * Регистрация наблюдателей
-     * @param assortment
-     * @param type
-     * @param number
-     * @param length
-     * @param width
-     */
-    public void setParametrs(String assortment, String type, String number, String length, String width);
         
     /**
      * Регистрация наблюдателей
@@ -49,5 +39,20 @@ public interface CalculatorModelInterface {
      * оповещение наблюдателей об изменении состояния
      */
     public void notifyObservers();
+    
+    /**
+     * вывод сервисного сообщения об ошибке
+     */
+    public void displayErrorMessage();
+    
+    /**
+     * Создание детали по параметрам
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param length длина детали
+     * @param width ширина детали (при наличии)
+     */
+    public void createDetail(String assortment, String type, String number, String length, String width);
     
 }

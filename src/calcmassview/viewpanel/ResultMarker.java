@@ -26,15 +26,12 @@ import javax.swing.JLabel;
  */
 public class ResultMarker extends JLabel {
     
-    private final AbstractPanel panel;
-         
     public ResultMarker(AbstractPanel panel){
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
         super.setForeground(Color.green);
-        this.panel = panel;
         this.setLocation(190, 100);
         panel.add(this);
         Theme.addTheme(this);

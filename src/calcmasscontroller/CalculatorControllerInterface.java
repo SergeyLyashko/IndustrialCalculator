@@ -17,6 +17,7 @@ package calcmasscontroller;
 
 /**
  * Интерфейс контроллера
+ * Получение параметров полей
  * @author Sergei Lyashko
  */
 public interface CalculatorControllerInterface {
@@ -29,6 +30,6 @@ public interface CalculatorControllerInterface {
      * @param length длина детали
      * @param width ширина детали
      */
-    public void setParametrs(String assortment, String type, String number, String length, String width);
+    public void setValueFromView(String assortment, String type, String number, String length, String width);
     
 }

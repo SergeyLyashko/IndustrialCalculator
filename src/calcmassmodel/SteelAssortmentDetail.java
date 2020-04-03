@@ -24,31 +24,14 @@ package calcmassmodel;
  */
 class SteelAssortmentDetail extends AbstractDetail {
 
-    private final String detailLength;        //длина детали
-    private double areaCut;                    //площадь сечения детали
-    
-    /**
-     * Конструктор для деталей (Швеллер, Уголок, Двутавр)
-     * @param profileAssortment
-     * @param profileType
-     * @param profileNumber
-     * @param length
-     * @param width
-     */
     public SteelAssortmentDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
-        this.detailLength = length;
-        setAreaCut(profileAssortment, profileType, profileNumber);
-    }
-    
-    // площадь сечения детали
-    private void setAreaCut(String profileAssortment, String profileType, String profileNumber){
-        this.areaCut = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);      
+        setLength(length);
+        setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
     
     @Override
-    public double getMass() {
-        return DENSITY_STEEL * areaCut * getValueFromString(detailLength) * 100;
-    }
-    
+    double getMass() {
+        return DENSITY_STEEL * getValueFromDataBase() * getLength() * 100;
+    }        
 }

@@ -21,25 +21,16 @@ package calcmassmodel;
  * @author Sergei Lyashko
  */
 class SteelRiffledPlate extends AbstractDetail {
-
-    private final String detailLength;        //длина детали
-    private final String detailWidth;         //ширина детали
-    private double valueFromDataBase;         // значени€ дл€ расчета массы из Ѕƒ
         
     public SteelRiffledPlate(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
-        this.detailLength = length;
-        this.detailWidth = width;
+        setLength(length);
+        setWidth(width);
         setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
     
-    // значение из базы данных
-    private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
-        this.valueFromDataBase = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);      
-    }
-
     @Override
     public double getMass() {
-        return (getValueFromString(detailLength) * getValueFromString(detailWidth) / 1000000) * valueFromDataBase;
+        return (getLength() * getWidth() / 1000000) * getValueFromDataBase();
     }
 }

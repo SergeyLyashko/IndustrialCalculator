@@ -21,22 +21,15 @@ package calcmassmodel;
  */
 class SteelSheet extends AbstractDetail {
 
-    private final String detailLength;         // длина детали
-    private double areaCut;                    //площадь сечения детали
-        
     public SteelSheet(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
-        this.detailLength = length;
-        setAreaCut(profileNumber, width);
+        setLength(length);
+        setWidth(width);
+        setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
-
-    // Площадь сечения детали
-    private void setAreaCut(String detailDepth, String detailWidth){
-        this.areaCut = getValueFromString(detailDepth) * getValueFromString(detailWidth);
-    }
-        
+            
     @Override
     public double getMass() {
-        return DENSITY_STEEL * getValueFromString(detailLength) * areaCut;
+        return DENSITY_STEEL * getLength() * getWidth() * getValueFromDataBase();
     }
 }

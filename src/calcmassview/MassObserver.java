@@ -21,8 +21,14 @@ package calcmassview;
  */
 public interface MassObserver {
     /**
-     * передача значения массы наблюдателям при ее изменении
+     * обновление массы при ее изменении
      * @param mass масса детали
      */
     public void update(double mass);
+    
+    /**
+     * обновление строки об ошибке 
+     * @param message
+     */
+    public void updateErrorMessage(String message);
 }

@@ -31,7 +31,6 @@ class ToolTipsOffBox extends AbstractSettingChBox {
         super.setSelected(true);
         super.setSize(250, 20);
         super.setText("отключить всплывающие подсказки");             
-        Theme.addTheme(this);
     }
     
     @Override

@@ -15,7 +15,7 @@
  */
 package calcmassview.viewpanel;
 
-import calcmassview.BasePanel;
+import calcmassview.AbstractPanel;
 import calcmassview.settingpanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -24,17 +24,14 @@ import javax.swing.JLabel;
  * информационна строка внизу основного окна
  * @author Sergei Lyashko
  */
-public class ServiceMarker extends JLabel {
+public class ServiceInfo extends JLabel {
     
-    private BasePanel basePanel;
-    
-    public ServiceMarker(BasePanel basePanel){
+    public ServiceInfo(AbstractPanel panel){
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
-        this.basePanel = basePanel;
         this.setLocation(20, 140);
-        basePanel.add(this);
+        panel.add(this);
         Theme.addTheme(this);
     }
     
@@ -46,25 +43,17 @@ public class ServiceMarker extends JLabel {
     }
     
     /**
-     * выбор служебной строки для вывода на панель View в зависимости
-     * от произошедшего события
-     * @param eventStr строковое представление события
+     * вывод служебной строки на панель View
+     * @param message
      */
-    public void setMarker(String eventStr){
-        String text;
-        switch(eventStr){
-            case "copy":                
-                Theme.addThemeMarker(this);
-                text = "результат скопирован в буфер обмена";
-                break;
-            case "error":
-                super.setForeground(Color.red);
-                text = "введено неверное значение";
-                break;
-            default:
-                text = null;
-                break;
-        }
-        super.setText(text);
+    public void setMessage(String message){
+        super.setForeground(Color.GREEN);
+        super.setText(message);
     }
+    
+    public void setErrorMessage(String message){
+        super.setForeground(Color.RED);        
+        super.setText(message);
+    }
+        
 }

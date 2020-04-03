@@ -22,12 +22,12 @@ package calcmassmodel;
 class DetailFactory extends AbstractDetailFactory {
 
     /**
-     * Создание объекта(детали) интерфейса
-     * @param profileAssortment
-     * @param profileType
-     * @param profileNumber
-     * @param length
-     * @param width
+     * Создание детали по параметрам
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param length длина детали
+     * @param width ширина детали (при наличии)
      */
     @Override
     protected AbstractDetail createDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {

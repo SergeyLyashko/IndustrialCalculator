@@ -22,30 +22,16 @@ import static java.lang.Math.PI;
  * @author Sergei Lyashko
  */
 class SteelCircleDetail extends AbstractDetail {
-
-    private final String detailLength;      //длина детали
-    private double areaCut;                 //площадь сечени€ детали
-    private double dbValue;         // значени€ дл€ расчета массы из Ѕƒ
         
     public SteelCircleDetail(String profileAssortment, String profileType, String profileNumber, String length, String width) {
         super(profileAssortment, profileType, profileNumber, length, width);
-        this.detailLength = length;
+        setLength(length);
         setValueFromDataBase(profileAssortment, profileType, profileNumber);
     }
-    
-    // значение из базы данных
-    private void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
-        this.dbValue = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
-        setAreaCut();
-    }
-    
-    // ѕлощадь сечени€ детали
-    private void setAreaCut(){
-        areaCut = (dbValue * dbValue) / 4 * PI;
-    }
-    
+        
     @Override
     public double getMass() {
-        return DENSITY_STEEL * getValueFromString(detailLength) * areaCut;
+        double dbValue = getValueFromDataBase();
+        return (dbValue * dbValue) / 4 * PI * DENSITY_STEEL * getLength();
     }
 }

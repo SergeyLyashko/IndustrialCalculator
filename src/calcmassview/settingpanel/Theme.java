@@ -5,7 +5,7 @@
  */
 package calcmassview.settingpanel;
 
-import calcmassview.viewpanel.ServiceMarker;
+import calcmassview.viewpanel.ServiceInfo;
 import calcmassview.viewpanel.ResultMarker;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class Theme {
                COMPONENT_LIST.get(i)
                     .getClass()
                     .getName()
-                    .equals(ServiceMarker.class.getName())){
+                    .equals(ServiceInfo.class.getName())){
                 COMPONENT_LIST.get(i).setForeground(marker);
             }else{
                 COMPONENT_LIST.get(i).setBackground(backGround);

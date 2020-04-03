@@ -19,23 +19,23 @@ import calcmassview.MassObserver;
 import java.util.ArrayList;
 
 /**
- * Модель
+ * создание детали
  * @author Sergei Lyashko
  */
 public class CalculatorModel implements CalculatorModelInterface {
     
+    private AbstractDetail orderDetail;
     private final ArrayList<MassObserver> observers;
-    private final CalculatorFacade facade;
     private double mass;
+    private String serviceMessage;
     
     public CalculatorModel(){
         observers = new ArrayList<>();
-        facade = new CalculatorFacade();
     }
     
     @Override
-    public void setParametrs(String assortment, String type, String number, String length, String width){
-        facade.setParametrs(assortment, type, number, length, width);
+    public void createDetail(String assortment, String type, String number, String length, String width){
+        orderDetail = new DetailFactory().orderDetail(assortment, type, number, length, width);
         massChanged();
     }
     
@@ -57,12 +57,19 @@ public class CalculatorModel implements CalculatorModelInterface {
         for(int i=0; i<observers.size(); i++){
             MassObserver observer = observers.get(i);
             observer.update(mass);
+            observer.updateErrorMessage(serviceMessage);
         }
     }
 
-    // оповещение наблюдателей о вычислении массы
+    @Override
+    public void displayErrorMessage() {
+        this.serviceMessage = orderDetail.getErrorMessage();
+    }
+    
+    // оповещение наблюдателей об изменениях
     private void massChanged(){
-        this.mass = facade.getDetail().getMass();
+        this.mass = orderDetail.getMass();
+        displayErrorMessage();
         notifyObservers();
     }
 }

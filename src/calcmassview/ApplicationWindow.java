@@ -21,9 +21,9 @@ import javax.swing.JFrame;
  * Основное окно приложения
  * @author Sergei Lyashko
  */
-public class WindowApp extends JFrame {
+public class ApplicationWindow extends JFrame {
     
-    public WindowApp(){
+    public ApplicationWindow(){
         create();
     }
     

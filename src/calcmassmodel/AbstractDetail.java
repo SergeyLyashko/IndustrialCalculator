@@ -16,7 +16,7 @@
 package calcmassmodel;
 
 /**
- * Абстрактный класс детали для наследования
+ * Абстрактный класс детали
  * @author Korvin
  */
 public abstract class AbstractDetail {
@@ -26,15 +26,62 @@ public abstract class AbstractDetail {
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
     final double DENSITY_RUBBER = 1.25e-6;
     
+    private double length;
+    private double width;
+    private double dataBaseValue;
+    private String message;
+    
     /**
      * Абстрактная деталь
-     * @param profileAssortment
-     * @param profileType
-     * @param profileNumber
-     * @param length
-     * @param width
+     * @param profileAssortment наименование сортамента
+     * @param profileType тип выбранного сортамента
+     * @param profileNumber номер профиля детали
+     * @param length длина детали
+     * @param width ширина детали (если задана)
      */
     public AbstractDetail(String profileAssortment, String profileType, String profileNumber, String length, String width){        
+    }
+    
+    /**
+     * значение из базы данных
+     * @param profileAssortment наименование сортамента
+     * @param profileType тип сортамента
+     * @param profileNumber номер профиля
+     */
+    protected final void setValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
+        this.dataBaseValue = new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
+    }
+    
+    /**
+     * Запрос значения из базы данных
+     * @return значение из базы данных
+     */
+    protected final double getValueFromDataBase(){
+        return dataBaseValue;
+    }
+    
+    /**
+     * Установка значения длины детали
+     * @param length строковое значение длины
+     */
+    protected final void setLength(String length){
+        try{
+            this.length = getValueFromField(length);
+        }catch(NumberFormatException e){
+            this.message = "ошибка! неправильно задана длина детали";
+        }
+    }
+    
+    /**
+     * Установка значения ширины детали
+     * @param width строковое знание ширины
+     */
+    protected final void setWidth(String width){
+        try{
+            this.width = getValueFromField(width);
+        }catch(NumberFormatException e){
+            this.message = "ошибка! неправильно задана ширина детали";
+        }
     }
     
     /**
@@ -42,20 +89,37 @@ public abstract class AbstractDetail {
      * @param valueStr
      * @return число с плавающей точкой
      */
-    static final double getValueFromString(String valueStr) {
-        try{
-            return Double.parseDouble(valueStr);
-        }catch(NumberFormatException e){
-            System.err.println("Ошибка преобразования значения: " + e);
-        }catch (NullPointerException ex){
-            System.err.println("Нулевой указатель: " + ex);
-        }
-        return 0;
+    private double getValueFromField(String valueStr) throws NumberFormatException {
+        return Double.parseDouble(valueStr);
     }
+    
+    /**
+     * Запрос длины детали
+     * @return длина детали
+     */
+    protected final double getLength(){
+        return length;
+    }
+    
+    /**
+     * Запрос ширины детали
+     * @return ширина детали
+     */
+    protected final double getWidth(){
+        return width;
+    }
+    
+    /**
+     * Возвращает сервисное сообщение об ошибке
+     * @return строковое представление сообщения
+     */
+    protected final String getErrorMessage() {
+        return message;
+    } 
     
     /**
      * получение массы детали
      * @return значение массы детали
      */
-    abstract double getMass();
+    abstract double getMass();    
 }

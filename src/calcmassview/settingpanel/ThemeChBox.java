@@ -33,7 +33,6 @@ class ThemeChBox extends AbstractSettingChBox {
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText("темная тема оформления");      
-        Theme.addTheme(this);
         setTheme(super.isSelected());
     }
     

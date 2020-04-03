@@ -20,14 +20,15 @@ import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
 /**
- * Абстрактный класс для чек-боксов
+ * Абстрактный класс чек-боксов
  * @author Sergei Lyashko
  */
 public abstract class AbstractSettingChBox extends JCheckBox { 
     
     public AbstractSettingChBox(){
         super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);        
+        super.setForeground(Color.white);
+        Theme.addTheme(this);
     }    
     
     /**
