@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class CalculatorModel implements CalculatorModelInterface {
     
-    private AbstractDetail orderDetail;
+    private Detail detail;
     private final ArrayList<MassObserver> observers;
     private double mass;
     private String serviceMessage;
@@ -35,7 +35,8 @@ public class CalculatorModel implements CalculatorModelInterface {
     
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
-        orderDetail = new DetailFactory().orderDetail(assortment, type, number, length, width);
+        detail = new Detail();
+        this.mass = detail.setParametrs(assortment, type, number, length, width).getMass();
         massChanged();
     }
     
@@ -54,21 +55,20 @@ public class CalculatorModel implements CalculatorModelInterface {
 
     @Override
     public void notifyObservers() {
-        for(int i=0; i<observers.size(); i++){
-            MassObserver observer = observers.get(i);
+        observers.stream().forEach((MassObserver observer) -> {
             observer.update(mass);
             observer.updateErrorMessage(serviceMessage);
-        }
+        });
     }
 
     @Override
     public void displayErrorMessage() {
-        this.serviceMessage = orderDetail.getErrorMessage();
+        this.serviceMessage = detail.message().getErrorMessage();
+        
     }
     
     // оповещение наблюдателей об изменениях
     private void massChanged(){
-        this.mass = orderDetail.getMass();
         displayErrorMessage();
         notifyObservers();
     }
