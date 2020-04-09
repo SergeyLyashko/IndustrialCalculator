@@ -41,7 +41,8 @@ public class TypeProfileMenuBox extends AbstractMenuBox implements ValueReceivab
         panel.add(this);
         this.setLocation(20, 60);
         ((BasePanel)panel).addPolicy(this);
-        creator = ((BasePanel)panel).getMenuCreator();
+        //creator = ((BasePanel)panel).getMenuCreator();
+        creator = new MenuCreator();
         this.setModel(creator.getModel(null));
     }
     

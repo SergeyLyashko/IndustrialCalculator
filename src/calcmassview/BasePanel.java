@@ -77,7 +77,7 @@ public class BasePanel extends AbstractPanel {
     
     private void createComponents(){
         // создание модели меню из БД
-        menuCreator = new MenuCreator();
+        //menuCreator = new MenuCreator();
         // <Тип изделия>
         baseMenuBox = new BaseMenuBox(this);        
         // <Тип профиля>
@@ -93,10 +93,11 @@ public class BasePanel extends AbstractPanel {
     public void addPolicy(Component component){
         policy.add(component);
     }
-    
+    /*
     public MenuCreator getMenuCreator(){
         return menuCreator;
     }
+    */
     /**
      * сброс значений при активации панели BaseMenuBox
      */

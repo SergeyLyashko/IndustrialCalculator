@@ -13,7 +13,6 @@ import java.awt.event.ItemEvent;
  */
 public class PreferedProfileChBox extends AbstractSettingChBox {
     
-    private CustomMenuFrame menuFrame;
     
     public PreferedProfileChBox(){
         super.setSize(220, 20);
@@ -25,10 +24,8 @@ public class PreferedProfileChBox extends AbstractSettingChBox {
     public void actionChooser(ItemEvent e) {
         switch(e.getStateChange()){
             case ItemEvent.SELECTED:
-                menuFrame = new CustomMenuFrame();
                 break;
             case ItemEvent.DESELECTED:                
-                menuFrame.setEnabled(false);
                 break;            
         } 
     }

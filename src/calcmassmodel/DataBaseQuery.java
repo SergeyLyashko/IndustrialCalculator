@@ -20,6 +20,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * SQL запрос в БД
@@ -84,10 +86,13 @@ class DataBaseQuery {
     private Connection getConnection(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:./src/database/calculator.db");
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:calculator.db");
         } catch (SQLException ex) {
             System.err.print("Ошибка подключения к БД. ");
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;
     }

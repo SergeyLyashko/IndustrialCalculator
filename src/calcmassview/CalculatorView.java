@@ -19,9 +19,14 @@ import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.settingpanel.SettingsPanel;
 import calcmassview.viewpanel.ValueReceivable;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * View
@@ -38,28 +43,41 @@ public class CalculatorView implements MassObserver {
     private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     private String result;
+    private JTabbedPane tabbedPane;
     
     public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
+        //super(new GridLayout(1, 1));
         this.controller = controller;
         this.model = model;
-        create();
+        model.registerObserver(this);
     }
     
-    private void create(){
+    public void create(){
         this.generalPanel = new GeneralPanel();
         this.basePanel = new BasePanel();
         this.settingsPanel = new SettingsPanel();
         this.infoPanel = new InfoPanel();
-        addTab();
-        model.registerObserver(this);
         addViewListener();
+        addTab();
+    }
+    
+    public void createAndShowGUI(){
+        JFrame app = new JFrame("Калькулятор масс");
+        app.setBounds(300, 300, 360, 220);
+        app.setResizable(false);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.getContentPane().add(generalPanel, BorderLayout.CENTER);
+        //отображение окна
+        app.setVisible(true);
     }
     
     // добавление вкладок в основное окно приложения
     private void addTab(){
-        generalPanel.addPanel("Калькулятор", basePanel);       
-        generalPanel.addPanel("Настройки", settingsPanel);
-        generalPanel.addPanel("Справка", infoPanel);
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.addTab("Калькулятор", basePanel);       
+        tabbedPane.addTab("Настройки", settingsPanel);
+        tabbedPane.addTab("Справка", infoPanel);
+        generalPanel.add(tabbedPane);
     }
 
     @Override

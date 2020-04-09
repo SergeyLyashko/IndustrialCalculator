@@ -40,7 +40,8 @@ public class NumberProfileMenuBox extends AbstractMenuBox implements ValueReceiv
         panel.add(this);
         this.setLocation(20, 100);
         ((BasePanel)panel).addPolicy(this);
-        creator = ((BasePanel)panel).getMenuCreator();
+        //creator = ((BasePanel)panel).getMenuCreator();
+        creator = new MenuCreator();
         this.setModel(creator.getModel(null, null));
     }
         

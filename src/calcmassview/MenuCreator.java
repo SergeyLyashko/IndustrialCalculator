@@ -16,11 +16,17 @@
 package calcmassview;
 
 import calcmassview.viewpanel.MenuBoxModel;
+import java.io.File;
+import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +38,8 @@ public class MenuCreator {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    
+    private Statement createStatement;
     
     // Sql запрос таблицы сортаментов(профилей)
     private static final String SQL_QUERY_PROFILES = 
@@ -137,9 +145,11 @@ public class MenuCreator {
         menu.add("Тип сортамента");
         try{
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_PROFILES);        
+            preparedStatement = connection.prepareStatement(SQL_QUERY_PROFILES);    ///??????????????????????
+            //createStatement = connection.createStatement();
             // регистрация возвращаемого параметра
             resultSet = preparedStatement.executeQuery();
+            //resultSet = createStatement.executeQuery(SQL_QUERY_PROFILES);
             // добавление строк в меню
             while(resultSet.next()){
                 menu.add(resultSet.getString("ProfileName"));
@@ -166,10 +176,16 @@ public class MenuCreator {
     
     // подключение к БД
     private Connection getConnection(){
+        //String path = this.getClass().getResource("\\database\\calculator.db").toString();//.getPath();
+        //String path = "IndustrialCalculator.jar\\database\\calculator.db";
+        //System.out.println("path: "+path);
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:./src/database/calculator.db");
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:calculator.db");
         } catch (SQLException ex) {
             System.err.print("Ошибка подключения к БД. ");
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return connection;

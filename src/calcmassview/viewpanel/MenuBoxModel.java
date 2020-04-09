@@ -29,7 +29,6 @@ public class MenuBoxModel extends AbstractListModel<String> implements ComboBoxM
     private int selected = 0;
     
     public MenuBoxModel(ArrayList<String> menu){
-        this.menu = new ArrayList<>();
         this.menu = menu;
     }   
 

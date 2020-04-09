@@ -30,14 +30,14 @@ public class GeneralPanel extends JPanel {
     public GeneralPanel() {
         // менеджер компоновки
         super(new GridLayout(1, 1));  
-        create();
+        //create();
     }
     
     private void create(){
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         //добавление вкладок в панель
         super.add(tabbedPane);
-        new ApplicationWindow().add(this);
+        //new ApplicationWindow().add(this);
     }
     
     /**
@@ -45,7 +45,9 @@ public class GeneralPanel extends JPanel {
      * @param namePanel наименование панели
      * @param panel добавл€ема€ панель
      */
+    /*
     public void addPanel(String namePanel, JPanel panel){        
         tabbedPane.addTab(namePanel, panel);        
-    }    
+    } 
+*/
 }

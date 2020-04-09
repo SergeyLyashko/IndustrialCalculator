@@ -15,6 +15,8 @@
  */
 package calcmasscontroller;
 
+import calcmassmodel.CalculatorModel;
+import calcmassmodel.CalculatorModelInterface;
 import javax.swing.SwingUtilities;
 
 /**
@@ -23,6 +25,9 @@ import javax.swing.SwingUtilities;
  */
 public class Main { 
     public static void main (String[] args) {
-        SwingUtilities.invokeLater(CalculatorController::start);
+        SwingUtilities.invokeLater(() -> {
+            CalculatorModelInterface model = new CalculatorModel();
+            new CalculatorController(model); 
+        });
     }
 }

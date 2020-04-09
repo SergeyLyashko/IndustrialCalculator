@@ -40,7 +40,8 @@ public class BaseMenuBox extends AbstractMenuBox implements ValueReceivable {
         panel.add(this);
         this.setLocation(20, 20);
         ((BasePanel)panel).addPolicy(this);
-        creator = ((BasePanel)panel).getMenuCreator();
+        creator = new MenuCreator();
+                                        //creator = ((BasePanel)panel).getMenuCreator();
         this.setModel(creator.getModel());
     }
     

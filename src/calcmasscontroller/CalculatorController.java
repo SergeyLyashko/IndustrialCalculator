@@ -18,6 +18,8 @@ package calcmasscontroller;
 import calcmassmodel.CalculatorModel;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.CalculatorView;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 
 /**
  * Контроллер
@@ -25,18 +27,30 @@ import calcmassview.CalculatorView;
  */
 public class CalculatorController implements CalculatorControllerInterface {
     
-    private static CalculatorModelInterface model;
+    private CalculatorModelInterface model;
     
-    public static void start(){
-        model = new CalculatorModel();
-        new CalculatorController(model);
+    public CalculatorController(CalculatorModelInterface model){
+        this.model = model;
+        //createAndShowGUI();
+        CalculatorView calculatorView = new CalculatorView(model, this);
+        calculatorView.create();
+        calculatorView.createAndShowGUI();
+    }   
+    /*
+    private void createAndShowGUI(){
+        JFrame app = new JFrame("Калькулятор масс");
+        //app.setBounds(300, 300, 360, 220);
+        app.setSize(360, 220);
+        app.setResizable(false);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //CalculatorView calculatorView = new CalculatorView(model, this);
+        //calculatorView.create();
+        app.getContentPane().add(calculatorView, BorderLayout.CENTER);
+        //отображение окна
+        app.setVisible(true);
     }
-    
-    private CalculatorController(CalculatorModelInterface model){
-        // создание View
-        new CalculatorView(model, this);
-    }
-    
+    */
     @Override
     public void setValueFromView(String assortment, String type, String number, String length, String width) {
         model.createDetail(assortment, type, number, length, width);
