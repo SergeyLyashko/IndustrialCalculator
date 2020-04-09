@@ -13,27 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import calcmassview.AbstractPanel;
-import calcmassview.settingpanel.Theme;
+import calcmassview.settingspanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
- * Надписи (мм) для полей длина и ширина
+ * информационна строка внизу основного окна
  * @author Sergei Lyashko
  */
-public class FieldMarker extends JLabel {
+public class ServiceInfo extends JLabel {
     
-    private AbstractPanel panel;
-    
-    public FieldMarker(AbstractPanel panel){
+    public ServiceInfo(AbstractPanel panel){
         super.setVisible(true);
-        super.setSize(25, 20);
-        super.setForeground(Color.white);
-        this.panel = panel;
+        super.setHorizontalAlignment(CENTER);
+        super.setSize(315, 15);
+        this.setLocation(20, 140);
         panel.add(this);
         Theme.addTheme(this);
     }
+    
+    /**
+     * Сброс надписи служебной строки на панели View
+     */
+    public void reset(){
+        super.setText(null);
+    }
+    
+    /**
+     * вывод служебной строки на панель View
+     * @param message
+     */
+    public void setMessage(String message){
+        super.setForeground(Color.GREEN);
+        super.setText(message);
+    }
+    
+    public void setErrorMessage(String message){
+        super.setForeground(Color.RED);        
+        super.setText(message);
+    }
+
+        
 }

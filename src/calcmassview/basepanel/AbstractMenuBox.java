@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
 
-import java.awt.Color;
-import java.awt.event.ItemEvent;
-import javax.swing.JCheckBox;
+package calcmassview.basepanel;
+
+import calcmassview.AbstractPanel;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
- * Абстрактный класс чек-боксов
+ * Абстрактный класс для комбо-боксов выпадающих меню
  * @author Sergei Lyashko
  */
-public abstract class AbstractSettingChBox extends JCheckBox { 
+public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {
     
-    public AbstractSettingChBox(){
-        super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);
-        Theme.addTheme(this);
-    }    
-    
-    /**
-     * Select/deselect чек-бокса
-     * @param e событие select или deselect
-     */
-    public abstract void actionChooser(ItemEvent e);
+    public AbstractMenuBox(AbstractPanel panel){
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
+    }
 }

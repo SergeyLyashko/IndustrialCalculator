@@ -15,7 +15,7 @@
  */
 package calcmassview;
 
-import calcmassview.settingpanel.Theme;
+import calcmassview.settingspanel.Theme;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -13,24 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import calcmassview.AbstractPanel;
-import calcmassview.BasePanel;
 import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFormattedTextField;
 
 /**
  * поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends AbstractField implements ValueReceivable {
+public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, ValueFieldReceivable, ICloseField {
     
     private final AbstractPanel panel;
     private String text;
     
     public LengthField(AbstractPanel panel){
-        super(panel);
+        super.setSize(125, 25);
+        super.setForeground(Color.GRAY);        
+        super.setEditable(false);
+        super.setBackground(Color.DARK_GRAY);
+        super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         this.panel = panel;
         create();
     }
@@ -46,13 +53,24 @@ public class LengthField extends AbstractField implements ValueReceivable {
      * деактивация (закрытие) поля
      */
     @Override
-    public void closeField(){        
+    public void close(){        
         setEditable(false);
         setBackground(Color.DARK_GRAY);
         setForeground(Color.GRAY);        
         setText("длина");
         removeFocusListener(this);
         removeKeyListener(this);
+    }
+    
+    /**
+     * активация поля
+     */
+    @Override
+    public final void action(){
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
     }
     
     /**
@@ -67,7 +85,28 @@ public class LengthField extends AbstractField implements ValueReceivable {
     }
     
     @Override
+    public void keyReleased(KeyEvent e) {
+    
+    }
+    
+    /**
+     * очистка поля при установке фокуса на нем
+     * @param e установка фокуса
+     */
+    @Override
+    public void focusGained(FocusEvent e){
+        super.setForeground(Color.BLACK);
+        super.setText("");
+    }
+    
+    @Override
     public String getValueOfField() {
         return text;
     }
+    
+    @Override
+    public void focusLost(FocusEvent e){}
+    
+    @Override
+    public void keyTyped(KeyEvent e) {}
 }

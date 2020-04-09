@@ -13,49 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
+package calcmassview.settingspanel;
 
+import java.awt.Color;
 import java.awt.event.ItemEvent;
+import javax.swing.JCheckBox;
 
 /**
- * Color theme
+ * ToolTips checkbox
  * @author Sergei Lyashko
  */
-class ThemeChBox extends AbstractSettingChBox {
-
-    private Theme theme;
+class ToolTipsOffBox extends JCheckBox implements Selectable {
     
-    public ThemeChBox(){
+    private final SettingsPanel panel;
+    
+    public ToolTipsOffBox(SettingsPanel panel){
+        this.panel = panel;
         create();
     }
     
     private void create(){
+        super.setBackground(Color.BLACK);
+        super.setForeground(Color.white);
+        Theme.addTheme(this);
         super.setSelected(true);
-        super.setSize(180, 20);
-        super.setText("темная тема оформления");      
-        setTheme(super.isSelected());
+        super.setSize(250, 20);
+        super.setLocation(15, 60);
+        super.setText("отключить всплывающие подсказки");
+        this.addItemListener(panel);
+        panel.add(this);
     }
     
-    // смена темы оформления
     @Override
-    public void actionChooser(ItemEvent e) {              
-        setTheme(e.getStateChange());
-    } 
+    public void actionChooser(ItemEvent e) {
+        setToolTips(e.getStateChange());
+    }
     
-    private void setTheme(int stateChange){    
+    // установка всплывающих подсказок
+    private void setToolTips(int stateChange){
         switch(stateChange){
             case ItemEvent.SELECTED:
-                theme = new Theme();
-                theme.dark();
+                //TODO
                 break;
             case ItemEvent.DESELECTED:
-                theme = new Theme();
-                theme.light();
+                //TODO
                 break;            
-        }        
-    }
-    
-    private void setTheme(boolean select){
-        Theme.addThemeBox(select);
-    }
+        }
+    }    
 }

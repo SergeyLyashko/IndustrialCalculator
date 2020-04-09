@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import java.awt.Component;
 import java.awt.Container;

@@ -15,7 +15,7 @@
  */
 package calcmassview;
 
-import calcmassview.viewpanel.MenuBoxModel;
+import calcmassview.basepanel.MenuBoxModel;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.FileSystem;

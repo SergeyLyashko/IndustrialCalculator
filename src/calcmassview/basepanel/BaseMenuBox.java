@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import calcmassview.AbstractPanel;
-import calcmassview.BasePanel;
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
@@ -24,7 +23,7 @@ import java.awt.event.ActionEvent;
  * Выпадающее меню типов сортамента
  * @author Sergei Lyashko
  */
-public class BaseMenuBox extends AbstractMenuBox implements ValueReceivable {    
+public class BaseMenuBox extends AbstractMenuBox implements ValueFieldReceivable {    
         
     private String selectMenu;
     private final AbstractPanel panel;
@@ -41,7 +40,6 @@ public class BaseMenuBox extends AbstractMenuBox implements ValueReceivable {
         this.setLocation(20, 20);
         ((BasePanel)panel).addPolicy(this);
         creator = new MenuCreator();
-                                        //creator = ((BasePanel)panel).getMenuCreator();
         this.setModel(creator.getModel());
     }
     
@@ -53,14 +51,14 @@ public class BaseMenuBox extends AbstractMenuBox implements ValueReceivable {
         MenuBoxModel typeMenuModel = creator.getModel(currentMenu);
         ((BasePanel)panel).getTypeProfileMenuBox().setModel(typeMenuModel);
         //установка начальных позиций меню
-        startPosition();
+        setStartPositionMenu();
         //сброс параметров полей        
         ((BasePanel)panel).reset();
         this.selectMenu = currentMenu;
     }
     
     // установка начальных значений меню
-    private void startPosition(){
+    private void setStartPositionMenu(){
         ((BasePanel)panel).getTypeProfileMenuBox().setSelectedIndex(0);
         ((BasePanel)panel).getNumberProfileMenuBox().setSelectedIndex(0);
     }

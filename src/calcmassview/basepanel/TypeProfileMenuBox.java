@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
-import calcmassview.AbstractPanel;
-import calcmassview.BasePanel;
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
- * Панель меню номеров профилей
+ * Выпадающее меню типов профилей
+ * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class NumberProfileMenuBox extends AbstractMenuBox implements ValueReceivable {  
+public class TypeProfileMenuBox extends AbstractMenuBox implements ValueFieldReceivable {   
     
-    private String selectMenu;
-    private final AbstractPanel panel;
+    private final BasePanel panel;
     private MenuCreator creator;
+    private String selectMenu;
     
-    public NumberProfileMenuBox(AbstractPanel panel) {
+    public TypeProfileMenuBox(BasePanel panel) {
         super(panel);
         this.panel = panel;
         create();
@@ -38,37 +37,26 @@ public class NumberProfileMenuBox extends AbstractMenuBox implements ValueReceiv
     
     private void create(){
         panel.add(this);
-        this.setLocation(20, 100);
-        ((BasePanel)panel).addPolicy(this);
-        //creator = ((BasePanel)panel).getMenuCreator();
+        this.setLocation(20, 60);
+        panel.addPolicy(this);
         creator = new MenuCreator();
-        this.setModel(creator.getModel(null, null));
+        this.setModel(creator.getModel(null));
     }
-        
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        ((BasePanel)panel).reset();
-        // активаци полей ввода значений
-        actionFields(currentMenu);
-        // выбранная детали в выпадающем меню 
+        panel.reset();
+        // обновление меню номеров профилей
+        ValueFieldReceivable baseMenuBox = (ValueFieldReceivable) panel.getBaseMenuBox();
+        String selectedAssortment = baseMenuBox.getValueOfField();
+        MenuBoxModel numberMenuModel = creator.getModel(selectedAssortment, currentMenu);
+        panel.getNumberProfileMenuBox().setModel(numberMenuModel);
         this.selectMenu = currentMenu;
     }
     
-    // активация полей ввода значений
-    //TODO переписать код
-    private void actionFields(String selectMenu){
-        if(!selectMenu.equals("№ профиля")){
-            ((BasePanel)panel).getLengthField().actionField();
-            if(((String)((BasePanel)panel).getBaseMenuBox().getSelectedItem()).equals("Лист") ||
-                    ((String)((BasePanel)panel).getTypeProfileMenuBox().getSelectedItem()).equals("Резиновая пластина")){
-                ((BasePanel)panel).getWidthField().actionField();
-            }
-        }
-    }
-
     @Override
     public String getValueOfField() {
         return selectMenu;

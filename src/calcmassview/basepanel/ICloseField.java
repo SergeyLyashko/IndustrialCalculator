@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,32 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
-
-import javax.swing.JComponent;
-import javax.swing.JToolTip;
+package calcmassview.basepanel;
 
 /**
- * Класс всплывающие подсказки
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public class ToolTips extends JToolTip { 
-        
-    private ToolTips(){
-        super();
-        
-    }
+public interface ICloseField extends IActionField {
     
-    public static void setToolTipComponent(JComponent component, String text){
-        new ToolTips();
-        component.setToolTipText(text);
-    }
-    
-    public void oFF(){
-        //TODO
-    }
-    
-    public void oN(){
-        //TODO
-    }
+    /**
+     *
+     */
+    public void close();
 }

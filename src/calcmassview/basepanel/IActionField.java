@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
-
-import javax.swing.JFrame;
+package calcmassview.basepanel;
 
 /**
- * Основное окно приложения
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public class ApplicationWindow extends JFrame {
+public interface IActionField {
     
-    public ApplicationWindow(){
-        create();
-    }
-    
-    private void create(){
-        super.setTitle("Калькулятор масс");
-        super.setBounds(300, 300, 360, 220);        
-        super.setResizable(false);
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
-        //отображение окна
-        super.setVisible(true);
-    }
+    /**
+     *
+     */
+    public void action();
 }

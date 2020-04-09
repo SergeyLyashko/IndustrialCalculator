@@ -3,13 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 /**
- *
+ * »нтерфейс получени€ значени€ пол€
  * @author Korvin
  */
-public interface ValueReceivable {
+public interface ValueFieldReceivable {
  
+    /**
+     * ѕолучение строкового представлени€ 
+     * пол€ приложени€
+     * @return строковое значение пол€
+     */
     public String getValueOfField();
 }

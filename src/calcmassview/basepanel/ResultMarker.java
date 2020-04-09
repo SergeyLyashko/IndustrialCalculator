@@ -13,47 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import calcmassview.AbstractPanel;
-import calcmassview.settingpanel.Theme;
+import calcmassview.settingspanel.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
- * информационна строка внизу основного окна
+ * строка вывода результата вычислений
  * @author Sergei Lyashko
  */
-public class ServiceInfo extends JLabel {
+public class ResultMarker extends JLabel {
     
-    public ServiceInfo(AbstractPanel panel){
+    public ResultMarker(AbstractPanel panel){
         super.setVisible(true);
-        super.setHorizontalAlignment(CENTER);
-        super.setSize(315, 15);
-        this.setLocation(20, 140);
+        super.setText("0.0");
+        super.setHorizontalAlignment(RIGHT);
+        super.setSize(125, 25);
+        super.setForeground(Color.green);
+        this.setLocation(190, 100);
         panel.add(this);
         Theme.addTheme(this);
     }
     
-    /**
-     * —брос надписи служебной строки на панели View
-     */
-    public void resetServiceMarker(){
-        super.setText(null);
+    // установка значени€ в строку результата
+    public void setResult(String result){
+        StringBuilder s = new StringBuilder();
+        if(!result.equals("error")){
+            s.append(result).append(" "+"кг");
+        }else{
+            super.setForeground(Color.red);
+            s.append(result);
+        }
+        super.setText(s.toString());
     }
     
     /**
-     * вывод служебной строки на панель View
-     * @param message
+     * —брос результата
      */
-    public void setMessage(String message){
-        super.setForeground(Color.GREEN);
-        super.setText(message);
+    public void reset(){        
+        super.setText("0.0");              
+        Theme.addThemeMarker(this);       
     }
-    
-    public void setErrorMessage(String message){
-        super.setForeground(Color.RED);        
-        super.setText(message);
-    }
-        
 }

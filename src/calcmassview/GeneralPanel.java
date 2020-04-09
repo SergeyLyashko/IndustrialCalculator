@@ -15,39 +15,62 @@
  */
 package calcmassview;
 
+import calcmassview.basepanel.BasePanel;
+import calcmassview.settingspanel.SettingsPanel;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Основная панель окна приложения
+ * Основное окно с вкладками
  * @author Sergei Lyashko
  */
-public class GeneralPanel extends JPanel {      
+class GeneralPanel extends JPanel {      
         
-    private JTabbedPane tabbedPane;    
+    private JTabbedPane tabbedPane;  
+    private BasePanel basePanel;
+    private SettingsPanel settingsPanel;
+    private InfoPanel infoPanel;
     
     public GeneralPanel() {
         // менеджер компоновки
         super(new GridLayout(1, 1));  
-        //create();
+        create();
     }
     
     private void create(){
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        //добавление вкладок в панель
-        super.add(tabbedPane);
-        //new ApplicationWindow().add(this);
+        this.basePanel = new BasePanel();
+        this.settingsPanel = new SettingsPanel();
+        this.infoPanel = new InfoPanel();
+        addTabbedPane();
+        createAndShowGUI();
+    }
+    
+    // основное окно
+    private void createAndShowGUI(){
+        JFrame app = new JFrame("Калькулятор масс");
+        app.setBounds(300, 300, 360, 220);
+        app.setResizable(false);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.getContentPane().add(this, BorderLayout.CENTER);
+        //отображение окна
+        app.setVisible(true);
     }
     
     /**
-     * метод добавляющий панели в основную панель вкладок
-     * @param namePanel наименование панели
-     * @param panel добавляемая панель
+     * Добавление вкладок на панель
      */
-    /*
-    public void addPanel(String namePanel, JPanel panel){        
-        tabbedPane.addTab(namePanel, panel);        
-    } 
-*/
+    private void addTabbedPane(){
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.addTab("Калькулятор", basePanel);       
+        tabbedPane.addTab("Настройки", settingsPanel);
+        tabbedPane.addTab("Справка", infoPanel);
+        this.add(tabbedPane);
+    }
+    
+    public BasePanel getBasePanel(){
+        return basePanel;
+    }
 }

@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.basepanel;
 
-import calcmassview.viewpanel.CalculatorFocusTraversalPolicy;
-import calcmassview.viewpanel.FieldMarker;
-import calcmassview.viewpanel.ServiceInfo;
-import calcmassview.viewpanel.ResultMarker;
-import calcmassview.viewpanel.LengthField;
-import calcmassview.viewpanel.WidthField;
-import calcmassview.viewpanel.TypeProfileMenuBox;
-import calcmassview.viewpanel.NumberProfileMenuBox;
-import calcmassview.viewpanel.BaseMenuBox;
-import calcmassview.viewpanel.AbstractMenuBox;
-import calcmassview.viewpanel.AbstractField;
+import calcmassview.AbstractPanel;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 
 /**
- * основная панель приложения
+ * основная панель с компонентами
  * @author Sergei Lyashko
  */
 public class BasePanel extends AbstractPanel {
@@ -42,11 +32,9 @@ public class BasePanel extends AbstractPanel {
     // сервисная строка
     private ServiceInfo serviceInfo;
     // поля ввода значений
-    private AbstractField lengthField, widthField;
+    private ICloseField lengthField, widthField;
     // строка результата
     private ResultMarker resultMarker;
-    // создание выпадающего меню в комбо-боксах
-    private MenuCreator menuCreator;
     // политика обхода фокуса
     private final ArrayList<Component> policy = new ArrayList<>();
     
@@ -76,8 +64,6 @@ public class BasePanel extends AbstractPanel {
     }
     
     private void createComponents(){
-        // создание модели меню из БД
-        //menuCreator = new MenuCreator();
         // <Тип изделия>
         baseMenuBox = new BaseMenuBox(this);        
         // <Тип профиля>
@@ -93,21 +79,18 @@ public class BasePanel extends AbstractPanel {
     public void addPolicy(Component component){
         policy.add(component);
     }
-    /*
-    public MenuCreator getMenuCreator(){
-        return menuCreator;
-    }
-    */
+    
     /**
      * сброс значений при активации панели BaseMenuBox
      */
+    
     public void reset(){        
         // сброс надписей
-        resultMarker.resetResultMarker();
-        serviceInfo.resetServiceMarker();
+        resultMarker.reset();
+        serviceInfo.reset();
         //сброс полей ввода
-        widthField.closeField();
-        lengthField.closeField();        
+        widthField.close();
+        lengthField.close();    
     }
     
     public AbstractMenuBox getBaseMenuBox(){
@@ -117,17 +100,17 @@ public class BasePanel extends AbstractPanel {
     public AbstractMenuBox getTypeProfileMenuBox(){
         return typeProfileMenuBox;
     }
-            
+    
     public AbstractMenuBox getNumberProfileMenuBox(){
         return numberProfileMenuBox;
     }
-    
-    public AbstractField getLengthField() {        
-        return lengthField;
+
+    public IActionField actionLengthField() {        
+        return lengthField::action;
     }
     
-    public AbstractField getWidthField(){
-        return widthField;
+    public IActionField actionWidthField(){
+        return widthField::action;
     }
     
     public void setResultation(String value){

@@ -17,80 +17,41 @@ package calcmassview;
 
 import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
-import calcmassview.settingpanel.SettingsPanel;
-import calcmassview.viewpanel.ValueReceivable;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import calcmassview.basepanel.ValueFieldReceivable;
 
 /**
- * View
+ * Представление приложения
  * @author Sergei Lyashko
  */
 public class CalculatorView implements MassObserver {
     
     private final CalculatorControllerInterface controller;
-    private final CalculatorModelInterface model;
-    private GeneralPanel generalPanel;
-    private BasePanel basePanel;
-    private SettingsPanel settingsPanel;
-    private InfoPanel infoPanel;
+    private final GeneralPanel generalPanel;
     private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     private String result;
-    private JTabbedPane tabbedPane;
     
     public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
-        //super(new GridLayout(1, 1));
         this.controller = controller;
-        this.model = model;
         model.registerObserver(this);
-    }
-    
-    public void create(){
         this.generalPanel = new GeneralPanel();
-        this.basePanel = new BasePanel();
-        this.settingsPanel = new SettingsPanel();
-        this.infoPanel = new InfoPanel();
         addViewListener();
-        addTab();
     }
     
-    public void createAndShowGUI(){
-        JFrame app = new JFrame("Калькулятор масс");
-        app.setBounds(300, 300, 360, 220);
-        app.setResizable(false);
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.getContentPane().add(generalPanel, BorderLayout.CENTER);
-        //отображение окна
-        app.setVisible(true);
-    }
-    
-    // добавление вкладок в основное окно приложения
-    private void addTab(){
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.addTab("Калькулятор", basePanel);       
-        tabbedPane.addTab("Настройки", settingsPanel);
-        tabbedPane.addTab("Справка", infoPanel);
-        generalPanel.add(tabbedPane);
-    }
-
     @Override
     public void update(double mass) {
         this.mass = mass;
         formatResult();
-        basePanel.setResultation(result);
+        generalPanel.getBasePanel().setResultation(result);
     }
     
     @Override
     public void updateErrorMessage(String message) {
         if(message != null){
-            basePanel.setError(message);
+            generalPanel.getBasePanel().setError(message);
         }
     }
     
@@ -101,7 +62,9 @@ public class CalculatorView implements MassObserver {
     
     // слушатель нажатия клавиши
     private void addViewListener(){
-        basePanel.getLengthField().addKeyListener(new KeyListener() {
+        generalPanel.getBasePanel()
+                .actionLengthField()
+                .addKeyListener(new KeyListener() {
             @Override
             public void keyReleased(KeyEvent e){
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -120,26 +83,32 @@ public class CalculatorView implements MassObserver {
         controller.setValueFromView(profileAssortment, profileType, profileNumber, length, width);
     }
     
+    // получение значений полей
     private void setFields(){
         this.profileAssortment = 
-                ((ValueReceivable) basePanel
+                ((ValueFieldReceivable) generalPanel
+                    .getBasePanel()
                     .getBaseMenuBox())
                     .getValueOfField();
         this.profileType = 
-                ((ValueReceivable) basePanel
+                ((ValueFieldReceivable) generalPanel
+                    .getBasePanel()
                     .getTypeProfileMenuBox())
                     .getValueOfField();
         this.profileNumber = 
-                ((ValueReceivable) basePanel
+                ((ValueFieldReceivable) generalPanel
+                    .getBasePanel()
                     .getNumberProfileMenuBox())
                     .getValueOfField();
         this.length = 
-                ((ValueReceivable) basePanel
-                    .getLengthField())
+                ((ValueFieldReceivable) generalPanel
+                    .getBasePanel()
+                    .actionLengthField())
                     .getValueOfField();
         this.width = 
-                ((ValueReceivable) basePanel
-                    .getWidthField())
+                ((ValueFieldReceivable) generalPanel
+                    .getBasePanel()
+                    .actionWidthField())
                     .getValueOfField();
     }
 }

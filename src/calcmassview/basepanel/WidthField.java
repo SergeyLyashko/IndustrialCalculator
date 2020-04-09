@@ -13,25 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.viewpanel;
+package calcmassview.basepanel;
 
 import calcmassview.AbstractPanel;
-import calcmassview.BasePanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFormattedTextField;
 
 /**
  * ѕоле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends AbstractField implements ValueReceivable {
+public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, ValueFieldReceivable, ICloseField {
     
     private final AbstractPanel panel;
     private String text;
     
     public WidthField(AbstractPanel panel){
-        super(panel);
+        super.setSize(125, 25);
+        super.setForeground(Color.GRAY);        
+        super.setEditable(false);
+        super.setBackground(Color.DARK_GRAY);
+        super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         this.panel = panel;
         create();
     }
@@ -47,13 +53,24 @@ public class WidthField extends AbstractField implements ValueReceivable {
      * деактиваци€ (закрытие) пол€
      */
     @Override
-    public void closeField(){        
+    public void close(){        
         setEditable(false);
         setBackground(Color.DARK_GRAY);
         setForeground(Color.GRAY);
         setText("ширина");
         removeFocusListener(this);
         removeKeyListener(this);
+    }
+    
+    /**
+     * активаци€ пол€
+     */
+    @Override
+    public final void action(){
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
     }
     
     /**
@@ -80,4 +97,20 @@ public class WidthField extends AbstractField implements ValueReceivable {
     public String getValueOfField() {
         return  text;
     }
+    
+    /**
+     * очистка пол€ при установке фокуса на нем
+     * @param e установка фокуса
+     */
+    @Override
+    public void focusGained(FocusEvent e){
+        super.setForeground(Color.BLACK);
+        super.setText("");
+    }
+    
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    
+    @Override
+    public void keyPressed(KeyEvent e){}
 }

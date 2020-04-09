@@ -13,40 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
+package calcmassview.settingspanel;
 
+import java.awt.Color;
 import java.awt.event.ItemEvent;
+import javax.swing.JCheckBox;
 
 /**
- * ¬сплывающие подсказки
+ * ‘иксаци€ размеров окна
  * @author Sergei Lyashko
  */
-class ToolTipsOffBox extends AbstractSettingChBox {   
+class FixSizeWindowChBox extends JCheckBox implements Selectable {   
     
-    public ToolTipsOffBox(){
+    private final SettingsPanel panel;
+    
+    public FixSizeWindowChBox(SettingsPanel panel){
+        this.panel = panel;
         create();
     }
     
     private void create(){
+        super.setBackground(Color.BLACK);
+        super.setForeground(Color.white);
+        Theme.addTheme(this);
         super.setSelected(true);
-        super.setSize(250, 20);
-        super.setText("отключить всплывающие подсказки");             
+        super.setSize(200, 20);
+        super.setLocation(15, 85);  
+        super.setText("зафиксировать размер окна");
+        this.addItemListener(panel);
+        panel.add(this);
     }
     
+    //TODO
     @Override
     public void actionChooser(ItemEvent e) {
-        setToolTips(e.getStateChange());
-    }
-    
-    // установка всплывающих подсказок
-    private void setToolTips(int stateChange){
-        switch(stateChange){
-            case ItemEvent.SELECTED:
-                //TODO
-                break;
-            case ItemEvent.DESELECTED:
-                //TODO
-                break;            
-        }
+        //TODO
+        //System.out.println("test Size Win");        
     }    
 }

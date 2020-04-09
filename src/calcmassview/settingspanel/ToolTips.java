@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingpanel;
+package calcmassview.settingspanel;
 
-import java.awt.event.ItemEvent;
+import javax.swing.JComponent;
+import javax.swing.JToolTip;
 
 /**
- * Фиксация размеров окна
+ * Всплывающие подсказки
  * @author Sergei Lyashko
  */
-class FixSizeWindowChBox extends AbstractSettingChBox {   
-    
-    public FixSizeWindowChBox(){
-        create();
+class ToolTips extends JToolTip { 
+        
+    private ToolTips(){
+        super();
+        
     }
     
-    private void create(){
-        super.setSelected(true);
-        super.setSize(200, 20);
-        super.setText("зафиксировать размер окна");             
+    public static void setToolTipComponent(JComponent component, String text){
+        new ToolTips();
+        component.setToolTipText(text);
     }
     
-    //TODO
-    @Override
-    public void actionChooser(ItemEvent e) {
+    public void oFF(){
         //TODO
-        //System.out.println("test Size Win");        
-    }    
+    }
+    
+    public void oN(){
+        //TODO
+    }
 }
