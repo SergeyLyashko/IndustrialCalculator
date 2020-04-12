@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
- * Панель меню номеров профилей
+ * Выпадающее меню типов профилей
+ * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class NumberProfileMenuBox extends AbstractMenuBox implements ValueFieldReceivable {  
+public class TypeProfileMenu extends AbstractMenu {   
     
-    private String selectMenu;
     private final BasePanel panel;
     private MenuCreator creator;
+    private String selectMenu;
     
-    public NumberProfileMenuBox(BasePanel panel) {
+    public TypeProfileMenu(BasePanel panel) {
         super(panel);
         this.panel = panel;
         create();
@@ -36,38 +37,33 @@ public class NumberProfileMenuBox extends AbstractMenuBox implements ValueFieldR
     
     private void create(){
         panel.add(this);
-        this.setLocation(20, 100);
+        this.setLocation(20, 60);
         panel.addPolicy(this);
         creator = new MenuCreator();
-        this.setModel(creator.getModel(null, null));
+        this.setModel(creator.getModel(null));
     }
-        
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
+        AbstractMenu cb = (AbstractMenu)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         // сброс значений
-        panel.reset();
-        // активаци полей ввода значений
-        actionFields(currentMenu);
-        // выбранная детали в выпадающем меню 
+        super.resetAllValues();
+        // обновление меню номеров профилей
+        updateMenu(currentMenu);
         this.selectMenu = currentMenu;
     }
     
-    // активация полей ввода значений
-    //TODO переписать код
-    private void actionFields(String selectMenu){
-        if(!selectMenu.equals("№ профиля")){
-            panel.actionLengthField().action();
-            if(panel.getBaseMenuBox().getSelectedItem().equals("Лист") ||
-                    panel.getTypeProfileMenuBox().getSelectedItem().equals("Резиновая пластина")){
-                panel.actionWidthField().action();
-            }
-        }
+    private void updateMenu(String currentMenuItem){
+        AbstractMenu baseMenuBox = panel.getBaseMenuBox();
+        String selectedAssortment = baseMenuBox.value().getValue();
+        MenuBoxModel numberMenuModel = creator.getModel(selectedAssortment, currentMenuItem);
+        panel.getNumberProfileMenuBox().setModel(numberMenuModel);
     }
-
+    
+    
     @Override
-    public String getValueOfField() {
-        return selectMenu;
+    public ValueFieldReceivable value() {
+        return () -> selectMenu;
     }
 }

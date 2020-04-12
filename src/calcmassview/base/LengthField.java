@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -27,12 +26,12 @@ import javax.swing.JFormattedTextField;
  * поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, ValueFieldReceivable, ICloseField {
+public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
     
-    private final AbstractPanel panel;
+    private final BasePanel panel;
     private String text;
     
-    public LengthField(AbstractPanel panel){
+    public LengthField(BasePanel panel){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
@@ -46,31 +45,35 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         panel.add(this);
         super.setText("длина");
         this.setLocation(190, 60);
-        ((BasePanel)panel).addPolicy(this);
+        panel.addPolicy(this);
     }
     
     /**
      * деактивация (закрытие) поля
+     * @return 
      */
-    @Override
-    public void close(){        
-        setEditable(false);
-        setBackground(Color.DARK_GRAY);
-        setForeground(Color.GRAY);        
-        setText("длина");
-        removeFocusListener(this);
-        removeKeyListener(this);
+    public ICloseField close(){
+        return () -> {
+            setEditable(false);
+            setBackground(Color.DARK_GRAY);
+            setForeground(Color.GRAY);        
+            setText("длина");
+            removeFocusListener(this);
+            removeKeyListener(this);
+        };
     }
     
     /**
      * активация поля
+     * @return 
      */
-    @Override
-    public final void action(){
-        setEditable(true);
-        setBackground(Color.white);        
-        addFocusListener(this);
-        addKeyListener(this);
+    public IActionField field(){
+        return ()-> {
+            setEditable(true);
+            setBackground(Color.white);        
+            addFocusListener(this);
+            addKeyListener(this);
+        };
     }
     
     /**
@@ -86,7 +89,9 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     
     @Override
     public void keyReleased(KeyEvent e) {
-    
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            panel.getGeneralPanel().notifyObservers();
+        }
     }
     
     /**
@@ -99,9 +104,9 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         super.setText("");
     }
     
-    @Override
-    public String getValueOfField() {
-        return text;
+    
+    public ValueFieldReceivable value() {
+        return () -> text;
     }
     
     @Override

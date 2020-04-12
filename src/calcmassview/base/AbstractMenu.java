@@ -13,27 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
 
-import calcmassview.AbstractPanel;
-import calcmassview.settingspanel.Theme;
-import java.awt.Color;
-import javax.swing.JLabel;
+package calcmassview.base;
+
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
- * Надписи (мм) для полей длина и ширина
+ * Абстрактный класс меню для выпадающих меню
  * @author Sergei Lyashko
  */
-public class FieldMarker extends JLabel {
+public abstract class AbstractMenu extends JComboBox<String> implements ActionListener {
     
-    private AbstractPanel panel;
+    private BasePanel panel;
     
-    public FieldMarker(AbstractPanel panel){
-        super.setVisible(true);
-        super.setSize(25, 20);
-        super.setForeground(Color.white);
+    public AbstractMenu(BasePanel panel){
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
+        super.addActionListener(this);
         this.panel = panel;
-        panel.add(this);
-        Theme.addTheme(this);
     }
+    
+    /**
+     * Сброс значений полей
+     */
+    protected void resetAllValues(){
+        panel.reset();
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public abstract ValueFieldReceivable value();
+
 }

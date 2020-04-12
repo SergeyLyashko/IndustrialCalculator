@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
-import calcmassview.settingspanel.Theme;
+import calcmassview.settings.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
@@ -26,12 +25,11 @@ import javax.swing.JLabel;
  */
 public class ResultMarker extends JLabel {
     
-    public ResultMarker(AbstractPanel panel){
+    public ResultMarker(BasePanel panel){
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
-        super.setForeground(Color.green);
         this.setLocation(190, 100);
         panel.add(this);
         Theme.addTheme(this);
@@ -39,21 +37,22 @@ public class ResultMarker extends JLabel {
     
     // установка значени€ в строку результата
     public void setResult(String result){
-        StringBuilder s = new StringBuilder();
+        String str;
         if(!result.equals("error")){
-            s.append(result).append(" "+"кг");
+            StringBuilder s = new StringBuilder();
+            str = s.append(result).append(" ").append("кг").toString();
         }else{
             super.setForeground(Color.red);
-            s.append(result);
+            str = result;
         }
-        super.setText(s.toString());
+        super.setText(str);
     }
     
     /**
      * —брос результата
      */
     public void reset(){        
-        super.setText("0.0");              
-        Theme.addThemeMarker(this);       
+        super.setText("0.0");
+        Theme.addTheme(this);
     }
 }

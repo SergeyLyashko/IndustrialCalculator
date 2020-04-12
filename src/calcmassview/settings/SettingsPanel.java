@@ -13,35 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingspanel;
+package calcmassview.settings;
 
-import calcmassview.AbstractPanel;
-import calcmassview.basepanel.FieldMarker;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * панель создани€ чек-боксов
  * @author Sergei Lyashko
  */
-public class SettingsPanel extends AbstractPanel implements ItemListener{
+public class SettingsPanel extends JPanel implements ItemListener{
     
     public SettingsPanel(){
-        createFieldsMarker();
+        Theme.addTheme(this);
+        header();
         createCheckBoxes();
         super.setLayout(null);
     }
     
     // создание чек-боксов
     private void createCheckBoxes(){
-        new ThemeChBox(this);
-        new ToolTipsOffBox(this);
-        new FixSizeWindowChBox(this);
+        super.add(new ThemeChBox(this));
+        super.add(new ToolTipsOffBox(this));
+        super.add(new FixSizeWindowChBox(this));
     }
     
     // маркеры полей длина и ширина
-    private void createFieldsMarker(){
-        FieldMarker infoText = new FieldMarker(this);
+    private void header(){
+        JLabel infoText = new JLabel();
+        Theme.addTheme(infoText);
+        infoText.setVisible(true);
         infoText.setText("Ќастройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       

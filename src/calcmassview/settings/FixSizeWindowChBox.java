@@ -13,54 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingspanel;
+package calcmassview.settings;
 
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
 /**
- * Color theme checkbox
+ * Фиксация размеров окна
  * @author Sergei Lyashko
  */
-class ThemeChBox extends JCheckBox implements Selectable {
-
-    private Theme theme;
+class FixSizeWindowChBox extends JCheckBox implements Selectable {   
+    
     private final SettingsPanel panel;
     
-    public ThemeChBox(SettingsPanel panel){
-        super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);
-        super.setSelected(true);
-        super.setSize(180, 20);
-        super.setText("темная тема оформления");
-        super.setLocation(15, 35);
+    public FixSizeWindowChBox(SettingsPanel panel){
         this.panel = panel;
         create();
     }
     
     private void create(){
+        super.setBackground(Color.BLACK);
+        super.setForeground(Color.white);
         Theme.addTheme(this);
+        super.setSelected(true);
+        super.setSize(200, 20);
+        super.setLocation(15, 85);  
+        super.setText("зафиксировать размер окна");
         this.addItemListener(panel);
-        panel.add(this);
     }
     
-    // смена темы оформления
+    //TODO
     @Override
-    public void actionChooser(ItemEvent e) {              
-        setTheme(e.getStateChange());
-    } 
-    
-    private void setTheme(int stateChange){    
-        switch(stateChange){
-            case ItemEvent.SELECTED:
-                theme = new Theme();
-                theme.dark();
-                break;
-            case ItemEvent.DESELECTED:
-                theme = new Theme();
-                theme.light();
-                break;            
-        }        
-    }
+    public void actionChooser(ItemEvent e) {
+        //TODO
+        //System.out.println("test Size Win");        
+    }    
 }

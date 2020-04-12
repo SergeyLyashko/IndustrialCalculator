@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
 /**
  * Интерфейс получения значения поля
@@ -16,5 +16,5 @@ public interface ValueFieldReceivable {
      * поля приложения
      * @return строковое значение поля
      */
-    public String getValueOfField();
+    public String getValue();
 }

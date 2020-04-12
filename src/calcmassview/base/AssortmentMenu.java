@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
 
 /**
- * ¬ыпадающее меню типов сортамента
+ * ћеню типов сортамента
  * @author Sergei Lyashko
  */
-public class BaseMenuBox extends AbstractMenuBox implements ValueFieldReceivable {    
+public class AssortmentMenu extends AbstractMenu {    
         
     private String selectMenu;
-    private final AbstractPanel panel;
+    private final BasePanel panel;
     private MenuCreator creator;
     
-    public BaseMenuBox(AbstractPanel panel) {
+    public AssortmentMenu(BasePanel panel) {
         super(panel);
         this.panel = panel;
         create();
@@ -38,33 +37,33 @@ public class BaseMenuBox extends AbstractMenuBox implements ValueFieldReceivable
     private void create(){
         panel.add(this);
         this.setLocation(20, 20);
-        ((BasePanel)panel).addPolicy(this);
+        panel.addPolicy(this);
         creator = new MenuCreator();
         this.setModel(creator.getModel());
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {        
-        AbstractMenuBox cb = (AbstractMenuBox)e.getSource();
+        AbstractMenu cb = (AbstractMenu)e.getSource();
         String currentMenu = (String)cb.getSelectedItem();
         //обновление меню типов профилей        
         MenuBoxModel typeMenuModel = creator.getModel(currentMenu);
-        ((BasePanel)panel).getTypeProfileMenuBox().setModel(typeMenuModel);
+        panel.getTypeProfileMenuBox().setModel(typeMenuModel);
         //установка начальных позиций меню
-        setStartPositionMenu();
+        setStartPosition();
         //сброс параметров полей        
-        ((BasePanel)panel).reset();
+        super.resetAllValues();
         this.selectMenu = currentMenu;
     }
     
     // установка начальных значений меню
-    private void setStartPositionMenu(){
-        ((BasePanel)panel).getTypeProfileMenuBox().setSelectedIndex(0);
-        ((BasePanel)panel).getNumberProfileMenuBox().setSelectedIndex(0);
+    private void setStartPosition(){
+        panel.getTypeProfileMenuBox().setSelectedIndex(0);
+        panel.getNumberProfileMenuBox().setSelectedIndex(0);
     }
     
     @Override
-    public String getValueOfField() {
-        return selectMenu;
+    public ValueFieldReceivable value() {
+        return () -> selectMenu;
     }
 }

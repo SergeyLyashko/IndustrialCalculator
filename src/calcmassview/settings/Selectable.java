@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.settings;
+
+import java.awt.event.ItemEvent;
 
 /**
  *
  * @author Korvin
  */
-public interface IActionField {
+public interface Selectable {
     
-    /**
-     *
-     */
-    public void action();
+    public void actionChooser(ItemEvent e);
 }

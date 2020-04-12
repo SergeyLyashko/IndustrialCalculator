@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * @author Sergei Lyashko
  */
 
-public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
+public class MyFocusTraversalPolicy extends FocusTraversalPolicy {
     
     private final ArrayList<Component> order;
  
-    public CalculatorFocusTraversalPolicy(ArrayList<Component> order) {
+    public MyFocusTraversalPolicy(ArrayList<Component> order) {
         this.order = new ArrayList<>(order.size());
         this.order.addAll(order);
     }

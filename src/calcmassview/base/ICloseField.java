@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
-
-import calcmassview.settingspanel.Theme;
-import java.awt.Color;
-import javax.swing.JPanel;
+package calcmassview.base;
 
 /**
  *
- * @author Sergei Lyashko
+ * @author Korvin
  */
-public abstract class AbstractPanel extends JPanel {
+public interface ICloseField {
     
-    public AbstractPanel(){
-        // цвет фона по умолчанию
-        super.setBackground(Color.BLACK);
-        Theme.addTheme(this);
-    }
-    
+    /**
+     *
+     */
+    public void close();
 }

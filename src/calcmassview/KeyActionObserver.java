@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,14 @@
 package calcmassview;
 
 /**
- * интерфейс Наблюдатель паттерна Наблюдатель
+ *
  * @author Korvin
  */
-public interface MassObserver {
-    /**
-     * обновление массы при ее изменении
-     * @param mass масса детали
-     */
-    public void updateMass(double mass);
+public interface KeyActionObserver {
     
     /**
-     * обновление строки об ошибке 
-     * @param message
+     * Обновление после нажатия клавиши
      */
-    public void updateErrorMessage(String message);
+    public void keyActionUpdate();
+    
 }

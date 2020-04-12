@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Korvin.
+ * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
+
+import calcmassview.settings.Theme;
+import java.awt.Color;
+import javax.swing.JLabel;
 
 /**
- *
- * @author Korvin
+ * Надписи (мм) для полей длина и ширина
+ * @author Sergei Lyashko
  */
-public interface ICloseField extends IActionField {
+public class FieldMarker extends JLabel {
     
-    /**
-     *
-     */
-    public void close();
+    public FieldMarker(BasePanel panel){
+        super.setVisible(true);
+        super.setSize(25, 20);
+        super.setForeground(Color.white);
+        panel.add(this);
+        Theme.addTheme(this);
+    }
 }

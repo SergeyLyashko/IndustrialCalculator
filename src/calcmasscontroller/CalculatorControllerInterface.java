@@ -30,6 +30,6 @@ public interface CalculatorControllerInterface {
      * @param length длина детали
      * @param width ширина детали
      */
-    public void setValueFromView(String assortment, String type, String number, String length, String width);
+    public void setParametersDetail(String assortment, String type, String number, String length, String width);
     
 }

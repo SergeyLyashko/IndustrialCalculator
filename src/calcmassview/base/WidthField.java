@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -27,12 +26,12 @@ import javax.swing.JFormattedTextField;
  * Поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, ValueFieldReceivable, ICloseField {
+public class WidthField extends JFormattedTextField implements FocusListener, KeyListener {
     
-    private final AbstractPanel panel;
+    private final BasePanel panel;
     private String text;
     
-    public WidthField(AbstractPanel panel){
+    public WidthField(BasePanel panel){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
@@ -46,31 +45,35 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
         panel.add(this);
         this.setLocation(190, 20);   
         super.setText("ширина");
-        ((BasePanel)panel).addPolicy(this);
+        panel.addPolicy(this);
     }
     
     /**
      * деактивация (закрытие) поля
+     * @return 
      */
-    @Override
-    public void close(){        
-        setEditable(false);
-        setBackground(Color.DARK_GRAY);
-        setForeground(Color.GRAY);
-        setText("ширина");
-        removeFocusListener(this);
-        removeKeyListener(this);
+    public ICloseField close(){
+        return () -> {
+            setEditable(false);
+            setBackground(Color.DARK_GRAY);
+            setForeground(Color.GRAY);
+            setText("ширина");
+            removeFocusListener(this);
+            removeKeyListener(this);
+        };
     }
     
     /**
      * активация поля
+     * @return 
      */
-    @Override
-    public final void action(){
-        setEditable(true);
-        setBackground(Color.white);        
-        addFocusListener(this);
-        addKeyListener(this);
+    public IActionField field(){
+        return () -> {
+            setEditable(true);
+            setBackground(Color.white);        
+            addFocusListener(this);
+            addKeyListener(this);
+        };
     }
     
     /**
@@ -92,10 +95,9 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     public void focusLost(FocusEvent e) {
         this.text = super.getText();
     }
-
-    @Override
-    public String getValueOfField() {
-        return  text;
+    
+    public ValueFieldReceivable value() {
+        return () -> text;
     }
     
     /**

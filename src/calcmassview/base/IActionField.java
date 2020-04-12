@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package calcmassview.basepanel;
-
-import calcmassview.AbstractPanel;
-import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
+package calcmassview.base;
 
 /**
- * Абстрактный класс для комбо-боксов выпадающих меню
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public abstract class AbstractMenuBox extends JComboBox<String> implements ActionListener {
+public interface IActionField {
     
-    public AbstractMenuBox(AbstractPanel panel){
-        super.setSize(155, 25);
-        super.setSelectedIndex(-1);
-        super.addActionListener(this);
-    }
+    /**
+     *
+     */
+    public void action();
 }

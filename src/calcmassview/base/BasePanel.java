@@ -13,42 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
+import calcmassview.general.GeneralPanel;
+import calcmassview.settings.Theme;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  * основная панель с компонентами
  * @author Sergei Lyashko
  */
-public class BasePanel extends AbstractPanel {
+public class BasePanel extends JPanel {
+    
+    private GeneralPanel panel;
     
     // combo-boxes
-    private AbstractMenuBox baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AbstractMenu baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
     // сервисная строка
     private ServiceInfo serviceInfo;
     // поля ввода значений
-    private ICloseField lengthField, widthField;
+    private LengthField lengthField;
+    private WidthField widthField;
     // строка результата
     private ResultMarker resultMarker;
     // политика обхода фокуса
     private final ArrayList<Component> policy = new ArrayList<>();
     
-    public BasePanel() {
+    public BasePanel(GeneralPanel panel) {
+        this.panel = panel;
         createComponents();
         createDecorations();
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // политика обхода фокуса
         super.setFocusCycleRoot(true);
-        super.setFocusTraversalPolicy(new CalculatorFocusTraversalPolicy(policy));
+        super.setFocusTraversalPolicy(new MyFocusTraversalPolicy(policy));
     }
     
     private void createDecorations(){
+        Theme.addTheme(this);
         //надпись мм для поля
         FieldMarker mmWf = new FieldMarker(this);
         mmWf.setText("мм");
@@ -65,11 +72,11 @@ public class BasePanel extends AbstractPanel {
     
     private void createComponents(){
         // <Тип изделия>
-        baseMenuBox = new BaseMenuBox(this);        
+        baseMenuBox = new AssortmentMenu(this);        
         // <Тип профиля>
-        typeProfileMenuBox = new TypeProfileMenuBox(this);
+        typeProfileMenuBox = new TypeProfileMenu(this);
         // <№ профиля>
-        numberProfileMenuBox = new NumberProfileMenuBox(this);
+        numberProfileMenuBox = new NumberProfileMenu(this);
         //текстовое поле Ширина (для листа)
         widthField = new WidthField(this);
         //текстовое поле Длина
@@ -80,39 +87,42 @@ public class BasePanel extends AbstractPanel {
         policy.add(component);
     }
     
-    /**
-     * сброс значений при активации панели BaseMenuBox
-     */
+    public GeneralPanel getGeneralPanel(){
+        return panel;
+    }
     
+    /**
+     * сброс значений при активации панели AssortmentMenu
+     */
     public void reset(){        
         // сброс надписей
         resultMarker.reset();
         serviceInfo.reset();
         //сброс полей ввода
-        widthField.close();
-        lengthField.close();    
+        widthField.close().close();
+        lengthField.close().close();    
     }
-    
-    public AbstractMenuBox getBaseMenuBox(){
+
+    public AbstractMenu getBaseMenuBox(){
         return baseMenuBox;
     }
     
-    public AbstractMenuBox getTypeProfileMenuBox(){
+    public AbstractMenu getTypeProfileMenuBox(){
         return typeProfileMenuBox;
     }
     
-    public AbstractMenuBox getNumberProfileMenuBox(){
+    public AbstractMenu getNumberProfileMenuBox(){
         return numberProfileMenuBox;
     }
 
-    public IActionField actionLengthField() {        
-        return lengthField::action;
+    public LengthField getLengthField(){
+        return lengthField;
     }
-    
-    public IActionField actionWidthField(){
-        return widthField::action;
+
+    public WidthField getWidthField(){
+        return widthField;
     }
-    
+
     public void setResultation(String value){
         resultMarker.setResult(value);
         setResultToSystemClipboard(value);

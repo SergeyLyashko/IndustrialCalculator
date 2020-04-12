@@ -13,15 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingspanel;
+package calcmassview.general;
 
-import java.awt.event.ItemEvent;
+import calcmassview.KeyActionObserver;
 
 /**
  *
  * @author Korvin
  */
-public interface Selectable {
+public interface ISubject {
     
-    public void actionChooser(ItemEvent e);
+    /**
+     * Регистрация наблюдателей
+     * @param o экземпляр интерфейса Наблюдатель
+     */
+    public void registerObserver(KeyActionObserver o);
+    
+    /**
+     * оповещение наблюдателей об изменении состояния
+     */
+    public void notifyObservers();
+    
 }

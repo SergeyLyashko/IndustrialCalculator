@@ -15,34 +15,38 @@
  */
 package calcmassview;
 
+import calcmassview.general.GeneralPanel;
 import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
-import calcmassview.basepanel.ValueFieldReceivable;
 
 /**
  * Представление приложения
  * @author Sergei Lyashko
  */
-public class CalculatorView implements MassObserver {
+public class CalculatorView implements MassObserver, KeyActionObserver {
     
+    private final CalculatorModelInterface model;
     private final CalculatorControllerInterface controller;
-    private final GeneralPanel generalPanel;
+    private GeneralPanel generalPanel;
     private String profileAssortment, profileType, profileNumber, length, width;
     private double mass;
     private String result;
     
     public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
+        this.model = model;
         this.controller = controller;
+        create();
+    }
+    
+    private void create(){
         model.registerObserver(this);
         this.generalPanel = new GeneralPanel();
-        addViewListener();
+        generalPanel.registerObserver(this);
     }
     
     @Override
-    public void update(double mass) {
+    public void updateMass(double mass) {
         this.mass = mass;
         formatResult();
         generalPanel.getBasePanel().setResultation(result);
@@ -60,55 +64,42 @@ public class CalculatorView implements MassObserver {
         this.result = new DecimalFormat("#.###").format(mass);
     }
     
-    // слушатель нажатия клавиши
-    private void addViewListener(){
-        generalPanel.getBasePanel()
-                .actionLengthField()
-                .addKeyListener(new KeyListener() {
-            @Override
-            public void keyReleased(KeyEvent e){
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    setParametrs();
-                }
-            }
-            @Override
-            public void keyTyped(KeyEvent e) {}
-            @Override
-            public void keyPressed(KeyEvent e) {}
-        });
+    @Override
+    public void keyActionUpdate() {
+        setParametrs();
     }
     
     private void setParametrs(){
         setFields();
-        controller.setValueFromView(profileAssortment, profileType, profileNumber, length, width);
+        controller.setParametersDetail(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей
     private void setFields(){
-        this.profileAssortment = 
-                ((ValueFieldReceivable) generalPanel
+        this.profileAssortment = generalPanel
+                        .getBasePanel()
+                        .getBaseMenuBox()
+                        .value()
+                        .getValue();
+        this.profileType = generalPanel
+                        .getBasePanel()
+                        .getTypeProfileMenuBox()
+                        .value()
+                        .getValue();
+        this.profileNumber = generalPanel
+                        .getBasePanel()
+                        .getNumberProfileMenuBox()
+                        .value()
+                        .getValue();
+        this.length = generalPanel
                     .getBasePanel()
-                    .getBaseMenuBox())
-                    .getValueOfField();
-        this.profileType = 
-                ((ValueFieldReceivable) generalPanel
+                    .getLengthField()
+                    .value()
+                    .getValue();
+        this.width = generalPanel
                     .getBasePanel()
-                    .getTypeProfileMenuBox())
-                    .getValueOfField();
-        this.profileNumber = 
-                ((ValueFieldReceivable) generalPanel
-                    .getBasePanel()
-                    .getNumberProfileMenuBox())
-                    .getValueOfField();
-        this.length = 
-                ((ValueFieldReceivable) generalPanel
-                    .getBasePanel()
-                    .actionLengthField())
-                    .getValueOfField();
-        this.width = 
-                ((ValueFieldReceivable) generalPanel
-                    .getBasePanel()
-                    .actionWidthField())
-                    .getValueOfField();
+                    .getWidthField()
+                    .value()
+                    .getValue();
     }
 }

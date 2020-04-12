@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.basepanel;
+package calcmassview.base;
 
-import calcmassview.AbstractPanel;
-import calcmassview.settingspanel.Theme;
+import calcmassview.settings.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
 
@@ -26,7 +25,7 @@ import javax.swing.JLabel;
  */
 public class ServiceInfo extends JLabel {
     
-    public ServiceInfo(AbstractPanel panel){
+    public ServiceInfo(BasePanel panel){
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
@@ -47,7 +46,6 @@ public class ServiceInfo extends JLabel {
      * @param message
      */
     public void setMessage(String message){
-        super.setForeground(Color.GREEN);
         super.setText(message);
     }
     

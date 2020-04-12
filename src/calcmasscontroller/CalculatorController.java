@@ -32,7 +32,7 @@ public class CalculatorController implements CalculatorControllerInterface {
     }   
     
     @Override
-    public void setValueFromView(String assortment, String type, String number, String length, String width) {
+    public void setParametersDetail(String assortment, String type, String number, String length, String width) {
         model.createDetail(assortment, type, number, length, width);
     }
 }

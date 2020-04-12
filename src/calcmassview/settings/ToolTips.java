@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settingspanel;
+package calcmassview.settings;
 
 import javax.swing.JComponent;
 import javax.swing.JToolTip;
@@ -25,7 +25,6 @@ import javax.swing.JToolTip;
 class ToolTips extends JToolTip { 
         
     private ToolTips(){
-        super();
         
     }
     

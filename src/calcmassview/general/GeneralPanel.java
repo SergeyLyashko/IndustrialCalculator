@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.general;
 
-import calcmassview.basepanel.BasePanel;
-import calcmassview.settingspanel.SettingsPanel;
+import calcmassview.KeyActionObserver;
+import calcmassview.base.BasePanel;
+import calcmassview.info.InfoPanel;
+import calcmassview.settings.SettingsPanel;
+import calcmassview.settings.Theme;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -27,23 +31,24 @@ import javax.swing.JTabbedPane;
  * Основное окно с вкладками
  * @author Sergei Lyashko
  */
-class GeneralPanel extends JPanel {      
+public class GeneralPanel extends JPanel implements ISubject {      
         
     private JTabbedPane tabbedPane;  
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
     private InfoPanel infoPanel;
+    private ArrayList<KeyActionObserver> observers;
     
     public GeneralPanel() {
-        // менеджер компоновки
-        super(new GridLayout(1, 1));  
+        super(new GridLayout(1, 1));
         create();
     }
     
     private void create(){
-        this.basePanel = new BasePanel();
-        this.settingsPanel = new SettingsPanel();
-        this.infoPanel = new InfoPanel();
+        observers = new ArrayList<>();
+        basePanel = new BasePanel(this);
+        settingsPanel = new SettingsPanel();
+        infoPanel = new InfoPanel();
         addTabbedPane();
         createAndShowGUI();
     }
@@ -68,9 +73,20 @@ class GeneralPanel extends JPanel {
         tabbedPane.addTab("Настройки", settingsPanel);
         tabbedPane.addTab("Справка", infoPanel);
         this.add(tabbedPane);
+        Theme.defaultTheme();
     }
     
     public BasePanel getBasePanel(){
         return basePanel;
+    }
+
+    @Override
+    public void registerObserver(KeyActionObserver ob) {
+        observers.add(ob);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.stream().forEach(KeyActionObserver::keyActionUpdate);
     }
 }

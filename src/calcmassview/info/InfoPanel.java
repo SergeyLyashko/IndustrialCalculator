@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.info;
 
-import calcmassview.settingspanel.Theme;
+import calcmassview.settings.Theme;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -27,7 +28,7 @@ import javax.swing.ScrollPaneConstants;
  * панель Информации
  * @author Sergei Lyashko
  */
-class InfoPanel extends AbstractPanel {
+public class InfoPanel extends JPanel {
         
     private JLabel htmlText;
     private JScrollPane scroller;
@@ -35,6 +36,7 @@ class InfoPanel extends AbstractPanel {
     // конструктор
     public InfoPanel(){
         super.setLayout(new BorderLayout());
+        Theme.addTheme(this);
         super.add(addScroller(), BorderLayout.CENTER);
     }
     

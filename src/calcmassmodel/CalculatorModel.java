@@ -56,7 +56,7 @@ public class CalculatorModel implements CalculatorModelInterface {
     @Override
     public void notifyObservers() {
         observers.stream().forEach((MassObserver observer) -> {
-            observer.update(mass);
+            observer.updateMass(mass);
             observer.updateErrorMessage(serviceMessage);
         });
     }
