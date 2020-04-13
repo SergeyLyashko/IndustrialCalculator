@@ -17,19 +17,22 @@ package calcmassview.base;
 
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumberProfileMenu extends AbstractMenu  {  
+public class NumberProfileMenu extends JComboBox<String> implements ActionListener {  
     
     private String selectMenu;
     private final BasePanel panel;
     private MenuCreator creator;
     
     public NumberProfileMenu(BasePanel panel) {
-        super(panel);
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
         this.panel = panel;
         create();
     }
@@ -40,14 +43,17 @@ public class NumberProfileMenu extends AbstractMenu  {
         panel.addPolicy(this);
         creator = new MenuCreator();
         this.setModel(creator.getModel(null, null));
+        addActionListener(this);
     }
         
     @Override
     public void actionPerformed(ActionEvent e) {
-        AbstractMenu cb = (AbstractMenu)e.getSource();
-        String currentMenu = (String)cb.getSelectedItem();
-        // сброс значений
-        super.resetAllValues();
+        resetAllValues();
+        @SuppressWarnings("unchecked")
+        String currentMenu = 
+                ((JComboBox<String>)e.getSource())
+                        .getSelectedItem()
+                        .toString();
         // активаци полей ввода значений
         actionFields(currentMenu);
         // выбранная детали в выпадающем меню 
@@ -59,8 +65,8 @@ public class NumberProfileMenu extends AbstractMenu  {
     private void actionFields(String selectMenu){
         if(!selectMenu.equals("№ профиля")){
             panel.getLengthField().field().action();
-            if(panel.getBaseMenuBox().getSelectedItem().equals("Лист") ||
-                    panel.getTypeProfileMenuBox().getSelectedItem().equals("Резиновая пластина")){
+            if(panel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
+                    panel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
                 panel.getWidthField().field().action();
             }
         }
@@ -68,5 +74,9 @@ public class NumberProfileMenu extends AbstractMenu  {
 
     public ValueFieldReceivable value() {
         return () -> selectMenu;
+    }
+    
+    private void resetAllValues(){
+        panel.reset();
     }
 }

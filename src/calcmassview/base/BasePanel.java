@@ -29,10 +29,12 @@ import javax.swing.JPanel;
  */
 public class BasePanel extends JPanel {
     
-    private GeneralPanel panel;
+    private final GeneralPanel panel;
     
     // combo-boxes
-    private AbstractMenu baseMenuBox, typeProfileMenuBox, numberProfileMenuBox;
+    private AssortmentMenu assortmentMenu;
+    private TypeProfileMenu typeProfileMenu;
+    private NumberProfileMenu numberProfileMenu;
     // сервисная строка
     private ServiceInfo serviceInfo;
     // поля ввода значений
@@ -72,11 +74,11 @@ public class BasePanel extends JPanel {
     
     private void createComponents(){
         // <Тип изделия>
-        baseMenuBox = new AssortmentMenu(this);        
+        assortmentMenu = new AssortmentMenu(this);        
         // <Тип профиля>
-        typeProfileMenuBox = new TypeProfileMenu(this);
+        typeProfileMenu = new TypeProfileMenu(this);
         // <№ профиля>
-        numberProfileMenuBox = new NumberProfileMenu(this);
+        numberProfileMenu = new NumberProfileMenu(this);
         //текстовое поле Ширина (для листа)
         widthField = new WidthField(this);
         //текстовое поле Длина
@@ -103,16 +105,16 @@ public class BasePanel extends JPanel {
         lengthField.close().close();    
     }
 
-    public AbstractMenu getBaseMenuBox(){
-        return baseMenuBox;
+    public AssortmentMenu getAssortmentMenu(){
+        return assortmentMenu;
     }
     
-    public AbstractMenu getTypeProfileMenuBox(){
-        return typeProfileMenuBox;
+    public TypeProfileMenu getTypeProfileMenu(){
+        return typeProfileMenu;
     }
     
-    public AbstractMenu getNumberProfileMenuBox(){
-        return numberProfileMenuBox;
+    public NumberProfileMenu getNumberProfileMenu(){
+        return numberProfileMenu;
     }
 
     public LengthField getLengthField(){

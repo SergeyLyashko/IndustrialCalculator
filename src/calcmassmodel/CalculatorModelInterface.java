@@ -19,9 +19,9 @@ import calcmassview.MassObserver;
 
 /**
  * Ќаблюдатель
- * @author Korvin
+ * @author Sergei Lyashko
  */
-public interface CalculatorModelInterface {
+public interface CalculatorModelInterface extends IDetailCreator {
         
     /**
      * –егистраци€ наблюдателей
@@ -44,15 +44,5 @@ public interface CalculatorModelInterface {
      * вывод сервисного сообщени€ об ошибке
      */
     public void displayErrorMessage();
-    
-    /**
-     * —оздание детали по параметрам
-     * @param assortment наименование сортамента
-     * @param type тип сортамента
-     * @param number номер профил€
-     * @param length длина детали
-     * @param width ширина детали (при наличии)
-     */
-    public void createDetail(String assortment, String type, String number, String length, String width);
     
 }

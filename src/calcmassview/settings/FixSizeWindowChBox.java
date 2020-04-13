@@ -15,7 +15,6 @@
  */
 package calcmassview.settings;
 
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
@@ -33,8 +32,6 @@ class FixSizeWindowChBox extends JCheckBox implements Selectable {
     }
     
     private void create(){
-        super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);
         Theme.addTheme(this);
         super.setSelected(true);
         super.setSize(200, 20);

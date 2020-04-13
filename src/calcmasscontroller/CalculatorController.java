@@ -24,7 +24,7 @@ import calcmassview.CalculatorView;
  */
 public class CalculatorController implements CalculatorControllerInterface {
     
-    private CalculatorModelInterface model;
+    private final CalculatorModelInterface model;
     
     public CalculatorController(CalculatorModelInterface model){
         this.model = model;

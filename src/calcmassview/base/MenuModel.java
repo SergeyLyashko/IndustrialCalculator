@@ -23,12 +23,12 @@ import javax.swing.ComboBoxModel;
  * модель для панелей выпадающих меню
  * @author Sergei Lyashko
  */
-public class MenuBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
-    private ArrayList<String> menu;
+    private final ArrayList<String> menu;
     private int selected = 0;
     
-    public MenuBoxModel(ArrayList<String> menu){
+    public MenuModel(ArrayList<String> menu){
         this.menu = menu;
     }   
 

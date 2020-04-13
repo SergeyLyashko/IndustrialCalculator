@@ -32,6 +32,8 @@ class Detail {
     // значение из Базы Данных
     private double valueFromDB;
     
+    private String assortment, type, number, length, width;
+    
     /**
      * значение из базы данных
      * @param profileAssortment наименование сортамента
@@ -49,13 +51,21 @@ class Detail {
      * @param value
      * @return 
      */
-    private double getValue(String value) {
+    private double getValueOf(String value) {
         try{
             return Double.parseDouble(value);
         }catch(NumberFormatException e){
             this.message = "ошибка! параметр задан неверно!";
         }
         return 0;
+    }
+    
+    public void setParameters(String assortment, String type, String number, String length, String width){
+        this.assortment = assortment;
+        this.type = type;
+        this.number = number;
+        this.length = length;
+        this.width = width;
     }
     
     /**
@@ -66,9 +76,8 @@ class Detail {
      * @param length длина детали
      * @param width ширина детали (при наличии)
      */
-    public Massable setParametrs(String assortment, String type, String number, String length, String width) {
+    public Massable mass() {
         this.valueFromDB = getValueFromDataBase(assortment, type, number);
-        
         switch(assortment){
             case "Лист":
                             return selectedType(type, length, width);
@@ -76,7 +85,7 @@ class Detail {
             case "Уголок":
             case "Двутавр":
                             return () ->
-                                    DENSITY_STEEL * valueFromDB * getValue(length) * 100;
+                                    DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
             case "Другое":               
                             return selectedType(type, length, width);
         }
@@ -87,20 +96,20 @@ class Detail {
         switch (type){
             case "рифленая(ромб)":
                             return () ->
-                                    (getValue(length) * getValue(width) / 1000000) * valueFromDB;
+                                    (getValueOf(length) * getValueOf(width) / 1000000) * valueFromDB;
             case "тонколистовая":
             case "толстолистовая":
                             return () ->
-                                    DENSITY_STEEL * getValue(length) * getValue(width) * valueFromDB;
+                                    DENSITY_STEEL * getValueOf(length) * getValueOf(width) * valueFromDB;
             case "Круг":
                             return () ->
-                                    DENSITY_STEEL * getValue(length) * (valueFromDB * valueFromDB) / 4 * PI;
+                                    DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
             case "Квадрат":
                             return () -> 
-                                DENSITY_STEEL * getValue(length) * valueFromDB * valueFromDB;
+                                DENSITY_STEEL * getValueOf(length) * valueFromDB * valueFromDB;
             case "Резиновая пластина":
                             return () -> 
-                                    DENSITY_RUBBER * getValue(length) * getValue(width) * valueFromDB;  
+                                    DENSITY_RUBBER * getValueOf(length) * getValueOf(width) * valueFromDB;  
         }
         return null;
     }

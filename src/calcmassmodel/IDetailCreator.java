@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,19 @@
 package calcmassmodel;
 
 /**
- * Получение массы
+ *
  * @author Korvin
  */
 @FunctionalInterface
-public interface Massable {
+public interface IDetailCreator {
+    
     /**
-     * получение массы детали
-     * @return значение массы детали
+     * Создание детали по параметрам
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param length длина детали
+     * @param width ширина детали (при наличии)
      */
-    public double getMass();
+    public void createDetail(String assortment, String type, String number, String length, String width);
 }

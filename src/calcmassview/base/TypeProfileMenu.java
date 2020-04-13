@@ -17,20 +17,23 @@ package calcmassview.base;
 
 import calcmassview.MenuCreator;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
  * Выпадающее меню типов профилей
  * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class TypeProfileMenu extends AbstractMenu {   
+public class TypeProfileMenu extends JComboBox<String> implements ActionListener {   
     
     private final BasePanel panel;
     private MenuCreator creator;
     private String selectMenu;
     
     public TypeProfileMenu(BasePanel panel) {
-        super(panel);
+        super.setSize(155, 25);
+        super.setSelectedIndex(-1);
         this.panel = panel;
         create();
     }
@@ -41,29 +44,36 @@ public class TypeProfileMenu extends AbstractMenu {
         panel.addPolicy(this);
         creator = new MenuCreator();
         this.setModel(creator.getModel(null));
+        addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        AbstractMenu cb = (AbstractMenu)e.getSource();
-        String currentMenu = (String)cb.getSelectedItem();
-        // сброс значений
-        super.resetAllValues();
+        resetAllValues();
+        @SuppressWarnings("unchecked")
+        String currentMenu = 
+                ((JComboBox<String>)e.getSource())
+                .getSelectedItem()
+                .toString();
         // обновление меню номеров профилей
         updateMenu(currentMenu);
         this.selectMenu = currentMenu;
     }
     
     private void updateMenu(String currentMenuItem){
-        AbstractMenu baseMenuBox = panel.getBaseMenuBox();
-        String selectedAssortment = baseMenuBox.value().getValue();
-        MenuBoxModel numberMenuModel = creator.getModel(selectedAssortment, currentMenuItem);
-        panel.getNumberProfileMenuBox().setModel(numberMenuModel);
+        String selectedAssortment = 
+                panel.getAssortmentMenu()
+                        .value()
+                        .getValue();
+        MenuModel numberMenuModel = creator.getModel(selectedAssortment, currentMenuItem);
+        panel.getNumberProfileMenu().setModel(numberMenuModel);
     }
     
-    
-    @Override
     public ValueFieldReceivable value() {
         return () -> selectMenu;
+    }
+    
+    private void resetAllValues(){
+        panel.reset();
     }
 }

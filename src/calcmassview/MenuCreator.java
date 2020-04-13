@@ -15,7 +15,7 @@
  */
 package calcmassview;
 
-import calcmassview.base.MenuBoxModel;
+import calcmassview.base.MenuModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -57,8 +57,8 @@ public class MenuCreator {
      * создание модели меню дл€ базовой панели выпадающего меню
      * @return модель базового меню
      */
-    public MenuBoxModel getModel(){
-        return new MenuBoxModel(createProfileBaseMenu());
+    public MenuModel getModel(){
+        return new MenuModel(createProfileBaseMenu());
     }
     
     /**
@@ -66,8 +66,8 @@ public class MenuCreator {
      * @param assortment наименование сортамента
      * @return модель меню типов профилей
      */
-    public MenuBoxModel getModel(String assortment){
-        return new MenuBoxModel(createProfileTypeMenu(assortment));
+    public MenuModel getModel(String assortment){
+        return new MenuModel(createProfileTypeMenu(assortment));
     }
     
     /**
@@ -77,8 +77,8 @@ public class MenuCreator {
      * @param type наименование типа профил€
      * @return модель меню номеров профилей
      */
-    public MenuBoxModel getModel(String assortment, String type){
-        return new MenuBoxModel(createProfileNumberMenu(assortment, type));
+    public MenuModel getModel(String assortment, String type){
+        return new MenuModel(createProfileNumberMenu(assortment, type));
     }
     
     // —оздание списка номеров профилей меню

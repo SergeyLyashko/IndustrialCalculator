@@ -36,7 +36,8 @@ public class CalculatorModel implements CalculatorModelInterface {
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
         detail = new Detail();
-        this.mass = detail.setParametrs(assortment, type, number, length, width).getMass();
+        detail.setParameters(assortment, type, number, length, width);
+        this.mass = detail.mass().getMass();
         massChanged();
     }
     

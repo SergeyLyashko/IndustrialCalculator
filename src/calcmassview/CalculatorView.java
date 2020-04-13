@@ -78,17 +78,17 @@ public class CalculatorView implements MassObserver, KeyActionObserver {
     private void setFields(){
         this.profileAssortment = generalPanel
                         .getBasePanel()
-                        .getBaseMenuBox()
+                        .getAssortmentMenu()
                         .value()
                         .getValue();
         this.profileType = generalPanel
                         .getBasePanel()
-                        .getTypeProfileMenuBox()
+                        .getTypeProfileMenu()
                         .value()
                         .getValue();
         this.profileNumber = generalPanel
                         .getBasePanel()
-                        .getNumberProfileMenuBox()
+                        .getNumberProfileMenu()
                         .value()
                         .getValue();
         this.length = generalPanel
