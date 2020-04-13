@@ -34,9 +34,9 @@ class ToolTipsOffBox extends JCheckBox implements Selectable {
     private void create(){
         Theme.addTheme(this);
         super.setSelected(true);
-        super.setSize(250, 20);
+        super.setSize(320, 20);
         super.setLocation(15, 60);
-        super.setText("отключить всплывающие подсказки");
+        super.setText("отключить всплывающие подсказки <in process>");
         this.addItemListener(panel);
     }
     

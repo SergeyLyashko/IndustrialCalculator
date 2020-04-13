@@ -34,9 +34,9 @@ class FixSizeWindowChBox extends JCheckBox implements Selectable {
     private void create(){
         Theme.addTheme(this);
         super.setSelected(true);
-        super.setSize(200, 20);
+        super.setSize(350, 20);
         super.setLocation(15, 85);  
-        super.setText("зафиксировать размер окна");
+        super.setText("зафиксировать размер окна <in process>");
         this.addItemListener(panel);
     }
     
