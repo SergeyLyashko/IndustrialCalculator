@@ -31,7 +31,7 @@ import javax.swing.JTabbedPane;
  * Основное окно с вкладками
  * @author Sergei Lyashko
  */
-public class GeneralPanel extends JPanel implements ISubject {      
+public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {      
         
     private JTabbedPane tabbedPane;  
     private BasePanel basePanel;

@@ -18,7 +18,8 @@ package calcmassmodel;
 import calcmassview.MassObserver;
 
 /**
- * Наблюдатель
+ * паттерн Наблюдатель
+ * Интерфейс объекта наблючения
  * @author Sergei Lyashko
  */
 public interface CalculatorModelInterface extends IDetailCreator {
