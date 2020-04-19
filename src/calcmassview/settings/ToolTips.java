@@ -15,29 +15,29 @@
  */
 package calcmassview.settings;
 
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JToolTip;
+import javax.swing.ToolTipManager;
 
 /**
  * Всплывающие подсказки
  * @author Sergei Lyashko
  */
-class ToolTips extends JToolTip { 
-        
-    private ToolTips(){
-        
-    }
+public class ToolTips extends JToolTip { 
     
-    public static void setToolTipComponent(JComponent component, String text){
-        new ToolTips();
+    private static final ArrayList<JComponent> COMPONENT_LIST = new ArrayList<>();
+    
+    public static void addToolTips(JComponent component, String text){
+        COMPONENT_LIST.add(component);
         component.setToolTipText(text);
     }
     
-    public void oFF(){
-        //TODO
+    public static void oFF(){
+        ToolTipManager.sharedInstance().setEnabled(false);
     }
     
-    public void oN(){
-        //TODO
+    public static void oN(){
+        ToolTipManager.sharedInstance().setEnabled(true);
     }
 }

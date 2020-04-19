@@ -32,7 +32,7 @@ public class BasePanel extends JPanel {
     private final GeneralPanel panel;
     
     // combo-boxes
-    private AssortmentMenu assortmentMenu;
+    private AssortmentProfileMenu assortmentMenu;
     private TypeProfileMenu typeProfileMenu;
     private NumberProfileMenu numberProfileMenu;
     // сервисная строка
@@ -74,7 +74,7 @@ public class BasePanel extends JPanel {
     
     private void createComponents(){
         // <Тип изделия>
-        assortmentMenu = new AssortmentMenu(this);        
+        assortmentMenu = new AssortmentProfileMenu(this);        
         // <Тип профиля>
         typeProfileMenu = new TypeProfileMenu(this);
         // <№ профиля>
@@ -94,7 +94,7 @@ public class BasePanel extends JPanel {
     }
     
     /**
-     * сброс значений при активации панели AssortmentMenu
+     * сброс значений при активации панели AssortmentProfileMenu
      */
     public void reset(){        
         // сброс надписей
@@ -105,7 +105,7 @@ public class BasePanel extends JPanel {
         lengthField.close().close();    
     }
 
-    public AssortmentMenu getAssortmentMenu(){
+    public AssortmentProfileMenu getAssortmentMenu(){
         return assortmentMenu;
     }
     

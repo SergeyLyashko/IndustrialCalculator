@@ -16,6 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.MenuCreator;
+import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -39,6 +40,7 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     }
     
     private void create(){
+        ToolTips.addToolTips(this, "выбор типа профиля детали");
         panel.add(this);
         this.setLocation(20, 60);
         panel.addPolicy(this);

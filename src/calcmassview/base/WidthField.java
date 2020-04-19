@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.settings.ToolTips;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -42,6 +43,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     }
     
     private void create(){
+        ToolTips.addToolTips(this, "поле ввода ширины детали");
         panel.add(this);
         this.setLocation(190, 20);   
         super.setText("ширина");

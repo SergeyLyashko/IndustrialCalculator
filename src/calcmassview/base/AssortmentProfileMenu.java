@@ -16,6 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.MenuCreator;
+import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -24,13 +25,13 @@ import javax.swing.JComboBox;
  * Меню типов сортамента
  * @author Sergei Lyashko
  */
-public class AssortmentMenu extends JComboBox<String> implements ActionListener {    
+public class AssortmentProfileMenu extends JComboBox<String> implements ActionListener {    
         
     private String selectMenu;
     private final BasePanel panel;
     private MenuCreator creator;
     
-    public AssortmentMenu(BasePanel panel) {
+    public AssortmentProfileMenu(BasePanel panel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         this.panel = panel;
@@ -38,6 +39,7 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener 
     }
     
     private void create(){
+        ToolTips.addToolTips(this, "выбор сортамента");
         panel.add(this);
         this.setLocation(20, 20);
         panel.addPolicy(this);

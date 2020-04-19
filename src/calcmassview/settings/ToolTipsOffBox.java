@@ -33,10 +33,11 @@ class ToolTipsOffBox extends JCheckBox implements Selectable {
     
     private void create(){
         Theme.addTheme(this);
+        ToolTips.addToolTips(this, "включение/отключение всплывающих подсказок");
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
-        super.setText("отключить всплывающие подсказки <in process>");
+        super.setText("отключить всплывающие подсказки");
         this.addItemListener(panel);
     }
     
@@ -49,10 +50,10 @@ class ToolTipsOffBox extends JCheckBox implements Selectable {
     private void setToolTips(int stateChange){
         switch(stateChange){
             case ItemEvent.SELECTED:
-                //TODO
+                ToolTips.oN();
                 break;
             case ItemEvent.DESELECTED:
-                //TODO
+                ToolTips.oFF();
                 break;            
         }
     }    

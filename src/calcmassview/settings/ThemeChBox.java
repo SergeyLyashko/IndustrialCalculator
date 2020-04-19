@@ -41,6 +41,7 @@ class ThemeChBox extends JCheckBox implements Selectable {
     
     private void create(){
         Theme.addTheme(this);
+        ToolTips.addToolTips(this, "включить/отключить темную тему приложения");
         this.addItemListener(panel);
     }
     

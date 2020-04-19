@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.settings.ToolTips;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -42,6 +43,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     }
     
     private void create(){
+        ToolTips.addToolTips(this, "поле ввода длины детали");
         panel.add(this);
         super.setText("длина");
         this.setLocation(190, 60);
