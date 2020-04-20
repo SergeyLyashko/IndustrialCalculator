@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package calcmassview.general;
 
-import calcmassview.KeyActionObserver;
+import calcmassview.ViewObserver;
 import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
@@ -37,15 +37,16 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
     private InfoPanel infoPanel;
-    private ArrayList<KeyActionObserver> observers;
+    private final ArrayList<ViewObserver> observers;
     
     public GeneralPanel() {
         super(new GridLayout(1, 1));
+        observers = new ArrayList<>();
         create();
     }
     
+    // создание панелей
     private void create(){
-        observers = new ArrayList<>();
         basePanel = new BasePanel(this);
         settingsPanel = new SettingsPanel();
         infoPanel = new InfoPanel();
@@ -76,17 +77,21 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         Theme.defaultTheme();
     }
     
+    /**
+     *
+     * @return
+     */
     public BasePanel getBasePanel(){
         return basePanel;
     }
 
     @Override
-    public void registerObserver(KeyActionObserver ob) {
+    public void registerObserver(ViewObserver ob) {
         observers.add(ob);
     }
 
     @Override
     public void notifyObservers() {
-        observers.stream().forEach(KeyActionObserver::keyActionUpdate);
+        observers.stream().forEach(ViewObserver::keyActionUpdate);
     }
 }

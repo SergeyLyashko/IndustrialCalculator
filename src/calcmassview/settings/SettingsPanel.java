@@ -37,7 +37,7 @@ public class SettingsPanel extends JPanel implements ItemListener{
     // создание чек-боксов
     private void createCheckBoxes(){
         super.add(new ThemeChBox(this));
-        super.add(new ToolTipsOffBox(this));
+        super.add(new ToolTipsChBox(this));
         super.add(new FixSizeWindowChBox(this));
     }
     

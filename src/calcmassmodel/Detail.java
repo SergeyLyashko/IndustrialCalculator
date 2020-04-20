@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package calcmassmodel;
 import static java.lang.Math.PI;
 
 /**
- * ѕолучение массы детали
+ * ¬ычисление массы детали
  * @author Sergei Lyashko
  */
 class Detail {
@@ -30,26 +30,33 @@ class Detail {
     // сообщение об ошибке
     private String message;
     // значение из Ѕазы ƒанных
-    private double valueFromDB;
+    private final double valueFromDB;
+    // параметры детали
+    private final String assortment, type, length, width;
     
-    private String assortment, type, number, length, width;
+    public Detail(String assortment, String type, String number, String length, String width){
+        this.valueFromDB = getValueFromDataBase(assortment, type, number);
+        this.assortment = assortment;
+        this.type = type;
+        this.length = length;
+        this.width = width;
+    }
     
     /**
-     * значение из базы данных
+     * ѕолучение значени€ из базы данных, в зависимости от параметров
      * @param profileAssortment наименование сортамента
      * @param profileType тип сортамента
      * @param profileNumber номер профил€
-     * @return 
+     * @return число с плавающей точкой
      */
-    
     private double getValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
          return new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
     }
     
     /**
-     * ”становка значени€ длины детали
-     * @param value
-     * @return 
+     * ѕолучение числового значени€
+     * @param value —троковое представление значени€
+     * @return числовое представление 
      */
     private double getValueOf(String value) {
         try{
@@ -60,24 +67,10 @@ class Detail {
         return 0;
     }
     
-    public void setParameters(String assortment, String type, String number, String length, String width){
-        this.assortment = assortment;
-        this.type = type;
-        this.number = number;
-        this.length = length;
-        this.width = width;
-    }
-    
     /**
-     * —оздание детали по параметрам
-     * @param assortment наименование сортамента
-     * @param type тип сортамента
-     * @param number номер профил€
-     * @param length длина детали
-     * @param width ширина детали (при наличии)
+     * ¬ычисление массы детали
      */
-    public Massable mass() {
-        this.valueFromDB = getValueFromDataBase(assortment, type, number);
+    protected Massable calculation() {
         switch(assortment){
             case "Ћист":
                             return selectedType(type, length, width);
@@ -113,8 +106,8 @@ class Detail {
         }
         return null;
     }
-
-    public ErrorMessageInterface message() {
+    
+    protected ErrorMessageInterface message() {
         return () -> message;
     }
 }

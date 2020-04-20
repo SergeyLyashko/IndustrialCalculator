@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,19 @@ import javax.swing.JLabel;
  */
 public class ServiceInfo extends JLabel {
     
-    public ServiceInfo(BasePanel panel){
+    private final BasePanel basePanel;
+    
+    public ServiceInfo(BasePanel basePanel){
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
+        this.basePanel = basePanel;
+        addContent();
+    }
+    
+    private void addContent(){
         this.setLocation(20, 140);
-        panel.add(this);
+        basePanel.add(this);
         Theme.addTheme(this);
     }
     
@@ -39,6 +46,7 @@ public class ServiceInfo extends JLabel {
      */
     public void reset(){
         super.setText(null);
+        super.setForeground(Theme.getColorResultMarker());
     }
     
     /**
@@ -49,10 +57,12 @@ public class ServiceInfo extends JLabel {
         super.setText(message);
     }
     
+    /**
+     *
+     * @param message
+     */
     public void setErrorMessage(String message){
         super.setForeground(Color.RED);        
         super.setText(message);
-    }
-
-        
+    }       
 }

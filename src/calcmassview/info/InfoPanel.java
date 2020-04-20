@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package calcmassview.info;
 
 import calcmassview.settings.Theme;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,35 +29,9 @@ import javax.swing.ScrollPaneConstants;
  */
 public class InfoPanel extends JPanel {
         
-    private JLabel htmlText;
-    private JScrollPane scroller;
-    
-    // конструктор
-    public InfoPanel(){
-        super.setLayout(new BorderLayout());
-        Theme.addTheme(this);
-        super.add(addScroller(), BorderLayout.CENTER);
-    }
-    
-    private JScrollPane addScroller(){
-        scroller = new JScrollPane(addText());
-        scroller.getViewport().setBackground(Color.BLACK);        
-        Theme.addTheme(scroller.getViewport());
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        return scroller;
-    }
-    
-    private JLabel addText(){
-        htmlText = new JLabel(loadText());
-        htmlText.setPreferredSize(new Dimension(250, 510));
-        htmlText.setForeground(Color.WHITE);
-        Theme.addTheme(htmlText);
-        return htmlText;
-    }
-    
-    private String loadText(){        
-        String text =         
+    private final JLabel htmlText;
+    private final JScrollPane scroller;
+    private final String text =         
         "<html>"+
         " Управление.<br>"+
         " Навигация по меню осуществляется с помощью<br>"+
@@ -83,8 +56,33 @@ public class InfoPanel extends JPanel {
         " &nbsp; &bull;<font size=-2> Листы стальные с ромбическим рифлением. <a href=http://docs.cntd.ru/document/1200005122/>ГОСТ 8568-77</a></font><br>"+        
         " &nbsp; &bull;<font size=-2> Пластины резиновые и резинотканевые <a href=http://docs.cntd.ru/document/1200005719>ГОСТ 7338-90</a></font><br>"+
         "<br>"+
-        " Copyright &#169; 2019 Sergei Lyashko.<br>"+
-        " Contacts: <a href=mailto:slyashko@mail.ru>написать автору</a>";
-        return text;
+        " <font size=-2>Copyright &#169; 2019 Sergei Lyashko.<br>"+
+        " <font size=-2>Contacts: 9llllepulla@gmail.com";
+    
+    public InfoPanel(){
+        super.setLayout(new BorderLayout());
+        htmlText = new JLabel(text);
+        scroller = new JScrollPane(htmlText);
+        addContent();
     }
+    
+    private void addContent(){
+        Theme.addTheme(this);
+        setTextPreference();
+        setScrollerPreference();
+        super.add(scroller, BorderLayout.CENTER);
+    }
+    
+    private void setScrollerPreference(){
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        Theme.addTheme(scroller.getViewport());
+    }
+    
+    private void setTextPreference(){
+        htmlText.setPreferredSize(new Dimension(250, 510));
+        Theme.addTheme(htmlText);
+    }
+    
+    
 }

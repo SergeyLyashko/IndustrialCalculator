@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package calcmassview.base;
 
-import calcmassview.MenuCreator;
-import calcmassview.settings.ToolTips;
+import calcmassview.Menu;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -28,24 +28,24 @@ import javax.swing.JComboBox;
  */
 public class TypeProfileMenu extends JComboBox<String> implements ActionListener {   
     
-    private final BasePanel panel;
-    private MenuCreator creator;
-    private String selectMenu;
+    private final BasePanel basePanel;
+    private final Menu menu;
+    private String selectedMenuItem;
     
-    public TypeProfileMenu(BasePanel panel) {
+    public TypeProfileMenu(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        this.panel = panel;
-        create();
+        this.basePanel = basePanel;
+        menu = new Menu();
+        addContent();
     }
     
-    private void create(){
-        ToolTips.addToolTips(this, "выбор типа профиля детали");
-        panel.add(this);
+    private void addContent(){
+        ToolTipsChBox.addToolTips(this, "выбор типа профиля детали");
+        basePanel.add(this);
         this.setLocation(20, 60);
-        panel.addPolicy(this);
-        creator = new MenuCreator();
-        this.setModel(creator.getModel(null));
+        basePanel.addPolicy(this);
+        this.setModel(menu.createMenu(null));
         addActionListener(this);
     }
     
@@ -53,29 +53,29 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     public void actionPerformed(ActionEvent e) {
         resetAllValues();
         @SuppressWarnings("unchecked")
-        String currentMenu = 
+        String selectedItem = 
                 ((JComboBox<String>)e.getSource())
                 .getSelectedItem()
                 .toString();
+        this.selectedMenuItem = selectedItem;
         // обновление меню номеров профилей
-        updateMenu(currentMenu);
-        this.selectMenu = currentMenu;
+        updateMenu(selectedMenuItem);
     }
     
     private void updateMenu(String currentMenuItem){
         String selectedAssortment = 
-                panel.getAssortmentMenu()
+                basePanel.getAssortmentMenu()
                         .value()
-                        .getValue();
-        MenuModel numberMenuModel = creator.getModel(selectedAssortment, currentMenuItem);
-        panel.getNumberProfileMenu().setModel(numberMenuModel);
+                        .receive();
+        MenuModel numberMenuModel = menu.createMenu(selectedAssortment, currentMenuItem);
+        basePanel.getNumberProfileMenu().setModel(numberMenuModel);
     }
     
-    public ValueFieldReceivable value() {
-        return () -> selectMenu;
+    public ValueReceivable value() {
+        return () -> selectedMenuItem;
     }
     
     private void resetAllValues(){
-        panel.reset();
+        basePanel.reset();
     }
 }

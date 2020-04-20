@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
  * Представление приложения
  * @author Sergei Lyashko
  */
-public class CalculatorView implements MassObserver, KeyActionObserver {
+public class CalculatorView implements ViewObserver {
     
     private final CalculatorModelInterface model;
     private final CalculatorControllerInterface controller;
@@ -46,14 +46,14 @@ public class CalculatorView implements MassObserver, KeyActionObserver {
     }
     
     @Override
-    public void updateMass(double mass) {
+    public void massUpdate(double mass) {
         this.mass = mass;
         formatResult();
         generalPanel.getBasePanel().setResultation(result);
     }
     
     @Override
-    public void updateErrorMessage(String message) {
+    public void errorMessageUpdate(String message) {
         if(message != null){
             generalPanel.getBasePanel().setError(message);
         }
@@ -71,7 +71,7 @@ public class CalculatorView implements MassObserver, KeyActionObserver {
     
     private void setParametrs(){
         setFields();
-        controller.setParametersDetail(profileAssortment, profileType, profileNumber, length, width);
+        controller.setParametersFromView(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей
@@ -80,26 +80,26 @@ public class CalculatorView implements MassObserver, KeyActionObserver {
                         .getBasePanel()
                         .getAssortmentMenu()
                         .value()
-                        .getValue();
+                        .receive();
         this.profileType = generalPanel
                         .getBasePanel()
                         .getTypeProfileMenu()
                         .value()
-                        .getValue();
+                        .receive();
         this.profileNumber = generalPanel
                         .getBasePanel()
                         .getNumberProfileMenu()
                         .value()
-                        .getValue();
+                        .receive();
         this.length = generalPanel
                     .getBasePanel()
                     .getLengthField()
                     .value()
-                    .getValue();
+                    .receive();
         this.width = generalPanel
                     .getBasePanel()
                     .getWidthField()
                     .value()
-                    .getValue();
+                    .receive();
     }
 }

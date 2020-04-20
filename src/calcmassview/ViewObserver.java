@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.base;
-
-import calcmassview.settings.Theme;
-import java.awt.Color;
-import javax.swing.JLabel;
+package calcmassview;
 
 /**
- * Надписи (мм) для полей длина и ширина
- * @author Sergei Lyashko
+ * интерфейс Представления
+ * наблюдатель
+ * @author Korvin
  */
-public class FieldMarker extends JLabel {
+public interface ViewObserver {
     
-    public FieldMarker(BasePanel panel){
-        super.setVisible(true);
-        super.setSize(25, 20);
-        super.setForeground(Color.white);
-        panel.add(this);
-        Theme.addTheme(this);
-    }
+    /**
+     * обновление массы при ее изменении
+     * @param mass масса детали
+     */
+    public void massUpdate(double mass);
+    
+    /**
+     * обновление строки об ошибке 
+     * @param message
+     */
+    public void errorMessageUpdate(String message);
+    
+    /**
+     * Обновление после нажатия клавиши
+     */
+    public void keyActionUpdate();
 }

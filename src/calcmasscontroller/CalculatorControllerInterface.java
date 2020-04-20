@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,5 @@ public interface CalculatorControllerInterface {
      * @param length длина детали
      * @param width ширина детали
      */
-    public void setParametersDetail(String assortment, String type, String number, String length, String width);
-    
+    public void setParametersFromView(String assortment, String type, String number, String length, String width);
 }

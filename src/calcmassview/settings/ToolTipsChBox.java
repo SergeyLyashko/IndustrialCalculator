@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,43 @@ package calcmassview.settings;
 
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.ToolTipManager;
 
 /**
- * ToolTips checkbox
+ * Всплывающие подсказки checkbox
  * @author Sergei Lyashko
  */
-class ToolTipsOffBox extends JCheckBox implements Selectable {
+public class ToolTipsChBox extends JCheckBox implements Selectable {
     
-    private final SettingsPanel panel;
+    private final SettingsPanel settingsPanel;
     
-    public ToolTipsOffBox(SettingsPanel panel){
-        this.panel = panel;
-        create();
-    }
-    
-    private void create(){
-        Theme.addTheme(this);
-        ToolTips.addToolTips(this, "включение/отключение всплывающих подсказок");
+    public ToolTipsChBox(SettingsPanel panel){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
-        super.setText("отключить всплывающие подсказки");
-        this.addItemListener(panel);
+        super.setText("включить всплывающие подсказки");
+        this.settingsPanel = panel;
+        addContent();
+    }
+    
+    public ToolTipsChBox(){
+        this.settingsPanel = null;
+    }
+    
+    private void addContent(){
+        Theme.addTheme(this);
+        addToolTips(this, "включение/отключение всплывающих подсказок");
+        this.addItemListener(settingsPanel);
+    }
+    
+    /**
+     *
+     * @param component
+     * @param text
+     */
+    public static void addToolTips(JComponent component, String text){
+        component.setToolTipText(text);
     }
     
     @Override
@@ -50,10 +65,10 @@ class ToolTipsOffBox extends JCheckBox implements Selectable {
     private void setToolTips(int stateChange){
         switch(stateChange){
             case ItemEvent.SELECTED:
-                ToolTips.oN();
+                ToolTipManager.sharedInstance().setEnabled(true);
                 break;
             case ItemEvent.DESELECTED:
-                ToolTips.oFF();
+                ToolTipManager.sharedInstance().setEnabled(false);
                 break;            
         }
     }    

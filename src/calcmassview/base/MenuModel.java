@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,17 +26,12 @@ import javax.swing.ComboBoxModel;
 public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
     private final ArrayList<String> menu;
-    private int selected = 0;
+    private int selected;
     
     public MenuModel(ArrayList<String> menu){
         this.menu = menu;
-    }   
-
-    public void add(String item) {
-        menu.add(item);
-        fireContentsChanged(this, 0, menu.size());
     }
-
+    
     @Override
     public int getSize() {
         return menu.size();

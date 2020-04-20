@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package calcmassview.base;
 
-import calcmassview.MenuCreator;
-import calcmassview.settings.ToolTips;
+import calcmassview.Menu;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -28,57 +28,55 @@ import javax.swing.JComboBox;
 public class NumberProfileMenu extends JComboBox<String> implements ActionListener {  
     
     private String selectMenu;
-    private final BasePanel panel;
-    private MenuCreator creator;
+    private final BasePanel basePanel;
+    private final Menu menuCreator;
     
-    public NumberProfileMenu(BasePanel panel) {
+    public NumberProfileMenu(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        this.panel = panel;
-        create();
+        this.basePanel = basePanel;
+        menuCreator = new Menu();
+        addConent();
     }
     
-    private void create(){
-        ToolTips.addToolTips(this, "выбор номера профиля детали");
-        panel.add(this);
+    private void addConent(){
+        ToolTipsChBox.addToolTips(this, "выбор номера профиля детали");
+        basePanel.add(this);
         this.setLocation(20, 100);
-        panel.addPolicy(this);
-        creator = new MenuCreator();
-        this.setModel(creator.getModel(null, null));
+        basePanel.addPolicy(this);
+        this.setModel(menuCreator.createMenu(null, null));
         addActionListener(this);
     }
         
     @Override
     public void actionPerformed(ActionEvent e) {
-        resetAllValues();
+        resetAllFields();
         @SuppressWarnings("unchecked")
-        String currentMenu = 
-                ((JComboBox<String>)e.getSource())
-                        .getSelectedItem()
-                        .toString();
+        String currentMenu = ((JComboBox<String>)e.getSource())
+                                .getSelectedItem()
+                                .toString();
+        this.selectMenu = currentMenu;
         // активаци полей ввода значений
         actionFields(currentMenu);
-        // выбранная детали в выпадающем меню 
-        this.selectMenu = currentMenu;
     }
     
     // активация полей ввода значений
     //TODO переписать код
     private void actionFields(String selectMenu){
         if(!selectMenu.equals("№ профиля")){
-            panel.getLengthField().field().action();
-            if(panel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
-                    panel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
-                panel.getWidthField().field().action();
+            basePanel.getLengthField().perform().activation();
+            if(basePanel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
+                    basePanel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
+                basePanel.getWidthField().perform().activation();
             }
         }
     }
 
-    public ValueFieldReceivable value() {
+    public ValueReceivable value() {
         return () -> selectMenu;
     }
     
-    private void resetAllValues(){
-        panel.reset();
+    private void resetAllFields(){
+        basePanel.reset();
     }
 }

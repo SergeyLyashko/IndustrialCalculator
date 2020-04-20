@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 package calcmassview.settings;
 
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
@@ -26,31 +25,29 @@ import javax.swing.JCheckBox;
 class ThemeChBox extends JCheckBox implements Selectable {
 
     private Theme theme;
-    private final SettingsPanel panel;
+    private final SettingsPanel settingsPanel;
     
     public ThemeChBox(SettingsPanel panel){
-        super.setBackground(Color.BLACK);
-        super.setForeground(Color.white);
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText("темная тема оформления");
         super.setLocation(15, 35);
-        this.panel = panel;
-        create();
+        this.settingsPanel = panel;
+        addContent();
     }
     
-    private void create(){
+    private void addContent(){
         Theme.addTheme(this);
-        ToolTips.addToolTips(this, "включить/отключить темную тему приложения");
-        this.addItemListener(panel);
+        ToolTipsChBox.addToolTips(this, "включить/отключить темную тему приложения");
+        this.addItemListener(settingsPanel);
     }
     
-    // смена темы оформления
     @Override
     public void actionChooser(ItemEvent e) {              
         setTheme(e.getStateChange());
     } 
     
+    // установка темы приложения
     private void setTheme(int stateChange){    
         switch(stateChange){
             case ItemEvent.SELECTED:

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Класс-создатель меню для меню выпадающих списков в панели View
  * @author Sergei Lyashko
  */
-public class MenuCreator {
+public class Menu {
     
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -57,7 +57,7 @@ public class MenuCreator {
      * создание модели меню для базовой панели выпадающего меню
      * @return модель базового меню
      */
-    public MenuModel getModel(){
+    public MenuModel createMenu(){
         return new MenuModel(createProfileBaseMenu());
     }
     
@@ -66,7 +66,7 @@ public class MenuCreator {
      * @param assortment наименование сортамента
      * @return модель меню типов профилей
      */
-    public MenuModel getModel(String assortment){
+    public MenuModel createMenu(String assortment){
         return new MenuModel(createProfileTypeMenu(assortment));
     }
     
@@ -77,7 +77,7 @@ public class MenuCreator {
      * @param type наименование типа профиля
      * @return модель меню номеров профилей
      */
-    public MenuModel getModel(String assortment, String type){
+    public MenuModel createMenu(String assortment, String type){
         return new MenuModel(createProfileNumberMenu(assortment, type));
     }
     

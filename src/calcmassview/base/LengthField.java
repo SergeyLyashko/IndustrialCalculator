@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -24,7 +24,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFormattedTextField;
 
 /**
- * поле ввода длины
+ * Поле ввода длины
  * @author Sergei Lyashko
  */
 public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
@@ -39,11 +39,11 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         this.panel = panel;
-        create();
+        addContent();
     }
     
-    private void create(){
-        ToolTips.addToolTips(this, "поле ввода длины детали");
+    private void addContent(){
+        ToolTipsChBox.addToolTips(this, "поле ввода длины детали");
         panel.add(this);
         super.setText("длина");
         this.setLocation(190, 60);
@@ -54,7 +54,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
      * деактивация (закрытие) поля
      * @return 
      */
-    public ICloseField close(){
+    public IDeactivationField execute(){
         return () -> {
             setEditable(false);
             setBackground(Color.DARK_GRAY);
@@ -69,7 +69,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
      * активация поля
      * @return 
      */
-    public IActionField field(){
+    public IActivationField perform(){
         return ()-> {
             setEditable(true);
             setBackground(Color.white);        
@@ -104,10 +104,14 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
         super.setText("");
+        panel.resetMarker();
     }
     
-    
-    public ValueFieldReceivable value() {
+    /**
+     *
+     * @return
+     */
+    public ValueReceivable value() {
         return () -> text;
     }
     

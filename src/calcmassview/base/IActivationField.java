@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.base;
 
 /**
- * интерфейс Наблюдатель паттерна Наблюдатель
- * @author Korvin
+ * Интерфейс активации поля
+ * @author Sergei Lyashko
  */
-public interface MassObserver {
-    /**
-     * обновление массы при ее изменении
-     * @param mass масса детали
-     */
-    public void updateMass(double mass);
+@FunctionalInterface
+public interface IActivationField {
     
     /**
-     * обновление строки об ошибке 
-     * @param message
+     * Активация поля
      */
-    public void updateErrorMessage(String message);
+    public void activation();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,14 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.CalculatorModel;
 import javax.swing.SwingUtilities;
 
 /**
- * Класс запуска приложения
+ * Запуск приложения
  * @author Sergei Lyashko
  */
 public class Main { 
     public static void main (String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new CalculatorController(new CalculatorModel()); 
-        });
+        SwingUtilities.invokeLater(CalculatorController::start);
     }
 }

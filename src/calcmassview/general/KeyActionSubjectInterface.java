@@ -15,10 +15,10 @@
  */
 package calcmassview.general;
 
-import calcmassview.KeyActionObserver;
+import calcmassview.ViewObserver;
 
 /**
- *
+ * Интерфейс наблюдаемого объекта
  * @author Sergei Lyashko
  */
 public interface KeyActionSubjectInterface {
@@ -27,7 +27,7 @@ public interface KeyActionSubjectInterface {
      * Регистрация наблюдателей
      * @param o экземпляр интерфейса Наблюдатель
      */
-    public void registerObserver(KeyActionObserver o);
+    public void registerObserver(ViewObserver o);
     
     /**
      * оповещение наблюдателей об изменении состояния

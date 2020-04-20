@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package calcmassview.base;
 
-import calcmassview.MenuCreator;
-import calcmassview.settings.ToolTips;
+import calcmassview.Menu;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -28,54 +28,52 @@ import javax.swing.JComboBox;
 public class AssortmentProfileMenu extends JComboBox<String> implements ActionListener {    
         
     private String selectMenu;
-    private final BasePanel panel;
-    private MenuCreator creator;
+    private final BasePanel basePanel;
+    private final Menu menuCreator;
     
-    public AssortmentProfileMenu(BasePanel panel) {
+    public AssortmentProfileMenu(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        this.panel = panel;
-        create();
+        this.basePanel = basePanel;
+        menuCreator = new Menu();
+        addContent();
     }
     
-    private void create(){
-        ToolTips.addToolTips(this, "выбор сортамента");
-        panel.add(this);
+    private void addContent(){
+        ToolTipsChBox.addToolTips(this, "выбор сортамента");
+        basePanel.add(this);
         this.setLocation(20, 20);
-        panel.addPolicy(this);
-        creator = new MenuCreator();
-        this.setModel(creator.getModel());
+        basePanel.addPolicy(this);
+        this.setModel(menuCreator.createMenu());
         addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {        
         @SuppressWarnings("unchecked")
-        String currentMenu = 
-                ((JComboBox<String>)e.getSource())
+        String currentMenu = ((JComboBox<String>)e.getSource())
                 .getSelectedItem()
                 .toString();
-        //обновление меню типов профилей        
-        MenuModel typeMenuModel = creator.getModel(currentMenu);
-        panel.getTypeProfileMenu().setModel(typeMenuModel);
-        //установка начальных позиций меню
-        setMenuStartPosition();
-        //сброс параметров полей        
-        resetAllValues();
         this.selectMenu = currentMenu;
+        //обновление меню типов профилей        
+        MenuModel typeMenuModel = menuCreator.createMenu(selectMenu);
+        basePanel.getTypeProfileMenu().setModel(typeMenuModel);
+        //сброс параметров полей        
+        resetAllFields();        
+    }
+    
+    private void resetAllFields(){
+        setMenuStartPosition();
+        basePanel.reset();
     }
     
     // установка начальных значений меню
     private void setMenuStartPosition(){
-        panel.getTypeProfileMenu().setSelectedIndex(0);
-        panel.getNumberProfileMenu().setSelectedIndex(0);
+        basePanel.getTypeProfileMenu().setSelectedIndex(0);
+        basePanel.getNumberProfileMenu().setSelectedIndex(0);
     }
     
-    public ValueFieldReceivable value() {
+    public ValueReceivable value() {
         return () -> selectMenu;
-    }
-    
-    private void resetAllValues(){
-        panel.reset();
     }
 }

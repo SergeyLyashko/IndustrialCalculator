@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,12 @@ package calcmassview.base;
 
 import calcmassview.general.GeneralPanel;
 import calcmassview.settings.Theme;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -30,7 +32,6 @@ import javax.swing.JPanel;
 public class BasePanel extends JPanel {
     
     private final GeneralPanel panel;
-    
     // combo-boxes
     private AssortmentProfileMenu assortmentMenu;
     private TypeProfileMenu typeProfileMenu;
@@ -57,22 +58,28 @@ public class BasePanel extends JPanel {
     }
     
     private void createDecorations(){
-        Theme.addTheme(this);
         //надпись мм для поля
-        FieldMarker mmWf = new FieldMarker(this);
-        mmWf.setText("мм");
-        mmWf.setLocation(320, 22);
+        JLabel widthMark = new JLabel();
+        widthMark.setVisible(true);
+        widthMark.setSize(25, 20);
+        widthMark.setForeground(Color.white);
+        widthMark.setText("мм");
+        widthMark.setLocation(320, 22);
+        this.add(widthMark);
+        Theme.addTheme(widthMark);
         //надпись мм для поля
-        FieldMarker mmLf = new FieldMarker(this);
-        mmLf.setText("мм");
-        mmLf.setLocation(320, 62);
-        // текстовая строка результата
-        resultMarker = new ResultMarker(this);
-        // <Сервисная строка>
-        serviceInfo = new ServiceInfo(this);
+        JLabel lengthMark = new JLabel();
+        lengthMark.setVisible(true);
+        lengthMark.setSize(25, 20);
+        lengthMark.setForeground(Color.white);
+        lengthMark.setText("мм");
+        lengthMark.setLocation(320, 62);
+        this.add(lengthMark);
+        Theme.addTheme(lengthMark);
     }
     
     private void createComponents(){
+        Theme.addTheme(this);
         // <Тип изделия>
         assortmentMenu = new AssortmentProfileMenu(this);        
         // <Тип профиля>
@@ -83,26 +90,39 @@ public class BasePanel extends JPanel {
         widthField = new WidthField(this);
         //текстовое поле Длина
         lengthField = new LengthField(this);
+        // текстовая строка результата
+        resultMarker = new ResultMarker(this);
+        // <Сервисная строка>
+        serviceInfo = new ServiceInfo(this);
     }
+    
     // добавление компонентов в политику обхода фокуса
-    public void addPolicy(Component component){
+    void addPolicy(Component component){
         policy.add(component);
     }
     
+    /**
+     *
+     * @return
+     */
     public GeneralPanel getGeneralPanel(){
         return panel;
     }
     
     /**
-     * сброс значений при активации панели AssortmentProfileMenu
+     * сброс значений полей
      */
-    public void reset(){        
+    void reset(){        
+        resetMarker();
+        //сброс полей ввода
+        widthField.execute().deactivation();
+        lengthField.execute().deactivation();    
+    }
+    
+    void resetMarker(){
         // сброс надписей
         resultMarker.reset();
         serviceInfo.reset();
-        //сброс полей ввода
-        widthField.close().close();
-        lengthField.close().close();    
     }
 
     public AssortmentProfileMenu getAssortmentMenu(){
@@ -125,13 +145,20 @@ public class BasePanel extends JPanel {
         return widthField;
     }
 
+    /**
+     * Установка результата в строке результата
+     * @param value результ вычислений
+     */
     public void setResultation(String value){
         resultMarker.setResult(value);
         setResultToSystemClipboard(value);
         serviceInfo.setMessage("результат скопирован в буфер обмена");
     }
     
-    // сервисная строка
+    /**
+     * Сообщение об ошибке в сервисной строке
+     * @param message сообщение об ошибке
+     */
     public void setError(String message){
         resultMarker.setResult("error");
         serviceInfo.setErrorMessage(message);

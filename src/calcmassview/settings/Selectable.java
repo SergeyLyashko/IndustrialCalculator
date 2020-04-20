@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Korvin.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,14 @@ package calcmassview.settings;
 import java.awt.event.ItemEvent;
 
 /**
- *
- * @author Korvin
+ * Интерфейс выбора чек-бокса
+ * @author Sergei Lyashko
  */
 public interface Selectable {
     
+    /**
+     *
+     * @param e
+     */
     public void actionChooser(ItemEvent e);
 }

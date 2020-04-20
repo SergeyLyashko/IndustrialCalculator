@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,35 @@
  */
 package calcmasscontroller;
 
+import calcmassmodel.CalculatorModel;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.CalculatorView;
 
 /**
  * Контроллер
+ * Создание модели и представления
  * @author Sergei Lyashko
  */
 public class CalculatorController implements CalculatorControllerInterface {
     
-    private final CalculatorModelInterface model;
+    private static CalculatorModelInterface model;
+    private static CalculatorController controller;
     
-    public CalculatorController(CalculatorModelInterface model){
-        this.model = model;
-        new CalculatorView(model, this);
-    }   
+    private CalculatorController(CalculatorModelInterface model){
+        CalculatorController.model = model;
+    }
+    
+    /**
+     * Создание модели, контроллера, прдставления
+     */
+    public static void start(){
+        model = new CalculatorModel();
+        controller = new CalculatorController(model);
+        new CalculatorView(model, controller);
+    }
     
     @Override
-    public void setParametersDetail(String assortment, String type, String number, String length, String width) {
+    public void setParametersFromView(String assortment, String type, String number, String length, String width) {
         model.createDetail(assortment, type, number, length, width);
     }
 }

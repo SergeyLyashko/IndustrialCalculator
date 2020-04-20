@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,27 +25,32 @@ import javax.swing.JLabel;
  */
 public class ResultMarker extends JLabel {
     
-    public ResultMarker(BasePanel panel){
+    private final BasePanel basePanel;
+    
+    public ResultMarker(BasePanel basePanel){
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
+        this.basePanel = basePanel;
+        addContent();
+    }
+    
+    private void addContent(){
         this.setLocation(190, 100);
-        panel.add(this);
+        basePanel.add(this);
         Theme.addTheme(this);
     }
     
     // установка значения в строку результата
     public void setResult(String result){
-        String str;
-        if(!result.equals("error")){
-            StringBuilder s = new StringBuilder();
-            str = s.append(result).append(" ").append("кг").toString();
-        }else{
+        if(result.equals("error")){
             super.setForeground(Color.red);
-            str = result;
+            super.setText(result);
+        }else{
+            String str = new StringBuilder().append(result).append(" ").append("кг").toString();
+            super.setText(str);
         }
-        super.setText(str);
     }
     
     /**
@@ -53,6 +58,6 @@ public class ResultMarker extends JLabel {
      */
     public void reset(){        
         super.setText("0.0");
-        Theme.addTheme(this);
+        super.setForeground(Theme.getColorResultMarker());
     }
 }

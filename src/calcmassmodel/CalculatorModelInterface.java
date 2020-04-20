@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,20 @@
  */
 package calcmassmodel;
 
-import calcmassview.MassObserver;
+import calcmassview.ViewObserver;
 
 /**
- * паттерн Наблюдатель
- * Интерфейс объекта наблючения
+ * Интерфейс Модели
  * @author Sergei Lyashko
  */
-public interface CalculatorModelInterface extends IDetailCreator {
+public interface CalculatorModelInterface {
         
     /**
      * Регистрация наблюдателей
      * @param o экземпляр интерфейса Наблюдатель
      */
-    public void registerObserver(MassObserver o);
+    public void registerObserver(ViewObserver o);
 
-    /**
-     * Удаление наблюдателя
-     * @param o экземпляр интерфейса Наблюдатель
-     */
-    public void removeObserver(MassObserver o);
-    
     /**
      * оповещение наблюдателей об изменении состояния
      */
@@ -44,6 +37,15 @@ public interface CalculatorModelInterface extends IDetailCreator {
     /**
      * вывод сервисного сообщения об ошибке
      */
-    public void displayErrorMessage();
+    public void displayError();
     
+    /**
+     * Создание детали по параметрам
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param length длина детали
+     * @param width ширина детали (при наличии)
+     */
+    public void createDetail(String assortment, String type, String number, String length, String width);    
 }

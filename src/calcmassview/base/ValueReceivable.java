@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Korvin.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcmassview.base;
 
 /**
- *
- * @author Korvin
+ * »нтерфейс получени€ значени€ пол€
+ * @author Sergei Lyashko
  */
 @FunctionalInterface
-public interface IDetailCreator {
-    
+public interface ValueReceivable {
+ 
     /**
-     * —оздание детали по параметрам
-     * @param assortment наименование сортамента
-     * @param type тип сортамента
-     * @param number номер профил€
-     * @param length длина детали
-     * @param width ширина детали (при наличии)
+     * ѕолучение строкового представлени€ 
+     * пол€ приложени€
+     * @return строковое значение пол€
      */
-    public void createDetail(String assortment, String type, String number, String length, String width);
+    public String receive();
 }

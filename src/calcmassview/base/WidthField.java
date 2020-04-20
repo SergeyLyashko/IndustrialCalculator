@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -43,7 +43,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     }
     
     private void create(){
-        ToolTips.addToolTips(this, "поле ввода ширины детали");
+        ToolTipsChBox.addToolTips(this, "поле ввода ширины детали");
         panel.add(this);
         this.setLocation(190, 20);   
         super.setText("ширина");
@@ -54,7 +54,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
      * деактивация (закрытие) поля
      * @return 
      */
-    public ICloseField close(){
+    public IDeactivationField execute(){
         return () -> {
             setEditable(false);
             setBackground(Color.DARK_GRAY);
@@ -69,7 +69,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
      * активация поля
      * @return 
      */
-    public IActionField field(){
+    public IActivationField perform(){
         return () -> {
             setEditable(true);
             setBackground(Color.white);        
@@ -98,7 +98,11 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
         this.text = super.getText();
     }
     
-    public ValueFieldReceivable value() {
+    /**
+     *
+     * @return
+     */
+    public ValueReceivable value() {
         return () -> text;
     }
     
@@ -110,6 +114,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
         super.setText("");
+        panel.resetMarker();
     }
     
     @Override

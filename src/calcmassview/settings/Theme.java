@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,20 +30,38 @@ public class Theme {
     
     private static final ArrayList<JComponent> COMPONENT_LIST = new ArrayList<>();
     private static final ArrayList<JLabel> MARKER_LIST = new ArrayList<>();
-    
     private static Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;    
     
+    /**
+     *
+     * @param component
+     */
     public static void addTheme(JComponent component){
         COMPONENT_LIST.add(component);
     }
     
+    /**
+     *
+     * @param marker
+     */
     public static void addTheme(JLabel marker){
         MARKER_LIST.add(marker);
     }
     
+    /**
+     *
+     */
     public static void defaultTheme(){
         new Theme().dark();
     }
+    
+    /**
+     *
+     * @return
+     */
+    public static Color getColorResultMarker(){
+        return colorResultMarker;
+    }  
     
     private void setColorTheme(Color colorBackGround, Color colorForeGround, Color colorMarker, Color colorResultMarker) {
         COMPONENT_LIST.stream()
@@ -62,6 +80,9 @@ public class Theme {
             .forEach((JLabel marker) -> marker.setForeground(colorResultMarker));
     }
     
+    /**
+     *
+     */
     public void dark(){
         colorBackGround = Color.BLACK;
         colorForeGround = Color.WHITE;
@@ -70,6 +91,9 @@ public class Theme {
         setColorTheme(colorBackGround, colorForeGround, colorMarker, colorResultMarker);               
     }
     
+    /**
+     *
+     */
     public void light(){
         colorBackGround = new Color(250, 236, 229);
         colorForeGround = Color.BLACK;

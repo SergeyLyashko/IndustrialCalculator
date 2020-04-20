@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package calcmassmodel;
 
-import calcmassview.MassObserver;
 import java.util.ArrayList;
+import calcmassview.ViewObserver;
 
 /**
  * создание детали
@@ -25,52 +25,42 @@ import java.util.ArrayList;
 public class CalculatorModel implements CalculatorModelInterface {
     
     private Detail detail;
-    private final ArrayList<MassObserver> observers;
+    private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
     
     public CalculatorModel(){
-        observers = new ArrayList<>();
+        observers = new ArrayList<>();        
     }
     
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
-        detail = new Detail();
-        detail.setParameters(assortment, type, number, length, width);
-        this.mass = detail.mass().getMass();
+        detail = new Detail(assortment, type, number, length, width);
         massChanged();
     }
     
     @Override
-    public void registerObserver(MassObserver o) {
+    public void registerObserver(ViewObserver o) {
         observers.add(o);
     }
 
     @Override
-    public void removeObserver(MassObserver o) {
-        int i = observers.indexOf(o);
-        if(i >= 0){
-            observers.remove(i);
-        }
-    }
-
-    @Override
     public void notifyObservers() {
-        observers.stream().forEach((MassObserver observer) -> {
-            observer.updateMass(mass);
-            observer.updateErrorMessage(serviceMessage);
+        observers.stream().forEach((ViewObserver observer) -> {
+            observer.massUpdate(mass);
+            observer.errorMessageUpdate(serviceMessage);
         });
     }
 
     @Override
-    public void displayErrorMessage() {
+    public void displayError() {
         this.serviceMessage = detail.message().getErrorMessage();
-        
     }
     
     // оповещение наблюдателей об изменениях
     private void massChanged(){
-        displayErrorMessage();
+        this.mass = detail.calculation().mass();
+        displayError();
         notifyObservers();
     }
 }

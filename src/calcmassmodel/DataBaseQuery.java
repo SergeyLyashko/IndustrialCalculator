@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ class DataBaseQuery {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private double result;
     
     private static final String SQL_QUERY = "select AreaCut_Value from "
     + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
@@ -50,7 +51,7 @@ class DataBaseQuery {
      * @return площадь сечения (в см2)
      */
     public double getDataBaseValue(String profile, String type, String number) {
-        double result = 0;
+        
         try{
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_QUERY);        
@@ -60,12 +61,10 @@ class DataBaseQuery {
             preparedStatement.setString(3, number);
             // регистрация возвращаемого параметра
             resultSet = preparedStatement.executeQuery();
-            // test System.out.println(SQL_QUERY);
             result = resultSet.getDouble("AreaCut_Value");
             // закрытие
             close(connection, preparedStatement, resultSet);
         }catch(SQLException e){
-            System.err.println("Ошибка sql: ");
             e.printStackTrace();
         }
         return result;
@@ -83,15 +82,11 @@ class DataBaseQuery {
     }
     
     // подключение к БД
-    // https://ru.stackoverflow.com/questions/310988/%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C-%D1%84%D0%B0%D0%B9%D0%BB-%D0%BD%D0%B0-%D1%87%D1%82%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D0%B7-jar
-    // https://docs.oracle.com/javase/tutorial/deployment/jar/downman.html
     private Connection getConnection(){
-        Connection connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:calculator.db");
         } catch (SQLException ex) {
-            System.err.print("Ошибка подключения к БД. ");
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);

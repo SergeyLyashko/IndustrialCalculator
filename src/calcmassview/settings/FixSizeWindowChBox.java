@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,26 +24,35 @@ import javax.swing.JCheckBox;
  */
 class FixSizeWindowChBox extends JCheckBox implements Selectable {   
     
-    private final SettingsPanel panel;
+    private final SettingsPanel settingsPanel;
     
     public FixSizeWindowChBox(SettingsPanel panel){
-        this.panel = panel;
-        create();
-    }
-    
-    private void create(){
-        Theme.addTheme(this);
+        this.settingsPanel = panel;
         super.setSelected(true);
         super.setSize(350, 20);
         super.setLocation(15, 85);  
         super.setText("зафиксировать размер окна <in process>");
-        this.addItemListener(panel);
+        addContent();
     }
     
-    //TODO
+    private void addContent(){
+        Theme.addTheme(this);
+        this.addItemListener(settingsPanel);
+    }
+    
     @Override
-    public void actionChooser(ItemEvent e) {
-        //TODO
-        //System.out.println("test Size Win");        
-    }    
+    public void actionChooser(ItemEvent e) {              
+        setSizeWindow(e.getStateChange());
+    }
+    
+    private void setSizeWindow(int stateChange){
+        switch(stateChange){
+            case ItemEvent.SELECTED:
+                //TODO
+                break;
+            case ItemEvent.DESELECTED:
+                //TODO
+                break;            
+        }
+    }
 }

@@ -25,5 +25,5 @@ public interface Massable {
      * получение массы детали
      * @return значение массы детали
      */
-    public double getMass();
+    public double mass();
 }

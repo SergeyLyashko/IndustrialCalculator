@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,9 @@ import java.awt.FocusTraversalPolicy;
 import java.util.ArrayList;
 
 /**
- * Политика обхода компонентов панели View фокусом
+ * Политика обхода фокусом компонентов
  * @author Sergei Lyashko
  */
-
 public class MyFocusTraversalPolicy extends FocusTraversalPolicy {
     
     private final ArrayList<Component> order;
