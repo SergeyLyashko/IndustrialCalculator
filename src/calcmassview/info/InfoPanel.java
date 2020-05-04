@@ -28,9 +28,10 @@ import javax.swing.ScrollPaneConstants;
  * @author Sergei Lyashko
  */
 public class InfoPanel extends JPanel {
-        
-    private final JLabel htmlText;
-    private final JScrollPane scroller;
+
+    private final Theme theme;
+    private JLabel htmlText;
+    private JScrollPane scroller;
     private final String text =         
         "<html>"+
         " ”правление.<br>"+
@@ -59,15 +60,16 @@ public class InfoPanel extends JPanel {
         " <font size=-2>Copyright &#169; 2019 Sergei Lyashko.<br>"+
         " <font size=-2>Contacts: 9llllepulla@gmail.com";
     
-    public InfoPanel(){
+    public InfoPanel(Theme theme){
+        this.theme = theme;
         super.setLayout(new BorderLayout());
-        htmlText = new JLabel(text);
-        scroller = new JScrollPane(htmlText);
-        addContent();
+        create();
     }
     
-    private void addContent(){
-        Theme.addTheme(this);
+    private void create(){
+        htmlText = new JLabel(text);
+        scroller = new JScrollPane(htmlText);
+        theme.setColorTheme(this);
         setTextPreference();
         setScrollerPreference();
         super.add(scroller, BorderLayout.CENTER);
@@ -76,13 +78,11 @@ public class InfoPanel extends JPanel {
     private void setScrollerPreference(){
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        Theme.addTheme(scroller.getViewport());
+        theme.setColorTheme(scroller.getViewport());
     }
     
     private void setTextPreference(){
         htmlText.setPreferredSize(new Dimension(250, 510));
-        Theme.addTheme(htmlText);
+        theme.setColorTheme(htmlText);
     }
-    
-    
 }

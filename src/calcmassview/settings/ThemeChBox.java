@@ -16,30 +16,34 @@
 package calcmassview.settings;
 
 import java.awt.event.ItemEvent;
+import java.io.Serializable;
 import javax.swing.JCheckBox;
 
 /**
  * Color theme checkbox
  * @author Sergei Lyashko
  */
-class ThemeChBox extends JCheckBox implements Selectable {
+class ThemeChBox extends JCheckBox implements Selectable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Theme theme;
+    private final String text = "включить/отключить темную тему приложения";
     private final SettingsPanel settingsPanel;
     
     public ThemeChBox(SettingsPanel panel){
+        this.settingsPanel = panel;
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText("темная тема оформления");
         super.setLocation(15, 35);
-        this.settingsPanel = panel;
-        addContent();
+        super.addItemListener(settingsPanel);
     }
-    
-    private void addContent(){
-        Theme.addTheme(this);
-        ToolTipsChBox.addToolTips(this, "включить/отключить темную тему приложения");
-        this.addItemListener(settingsPanel);
+        
+    public void addState(Theme theme, ToolTips toolTips){
+        this.theme = theme;
+        theme.setColorTheme(this);
+        toolTips.setToolTips(this, text);
     }
     
     @Override
@@ -51,11 +55,9 @@ class ThemeChBox extends JCheckBox implements Selectable {
     private void setTheme(int stateChange){    
         switch(stateChange){
             case ItemEvent.SELECTED:
-                theme = new Theme();
                 theme.dark();
                 break;
             case ItemEvent.DESELECTED:
-                theme = new Theme();
                 theme.light();
                 break;            
         }        

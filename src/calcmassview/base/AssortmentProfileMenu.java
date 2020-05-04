@@ -16,7 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.Menu;
-import calcmassview.settings.ToolTipsChBox;
+import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -30,8 +30,11 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
     private String selectMenu;
     private final BasePanel basePanel;
     private final Menu menuCreator;
+    private final ToolTips toolTips;
+    private final String text = "выбор сортамента детали";
     
-    public AssortmentProfileMenu(BasePanel basePanel) {
+    public AssortmentProfileMenu(BasePanel basePanel, ToolTips toolTips) {
+        this.toolTips = toolTips;
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         this.basePanel = basePanel;
@@ -40,7 +43,7 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
     }
     
     private void addContent(){
-        ToolTipsChBox.addToolTips(this, "выбор сортамента");
+        toolTips.setToolTips(this, text);
         basePanel.add(this);
         this.setLocation(20, 20);
         basePanel.addPolicy(this);

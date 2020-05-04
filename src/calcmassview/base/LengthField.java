@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTipsChBox;
+import calcmassview.settings.ToolTips;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -30,20 +30,23 @@ import javax.swing.JFormattedTextField;
 public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
     
     private final BasePanel panel;
-    private String text;
+    private transient String contentFeld;
+    private final ToolTips toolTips;
+    private final String toolTipText = "поле ввода длины детали";
     
-    public LengthField(BasePanel panel){
+    public LengthField(BasePanel panel, ToolTips toolTips){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         this.panel = panel;
+        this.toolTips = toolTips;
         addContent();
     }
     
     private void addContent(){
-        ToolTipsChBox.addToolTips(this, "поле ввода длины детали");
+        toolTips.setToolTips(this, toolTipText);
         panel.add(this);
         super.setText("длина");
         this.setLocation(190, 60);
@@ -85,7 +88,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            this.text = super.getText();
+            this.contentFeld = super.getText();
         }
     }
     
@@ -112,7 +115,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
      * @return
      */
     public ValueReceivable value() {
-        return () -> text;
+        return () -> contentFeld;
     }
     
     @Override

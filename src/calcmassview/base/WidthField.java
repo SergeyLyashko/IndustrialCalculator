@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTipsChBox;
+import calcmassview.settings.ToolTips;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -30,20 +30,23 @@ import javax.swing.JFormattedTextField;
 public class WidthField extends JFormattedTextField implements FocusListener, KeyListener {
     
     private final BasePanel panel;
-    private String text;
+    private transient String contentField;
+    private final ToolTips toolTips;
+    private final String text = "поле ввода ширины детали";
     
-    public WidthField(BasePanel panel){
+    public WidthField(BasePanel panel, ToolTips toolTips){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         this.panel = panel;
+        this.toolTips = toolTips;
         create();
     }
     
     private void create(){
-        ToolTipsChBox.addToolTips(this, "поле ввода ширины детали");
+        toolTips.setToolTips(this, text);
         panel.add(this);
         this.setLocation(190, 20);   
         super.setText("ширина");
@@ -95,7 +98,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
      */
     @Override
     public void focusLost(FocusEvent e) {
-        this.text = super.getText();
+        this.contentField = super.getText();
     }
     
     /**
@@ -103,7 +106,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
      * @return
      */
     public ValueReceivable value() {
-        return () -> text;
+        return () -> contentField;
     }
     
     /**

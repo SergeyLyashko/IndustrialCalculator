@@ -20,8 +20,11 @@ import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
 import calcmassview.settings.Theme;
+import calcmassview.settings.ToolTips;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,33 +40,85 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
     private InfoPanel infoPanel;
+    private JFrame appFrame;
+    private final SavedPreference preference;
     private final ArrayList<ViewObserver> observers;
+    private Theme theme;
+    private ToolTips toolTips;
     
     public GeneralPanel() {
         super(new GridLayout(1, 1));
         observers = new ArrayList<>();
-        create();
+        preference = new SavedPreference();
+        addContent();
     }
     
     // создание панелей
-    private void create(){
-        basePanel = new BasePanel(this);
-        settingsPanel = new SettingsPanel();
-        infoPanel = new InfoPanel();
+    private void addContent(){
+        SavedPreference open = preference.load();
+        if(open != null){
+            theme = open.getTheme();
+            theme.action();
+            toolTips = open.getToolTips();
+            toolTips.currentState();
+            settingsPanel = open.getSettingsPanel();
+            settingsPanel.addPreference(theme, toolTips);
+        }else{
+            theme = new Theme();
+            theme.dark();
+            toolTips = new ToolTips();
+            toolTips.oN();
+            settingsPanel = new SettingsPanel(theme, toolTips);
+        }
+        basePanel = new BasePanel(this, theme, toolTips);
+        infoPanel = new InfoPanel(theme);
         addTabbedPane();
         createAndShowGUI();
     }
     
     // основное окно
     private void createAndShowGUI(){
-        JFrame app = new JFrame("Калькулятор масс");
-        app.setBounds(300, 300, 360, 220);
-        app.setResizable(false);
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.getContentPane().add(this, BorderLayout.CENTER);
+        appFrame = new JFrame("Калькулятор масс");
+        appFrame.setBounds(300, 300, 360, 220);
+        appFrame.setResizable(false);
+        appFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        appFrame.getContentPane().add(this, BorderLayout.CENTER);
+        closeApp();
         //отображение окна
-        app.setVisible(true);
+        appFrame.setVisible(true);
     }
+    
+    // закрытие приложения
+    private void closeApp(){
+        appFrame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+
+            @Override
+            public void windowClosing(WindowEvent e) {                
+                preference.addComponent(settingsPanel, theme, toolTips);
+                preference.save();
+                System.exit(0);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+    }
+    
+    
     
     /**
      * Добавление вкладок на панель
@@ -74,12 +129,11 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         tabbedPane.addTab("Настройки", settingsPanel);
         tabbedPane.addTab("Справка", infoPanel);
         this.add(tabbedPane);
-        Theme.defaultTheme();
     }
     
     /**
-     *
-     * @return
+     * 
+     * @return основная панель приложения
      */
     public BasePanel getBasePanel(){
         return basePanel;

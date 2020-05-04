@@ -16,28 +16,33 @@
 package calcmassview.settings;
 
 import java.awt.event.ItemEvent;
+import java.io.Serializable;
 import javax.swing.JCheckBox;
 
 /**
  * Фиксация размеров окна
  * @author Sergei Lyashko
  */
-class FixSizeWindowChBox extends JCheckBox implements Selectable {   
+class FixSizeWindowChBox extends JCheckBox implements Selectable, Serializable {   
+
+    private static final long serialVersionUID = 1L;
     
     private final SettingsPanel settingsPanel;
-    
+    private final String text = "фиксировать размер окна";
+        
     public FixSizeWindowChBox(SettingsPanel panel){
         this.settingsPanel = panel;
         super.setSelected(true);
         super.setSize(350, 20);
         super.setLocation(15, 85);  
         super.setText("зафиксировать размер окна <in process>");
-        addContent();
+        super.addItemListener(settingsPanel);
     }
     
-    private void addContent(){
-        Theme.addTheme(this);
-        this.addItemListener(settingsPanel);
+    
+    public void addState(Theme theme, ToolTips toolTips){
+        theme.setColorTheme(this);
+        toolTips.setToolTips(this, text);
     }
     
     @Override
@@ -45,6 +50,7 @@ class FixSizeWindowChBox extends JCheckBox implements Selectable {
         setSizeWindow(e.getStateChange());
     }
     
+    // TODO
     private void setSizeWindow(int stateChange){
         switch(stateChange){
             case ItemEvent.SELECTED:

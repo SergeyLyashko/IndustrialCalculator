@@ -18,6 +18,7 @@ package calcmassview.settings;
 import calcmassview.base.ServiceInfo;
 import calcmassview.base.ResultMarker;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -26,79 +27,86 @@ import javax.swing.JLabel;
  * Тема оформления окна приложения
  * @author Sergei Lyashko
  */
-public class Theme {       
+public class Theme implements Serializable {
     
-    private static final ArrayList<JComponent> COMPONENT_LIST = new ArrayList<>();
-    private static final ArrayList<JLabel> MARKER_LIST = new ArrayList<>();
-    private static Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;    
+    private static final long serialVersionUID = 1L;
     
-    /**
-     *
-     * @param component
-     */
-    public static void addTheme(JComponent component){
-        COMPONENT_LIST.add(component);
+    private transient ArrayList<JComponent> componentList = new ArrayList<>();
+    private transient ArrayList<JLabel> markerList = new ArrayList<>();
+    private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
+        
+    public void action(){
+        this.markerList = new ArrayList<>();
+        this.componentList = new ArrayList<>();
     }
     
     /**
-     *
-     * @param marker
+     * Запрос текущего цвета маркера(надписи)
+     * @return цвет маркера
      */
-    public static void addTheme(JLabel marker){
-        MARKER_LIST.add(marker);
-    }
-    
-    /**
-     *
-     */
-    public static void defaultTheme(){
-        new Theme().dark();
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public static Color getColorResultMarker(){
+    public Color getColorResultMarker(){
         return colorResultMarker;
-    }  
-    
-    private void setColorTheme(Color colorBackGround, Color colorForeGround, Color colorMarker, Color colorResultMarker) {
-        COMPONENT_LIST.stream()
-            .forEach((JComponent component) -> {
-                component.setBackground(colorBackGround);
-                component.setForeground(colorForeGround);
-            });
-        
-        MARKER_LIST.stream()
-            .forEach((JLabel marker) -> marker.setForeground(colorMarker));
-        
-        MARKER_LIST.stream()
-            .filter((JLabel marker) -> 
-                marker.getClass().equals(ServiceInfo.class) ||
-                marker.getClass().equals(ResultMarker.class))
-            .forEach((JLabel marker) -> marker.setForeground(colorResultMarker));
     }
     
     /**
-     *
+     * Установка темы оформления для выбранной надписи
+     * @param marker надпись в приложении
+     */
+    public void setColorTheme(JLabel marker){
+        if(marker.getClass().equals(ServiceInfo.class) || marker.getClass().equals(ResultMarker.class)){
+            marker.setForeground(colorResultMarker);
+        }else{
+            marker.setForeground(colorMarker);
+        }
+        markerList.add(marker);
+    }
+    
+    /**
+     * Установка темы оформления для выбранного компонента
+     * @param component компонент для установки темы оформления
+     */
+    public void setColorTheme(JComponent component) {
+        component.setBackground(colorBackGround);
+        component.setForeground(colorForeGround);
+        componentList.add(component);
+    }
+    
+    /**
+     * Темная тема
      */
     public void dark(){
         colorBackGround = Color.BLACK;
         colorForeGround = Color.WHITE;
         colorMarker = Color.WHITE;
         colorResultMarker = Color.GREEN;
-        setColorTheme(colorBackGround, colorForeGround, colorMarker, colorResultMarker);               
+        actionTheme();               
     }
     
     /**
-     *
+     * Светлая тема
      */
     public void light(){
         colorBackGround = new Color(250, 236, 229);
         colorForeGround = Color.BLACK;
         colorMarker = Color.BLACK;
         colorResultMarker = Color.BLUE;
-        setColorTheme(colorBackGround, colorForeGround, colorMarker, colorResultMarker);                     
+        actionTheme();                     
+    }
+    
+    private void actionTheme(){
+        componentList.stream()
+            .forEach((JComponent component) -> {
+                component.setBackground(colorBackGround);
+                component.setForeground(colorForeGround);
+            });
+        
+        markerList.stream()
+            .forEach((JLabel marker) -> marker.setForeground(colorMarker));
+        
+        markerList.stream()
+            .filter((JLabel marker) -> 
+                marker.getClass().equals(ServiceInfo.class) ||
+                marker.getClass().equals(ResultMarker.class))
+            .forEach((JLabel marker) -> marker.setForeground(colorResultMarker));
     }
 }

@@ -15,46 +15,79 @@
  */
 package calcmassview.settings;
 
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.Serializable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * панель создани€ чек-боксов
+ * ѕанель настроек
  * @author Sergei Lyashko
  */
-public class SettingsPanel extends JPanel implements ItemListener{
+public class SettingsPanel extends JPanel implements ItemListener, Serializable {
+
+    private static final long serialVersionUID = 1L;
     
-    public SettingsPanel(){
-        Theme.addTheme(this);
+    private Theme theme;
+    private ToolTips toolTips;
+    private ThemeChBox themeChBox;
+    private ToolTipsChBox toolTipsChBox;
+    private FixSizeWindowChBox fixSizeWindowChBox;
+    
+    public SettingsPanel(Theme theme, ToolTips toolTips){
+        this.theme = theme;
+        this.toolTips = toolTips;
         header();
         createCheckBoxes();
         super.setLayout(null);
     }
     
+    /**
+     * ”становка выбранных настроек
+     * @param theme тема приложени€
+     * @param toolTips всплывающие подсказки
+     */
+    public void addPreference(Theme theme, ToolTips toolTips){
+        this.theme = theme;
+        this.toolTips = toolTips;
+        themeChBox.addState(theme, toolTips);
+        toolTipsChBox.addState(theme, toolTips);
+        fixSizeWindowChBox.addState(theme, toolTips);
+        theme.setColorTheme(this);
+        toolTips.currentState();
+    }
+    
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        Selectable sourse = (Selectable)e.getItemSelectable();
+        sourse.actionChooser(e);
+    }
+    
     // создание чек-боксов
     private void createCheckBoxes(){
-        super.add(new ThemeChBox(this));
-        super.add(new ToolTipsChBox(this));
-        super.add(new FixSizeWindowChBox(this));
+        themeChBox = new ThemeChBox(this);
+        themeChBox.addState(theme, toolTips);
+        super.add(themeChBox);
+        
+        toolTipsChBox = new ToolTipsChBox(this);
+        toolTipsChBox.addState(theme, toolTips);
+        super.add(toolTipsChBox);
+        
+        fixSizeWindowChBox = new FixSizeWindowChBox(this);
+        fixSizeWindowChBox.addState(theme, toolTips);
+        super.add(fixSizeWindowChBox);
+        theme.setColorTheme(this);
     }
     
     // маркеры полей длина и ширина
     private void header(){
         JLabel infoText = new JLabel();
-        Theme.addTheme(infoText);
+        theme.setColorTheme(infoText);
         infoText.setVisible(true);
         infoText.setText("Ќастройки");
         infoText.setSize(300, 20);
         infoText.setLocation(15, 10);       
         super.add(infoText);
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        Selectable sourse = (Selectable)e.getItemSelectable();
-        sourse.actionChooser(e);
     }
 }

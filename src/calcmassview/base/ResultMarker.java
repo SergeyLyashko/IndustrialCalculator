@@ -26,23 +26,28 @@ import javax.swing.JLabel;
 public class ResultMarker extends JLabel {
     
     private final BasePanel basePanel;
+    private final Theme theme;
     
-    public ResultMarker(BasePanel basePanel){
+    public ResultMarker(BasePanel basePanel, Theme theme){
+        this.basePanel = basePanel;
+        this.theme = theme;
+        super.setLocation(190, 100);
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
-        this.basePanel = basePanel;
         addContent();
     }
     
     private void addContent(){
-        this.setLocation(190, 100);
         basePanel.add(this);
-        Theme.addTheme(this);
+        theme.setColorTheme(this);
     }
     
-    // установка значения в строку результата
+    /**
+     * установка значения в строку результата
+     * @param result
+     */
     public void setResult(String result){
         if(result.equals("error")){
             super.setForeground(Color.red);
@@ -58,6 +63,6 @@ public class ResultMarker extends JLabel {
      */
     public void reset(){        
         super.setText("0.0");
-        super.setForeground(Theme.getColorResultMarker());
+        super.setForeground(theme.getColorResultMarker());
     }
 }

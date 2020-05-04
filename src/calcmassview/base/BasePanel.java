@@ -17,6 +17,7 @@ package calcmassview.base;
 
 import calcmassview.general.GeneralPanel;
 import calcmassview.settings.Theme;
+import calcmassview.settings.ToolTips;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
@@ -30,70 +31,82 @@ import javax.swing.JPanel;
  * @author Sergei Lyashko
  */
 public class BasePanel extends JPanel {
-    
-    private final GeneralPanel panel;
+
     // combo-boxes
     private AssortmentProfileMenu assortmentMenu;
     private TypeProfileMenu typeProfileMenu;
     private NumberProfileMenu numberProfileMenu;
-    // сервисная строка
-    private ServiceInfo serviceInfo;
     // поля ввода значений
     private LengthField lengthField;
-    private WidthField widthField;
+    private WidthField widthField;    
+    // политика обхода фокуса
+    private final MyFocusTraversalPolicy myFocusTraversalPolicy;
+    private final ArrayList<Component> policy;
+    // гравная панель
+    private final GeneralPanel panel;
+    // цветовая тема
+    private final Theme theme;
+    // сервисная строка
+    private ServiceInfo serviceInfo;
     // строка результата
     private ResultMarker resultMarker;
-    // политика обхода фокуса
-    private final ArrayList<Component> policy = new ArrayList<>();
+    // маркеры полей ввода
+    private JLabel widthMark, lengthMark;
     
-    public BasePanel(GeneralPanel panel) {
+    private final ToolTips toolTips;
+    
+    public BasePanel(GeneralPanel panel, Theme theme, ToolTips toolTips) {
         this.panel = panel;
+        this.theme = theme;
+        this.toolTips = toolTips;
+        policy = new ArrayList<>();
         createComponents();
         createDecorations();
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // политика обхода фокуса
         super.setFocusCycleRoot(true);
-        super.setFocusTraversalPolicy(new MyFocusTraversalPolicy(policy));
+        myFocusTraversalPolicy = new MyFocusTraversalPolicy(policy);
+        super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
     
     private void createDecorations(){
         //надпись мм для поля
-        JLabel widthMark = new JLabel();
+        widthMark = new JLabel();
         widthMark.setVisible(true);
         widthMark.setSize(25, 20);
         widthMark.setForeground(Color.white);
         widthMark.setText("мм");
         widthMark.setLocation(320, 22);
         this.add(widthMark);
-        Theme.addTheme(widthMark);
+        theme.setColorTheme(widthMark);
         //надпись мм для поля
-        JLabel lengthMark = new JLabel();
+        lengthMark = new JLabel();
         lengthMark.setVisible(true);
         lengthMark.setSize(25, 20);
         lengthMark.setForeground(Color.white);
         lengthMark.setText("мм");
         lengthMark.setLocation(320, 62);
         this.add(lengthMark);
-        Theme.addTheme(lengthMark);
+        theme.setColorTheme(lengthMark);
     }
     
     private void createComponents(){
-        Theme.addTheme(this);
+        theme.setColorTheme(this);
         // <Тип изделия>
-        assortmentMenu = new AssortmentProfileMenu(this);        
+        assortmentMenu = new AssortmentProfileMenu(this, toolTips);        
         // <Тип профиля>
-        typeProfileMenu = new TypeProfileMenu(this);
+        typeProfileMenu = new TypeProfileMenu(this, toolTips);
         // <№ профиля>
-        numberProfileMenu = new NumberProfileMenu(this);
+        numberProfileMenu = new NumberProfileMenu(this, toolTips);
         //текстовое поле Ширина (для листа)
-        widthField = new WidthField(this);
+        widthField = new WidthField(this, toolTips);
         //текстовое поле Длина
-        lengthField = new LengthField(this);
+        lengthField = new LengthField(this, toolTips);
         // текстовая строка результата
-        resultMarker = new ResultMarker(this);
+        resultMarker = new ResultMarker(this, theme);
         // <Сервисная строка>
-        serviceInfo = new ServiceInfo(this);
+        serviceInfo = new ServiceInfo(this, theme);
     }
     
     // добавление компонентов в политику обхода фокуса
@@ -102,8 +115,8 @@ public class BasePanel extends JPanel {
     }
     
     /**
-     *
-     * @return
+     * ссылка на конструктор главной панели
+     * @return главная панель
      */
     public GeneralPanel getGeneralPanel(){
         return panel;

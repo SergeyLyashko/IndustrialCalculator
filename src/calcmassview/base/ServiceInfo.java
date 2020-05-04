@@ -24,10 +24,13 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 public class ServiceInfo extends JLabel {
-    
+   
     private final BasePanel basePanel;
+    private final Theme theme;
     
-    public ServiceInfo(BasePanel basePanel){
+    public ServiceInfo(BasePanel basePanel, Theme theme){
+        this.theme = theme;
+        super.setLocation(20, 140);
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
@@ -36,9 +39,8 @@ public class ServiceInfo extends JLabel {
     }
     
     private void addContent(){
-        this.setLocation(20, 140);
         basePanel.add(this);
-        Theme.addTheme(this);
+        theme.setColorTheme(this);
     }
     
     /**
@@ -46,7 +48,7 @@ public class ServiceInfo extends JLabel {
      */
     public void reset(){
         super.setText(null);
-        super.setForeground(Theme.getColorResultMarker());
+        super.setForeground(theme.getColorResultMarker());
     }
     
     /**
@@ -58,7 +60,7 @@ public class ServiceInfo extends JLabel {
     }
     
     /**
-     *
+     * вывод сообщения об ошибке на панель View
      * @param message
      */
     public void setErrorMessage(String message){
