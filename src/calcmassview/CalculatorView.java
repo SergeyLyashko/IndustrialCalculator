@@ -78,27 +78,22 @@ public class CalculatorView implements ViewObserver {
         this.profileAssortment = generalPanel
                         .getBasePanel()
                         .getAssortmentMenu()
-                        .value()
-                        .receive();
+                        .receiveFieldString();
         this.profileType = generalPanel
                         .getBasePanel()
                         .getTypeProfileMenu()
-                        .value()
-                        .receive();
+                        .receiveFieldString();
         this.profileNumber = generalPanel
                         .getBasePanel()
                         .getNumberProfileMenu()
-                        .value()
-                        .receive();
+                        .receiveFieldString();
         this.length = generalPanel
                     .getBasePanel()
                     .getLengthField()
-                    .value()
-                    .receive();
+                    .receiveFieldString();
         this.width = generalPanel
                     .getBasePanel()
                     .getWidthField()
-                    .value()
-                    .receive();
+                    .receiveFieldString();
     }
 }

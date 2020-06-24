@@ -24,39 +24,36 @@ import javax.swing.JComboBox;
  * Меню типов сортамента
  * @author Sergei Lyashko
  */
-public class AssortmentProfileMenu extends JComboBox<String> implements ActionListener {    
+public class AssortmentProfileMenu extends JComboBox<String> implements ActionListener, ValueReceivable {    
         
-    private String selectMenu;
+    private String selectItem;
     private final BasePanel basePanel;
-    private final Menu menu;
     private final String text = "выбор сортамента детали";
     
     public AssortmentProfileMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
+        super.setLocation(20, 20);
         this.basePanel = basePanel;
-        menu = new Menu();
+        super.setModel(new Menu().createMenu());
         addContent(toolTips);
     }
     
     private void addContent(ToolTips toolTips){
         toolTips.setToolTips(this, text);
-        basePanel.add(this);
-        this.setLocation(20, 20);
+        basePanel.add(this);        
         basePanel.addPolicy(this);
-        this.setModel(menu.createModel());
         addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {        
         @SuppressWarnings("unchecked")
-        String currentMenu = ((JComboBox<String>)e.getSource())
-                .getSelectedItem().toString();
-        this.selectMenu = currentMenu;
-        //обновление меню типов профилей        
-        MenuModel typeProfilesMenu = menu.createModel(selectMenu);
-        basePanel.getTypeProfileMenu().setModel(typeProfilesMenu);
+        String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
+        this.selectItem = selectedMenuItem;
+        // создание меню типов профилей
+        Menu newTypeProfilesMenu = new Menu().createMenu(selectItem);
+        basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
         //сброс параметров полей        
         resetAllFields();        
     }
@@ -71,8 +68,9 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
         basePanel.getTypeProfileMenu().setSelectedIndex(0);
         basePanel.getNumberProfileMenu().setSelectedIndex(0);
     }
-    
-    public ValueReceivable value() {
-        return () -> selectMenu;
+
+    @Override
+    public String receiveFieldString() {
+        return this.selectItem;
     }
 }

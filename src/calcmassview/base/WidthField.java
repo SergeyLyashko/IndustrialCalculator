@@ -27,7 +27,7 @@ import javax.swing.JFormattedTextField;
  * Поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends JFormattedTextField implements FocusListener, KeyListener {
+public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, ValueReceivable {
     
     private final BasePanel basePanel;
     private transient String contentField;
@@ -102,14 +102,6 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     }
     
     /**
-     *
-     * @return
-     */
-    public ValueReceivable value() {
-        return () -> contentField;
-    }
-    
-    /**
      * очистка поля при установке фокуса на нем
      * @param e установка фокуса
      */
@@ -125,4 +117,9 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     
     @Override
     public void keyPressed(KeyEvent e){}
+
+    @Override
+    public String receiveFieldString() {
+        return this.contentField;
+    }
 }

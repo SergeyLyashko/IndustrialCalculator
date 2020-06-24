@@ -69,20 +69,22 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
     
     /**
      * создание модели меню для базовой панели выпадающего меню
-     * @return модель базового меню
+     * @return 
      */
-    public MenuModel createModel(){
-        return createMenu(assortmentHeader, profileName, SQL_QUERY_PROFILES);
+    public Menu createMenu(){
+        create(assortmentHeader, profileName, SQL_QUERY_PROFILES);
+        return this;
     }
     
     /**
      * Создание модели меню типов профилей запрошенного сортамента
      * @param assortment наименование сортамента
-     * @return модель меню типов профилей
+     * @return 
      */
-    public MenuModel createModel(String assortment){
+    public Menu createMenu(String assortment){
         this.assortment = assortment;
-        return createMenu(typeHeader, profileTypeName, SQL_QUERY_TYPES);
+        create(typeHeader, profileTypeName, SQL_QUERY_TYPES);
+        return this;
     }
     
     /**
@@ -90,32 +92,33 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
      * типа профиля
      * @param assortment наименование сортамента
      * @param type наименование типа профиля
-     * @return модель меню номеров профилей
+     * @return 
      */
-    public MenuModel createModel(String assortment, String type){
+    public Menu createMenu(String assortment, String type){
         this.assortment = assortment;
         this.type = type;
-        return createMenu(numberHeader, profileNumberName, SQL_QUERY_NUMBERS);
+        create(numberHeader, profileNumberName, SQL_QUERY_NUMBERS);
+        return this;
     }
     
     /**
      * Добавление заглавного пункта в меню
      * @param menuBox комбо-бокс с выпадающим меню
-     * @return модель меню с заглавным пунктом меню
+     * @return 
      */
-    public MenuModel addHeaderMenuItem(JComboBox<String> menuBox){
-        ArrayList<String> menu = new ArrayList<>();
+    public Menu addHeaderInMenu(JComboBox<String> menuBox){
+        menu = new ArrayList<>();
         if(menuBox.getClass().equals(TypeProfileMenu.class)){
             menu.add(typeHeader);
         }
         if(menuBox.getClass().equals(NumberProfileMenu.class)){
             menu.add(numberHeader);
-        }        
-        return new MenuModel(menu);
+        }
+        return this;
     }
     
-    private ArrayList<String> createMenu(String menuHeader, String queryString, String sqlQuery){
-        ArrayList<String> menu = new ArrayList<>();
+    private void create(String menuHeader, String queryString, String sqlQuery){
+        menu = new ArrayList<>();
         menu.add(menuHeader);
         try{
             Connection connection = connectToDataBase();
@@ -138,7 +141,6 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
         }catch(SQLException ex){
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return menu;
     }
         
     // закрытие соединений
@@ -165,21 +167,21 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
 
     @Override
     public int getSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return menu.size();
     }
 
     @Override
     public String getElementAt(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return menu.get(index);
     }
 
     @Override
-    public void setSelectedItem(Object anItem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setSelectedItem(Object item) {
+        selected = menu.indexOf(item);
     }
 
     @Override
     public Object getSelectedItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return menu.get(selected);
     }
 }

@@ -24,30 +24,26 @@ import javax.swing.JComboBox;
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumberProfileMenu extends JComboBox<String> implements ActionListener {  
+public class NumberProfileMenu extends JComboBox<String> implements ActionListener, ValueReceivable {  
     
-    private String selectMenu;
+    private String selectItem;
     private final BasePanel basePanel;
-    private final Menu menu;
-    private final ToolTips toolTips;
     private final String text = "выбор номера профиля детали";
     
     public NumberProfileMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
+        super.setLocation(20, 100);
         this.basePanel = basePanel;
-        this.toolTips = toolTips;
-        menu = new Menu();
-        addConent();
+        addConent(toolTips);
     }
     
-    private void addConent(){
+    private void addConent(ToolTips toolTips){
+        Menu emptyMenu = new Menu().addHeaderInMenu(this);
+        super.setModel(emptyMenu);
         toolTips.setToolTips(this, text);
-        basePanel.add(this);
-        this.setLocation(20, 100);
-        basePanel.addPolicy(this);
-        MenuModel menuModel = menu.addHeaderMenuItem(this);
-        this.setModel(menuModel);
+        basePanel.add(this);        
+        basePanel.addPolicy(this);        
         addActionListener(this);
     }
         
@@ -55,16 +51,13 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
     public void actionPerformed(ActionEvent e) {
         resetAllFields();
         @SuppressWarnings("unchecked")
-        String currentMenu = ((JComboBox<String>)e.getSource())
-                                .getSelectedItem()
-                                .toString();
-        this.selectMenu = currentMenu;
+        String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
+        this.selectItem = selectedMenuItem;
         // активаци полей ввода значений
-        actionFields(currentMenu);
+        actionFields(selectedMenuItem);
     }
     
     // активация полей ввода значений
-    //TODO переписать код
     private void actionFields(String selectMenu){
         if(!selectMenu.equals("№ профиля")){
             basePanel.getLengthField().perform().activation();
@@ -75,11 +68,12 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
         }
     }
 
-    public ValueReceivable value() {
-        return () -> selectMenu;
-    }
-    
     private void resetAllFields(){
         basePanel.reset();
+    }
+
+    @Override
+    public String receiveFieldString() {
+        return this.selectItem;
     }
 }

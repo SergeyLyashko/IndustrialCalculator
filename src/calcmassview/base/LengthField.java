@@ -27,7 +27,7 @@ import javax.swing.JFormattedTextField;
  * Поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
+public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, ValueReceivable {
     
     private final BasePanel basePanel;
     private transient String contentFeld;
@@ -111,17 +111,14 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         basePanel.resetMarker();
     }
     
-    /**
-     *
-     * @return
-     */
-    public ValueReceivable value() {
-        return () -> contentFeld;
-    }
-    
     @Override
     public void focusLost(FocusEvent e){}
     
     @Override
     public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public String receiveFieldString() {
+        return this.contentFeld;
+    }
 }

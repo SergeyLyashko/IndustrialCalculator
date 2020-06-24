@@ -27,5 +27,5 @@ public interface ValueReceivable {
      * поля приложения
      * @return строковое значение поля
      */
-    public String receive();
+    public String receiveFieldString();
 }
