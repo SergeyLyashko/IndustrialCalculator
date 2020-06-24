@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.Menu;
 import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,25 +28,23 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
         
     private String selectMenu;
     private final BasePanel basePanel;
-    private final Menu menuCreator;
-    private final ToolTips toolTips;
+    private final Menu menu;
     private final String text = "выбор сортамента детали";
     
     public AssortmentProfileMenu(BasePanel basePanel, ToolTips toolTips) {
-        this.toolTips = toolTips;
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         this.basePanel = basePanel;
-        menuCreator = new Menu();
-        addContent();
+        menu = new Menu();
+        addContent(toolTips);
     }
     
-    private void addContent(){
+    private void addContent(ToolTips toolTips){
         toolTips.setToolTips(this, text);
         basePanel.add(this);
         this.setLocation(20, 20);
         basePanel.addPolicy(this);
-        this.setModel(menuCreator.createMenu());
+        this.setModel(menu.createModel());
         addActionListener(this);
     }
     
@@ -55,12 +52,11 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
     public void actionPerformed(ActionEvent e) {        
         @SuppressWarnings("unchecked")
         String currentMenu = ((JComboBox<String>)e.getSource())
-                .getSelectedItem()
-                .toString();
+                .getSelectedItem().toString();
         this.selectMenu = currentMenu;
         //обновление меню типов профилей        
-        MenuModel typeMenuModel = menuCreator.createMenu(selectMenu);
-        basePanel.getTypeProfileMenu().setModel(typeMenuModel);
+        MenuModel typeProfilesMenu = menu.createModel(selectMenu);
+        basePanel.getTypeProfileMenu().setModel(typeProfilesMenu);
         //сброс параметров полей        
         resetAllFields();        
     }

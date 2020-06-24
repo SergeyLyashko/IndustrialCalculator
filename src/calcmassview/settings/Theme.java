@@ -34,8 +34,11 @@ public class Theme implements Serializable {
     private transient ArrayList<JComponent> componentList = new ArrayList<>();
     private transient ArrayList<JLabel> markerList = new ArrayList<>();
     private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
-        
-    public void action(){
+    
+    /**
+     * Компоненты для изменения темы оформления
+     */
+    public void setThemeChangedCompontnts(){
         this.markerList = new ArrayList<>();
         this.componentList = new ArrayList<>();
     }
@@ -72,7 +75,7 @@ public class Theme implements Serializable {
     }
     
     /**
-     * Темная тема
+     * Темная тема оформления
      */
     public void dark(){
         colorBackGround = Color.BLACK;
@@ -83,7 +86,7 @@ public class Theme implements Serializable {
     }
     
     /**
-     * Светлая тема
+     * Светлая тема оформления
      */
     public void light(){
         colorBackGround = new Color(250, 236, 229);
@@ -93,6 +96,7 @@ public class Theme implements Serializable {
         actionTheme();                     
     }
     
+    // активация выбранной темы
     private void actionTheme(){
         componentList.stream()
             .forEach((JComponent component) -> {

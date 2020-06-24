@@ -29,28 +29,28 @@ import javax.swing.JFormattedTextField;
  */
 public class WidthField extends JFormattedTextField implements FocusListener, KeyListener {
     
-    private final BasePanel panel;
+    private final BasePanel basePanel;
     private transient String contentField;
-    private final ToolTips toolTips;
     private final String text = "поле ввода ширины детали";
+    private final String fieldName = "ширина";
+    private final String emptyField = "";
     
-    public WidthField(BasePanel panel, ToolTips toolTips){
+    public WidthField(BasePanel basePanel, ToolTips toolTips){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        this.panel = panel;
-        this.toolTips = toolTips;
-        create();
+        super.setText(fieldName);
+        super.setLocation(190, 20);
+        this.basePanel = basePanel;
+        addContent(toolTips);
     }
     
-    private void create(){
+    private void addContent(ToolTips toolTips){
         toolTips.setToolTips(this, text);
-        panel.add(this);
-        this.setLocation(190, 20);   
-        super.setText("ширина");
-        panel.addPolicy(this);
+        basePanel.add(this);
+        basePanel.addPolicy(this);
     }
     
     /**
@@ -62,7 +62,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
             setEditable(false);
             setBackground(Color.DARK_GRAY);
             setForeground(Color.GRAY);
-            setText("ширина");
+            setText(fieldName);
             removeFocusListener(this);
             removeKeyListener(this);
         };
@@ -116,8 +116,8 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     @Override
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
-        super.setText("");
-        panel.resetMarker();
+        super.setText(emptyField);
+        basePanel.resetMarker();
     }
     
     @Override

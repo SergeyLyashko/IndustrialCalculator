@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.Menu;
 import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +28,7 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
     
     private String selectMenu;
     private final BasePanel basePanel;
-    private final Menu menuCreator;
+    private final Menu menu;
     private final ToolTips toolTips;
     private final String text = "выбор номера профиля детали";
     
@@ -38,7 +37,7 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
         super.setSelectedIndex(-1);
         this.basePanel = basePanel;
         this.toolTips = toolTips;
-        menuCreator = new Menu();
+        menu = new Menu();
         addConent();
     }
     
@@ -47,7 +46,8 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
         basePanel.add(this);
         this.setLocation(20, 100);
         basePanel.addPolicy(this);
-        this.setModel(menuCreator.createMenu(null, null));
+        MenuModel menuModel = menu.addHeaderMenuItem(this);
+        this.setModel(menuModel);
         addActionListener(this);
     }
         

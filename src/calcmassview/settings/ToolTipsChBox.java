@@ -27,23 +27,22 @@ public class ToolTipsChBox extends JCheckBox implements Selectable, Serializable
 
     private static final long serialVersionUID = 1L;
     
-    private final SettingsPanel settingsPanel;
     private final String text = "включение/отключение всплывающих подсказок";
+    private final String chBoxName = "включить всплывающие подсказки";
     private ToolTips toolTips;
     
-    public ToolTipsChBox(SettingsPanel panel){
-        this.settingsPanel = panel;
+    public ToolTipsChBox(SettingsPanel settingsPanel){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
-        super.setText("включить всплывающие подсказки");
+        super.setText(chBoxName);
         super.addItemListener(settingsPanel);
     }
     
     /**
-     * Состояние темы и всплывающих подсказок
-     * @param theme
-     * @param toolTips
+     * Состояние поля чек-бокса
+     * @param theme цветовая тема
+     * @param toolTips всплывающая подсказка
      */
     public void addState(Theme theme, ToolTips toolTips){
         this.toolTips = toolTips;

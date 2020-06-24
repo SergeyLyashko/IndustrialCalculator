@@ -28,28 +28,27 @@ public class CalculatorView implements ViewObserver {
     
     private final CalculatorModelInterface model;
     private final CalculatorControllerInterface controller;
-    private GeneralPanel generalPanel;
+    private final GeneralPanel generalPanel;
     private String profileAssortment, profileType, profileNumber, length, width;
-    private double mass;
-    private String result;
+    private String resultValue;
     
     public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
         this.model = model;
         this.controller = controller;
-        create();
+        this.generalPanel = new GeneralPanel();
+        registerObservers();
     }
     
-    private void create(){
-        model.registerObserver(this);
-        this.generalPanel = new GeneralPanel();
+    // регистрация наблюдателей
+    private void registerObservers(){
+        model.registerObserver(this);        
         generalPanel.registerObserver(this);
     }
     
     @Override
     public void massUpdate(double mass) {
-        this.mass = mass;
-        formatResult();
-        generalPanel.getBasePanel().setResultation(result);
+        formatDoubleToString(mass);
+        generalPanel.getBasePanel().setResultation(resultValue);
     }
     
     @Override
@@ -60,8 +59,8 @@ public class CalculatorView implements ViewObserver {
     }
     
     //форматирование строки результата
-    private void formatResult(){
-        this.result = new DecimalFormat("#.###").format(mass);
+    private void formatDoubleToString(double mass){
+        this.resultValue = new DecimalFormat("#.###").format(mass);
     }
     
     @Override
@@ -70,12 +69,12 @@ public class CalculatorView implements ViewObserver {
     }
     
     private void setParametrs(){
-        setFields();
+        getFieldsValueFromView();
         controller.setParametersFromView(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей
-    private void setFields(){
+    private void getFieldsValueFromView(){
         this.profileAssortment = generalPanel
                         .getBasePanel()
                         .getAssortmentMenu()

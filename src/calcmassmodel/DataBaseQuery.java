@@ -29,11 +29,6 @@ import java.util.logging.Logger;
  */
 class DataBaseQuery {
     
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
-    private double result;
-    
     private static final String SQL_QUERY = "select AreaCut_Value from "
     + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
     + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
@@ -51,46 +46,44 @@ class DataBaseQuery {
      * @return площадь сечения (в см2)
      */
     public double getDataBaseValue(String profile, String type, String number) {
-        
+        double result = 0;
         try{
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_QUERY);        
+            Connection connection = connectToDataBase();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY);        
             // передача значений входных параметров
             preparedStatement.setString(1, profile);
             preparedStatement.setString(2, type);
             preparedStatement.setString(3, number);
             // регистрация возвращаемого параметра
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             result = resultSet.getDouble("AreaCut_Value");
             // закрытие
             close(connection, preparedStatement, resultSet);
-        }catch(SQLException e){
-            e.printStackTrace();
+        }catch(SQLException ex){
+            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
     
     // закрытие соединений
-    private void close(Connection c, PreparedStatement p, ResultSet r){
+    private void close(Connection connection, PreparedStatement ps, ResultSet resultSet){
         try{
-            c.close();
-            p.close();
-            r.close();
-        } catch (SQLException e){
-            e.printStackTrace();
+            connection.close();
+            ps.close();
+            resultSet.close();
+        } catch (SQLException ex){
+            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     // подключение к БД
-    private Connection getConnection(){
+    private Connection connectToDataBase(){
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:calculator.db");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+            return DriverManager.getConnection("jdbc:sqlite:calculator.db");
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return connection;
+        return null;
     }
 }

@@ -29,12 +29,12 @@ public class ServiceInfo extends JLabel {
     private final Theme theme;
     
     public ServiceInfo(BasePanel basePanel, Theme theme){
+        this.basePanel = basePanel;
         this.theme = theme;
         super.setLocation(20, 140);
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
-        this.basePanel = basePanel;
         addContent();
     }
     

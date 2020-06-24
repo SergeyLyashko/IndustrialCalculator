@@ -32,10 +32,11 @@ import java.util.logging.Logger;
  * Настройки приложения
  * @author Sergei Lyashko
  */
-public class SavedPreference implements Serializable {
+public class Preference implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    private final String saveFileName = "save.ser";
     private SettingsPanel settingsPanel;
     private Theme theme;
     private ToolTips toolTips;
@@ -63,14 +64,14 @@ public class SavedPreference implements Serializable {
      */
     public void save(){
         try {
-            FileOutputStream file = new FileOutputStream("save.ser");
+            FileOutputStream file = new FileOutputStream(saveFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(this);
             out.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SavedPreference.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(SavedPreference.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -78,17 +79,17 @@ public class SavedPreference implements Serializable {
      * Загрузка сохраненных настроек приложения
      * @return сохраненные настройки
      */
-    public SavedPreference load(){
+    public Preference load(){
         try {
-            FileInputStream file = new FileInputStream("save.ser");
+            FileInputStream file = new FileInputStream(saveFileName);
             ObjectInputStream input = new ObjectInputStream(file);
-            SavedPreference preference = (SavedPreference)input.readObject();
+            Preference preference = (Preference)input.readObject();
             input.close();
             return preference;
         } catch (FileNotFoundException ex) {
             return null;
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(SavedPreference.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

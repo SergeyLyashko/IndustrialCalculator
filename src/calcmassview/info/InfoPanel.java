@@ -29,9 +29,6 @@ import javax.swing.ScrollPaneConstants;
  */
 public class InfoPanel extends JPanel {
 
-    private final Theme theme;
-    private JLabel htmlText;
-    private JScrollPane scroller;
     private final String text =         
         "<html>"+
         " Управление.<br>"+
@@ -61,28 +58,30 @@ public class InfoPanel extends JPanel {
         " <font size=-2>Contacts: 9llllepulla@gmail.com";
     
     public InfoPanel(Theme theme){
-        this.theme = theme;
         super.setLayout(new BorderLayout());
-        create();
-    }
-    
-    private void create(){
-        htmlText = new JLabel(text);
-        scroller = new JScrollPane(htmlText);
-        theme.setColorTheme(this);
-        setTextPreference();
-        setScrollerPreference();
+        JLabel htmlText = new JLabel(text);
+        JScrollPane scroller = new JScrollPane(htmlText);
+        setPreference(htmlText, scroller, theme);
         super.add(scroller, BorderLayout.CENTER);
     }
     
-    private void setScrollerPreference(){
+    // Установка параметров
+    private void setPreference(JLabel htmlText, JScrollPane scroller, Theme theme){        
+        theme.setColorTheme(this);
+        setTextPreference(htmlText, theme);
+        setScrollerPreference(scroller, theme);        
+    }
+    
+    // Установка параметров текста
+    private void setTextPreference(JLabel htmlText, Theme theme){
+        htmlText.setPreferredSize(new Dimension(250, 510));
+        theme.setColorTheme(htmlText);
+    }
+    
+    // Установка параметров панели скроллера
+    private void setScrollerPreference(JScrollPane scroller, Theme theme){
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         theme.setColorTheme(scroller.getViewport());
-    }
-    
-    private void setTextPreference(){
-        htmlText.setPreferredSize(new Dimension(250, 510));
-        theme.setColorTheme(htmlText);
     }
 }

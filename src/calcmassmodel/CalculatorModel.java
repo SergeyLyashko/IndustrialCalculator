@@ -36,7 +36,7 @@ public class CalculatorModel implements CalculatorModelInterface {
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
         detail = new Detail(assortment, type, number, length, width);
-        massChanged();
+        massChangedObservers();
     }
     
     @Override
@@ -54,12 +54,12 @@ public class CalculatorModel implements CalculatorModelInterface {
 
     @Override
     public void displayError() {
-        this.serviceMessage = detail.message().getErrorMessage();
+        this.serviceMessage = detail.getErrorMessage();
     }
     
     // оповещение наблюдателей об изменениях
-    private void massChanged(){
-        this.mass = detail.calculation().mass();
+    private void massChangedObservers(){
+        this.mass = detail.calculationMass();
         displayError();
         notifyObservers();
     }

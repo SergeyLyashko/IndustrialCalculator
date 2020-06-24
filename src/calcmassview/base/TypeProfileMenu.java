@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.Menu;
 import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,24 +30,23 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     private final BasePanel basePanel;
     private final Menu menu;
     private String selectedMenuItem;
-    private final ToolTips toolTips;
     private final String text = "выбор типа профиля детали";
     
     public TypeProfileMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
+        super.setLocation(20, 60);
         this.basePanel = basePanel;
-        this.toolTips = toolTips;
         menu = new Menu();
-        addContent();
+        addContent(toolTips);
     }
     
-    private void addContent(){
+    private void addContent(ToolTips toolTips){
         toolTips.setToolTips(this, text);
-        basePanel.add(this);
-        this.setLocation(20, 60);
+        basePanel.add(this);        
         basePanel.addPolicy(this);
-        this.setModel(menu.createMenu(null));
+        MenuModel menuModel = menu.addHeaderMenuItem(this);
+        this.setModel(menuModel);
         addActionListener(this);
     }
     
@@ -56,22 +54,18 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     public void actionPerformed(ActionEvent e) {
         resetAllValues();
         @SuppressWarnings("unchecked")
-        String selectedItem = 
-                ((JComboBox<String>)e.getSource())
-                .getSelectedItem()
-                .toString();
+        String selectedItem = ((JComboBox<String>)e.getSource())
+                .getSelectedItem().toString();
         this.selectedMenuItem = selectedItem;
         // обновление меню номеров профилей
         updateMenu(selectedMenuItem);
     }
     
+    // обновление меню номеров профилей
     private void updateMenu(String currentMenuItem){
-        String selectedAssortment = 
-                basePanel.getAssortmentMenu()
-                        .value()
-                        .receive();
-        MenuModel numberMenuModel = menu.createMenu(selectedAssortment, currentMenuItem);
-        basePanel.getNumberProfileMenu().setModel(numberMenuModel);
+        String selectedAssortment = basePanel.getAssortmentMenu().value().receive();
+        MenuModel numberProfileMenuModel = menu.createModel(selectedAssortment, currentMenuItem);
+        basePanel.getNumberProfileMenu().setModel(numberProfileMenuModel);
     }
     
     public ValueReceivable value() {

@@ -29,15 +29,13 @@ class ThemeChBox extends JCheckBox implements Selectable, Serializable {
 
     private Theme theme;
     private final String text = "включить/отключить темную тему приложения";
-    private final SettingsPanel settingsPanel;
     
     public ThemeChBox(SettingsPanel panel){
-        this.settingsPanel = panel;
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText("темная тема оформления");
         super.setLocation(15, 35);
-        super.addItemListener(settingsPanel);
+        super.addItemListener(panel);
     }
         
     public void addState(Theme theme, ToolTips toolTips){

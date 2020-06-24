@@ -29,28 +29,29 @@ import javax.swing.JFormattedTextField;
  */
 public class LengthField extends JFormattedTextField implements FocusListener, KeyListener {
     
-    private final BasePanel panel;
+    private final BasePanel basePanel;
     private transient String contentFeld;
-    private final ToolTips toolTips;
     private final String toolTipText = "поле ввода длины детали";
+    private final String fieldName = "длина";
+    private final String emptyField = "";
     
-    public LengthField(BasePanel panel, ToolTips toolTips){
+    public LengthField(BasePanel basePanel, ToolTips toolTips){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
         super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        this.panel = panel;
-        this.toolTips = toolTips;
-        addContent();
+        super.setText(fieldName);
+        super.setLocation(190, 60);
+        this.basePanel = basePanel;
+        addContent(toolTips);
     }
     
-    private void addContent(){
+    // 
+    private void addContent(ToolTips toolTips){
         toolTips.setToolTips(this, toolTipText);
-        panel.add(this);
-        super.setText("длина");
-        this.setLocation(190, 60);
-        panel.addPolicy(this);
+        basePanel.add(this);
+        basePanel.addPolicy(this);
     }
     
     /**
@@ -62,7 +63,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
             setEditable(false);
             setBackground(Color.DARK_GRAY);
             setForeground(Color.GRAY);        
-            setText("длина");
+            setText(fieldName);
             removeFocusListener(this);
             removeKeyListener(this);
         };
@@ -95,7 +96,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            panel.getGeneralPanel().notifyObservers();
+            basePanel.getGeneralPanel().notifyObservers();
         }
     }
     
@@ -106,8 +107,8 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     @Override
     public void focusGained(FocusEvent e){
         super.setForeground(Color.BLACK);
-        super.setText("");
-        panel.resetMarker();
+        super.setText(emptyField);
+        basePanel.resetMarker();
     }
     
     /**

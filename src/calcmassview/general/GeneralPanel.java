@@ -36,12 +36,10 @@ import javax.swing.JTabbedPane;
  */
 public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {      
         
-    private JTabbedPane tabbedPane;  
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
     private InfoPanel infoPanel;
-    private JFrame appFrame;
-    private final SavedPreference preference;
+    private final Preference preference;
     private final ArrayList<ViewObserver> observers;
     private Theme theme;
     private ToolTips toolTips;
@@ -49,55 +47,73 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     public GeneralPanel() {
         super(new GridLayout(1, 1));
         observers = new ArrayList<>();
-        preference = new SavedPreference();
-        addContent();
-    }
-    
-    // создание панелей
-    private void addContent(){
-        SavedPreference open = preference.load();
-        if(open != null){
-            theme = open.getTheme();
-            theme.action();
-            toolTips = open.getToolTips();
-            toolTips.currentState();
-            settingsPanel = open.getSettingsPanel();
-            settingsPanel.addPreference(theme, toolTips);
-        }else{
-            theme = new Theme();
-            theme.dark();
-            toolTips = new ToolTips();
-            toolTips.oN();
-            settingsPanel = new SettingsPanel(theme, toolTips);
-        }
-        basePanel = new BasePanel(this, theme, toolTips);
-        infoPanel = new InfoPanel(theme);
-        addTabbedPane();
+        preference = new Preference();
+        createPanels();
         createAndShowGUI();
     }
     
+    // создание панелей
+    private void createPanels(){
+        Preference saved = preference.load();        
+        if(saved != null){
+            this.settingsPanel = loadingPreference(saved);
+        }else{
+            this.settingsPanel = newPreference();
+        }
+        this.basePanel = new BasePanel(this, theme, toolTips);
+        this.infoPanel = new InfoPanel(theme);
+        addTabbedPane(basePanel, settingsPanel, infoPanel);        
+    }
+    
+    // загрузка сохраненных настроек
+    private SettingsPanel loadingPreference(Preference saved){
+        theme = saved.getTheme();
+        theme.setThemeChangedCompontnts();
+        toolTips = saved.getToolTips();
+        toolTips.currentState();
+        SettingsPanel panel = saved.getSettingsPanel();
+        panel.addPreference(theme, toolTips);
+        return panel;
+    }
+    
+    // сохранение настроек
+    private void savingPreference(){
+        preference.addComponent(settingsPanel, theme, toolTips);
+        preference.save();
+    }
+    
+    // новые настройки оформления
+    private SettingsPanel newPreference(){
+        theme = new Theme();
+        theme.dark();
+        toolTips = new ToolTips();
+        toolTips.oN();
+        return new SettingsPanel(theme, toolTips);
+    }
+    
+    
+    
     // основное окно
     private void createAndShowGUI(){
-        appFrame = new JFrame("Калькулятор масс");
+        JFrame appFrame = new JFrame("Калькулятор масс");
         appFrame.setBounds(300, 300, 360, 220);
         appFrame.setResizable(false);
         appFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         appFrame.getContentPane().add(this, BorderLayout.CENTER);
-        closeApp();
+        closeApp(appFrame);
         //отображение окна
         appFrame.setVisible(true);
     }
     
     // закрытие приложения
-    private void closeApp(){
+    private void closeApp(JFrame appFrame){
         appFrame.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {}
 
             @Override
             public void windowClosing(WindowEvent e) {                
-                preference.addComponent(settingsPanel, theme, toolTips);
-                preference.save();
+                savingPreference();
                 System.exit(0);
             }
 
@@ -118,13 +134,11 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         });
     }
     
-    
-    
     /**
      * Добавление вкладок на панель
      */
-    private void addTabbedPane(){
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    private void addTabbedPane(BasePanel basePanel, SettingsPanel settingsPanel, InfoPanel infoPanel){
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Калькулятор", basePanel);       
         tabbedPane.addTab("Настройки", settingsPanel);
         tabbedPane.addTab("Справка", infoPanel);

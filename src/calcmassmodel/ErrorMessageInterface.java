@@ -21,11 +21,9 @@ package calcmassmodel;
  */
 @FunctionalInterface
 public interface ErrorMessageInterface {
-    
     /**
      * ¬озвращает сервисное сообщение об ошибке
      * @return строковое представление сообщени€
      */
-    public String getErrorMessage();
-    
+    public String getErrorMessage();    
 }

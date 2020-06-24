@@ -44,24 +44,16 @@ public class BasePanel extends JPanel {
     private final ArrayList<Component> policy;
     // гравная панель
     private final GeneralPanel panel;
-    // цветовая тема
-    private final Theme theme;
     // сервисная строка
     private ServiceInfo serviceInfo;
     // строка результата
     private ResultMarker resultMarker;
-    // маркеры полей ввода
-    private JLabel widthMark, lengthMark;
-    
-    private final ToolTips toolTips;
     
     public BasePanel(GeneralPanel panel, Theme theme, ToolTips toolTips) {
         this.panel = panel;
-        this.theme = theme;
-        this.toolTips = toolTips;
         policy = new ArrayList<>();
-        createComponents();
-        createDecorations();
+        createComponents(theme, toolTips);
+        createDecorations(theme);
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // политика обхода фокуса
@@ -70,9 +62,9 @@ public class BasePanel extends JPanel {
         super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
     
-    private void createDecorations(){
+    private void createDecorations(Theme theme){
         //надпись мм для поля
-        widthMark = new JLabel();
+        JLabel widthMark = new JLabel();
         widthMark.setVisible(true);
         widthMark.setSize(25, 20);
         widthMark.setForeground(Color.white);
@@ -81,7 +73,7 @@ public class BasePanel extends JPanel {
         this.add(widthMark);
         theme.setColorTheme(widthMark);
         //надпись мм для поля
-        lengthMark = new JLabel();
+        JLabel lengthMark = new JLabel();
         lengthMark.setVisible(true);
         lengthMark.setSize(25, 20);
         lengthMark.setForeground(Color.white);
@@ -91,7 +83,7 @@ public class BasePanel extends JPanel {
         theme.setColorTheme(lengthMark);
     }
     
-    private void createComponents(){
+    private void createComponents(Theme theme, ToolTips toolTips){
         theme.setColorTheme(this);
         // <Тип изделия>
         assortmentMenu = new AssortmentProfileMenu(this, toolTips);        
@@ -132,6 +124,9 @@ public class BasePanel extends JPanel {
         lengthField.execute().deactivation();    
     }
     
+    /**
+     * сброс значений сервисной строки и строки результата
+     */
     void resetMarker(){
         // сброс надписей
         resultMarker.reset();

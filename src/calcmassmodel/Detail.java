@@ -21,7 +21,7 @@ import static java.lang.Math.PI;
  * Вычисление массы детали
  * @author Sergei Lyashko
  */
-class Detail {
+class Detail implements Massable, ErrorMessageInterface {
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
     private static final double DENSITY_STEEL = 7.85e-6;
@@ -70,44 +70,40 @@ class Detail {
     /**
      * Вычисление массы детали
      */
-    protected Massable calculation() {
+    @Override
+    public double calculationMass() {
         switch(assortment){
             case "Лист":
                             return selectedType(type, length, width);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
-                            return () ->
-                                    DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
+                            return DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
             case "Другое":               
                             return selectedType(type, length, width);
         }
-        return null;
+        return 0;
     }
     
-    private Massable selectedType(String type, String length, String width){
+    private double selectedType(String type, String length, String width){
         switch (type){
             case "рифленая(ромб)":
-                            return () ->
-                                    (getValueOf(length) * getValueOf(width) / 1000000) * valueFromDB;
+                            return getValueOf(length) * getValueOf(width) / 1000000 * valueFromDB;
             case "тонколистовая":
             case "толстолистовая":
-                            return () ->
-                                    DENSITY_STEEL * getValueOf(length) * getValueOf(width) * valueFromDB;
+                            return DENSITY_STEEL * getValueOf(length) * getValueOf(width) * valueFromDB;
             case "Круг":
-                            return () ->
-                                    DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
+                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
             case "Квадрат":
-                            return () -> 
-                                DENSITY_STEEL * getValueOf(length) * valueFromDB * valueFromDB;
+                            return DENSITY_STEEL * getValueOf(length) * valueFromDB * valueFromDB;
             case "Резиновая пластина":
-                            return () -> 
-                                    DENSITY_RUBBER * getValueOf(length) * getValueOf(width) * valueFromDB;  
+                            return DENSITY_RUBBER * getValueOf(length) * getValueOf(width) * valueFromDB;  
         }
-        return null;
+        return 0;
     }
-    
-    protected ErrorMessageInterface message() {
-        return () -> message;
+
+    @Override
+    public String getErrorMessage() {
+        return message;
     }
 }
