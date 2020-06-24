@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
  *
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package calcdatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,21 +24,20 @@ import java.util.logging.Logger;
 
 /**
  * Подключение к Базе Данных 
- * площадей сечений профилей  
  * @author Sergei Lyashko
  */
 public class DataBaseConnection {
     
-    private static final String DATA_BASE_NAME = "jdbc:sqlite:calculator.db";
+    private static final String DATA_BASE_DRIVER_NAME = "jdbc:sqlite:calculator.db";
     
     /**
      * подключение к базе данных
      * @return соединение с БД
      */
-    public static Connection getConnect(){
+    public Connection getConnect(){
         try {
             Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection(DATA_BASE_NAME);
+            return DriverManager.getConnection(DATA_BASE_DRIVER_NAME);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -16,6 +16,7 @@
 package calcmassmodel;
 
 import calcmassview.ViewObserver;
+import java.sql.Connection;
 
 /**
  * Интерфейс Модели
@@ -48,4 +49,10 @@ public interface CalculatorModelInterface {
      * @param width ширина детали (при наличии)
      */
     public void createDetail(String assortment, String type, String number, String length, String width);    
+
+    /**
+     *
+     * @param connection
+     */
+    public void setDataBaseConnect(Connection connection);
 }

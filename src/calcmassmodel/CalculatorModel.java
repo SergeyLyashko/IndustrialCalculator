@@ -17,6 +17,7 @@ package calcmassmodel;
 
 import java.util.ArrayList;
 import calcmassview.ViewObserver;
+import java.sql.Connection;
 
 /**
  * создание детали
@@ -28,6 +29,7 @@ public class CalculatorModel implements CalculatorModelInterface {
     private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
+    private DataBaseQuery dataBaseQuery;
     
     public CalculatorModel(){
         observers = new ArrayList<>();        
@@ -36,6 +38,7 @@ public class CalculatorModel implements CalculatorModelInterface {
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
         detail = new Detail(assortment, type, number, length, width);
+        detail.receiveData(dataBaseQuery);
         massChangedObservers();
     }
     
@@ -62,5 +65,10 @@ public class CalculatorModel implements CalculatorModelInterface {
         this.mass = detail.calculationMass();
         displayError();
         notifyObservers();
+    }
+
+    @Override
+    public void setDataBaseConnect(Connection connection) {
+        dataBaseQuery = new DataBaseQuery(connection);
     }
 }

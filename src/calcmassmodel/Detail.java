@@ -30,16 +30,21 @@ class Detail implements Massable, ErrorMessageInterface {
     // сообщение об ошибке
     private String message;
     // значение из Базы Данных
-    private final double valueFromDB;
+    private double valueFromDB;
     // параметры детали
-    private final String assortment, type, length, width;
+    private final String assortment, type, number, length, width;
     
     public Detail(String assortment, String type, String number, String length, String width){
-        this.valueFromDB = getValueFromDataBase(assortment, type, number);
+        //this.valueFromDB = getValueFromDataBase(assortment, type, number);
         this.assortment = assortment;
         this.type = type;
+        this.number = number;
         this.length = length;
         this.width = width;
+    }
+    
+    public void receiveData(DataBaseQuery query){
+        this.valueFromDB = query.getDataBaseValue(assortment, type, number);
     }
     
     /**
@@ -49,10 +54,11 @@ class Detail implements Massable, ErrorMessageInterface {
      * @param profileNumber номер профиля
      * @return число с плавающей точкой
      */
+    /*
     private double getValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
          return new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
     }
-    
+    */
     /**
      * Получение числового значения
      * @param value Строковое представление значения

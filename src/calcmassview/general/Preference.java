@@ -76,7 +76,7 @@ public class Preference implements Serializable {
     }
     
     /**
-     * Загрузка сохраненных настроек приложения
+     * Загрузка настроек приложения
      * @return сохраненные настройки
      */
     public Preference load(){

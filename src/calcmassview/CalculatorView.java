@@ -70,7 +70,7 @@ public class CalculatorView implements ViewObserver {
     
     private void setParametrs(){
         getFieldsValueFromView();
-        controller.setParametersFromView(profileAssortment, profileType, profileNumber, length, width);
+        controller.setParameters(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей

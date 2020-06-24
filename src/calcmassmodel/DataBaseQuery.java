@@ -37,6 +37,12 @@ class DataBaseQuery {
     + "Profiles.ProfileName = ? and "
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
+    
+    private final Connection connection;
+    
+    public DataBaseQuery(Connection connection){
+        this.connection = connection;
+    }
 
     /**
      * Запрос значения площади сечения детали из БД
@@ -48,7 +54,7 @@ class DataBaseQuery {
     public double getDataBaseValue(String profile, String type, String number) {
         double result = 0;
         try{
-            Connection connection = connectToDataBase();
+            //Connection connection = connectToDataBase();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY);        
             // передача значений входных параметров
             preparedStatement.setString(1, profile);
@@ -75,7 +81,7 @@ class DataBaseQuery {
             Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /*
     // подключение к БД
     private Connection connectToDataBase(){
         try {
@@ -86,4 +92,5 @@ class DataBaseQuery {
         }
         return null;
     }
+    */
 }
