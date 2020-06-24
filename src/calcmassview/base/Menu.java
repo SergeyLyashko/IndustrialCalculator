@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 
 /**
@@ -30,7 +32,7 @@ import javax.swing.JComboBox;
  * из Базы Данных
  * @author Sergei Lyashko
  */
-public class Menu {////////////////////////////////TODO объединить с MenuModel
+public class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     
     // Sql запрос таблицы сортаментов(профилей)
     private static final String SQL_QUERY_PROFILES = 
@@ -51,6 +53,9 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
       + "Profiles.ProfileName = ? and "
       + "ProfileTypes.ProfileTypeName = ?";
     
+    private ArrayList<String> menu;
+    private int selected;
+    
     private final String profileNumberName = "ProfileNumberName";
     private final String profileTypeName = "ProfileTypeName";
     private final String profileName = "ProfileName";
@@ -67,7 +72,7 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
      * @return модель базового меню
      */
     public MenuModel createModel(){
-        return modelCreator(assortmentHeader, profileName, SQL_QUERY_PROFILES);
+        return createMenu(assortmentHeader, profileName, SQL_QUERY_PROFILES);
     }
     
     /**
@@ -77,7 +82,7 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
      */
     public MenuModel createModel(String assortment){
         this.assortment = assortment;
-        return modelCreator(typeHeader, profileTypeName, SQL_QUERY_TYPES);
+        return createMenu(typeHeader, profileTypeName, SQL_QUERY_TYPES);
     }
     
     /**
@@ -90,7 +95,7 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
     public MenuModel createModel(String assortment, String type){
         this.assortment = assortment;
         this.type = type;
-        return modelCreator(numberHeader, profileNumberName, SQL_QUERY_NUMBERS);
+        return createMenu(numberHeader, profileNumberName, SQL_QUERY_NUMBERS);
     }
     
     /**
@@ -109,7 +114,7 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
         return new MenuModel(menu);
     }
     
-    private MenuModel modelCreator(String menuHeader, String queryString, String sqlQuery){
+    private ArrayList<String> createMenu(String menuHeader, String queryString, String sqlQuery){
         ArrayList<String> menu = new ArrayList<>();
         menu.add(menuHeader);
         try{
@@ -133,7 +138,7 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
         }catch(SQLException ex){
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new MenuModel(menu);
+        return menu;
     }
         
     // закрытие соединений
@@ -156,5 +161,25 @@ public class Menu {////////////////////////////////TODO объединить с MenuModel
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public int getSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getElementAt(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setSelectedItem(Object anItem) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getSelectedItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
