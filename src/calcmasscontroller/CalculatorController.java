@@ -15,11 +15,11 @@
  */
 package calcmasscontroller;
 
-import calcdatabase.DataBaseConnection;
+import calcdatabase.DataBase;
+import calcdatabase.DataBaseInterface;
 import calcmassmodel.CalculatorModel;
 import calcmassmodel.CalculatorModelInterface;
 import calcmassview.CalculatorView;
-import java.sql.Connection;
 
 /**
  * Контроллер
@@ -30,7 +30,7 @@ public class CalculatorController implements CalculatorControllerInterface {
     
     private static CalculatorModelInterface model;
     private static CalculatorController controller;    
-    private static DataBaseConnection dataBaseConnection;
+    private static DataBaseInterface dataBase;
     
     private CalculatorController(CalculatorModelInterface model){
         CalculatorController.model = model;
@@ -40,18 +40,16 @@ public class CalculatorController implements CalculatorControllerInterface {
      * Создание модели, контроллера, прдставления
      */
     public static void start(){
-        dataBaseConnection = new DataBaseConnection();
+        dataBase = new DataBase(); 
         model = new CalculatorModel();
         controller = new CalculatorController(model);
         new CalculatorView(model, controller);
-        
+          
     }
     
     @Override
     public void setParameters(String assortment, String type, String number, String length, String width) {
-        Connection connect = dataBaseConnection.getConnect();
-        model.setDataBaseConnect(connect);
+        model.setDataBase(dataBase);
         model.createDetail(assortment, type, number, length, width);
     }
-    
 }

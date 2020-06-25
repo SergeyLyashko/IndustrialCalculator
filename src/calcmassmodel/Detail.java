@@ -15,6 +15,7 @@
  */
 package calcmassmodel;
 
+import calcdatabase.DataBaseInterface;
 import static java.lang.Math.PI;
 
 /**
@@ -35,7 +36,6 @@ class Detail implements Massable, ErrorMessageInterface {
     private final String assortment, type, number, length, width;
     
     public Detail(String assortment, String type, String number, String length, String width){
-        //this.valueFromDB = getValueFromDataBase(assortment, type, number);
         this.assortment = assortment;
         this.type = type;
         this.number = number;
@@ -43,22 +43,14 @@ class Detail implements Massable, ErrorMessageInterface {
         this.width = width;
     }
     
-    public void receiveData(DataBaseQuery query){
-        this.valueFromDB = query.getDataBaseValue(assortment, type, number);
+    /**
+     * «апрос в базу данных
+     * @param dataBase интерфейс базы данных
+     */
+    public void executeQuery(DataBaseInterface dataBase) {
+        this.valueFromDB = dataBase.query(assortment, type, number);
     }
     
-    /**
-     * ѕолучение значени€ из базы данных, в зависимости от параметров
-     * @param profileAssortment наименование сортамента
-     * @param profileType тип сортамента
-     * @param profileNumber номер профил€
-     * @return число с плавающей точкой
-     */
-    /*
-    private double getValueFromDataBase(String profileAssortment, String profileType, String profileNumber){
-         return new DataBaseQuery().getDataBaseValue(profileAssortment, profileType, profileNumber);
-    }
-    */
     /**
      * ѕолучение числового значени€
      * @param value —троковое представление значени€
@@ -111,5 +103,5 @@ class Detail implements Massable, ErrorMessageInterface {
     @Override
     public String getErrorMessage() {
         return message;
-    }
+    }    
 }

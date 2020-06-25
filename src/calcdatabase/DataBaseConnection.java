@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * Подключение к Базе Данных 
  * @author Sergei Lyashko
  */
-public class DataBaseConnection {
+class DataBaseConnection {
     
     private static final String DATA_BASE_DRIVER_NAME = "jdbc:sqlite:calculator.db";
     
@@ -34,7 +34,7 @@ public class DataBaseConnection {
      * подключение к базе данных
      * @return соединение с БД
      */
-    public Connection getConnect(){
+    public static Connection getConnect(){
         try {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection(DATA_BASE_DRIVER_NAME);

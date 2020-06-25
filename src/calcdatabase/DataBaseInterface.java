@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.base;
+package calcdatabase;
 
 /**
- * Интерфейс получения значения поля
+ * Интерфей базы данных
  * @author Sergei Lyashko
  */
-@FunctionalInterface
-public interface ValueReceivable {
- 
+public interface DataBaseInterface {
+    
     /**
-     * Получение строки из поля
-     * @return строковое значение
+     * Получение значения из базы данных
+     * @param assortment наименование сортамента
+     * @param type тип профиля
+     * @param number номер профиля
+     * @return значение из базы данных
      */
-    public String receiveFieldString();
+    public double query(String assortment, String type, String number);
+    
 }

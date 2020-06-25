@@ -137,14 +137,14 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
                 menu.add(resultSet.getString(queryString));
             }
             // закрытие
-            closeQueryBD(connection, preparedStatement, resultSet);
+            close(connection, preparedStatement, resultSet);
         }catch(SQLException ex){
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
         
     // закрытие соединений
-    private void closeQueryBD(Connection connection, PreparedStatement ps, ResultSet resultSet){
+    private void close(Connection connection, PreparedStatement ps, ResultSet resultSet){
         try{
             connection.close();
             ps.close();

@@ -15,8 +15,8 @@
  */
 package calcmassmodel;
 
+import calcdatabase.DataBaseInterface;
 import calcmassview.ViewObserver;
-import java.sql.Connection;
 
 /**
  * Интерфейс Модели
@@ -51,8 +51,8 @@ public interface CalculatorModelInterface {
     public void createDetail(String assortment, String type, String number, String length, String width);    
 
     /**
-     *
-     * @param connection
+     * 
+     * @param dataBase интерфейс базы данных
      */
-    public void setDataBaseConnect(Connection connection);
+    public void setDataBase(DataBaseInterface dataBase);
 }

@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcdatabase;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
  * SQL запрос в БД
  * @author Sergei Lyashko
  */
-class DataBaseQuery {
+public class DataBase implements DataBaseInterface {
     
     private static final String SQL_QUERY = "select AreaCut_Value from "
     + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
@@ -38,35 +37,33 @@ class DataBaseQuery {
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
     
-    private final Connection connection;
+    private final String valueFromDB = "AreaCut_Value";
+    private String profile, type, number;
     
-    public DataBaseQuery(Connection connection){
-        this.connection = connection;
+    @Override
+    public double query(String profile, String type, String number){
+        this.profile = profile;
+        this.type = type;
+        this.number = number;
+        return receiveValue();
     }
 
-    /**
-     * Запрос значения площади сечения детали из БД
-     * @param profile Наименование профиля (сортамент)
-     * @param type Наименование типа детали
-     * @param number Номер профиля детали
-     * @return площадь сечения (в см2)
-     */
-    public double getDataBaseValue(String profile, String type, String number) {
+    private double receiveValue() {
         double result = 0;
         try{
-            //Connection connection = connectToDataBase();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY);        
+            Connection connect = DataBaseConnection.getConnect();
+            PreparedStatement preparedStatement = connect.prepareStatement(SQL_QUERY);        
             // передача значений входных параметров
             preparedStatement.setString(1, profile);
             preparedStatement.setString(2, type);
             preparedStatement.setString(3, number);
             // регистрация возвращаемого параметра
             ResultSet resultSet = preparedStatement.executeQuery();
-            result = resultSet.getDouble("AreaCut_Value");
+            result = resultSet.getDouble(valueFromDB);
             // закрытие
-            close(connection, preparedStatement, resultSet);
+            close(connect, preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -78,19 +75,7 @@ class DataBaseQuery {
             ps.close();
             resultSet.close();
         } catch (SQLException ex){
-            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*
-    // подключение к БД
-    private Connection connectToDataBase(){
-        try {
-            Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection("jdbc:sqlite:calculator.db");
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DataBaseQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    */
 }
