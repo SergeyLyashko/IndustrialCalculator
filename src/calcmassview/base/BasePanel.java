@@ -33,12 +33,12 @@ import javax.swing.JPanel;
  */
 public class BasePanel extends JPanel {
     
+    // интерфейс базы данных
     private DataBaseInterface dataBase;
-
     // combo-boxes
-    private AssortmentProfileMenu assortmentMenu;
-    private TypeProfileMenu typeProfileMenu;
-    private NumberProfileMenu numberProfileMenu;
+    private AssortmentMenu assortmentMenu;
+    private TypesMenu typeProfileMenu;
+    private NumbersMenu numberProfileMenu;
     // поля ввода значений
     private LengthField lengthField;
     private WidthField widthField;    
@@ -89,11 +89,11 @@ public class BasePanel extends JPanel {
     private void createComponents(Theme theme, ToolTips toolTips){
         theme.setColorTheme(this);
         // <Тип изделия>
-        assortmentMenu = new AssortmentProfileMenu(this, toolTips);
+        assortmentMenu = new AssortmentMenu(this, toolTips);
         // <Тип профиля>
-        typeProfileMenu = new TypeProfileMenu(this, toolTips);
+        typeProfileMenu = new TypesMenu(this, toolTips);
         // <№ профиля>
-        numberProfileMenu = new NumberProfileMenu(this, toolTips);
+        numberProfileMenu = new NumbersMenu(this, toolTips);
         //текстовое поле Ширина (для листа)
         widthField = new WidthField(this, toolTips);
         //текстовое поле Длина
@@ -136,15 +136,15 @@ public class BasePanel extends JPanel {
         serviceInfo.reset();
     }
 
-    public AssortmentProfileMenu getAssortmentMenu(){
+    public AssortmentMenu getAssortmentMenu(){
         return assortmentMenu;
     }
     
-    public TypeProfileMenu getTypeProfileMenu(){
+    public TypesMenu getTypeProfileMenu(){
         return typeProfileMenu;
     }
     
-    public NumberProfileMenu getNumberProfileMenu(){
+    public NumbersMenu getNumberProfileMenu(){
         return numberProfileMenu;
     }
 

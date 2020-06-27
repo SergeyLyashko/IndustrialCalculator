@@ -21,55 +21,62 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 /**
- * Панель меню номеров профилей
+ * Меню типов сортамента
  * @author Sergei Lyashko
  */
-public class NumberProfileMenu extends JComboBox<String> implements ActionListener, ValueReceivable {  
-    
+public class AssortmentMenu extends JComboBox<String> implements ActionListener, ValueReceivable {    
+        
     private String selectItem;
     private final BasePanel basePanel;
-    private final String text = "выбор номера профиля детали";
+    private final String toolTiptext = "выбор сортамента детали";
     
-    public NumberProfileMenu(BasePanel basePanel, ToolTips toolTips) {
+    public AssortmentMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        super.setLocation(20, 100);
+        super.setLocation(20, 20);
         this.basePanel = basePanel;
-        addConent(toolTips);
+        addContent(toolTips);
     }
     
-    private void addConent(ToolTips toolTips){
-        Menu emptyMenu = new Menu(basePanel.getDataBase());
-        super.setModel(emptyMenu.addHeaderInMenu(this));
-        toolTips.setToolTips(this, text);
+    /**
+     * Создание меню сортамента из базы данных
+     */
+    public void createMenuFromDataBase(){
+        Menu menu = new Menu(basePanel.getDataBase());
+        super.setModel(menu.createMenu());
+    }
+    
+    private void addContent(ToolTips toolTips){
+        Menu defaulMenu = new Menu();
+        super.setModel(defaulMenu.createStartMenu(this));
+        toolTips.setToolTips(this, toolTiptext);
         basePanel.add(this);        
-        basePanel.addPolicy(this);        
+        basePanel.addPolicy(this);
         addActionListener(this);
     }
-        
+    
     @Override
-    public void actionPerformed(ActionEvent e) {
-        resetAllFields();
+    public void actionPerformed(ActionEvent e) {        
         @SuppressWarnings("unchecked")
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         this.selectItem = selectedMenuItem;
-        // активаци полей ввода значений
-        actionFields(selectedMenuItem);
+        // создание меню типов профилей
+        Menu menu = new Menu(basePanel.getDataBase());
+        Menu newTypeProfilesMenu = menu.createMenu(selectItem);
+        basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
+        //сброс параметров полей        
+        resetAllFields();        
     }
     
-    // активация полей ввода значений
-    private void actionFields(String selectMenu){
-        if(!selectMenu.equals("№ профиля")){
-            basePanel.getLengthField().perform().activation();
-            if(basePanel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
-                    basePanel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
-                basePanel.getWidthField().perform().activation();
-            }
-        }
-    }
-
     private void resetAllFields(){
+        setMenuStartPosition();
         basePanel.reset();
+    }
+    
+    // установка начальных значений меню
+    private void setMenuStartPosition(){
+        basePanel.getTypeProfileMenu().setSelectedIndex(0);
+        basePanel.getNumberProfileMenu().setSelectedIndex(0);
     }
 
     @Override

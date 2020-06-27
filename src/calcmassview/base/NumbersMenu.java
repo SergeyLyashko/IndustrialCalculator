@@ -21,53 +21,54 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 /**
- * Выпадающее меню типов профилей
- * для выбранного сортамента
+ * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class TypeProfileMenu extends JComboBox<String> implements ActionListener, ValueReceivable {   
+public class NumbersMenu extends JComboBox<String> implements ActionListener, ValueReceivable {  
     
-    private final BasePanel basePanel;
     private String selectItem;
-    private final String text = "выбор типа профиля детали";
+    private final BasePanel basePanel;
+    private final String text = "выбор номера профиля детали";
     
-    public TypeProfileMenu(BasePanel basePanel, ToolTips toolTips) {
+    public NumbersMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        super.setLocation(20, 60);
+        super.setLocation(20, 100);
         this.basePanel = basePanel;
-        addContent(toolTips);
+        addConent(toolTips);
     }
     
-    private void addContent(ToolTips toolTips){
-        Menu emptyMenu = new Menu(basePanel.getDataBase());
-        super.setModel(emptyMenu.addHeaderInMenu(this));
+    private void addConent(ToolTips toolTips){
+        Menu defaultMenu = new Menu();
+        super.setModel(defaultMenu.createStartMenu(this));
         toolTips.setToolTips(this, text);
         basePanel.add(this);        
-        basePanel.addPolicy(this);
+        basePanel.addPolicy(this);        
         addActionListener(this);
     }
-    
+        
     @Override
     public void actionPerformed(ActionEvent e) {
-        resetAllValues();
+        resetAllFields();
         @SuppressWarnings("unchecked")
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         this.selectItem = selectedMenuItem;
-        // обновление меню номеров профилей
-        updateMenu(selectItem);
+        // активаци полей ввода значений
+        actionFields(selectedMenuItem);
     }
     
-    // обновление меню номеров профилей
-    private void updateMenu(String menuItem){
-        String selectedAssortment = basePanel.getAssortmentMenu().receiveFieldString();
-        Menu menu = new Menu(basePanel.getDataBase());
-        Menu numberProfileMenu = menu.createMenu(selectedAssortment, menuItem);
-        basePanel.getNumberProfileMenu().setModel(numberProfileMenu);
+    // активация полей ввода значений
+    private void actionFields(String selectMenu){
+        if(!selectMenu.equals("№ профиля")){
+            basePanel.getLengthField().perform().activation();
+            if(basePanel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
+                    basePanel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
+                basePanel.getWidthField().perform().activation();
+            }
+        }
     }
-    
-    // сброс значений
-    private void resetAllValues(){
+
+    private void resetAllFields(){
         basePanel.reset();
     }
 

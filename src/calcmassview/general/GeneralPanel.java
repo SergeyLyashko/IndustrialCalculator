@@ -56,7 +56,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private void createPanels(){
         Preference saved = preference.load();        
         if(saved != null){
-            this.settingsPanel = loadingPreference(saved);
+            this.settingsPanel = loadPreference(saved);
         }else{
             this.settingsPanel = newPreference();
         }
@@ -66,7 +66,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     }
     
     // загрузка сохраненных настроек
-    private SettingsPanel loadingPreference(Preference saved){
+    private SettingsPanel loadPreference(Preference saved){
         theme = saved.getTheme();
         theme.setThemeChangedCompontnts();
         toolTips = saved.getToolTips();
@@ -77,7 +77,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     }
     
     // сохранение настроек
-    private void savingPreference(){
+    private void savePreference(){
         preference.addComponent(settingsPanel, theme, toolTips);
         preference.save();
     }
@@ -90,8 +90,6 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         toolTips.oN();
         return new SettingsPanel(theme, toolTips);
     }
-    
-    
     
     // основное окно
     private void createAndShowGUI(){
@@ -113,7 +111,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
 
             @Override
             public void windowClosing(WindowEvent e) {                
-                savingPreference();
+                savePreference();
                 System.exit(0);
             }
 

@@ -45,16 +45,19 @@ public class CalculatorController implements CalculatorControllerInterface {
         model = new CalculatorModel();
         controller = new CalculatorController(model);
         calculatorView = new CalculatorView(model, controller);
-        loadContent();
+        loadDataBase();
     }
     
-    private static void loadContent(){
+    // загрузка 
+    private static void loadDataBase(){
         calculatorView.setDataBase(dataBase);
-        calculatorView.losdMenu();
+        if(dataBase != null){
+            calculatorView.createMenu();
+        }
     }
     
     @Override
-    public void setParametersFromView(String assortment, String type, String number, String length, String width) {
+    public void setFieldsValue(String assortment, String type, String number, String length, String width) {
         model.setDataBase(dataBase);
         model.createDetail(assortment, type, number, length, width);        
     }

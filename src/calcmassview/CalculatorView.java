@@ -66,12 +66,13 @@ public class CalculatorView implements ViewObserver {
     
     @Override
     public void keyActionUpdate() {
-        setParametrs();
+        setParametrsToController();
     }
     
-    private void setParametrs(){
+    // установка значений полей
+    private void setParametrsToController(){
         getFieldsValueFromView();
-        controller.setParametersFromView(profileAssortment, profileType, profileNumber, length, width);
+        controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей
@@ -98,11 +99,20 @@ public class CalculatorView implements ViewObserver {
                     .receiveFieldString();
     }
 
+    /**
+     * Установка интерфейса базы данных
+     * @param dataBase интерфейс базы данных
+     */
     public void setDataBase(DataBaseInterface dataBase) {
         generalPanel.getBasePanel().setDataBase(dataBase);
     }
 
-    public void losdMenu() {
-        generalPanel.getBasePanel().getAssortmentMenu().loadMenu();
+    /**
+     * Создание меню
+     */
+    public void createMenu() {
+        generalPanel.getBasePanel()
+                .getAssortmentMenu()
+                .createMenuFromDataBase();
     }
 }

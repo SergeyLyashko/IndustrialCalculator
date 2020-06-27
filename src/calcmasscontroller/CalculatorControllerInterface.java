@@ -23,13 +23,15 @@ package calcmasscontroller;
 public interface CalculatorControllerInterface {
     
     /**
-     * Установка параметров, полученных из View
+     * Установка значений полей
      * @param assortment наименование сортамента
      * @param type наименование типа сортамента
      * @param number номер профиля
      * @param length длина детали
      * @param width ширина детали
      */
-    public void setParametersFromView(String assortment, String type, String number, String length, String width);
+    public void setFieldsValue(String assortment, String type, String number, String length, String width);
+    
+    
     
 }

@@ -50,13 +50,19 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
     }
     
     /**
+     *  онструктор по умолчанию
+     */
+    public Menu(){
+        dataBase = null;
+    }
+    
+    /**
      * создание модели меню дл€ базовой панели выпадающего меню
      * @return 
      */
     public Menu createMenu(){
         dataBase.query(assortment, type, number);
         menu = dataBase.receiveMenuList();
-        //create(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
         return this;
     }
     
@@ -69,7 +75,6 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
         this.assortment = assortment;
         dataBase.query(assortment, type, number);
         menu = dataBase.receiveMenuList();
-        //create(typeHeader, typeName, SQL_QUERY_TYPES);
         return this;
     }
     
@@ -85,24 +90,23 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
         this.type = type;
         dataBase.query(assortment, type, number);
         menu = dataBase.receiveMenuList();
-        //create(numberHeader, numberName, SQL_QUERY_NUMBERS);
         return this;
     }
     
     /**
-     * ƒобавление заглавного пункта в меню
-     * @param menuBox комбо-бокс с выпадающим меню
+     * —оздание меню при старте
+     * @param menuBox комбо-бокс меню
      * @return 
      */
-    public Menu addHeaderInMenu(JComboBox<String> menuBox){
+    public Menu createStartMenu(JComboBox<String> menuBox){
         menu = new ArrayList<>();
-        if(menuBox.getClass().equals(AssortmentProfileMenu.class)){
+        if(menuBox.getClass().equals(AssortmentMenu.class)){
             menu.add(assortmentHeader);
         }
-        if(menuBox.getClass().equals(TypeProfileMenu.class)){
+        if(menuBox.getClass().equals(TypesMenu.class)){
             menu.add(typeHeader);
         }
-        if(menuBox.getClass().equals(NumberProfileMenu.class)){
+        if(menuBox.getClass().equals(NumbersMenu.class)){
             menu.add(numberHeader);
         }
         return this;
