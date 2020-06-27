@@ -28,6 +28,8 @@ class Detail implements Massable, ErrorMessageInterface {
     private static final double DENSITY_STEEL = 7.85e-6;
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
     private static final double DENSITY_RUBBER = 1.25e-6;
+    // максимальное значение введенного числа
+    private final double maxNumber = Double.MAX_VALUE;
     // сообщение об ошибке
     private String message;
     // значение из Базы Данных
@@ -59,9 +61,16 @@ class Detail implements Massable, ErrorMessageInterface {
      */
     private double getValueOf(String value) {
         try{
-            return Double.parseDouble(value);
+            double valueNum = Double.parseDouble(value);
+            if(valueNum > maxNumber){
+                this.message = "ошибка! слишком большое число!";
+            }else if(valueNum < 0){
+                this.message = "ошибка! отрицательное число!";
+            }else{
+                return valueNum;
+            }
         }catch(NumberFormatException e){
-            this.message = "ошибка! параметр задан неверно!";
+            this.message = "ошибка! введенное значение не является числом!";
         }
         return 0;
     }
