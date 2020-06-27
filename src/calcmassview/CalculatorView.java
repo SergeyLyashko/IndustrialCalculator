@@ -15,6 +15,7 @@
  */
 package calcmassview;
 
+import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
 import calcmasscontroller.CalculatorControllerInterface;
 import calcmassmodel.CalculatorModelInterface;
@@ -70,7 +71,7 @@ public class CalculatorView implements ViewObserver {
     
     private void setParametrs(){
         getFieldsValueFromView();
-        controller.setParameters(profileAssortment, profileType, profileNumber, length, width);
+        controller.setParametersFromView(profileAssortment, profileType, profileNumber, length, width);
     }
     
     // получение значений полей
@@ -95,5 +96,13 @@ public class CalculatorView implements ViewObserver {
                     .getBasePanel()
                     .getWidthField()
                     .receiveFieldString();
+    }
+
+    public void setDataBase(DataBaseInterface dataBase) {
+        generalPanel.getBasePanel().setDataBase(dataBase);
+    }
+
+    public void losdMenu() {
+        generalPanel.getBasePanel().getAssortmentMenu().loadMenu();
     }
 }

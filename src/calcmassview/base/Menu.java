@@ -15,14 +15,8 @@
  */
 package calcmassview.base;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import calcdatabase.DataBaseInterface;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
@@ -34,45 +28,35 @@ import javax.swing.JComboBox;
  */
 public class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     
-    // Sql запрос таблицы сортаментов(профилей)
-    private static final String SQL_QUERY_PROFILES = 
-        "select ProfileName from Profiles";
-    
-    // Sql запрос таблицы типов профилей, в зависимости от выбранного сортамента
-    private static final String SQL_QUERY_TYPES = 
-        "select ProfileTypeName from Profiles, ProfileTypes "
-        + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
-        + "Profiles.ProfileName = ?";
-    
-    // Sql запрос таблицы номеров профилей, в зависимости от выбранного сортамента и типа профиля
-    private static final String SQL_QUERY_NUMBERS = 
-        "select ProfileNumberName from "
-      + "Profiles, ProfileTypes, ProfileNumbers "
-      + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
-      + "ProfileTypes.ProfileType_ID = ProfileNumbers.ProfileType_ID and "
-      + "Profiles.ProfileName = ? and "
-      + "ProfileTypes.ProfileTypeName = ?";
-    
-    private ArrayList<String> menu;
-    private int selected;
-    
-    private final String profileNumberName = "ProfileNumberName";
-    private final String profileTypeName = "ProfileTypeName";
-    private final String profileName = "ProfileName";
-    
     private final String assortmentHeader = "Тип сортамента";
     private final String typeHeader = "Тип профиля";
     private final String numberHeader = "№ профиля";
     
+    private ArrayList<String> menu;
+    private int selected;
+    
     private String assortment;
     private String type;
+    private String number;
+    
+    private final DataBaseInterface dataBase;
+    
+    /**
+     * Конструктор меню
+     * @param dataBase интерфейс базы данных
+     */
+    public Menu(DataBaseInterface dataBase){
+        this.dataBase = dataBase;
+    }
     
     /**
      * создание модели меню для базовой панели выпадающего меню
      * @return 
      */
     public Menu createMenu(){
-        create(assortmentHeader, profileName, SQL_QUERY_PROFILES);
+        dataBase.query(assortment, type, number);
+        menu = dataBase.receiveMenuList();
+        //create(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
         return this;
     }
     
@@ -83,7 +67,9 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
      */
     public Menu createMenu(String assortment){
         this.assortment = assortment;
-        create(typeHeader, profileTypeName, SQL_QUERY_TYPES);
+        dataBase.query(assortment, type, number);
+        menu = dataBase.receiveMenuList();
+        //create(typeHeader, typeName, SQL_QUERY_TYPES);
         return this;
     }
     
@@ -97,7 +83,9 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
     public Menu createMenu(String assortment, String type){
         this.assortment = assortment;
         this.type = type;
-        create(numberHeader, profileNumberName, SQL_QUERY_NUMBERS);
+        dataBase.query(assortment, type, number);
+        menu = dataBase.receiveMenuList();
+        //create(numberHeader, numberName, SQL_QUERY_NUMBERS);
         return this;
     }
     
@@ -108,6 +96,9 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
      */
     public Menu addHeaderInMenu(JComboBox<String> menuBox){
         menu = new ArrayList<>();
+        if(menuBox.getClass().equals(AssortmentProfileMenu.class)){
+            menu.add(assortmentHeader);
+        }
         if(menuBox.getClass().equals(TypeProfileMenu.class)){
             menu.add(typeHeader);
         }
@@ -117,54 +108,6 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
         return this;
     }
     
-    private void create(String menuHeader, String queryString, String sqlQuery){
-        menu = new ArrayList<>();
-        menu.add(menuHeader);
-        try{
-            Connection connection = connectToDataBase();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            // передача значений входных параметров
-            if(assortment != null){
-                preparedStatement.setString(1, assortment);
-            }
-            if(type != null){
-                preparedStatement.setString(2, type);
-            }            
-            // регистрация возвращаемого параметра
-            ResultSet resultSet = preparedStatement.executeQuery();
-            // добавление строк в меню
-            while(resultSet.next()){
-                menu.add(resultSet.getString(queryString));
-            }
-            // закрытие
-            close(connection, preparedStatement, resultSet);
-        }catch(SQLException ex){
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-        
-    // закрытие соединений
-    private void close(Connection connection, PreparedStatement ps, ResultSet resultSet){
-        try{
-            connection.close();
-            ps.close();
-            resultSet.close();
-        } catch (SQLException ex){
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    // подключение к БД
-    private Connection connectToDataBase(){
-        try {
-            Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection("jdbc:sqlite:calculator.db");
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
     @Override
     public int getSize() {
         return menu.size();

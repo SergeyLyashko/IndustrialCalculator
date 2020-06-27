@@ -28,19 +28,28 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
         
     private String selectItem;
     private final BasePanel basePanel;
-    private final String text = "выбор сортамента детали";
+    private final String toolTiptext = "выбор сортамента детали";
     
     public AssortmentProfileMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
         this.basePanel = basePanel;
-        super.setModel(new Menu().createMenu());
         addContent(toolTips);
     }
     
+    /**
+     * «агрузка меню сортамента
+     */
+    public void loadMenu(){
+        Menu menu = new Menu(basePanel.getDataBase());
+        super.setModel(menu.createMenu());
+    }
+    
     private void addContent(ToolTips toolTips){
-        toolTips.setToolTips(this, text);
+        Menu emptyMenu = new Menu(basePanel.getDataBase());
+        super.setModel(emptyMenu.addHeaderInMenu(this));
+        toolTips.setToolTips(this, toolTiptext);
         basePanel.add(this);        
         basePanel.addPolicy(this);
         addActionListener(this);
@@ -52,7 +61,8 @@ public class AssortmentProfileMenu extends JComboBox<String> implements ActionLi
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         this.selectItem = selectedMenuItem;
         // создание меню типов профилей
-        Menu newTypeProfilesMenu = new Menu().createMenu(selectItem);
+        Menu menu = new Menu(basePanel.getDataBase());
+        Menu newTypeProfilesMenu = menu.createMenu(selectItem);
         basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
         //сброс параметров полей        
         resetAllFields();        

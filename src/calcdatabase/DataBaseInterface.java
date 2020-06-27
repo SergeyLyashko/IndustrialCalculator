@@ -15,19 +15,31 @@
  */
 package calcdatabase;
 
+import java.util.ArrayList;
+
 /**
- * Интерфей базы данных
+ * Интерфейс базы данных
  * @author Sergei Lyashko
  */
 public interface DataBaseInterface {
     
     /**
-     * Получение значения из базы данных
+     * Отправка запроса в базу данных
      * @param assortment наименование сортамента
      * @param type тип профиля
      * @param number номер профиля
-     * @return значение из базы данных
      */
-    public double query(String assortment, String type, String number);
+    public void query(String assortment, String type, String number);
     
+    /**
+     * Получение значения из базы данных
+     * @return значение из базы данных в формате числа с плавающей точкой
+     */
+    public double receiveValue();
+    
+    /**
+     * Получение меню из базы данных в формате списочного массива
+     * @return список строковых значений
+     */
+    public ArrayList<String> receiveMenuList();
 }

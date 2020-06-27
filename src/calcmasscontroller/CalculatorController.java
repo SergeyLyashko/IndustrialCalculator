@@ -31,6 +31,7 @@ public class CalculatorController implements CalculatorControllerInterface {
     private static CalculatorModelInterface model;
     private static CalculatorController controller;    
     private static DataBaseInterface dataBase;
+    private static CalculatorView calculatorView;
     
     private CalculatorController(CalculatorModelInterface model){
         CalculatorController.model = model;
@@ -43,13 +44,18 @@ public class CalculatorController implements CalculatorControllerInterface {
         dataBase = new DataBase(); 
         model = new CalculatorModel();
         controller = new CalculatorController(model);
-        new CalculatorView(model, controller);
-          
+        calculatorView = new CalculatorView(model, controller);
+        loadContent();
+    }
+    
+    private static void loadContent(){
+        calculatorView.setDataBase(dataBase);
+        calculatorView.losdMenu();
     }
     
     @Override
-    public void setParameters(String assortment, String type, String number, String length, String width) {
+    public void setParametersFromView(String assortment, String type, String number, String length, String width) {
         model.setDataBase(dataBase);
-        model.createDetail(assortment, type, number, length, width);
+        model.createDetail(assortment, type, number, length, width);        
     }
 }

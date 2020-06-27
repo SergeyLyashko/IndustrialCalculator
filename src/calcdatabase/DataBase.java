@@ -15,20 +15,42 @@
  */
 package calcdatabase;
 
+import calcmassview.base.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * SQL запрос в БД
+ * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
 public class DataBase implements DataBaseInterface {
     
-    private static final String SQL_QUERY = "select AreaCut_Value from "
+    // Sql запрос таблицы сортаментов(профилей)
+    private static final String SQL_QUERY_PROFILES = 
+        "select ProfileName from Profiles";
+    
+    // Sql запрос таблицы типов профилей сортамента
+    private static final String SQL_QUERY_TYPES = 
+        "select ProfileTypeName from Profiles, ProfileTypes "
+        + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
+        + "Profiles.ProfileName = ?";
+    
+    // Sql запрос таблицы номеров профилей определенного типа
+    private static final String SQL_QUERY_NUMBERS = 
+        "select ProfileNumberName from "
+      + "Profiles, ProfileTypes, ProfileNumbers "
+      + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
+      + "ProfileTypes.ProfileType_ID = ProfileNumbers.ProfileType_ID and "
+      + "Profiles.ProfileName = ? and "
+      + "ProfileTypes.ProfileTypeName = ?";
+    
+    // SQL запрос значения из базы данных
+    private static final String SQL_QUERY_VALUE = "select AreaCut_Value from "
     + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
     + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
     + "ProfileTypes.ProfileType_ID = ProfileNumbers.ProfileType_ID and "
@@ -37,24 +59,44 @@ public class DataBase implements DataBaseInterface {
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
     
+    private final String numberName = "ProfileNumberName";
+    private final String typeName = "ProfileTypeName";
+    private final String assortmentName = "ProfileName";
+    
+    private final String assortmentHeader = "Тип сортамента";
+    private final String typeHeader = "Тип профиля";
+    private final String numberHeader = "№ профиля";
+    
     private final String valueFromDB = "AreaCut_Value";
-    private String profile, type, number;
+    
+    private String assortment, type, number;
     
     @Override
-    public double query(String profile, String type, String number){
-        this.profile = profile;
+    public void query(String profile, String type, String number){
+        this.assortment = profile;
         this.type = type;
         this.number = number;
-        return receiveValue();
+    }
+    
+    @Override
+    public ArrayList<String> receiveMenuList(){
+        if(type != null){
+            return createNumberMenu();
+        }else if(assortment != null){
+            return createTypeMenu();
+        }else{
+            return createAssortmentMenu();
+        }
     }
 
-    private double receiveValue() {
+    @Override
+    public double receiveValue() {
         double result = 0;
         try{
             Connection connect = DataBaseConnection.getConnect();
-            PreparedStatement preparedStatement = connect.prepareStatement(SQL_QUERY);        
+            PreparedStatement preparedStatement = connect.prepareStatement(SQL_QUERY_VALUE);        
             // передача значений входных параметров
-            preparedStatement.setString(1, profile);
+            preparedStatement.setString(1, assortment);
             preparedStatement.setString(2, type);
             preparedStatement.setString(3, number);
             // регистрация возвращаемого параметра
@@ -77,5 +119,48 @@ public class DataBase implements DataBaseInterface {
         } catch (SQLException ex){
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    // создание списка меню сортамента
+    private ArrayList<String> createAssortmentMenu(){
+        return createMenuList(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
+    }
+    
+    // создание списка меню типов профиля
+    private ArrayList<String> createTypeMenu(){
+        return createMenuList(typeHeader, typeName, SQL_QUERY_TYPES);
+    }
+    
+    // создание списка меню номеров профиля
+    private ArrayList<String> createNumberMenu(){
+        return createMenuList(numberHeader, numberName, SQL_QUERY_NUMBERS);
+    }
+    
+    // создание списка для меню из базы данных
+    private ArrayList<String> createMenuList(String menuHeader, String queryString, String sqlQuery){
+        ArrayList<String> menuList = new ArrayList<>();
+        menuList.add(menuHeader);
+        try{
+            Connection connection = DataBaseConnection.getConnect();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            // передача значений входных параметров
+            if(assortment != null){
+                preparedStatement.setString(1, assortment);
+            }
+            if(type != null){
+                preparedStatement.setString(2, type);
+            }            
+            // регистрация возвращаемого параметра
+            ResultSet resultSet = preparedStatement.executeQuery();
+            // добавление строк в меню
+            while(resultSet.next()){
+                menuList.add(resultSet.getString(queryString));
+            }
+            // закрытие
+            close(connection, preparedStatement, resultSet);
+        }catch(SQLException ex){
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return menuList;
     }
 }

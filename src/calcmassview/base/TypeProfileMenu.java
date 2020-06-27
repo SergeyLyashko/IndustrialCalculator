@@ -40,8 +40,8 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     }
     
     private void addContent(ToolTips toolTips){
-        Menu emptyMenu = new Menu().addHeaderInMenu(this);
-        super.setModel(emptyMenu);
+        Menu emptyMenu = new Menu(basePanel.getDataBase());
+        super.setModel(emptyMenu.addHeaderInMenu(this));
         toolTips.setToolTips(this, text);
         basePanel.add(this);        
         basePanel.addPolicy(this);
@@ -61,7 +61,8 @@ public class TypeProfileMenu extends JComboBox<String> implements ActionListener
     // обновление меню номеров профилей
     private void updateMenu(String menuItem){
         String selectedAssortment = basePanel.getAssortmentMenu().receiveFieldString();
-        Menu numberProfileMenu = new Menu().createMenu(selectedAssortment, menuItem);
+        Menu menu = new Menu(basePanel.getDataBase());
+        Menu numberProfileMenu = menu.createMenu(selectedAssortment, menuItem);
         basePanel.getNumberProfileMenu().setModel(numberProfileMenu);
     }
     

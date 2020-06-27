@@ -48,7 +48,8 @@ class Detail implements Massable, ErrorMessageInterface {
      * @param dataBase интерфейс базы данных
      */
     public void executeQuery(DataBaseInterface dataBase) {
-        this.valueFromDB = dataBase.query(assortment, type, number);
+        dataBase.query(assortment, type, number);
+        this.valueFromDB = dataBase.receiveValue();
     }
     
     /**

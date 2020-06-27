@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
 import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTips;
@@ -31,6 +32,8 @@ import javax.swing.JPanel;
  * @author Sergei Lyashko
  */
 public class BasePanel extends JPanel {
+    
+    private DataBaseInterface dataBase;
 
     // combo-boxes
     private AssortmentProfileMenu assortmentMenu;
@@ -86,7 +89,7 @@ public class BasePanel extends JPanel {
     private void createComponents(Theme theme, ToolTips toolTips){
         theme.setColorTheme(this);
         // <Тип изделия>
-        assortmentMenu = new AssortmentProfileMenu(this, toolTips);        
+        assortmentMenu = new AssortmentProfileMenu(this, toolTips);
         // <Тип профиля>
         typeProfileMenu = new TypeProfileMenu(this, toolTips);
         // <№ профиля>
@@ -177,5 +180,21 @@ public class BasePanel extends JPanel {
         Toolkit.getDefaultToolkit()
             .getSystemClipboard()
             .setContents(new StringSelection(value), null);       
+    }
+    
+    /**
+     * Установка интерфейчас базы данных
+     * @param dataBase интерфейс базы данных
+     */
+    public void setDataBase(DataBaseInterface dataBase) {
+        this.dataBase = dataBase;
+    }
+    
+    /**
+     * Запрос интерфейса базы данных
+     * @return интерфейс базы данных
+     */
+    public DataBaseInterface getDataBase(){
+        return dataBase;
     }
 }

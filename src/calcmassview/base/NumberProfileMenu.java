@@ -39,8 +39,8 @@ public class NumberProfileMenu extends JComboBox<String> implements ActionListen
     }
     
     private void addConent(ToolTips toolTips){
-        Menu emptyMenu = new Menu().addHeaderInMenu(this);
-        super.setModel(emptyMenu);
+        Menu emptyMenu = new Menu(basePanel.getDataBase());
+        super.setModel(emptyMenu.addHeaderInMenu(this));
         toolTips.setToolTips(this, text);
         basePanel.add(this);        
         basePanel.addPolicy(this);        
