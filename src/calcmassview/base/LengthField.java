@@ -27,12 +27,13 @@ import javax.swing.JFormattedTextField;
  * Поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, ValueReceivable {
+public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, FieldValueReceivable, StateFieldInterface {
     
     private final BasePanel basePanel;
     private transient String contentFeld;
     private final String toolTipText = "поле ввода длины детали";
-    private final String fieldName = "длина";
+    private final String fieldName = "введите длину";
+    private final String difficultAreaName = "введите площадь";
     private final String emptyField = "";
     
     public LengthField(BasePanel basePanel, ToolTips toolTips){
@@ -55,31 +56,35 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     }
     
     /**
-     * деактивация (закрытие) поля
-     * @return 
+     *
      */
-    public IDeactivationField execute(){
-        return () -> {
-            setEditable(false);
-            setBackground(Color.DARK_GRAY);
-            setForeground(Color.GRAY);        
-            setText(fieldName);
-            removeFocusListener(this);
-            removeKeyListener(this);
-        };
+    public void difficultAreaStateON(){
+        super.setText(difficultAreaName);
     }
     
     /**
-     * активация поля
-     * @return 
+     *
      */
-    public IActivationField perform(){
-        return ()-> {
-            setEditable(true);
-            setBackground(Color.white);        
-            addFocusListener(this);
-            addKeyListener(this);
-        };
+    public void difficultAreaStateOFF(){
+        super.setText(fieldName);
+    }
+    
+    @Override
+    public void deactiveField() {
+        setEditable(false);
+        setBackground(Color.DARK_GRAY);
+        setForeground(Color.GRAY);        
+        setText(fieldName);
+        removeFocusListener(this);
+        removeKeyListener(this);
+    }
+
+    @Override
+    public void activeField() {
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
     }
     
     /**
@@ -118,7 +123,9 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public void keyTyped(KeyEvent e) {}
 
     @Override
-    public String receiveFieldString() {
+    public String fieldValueStringReceive() {
         return this.contentFeld;
     }
+
+    
 }

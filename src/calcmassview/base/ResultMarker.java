@@ -31,7 +31,7 @@ public class ResultMarker extends JLabel {
     public ResultMarker(BasePanel basePanel, Theme theme){
         this.basePanel = basePanel;
         this.theme = theme;
-        super.setLocation(190, 100);
+        super.setLocation(190, 105);
         super.setVisible(true);
         super.setText("0.0");
         super.setHorizontalAlignment(RIGHT);
@@ -39,6 +39,7 @@ public class ResultMarker extends JLabel {
         addContent();
     }
     
+    // 
     private void addContent(){
         basePanel.add(this);
         theme.setColorTheme(this);

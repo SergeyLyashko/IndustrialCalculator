@@ -16,15 +16,18 @@
 package calcmassview.base;
 
 /**
- * Интерфейс получения значения поля
- * @author Sergei Lyashko
+ * Интерфейс состояия поля ввода
+ * @author Korvin
  */
-@FunctionalInterface
-public interface ValueReceivable {
- 
+public interface StateFieldInterface {
+    
     /**
-     * Получение строки из поля
-     * @return строковое значение
+     * Дезактивация поля ввода
      */
-    public String receiveFieldString();
+    public void deactiveField();
+    
+    /**
+     * Активация поля ввода
+     */
+    public void activeField();
 }

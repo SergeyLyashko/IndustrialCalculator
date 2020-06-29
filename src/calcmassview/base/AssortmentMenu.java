@@ -24,7 +24,7 @@ import javax.swing.JComboBox;
  * Меню типов сортамента
  * @author Sergei Lyashko
  */
-public class AssortmentMenu extends JComboBox<String> implements ActionListener, ValueReceivable {    
+public class AssortmentMenu extends JComboBox<String> implements ActionListener, FieldValueReceivable {    
         
     private String selectItem;
     private final BasePanel basePanel;
@@ -39,13 +39,14 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     }
     
     /**
-     * Создание меню сортамента из базы данных
+     * Создание меню из базы данных
      */
     public void createMenuFromDataBase(){
         Menu menu = new Menu(basePanel.getDataBase());
         super.setModel(menu.createMenu());
     }
     
+    // 
     private void addContent(ToolTips toolTips){
         Menu defaulMenu = new Menu();
         super.setModel(defaulMenu.createStartMenu(this));
@@ -61,13 +62,19 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         this.selectItem = selectedMenuItem;
         // создание меню типов профилей
-        Menu menu = new Menu(basePanel.getDataBase());
-        Menu newTypeProfilesMenu = menu.createMenu(selectItem);
-        basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
+        createTypeProfilesMenu(selectItem);
         //сброс параметров полей        
         resetAllFields();        
     }
     
+    // создание меню типов профилей
+    private void createTypeProfilesMenu(String menuItem){
+        Menu menu = new Menu(basePanel.getDataBase());
+        Menu newTypeProfilesMenu = menu.createMenu(menuItem);
+        basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
+    }
+    
+    // сброс полей ввода
     private void resetAllFields(){
         setMenuStartPosition();
         basePanel.reset();
@@ -80,7 +87,7 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     }
 
     @Override
-    public String receiveFieldString() {
+    public String fieldValueStringReceive() {
         return this.selectItem;
     }
 }

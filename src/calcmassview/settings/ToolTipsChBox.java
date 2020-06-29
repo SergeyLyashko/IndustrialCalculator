@@ -40,11 +40,11 @@ public class ToolTipsChBox extends JCheckBox implements Selectable, Serializable
     }
     
     /**
-     * Состояние поля чек-бокса
-     * @param theme цветовая тема
-     * @param toolTips всплывающая подсказка
+     * Внешнее оформления
+     * @param theme цветовая тема приложения
+     * @param toolTips всплывающие подсказки
      */
-    public void addState(Theme theme, ToolTips toolTips){
+    public void addVisualDecoration(Theme theme, ToolTips toolTips){
         this.toolTips = toolTips;
         theme.setColorTheme(this);
         toolTips.setToolTips(this, text);        

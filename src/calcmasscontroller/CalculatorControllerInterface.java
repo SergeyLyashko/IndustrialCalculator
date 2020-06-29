@@ -32,6 +32,13 @@ public interface CalculatorControllerInterface {
      */
     public void setFieldsValue(String assortment, String type, String number, String length, String width);
     
-    
+    /**
+     * Установка значений полей
+     * @param assortment наименование сортамента
+     * @param type наименование типа сортамента
+     * @param number номер профиля
+     * @param area задаваемая площадь детали
+     */
+    public void setFieldsValue(String assortment, String type, String number, String area);
     
 }

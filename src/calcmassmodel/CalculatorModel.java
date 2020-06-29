@@ -43,6 +43,13 @@ public class CalculatorModel implements CalculatorModelInterface {
     }
     
     @Override
+    public void createDetail(String assortment, String type, String number, String area) {
+        detail = new Detail(assortment, type, number, area);
+        detail.executeQuery(dataBase);
+        massChangedObservers();
+    }
+    
+    @Override
     public void registerObserver(ViewObserver o) {
         observers.add(o);
     }
@@ -71,4 +78,6 @@ public class CalculatorModel implements CalculatorModelInterface {
     public void setDataBase(DataBaseInterface dataBase) {
         this.dataBase = dataBase;
     }    
+
+    
 }

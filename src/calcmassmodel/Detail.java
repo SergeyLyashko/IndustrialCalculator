@@ -28,21 +28,31 @@ class Detail implements Massable, ErrorMessageInterface {
     private static final double DENSITY_STEEL = 7.85e-6;
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
     private static final double DENSITY_RUBBER = 1.25e-6;
-    // максимальное значение введенного числа
+    // максимально возможное значение введенного или вычисляемого числа
     private final double maxNumber = Double.MAX_VALUE;
     // сообщение об ошибке
     private String message;
     // значение из Базы Данных
     private double valueFromDB;
     // параметры детали
-    private final String assortment, type, number, length, width;
+    private final String assortment, type, number, length;
+    // площадь детали
+    private double area;
     
     public Detail(String assortment, String type, String number, String length, String width){
         this.assortment = assortment;
         this.type = type;
         this.number = number;
         this.length = length;
-        this.width = width;
+        calculationArea(width, length);
+    }
+
+    Detail(String assortment, String type, String number, String area) {
+        this.assortment = assortment;
+        this.type = type;
+        this.number = number;
+        this.length = null;
+        calculationArea(area);
     }
     
     /**
@@ -75,6 +85,31 @@ class Detail implements Massable, ErrorMessageInterface {
         return 0;
     }
     
+    // проверка на переполнение
+    private boolean isNotBigNumber(double widthNum, double lengthNum){
+        double checkNum = maxNumber / lengthNum;
+        return checkNum > widthNum;
+    }
+    
+    // вычисление площади
+    private void calculationArea(String width, String length){
+        if(width != null){
+            double widthNum = getValueOf(width);
+            double lengthNum = getValueOf(length);
+            if(isNotBigNumber(widthNum, lengthNum)){
+                this.area = widthNum * lengthNum;
+            }else{
+                this.message = "ошибка! слишком большое число!";
+            }
+        }
+    }
+    
+    // числовое значение заданной в конструкторе площади
+    private void calculationArea(String area){
+        this.area = getValueOf(area);
+    }
+    
+    
     /**
      * Вычисление массы детали
      */
@@ -82,30 +117,30 @@ class Detail implements Massable, ErrorMessageInterface {
     public double calculationMass() {
         switch(assortment){
             case "Лист":
-                            return selectedType(type, length, width);
+                            return selectedType(type, length);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
                             return DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
             case "Другое":               
-                            return selectedType(type, length, width);
+                            return selectedType(type, length);
         }
         return 0;
     }
     
-    private double selectedType(String type, String length, String width){
+    private double selectedType(String type, String length){
         switch (type){
             case "рифленая(ромб)":
-                            return getValueOf(length) * getValueOf(width) / 1000000 * valueFromDB;
+                            return area / 1000000 * valueFromDB;
             case "тонколистовая":
             case "толстолистовая":
-                            return DENSITY_STEEL * getValueOf(length) * getValueOf(width) * valueFromDB;
+                            return DENSITY_STEEL * area * valueFromDB;
             case "Круг":
                             return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
             case "Квадрат":
-                            return DENSITY_STEEL * getValueOf(length) * valueFromDB * valueFromDB;
+                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB);
             case "Резиновая пластина":
-                            return DENSITY_RUBBER * getValueOf(length) * getValueOf(width) * valueFromDB;  
+                            return DENSITY_RUBBER * area * valueFromDB;  
         }
         return 0;
     }

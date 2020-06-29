@@ -72,7 +72,13 @@ public class CalculatorView implements ViewObserver {
     // установка значений полей
     private void setParametrsToController(){
         getFieldsValueFromView();
-        controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
+        boolean areaBoxOFF = generalPanel.getBasePanel().getDifficultAreaBox().isAreaBoxOFF();
+        if(areaBoxOFF){
+            controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
+        }else{
+            String area = this.length;
+            controller.setFieldsValue(profileAssortment, profileType, profileNumber, area);
+        }
     }
     
     // получение значений полей
@@ -80,23 +86,23 @@ public class CalculatorView implements ViewObserver {
         this.profileAssortment = generalPanel
                         .getBasePanel()
                         .getAssortmentMenu()
-                        .receiveFieldString();
+                        .fieldValueStringReceive();
         this.profileType = generalPanel
                         .getBasePanel()
                         .getTypeProfileMenu()
-                        .receiveFieldString();
+                        .fieldValueStringReceive();
         this.profileNumber = generalPanel
                         .getBasePanel()
                         .getNumberProfileMenu()
-                        .receiveFieldString();
+                        .fieldValueStringReceive();
         this.length = generalPanel
                     .getBasePanel()
                     .getLengthField()
-                    .receiveFieldString();
+                    .fieldValueStringReceive();
         this.width = generalPanel
                     .getBasePanel()
                     .getWidthField()
-                    .receiveFieldString();
+                    .fieldValueStringReceive();
     }
 
     /**

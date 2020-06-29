@@ -38,6 +38,7 @@ public class ServiceInfo extends JLabel {
         addContent();
     }
     
+    // 
     private void addContent(){
         basePanel.add(this);
         theme.setColorTheme(this);

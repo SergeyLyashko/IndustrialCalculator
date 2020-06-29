@@ -61,4 +61,10 @@ public class CalculatorController implements CalculatorControllerInterface {
         model.setDataBase(dataBase);
         model.createDetail(assortment, type, number, length, width);        
     }
+        
+    @Override
+    public void setFieldsValue(String assortment, String type, String number, String area) {
+        model.setDataBase(dataBase);
+        model.createDetail(assortment, type, number, area);        
+    }
 }

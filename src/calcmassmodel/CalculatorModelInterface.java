@@ -51,6 +51,15 @@ public interface CalculatorModelInterface {
     public void createDetail(String assortment, String type, String number, String length, String width);    
 
     /**
+     * Создание детали заданной площади
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param area площадь детали
+     */
+    public void createDetail(String assortment, String type, String number, String area);
+    
+    /**
      * 
      * @param dataBase интерфейс базы данных
      */

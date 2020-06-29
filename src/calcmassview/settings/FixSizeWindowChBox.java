@@ -39,8 +39,12 @@ class FixSizeWindowChBox extends JCheckBox implements Selectable, Serializable {
         super.addItemListener(settingsPanel);
     }
     
-    
-    public void addState(Theme theme, ToolTips toolTips){
+    /**
+     * Внешнее оформления
+     * @param theme цветовая тема приложения
+     * @param toolTips всплывающие подсказки
+     */
+    public void addVisualDecoration(Theme theme, ToolTips toolTips){
         theme.setColorTheme(this);
         toolTips.setToolTips(this, text);
     }

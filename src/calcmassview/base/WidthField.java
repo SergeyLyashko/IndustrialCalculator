@@ -27,12 +27,12 @@ import javax.swing.JFormattedTextField;
  * Поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, ValueReceivable {
+public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, FieldValueReceivable, StateFieldInterface {
     
     private final BasePanel basePanel;
     private transient String contentField;
-    private final String text = "поле ввода ширины детали";
-    private final String fieldName = "ширина";
+    private final String toolTipText = "поле ввода ширины детали";
+    private final String fieldName = "введите ширину";
     private final String emptyField = "";
     
     public WidthField(BasePanel basePanel, ToolTips toolTips){
@@ -48,39 +48,43 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     }
     
     private void addContent(ToolTips toolTips){
-        toolTips.setToolTips(this, text);
+        toolTips.setToolTips(this, toolTipText);
         basePanel.add(this);
         basePanel.addPolicy(this);
     }
     
     /**
-     * деактивация (закрытие) поля
-     * @return 
+     * 
      */
-    public IDeactivationField execute(){
-        return () -> {
-            setEditable(false);
-            setBackground(Color.DARK_GRAY);
-            setForeground(Color.GRAY);
-            setText(fieldName);
-            removeFocusListener(this);
-            removeKeyListener(this);
-        };
+    public void difficultAreaStateON(){
+        super.setText(emptyField);
     }
     
     /**
-     * активация поля
-     * @return 
+     *
      */
-    public IActivationField perform(){
-        return () -> {
-            setEditable(true);
-            setBackground(Color.white);        
-            addFocusListener(this);
-            addKeyListener(this);
-        };
+    public void difficultAreaStateOFF(){
+        super.setText(fieldName);        
     }
     
+    @Override
+    public void activeField() {
+        setEditable(true);
+        setBackground(Color.white);        
+        addFocusListener(this);
+        addKeyListener(this);
+    }
+    
+    @Override
+    public void deactiveField() {
+        setEditable(false);
+        setBackground(Color.DARK_GRAY);
+        setForeground(Color.GRAY);
+        setText(fieldName);
+        removeFocusListener(this);
+        removeKeyListener(this);
+    }
+        
     /**
      * переход в поле "длина" после нажатия "Enter"
      * @param e нажатие клавиши "Enter"
@@ -119,7 +123,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     public void keyPressed(KeyEvent e){}
 
     @Override
-    public String receiveFieldString() {
+    public String fieldValueStringReceive() {
         return this.contentField;
     }
 }

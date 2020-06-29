@@ -18,17 +18,20 @@ package calcmassview.base;
 import calcmassview.settings.ToolTips;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import javax.swing.JComboBox;
 
 /**
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumbersMenu extends JComboBox<String> implements ActionListener, ValueReceivable {  
+public class NumbersMenu extends JComboBox<String> implements ActionListener, FieldValueReceivable {  
     
     private String selectItem;
     private final BasePanel basePanel;
-    private final String text = "выбор номера профиля детали";
+    private final String toolTipText = "выбор номера профиля детали";
+    private final String headerProfilesMenu = "№ профиля";
+    private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
     
     public NumbersMenu(BasePanel basePanel, ToolTips toolTips) {
         super.setSize(155, 25);
@@ -38,10 +41,11 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Va
         addConent(toolTips);
     }
     
+    // 
     private void addConent(ToolTips toolTips){
         Menu defaultMenu = new Menu();
         super.setModel(defaultMenu.createStartMenu(this));
-        toolTips.setToolTips(this, text);
+        toolTips.setToolTips(this, toolTipText);
         basePanel.add(this);        
         basePanel.addPolicy(this);        
         addActionListener(this);
@@ -59,21 +63,45 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Va
     
     // активация полей ввода значений
     private void actionFields(String selectMenu){
-        if(!selectMenu.equals("№ профиля")){
-            basePanel.getLengthField().perform().activation();
-            if(basePanel.getAssortmentMenu().getSelectedItem().equals("Лист") ||
-                    basePanel.getTypeProfileMenu().getSelectedItem().equals("Резиновая пластина")){
-                basePanel.getWidthField().perform().activation();
-            }
+        boolean detailHaveWidth = detailHaveWidth();        
+        // если в меню выбран любой пункт, кроме заголовка
+        if(!selectMenu.equals(headerProfilesMenu)){
+            basePanel.getLengthField().activeField();         
+            // если деталь имеет параметр ширина
+            if(detailHaveWidth){
+                boolean areaBoxOFF = basePanel.getDifficultAreaBox().isAreaBoxOFF();
+                 // если чек-бокс площади выключен
+                if(areaBoxOFF){
+                    basePanel.getDifficultAreaBox().oFF();
+                }else{
+                    basePanel.getDifficultAreaBox().oN();
+                }                
+            }else{
+                basePanel.getWidthField().deactiveField();
+            }               
         }
     }
-
+    
+    /**
+     * Проверка на наличие параметра ширина у детали
+     * @return
+     */
+    public boolean detailHaveWidth(){
+        Object assortmentMenuItem = basePanel.getAssortmentMenu().getSelectedItem();
+        Object typeMenuItem = basePanel.getTypeProfileMenu().getSelectedItem();
+        Object[] menuItem = {assortmentMenuItem, typeMenuItem};
+        return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
+                return Arrays.stream(menuItem).anyMatch((Object obj) -> element.equals(obj)); 
+            });
+    }
+    
+    // сброс полей ввода
     private void resetAllFields(){
         basePanel.reset();
     }
 
     @Override
-    public String receiveFieldString() {
+    public String fieldValueStringReceive() {
         return this.selectItem;
     }
 }

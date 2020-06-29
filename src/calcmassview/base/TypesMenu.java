@@ -25,7 +25,7 @@ import javax.swing.JComboBox;
  * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class TypesMenu extends JComboBox<String> implements ActionListener, ValueReceivable {   
+public class TypesMenu extends JComboBox<String> implements ActionListener, FieldValueReceivable {   
     
     private final BasePanel basePanel;
     private String selectItem;
@@ -39,6 +39,7 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Valu
         addContent(toolTips);
     }
     
+    // 
     private void addContent(ToolTips toolTips){
         Menu emptyMenu = new Menu();
         super.setModel(emptyMenu.createStartMenu(this));
@@ -54,13 +55,13 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Valu
         @SuppressWarnings("unchecked")
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         this.selectItem = selectedMenuItem;
-        // обновление меню номеров профилей
-        updateMenu(selectItem);
+        // создание меню номеров профилей
+        createNumberProfilesMenu(selectItem);
     }
     
     // обновление меню номеров профилей
-    private void updateMenu(String menuItem){
-        String selectedAssortment = basePanel.getAssortmentMenu().receiveFieldString();
+    private void createNumberProfilesMenu(String menuItem){
+        String selectedAssortment = basePanel.getAssortmentMenu().fieldValueStringReceive();
         Menu menu = new Menu(basePanel.getDataBase());
         Menu numberProfileMenu = menu.createMenu(selectedAssortment, menuItem);
         basePanel.getNumberProfileMenu().setModel(numberProfileMenu);
@@ -72,7 +73,7 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Valu
     }
 
     @Override
-    public String receiveFieldString() {
+    public String fieldValueStringReceive() {
         return this.selectItem;
     }
 }

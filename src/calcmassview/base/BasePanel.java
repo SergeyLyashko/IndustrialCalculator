@@ -23,6 +23,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +33,7 @@ import javax.swing.JPanel;
  * основная панель с компонентами
  * @author Sergei Lyashko
  */
-public class BasePanel extends JPanel {
+public class BasePanel extends JPanel implements ItemListener {
     
     // интерфейс базы данных
     private DataBaseInterface dataBase;
@@ -51,6 +53,8 @@ public class BasePanel extends JPanel {
     private ServiceInfo serviceInfo;
     // строка результата
     private ResultMarker resultMarker;
+    
+    private DifficultAreaBox difficultAreaBox;
     
     public BasePanel(GeneralPanel panel, Theme theme, ToolTips toolTips) {
         this.panel = panel;
@@ -75,6 +79,7 @@ public class BasePanel extends JPanel {
         widthMark.setLocation(320, 22);
         this.add(widthMark);
         theme.setColorTheme(widthMark);
+        
         //надпись мм для поля
         JLabel lengthMark = new JLabel();
         lengthMark.setVisible(true);
@@ -101,7 +106,9 @@ public class BasePanel extends JPanel {
         // текстовая строка результата
         resultMarker = new ResultMarker(this, theme);
         // <Сервисная строка>
-        serviceInfo = new ServiceInfo(this, theme);
+        serviceInfo = new ServiceInfo(this, theme);        
+        // чек-бокс вычисления площади сложного периметра
+        difficultAreaBox = new DifficultAreaBox(this, theme, toolTips);
     }
     
     // добавление компонентов в политику обхода фокуса
@@ -123,8 +130,8 @@ public class BasePanel extends JPanel {
     void reset(){        
         resetMarker();
         //сброс полей ввода
-        widthField.execute().deactivation();
-        lengthField.execute().deactivation();    
+        widthField.deactiveField();
+        lengthField.deactiveField();    
     }
     
     /**
@@ -134,6 +141,10 @@ public class BasePanel extends JPanel {
         // сброс надписей
         resultMarker.reset();
         serviceInfo.reset();
+    }
+    
+    public DifficultAreaBox getDifficultAreaBox(){
+        return difficultAreaBox;
     }
 
     public AssortmentMenu getAssortmentMenu(){
@@ -196,5 +207,11 @@ public class BasePanel extends JPanel {
      */
     public DataBaseInterface getDataBase(){
         return dataBase;
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent event) {
+        DifficultAreaBox source = (DifficultAreaBox) event.getItemSelectable();
+        source.actionChooser(event);
     }
 }
