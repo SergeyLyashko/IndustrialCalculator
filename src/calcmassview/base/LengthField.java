@@ -16,6 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -36,7 +37,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     private final String difficultAreaName = "введите площадь";
     private final String emptyField = "";
     
-    public LengthField(BasePanel basePanel, ToolTips toolTips){
+    public LengthField(BasePanel basePanel, ToolTipsInterface toolTips){
         super.setSize(125, 25);
         super.setForeground(Color.GRAY);        
         super.setEditable(false);
@@ -49,7 +50,7 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     }
     
     // 
-    private void addContent(ToolTips toolTips){
+    private void addContent(ToolTipsInterface toolTips){
         toolTips.setToolTips(this, toolTipText);
         basePanel.add(this);
         basePanel.addPolicy(this);

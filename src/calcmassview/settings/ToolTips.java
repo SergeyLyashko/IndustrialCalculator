@@ -23,7 +23,7 @@ import javax.swing.ToolTipManager;
  * Всплывающие подсказки
  * @author Sergei Lyashko
  */
-public class ToolTips implements Serializable {
+public class ToolTips implements Serializable, ToolTipsInterface {
     
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +32,7 @@ public class ToolTips implements Serializable {
     /**
      * Активация текущего состояния
      */
+    @Override
     public void currentState(){
         ToolTipManager.sharedInstance().setEnabled(state);
     }
@@ -41,6 +42,7 @@ public class ToolTips implements Serializable {
      * @param component
      * @param text
      */
+    @Override
     public void setToolTips(JComponent component, String text){
         component.setToolTipText(text);
     }
@@ -48,6 +50,7 @@ public class ToolTips implements Serializable {
     /**
      * Включение всплывающих подсказок
      */
+    @Override
     public void oN(){
         this.state = true;
         ToolTipManager.sharedInstance().setEnabled(state);
@@ -56,6 +59,7 @@ public class ToolTips implements Serializable {
     /**
      * Выключение всплывающих подсказок
      */
+    @Override
     public void oFF(){
         this.state = false;
         ToolTipManager.sharedInstance().setEnabled(state);

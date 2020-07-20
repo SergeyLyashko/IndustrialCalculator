@@ -30,15 +30,14 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
     
     private ThemeChBox themeChBox;
     private ToolTipsChBox toolTipsChBox;
-    private FixSizeWindowChBox fixSizeWindowChBox;
     
-    public SettingsPanel(Theme theme, ToolTips toolTips){
+    public SettingsPanel(Theme theme, ToolTipsInterface toolTips){
         createCheckBoxes(theme, toolTips);
         super.setLayout(null);
     }
     
     // создание чек-боксов
-    private void createCheckBoxes(Theme theme, ToolTips toolTips){
+    private void createCheckBoxes(Theme theme, ToolTipsInterface toolTips){
         themeChBox = new ThemeChBox(this);
         themeChBox.addVisualDecoration(theme, toolTips);
         super.add(themeChBox);
@@ -46,11 +45,6 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
         toolTipsChBox = new ToolTipsChBox(this);
         toolTipsChBox.addVisualDecoration(theme, toolTips);
         super.add(toolTipsChBox);
-        
-        fixSizeWindowChBox = new FixSizeWindowChBox(this);
-        fixSizeWindowChBox.addVisualDecoration(theme, toolTips);
-        super.add(fixSizeWindowChBox);
-        theme.setColorTheme(this);
     }
     
     /**
@@ -58,10 +52,9 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
      * @param theme тема приложения
      * @param toolTips всплывающие подсказки
      */
-    public void addPreference(Theme theme, ToolTips toolTips){
+    public void addPreference(Theme theme, ToolTipsInterface toolTips){
         themeChBox.addVisualDecoration(theme, toolTips);
         toolTipsChBox.addVisualDecoration(theme, toolTips);
-        fixSizeWindowChBox.addVisualDecoration(theme, toolTips);
         theme.setColorTheme(this);
         toolTips.currentState();
     }

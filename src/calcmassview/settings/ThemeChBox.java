@@ -44,7 +44,7 @@ class ThemeChBox extends JCheckBox implements Selectable, Serializable {
      * @param theme цветовая тема приложения
      * @param toolTips всплывающие подсказки
      */
-    public void addVisualDecoration(Theme theme, ToolTips toolTips){
+    public void addVisualDecoration(Theme theme, ToolTipsInterface toolTips){
         this.theme = theme;
         theme.setColorTheme(this);
         toolTips.setToolTips(this, toolTipText);

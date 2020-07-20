@@ -17,6 +17,7 @@ package calcmassview.base;
 
 import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
@@ -32,7 +33,7 @@ public class DifficultAreaBox extends JCheckBox {
     private final Theme theme;
     private boolean stateBoxOFF;
         
-    public DifficultAreaBox(BasePanel basePanel, Theme theme, ToolTips toolTips){
+    public DifficultAreaBox(BasePanel basePanel, Theme theme, ToolTipsInterface toolTips){
         super.setSelected(false);
         super.setSize(140, 17);
         super.setLocation(187, 90);  
@@ -46,7 +47,7 @@ public class DifficultAreaBox extends JCheckBox {
     }
     
     // 
-    private void addContent(ToolTips toolTips){
+    private void addContent(ToolTipsInterface toolTips){
         toolTips.setToolTips(this, toolTipText);
         basePanel.add(this);
         theme.setColorTheme(this);

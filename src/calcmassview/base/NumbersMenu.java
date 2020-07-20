@@ -16,6 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
     private final String headerProfilesMenu = "№ профиля";
     private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
     
-    public NumbersMenu(BasePanel basePanel, ToolTips toolTips) {
+    public NumbersMenu(BasePanel basePanel, ToolTipsInterface toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);
@@ -42,7 +43,7 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
     }
     
     // 
-    private void addConent(ToolTips toolTips){
+    private void addConent(ToolTipsInterface toolTips){
         Menu defaultMenu = new Menu();
         super.setModel(defaultMenu.createStartMenu(this));
         toolTips.setToolTips(this, toolTipText);

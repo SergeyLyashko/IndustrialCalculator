@@ -16,6 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -31,7 +32,7 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Fiel
     private String selectItem;
     private final String text = "выбор типа профиля детали";
     
-    public TypesMenu(BasePanel basePanel, ToolTips toolTips) {
+    public TypesMenu(BasePanel basePanel, ToolTipsInterface toolTips) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
@@ -40,7 +41,7 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Fiel
     }
     
     // 
-    private void addContent(ToolTips toolTips){
+    private void addContent(ToolTipsInterface toolTips){
         Menu emptyMenu = new Menu();
         super.setModel(emptyMenu.createStartMenu(this));
         toolTips.setToolTips(this, text);

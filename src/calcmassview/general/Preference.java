@@ -18,6 +18,7 @@ package calcmassview.general;
 import calcmassview.settings.SettingsPanel;
 import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,9 +40,9 @@ public class Preference implements Serializable {
     private final String saveFileName = "save.ser";
     private SettingsPanel settingsPanel;
     private Theme theme;
-    private ToolTips toolTips;
+    private ToolTipsInterface toolTips;
     
-    public void addComponent(SettingsPanel settingsPanel, Theme theme, ToolTips toolTips){
+    public void addComponent(SettingsPanel settingsPanel, Theme theme, ToolTipsInterface toolTips){
         this.settingsPanel = settingsPanel;
         this.theme = theme;
         this.toolTips = toolTips;
@@ -55,7 +56,7 @@ public class Preference implements Serializable {
         return theme;
     }
     
-    public ToolTips getToolTips(){
+    public ToolTipsInterface getToolTips(){
         return toolTips;
     }
     

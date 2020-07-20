@@ -18,7 +18,7 @@ package calcmassview.base;
 import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
 import calcmassview.settings.Theme;
-import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
@@ -56,7 +56,7 @@ public class BasePanel extends JPanel implements ItemListener {
     
     private DifficultAreaBox difficultAreaBox;
     
-    public BasePanel(GeneralPanel panel, Theme theme, ToolTips toolTips) {
+    public BasePanel(GeneralPanel panel, Theme theme, ToolTipsInterface toolTips) {
         this.panel = panel;
         policy = new ArrayList<>();
         createComponents(theme, toolTips);
@@ -91,7 +91,7 @@ public class BasePanel extends JPanel implements ItemListener {
         theme.setColorTheme(lengthMark);
     }
     
-    private void createComponents(Theme theme, ToolTips toolTips){
+    private void createComponents(Theme theme, ToolTipsInterface toolTips){
         theme.setColorTheme(this);
         // <Тип изделия>
         assortmentMenu = new AssortmentMenu(this, toolTips);

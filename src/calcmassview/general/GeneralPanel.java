@@ -21,6 +21,7 @@ import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
 import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTips;
+import calcmassview.settings.ToolTipsInterface;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
@@ -42,7 +43,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private final Preference preference;
     private final ArrayList<ViewObserver> observers;
     private Theme theme;
-    private ToolTips toolTips;
+    private ToolTipsInterface toolTips;
     
     public GeneralPanel() {
         super(new GridLayout(1, 1));
