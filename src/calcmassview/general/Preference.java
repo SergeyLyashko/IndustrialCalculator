@@ -17,7 +17,6 @@ package calcmassview.general;
 
 import calcmassview.settings.SettingsPanel;
 import calcmassview.settings.Theme;
-import calcmassview.settings.ToolTips;
 import calcmassview.settings.ToolTipsInterface;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

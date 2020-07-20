@@ -20,7 +20,6 @@ import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
 import calcmassview.settings.Theme;
-import calcmassview.settings.ToolTips;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -61,6 +60,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         }else{
             this.settingsPanel = newPreference();
         }
+        this.toolTips = settingsPanel.getToolTips();
         this.basePanel = new BasePanel(this, theme, toolTips);
         this.infoPanel = new InfoPanel(theme);
         addTabbedPane(basePanel, settingsPanel, infoPanel);        
@@ -86,10 +86,8 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     // новые настройки оформления
     private SettingsPanel newPreference(){
         theme = new Theme();
-        theme.dark();
-        toolTips = new ToolTips();
-        toolTips.oN();
-        return new SettingsPanel(theme, toolTips);
+        theme.dark();        
+        return new SettingsPanel(theme);
     }
     
     // основное окно

@@ -23,7 +23,7 @@ import javax.swing.ToolTipManager;
  * Всплывающие подсказки
  * @author Sergei Lyashko
  */
-public class ToolTips implements Serializable, ToolTipsInterface {
+class ToolTips implements Serializable, ToolTipsInterface {
     
     private static final long serialVersionUID = 1L;
 

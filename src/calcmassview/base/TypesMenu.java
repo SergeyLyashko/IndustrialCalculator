@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTips;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

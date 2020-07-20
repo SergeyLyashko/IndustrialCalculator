@@ -16,7 +16,6 @@
 package calcmassview.base;
 
 import calcmassview.settings.Theme;
-import calcmassview.settings.ToolTips;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;

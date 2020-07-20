@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTips;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
