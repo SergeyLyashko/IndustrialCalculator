@@ -17,7 +17,6 @@ package calcmassview.base;
 
 import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
-import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.Color;
 import java.awt.Component;
@@ -28,6 +27,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import calcmassview.settings.ColorThemeInterface;
 
 /**
  * основная панель с компонентами
@@ -53,10 +53,10 @@ public class BasePanel extends JPanel implements ItemListener {
     private ServiceInfo serviceInfo;
     // строка результата
     private ResultMarker resultMarker;
-    
+    // чек-бокс задания площади детали
     private DifficultAreaBox difficultAreaBox;
     
-    public BasePanel(GeneralPanel panel, Theme theme, ToolTipsInterface toolTips) {
+    public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips) {
         this.panel = panel;
         policy = new ArrayList<>();
         createComponents(theme, toolTips);
@@ -69,7 +69,7 @@ public class BasePanel extends JPanel implements ItemListener {
         super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
     
-    private void createDecorations(Theme theme){
+    private void createDecorations(ColorThemeInterface theme){
         //надпись мм для поля
         JLabel widthMark = new JLabel();
         widthMark.setVisible(true);
@@ -91,7 +91,7 @@ public class BasePanel extends JPanel implements ItemListener {
         theme.setColorTheme(lengthMark);
     }
     
-    private void createComponents(Theme theme, ToolTipsInterface toolTips){
+    private void createComponents(ColorThemeInterface theme, ToolTipsInterface toolTips){
         theme.setColorTheme(this);
         // <Тип изделия>
         assortmentMenu = new AssortmentMenu(this, toolTips);

@@ -23,15 +23,15 @@ import javax.swing.JCheckBox;
  * Color theme checkbox
  * @author Sergei Lyashko
  */
-class ThemeChBox extends JCheckBox implements Selectable, Serializable {
+class ColorThemeCheckBox extends JCheckBox implements Selectable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Theme theme;
+    private ColorThemeInterface theme;
     private final String toolTipText = "включить/отключить темную тему приложения";
     private final String boxName = "темная тема оформления";
     
-    public ThemeChBox(SettingsPanel settingsPanel){
+    public ColorThemeCheckBox(SettingsPanel settingsPanel){
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText(boxName);
@@ -44,7 +44,7 @@ class ThemeChBox extends JCheckBox implements Selectable, Serializable {
      * @param theme цветовая тема приложения
      * @param toolTips всплывающие подсказки
      */
-    public void addVisualDecoration(Theme theme, ToolTipsInterface toolTips){
+    public void addVisualDecoration(ColorThemeInterface theme, ToolTipsInterface toolTips){
         this.theme = theme;
         theme.setColorTheme(this);
         toolTips.setToolTips(this, toolTipText);

@@ -29,13 +29,16 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
     private static final long serialVersionUID = 1L;
     
     private final ToolTipsInterface toolTips;
-    private ThemeChBox themeChBox;
+    private final ColorThemeInterface theme;
+    private ColorThemeCheckBox themeChBox;
     private ToolTipsChBox toolTipsChBox;
     
-    public SettingsPanel(Theme theme){
+    public SettingsPanel(){
         toolTips = new ToolTips();
         toolTips.oN();
-        createCheckBoxes(theme, toolTips);
+        theme = new Theme();
+        theme.dark(); 
+        createCheckBoxes();
         super.setLayout(null);
     }
     
@@ -43,9 +46,13 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
         return toolTips;
     }
     
+    public ColorThemeInterface getTheme(){
+        return theme;
+    }
+    
     // создание чек-боксов
-    private void createCheckBoxes(Theme theme, ToolTipsInterface toolTips){
-        themeChBox = new ThemeChBox(this);
+    private void createCheckBoxes(){
+        themeChBox = new ColorThemeCheckBox(this);
         themeChBox.addVisualDecoration(theme, toolTips);
         super.add(themeChBox);        
         toolTipsChBox = new ToolTipsChBox(this);
@@ -59,7 +66,7 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
      * @param theme тема приложения
      * @param toolTips всплывающие подсказки
      */
-    public void addPreference(Theme theme, ToolTipsInterface toolTips){
+    public void addPreference(ColorThemeInterface theme, ToolTipsInterface toolTips){
         themeChBox.addVisualDecoration(theme, toolTips);
         toolTipsChBox.addVisualDecoration(theme, toolTips);
         theme.setColorTheme(this);

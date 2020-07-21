@@ -15,13 +15,13 @@
  */
 package calcmassview.info;
 
-import calcmassview.settings.Theme;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import calcmassview.settings.ColorThemeInterface;
 
 /**
  * панель Информации
@@ -29,7 +29,7 @@ import javax.swing.ScrollPaneConstants;
  */
 public class InfoPanel extends JPanel {
 
-    private final String text =         
+    private static final String TEXT =         
         "<html>"+
         " Управление.<br>"+
         " Навигация по меню осуществляется с помощью<br>"+
@@ -48,7 +48,7 @@ public class InfoPanel extends JPanel {
         " &nbsp; &bull;<font size=-2> Сталь прокатная угловая равнополочная <a href=http://docs.cntd.ru/document/1200001025>ГОСТ 8509-93</a></font><br>"+
         " &nbsp; &bull;<font size=-2> Сталь прокатная угловая неравнополочная <a href=http://docs.cntd.ru/document/1200001023>ГОСТ 8510-86</a></font><br>"+
         " &nbsp; &bull;<font size=-2> Сталь прокатная швеллеры <a href=http://docs.cntd.ru/document/1200019824>ГОСТ 8240-97</a></font><br>"+
-        " &nbsp; &bull;<font size=-2> Двутавры стальные горячекатаные с параллельными гранями полок <a href=http://docs.cntd.ru/document/901711178>ГОСТ ГОСТ 26020-83</a></font><br>"+
+        " &nbsp; &bull;<font size=-2> Двутавры стальные горячекатаные с параллельными гранями полок <a href=http://docs.cntd.ru/document/901711178>ГОСТ 26020-83</a></font><br>"+
         " &nbsp; &bull;<font size=-2> Сталь горячекатаная квадратная <a href=http://docs.cntd.ru/document/1200109199>ГОСТ 2591-51</a></font><br>"+
         " &nbsp; &bull;<font size=-2> Прокат стальной горячекатаный круглый <a href=http://docs.cntd.ru/document/1200004404>ГОСТ 2590-88</a></font><br>"+
         " &nbsp; &bull;<font size=-2> Листы стальные с ромбическим рифлением. <a href=http://docs.cntd.ru/document/1200005122/>ГОСТ 8568-77</a></font><br>"+        
@@ -57,29 +57,29 @@ public class InfoPanel extends JPanel {
         " <font size=-2>Copyright &#169; 2019 Sergei Lyashko.<br>"+
         " <font size=-2>Contacts: 9llllepulla@gmail.com";
     
-    public InfoPanel(Theme theme){
+    public InfoPanel(ColorThemeInterface theme){
         super.setLayout(new BorderLayout());
-        JLabel htmlText = new JLabel(text);
+        JLabel htmlText = new JLabel(TEXT);
         JScrollPane scroller = new JScrollPane(htmlText);
         setPreference(htmlText, scroller, theme);
         super.add(scroller, BorderLayout.CENTER);
     }
     
     // Установка параметров
-    private void setPreference(JLabel htmlText, JScrollPane scroller, Theme theme){        
+    private void setPreference(JLabel htmlText, JScrollPane scroller, ColorThemeInterface theme){        
         theme.setColorTheme(this);
         setTextPreference(htmlText, theme);
         setScrollerPreference(scroller, theme);        
     }
     
     // Установка параметров текста
-    private void setTextPreference(JLabel htmlText, Theme theme){
+    private void setTextPreference(JLabel htmlText, ColorThemeInterface theme){
         htmlText.setPreferredSize(new Dimension(250, 510));
         theme.setColorTheme(htmlText);
     }
     
     // Установка параметров панели скроллера
-    private void setScrollerPreference(JScrollPane scroller, Theme theme){
+    private void setScrollerPreference(JScrollPane scroller, ColorThemeInterface theme){
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         theme.setColorTheme(scroller.getViewport());

@@ -23,7 +23,7 @@ import javax.swing.JCheckBox;
  * ¬сплывающие подсказки checkbox
  * @author Sergei Lyashko
  */
-public class ToolTipsChBox extends JCheckBox implements Selectable, Serializable {
+class ToolTipsChBox extends JCheckBox implements Selectable, Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -44,7 +44,7 @@ public class ToolTipsChBox extends JCheckBox implements Selectable, Serializable
      * @param theme цветова€ тема приложени€
      * @param toolTips всплывающие подсказки
      */
-    public void addVisualDecoration(Theme theme, ToolTipsInterface toolTips){
+    public void addVisualDecoration(ColorThemeInterface theme, ToolTipsInterface toolTips){
         this.toolTips = toolTips;
         theme.setColorTheme(this);
         toolTips.setToolTips(this, text);        

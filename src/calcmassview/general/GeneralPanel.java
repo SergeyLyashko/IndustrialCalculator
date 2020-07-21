@@ -19,7 +19,6 @@ import calcmassview.ViewObserver;
 import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
-import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -29,6 +28,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import calcmassview.settings.ColorThemeInterface;
 
 /**
  * Основное окно с вкладками
@@ -41,7 +41,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private InfoPanel infoPanel;
     private final Preference preference;
     private final ArrayList<ViewObserver> observers;
-    private Theme theme;
+    private ColorThemeInterface theme;
     private ToolTipsInterface toolTips;
     
     public GeneralPanel() {
@@ -56,38 +56,29 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private void createPanels(){
         Preference saved = preference.load();        
         if(saved != null){
-            this.settingsPanel = loadPreference(saved);
+            loadPreference(saved);
         }else{
-            this.settingsPanel = newPreference();
+            this.settingsPanel = new SettingsPanel();
         }
         this.toolTips = settingsPanel.getToolTips();
+        this.theme = settingsPanel.getTheme();
         this.basePanel = new BasePanel(this, theme, toolTips);
         this.infoPanel = new InfoPanel(theme);
         addTabbedPane(basePanel, settingsPanel, infoPanel);        
     }
     
     // загрузка сохраненных настроек
-    private SettingsPanel loadPreference(Preference saved){
-        theme = saved.getTheme();
-        theme.setThemeChangedCompontnts();
-        toolTips = saved.getToolTips();
-        toolTips.currentState();
-        SettingsPanel panel = saved.getSettingsPanel();
-        panel.addPreference(theme, toolTips);
-        return panel;
+    private void loadPreference(Preference savedPreference){
+        theme = savedPreference.getTheme();
+        toolTips = savedPreference.getToolTips();
+        this.settingsPanel = savedPreference.getSettingsPanel();
+        settingsPanel.addPreference(theme, toolTips);
     }
     
     // сохранение настроек
     private void savePreference(){
         preference.addComponent(settingsPanel, theme, toolTips);
         preference.save();
-    }
-    
-    // новые настройки оформления
-    private SettingsPanel newPreference(){
-        theme = new Theme();
-        theme.dark();        
-        return new SettingsPanel(theme);
     }
     
     // основное окно

@@ -27,7 +27,7 @@ import javax.swing.JLabel;
  * Тема оформления окна приложения
  * @author Sergei Lyashko
  */
-public class Theme implements Serializable {
+class Theme implements Serializable, ColorThemeInterface {
     
     private static final long serialVersionUID = 1L;
     
@@ -36,25 +36,10 @@ public class Theme implements Serializable {
     private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
     
     /**
-     * Компоненты для изменения темы оформления
-     */
-    public void setThemeChangedCompontnts(){
-        this.markerList = new ArrayList<>();
-        this.componentList = new ArrayList<>();
-    }
-    
-    /**
-     * Запрос текущего цвета маркера(надписи)
-     * @return цвет маркера
-     */
-    public Color getColorResultMarker(){
-        return colorResultMarker;
-    }
-    
-    /**
      * Установка темы оформления для выбранной надписи
      * @param marker надпись в приложении
      */
+    @Override
     public void setColorTheme(JLabel marker){
         if(marker.getClass().equals(ServiceInfo.class) || marker.getClass().equals(ResultMarker.class)){
             marker.setForeground(colorResultMarker);
@@ -68,7 +53,11 @@ public class Theme implements Serializable {
      * Установка темы оформления для выбранного компонента
      * @param component компонент для установки темы оформления
      */
+    @Override
     public void setColorTheme(JComponent component) {
+        if(componentList == null){
+            actionComponents();
+        }
         component.setBackground(colorBackGround);
         component.setForeground(colorForeGround);
         componentList.add(component);
@@ -77,6 +66,7 @@ public class Theme implements Serializable {
     /**
      * Темная тема оформления
      */
+    @Override
     public void dark(){
         colorBackGround = Color.BLACK;
         colorForeGround = Color.WHITE;
@@ -88,12 +78,21 @@ public class Theme implements Serializable {
     /**
      * Светлая тема оформления
      */
+    @Override
     public void light(){
         colorBackGround = new Color(250, 236, 229);
         colorForeGround = Color.BLACK;
         colorMarker = Color.BLACK;
         colorResultMarker = Color.BLUE;
         actionTheme();                     
+    }
+    
+    /**
+     * Компоненты для изменения темы оформления
+     */
+    private void actionComponents(){
+        this.markerList = new ArrayList<>();
+        this.componentList = new ArrayList<>();
     }
     
     // активация выбранной темы

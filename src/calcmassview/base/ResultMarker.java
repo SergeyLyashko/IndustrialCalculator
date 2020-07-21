@@ -15,9 +15,9 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.Theme;
 import java.awt.Color;
 import javax.swing.JLabel;
+import calcmassview.settings.ColorThemeInterface;
 
 /**
  * строка вывода результата вычислений
@@ -26,9 +26,9 @@ import javax.swing.JLabel;
 public class ResultMarker extends JLabel {
     
     private final BasePanel basePanel;
-    private final Theme theme;
+    private final ColorThemeInterface theme;
     
-    public ResultMarker(BasePanel basePanel, Theme theme){
+    public ResultMarker(BasePanel basePanel, ColorThemeInterface theme){
         this.basePanel = basePanel;
         this.theme = theme;
         super.setLocation(190, 105);
@@ -64,6 +64,6 @@ public class ResultMarker extends JLabel {
      */
     public void reset(){        
         super.setText("0.0");
-        super.setForeground(theme.getColorResultMarker());
+        theme.setColorTheme(this);
     }
 }

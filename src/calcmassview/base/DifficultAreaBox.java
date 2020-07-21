@@ -15,10 +15,10 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.Theme;
 import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
+import calcmassview.settings.ColorThemeInterface;
 
 /**
  * Чек-бокс для установки сложного периметра
@@ -29,10 +29,10 @@ public class DifficultAreaBox extends JCheckBox {
     private final String boxName = "сложный периметр";
     private final String toolTipText = "расчет массы детали по задаваемой площади детали";
     private final BasePanel basePanel;
-    private final Theme theme;
+    private final ColorThemeInterface theme;
     private boolean stateBoxOFF;
         
-    public DifficultAreaBox(BasePanel basePanel, Theme theme, ToolTipsInterface toolTips){
+    public DifficultAreaBox(BasePanel basePanel, ColorThemeInterface theme, ToolTipsInterface toolTips){
         super.setSelected(false);
         super.setSize(140, 17);
         super.setLocation(187, 90);  
