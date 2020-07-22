@@ -28,18 +28,16 @@ public interface DataBaseInterface {
      * @param assortment наименование сортамента
      * @param type тип профиля
      * @param number номер профиля
+     * @return 
      */
-    public void query(String assortment, String type, String number);
-    
-    /**
-     * Получение значения из базы данных
-     * @return значение из базы данных в формате числа с плавающей точкой
-     */
-    public double receiveValue();
+    public double query(String assortment, String type, String number);    
     
     /**
      * Получение меню из базы данных в формате списочного массива
+     * @param assortment
+     * @param type
+     * @param number
      * @return список строковых значений
      */
-    public ArrayList<String> receiveMenuList();
+    public ArrayList<String> receiveMenu(String assortment, String type, String number);
 }

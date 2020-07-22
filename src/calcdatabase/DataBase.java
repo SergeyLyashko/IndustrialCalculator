@@ -72,25 +72,21 @@ public class DataBase implements DataBaseInterface {
     private String assortment, type, number;
     
     @Override
-    public void query(String profile, String type, String number){
-        this.assortment = profile;
+    public ArrayList<String> receiveMenu(String assortment, String type, String number){
+        this.assortment = assortment;
         this.type = type;
         this.number = number;
-    }
-    
-    @Override
-    public ArrayList<String> receiveMenuList(){
         if(type != null){
-            return createNumberMenu();
+            return getNumberMenu();
         }else if(assortment != null){
-            return createTypeMenu();
+            return getTypeMenu();
         }else{
-            return createAssortmentMenu();
+            return getAssortmentMenu();
         }
     }
 
     @Override
-    public double receiveValue() {
+    public double query(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnection.getConnect();
@@ -122,17 +118,17 @@ public class DataBase implements DataBaseInterface {
     }
     
     // создание списка меню сортамента
-    private ArrayList<String> createAssortmentMenu(){
+    private ArrayList<String> getAssortmentMenu(){
         return createMenuList(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
     }
     
     // создание списка меню типов профиля
-    private ArrayList<String> createTypeMenu(){
+    private ArrayList<String> getTypeMenu(){
         return createMenuList(typeHeader, typeName, SQL_QUERY_TYPES);
     }
     
     // создание списка меню номеров профиля
-    private ArrayList<String> createNumberMenu(){
+    private ArrayList<String> getNumberMenu(){
         return createMenuList(numberHeader, numberName, SQL_QUERY_NUMBERS);
     }
     

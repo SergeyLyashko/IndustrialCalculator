@@ -61,8 +61,7 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
      * @return 
      */
     public Menu createMenu(){
-        dataBase.query(assortment, type, number);
-        menu = dataBase.receiveMenuList();
+        menu = dataBase.receiveMenu(assortment, type, number);
         return this;
     }
     
@@ -73,8 +72,7 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
      */
     public Menu createMenu(String assortment){
         this.assortment = assortment;
-        dataBase.query(assortment, type, number);
-        menu = dataBase.receiveMenuList();
+        menu = dataBase.receiveMenu(assortment, type, number);
         return this;
     }
     
@@ -88,8 +86,7 @@ public class Menu extends AbstractListModel<String> implements ComboBoxModel<Str
     public Menu createMenu(String assortment, String type){
         this.assortment = assortment;
         this.type = type;
-        dataBase.query(assortment, type, number);
-        menu = dataBase.receiveMenuList();
+        menu = dataBase.receiveMenu(assortment, type, number);
         return this;
     }
     
