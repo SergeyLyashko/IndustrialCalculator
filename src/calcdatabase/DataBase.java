@@ -15,7 +15,6 @@
  */
 package calcdatabase;
 
-import calcmassview.base.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -155,7 +154,7 @@ public class DataBase implements DataBaseInterface {
             // закрытие
             close(connection, preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return menuList;
     }

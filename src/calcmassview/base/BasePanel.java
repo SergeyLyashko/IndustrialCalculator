@@ -18,14 +18,12 @@ package calcmassview.base;
 import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
 import calcmassview.settings.ToolTipsInterface;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import calcmassview.settings.ColorThemeInterface;
 
@@ -39,8 +37,8 @@ public class BasePanel extends JPanel implements ItemListener {
     private DataBaseInterface dataBase;
     // combo-boxes
     private AssortmentMenu assortmentMenu;
-    private TypesMenu typeProfileMenu;
-    private NumbersMenu numberProfileMenu;
+    private TypesMenu typesMenu;
+    private NumbersMenu numbersMenu;
     // поля ввода значений
     private LengthField lengthField;
     private WidthField widthField;    
@@ -56,11 +54,16 @@ public class BasePanel extends JPanel implements ItemListener {
     // чек-бокс задания площади детали
     private DifficultAreaBox difficultAreaBox;
     
+    private final ColorThemeInterface theme;
+    private final ToolTipsInterface toolTips;
+    
     public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips) {
         this.panel = panel;
+        this.theme = theme;
+        this.toolTips = toolTips;
+        
         policy = new ArrayList<>();
-        createComponents(theme, toolTips);
-        createDecorations(theme);
+        createComponents();
         // отключение автокомпоновки элементов
         super.setLayout(null);       
         // политика обхода фокуса
@@ -69,53 +72,76 @@ public class BasePanel extends JPanel implements ItemListener {
         super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
     
-    private void createDecorations(ColorThemeInterface theme){
-        //надпись мм для поля
-        JLabel widthMark = new JLabel();
-        widthMark.setVisible(true);
-        widthMark.setSize(25, 20);
-        widthMark.setForeground(Color.white);
-        widthMark.setText("мм");
-        widthMark.setLocation(320, 22);
+    // создание компонентов окна приложения
+    private void createComponents(){
+        theme.setColorTheme(this);
+        
+        // <Тип изделия>
+        assortmentMenu = new AssortmentMenu(this);
+        String assortmentToolTipText = "выбор сортамента детали";
+        toolTips.setToolTips(assortmentMenu, assortmentToolTipText);
+        this.add(assortmentMenu);
+        policy.add(assortmentMenu);
+        assortmentMenu.addActionListener(assortmentMenu);
+        
+        // <Тип профиля>
+        typesMenu = new TypesMenu(this);
+        String typesToolTipText = "выбор типа профиля детали";
+        toolTips.setToolTips(typesMenu, typesToolTipText);
+        this.add(typesMenu);
+        policy.add(typesMenu);
+        typesMenu.addActionListener(typesMenu);
+        
+        // <№ профиля>
+        numbersMenu = new NumbersMenu(this);
+        String numbersToolTipText = "выбор номера профиля детали";
+        toolTips.setToolTips(numbersMenu, numbersToolTipText);
+        this.add(numbersMenu);
+        policy.add(numbersMenu);
+        numbersMenu.addActionListener(numbersMenu);
+        
+        //текстовое поле Ширина (для листа)
+        widthField = new WidthField(this);
+        String widthToolTipText = "поле ввода ширины детали";
+        toolTips.setToolTips(widthField, widthToolTipText);
+        this.add(widthField);
+        policy.add(widthField);
+        
+        //текстовое поле Длина
+        lengthField = new LengthField(this);
+        String lengthToolTipText = "поле ввода длины детали";
+        toolTips.setToolTips(lengthField, lengthToolTipText);
+        this.add(lengthField);
+        policy.add(lengthField);
+        
+        // текстовая строка результата
+        resultMarker = new ResultMarker();
+        theme.setColorTheme(resultMarker);
+        this.add(resultMarker);
+        
+        // <Сервисная строка>
+        serviceInfo = new ServiceInfo();
+        theme.setColorTheme(serviceInfo);
+        this.add(serviceInfo);
+        
+        // чек-бокс вычисления площади сложного периметра
+        difficultAreaBox = new DifficultAreaBox(this);
+        String areaBoxToolTipText = "расчет массы детали по задаваемой площади детали";
+        toolTips.setToolTips(difficultAreaBox, areaBoxToolTipText);
+        theme.setColorTheme(difficultAreaBox);
+        this.add(difficultAreaBox);
+        
+        //надпись мм для поля ширина
+        Markmm widthMark = new Markmm(320, 22);
         this.add(widthMark);
         theme.setColorTheme(widthMark);
         
-        //надпись мм для поля
-        JLabel lengthMark = new JLabel();
-        lengthMark.setVisible(true);
-        lengthMark.setSize(25, 20);
-        lengthMark.setForeground(Color.white);
-        lengthMark.setText("мм");
-        lengthMark.setLocation(320, 62);
+        //надпись мм для поля длина      
+        Markmm lengthMark = new Markmm(320, 62);
         this.add(lengthMark);
         theme.setColorTheme(lengthMark);
     }
-    
-    private void createComponents(ColorThemeInterface theme, ToolTipsInterface toolTips){
-        theme.setColorTheme(this);
-        // <Тип изделия>
-        assortmentMenu = new AssortmentMenu(this, toolTips);
-        // <Тип профиля>
-        typeProfileMenu = new TypesMenu(this, toolTips);
-        // <№ профиля>
-        numberProfileMenu = new NumbersMenu(this, toolTips);
-        //текстовое поле Ширина (для листа)
-        widthField = new WidthField(this, toolTips);
-        //текстовое поле Длина
-        lengthField = new LengthField(this, toolTips);
-        // текстовая строка результата
-        resultMarker = new ResultMarker(this, theme);
-        // <Сервисная строка>
-        serviceInfo = new ServiceInfo(this, theme);        
-        // чек-бокс вычисления площади сложного периметра
-        difficultAreaBox = new DifficultAreaBox(this, theme, toolTips);
-    }
-    
-    // добавление компонентов в политику обхода фокуса
-    void addPolicy(Component component){
-        policy.add(component);
-    }
-    
+        
     /**
      * ссылка на конструктор главной панели
      * @return главная панель
@@ -139,6 +165,8 @@ public class BasePanel extends JPanel implements ItemListener {
      */
     void resetMarker(){
         // сброс надписей
+        theme.setColorTheme(resultMarker);
+        theme.setColorTheme(serviceInfo);
         resultMarker.reset();
         serviceInfo.reset();
     }
@@ -151,12 +179,12 @@ public class BasePanel extends JPanel implements ItemListener {
         return assortmentMenu;
     }
     
-    public TypesMenu getTypeProfileMenu(){
-        return typeProfileMenu;
+    public TypesMenu getTypesMenu(){
+        return typesMenu;
     }
     
-    public NumbersMenu getNumberProfileMenu(){
-        return numberProfileMenu;
+    public NumbersMenu getNumbersMenu(){
+        return numbersMenu;
     }
 
     public LengthField getLengthField(){

@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Политика обхода фокусом компонентов
  * @author Sergei Lyashko
  */
-public class MyFocusTraversalPolicy extends FocusTraversalPolicy {
+class MyFocusTraversalPolicy extends FocusTraversalPolicy {
     
     private final ArrayList<Component> order;
  

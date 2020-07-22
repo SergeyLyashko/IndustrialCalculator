@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -29,26 +28,21 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
     
     private String selectItem;
     private final BasePanel basePanel;
-    private final String toolTipText = "выбор номера профиля детали";
     private final String headerProfilesMenu = "№ профиля";
     private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
     
-    public NumbersMenu(BasePanel basePanel, ToolTipsInterface toolTips) {
+    public NumbersMenu(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);
         this.basePanel = basePanel;
-        addConent(toolTips);
+        addConent();
     }
     
     // 
-    private void addConent(ToolTipsInterface toolTips){
+    private void addConent(){
         Menu defaultMenu = new Menu();
         super.setModel(defaultMenu.createStartMenu(this));
-        toolTips.setToolTips(this, toolTipText);
-        basePanel.add(this);        
-        basePanel.addPolicy(this);        
-        addActionListener(this);
     }
         
     @Override
@@ -88,7 +82,7 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
      */
     public boolean detailHaveWidth(){
         Object assortmentMenuItem = basePanel.getAssortmentMenu().getSelectedItem();
-        Object typeMenuItem = basePanel.getTypeProfileMenu().getSelectedItem();
+        Object typeMenuItem = basePanel.getTypesMenu().getSelectedItem();
         Object[] menuItem = {assortmentMenuItem, typeMenuItem};
         return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
                 return Arrays.stream(menuItem).anyMatch((Object obj) -> element.equals(obj)); 

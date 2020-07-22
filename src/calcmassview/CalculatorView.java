@@ -89,11 +89,11 @@ public class CalculatorView implements ViewObserver {
                         .fieldValueStringReceive();
         this.profileType = generalPanel
                         .getBasePanel()
-                        .getTypeProfileMenu()
+                        .getTypesMenu()
                         .fieldValueStringReceive();
         this.profileNumber = generalPanel
                         .getBasePanel()
-                        .getNumberProfileMenu()
+                        .getNumbersMenu()
                         .fieldValueStringReceive();
         this.length = generalPanel
                     .getBasePanel()

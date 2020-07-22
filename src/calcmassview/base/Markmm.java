@@ -19,37 +19,16 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
- * строка вывода результата вычислений
+ * Маркер поля
  * @author Sergei Lyashko
  */
-public class ResultMarker extends JLabel {
+public class Markmm extends JLabel {
     
-    public ResultMarker(){
-        super.setLocation(190, 105);
+    public Markmm(int xDestination, int yDestination){
         super.setVisible(true);
-        super.setText("0.0");
-        super.setHorizontalAlignment(RIGHT);
-        super.setSize(125, 25);
-    }
-    
-    /**
-     * установка значения в строку результата
-     * @param result
-     */
-    public void setResult(String result){
-        if(result.equals("error")){
-            super.setForeground(Color.red);
-            super.setText(result);
-        }else{
-            String str = new StringBuilder().append(result).append(" ").append("кг").toString();
-            super.setText(str);
-        }
-    }
-    
-    /**
-     * Сброс результата
-     */
-    public void reset(){        
-        super.setText("0.0");
-    }
+        super.setSize(25, 20);
+        super.setForeground(Color.white);
+        super.setText("мм");
+        super.setLocation(xDestination, yDestination);
+    }    
 }

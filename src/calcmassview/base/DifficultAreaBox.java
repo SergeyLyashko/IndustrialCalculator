@@ -15,10 +15,8 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
-import calcmassview.settings.ColorThemeInterface;
 
 /**
  * Чек-бокс для установки сложного периметра
@@ -27,29 +25,18 @@ import calcmassview.settings.ColorThemeInterface;
 public class DifficultAreaBox extends JCheckBox {
     
     private final String boxName = "сложный периметр";
-    private final String toolTipText = "расчет массы детали по задаваемой площади детали";
     private final BasePanel basePanel;
-    private final ColorThemeInterface theme;
     private boolean stateBoxOFF;
         
-    public DifficultAreaBox(BasePanel basePanel, ColorThemeInterface theme, ToolTipsInterface toolTips){
+    public DifficultAreaBox(BasePanel basePanel){
         super.setSelected(false);
         super.setSize(140, 17);
         super.setLocation(187, 90);  
         super.setText(boxName);
         super.setFont(this.getFont().deriveFont(10f));
         this.basePanel = basePanel;
-        this.theme = theme;
         this.stateBoxOFF = true;
         super.addItemListener(basePanel);
-        addContent(toolTips);
-    }
-    
-    // 
-    private void addContent(ToolTipsInterface toolTips){
-        toolTips.setToolTips(this, toolTipText);
-        basePanel.add(this);
-        theme.setColorTheme(this);
     }
     
     /**
@@ -74,7 +61,7 @@ public class DifficultAreaBox extends JCheckBox {
     
     // чек-бокс включен
     public void oN(){
-        boolean detailHaveWidth = basePanel.getNumberProfileMenu().detailHaveWidth();
+        boolean detailHaveWidth = basePanel.getNumbersMenu().detailHaveWidth();
         if(detailHaveWidth){
             basePanel.getWidthField().deactiveField();
             basePanel.getLengthField().difficultAreaStateON();
@@ -85,7 +72,7 @@ public class DifficultAreaBox extends JCheckBox {
     
     // чек-бокс выключен
     public void oFF(){
-        boolean detailHaveWidth = basePanel.getNumberProfileMenu().detailHaveWidth();
+        boolean detailHaveWidth = basePanel.getNumbersMenu().detailHaveWidth();
         if(detailHaveWidth){
             basePanel.getWidthField().activeField();  
             basePanel.getLengthField().difficultAreaStateOFF();

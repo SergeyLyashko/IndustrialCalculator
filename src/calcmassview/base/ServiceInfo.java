@@ -17,7 +17,6 @@ package calcmassview.base;
 
 import java.awt.Color;
 import javax.swing.JLabel;
-import calcmassview.settings.ColorThemeInterface;
 
 /**
  * информационна строка внизу основного окна
@@ -25,23 +24,11 @@ import calcmassview.settings.ColorThemeInterface;
  */
 public class ServiceInfo extends JLabel {
    
-    private final BasePanel basePanel;
-    private final ColorThemeInterface theme;
-    
-    public ServiceInfo(BasePanel basePanel, ColorThemeInterface theme){
-        this.basePanel = basePanel;
-        this.theme = theme;
+    public ServiceInfo(){
         super.setLocation(20, 140);
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
-        addContent();
-    }
-    
-    // 
-    private void addContent(){
-        basePanel.add(this);
-        theme.setColorTheme(this);
     }
     
     /**
@@ -49,7 +36,6 @@ public class ServiceInfo extends JLabel {
      */
     public void reset(){
         super.setText(null);
-        theme.setColorTheme(this);
     }
     
     /**

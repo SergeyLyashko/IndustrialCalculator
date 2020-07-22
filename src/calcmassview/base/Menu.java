@@ -26,7 +26,7 @@ import javax.swing.JComboBox;
  * из Базы Данных
  * @author Sergei Lyashko
  */
-public class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
+class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     
     private final String assortmentHeader = "Тип сортамента";
     private final String typeHeader = "Тип профиля";

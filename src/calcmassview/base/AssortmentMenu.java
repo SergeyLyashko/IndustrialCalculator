@@ -15,7 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.settings.ToolTipsInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -28,14 +27,13 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
         
     private String selectItem;
     private final BasePanel basePanel;
-    private final String toolTiptext = "выбор сортамента детали";
     
-    public AssortmentMenu(BasePanel basePanel, ToolTipsInterface toolTips) {
+    public AssortmentMenu(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
         this.basePanel = basePanel;
-        addContent(toolTips);
+        addContent();
     }
     
     /**
@@ -47,13 +45,9 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     }
     
     // 
-    private void addContent(ToolTipsInterface toolTips){
+    private void addContent(){
         Menu defaulMenu = new Menu();
         super.setModel(defaulMenu.createStartMenu(this));
-        toolTips.setToolTips(this, toolTiptext);
-        basePanel.add(this);        
-        basePanel.addPolicy(this);
-        addActionListener(this);
     }
     
     @Override
@@ -71,7 +65,7 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     private void createTypeProfilesMenu(String menuItem){
         Menu menu = new Menu(basePanel.getDataBase());
         Menu newTypeProfilesMenu = menu.createMenu(menuItem);
-        basePanel.getTypeProfileMenu().setModel(newTypeProfilesMenu);
+        basePanel.getTypesMenu().setModel(newTypeProfilesMenu);
     }
     
     // сброс полей ввода
@@ -82,8 +76,8 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     
     // установка начальных значений меню
     private void setMenuStartPosition(){
-        basePanel.getTypeProfileMenu().setSelectedIndex(0);
-        basePanel.getNumberProfileMenu().setSelectedIndex(0);
+        basePanel.getTypesMenu().setSelectedIndex(0);
+        basePanel.getNumbersMenu().setSelectedIndex(0);
     }
 
     @Override
