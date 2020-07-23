@@ -19,7 +19,6 @@ import calcmassview.ViewObserver;
 import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
-import calcmassview.settings.ToolTipsInterface;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import calcmassview.settings.ColorThemeInterface;
 
 /**
  * Основное окно с вкладками
@@ -38,7 +36,6 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         
     private BasePanel basePanel;
     private SettingsPanel settingsPanel;
-    private InfoPanel infoPanel;
     private final Preference preference;
     private final ArrayList<ViewObserver> observers;
     private ColorThemeInterface theme;
@@ -48,6 +45,12 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         super(new GridLayout(1, 1));
         observers = new ArrayList<>();
         preference = new Preference();
+        // всплывающие подсказки
+        toolTips = new ToolTips();
+        toolTips.oN();
+        // цветовая тема оформления
+        theme = new ColorTheme();
+        theme.doDark();        
         createPanels();
         createAndShowGUI();
     }
@@ -58,21 +61,37 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         if(saved != null){
             loadPreference(saved);
         }else{
-            this.settingsPanel = new SettingsPanel();
-        }
-        this.toolTips = settingsPanel.getToolTips();
-        this.theme = settingsPanel.getTheme();
+            this.settingsPanel = new SettingsPanel(theme, toolTips);
+        }        
+        theme.componentChangeColor(settingsPanel);
+        
         this.basePanel = new BasePanel(this, theme, toolTips);
-        this.infoPanel = new InfoPanel(theme);
+        theme.componentChangeColor(basePanel);
+        
+        InfoPanel infoPanel = new InfoPanel(theme);
+        theme.componentChangeColor(infoPanel);
+        
         addTabbedPane(basePanel, settingsPanel, infoPanel);        
     }
+    
+    /**
+     * Добавление вкладок на панель
+     */
+    private void addTabbedPane(BasePanel basePanel, SettingsPanel settingsPanel, InfoPanel infoPanel){
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.addTab("Калькулятор", basePanel);       
+        tabbedPane.addTab("Настройки", settingsPanel);
+        tabbedPane.addTab("Справка", infoPanel);
+        this.add(tabbedPane);
+    }
+    
     
     // загрузка сохраненных настроек
     private void loadPreference(Preference savedPreference){
         theme = savedPreference.getTheme();
         toolTips = savedPreference.getToolTips();
         this.settingsPanel = savedPreference.getSettingsPanel();
-        settingsPanel.addPreference(theme, toolTips);
+        settingsPanel.setPreference(theme);
     }
     
     // сохранение настроек
@@ -120,17 +139,6 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
             @Override
             public void windowDeactivated(WindowEvent e) {}
         });
-    }
-    
-    /**
-     * Добавление вкладок на панель
-     */
-    private void addTabbedPane(BasePanel basePanel, SettingsPanel settingsPanel, InfoPanel infoPanel){
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.addTab("Калькулятор", basePanel);       
-        tabbedPane.addTab("Настройки", settingsPanel);
-        tabbedPane.addTab("Справка", infoPanel);
-        this.add(tabbedPane);
     }
     
     /**

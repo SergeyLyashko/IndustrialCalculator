@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settings;
+package calcmassview.general;
 
 import calcmassview.base.ServiceInfo;
 import calcmassview.base.ResultMarker;
@@ -27,7 +27,7 @@ import javax.swing.JLabel;
  * Тема оформления окна приложения
  * @author Sergei Lyashko
  */
-class Theme implements Serializable, ColorThemeInterface {
+class ColorTheme implements Serializable, ColorThemeInterface {
     
     private static final long serialVersionUID = 1L;
     
@@ -35,12 +35,8 @@ class Theme implements Serializable, ColorThemeInterface {
     private transient ArrayList<JLabel> markerList = new ArrayList<>();
     private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
     
-    /**
-     * Установка темы оформления для выбранной надписи
-     * @param marker надпись в приложении
-     */
     @Override
-    public void setColorTheme(JLabel marker){
+    public void componentChangeColor(JLabel marker){
         if(marker.getClass().equals(ServiceInfo.class) || marker.getClass().equals(ResultMarker.class)){
             marker.setForeground(colorResultMarker);
         }else{
@@ -49,12 +45,8 @@ class Theme implements Serializable, ColorThemeInterface {
         markerList.add(marker);
     }
     
-    /**
-     * Установка темы оформления для выбранного компонента
-     * @param component компонент для установки темы оформления
-     */
     @Override
-    public void setColorTheme(JComponent component) {
+    public void componentChangeColor(JComponent component) {
         if(componentList == null){
             actionComponents();
         }
@@ -63,11 +55,8 @@ class Theme implements Serializable, ColorThemeInterface {
         componentList.add(component);
     }
     
-    /**
-     * Темная тема оформления
-     */
     @Override
-    public void dark(){
+    public void doDark(){
         colorBackGround = Color.BLACK;
         colorForeGround = Color.WHITE;
         colorMarker = Color.WHITE;
@@ -75,11 +64,8 @@ class Theme implements Serializable, ColorThemeInterface {
         actionTheme();               
     }
     
-    /**
-     * Светлая тема оформления
-     */
     @Override
-    public void light(){
+    public void doLight(){
         colorBackGround = new Color(250, 236, 229);
         colorForeGround = Color.BLACK;
         colorMarker = Color.BLACK;

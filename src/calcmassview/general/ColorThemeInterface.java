@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settings;
+package calcmassview.general;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -25,25 +25,24 @@ import javax.swing.JLabel;
 public interface ColorThemeInterface {
     
     /**
-     *
-     * @param marker
+     * Изменение цветовой темы оформления
+     * @param marker компоненты класса JLabel
      */
-    public void setColorTheme(JLabel marker);
+    public void componentChangeColor(JLabel marker);
     
     /**
-     *
-     * @param component
+     * Изменнение цветовой темы оформления
+     * @param component компоненты класса JComponent
      */
-    public void setColorTheme(JComponent component);
+    public void componentChangeColor(JComponent component);
     
     /**
-     *
+     * Установить темную тему оформления
      */
-    public void dark();
+    public void doDark();
     
     /**
-     *
+     * Установить светлую тему оформления
      */
-    public void light();
-    
+    public void doLight();    
 }

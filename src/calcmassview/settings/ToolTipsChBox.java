@@ -15,6 +15,7 @@
  */
 package calcmassview.settings;
 
+import calcmassview.general.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import javax.swing.JCheckBox;
@@ -27,27 +28,15 @@ class ToolTipsChBox extends JCheckBox implements Selectable, Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private final String text = "включение/отключение всплывающих подсказок";
     private final String chBoxName = "включить всплывающие подсказки";
-    private ToolTipsInterface toolTips;
+    private final ToolTipsInterface toolTips;
     
-    public ToolTipsChBox(SettingsPanel settingsPanel){
+    public ToolTipsChBox(ToolTipsInterface toolTips){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
         super.setText(chBoxName);
-        super.addItemListener(settingsPanel);
-    }
-    
-    /**
-     * Внешнее оформления
-     * @param theme цветовая тема приложения
-     * @param toolTips всплывающие подсказки
-     */
-    public void addVisualDecoration(ColorThemeInterface theme, ToolTipsInterface toolTips){
         this.toolTips = toolTips;
-        theme.setColorTheme(this);
-        toolTips.setToolTips(this, text);        
     }
     
     @Override

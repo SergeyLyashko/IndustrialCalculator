@@ -15,6 +15,8 @@
  */
 package calcmassview.settings;
 
+import calcmassview.general.ToolTipsInterface;
+import calcmassview.general.ColorThemeInterface;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.Serializable;
@@ -28,49 +30,48 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable 
 
     private static final long serialVersionUID = 1L;
     
+    private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
+    private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
+    
     private final ToolTipsInterface toolTips;
     private final ColorThemeInterface theme;
     private ColorThemeCheckBox themeChBox;
-    private ToolTipsChBox toolTipsChBox;
+    private ToolTipsChBox toolTipsChBox;    
     
-    public SettingsPanel(){
-        toolTips = new ToolTips();
-        toolTips.oN();
-        theme = new Theme();
-        theme.dark(); 
-        createCheckBoxes();
+    public SettingsPanel(ColorThemeInterface theme, ToolTipsInterface toolTips){
+        this.theme = theme;
+        this.toolTips = toolTips;
+        addColorThemeBox();
+        addToolTipBox();        
         super.setLayout(null);
     }
     
-    public ToolTipsInterface getToolTips(){
-        return toolTips;
+    // чек-бокс цветовой темы оформления
+    private void addColorThemeBox(){        
+        themeChBox = new ColorThemeCheckBox(theme);
+        theme.componentChangeColor(themeChBox);        
+        toolTips.setToolTips(themeChBox, THEME_TOOL_TIP_TEXT);
+        themeChBox.addItemListener(this);
+        super.add(themeChBox);              
     }
     
-    public ColorThemeInterface getTheme(){
-        return theme;
-    }
-    
-    // создание чек-боксов
-    private void createCheckBoxes(){
-        themeChBox = new ColorThemeCheckBox(this);
-        themeChBox.addVisualDecoration(theme, toolTips);
-        super.add(themeChBox);        
-        toolTipsChBox = new ToolTipsChBox(this);
-        toolTipsChBox.addVisualDecoration(theme, toolTips);
-        super.add(toolTipsChBox);        
-        theme.setColorTheme(this);
+    // чек-бокс всплывающих подсказок
+    private void addToolTipBox(){
+        toolTipsChBox = new ToolTipsChBox(toolTips);
+        theme.componentChangeColor(toolTipsChBox);        
+        toolTips.setToolTips(toolTipsChBox, TOOL_TIP_BOX_TEXT);
+        toolTipsChBox.addItemListener(this);
+        super.add(toolTipsChBox); 
     }
     
     /**
      * Установка выбранных настроек
      * @param theme тема приложения
-     * @param toolTips всплывающие подсказки
      */
-    public void addPreference(ColorThemeInterface theme, ToolTipsInterface toolTips){
-        themeChBox.addVisualDecoration(theme, toolTips);
-        toolTipsChBox.addVisualDecoration(theme, toolTips);
-        theme.setColorTheme(this);
+    public void setPreference(ColorThemeInterface theme){        
         toolTips.currentState();
+        theme.componentChangeColor(themeChBox);
+        theme.componentChangeColor(toolTipsChBox);
     }
     
     @Override

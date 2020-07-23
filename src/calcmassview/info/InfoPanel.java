@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import calcmassview.settings.ColorThemeInterface;
+import calcmassview.general.ColorThemeInterface;
 
 /**
  * панель Информации
@@ -67,7 +67,6 @@ public class InfoPanel extends JPanel {
     
     // Установка параметров
     private void setPreference(JLabel htmlText, JScrollPane scroller, ColorThemeInterface theme){        
-        theme.setColorTheme(this);
         setTextPreference(htmlText, theme);
         setScrollerPreference(scroller, theme);        
     }
@@ -75,13 +74,13 @@ public class InfoPanel extends JPanel {
     // Установка параметров текста
     private void setTextPreference(JLabel htmlText, ColorThemeInterface theme){
         htmlText.setPreferredSize(new Dimension(250, 510));
-        theme.setColorTheme(htmlText);
+        theme.componentChangeColor(htmlText);
     }
     
     // Установка параметров панели скроллера
     private void setScrollerPreference(JScrollPane scroller, ColorThemeInterface theme){
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        theme.setColorTheme(scroller.getViewport());
+        theme.componentChangeColor(scroller.getViewport());
     }
 }

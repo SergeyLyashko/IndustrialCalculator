@@ -36,35 +36,40 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     
     public LengthField(BasePanel basePanel){
         super.setSize(125, 25);
-        super.setForeground(Color.GRAY);        
         super.setEditable(false);
-        super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         super.setText(fieldName);
         super.setLocation(190, 60);
         this.basePanel = basePanel;
+        nonActiveFieldColor();
+    }
+    
+    // цвет неактивного поля
+    private void nonActiveFieldColor(){
+        super.setForeground(Color.GRAY);
+        super.setBackground(Color.DARK_GRAY);
     }
     
     /**
-     *
+     * Включение чек-бокса сложной площади
      */
     public void difficultAreaStateON(){
         super.setText(difficultAreaName);
     }
     
     /**
-     *
+     * Отключение чек-бокса сложной площади
      */
     public void difficultAreaStateOFF(){
         super.setText(fieldName);
+        super.setForeground(Color.GRAY);
     }
     
     @Override
     public void deactiveField() {
-        setEditable(false);
-        setBackground(Color.DARK_GRAY);
-        setForeground(Color.GRAY);        
+        setEditable(false);              
         setText(fieldName);
+        nonActiveFieldColor();
         removeFocusListener(this);
         removeKeyListener(this);
     }
@@ -116,6 +121,4 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     public String fieldValueStringReceive() {
         return this.contentFeld;
     }
-
-    
 }

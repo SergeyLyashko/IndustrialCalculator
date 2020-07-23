@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import javax.swing.JCheckBox;
 
@@ -33,7 +34,8 @@ public class DifficultAreaBox extends JCheckBox {
         super.setSize(140, 17);
         super.setLocation(187, 90);  
         super.setText(boxName);
-        super.setFont(this.getFont().deriveFont(10f));
+        Font deriveFont = super.getFont().deriveFont(10f);
+        super.setFont(deriveFont);
         this.basePanel = basePanel;
         this.stateBoxOFF = true;
         super.addItemListener(basePanel);

@@ -17,7 +17,7 @@ package calcmassview.base;
 
 import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
-import calcmassview.settings.ToolTipsInterface;
+import calcmassview.general.ToolTipsInterface;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -25,7 +25,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import calcmassview.settings.ColorThemeInterface;
+import calcmassview.general.ColorThemeInterface;
 
 /**
  * основная панель с компонентами
@@ -35,22 +35,29 @@ public class BasePanel extends JPanel implements ItemListener {
     
     // интерфейс базы данных
     private DataBaseInterface dataBase;
+    
     // combo-boxes
     private AssortmentMenu assortmentMenu;
     private TypesMenu typesMenu;
     private NumbersMenu numbersMenu;
+    
     // поля ввода значений
     private LengthField lengthField;
-    private WidthField widthField;    
-    // политика обхода фокуса
-    private final MyFocusTraversalPolicy myFocusTraversalPolicy;
-    private final ArrayList<Component> policy;
+    private WidthField widthField;  
+    
+    // политика обхода фокусом
+    private MyFocusTraversalPolicy myFocusTraversalPolicy;
+    private final ArrayList<Component> policy = new ArrayList<>();
+    
     // гравная панель
     private final GeneralPanel panel;
+    
     // сервисная строка
     private ServiceInfo serviceInfo;
+    
     // строка результата
     private ResultMarker resultMarker;
+    
     // чек-бокс задания площади детали
     private DifficultAreaBox difficultAreaBox;
     
@@ -61,21 +68,16 @@ public class BasePanel extends JPanel implements ItemListener {
         this.panel = panel;
         this.theme = theme;
         this.toolTips = toolTips;
-        
-        policy = new ArrayList<>();
-        createComponents();
+        // добавление компонентов
+        addComponents();
+        // политика обхода фокусом
+        focusPolicy();    
         // отключение автокомпоновки элементов
-        super.setLayout(null);       
-        // политика обхода фокуса
-        super.setFocusCycleRoot(true);
-        myFocusTraversalPolicy = new MyFocusTraversalPolicy(policy);
-        super.setFocusTraversalPolicy(myFocusTraversalPolicy);
+        super.setLayout(null);
     }
     
     // создание компонентов окна приложения
-    private void createComponents(){
-        theme.setColorTheme(this);
-        
+    private void addComponents(){
         // <Тип изделия>
         assortmentMenu = new AssortmentMenu(this);
         String assortmentToolTipText = "выбор сортамента детали";
@@ -116,30 +118,37 @@ public class BasePanel extends JPanel implements ItemListener {
         
         // текстовая строка результата
         resultMarker = new ResultMarker();
-        theme.setColorTheme(resultMarker);
+        theme.componentChangeColor(resultMarker);
         this.add(resultMarker);
         
         // <Сервисная строка>
         serviceInfo = new ServiceInfo();
-        theme.setColorTheme(serviceInfo);
+        theme.componentChangeColor(serviceInfo);
         this.add(serviceInfo);
         
         // чек-бокс вычисления площади сложного периметра
         difficultAreaBox = new DifficultAreaBox(this);
         String areaBoxToolTipText = "расчет массы детали по задаваемой площади детали";
         toolTips.setToolTips(difficultAreaBox, areaBoxToolTipText);
-        theme.setColorTheme(difficultAreaBox);
+        theme.componentChangeColor(difficultAreaBox);
         this.add(difficultAreaBox);
         
         //надпись мм для поля ширина
         Markmm widthMark = new Markmm(320, 22);
         this.add(widthMark);
-        theme.setColorTheme(widthMark);
+        theme.componentChangeColor(widthMark);
         
         //надпись мм для поля длина      
         Markmm lengthMark = new Markmm(320, 62);
         this.add(lengthMark);
-        theme.setColorTheme(lengthMark);
+        theme.componentChangeColor(lengthMark);
+    }
+    
+    // политика обхода фокусом
+    private void focusPolicy(){        
+        super.setFocusCycleRoot(true);
+        myFocusTraversalPolicy = new MyFocusTraversalPolicy(policy);
+        super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
         
     /**
@@ -165,8 +174,8 @@ public class BasePanel extends JPanel implements ItemListener {
      */
     void resetMarker(){
         // сброс надписей
-        theme.setColorTheme(resultMarker);
-        theme.setColorTheme(serviceInfo);
+        theme.componentChangeColor(resultMarker);
+        theme.componentChangeColor(serviceInfo);
         resultMarker.reset();
         serviceInfo.reset();
     }
