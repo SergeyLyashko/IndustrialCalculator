@@ -7,7 +7,7 @@
 - 3 выпадающих окна "Тип сортамента", "Тип профиля", "№ профиля";
 - 2 поля ввода значений ширины и длины детали;
 - чек-бокс выбора сложного периметра.
-###### ![режим по умолчанию](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg)
+###### ![режим по умолчанию](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/default_dark.jpg?raw=true)
 ###### И не акивные элементы:
 ###### строка вывода результата расчета и строка вывода служебной информации
 ###### ![рабочий режим](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/work_1.jpg?raw=true)
