@@ -1,4 +1,4 @@
-# IndustrialCalculator
+## IndustrialCalculator
 Калькулятор расчета массы различных видов сортамента по Российским ГОСТам.
 ---
 Приложение состоит из основного окна с тремя вкладками: **Калькулятор**, **Настройки**, **Справка**.
@@ -11,13 +11,13 @@
 ---
 - чек-бокс выбора сложного периметра.
 ---
-!(https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg)
+![режим по умолчанию](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg)
 ---
 И не акивные элементы:
 ---
 строка вывода результата расчета и строка вывода служебной информации
 ---
-![рабочий режим](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/work_1.jpg)
+![рабочий режим](https://raw.githubusercontent.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/work_1.jpg)
 ---
 **Настройки**
 ---
