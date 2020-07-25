@@ -15,7 +15,7 @@
 ###### ![настройки](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/settings.jpg?raw=true)
 ###### **Справка**
 ###### На вкладке находится справочная информация по работе с приложением и перечислены ГОСТы, по которым производится расчет массы деталей.
-###### ![справка](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/info_dark.jpg)
+###### ![справка](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/info_dark.jpg?raw=true)
 
 #### Использованы следующие ГОСТЫ:
 ###### Сталь прокатная угловая равнополочная ГОСТ 8509-93
