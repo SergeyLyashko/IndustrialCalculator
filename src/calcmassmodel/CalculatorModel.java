@@ -29,9 +29,10 @@ public class CalculatorModel implements CalculatorModelInterface {
     private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
-    private DataBaseInterface dataBase;
+    private final DataBaseInterface dataBase;
     
-    public CalculatorModel(){
+    public CalculatorModel(DataBaseInterface dataBase){
+        this.dataBase = dataBase;
         observers = new ArrayList<>();        
     }
     
@@ -73,11 +74,4 @@ public class CalculatorModel implements CalculatorModelInterface {
         displayError();
         notifyObservers();
     }
-
-    @Override
-    public void setDataBase(DataBaseInterface dataBase) {
-        this.dataBase = dataBase;
-    }    
-
-    
 }

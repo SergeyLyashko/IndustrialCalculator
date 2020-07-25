@@ -30,41 +30,28 @@ public class CalculatorController implements CalculatorControllerInterface {
     
     private static CalculatorModelInterface model;
     private static CalculatorController controller;    
-    private static DataBaseInterface dataBase;
-    private static CalculatorView calculatorView;
     
     private CalculatorController(CalculatorModelInterface model){
         CalculatorController.model = model;
     }
     
     /**
-     * Создание модели, контроллера, прдставления
+     * запуск приложения
      */
-    public static void start(){
-        dataBase = new DataBase(); 
-        model = new CalculatorModel();
+    public static void startApp(){
+        DataBaseInterface dataBase = new DataBase(); 
+        model = new CalculatorModel(dataBase);
         controller = new CalculatorController(model);
-        calculatorView = new CalculatorView(model, controller);
-        loadDataBase();
-    }
-    
-    // загрузка 
-    private static void loadDataBase(){
-        calculatorView.setDataBase(dataBase);
-        if(dataBase != null){
-            calculatorView.createMenu();
-        }
+        new CalculatorView(model, controller, dataBase);
     }
     
     @Override
     public void setFieldsValue(String assortment, String type, String number, String length, String width) {
-        model.setDataBase(dataBase);
         model.createDetail(assortment, type, number, length, width);        
     }
         
     @Override
     public void setFieldsValue(String assortment, String type, String number, String area) {
-        model.setDataBase(dataBase);
         model.createDetail(assortment, type, number, area);        
     }
 }

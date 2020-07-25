@@ -36,13 +36,13 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);
         this.basePanel = basePanel;
-        addConent();
+        setEmptyMenu();
     }
     
-    // 
-    private void addConent(){
-        Menu defaultMenu = new Menu();
-        super.setModel(defaultMenu.createStartMenu(this));
+    // установка пустого меню
+    private void setEmptyMenu(){
+        Menu emptyMenu = new Menu();
+        super.setModel(emptyMenu.createMenu(null, null));
     }
         
     @Override

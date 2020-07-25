@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 class DataBaseConnection {
     
     // драйвер подключения к базе
-    private static final String DATA_BASE_DRIVER_NAME = "jdbc:sqlite:calculator.db";
+    private static final String DATA_BASE_DRIVER_NAME = "jdbc:sqlite:database\\calculator.db";
     
     /**
      * соединение с базой данных

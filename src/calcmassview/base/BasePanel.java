@@ -64,12 +64,12 @@ public class BasePanel extends JPanel implements ItemListener {
     private final ColorThemeInterface theme;
     private final ToolTipsInterface toolTips;
     
-    public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips) {
+    public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips, DataBaseInterface dataBase) {
         this.panel = panel;
         this.theme = theme;
         this.toolTips = toolTips;
         // добавление компонентов
-        addComponents();
+        addComponents(dataBase);
         // политика обхода фокусом
         focusPolicy();    
         // отключение автокомпоновки элементов
@@ -77,9 +77,9 @@ public class BasePanel extends JPanel implements ItemListener {
     }
     
     // создание компонентов окна приложения
-    private void addComponents(){
+    private void addComponents(DataBaseInterface dataBase){
         // <Тип изделия>
-        assortmentMenu = new AssortmentMenu(this);
+        assortmentMenu = new AssortmentMenu(this, dataBase);
         String assortmentToolTipText = "выбор сортамента детали";
         toolTips.setToolTips(assortmentMenu, assortmentToolTipText);
         this.add(assortmentMenu);
@@ -87,7 +87,7 @@ public class BasePanel extends JPanel implements ItemListener {
         assortmentMenu.addActionListener(assortmentMenu);
         
         // <Тип профиля>
-        typesMenu = new TypesMenu(this);
+        typesMenu = new TypesMenu(this, dataBase);
         String typesToolTipText = "выбор типа профиля детали";
         toolTips.setToolTips(typesMenu, typesToolTipText);
         this.add(typesMenu);

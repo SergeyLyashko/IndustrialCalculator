@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcdatabase.DataBaseInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
@@ -27,29 +28,25 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
         
     private String selectItem;
     private final BasePanel basePanel;
+    private final DataBaseInterface dataBase;
     
-    public AssortmentMenu(BasePanel basePanel) {
+    public AssortmentMenu(BasePanel basePanel, DataBaseInterface dataBase) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
         this.basePanel = basePanel;
-        addContent();
+        this.dataBase = dataBase;
+        setEmptyMenu();
     }
     
     /**
-     * Создание меню из базы данных
+     * Создание пустого меню
      */
-    public void createMenuFromDataBase(){
-        Menu menu = new Menu(basePanel.getDataBase());
-        super.setModel(menu.createMenu());
+    private void setEmptyMenu(){
+        Menu empty = new Menu(dataBase);
+        super.setModel(empty.createMenu());
     }
-    
-    // 
-    private void addContent(){
-        Menu defaulMenu = new Menu();
-        super.setModel(defaulMenu.createStartMenu(this));
-    }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {        
         @SuppressWarnings("unchecked")
@@ -63,7 +60,7 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     
     // создание меню типов профилей
     private void createTypeProfilesMenu(String menuItem){
-        Menu menu = new Menu(basePanel.getDataBase());
+        Menu menu = new Menu(dataBase);
         Menu newTypeProfilesMenu = menu.createMenu(menuItem);
         basePanel.getTypesMenu().setModel(newTypeProfilesMenu);
     }

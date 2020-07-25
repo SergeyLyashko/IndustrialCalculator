@@ -15,7 +15,6 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseInterface;
 import calcmassview.ViewObserver;
 
 /**
@@ -58,10 +57,4 @@ public interface CalculatorModelInterface {
      * @param area площадь детали
      */
     public void createDetail(String assortment, String type, String number, String area);
-    
-    /**
-     * 
-     * @param dataBase интерфейс базы данных
-     */
-    public void setDataBase(DataBaseInterface dataBase);
 }

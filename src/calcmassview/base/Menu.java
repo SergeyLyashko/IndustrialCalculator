@@ -19,7 +19,6 @@ import calcdatabase.DataBaseInterface;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  * Создание меню для комбо-бокс меню из профилей
@@ -60,8 +59,13 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
      * создание модели меню для базовой панели выпадающего меню
      * @return 
      */
-    public Menu createMenu(){
-        menu = dataBase.receiveMenu(assortment, type, number);
+    public Menu createMenu(){        
+        if(dataBase != null){
+            menu = dataBase.receiveMenu(assortment, type, number);
+        }else{
+            menu = new ArrayList<>();
+            menu.add(assortmentHeader);
+        }
         return this;
     }
     
@@ -71,8 +75,13 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
      * @return 
      */
     public Menu createMenu(String assortment){
-        this.assortment = assortment;
-        menu = dataBase.receiveMenu(assortment, type, number);
+        this.assortment = assortment;        
+        if(dataBase != null){
+            menu  = dataBase.receiveMenu(assortment, type, number);
+        }else{
+            menu = new ArrayList<>();
+            menu.add(typeHeader);
+        }
         return this;
     }
     
@@ -85,25 +94,11 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
      */
     public Menu createMenu(String assortment, String type){
         this.assortment = assortment;
-        this.type = type;
-        menu = dataBase.receiveMenu(assortment, type, number);
-        return this;
-    }
-    
-    /**
-     * Создание меню при старте
-     * @param menuBox комбо-бокс меню
-     * @return 
-     */
-    public Menu createStartMenu(JComboBox<String> menuBox){
-        menu = new ArrayList<>();
-        if(menuBox.getClass().equals(AssortmentMenu.class)){
-            menu.add(assortmentHeader);
-        }
-        if(menuBox.getClass().equals(TypesMenu.class)){
-            menu.add(typeHeader);
-        }
-        if(menuBox.getClass().equals(NumbersMenu.class)){
+        this.type = type;        
+        if(dataBase != null){
+            menu = dataBase.receiveMenu(assortment, type, number);
+        }else{
+            menu = new ArrayList<>();
             menu.add(numberHeader);
         }
         return this;

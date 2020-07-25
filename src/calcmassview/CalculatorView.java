@@ -33,10 +33,10 @@ public class CalculatorView implements ViewObserver {
     private String profileAssortment, profileType, profileNumber, length, width;
     private String resultValue;
     
-    public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller){
+    public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller, DataBaseInterface dataBase){
         this.model = model;
         this.controller = controller;
-        this.generalPanel = new GeneralPanel();
+        this.generalPanel = new GeneralPanel(dataBase);
         registerObservers();
     }
     
@@ -103,22 +103,5 @@ public class CalculatorView implements ViewObserver {
                     .getBasePanel()
                     .getWidthField()
                     .fieldValueStringReceive();
-    }
-
-    /**
-     * Установка интерфейса базы данных
-     * @param dataBase интерфейс базы данных
-     */
-    public void setDataBase(DataBaseInterface dataBase) {
-        generalPanel.getBasePanel().setDataBase(dataBase);
-    }
-
-    /**
-     * Создание меню
-     */
-    public void createMenu() {
-        generalPanel.getBasePanel()
-                .getAssortmentMenu()
-                .createMenuFromDataBase();
     }
 }

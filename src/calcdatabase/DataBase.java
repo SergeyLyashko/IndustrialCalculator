@@ -154,7 +154,7 @@ public class DataBase implements DataBaseInterface {
             // закрытие
             close(connection, preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return menuList;
     }

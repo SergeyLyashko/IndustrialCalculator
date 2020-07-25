@@ -15,6 +15,7 @@
  */
 package calcmassview.general;
 
+import calcdatabase.DataBaseInterface;
 import calcmassview.ViewObserver;
 import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
@@ -41,7 +42,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private ColorThemeInterface theme;
     private ToolTipsInterface toolTips;
     
-    public GeneralPanel() {
+    public GeneralPanel(DataBaseInterface dataBase) {
         super(new GridLayout(1, 1));
         observers = new ArrayList<>();
         preference = new Preference();
@@ -51,12 +52,12 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         // цветовая тема оформления
         theme = new ColorTheme();
         theme.doDark();        
-        createPanels();
+        createPanels(dataBase);
         createAndShowGUI();
     }
     
     // создание панелей
-    private void createPanels(){
+    private void createPanels(DataBaseInterface dataBase){
         Preference saved = preference.load();        
         if(saved != null){
             loadPreference(saved);
@@ -65,7 +66,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         }        
         theme.componentChangeColor(settingsPanel);
         
-        this.basePanel = new BasePanel(this, theme, toolTips);
+        this.basePanel = new BasePanel(this, theme, toolTips, dataBase);
         theme.componentChangeColor(basePanel);
         
         InfoPanel infoPanel = new InfoPanel(theme);

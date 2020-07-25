@@ -47,7 +47,7 @@ class Detail implements Massable, ErrorMessageInterface {
         calculationArea(width, length);
     }
 
-    Detail(String assortment, String type, String number, String area) {
+    public Detail(String assortment, String type, String number, String area) {
         this.assortment = assortment;
         this.type = type;
         this.number = number;
@@ -61,7 +61,6 @@ class Detail implements Massable, ErrorMessageInterface {
      */
     public void executeQuery(DataBaseInterface dataBase) {
         this.valueFromDB = dataBase.query(assortment, type, number);
-        //this.valueFromDB = dataBase.receiveValue();
     }
     
     /**
