@@ -11,7 +11,7 @@
 ---
 - чек-бокс выбора сложного периметра.
 ---
-![https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg]
+!(https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg)
 ---
 И не акивные элементы:
 ---
