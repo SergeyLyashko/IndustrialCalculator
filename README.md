@@ -1,6 +1,5 @@
 ## IndustrialCalculator
-Калькулятор расчета массы различных видов сортамента по Российским ГОСТам.
----
+### Калькулятор расчета массы различных видов сортамента по Российским ГОСТам.
 ###### Приложение состоит из основного окна с тремя вкладками: **Калькулятор**, **Настройки**, **Справка**.
 ###### **Калькулятор**:
 ###### На вкладке расположены активные элементы:
@@ -13,10 +12,10 @@
 ###### ![рабочий режим](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/work_1.jpg?raw=true)
 ###### **Настройки**
 ###### На вкладке расположены чек-боксы установки настроек приложения: выбор темы оформления и включение/отключения всплывающих подсказок.
-###### ![настройки](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/settings.jpg)
+###### ![настройки](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/settings.jpg?raw=true)
 ###### **Справка**
 ###### На вкладке находится справочная информация по работе с приложением и перечислены ГОСТы, по которым производится расчет массы деталей.
-###### ![настройки](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/info_dark.jpg)
+###### ![справка](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/info_dark.jpg)
 
 #### Использованы следующие ГОСТЫ:
 ###### Сталь прокатная угловая равнополочная ГОСТ 8509-93
