@@ -10,7 +10,7 @@
 ###### ![режим по умолчанию](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/default_dark.jpg)
 ###### И не акивные элементы:
 ###### строка вывода результата расчета и строка вывода служебной информации
-###### ![рабочий режим](https://avatars0.githubusercontent.com/u/35791714?s=48&v=4)
+###### ![рабочий режим](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/work_1.jpg?raw=true)
 ###### **Настройки**
 ###### На вкладке расположены чек-боксы установки настроек приложения: выбор темы оформления и включение/отключения всплывающих подсказок.
 ###### ![настройки](https://github.com/SergeyLyashko/IndustrialCalculator/tree/master/src/screenshots/settings.jpg)
