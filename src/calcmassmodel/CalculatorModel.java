@@ -15,23 +15,23 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseInterface;
 import java.util.ArrayList;
 import calcmassview.ViewObserver;
+import calcdatabase.IDataBase;
 
 /**
  * создание детали
  * @author Sergei Lyashko
  */
-public class CalculatorModel implements CalculatorModelInterface {
+public class CalculatorModel implements ICalculatorModel {
     
     private Detail detail;
     private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
-    private final DataBaseInterface dataBase;
+    private final IDataBase dataBase;
     
-    public CalculatorModel(DataBaseInterface dataBase){
+    public CalculatorModel(IDataBase dataBase){
         this.dataBase = dataBase;
         observers = new ArrayList<>();        
     }

@@ -13,31 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
-
-import java.util.ArrayList;
+package calcmassmodel;
 
 /**
- * Интерфейс базы данных
+ * сообщения об ошибках
  * @author Sergei Lyashko
  */
-public interface DataBaseInterface {
-    
+@FunctionalInterface
+public interface IErrorMessage {
     /**
-     * Отправка запроса в базу данных
-     * @param assortment наименование сортамента
-     * @param type тип профиля
-     * @param number номер профиля
-     * @return 
+     * Возвращает сервисное сообщение об ошибке
+     * @return строковое представление сообщения
      */
-    public double query(String assortment, String type, String number);    
-    
-    /**
-     * Получение меню из базы данных в формате списочного массива
-     * @param assortment
-     * @param type
-     * @param number
-     * @return список строковых значений
-     */
-    public ArrayList<String> receiveMenu(String assortment, String type, String number);
+    public String getErrorMessage();    
 }

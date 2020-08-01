@@ -21,7 +21,7 @@ import calcmassview.ViewObserver;
  * Интерфейс Модели
  * @author Sergei Lyashko
  */
-public interface CalculatorModelInterface {
+public interface ICalculatorModel {
         
     /**
      * Регистрация наблюдателей

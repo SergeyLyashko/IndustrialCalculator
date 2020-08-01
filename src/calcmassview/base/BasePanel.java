@@ -15,17 +15,16 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
 import calcmassview.general.ToolTipsInterface;
 import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import calcmassview.general.ColorThemeInterface;
+import calcdatabase.IDataBase;
+import java.util.Arrays;
 
 /**
  * основная панель с компонентами
@@ -33,8 +32,15 @@ import calcmassview.general.ColorThemeInterface;
  */
 public class BasePanel extends JPanel implements ItemListener {
     
+    private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
+    
+    // интерфейс состояния выбора детали
+    private IDetailWidthState detailState;
+    
     // интерфейс базы данных
-    private DataBaseInterface dataBase;
+    private IDataBase dataBase;
+    
+    private CalculatorData calculatorData;
     
     // combo-boxes
     private AssortmentMenu assortmentMenu;
@@ -64,7 +70,7 @@ public class BasePanel extends JPanel implements ItemListener {
     private final ColorThemeInterface theme;
     private final ToolTipsInterface toolTips;
     
-    public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips, DataBaseInterface dataBase) {
+    public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips, IDataBase dataBase) {
         this.panel = panel;
         this.theme = theme;
         this.toolTips = toolTips;
@@ -77,7 +83,10 @@ public class BasePanel extends JPanel implements ItemListener {
     }
     
     // создание компонентов окна приложения
-    private void addComponents(DataBaseInterface dataBase){
+    private void addComponents(IDataBase dataBase){
+        
+        calculatorData = new CalculatorData();
+        
         // <Тип изделия>
         assortmentMenu = new AssortmentMenu(this, dataBase);
         String assortmentToolTipText = "выбор сортамента детали";
@@ -142,6 +151,9 @@ public class BasePanel extends JPanel implements ItemListener {
         Markmm lengthMark = new Markmm(320, 62);
         this.add(lengthMark);
         theme.componentChangeColor(lengthMark);
+        
+        // установка начального состояния селектора выбора площади
+        detailState = new AreaBoxOFFState(this);
     }
     
     // политика обхода фокусом
@@ -158,11 +170,19 @@ public class BasePanel extends JPanel implements ItemListener {
     public GeneralPanel getGeneralPanel(){
         return panel;
     }
-    
+
+    /**
+     * установка начальных значений меню
+     */
+    public void setMenuStartPosition(){
+        typesMenu.setSelectedIndex(0);
+        numbersMenu.setSelectedIndex(0);
+    }
+        
     /**
      * сброс значений полей
      */
-    void reset(){        
+    public void reset(){        
         resetMarker();
         //сброс полей ввода
         widthField.deactiveField();
@@ -172,7 +192,7 @@ public class BasePanel extends JPanel implements ItemListener {
     /**
      * сброс значений сервисной строки и строки результата
      */
-    void resetMarker(){
+    public void resetMarker(){
         // сброс надписей
         theme.componentChangeColor(resultMarker);
         theme.componentChangeColor(serviceInfo);
@@ -209,9 +229,8 @@ public class BasePanel extends JPanel implements ItemListener {
      * @param value результ вычислений
      */
     public void setResultation(String value){
-        resultMarker.setResult(value);
-        setResultToSystemClipboard(value);
-        serviceInfo.setMessage("результат скопирован в буфер обмена");
+        resultMarker.show(value);
+        serviceInfo.show("результат скопирован в буфер обмена");
     }
     
     /**
@@ -219,22 +238,15 @@ public class BasePanel extends JPanel implements ItemListener {
      * @param message сообщение об ошибке
      */
     public void setError(String message){
-        resultMarker.setResult("error");
-        serviceInfo.setErrorMessage(message);
-    }
-    
-    // метод копирования в буфер обмена при выводе результата
-    private void setResultToSystemClipboard(String value){                
-        Toolkit.getDefaultToolkit()
-            .getSystemClipboard()
-            .setContents(new StringSelection(value), null);       
+        resultMarker.show("error");
+        serviceInfo.showError(message);
     }
     
     /**
      * Установка интерфейчас базы данных
      * @param dataBase интерфейс базы данных
      */
-    public void setDataBase(DataBaseInterface dataBase) {
+    public void setDataBase(IDataBase dataBase) {
         this.dataBase = dataBase;
     }
     
@@ -242,7 +254,7 @@ public class BasePanel extends JPanel implements ItemListener {
      * Запрос интерфейса базы данных
      * @return интерфейс базы данных
      */
-    public DataBaseInterface getDataBase(){
+    public IDataBase getDataBase(){
         return dataBase;
     }
 
@@ -250,5 +262,38 @@ public class BasePanel extends JPanel implements ItemListener {
     public void itemStateChanged(ItemEvent event) {
         DifficultAreaBox source = (DifficultAreaBox) event.getItemSelectable();
         source.actionChooser(event);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    private boolean haveWidth(){
+        Object assortmentMenuItem = assortmentMenu.getSelectedItem();
+        Object typeMenuItem = typesMenu.getSelectedItem();
+        Object[] menuItem = {assortmentMenuItem, typeMenuItem};
+        return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
+                return Arrays.stream(menuItem).anyMatch((Object obj) -> element.equals(obj)); 
+            });
+    }
+    
+    /**
+     *
+     * @param detailState
+     */
+    public void setDetailState(IDetailWidthState detailState){
+        this.detailState = detailState;
+    }
+    
+    /**
+     *
+     */
+    public void actionFields(){
+        reset();
+        if(haveWidth()){
+            detailState.haveWidth();
+        }else{
+            detailState.haveNotWidth();
+        }
     }
 }

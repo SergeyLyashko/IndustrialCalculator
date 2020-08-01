@@ -20,7 +20,7 @@ package calcmasscontroller;
  * Получение параметров полей
  * @author Sergei Lyashko
  */
-public interface CalculatorControllerInterface {
+public interface ICalculatorController {
     
     /**
      * Установка значений полей

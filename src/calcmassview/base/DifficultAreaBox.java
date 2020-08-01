@@ -63,24 +63,16 @@ public class DifficultAreaBox extends JCheckBox {
     
     // чек-бокс включен
     public void oN(){
-        boolean detailHaveWidth = basePanel.getNumbersMenu().detailHaveWidth();
-        if(detailHaveWidth){
-            basePanel.getWidthField().deactiveField();
-            basePanel.getLengthField().difficultAreaStateON();
-            basePanel.getWidthField().difficultAreaStateON();
-        }
         stateBoxOFF = false;
+        basePanel.setDetailState(new AreaBoxONState(basePanel));
+        basePanel.actionFields();
     }
     
     // чек-бокс выключен
     public void oFF(){
-        boolean detailHaveWidth = basePanel.getNumbersMenu().detailHaveWidth();
-        if(detailHaveWidth){
-            basePanel.getWidthField().activeField();  
-            basePanel.getLengthField().difficultAreaStateOFF();
-            basePanel.getWidthField().difficultAreaStateOFF();
-        }
         stateBoxOFF = true;
+        basePanel.setDetailState(new AreaBoxOFFState(basePanel));
+        basePanel.actionFields();
     }    
     
     /**
@@ -89,5 +81,5 @@ public class DifficultAreaBox extends JCheckBox {
      */
     public boolean isAreaBoxOFF(){
         return stateBoxOFF;
-    }    
+    }
 }

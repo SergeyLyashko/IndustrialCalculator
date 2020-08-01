@@ -16,22 +16,22 @@
 package calcmasscontroller;
 
 import calcdatabase.DataBase;
-import calcdatabase.DataBaseInterface;
 import calcmassmodel.CalculatorModel;
-import calcmassmodel.CalculatorModelInterface;
 import calcmassview.CalculatorView;
+import calcdatabase.IDataBase;
+import calcmassmodel.ICalculatorModel;
 
 /**
  * Контроллер
  * Создание модели и представления
  * @author Sergei Lyashko
  */
-public class CalculatorController implements CalculatorControllerInterface {
+public class CalculatorController implements ICalculatorController {
     
-    private static CalculatorModelInterface model;
+    private static ICalculatorModel model;
     private static CalculatorController controller;    
     
-    private CalculatorController(CalculatorModelInterface model){
+    private CalculatorController(ICalculatorModel model){
         CalculatorController.model = model;
     }
     
@@ -39,7 +39,7 @@ public class CalculatorController implements CalculatorControllerInterface {
      * запуск приложения
      */
     public static void startApp(){
-        DataBaseInterface dataBase = new DataBase(); 
+        IDataBase dataBase = new DataBase(); 
         model = new CalculatorModel(dataBase);
         controller = new CalculatorController(model);
         new CalculatorView(model, controller, dataBase);

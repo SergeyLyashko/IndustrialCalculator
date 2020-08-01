@@ -15,10 +15,10 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import calcdatabase.IDataBase;
 
 /**
  * Выпадающее меню типов профилей
@@ -29,9 +29,9 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Fiel
     
     private final BasePanel basePanel;
     private String selectItem;
-    private final DataBaseInterface dataBase;
+    private final IDataBase dataBase;
     
-    public TypesMenu(BasePanel basePanel, DataBaseInterface dataBase) {
+    public TypesMenu(BasePanel basePanel, IDataBase dataBase) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);

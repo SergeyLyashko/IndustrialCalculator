@@ -15,11 +15,11 @@
  */
 package calcmassview;
 
-import calcdatabase.DataBaseInterface;
 import calcmassview.general.GeneralPanel;
-import calcmasscontroller.CalculatorControllerInterface;
-import calcmassmodel.CalculatorModelInterface;
 import java.text.DecimalFormat;
+import calcdatabase.IDataBase;
+import calcmasscontroller.ICalculatorController;
+import calcmassmodel.ICalculatorModel;
 
 /**
  * Представление приложения
@@ -27,13 +27,13 @@ import java.text.DecimalFormat;
  */
 public class CalculatorView implements ViewObserver {
     
-    private final CalculatorModelInterface model;
-    private final CalculatorControllerInterface controller;
+    private final ICalculatorModel model;
+    private final ICalculatorController controller;
     private final GeneralPanel generalPanel;
     private String profileAssortment, profileType, profileNumber, length, width;
     private String resultValue;
     
-    public CalculatorView(CalculatorModelInterface model, CalculatorControllerInterface controller, DataBaseInterface dataBase){
+    public CalculatorView(ICalculatorModel model, ICalculatorController controller, IDataBase dataBase){
         this.model = model;
         this.controller = controller;
         this.generalPanel = new GeneralPanel(dataBase);

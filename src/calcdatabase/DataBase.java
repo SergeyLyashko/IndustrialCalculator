@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-public class DataBase implements DataBaseInterface {
+public class DataBase implements IDataBase {
     
     // Sql запрос таблицы сортаментов(профилей)
     private static final String SQL_QUERY_PROFILES = 

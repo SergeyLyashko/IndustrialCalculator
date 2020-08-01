@@ -39,19 +39,19 @@ public class ServiceInfo extends JLabel {
     }
     
     /**
-     * вывод служебной строки на панель View
+     * вывод служебной строки на панель
      * @param message
      */
-    public void setMessage(String message){
+    public void show(String message){
         super.setText(message);
     }
     
     /**
      * вывод сообщения об ошибке на панель View
-     * @param message
+     * @param error
      */
-    public void setErrorMessage(String message){
+    public void showError(String error){
         super.setForeground(Color.RED);        
-        super.setText(message);
+        super.setText(error);
     }       
 }

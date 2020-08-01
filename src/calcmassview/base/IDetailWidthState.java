@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcmassview.base;
 
 /**
- * сообщения об ошибках
- * @author Sergei Lyashko
+ * Интерфейс состояния детали
+ * @author Korvin
  */
-@FunctionalInterface
-public interface ErrorMessageInterface {
-    /**
-     * Возвращает сервисное сообщение об ошибке
-     * @return строковое представление сообщения
-     */
-    public String getErrorMessage();    
+public interface IDetailWidthState {
+    
+    public void haveWidth();
+    
+    public void haveNotWidth();
+    
 }

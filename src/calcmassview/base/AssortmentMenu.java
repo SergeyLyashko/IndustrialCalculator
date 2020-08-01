@@ -15,10 +15,10 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import calcdatabase.IDataBase;
 
 /**
  * Меню типов сортамента
@@ -28,9 +28,9 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
         
     private String selectItem;
     private final BasePanel basePanel;
-    private final DataBaseInterface dataBase;
+    private final IDataBase dataBase;
     
-    public AssortmentMenu(BasePanel basePanel, DataBaseInterface dataBase) {
+    public AssortmentMenu(BasePanel basePanel, IDataBase dataBase) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
@@ -55,7 +55,7 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
         // создание меню типов профилей
         createTypeProfilesMenu(selectItem);
         //сброс параметров полей        
-        resetAllFields();        
+        resetAllFields();      
     }
     
     // создание меню типов профилей
@@ -67,14 +67,8 @@ public class AssortmentMenu extends JComboBox<String> implements ActionListener,
     
     // сброс полей ввода
     private void resetAllFields(){
-        setMenuStartPosition();
+        basePanel.setMenuStartPosition();
         basePanel.reset();
-    }
-    
-    // установка начальных значений меню
-    private void setMenuStartPosition(){
-        basePanel.getTypesMenu().setSelectedIndex(0);
-        basePanel.getNumbersMenu().setSelectedIndex(0);
     }
 
     @Override

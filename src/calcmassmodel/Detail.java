@@ -15,14 +15,14 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseInterface;
 import static java.lang.Math.PI;
+import calcdatabase.IDataBase;
 
 /**
  * Вычисление массы детали
  * @author Sergei Lyashko
  */
-class Detail implements Massable, ErrorMessageInterface {
+class Detail implements Massable, IErrorMessage {
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
     private static final double DENSITY_STEEL = 7.85e-6;
@@ -37,14 +37,16 @@ class Detail implements Massable, ErrorMessageInterface {
     // параметры детали
     private final String assortment, type, number, length;
     // площадь детали
-    private double area;
+    private String area;
+    private String width;
     
     public Detail(String assortment, String type, String number, String length, String width){
         this.assortment = assortment;
         this.type = type;
         this.number = number;
         this.length = length;
-        calculationArea(width, length);
+        this.width = width;
+        //calculationArea(width, length);
     }
 
     public Detail(String assortment, String type, String number, String area) {
@@ -52,14 +54,15 @@ class Detail implements Massable, ErrorMessageInterface {
         this.type = type;
         this.number = number;
         this.length = null;
-        calculationArea(area);
+        //calculationArea(area);
+        this.area = area;
     }
     
     /**
      * Запрос в базу данных
      * @param dataBase интерфейс базы данных
      */
-    public void executeQuery(DataBaseInterface dataBase) {
+    public void executeQuery(IDataBase dataBase) {
         this.valueFromDB = dataBase.query(assortment, type, number);
     }
     
@@ -91,55 +94,60 @@ class Detail implements Massable, ErrorMessageInterface {
     }
     
     // вычисление площади
-    private void calculationArea(String width, String length){
+    private double calculationArea(){
+        if(area != null){
+            return getValueOf(area);
+        }
         if(width != null){
             double widthNum = getValueOf(width);
             double lengthNum = getValueOf(length);
             if(isNotBigNumber(widthNum, lengthNum)){
-                this.area = widthNum * lengthNum;
+                return widthNum * lengthNum;
             }else{
                 this.message = "ошибка! слишком большое число!";
             }
         }
+        return 0;
     }
-    
+    /*
     // числовое значение заданной в конструкторе площади
     private void calculationArea(String area){
         this.area = getValueOf(area);
     }
-    
+    */
     
     /**
      * Вычисление массы детали
      */
     @Override
     public double calculationMass() {
+        double valueOfArea = calculationArea();
         switch(assortment){
             case "Лист":
-                            return selectedType(type, length);
+                            return selectedType(type, length, valueOfArea);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
                             return DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
             case "Другое":               
-                            return selectedType(type, length);
+                            return selectedType(type, length, valueOfArea);
         }
         return 0;
     }
     
-    private double selectedType(String type, String length){
+    private double selectedType(String type, String length, double valueOfArea){
         switch (type){
             case "рифленая(ромб)":
-                            return area / 1000000 * valueFromDB;
+                            return valueOfArea / 1000000 * valueFromDB;
             case "тонколистовая":
             case "толстолистовая":
-                            return DENSITY_STEEL * area * valueFromDB;
+                            return DENSITY_STEEL * valueOfArea * valueFromDB;
             case "Круг":
                             return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
             case "Квадрат":
                             return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB);
             case "Резиновая пластина":
-                            return DENSITY_RUBBER * area * valueFromDB;  
+                            return DENSITY_RUBBER * valueOfArea * valueFromDB;  
         }
         return 0;
     }

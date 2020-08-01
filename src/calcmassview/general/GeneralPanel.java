@@ -15,7 +15,6 @@
  */
 package calcmassview.general;
 
-import calcdatabase.DataBaseInterface;
 import calcmassview.ViewObserver;
 import calcmassview.base.BasePanel;
 import calcmassview.info.InfoPanel;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import calcdatabase.IDataBase;
 
 /**
  * Основное окно с вкладками
@@ -42,7 +42,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     private ColorThemeInterface theme;
     private ToolTipsInterface toolTips;
     
-    public GeneralPanel(DataBaseInterface dataBase) {
+    public GeneralPanel(IDataBase dataBase) {
         super(new GridLayout(1, 1));
         observers = new ArrayList<>();
         preference = new Preference();
@@ -57,7 +57,7 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     }
     
     // создание панелей
-    private void createPanels(DataBaseInterface dataBase){
+    private void createPanels(IDataBase dataBase){
         Preference saved = preference.load();        
         if(saved != null){
             loadPreference(saved);

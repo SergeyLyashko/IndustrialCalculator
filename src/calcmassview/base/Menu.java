@@ -15,10 +15,10 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseInterface;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
+import calcdatabase.IDataBase;
 
 /**
  * Создание меню для комбо-бокс меню из профилей
@@ -38,13 +38,13 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     private String type;
     private String number;
     
-    private final DataBaseInterface dataBase;
+    private final IDataBase dataBase;
     
     /**
      * Конструктор меню
      * @param dataBase интерфейс базы данных
      */
-    public Menu(DataBaseInterface dataBase){
+    public Menu(IDataBase dataBase){
         this.dataBase = dataBase;
     }
     

@@ -16,6 +16,8 @@
 package calcmassview.base;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import javax.swing.JLabel;
 
 /**
@@ -24,32 +26,43 @@ import javax.swing.JLabel;
  */
 public class ResultMarker extends JLabel {
     
+    private final String defaultView = "0.0";
+    private final String dimensionKg = "кг";
+    
     public ResultMarker(){
         super.setLocation(190, 105);
         super.setVisible(true);
-        super.setText("0.0");
+        super.setText(defaultView);
         super.setHorizontalAlignment(RIGHT);
         super.setSize(125, 25);
     }
     
     /**
-     * установка значения в строку результата
+     * Вывод значения на панели
      * @param result
      */
-    public void setResult(String result){
+    public void show(String result){
         if(result.equals("error")){
             super.setForeground(Color.red);
             super.setText(result);
         }else{
-            String str = new StringBuilder().append(result).append(" ").append("кг").toString();
+            String str = new StringBuilder().append(result).append(" ").append(dimensionKg).toString();
             super.setText(str);
+            setResultToSystemClipboard(result);
         }
+    }
+    
+    // метод копирования в буфер обмена при выводе результата
+    private void setResultToSystemClipboard(String value){                
+        Toolkit.getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(value), null);       
     }
     
     /**
      * Сброс результата
      */
     public void reset(){        
-        super.setText("0.0");
+        super.setText(defaultView);
     }
 }
