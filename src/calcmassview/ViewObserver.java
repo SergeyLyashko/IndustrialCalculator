@@ -17,7 +17,7 @@ package calcmassview;
 
 /**
  * интерфейс Представления
- * наблюдатель
+ * паттерн наблюдатель
  * @author Korvin
  */
 public interface ViewObserver {

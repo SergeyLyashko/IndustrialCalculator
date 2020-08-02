@@ -40,6 +40,10 @@ public class NumbersMenuBox extends JComboBox<String> implements ActionListener 
         this.basePanel = basePanel;
     }
     
+    /**
+     *
+     * @param data
+     */
     public void setData(ICalculatorData data){
         this.calculatorData = data;
     }
@@ -50,6 +54,7 @@ public class NumbersMenuBox extends JComboBox<String> implements ActionListener 
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
         calculatorData.setNumber(selectedMenuItem);
         // активаци полей ввода значений
+        // TODO заменить на наблюдателя
         actionFields(selectedMenuItem);
     }
     
