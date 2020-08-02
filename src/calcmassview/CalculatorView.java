@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import calcdatabase.IDataBase;
 import calcmasscontroller.ICalculatorController;
 import calcmassmodel.ICalculatorModel;
+import calcmassview.base.ICalculatorData;
 
 /**
  * Представление приложения
@@ -71,7 +72,7 @@ public class CalculatorView implements ViewObserver {
     
     // установка значений полей
     private void setParametrsToController(){
-        getFieldsValueFromView();
+        getFieldsValue();
         boolean areaBoxOFF = generalPanel.getBasePanel().getDifficultAreaBox().isAreaBoxOFF();
         if(areaBoxOFF){
             controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
@@ -82,26 +83,12 @@ public class CalculatorView implements ViewObserver {
     }
     
     // получение значений полей
-    private void getFieldsValueFromView(){
-        this.profileAssortment = generalPanel
-                        .getBasePanel()
-                        .getAssortmentMenu()
-                        .fieldValueStringReceive();
-        this.profileType = generalPanel
-                        .getBasePanel()
-                        .getTypesMenu()
-                        .fieldValueStringReceive();
-        this.profileNumber = generalPanel
-                        .getBasePanel()
-                        .getNumbersMenu()
-                        .fieldValueStringReceive();
-        this.length = generalPanel
-                    .getBasePanel()
-                    .getLengthField()
-                    .fieldValueStringReceive();
-        this.width = generalPanel
-                    .getBasePanel()
-                    .getWidthField()
-                    .fieldValueStringReceive();
+    private void getFieldsValue(){
+        ICalculatorData calculatorData = generalPanel.getBasePanel().getData();
+        this.profileAssortment = calculatorData.getAssortment();        
+        this.profileType = calculatorData.getType();        
+        this.profileNumber = calculatorData.getNumber();        
+        this.length = calculatorData.getLength();        
+        this.width = calculatorData.getWidth();
     }
 }

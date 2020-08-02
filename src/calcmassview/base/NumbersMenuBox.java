@@ -23,25 +23,32 @@ import javax.swing.JComboBox;
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumbersMenu extends JComboBox<String> implements ActionListener, FieldValueReceivable {
+public class NumbersMenuBox extends JComboBox<String> implements ActionListener {
     
-    private String selectItem;
+    private ICalculatorData calculatorData;
+    
     private final BasePanel basePanel;
     private final String headerMenuName = "№ профиля";
     
-    public NumbersMenu(BasePanel basePanel) {
+    public NumbersMenuBox(BasePanel basePanel) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
-        super.setLocation(20, 100);
-        super.setModel(new Menu().createMenu(null, null));
+        super.setLocation(20, 100);        
+        // пустое меню по-умолчанию
+        Menu empty = new Menu();
+        super.setModel(empty.createMenu(null, null));
         this.basePanel = basePanel;
+    }
+    
+    public void setData(ICalculatorData data){
+        this.calculatorData = data;
     }
             
     @Override
     public void actionPerformed(ActionEvent e) {
         @SuppressWarnings("unchecked")
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
-        this.selectItem = selectedMenuItem;
+        calculatorData.setNumber(selectedMenuItem);
         // активаци полей ввода значений
         actionFields(selectedMenuItem);
     }
@@ -52,10 +59,5 @@ public class NumbersMenu extends JComboBox<String> implements ActionListener, Fi
         if(!selectMenu.equals(headerMenuName)){
             basePanel.actionFields();
         }
-    }
-    
-    @Override
-    public String fieldValueStringReceive() {
-        return this.selectItem;
     }
 }

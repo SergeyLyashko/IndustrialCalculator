@@ -51,7 +51,8 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
         toolTips.oN();
         // цветовая тема оформления
         theme = new ColorTheme();
-        theme.doDark();        
+        theme.doDark();
+        
         createPanels(dataBase);
         createAndShowGUI();
     }

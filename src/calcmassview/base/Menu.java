@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import calcdatabase.IDataBase;
+import java.util.Arrays;
 
 /**
  * Создание меню для комбо-бокс меню из профилей
@@ -26,6 +27,8 @@ import calcdatabase.IDataBase;
  * @author Sergei Lyashko
  */
 class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
+    
+    private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
     
     private final String assortmentHeader = "Тип сортамента";
     private final String typeHeader = "Тип профиля";
@@ -122,5 +125,17 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     @Override
     public Object getSelectedItem() {
         return menu.get(selected);
+    }
+    
+    /**
+     * Проверка на наличие ширины
+     * @return
+     */
+    public boolean haveWidth(){
+        //System.out.println("assortment: "+assortment);// TEST
+        //System.out.println("type: "+type);// TEST
+        return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
+                return element.equals(assortment) || element.equals(type);
+            });
     }
 }

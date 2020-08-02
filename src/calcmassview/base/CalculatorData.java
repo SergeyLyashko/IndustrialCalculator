@@ -19,7 +19,7 @@ package calcmassview.base;
  *
  * @author Korvin
  */
-public class CalculatorData {
+public class CalculatorData implements ICalculatorData {
     
     private String assortment;
     private String type;
@@ -27,43 +27,58 @@ public class CalculatorData {
     private String width;
     private String length;
     
+    @Override
     public void setAssortment(String assortment){
         this.assortment = assortment;
     }
     
+    @Override
     public String getAssortment(){
+        System.out.println(assortment);// TEST
         return assortment;
     }
     
+    @Override
     public void setType(String type){
         this.type = type;
     }
     
+    @Override
     public String getType(){
+        System.out.println(type);// TEST
         return type;
     }
     
+    @Override
     public void setNumber(String number){
         this.number = number;
     }
     
+    @Override
     public String getNumber(){
+        System.out.println(number);// TEST
         return number;
     }
     
+    @Override
     public void setWidth(String width){
         this.width = width;
     }
     
+    @Override
     public String getWidth(){
+        System.out.println(width);// TEST
         return width;
     }
     
+    @Override
     public void setLength(String length){
         this.length = length;
     }
     
+    @Override
     public String getLength(){
+        System.out.println(length);// TEST
         return length;
     }
     

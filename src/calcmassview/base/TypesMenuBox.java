@@ -25,25 +25,54 @@ import calcdatabase.IDataBase;
  * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class TypesMenu extends JComboBox<String> implements ActionListener, FieldValueReceivable {   
+public class TypesMenuBox extends JComboBox<String> implements ActionListener {
+    
+    private ICalculatorData calculatorData;
     
     private final BasePanel basePanel;
-    private String selectItem;
     private final IDataBase dataBase;
+    private boolean haveWidth;
     
-    public TypesMenu(BasePanel basePanel, IDataBase dataBase) {
+    private String selectedItem;
+    
+    private final NumbersMenuBox numbersMenu;
+    
+    public TypesMenuBox(BasePanel basePanel, IDataBase dataBase) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
         this.basePanel = basePanel;
         this.dataBase = dataBase;
-        setEmptyMenu();
-    }
-    
-    // 
-    private void setEmptyMenu(){
+        // пустое меню по-умолчанию
         Menu emptyMenu = new Menu();
         super.setModel(emptyMenu.createMenu(null));
+        
+        numbersMenu = new NumbersMenuBox(basePanel);
+        numbersMenu.addActionListener(numbersMenu);        
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public NumbersMenuBox getNumbersMenu(){
+        return numbersMenu;
+    }
+    
+    /**
+     *
+     * @param data
+     */
+    public void setData(ICalculatorData data){
+        this.calculatorData = data;
+    }
+    
+    /**
+     *
+     * @param selectedItem
+     */
+    public void setSelectedMenu(String selectedItem){
+        this.selectedItem = selectedItem;
     }
     
     @Override
@@ -51,26 +80,33 @@ public class TypesMenu extends JComboBox<String> implements ActionListener, Fiel
         resetAllValues();
         @SuppressWarnings("unchecked")
         String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
-        this.selectItem = selectedMenuItem;
+        calculatorData.setType(selectedMenuItem);
         // создание меню номеров профилей
-        createNumberProfilesMenu(selectItem);
+        fillNumberProfilesMenu(selectedMenuItem);
     }
     
     // обновление меню номеров профилей
-    private void createNumberProfilesMenu(String menuItem){
-        String selectedAssortment = basePanel.getAssortmentMenu().fieldValueStringReceive();
+    private void fillNumberProfilesMenu(String menuItem){
+        String selectedAssortment = selectedItem;
         Menu menu = new Menu(dataBase);
         Menu numberProfileMenu = menu.createMenu(selectedAssortment, menuItem);
-        basePanel.getNumbersMenu().setModel(numberProfileMenu);
+        numbersMenu.setData(calculatorData);
+        numbersMenu.setModel(numberProfileMenu);
+        haveWidth = menu.haveWidth();
+        //System.out.println("have type width: "+haveWidth);// TEST
     }
     
     // сброс значений
     private void resetAllValues(){
+        haveWidth = false;
         basePanel.reset();
     }
-
-    @Override
-    public String fieldValueStringReceive() {
-        return this.selectItem;
+    
+    /**
+     *
+     * @return
+     */
+    public boolean haveWidth(){
+        return haveWidth;
     }
 }

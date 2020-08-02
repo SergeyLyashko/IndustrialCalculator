@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import calcmassview.general.ColorThemeInterface;
 import calcdatabase.IDataBase;
-import java.util.Arrays;
 
 /**
  * основная панель с компонентами
@@ -32,20 +31,16 @@ import java.util.Arrays;
  */
 public class BasePanel extends JPanel implements ItemListener {
     
-    private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
-    
     // интерфейс состояния выбора детали
     private IDetailWidthState detailState;
     
     // интерфейс базы данных
     private IDataBase dataBase;
     
-    private CalculatorData calculatorData;
-    
     // combo-boxes
-    private AssortmentMenu assortmentMenu;
-    private TypesMenu typesMenu;
-    private NumbersMenu numbersMenu;
+    private AssortmentMenuBox assortmentMenu;
+    private TypesMenuBox typesMenu;
+    private NumbersMenuBox numbersMenu;
     
     // поля ввода значений
     private LengthField lengthField;
@@ -70,6 +65,8 @@ public class BasePanel extends JPanel implements ItemListener {
     private final ColorThemeInterface theme;
     private final ToolTipsInterface toolTips;
     
+    private ICalculatorData iCalculatorData;
+    
     public BasePanel(GeneralPanel panel, ColorThemeInterface theme, ToolTipsInterface toolTips, IDataBase dataBase) {
         this.panel = panel;
         this.theme = theme;
@@ -85,10 +82,8 @@ public class BasePanel extends JPanel implements ItemListener {
     // создание компонентов окна приложения
     private void addComponents(IDataBase dataBase){
         
-        calculatorData = new CalculatorData();
-        
         // <Тип изделия>
-        assortmentMenu = new AssortmentMenu(this, dataBase);
+        assortmentMenu = new AssortmentMenuBox(this, dataBase);
         String assortmentToolTipText = "выбор сортамента детали";
         toolTips.setToolTips(assortmentMenu, assortmentToolTipText);
         this.add(assortmentMenu);
@@ -96,20 +91,18 @@ public class BasePanel extends JPanel implements ItemListener {
         assortmentMenu.addActionListener(assortmentMenu);
         
         // <Тип профиля>
-        typesMenu = new TypesMenu(this, dataBase);
+        typesMenu = assortmentMenu.getTypesMenu();
         String typesToolTipText = "выбор типа профиля детали";
         toolTips.setToolTips(typesMenu, typesToolTipText);
         this.add(typesMenu);
         policy.add(typesMenu);
-        typesMenu.addActionListener(typesMenu);
         
         // <№ профиля>
-        numbersMenu = new NumbersMenu(this);
+        numbersMenu = typesMenu.getNumbersMenu();
         String numbersToolTipText = "выбор номера профиля детали";
         toolTips.setToolTips(numbersMenu, numbersToolTipText);
         this.add(numbersMenu);
         policy.add(numbersMenu);
-        numbersMenu.addActionListener(numbersMenu);
         
         //текстовое поле Ширина (для листа)
         widthField = new WidthField(this);
@@ -170,14 +163,6 @@ public class BasePanel extends JPanel implements ItemListener {
     public GeneralPanel getGeneralPanel(){
         return panel;
     }
-
-    /**
-     * установка начальных значений меню
-     */
-    public void setMenuStartPosition(){
-        typesMenu.setSelectedIndex(0);
-        numbersMenu.setSelectedIndex(0);
-    }
         
     /**
      * сброс значений полей
@@ -186,7 +171,12 @@ public class BasePanel extends JPanel implements ItemListener {
         resetMarker();
         //сброс полей ввода
         widthField.deactiveField();
-        lengthField.deactiveField();    
+        lengthField.deactiveField();
+        
+    }
+    
+    public ICalculatorData getData(){
+        return iCalculatorData;
     }
     
     /**
@@ -203,16 +193,16 @@ public class BasePanel extends JPanel implements ItemListener {
     public DifficultAreaBox getDifficultAreaBox(){
         return difficultAreaBox;
     }
-
-    public AssortmentMenu getAssortmentMenu(){
+    
+    public AssortmentMenuBox getAssortmentMenu(){
         return assortmentMenu;
     }
     
-    public TypesMenu getTypesMenu(){
+    public TypesMenuBox getTypesMenu(){
         return typesMenu;
     }
     
-    public NumbersMenu getNumbersMenu(){
+    public NumbersMenuBox getNumbersMenu(){
         return numbersMenu;
     }
 
@@ -266,19 +256,6 @@ public class BasePanel extends JPanel implements ItemListener {
     
     /**
      *
-     * @return
-     */
-    private boolean haveWidth(){
-        Object assortmentMenuItem = assortmentMenu.getSelectedItem();
-        Object typeMenuItem = typesMenu.getSelectedItem();
-        Object[] menuItem = {assortmentMenuItem, typeMenuItem};
-        return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
-                return Arrays.stream(menuItem).anyMatch((Object obj) -> element.equals(obj)); 
-            });
-    }
-    
-    /**
-     *
      * @param detailState
      */
     public void setDetailState(IDetailWidthState detailState){
@@ -290,10 +267,14 @@ public class BasePanel extends JPanel implements ItemListener {
      */
     public void actionFields(){
         reset();
-        if(haveWidth()){
+        iCalculatorData = assortmentMenu.getICalculatorData();
+        if(assortmentMenu.haveWidth() || typesMenu.haveWidth()){
             detailState.haveWidth();
+            widthField.setData(iCalculatorData);
+            lengthField.setData(iCalculatorData);
         }else{
             detailState.haveNotWidth();
+            lengthField.setData(iCalculatorData);
         }
     }
 }

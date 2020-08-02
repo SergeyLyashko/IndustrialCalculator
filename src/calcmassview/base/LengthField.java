@@ -26,10 +26,11 @@ import javax.swing.JFormattedTextField;
  * Поле ввода длины
  * @author Sergei Lyashko
  */
-public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, FieldValueReceivable, StateFieldInterface {
+public class LengthField extends JFormattedTextField implements FocusListener, KeyListener, StateFieldInterface {
+    
+    private ICalculatorData calculatorData;
     
     private final BasePanel basePanel;
-    private transient String contentFeld;
     private final String fieldName = "введите длину";
     private final String difficultAreaName = "введите площадь";
     private final String emptyField = "";
@@ -42,6 +43,14 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
         super.setLocation(190, 60);
         this.basePanel = basePanel;
         nonActiveFieldColor();
+    }
+    
+    /**
+     *
+     * @param data
+     */
+    public void setData(ICalculatorData data){
+        this.calculatorData = data;
     }
     
     // цвет неактивного поля
@@ -89,13 +98,14 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            this.contentFeld = super.getText();
+            calculatorData.setLength(super.getText());
         }
     }
     
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            //TODO
             basePanel.getGeneralPanel().notifyObservers();
         }
     }
@@ -116,9 +126,4 @@ public class LengthField extends JFormattedTextField implements FocusListener, K
     
     @Override
     public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public String fieldValueStringReceive() {
-        return this.contentFeld;
-    }
 }

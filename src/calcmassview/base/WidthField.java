@@ -26,10 +26,11 @@ import javax.swing.JFormattedTextField;
  * Поле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, FieldValueReceivable, StateFieldInterface {
+public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, StateFieldInterface {
+    
+    private ICalculatorData calculatorData;
     
     private final BasePanel basePanel;
-    private transient String contentField;
     private final String fieldName = "введите ширину";
     private final String emptyField = "";
     
@@ -42,6 +43,14 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
         super.setText(fieldName);
         super.setLocation(190, 20);
         this.basePanel = basePanel;
+    }
+    
+    /**
+     *
+     * @param data
+     */
+    public void setData(ICalculatorData data){
+        this.calculatorData = data;
     }
     
     /**
@@ -93,7 +102,7 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
      */
     @Override
     public void focusLost(FocusEvent e) {
-        this.contentField = super.getText();
+       calculatorData.setWidth(super.getText());
     }
     
     /**
@@ -112,9 +121,4 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     
     @Override
     public void keyPressed(KeyEvent e){}
-
-    @Override
-    public String fieldValueStringReceive() {
-        return this.contentField;
-    }
 }
