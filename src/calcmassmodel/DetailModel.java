@@ -16,13 +16,13 @@
 package calcmassmodel;
 
 import static java.lang.Math.PI;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
 
 /**
  * Вычисление массы детали
  * @author Sergei Lyashko
  */
-class Detail implements Massable, IErrorMessage {
+class DetailModel implements Massable, IErrorMessage {
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
     private static final double DENSITY_STEEL = 7.85e-6;
@@ -40,7 +40,7 @@ class Detail implements Massable, IErrorMessage {
     private String area;
     private String width;
     
-    public Detail(String assortment, String type, String number, String length, String width){
+    public DetailModel(String assortment, String type, String number, String length, String width){
         this.assortment = assortment;
         this.type = type;
         this.number = number;
@@ -49,7 +49,7 @@ class Detail implements Massable, IErrorMessage {
         //calculationArea(width, length);
     }
 
-    public Detail(String assortment, String type, String number, String area) {
+    public DetailModel(String assortment, String type, String number, String area) {
         this.assortment = assortment;
         this.type = type;
         this.number = number;
@@ -62,7 +62,7 @@ class Detail implements Massable, IErrorMessage {
      * Запрос в базу данных
      * @param dataBase интерфейс базы данных
      */
-    public void executeQuery(IDataBase dataBase) {
+    public void executeQuery(DataBase dataBase) {
         this.valueFromDB = dataBase.query(assortment, type, number);
     }
     

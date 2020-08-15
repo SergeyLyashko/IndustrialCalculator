@@ -15,37 +15,46 @@
  */
 package calcmassview.settings;
 
-import calcmassview.general.ToolTipsInterface;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 
 /**
  * ¬сплывающие подсказки checkbox
  * @author Sergei Lyashko
  */
-class ToolTipsChBox extends JCheckBox implements Selectable, Serializable {
+@ToolTips(getToolTipDescription = "")
+@ColorTheme()
+class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
 
     private static final long serialVersionUID = 1L;
     
+    private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
     private final String chBoxName = "включить всплывающие подсказки";
-    private final ToolTipsInterface toolTips;
+    private ToolTipsImpl toolTips;
+    private transient final ArrayList<JComponent> components;
     
-    public ToolTipsChBox(ToolTipsInterface toolTips){
+    public ToolTipsChBox(ArrayList<JComponent> components){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
         super.setText(chBoxName);
-        this.toolTips = toolTips;
+        super.setToolTipText(TOOL_TIP_BOX_TEXT);
+        this.components = components;
+        actionToolTips();
+              
+    }
+    
+    private void actionToolTips(){
+        this.toolTips = new ToolTipsImpl(components);
+        toolTips.oN();
     }
     
     @Override
-    public void actionChooser(ItemEvent e) {
-        setToolTips(e.getStateChange());
-    }
-    
-    // установка всплывающих подсказок
-    private void setToolTips(int stateChange){
+    public void actionChooser(int stateChange) {
         switch(stateChange){
             case ItemEvent.SELECTED:
                 toolTips.oN();
@@ -54,5 +63,15 @@ class ToolTipsChBox extends JCheckBox implements Selectable, Serializable {
                 toolTips.oFF();
                 break;            
         }
-    }    
+    }
+    
+    @Override
+    public String getToolTipDescription() {
+        return TOOL_TIP_BOX_TEXT;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
+    }
 }

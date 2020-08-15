@@ -8,61 +8,81 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed activate an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 package calcmassview.base;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.lang.annotation.Annotation;
 import javax.swing.JComboBox;
+import calcmassview.settings.ToolTips;
 
 /**
  * Панель меню номеров профилей
  * @author Sergei Lyashko
  */
-public class NumbersMenuBox extends JComboBox<String> implements ActionListener {
+@CalculatorPanel()
+@ValueReceiveble(getFieldValue = "")
+@ToolTips(getToolTipDescription = "")
+public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, ToolTips {
     
-    private ICalculatorData calculatorData;
-    
-    private final BasePanel basePanel;
+    private final String toolTipsText = "выбор номера профиля детали";
+    private String fieldValue;
     private final String headerMenuName = "№ профиля";
     
-    public NumbersMenuBox(BasePanel basePanel) {
+    private final ActiveStateField activeStateField;
+    private final ServiceInscription resetMarker;
+        
+    public NumbersMenuBox(ActiveStateField activeStateField, ServiceInscription resetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);        
         // пустое меню по-умолчанию
         Menu empty = new Menu();
         super.setModel(empty.createMenu(null, null));
-        this.basePanel = basePanel;
+        this.activeStateField = activeStateField;
+        this.resetMarker = resetMarker;
     }
     
-    /**
-     *
-     * @param data
-     */
-    public void setData(ICalculatorData data){
-        this.calculatorData = data;
-    }
-            
     @Override
-    public void actionPerformed(ActionEvent e) {
-        @SuppressWarnings("unchecked")
-        String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
-        calculatorData.setNumber(selectedMenuItem);
-        // активаци полей ввода значений
-        // TODO заменить на наблюдателя
+    public String getToolTipDescription(){
+        return toolTipsText;
+    }
+    
+    @Override
+    public void actionMenuSelect(String selectedMenuItem) {
+        this.fieldValue = selectedMenuItem;
+        resetMenuBox();
         actionFields(selectedMenuItem);
+    }
+    
+    private void resetMenuBox() {
+        //System.out.println("numbers reset ");// TEST        
+        resetMarker.reset();
     }
     
     // активация полей ввода значений
     private void actionFields(String selectMenu){
         // если в меню выбран любой пункт, кроме заголовка
         if(!selectMenu.equals(headerMenuName)){
-            basePanel.actionFields();
+            activeStateField.activate();
         }
+    }
+    
+    @Override
+    public String getFieldValue(){
+        return fieldValue;
+    }
+    
+    @Override
+    public String getSelectedMenuItem(){
+        return super.getSelectedItem().toString();
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
     }
 }

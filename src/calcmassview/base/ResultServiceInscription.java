@@ -18,18 +18,21 @@ package calcmassview.base;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.lang.annotation.Annotation;
 import javax.swing.JLabel;
 
 /**
  * строка вывода результата вычислений
  * @author Sergei Lyashko
  */
-public class ResultMarker extends JLabel {
+@CalculatorPanel()
+@ServiceInscription(reset = true)
+public class ResultServiceInscription extends JLabel implements CalculatorPanel, ServiceInscription {
     
     private final String defaultView = "0.0";
     private final String dimensionKg = "кг";
     
-    public ResultMarker(){
+    public ResultServiceInscription(){
         super.setLocation(190, 105);
         super.setVisible(true);
         super.setText(defaultView);
@@ -61,8 +64,17 @@ public class ResultMarker extends JLabel {
     
     /**
      * —брос результата
+     * @return 
      */
-    public void reset(){        
+    @Override
+    public boolean reset(){        
         super.setText(defaultView);
+        //System.out.println("result reset");// TEST
+        return true;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return getClass();
     }
 }

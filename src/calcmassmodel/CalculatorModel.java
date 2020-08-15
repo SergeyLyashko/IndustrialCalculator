@@ -17,7 +17,7 @@ package calcmassmodel;
 
 import java.util.ArrayList;
 import calcmassview.ViewObserver;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
 
 /**
  * создание детали
@@ -25,27 +25,27 @@ import calcdatabase.IDataBase;
  */
 public class CalculatorModel implements ICalculatorModel {
     
-    private Detail detail;
+    private DetailModel detail;
     private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
-    private final IDataBase dataBase;
+    private final DataBase dataBase;
     
-    public CalculatorModel(IDataBase dataBase){
+    public CalculatorModel(DataBase dataBase){
         this.dataBase = dataBase;
         observers = new ArrayList<>();        
     }
     
     @Override
     public void createDetail(String assortment, String type, String number, String length, String width){
-        detail = new Detail(assortment, type, number, length, width);
+        detail = new DetailModel(assortment, type, number, length, width);
         detail.executeQuery(dataBase);
         massChangedObservers();
     }
     
     @Override
     public void createDetail(String assortment, String type, String number, String area) {
-        detail = new Detail(assortment, type, number, area);
+        detail = new DetailModel(assortment, type, number, area);
         detail.executeQuery(dataBase);
         massChangedObservers();
     }

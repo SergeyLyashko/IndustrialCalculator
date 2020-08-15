@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.base;
+package calcmassview.settings;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Интерфейс состояия поля ввода
+ *
  * @author Korvin
  */
-public interface StateFieldInterface {
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface ColorTheme {
     
-    /**
-     * Дезактивация поля ввода
-     */
-    public void deactiveField();
-    
-    /**
-     * Активация поля ввода
-     */
-    public void activeField();
 }

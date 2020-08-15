@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settings;
+package calcmassview.base;
 
-import java.awt.event.ItemEvent;
 
 /**
- * Интерфейс выбора чек-бокса
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface Selectable {
+public interface MenuBoxSelectable {
     
-    /**
-     *
-     * @param e
-     */
-    public void actionChooser(ItemEvent e);
+    public void actionMenuSelect(String selectedMenuItem);
+    
+    public String getSelectedMenuItem();
 }

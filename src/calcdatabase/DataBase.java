@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-public class DataBase implements IDataBase {
+public class DataBase {
     
     // Sql запрос таблицы сортаментов(профилей)
     private static final String SQL_QUERY_PROFILES = 
@@ -70,7 +70,13 @@ public class DataBase implements IDataBase {
     
     private String assortment, type, number;
     
-    @Override
+    /**
+     *
+     * @param assortment
+     * @param type
+     * @param number
+     * @return
+     */
     public ArrayList<String> receiveMenu(String assortment, String type, String number){
         this.assortment = assortment;
         this.type = type;
@@ -84,7 +90,13 @@ public class DataBase implements IDataBase {
         }
     }
 
-    @Override
+    /**
+     *
+     * @param assortment
+     * @param type
+     * @param number
+     * @return
+     */
     public double query(String assortment, String type, String number) {
         double result = 0;
         try{

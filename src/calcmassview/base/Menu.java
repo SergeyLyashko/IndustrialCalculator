@@ -18,7 +18,7 @@ package calcmassview.base;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
 import java.util.Arrays;
 
 /**
@@ -41,13 +41,13 @@ class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     private String type;
     private String number;
     
-    private final IDataBase dataBase;
+    private final DataBase dataBase;
     
     /**
      * Конструктор меню
      * @param dataBase интерфейс базы данных
      */
-    public Menu(IDataBase dataBase){
+    public Menu(DataBase dataBase){
         this.dataBase = dataBase;
     }
     

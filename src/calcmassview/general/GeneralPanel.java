@@ -16,7 +16,7 @@
 package calcmassview.general;
 
 import calcmassview.ViewObserver;
-import calcmassview.base.BasePanel;
+import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.info.InfoPanel;
 import calcmassview.settings.SettingsPanel;
 import java.awt.BorderLayout;
@@ -27,61 +27,62 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
+import calcmassview.base.IKeyActionObserver;
+import javax.swing.JComponent;
 
 /**
  * Основное окно с вкладками
  * @author Sergei Lyashko
  */
-public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {      
+@SuppressWarnings("serial")
+public class GeneralPanel extends JPanel implements IKeyActionSubject {      
         
-    private BasePanel basePanel;
+    // коллекция компонентов
+    private final ArrayList<JComponent> components;
+    private CalculatorPanelImpl calculatorPanel;
     private SettingsPanel settingsPanel;
+    private InfoPanel infoPanel;
     private final Preference preference;
     private final ArrayList<ViewObserver> observers;
-    private ColorThemeInterface theme;
-    private ToolTipsInterface toolTips;
     
-    public GeneralPanel(IDataBase dataBase) {
+    public GeneralPanel(DataBase dataBase) {
         super(new GridLayout(1, 1));
+        this.components = new ArrayList<>();
+        //TODO
         observers = new ArrayList<>();
-        preference = new Preference();
-        // всплывающие подсказки
-        toolTips = new ToolTips();
-        toolTips.oN();
-        // цветовая тема оформления
-        theme = new ColorTheme();
-        theme.doDark();
         
+        preference = new Preference();        
+        //
         createPanels(dataBase);
         createAndShowGUI();
     }
     
     // создание панелей
-    private void createPanels(IDataBase dataBase){
-        Preference saved = preference.load();        
+    private void createPanels(DataBase dataBase){
+        Preference saved = preference.load();
+        
+        this.calculatorPanel = new CalculatorPanelImpl(components, dataBase);
+        components.add(calculatorPanel);
+        
+        infoPanel = new InfoPanel(components);
+        components.add(infoPanel);
+        
         if(saved != null){
             loadPreference(saved);
         }else{
-            this.settingsPanel = new SettingsPanel(theme, toolTips);
+            this.settingsPanel = new SettingsPanel(components);
         }        
-        theme.componentChangeColor(settingsPanel);
-        
-        this.basePanel = new BasePanel(this, theme, toolTips, dataBase);
-        theme.componentChangeColor(basePanel);
-        
-        InfoPanel infoPanel = new InfoPanel(theme);
-        theme.componentChangeColor(infoPanel);
-        
-        addTabbedPane(basePanel, settingsPanel, infoPanel);        
+        //
+        addTabbedPane();        
     }
     
     /**
      * Добавление вкладок на панель
      */
-    private void addTabbedPane(BasePanel basePanel, SettingsPanel settingsPanel, InfoPanel infoPanel){
+    private void addTabbedPane(){
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.addTab("Калькулятор", basePanel);       
+        tabbedPane.addTab("Калькулятор", calculatorPanel);       
         tabbedPane.addTab("Настройки", settingsPanel);
         tabbedPane.addTab("Справка", infoPanel);
         this.add(tabbedPane);
@@ -90,16 +91,13 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
     
     // загрузка сохраненных настроек
     private void loadPreference(Preference savedPreference){
-        theme = savedPreference.getTheme();
-        toolTips = savedPreference.getToolTips();
         this.settingsPanel = savedPreference.getSettingsPanel();
-        settingsPanel.setPreference(theme);
     }
     
     // сохранение настроек
     private void savePreference(){
-        preference.addComponent(settingsPanel, theme, toolTips);
-        preference.save();
+        //preference.addComponent(settingsPanel);
+        //preference.save();
     }
     
     // основное окно
@@ -142,22 +140,21 @@ public class GeneralPanel extends JPanel implements KeyActionSubjectInterface {
             public void windowDeactivated(WindowEvent e) {}
         });
     }
-    
-    /**
-     * 
-     * @return основная панель приложения
-     */
-    public BasePanel getBasePanel(){
-        return basePanel;
-    }
 
     @Override
     public void registerObserver(ViewObserver ob) {
+        //TODO написать создание массива наблюдателей если их больше 1
         observers.add(ob);
     }
 
     @Override
     public void notifyObservers() {
+        System.out.println("general observers");// TEST
         observers.stream().forEach(ViewObserver::keyActionUpdate);
+    }
+
+    @Override
+    public void registerObserver(IKeyActionObserver keyActionObserver) {
+        
     }
 }

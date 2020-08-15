@@ -15,19 +15,23 @@
  */
 package calcmassview.info;
 
+import calcmassview.settings.ColorTheme;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import calcmassview.general.ColorThemeInterface;
 
 /**
  * панель Информации
  * @author Sergei Lyashko
  */
-public class InfoPanel extends JPanel {
+@ColorTheme()
+public class InfoPanel extends JPanel implements ColorTheme {
 
     private static final String TEXT =         
         "<html>"+
@@ -57,30 +61,35 @@ public class InfoPanel extends JPanel {
         " <font size=-2>Copyright &#169; 2019 Sergei Lyashko.<br>"+
         " <font size=-2>Contacts: 9llllepulla@gmail.com";
     
-    public InfoPanel(ColorThemeInterface theme){
+    public InfoPanel(ArrayList<JComponent> components){
         super.setLayout(new BorderLayout());
         JLabel htmlText = new JLabel(TEXT);
         JScrollPane scroller = new JScrollPane(htmlText);
-        setPreference(htmlText, scroller, theme);
+        setPreference(htmlText, scroller);
         super.add(scroller, BorderLayout.CENTER);
+        components.add(htmlText);
+        components.add(scroller.getViewport());
     }
     
     // Установка параметров
-    private void setPreference(JLabel htmlText, JScrollPane scroller, ColorThemeInterface theme){        
-        setTextPreference(htmlText, theme);
-        setScrollerPreference(scroller, theme);        
+    private void setPreference(JLabel htmlText, JScrollPane scroller){        
+        setTextPreference(htmlText);
+        setScrollerPreference(scroller);        
     }
     
     // Установка параметров текста
-    private void setTextPreference(JLabel htmlText, ColorThemeInterface theme){
+    private void setTextPreference(JLabel htmlText){
         htmlText.setPreferredSize(new Dimension(250, 510));
-        theme.componentChangeColor(htmlText);
     }
     
     // Установка параметров панели скроллера
-    private void setScrollerPreference(JScrollPane scroller, ColorThemeInterface theme){
+    private void setScrollerPreference(JScrollPane scroller){
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        theme.componentChangeColor(scroller.getViewport());
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
     }
 }

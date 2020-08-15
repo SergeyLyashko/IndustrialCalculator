@@ -15,58 +15,43 @@
  */
 package calcmassview.settings;
 
-import java.awt.event.ItemEvent;
+import calcmassview.settings.ToolTips;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import javax.swing.JCheckBox;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.ToolTipManager;
 
 /**
- * Color theme checkbox
+ * Всплывающие подсказки
  * @author Sergei Lyashko
  */
 @ToolTips(getToolTipDescription = "")
-@ColorTheme()
-class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
-
+public class ToolTipsImpl implements Serializable, ToolTips {
+    
     private static final long serialVersionUID = 1L;
 
-    private ColorThemeImpl theme;
-    private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
-    private final String boxName = "темная тема оформления";
+    private boolean state;
     private final ArrayList<JComponent> components;
     
-    public ColorThemeCheckBox(ArrayList<JComponent> components){
-        super.setSelected(true);
-        super.setSize(180, 20);
-        super.setText(boxName);
-        super.setLocation(15, 35);
+    public ToolTipsImpl(ArrayList<JComponent> components){
         this.components = components;
-        components.add(this);
-        createColorTheme();
+        setToolTipsDescription();
     }
     
-    private void createColorTheme(){
-        this.theme = new ColorThemeImpl(components);
-        theme.doDark();
+    // всплывающие подсказки
+    private void setToolTipsDescription(){
+        components.stream()
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(ToolTips.class))
+                .forEach((JComponent component) -> {
+                    String toolTipDescription = ((ToolTips)component).getToolTipDescription();
+                    component.setToolTipText(toolTipDescription);
+                });
     }
     
-    @Override
-    public void actionChooser(int stateChange) {              
-        switch(stateChange){
-            case ItemEvent.SELECTED:
-                theme.doDark();
-                break;
-            case ItemEvent.DESELECTED:
-                theme.doLight();
-                break;            
-        } 
-    } 
-
     @Override
     public String getToolTipDescription() {
-        return THEME_TOOL_TIP_TEXT;
+        return null;
     }
 
     @Override
@@ -74,5 +59,21 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
         return this.getClass();
     }
 
-    
+    //@Override
+    public boolean oN() {
+        this.state = true;
+        currentState();
+        return true;
+    }
+
+    //@Override
+    public boolean oFF() {
+        this.state = false;
+        currentState();
+        return true;
+    }
+
+    public void currentState() {
+        ToolTipManager.sharedInstance().setEnabled(state);
+    }
 }

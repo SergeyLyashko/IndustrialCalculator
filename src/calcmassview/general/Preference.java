@@ -15,6 +15,7 @@
  */
 package calcmassview.general;
 
+import calcmassview.settings.ColorThemeImpl;
 import calcmassview.settings.SettingsPanel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,13 +37,11 @@ public class Preference implements Serializable {
     
     private final String saveFileName = "save.ser";
     private SettingsPanel settingsPanel;
-    private ColorThemeInterface theme;
-    private ToolTipsInterface toolTips;
+    private ColorThemeImpl theme;
     
-    public void addComponent(SettingsPanel settingsPanel, ColorThemeInterface theme, ToolTipsInterface toolTips){
+    public void addComponent(SettingsPanel settingsPanel, ColorThemeImpl theme){
         this.settingsPanel = settingsPanel;
         this.theme = theme;
-        this.toolTips = toolTips;
     }
     
     /**
@@ -57,12 +56,8 @@ public class Preference implements Serializable {
      *
      * @return
      */
-    public ColorThemeInterface getTheme(){
+    public ColorThemeImpl getTheme(){
         return theme;
-    }
-    
-    public ToolTipsInterface getToolTips(){
-        return toolTips;
     }
     
     /**

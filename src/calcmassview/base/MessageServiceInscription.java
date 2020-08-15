@@ -16,26 +16,29 @@
 package calcmassview.base;
 
 import java.awt.Color;
+import java.lang.annotation.Annotation;
 import javax.swing.JLabel;
 
 /**
  * информационна строка внизу основного окна
  * @author Sergei Lyashko
  */
-public class ServiceInfo extends JLabel {
+@CalculatorPanel()
+@ServiceInscription(reset = true)
+public class MessageServiceInscription extends JLabel implements CalculatorPanel, ServiceInscription {
    
-    public ServiceInfo(){
+    public MessageServiceInscription(){
         super.setLocation(20, 140);
         super.setVisible(true);
         super.setHorizontalAlignment(CENTER);
         super.setSize(315, 15);
     }
     
-    /**
-     * Сброс надписи служебной строки на панели View
-     */
-    public void reset(){
+    @Override
+    public boolean reset(){
         super.setText(null);
+        //System.out.println("service info reset");// TEST
+        return true;
     }
     
     /**
@@ -54,4 +57,9 @@ public class ServiceInfo extends JLabel {
         super.setForeground(Color.RED);        
         super.setText(error);
     }       
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return getClass();
+    }
 }

@@ -13,31 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
+package calcmassview.general;
 
-import java.util.ArrayList;
+import calcmassview.ViewObserver;
+import calcmassview.base.IKeyActionObserver;
 
 /**
- * Интерфейс базы данных
+ * Интерфейс наблюдаемого объекта
  * @author Sergei Lyashko
  */
-public interface IDataBase {
+public interface IKeyActionSubject {
     
     /**
-     * Отправка запроса в базу данных
-     * @param assortment наименование сортамента
-     * @param type тип профиля
-     * @param number номер профиля
-     * @return 
+     * Регистрация наблюдателей
+     * @param viewObserver экземпляр интерфейса Наблюдатель
      */
-    public double query(String assortment, String type, String number);    
+    public void registerObserver(ViewObserver viewObserver);
     
     /**
-     * Получение меню из базы данных в формате списочного массива
-     * @param assortment
-     * @param type
-     * @param number
-     * @return список строковых значений
+     * оповещение наблюдателей об изменении состояния
      */
-    public ArrayList<String> receiveMenu(String assortment, String type, String number);
+    public void notifyObservers();
+    
+    
+    public void registerObserver(IKeyActionObserver keyActionObserver);
 }

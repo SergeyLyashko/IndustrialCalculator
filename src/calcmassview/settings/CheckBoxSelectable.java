@@ -13,36 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.general;
+package calcmassview.settings;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 /**
- * Интерфейс цветовой темы
+ * Интерфейс выбора чек-бокса
  * @author Sergei Lyashko
  */
-public interface ColorThemeInterface {
+public interface CheckBoxSelectable {
     
     /**
-     * Изменение цветовой темы оформления
-     * @param marker компоненты класса JLabel
+     *
+     * @param stateChange
      */
-    public void componentChangeColor(JLabel marker);
-    
-    /**
-     * Изменнение цветовой темы оформления
-     * @param component компоненты класса JComponent
-     */
-    public void componentChangeColor(JComponent component);
-    
-    /**
-     * Установить темную тему оформления
-     */
-    public void doDark();
-    
-    /**
-     * Установить светлую тему оформления
-     */
-    public void doLight();    
+    public void actionChooser(int stateChange);
 }

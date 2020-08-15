@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
 import java.util.ArrayList;
+import javax.swing.JComponent;
 
 /**
  * Политика обхода фокусом компонентов
@@ -26,40 +27,46 @@ import java.util.ArrayList;
  */
 class MyFocusTraversalPolicy extends FocusTraversalPolicy {
     
-    private final ArrayList<Component> order;
+    private final ArrayList<JComponent> thisOrder;
  
-    public MyFocusTraversalPolicy(ArrayList<Component> order) {
-        this.order = new ArrayList<>(order.size());
-        this.order.addAll(order);
+    public MyFocusTraversalPolicy(ArrayList<JComponent> order) {
+        this.thisOrder = new ArrayList<>(order.size());
+        order.stream().filter((Component comp) -> 
+                comp.getClass().isAnnotationPresent(ValueReceiveble.class))
+                .forEach(thisOrder::add);
+        // TEST
+        /*for(Component comp: thisOrder){
+            System.out.println("focuse: "+comp.getClass().getCanonicalName());
+        }*/
     }
 
     @Override
     public Component getComponentAfter(Container container, Component aComponent){
-        int id = (order.indexOf(aComponent) + 1) % order.size();        
-        return order.get(id);
+        int id = (thisOrder.indexOf(aComponent) + 1) % thisOrder.size();        
+        return thisOrder.get(id);
     }
 
     @Override
     public Component getComponentBefore(Container container, Component aComponent){
-        int id = order.indexOf(aComponent) - 1;
+        int id = thisOrder.indexOf(aComponent) - 1;
         if (id < 0){
-            id = order.size() - 1;
+            id = thisOrder.size() - 1;
         }
-        return order.get(id);
+        return thisOrder.get(id);
     }
 
     @Override
     public Component getFirstComponent(Container container) {
-        return order.get(0);
+        return thisOrder.get(0);
     }
 
     @Override
     public Component getLastComponent(Container container) {
-        return order.get(order.size());
+        return thisOrder.get(thisOrder.size());
     }
 
     @Override
     public Component getDefaultComponent(Container container) {
-        return order.get(0);
+        return thisOrder.get(0);
     }    
 }

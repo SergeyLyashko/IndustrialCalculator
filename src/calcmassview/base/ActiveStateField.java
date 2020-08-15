@@ -8,30 +8,36 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed activate an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.general;
+package calcmassview.base;
 
-import calcmassview.ViewObserver;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 
 /**
- * Интерфейс наблюдаемого объекта
- * @author Sergei Lyashko
+ * Интерфейс состояия поля ввода
+ * @author Korvin
  */
-public interface KeyActionSubjectInterface {
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface ActiveStateField {
     
     /**
-     * Регистрация наблюдателей
-     * @param o экземпляр интерфейса Наблюдатель
+     * Дезактивация поля ввода 
+     * @return 
      */
-    public void registerObserver(ViewObserver o);
+    public boolean activate();
     
     /**
-     * оповещение наблюдателей об изменении состояния
+     * Активация поля ввода 
+     * @return 
      */
-    public void notifyObservers();
-    
+    public boolean deactivate();
 }

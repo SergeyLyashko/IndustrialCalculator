@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,30 @@
  */
 package calcmassview.base;
 
-import java.awt.Color;
 import java.lang.annotation.Annotation;
-import javax.swing.JLabel;
+import java.util.ArrayList;
+import javax.swing.JComponent;
 
-/**
- * Маркер поля
- * @author Sergei Lyashko
- */
-@CalculatorPanel()
-public class Markmm extends JLabel implements CalculatorPanel{
+//@ServiceInscription(reset = false)
+public class ServiceInscriptionImpl implements ServiceInscription {
     
-    public Markmm(int xDestination, int yDestination){
-        super.setVisible(true);
-        super.setSize(25, 20);
-        super.setForeground(Color.white);
-        super.setText("мм");
-        super.setLocation(xDestination, yDestination);
-    }    
+    private final ArrayList<JComponent> components;
+    
+    public ServiceInscriptionImpl(ArrayList<JComponent> components){
+        this.components = components;
+    }
+
+    @Override
+    public boolean reset() {
+        components.stream()
+                .filter((JComponent comp) -> comp.getClass().isAnnotationPresent(ServiceInscription.class))
+                .forEach((JComponent element) -> ((ServiceInscription)element).reset());
+        return true;
+    }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return this.getClass();
+        return getClass();
     }
+    
 }

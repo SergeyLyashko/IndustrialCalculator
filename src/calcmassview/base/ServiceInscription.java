@@ -15,30 +15,19 @@
  */
 package calcmassview.base;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  *
  * @author Korvin
  */
-public interface ICalculatorData {
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface ServiceInscription {
     
-    public void setAssortment(String assortment);
-    
-    public String getAssortment();
-    
-    public void setType(String type);
-    
-    public String getType();
-    
-    public void setNumber(String number);
-    
-    public String getNumber();
-    
-    public void setWidth(String width);
-    
-    public String getWidth();
-    
-    public void setLength(String length);
-    
-    public String getLength();
-    
+    public boolean reset();
+
 }

@@ -17,19 +17,23 @@ package calcmassview.base;
 
 import java.awt.Font;
 import java.awt.event.ItemEvent;
+import java.lang.annotation.Annotation;
 import javax.swing.JCheckBox;
+import calcmassview.settings.ToolTips;
 
 /**
  * Чек-бокс для установки сложного периметра
  * @author Sergei Lyashko
  */
-public class DifficultAreaBox extends JCheckBox {
+@ToolTips(getToolTipDescription = "")
+public class DifficultAreaBox extends JCheckBox implements ToolTips{
     
+    private final String toolTipsText = "расчет массы детали по задаваемой площади детали";
     private final String boxName = "сложный периметр";
-    private final BasePanel basePanel;
+    private final CalculatorPanelImpl basePanel;
     private boolean stateBoxOFF;
         
-    public DifficultAreaBox(BasePanel basePanel){
+    public DifficultAreaBox(CalculatorPanelImpl basePanel){
         super.setSelected(false);
         super.setSize(140, 17);
         super.setLocation(187, 90);  
@@ -39,6 +43,11 @@ public class DifficultAreaBox extends JCheckBox {
         this.basePanel = basePanel;
         this.stateBoxOFF = true;
         super.addItemListener(basePanel);
+    }
+    
+    @Override
+    public String getToolTipDescription(){
+        return toolTipsText;
     }
     
     /**
@@ -64,15 +73,15 @@ public class DifficultAreaBox extends JCheckBox {
     // чек-бокс включен
     public void oN(){
         stateBoxOFF = false;
-        basePanel.setDetailState(new AreaBoxONState(basePanel));
-        basePanel.actionFields();
+        //basePanel.setDetailState(new AreaBoxONState(basePanel));
+        //basePanel.actionFields();
     }
     
     // чек-бокс выключен
     public void oFF(){
         stateBoxOFF = true;
-        basePanel.setDetailState(new AreaBoxOFFState(basePanel));
-        basePanel.actionFields();
+        //basePanel.setDetailState(new AreaBoxOFFState(basePanel));
+        //basePanel.actionFields();
     }    
     
     /**
@@ -81,5 +90,10 @@ public class DifficultAreaBox extends JCheckBox {
      */
     public boolean isAreaBoxOFF(){
         return stateBoxOFF;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
     }
 }

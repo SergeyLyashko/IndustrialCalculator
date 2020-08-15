@@ -17,10 +17,10 @@ package calcmassview;
 
 import calcmassview.general.GeneralPanel;
 import java.text.DecimalFormat;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
 import calcmasscontroller.ICalculatorController;
 import calcmassmodel.ICalculatorModel;
-import calcmassview.base.ICalculatorData;
+import calcmassview.base.Detail;
 
 /**
  * Представление приложения
@@ -34,7 +34,7 @@ public class CalculatorView implements ViewObserver {
     private String profileAssortment, profileType, profileNumber, length, width;
     private String resultValue;
     
-    public CalculatorView(ICalculatorModel model, ICalculatorController controller, IDataBase dataBase){
+    public CalculatorView(ICalculatorModel model, ICalculatorController controller, DataBase dataBase){
         this.model = model;
         this.controller = controller;
         this.generalPanel = new GeneralPanel(dataBase);
@@ -50,13 +50,13 @@ public class CalculatorView implements ViewObserver {
     @Override
     public void massUpdate(double mass) {
         formatDoubleToString(mass);
-        generalPanel.getBasePanel().setResultation(resultValue);
+        //generalPanel.getBasePanel().setResultation(resultValue);
     }
     
     @Override
     public void errorMessageUpdate(String message) {
         if(message != null){
-            generalPanel.getBasePanel().setError(message);
+            //generalPanel.getBasePanel().setError(message);
         }
     }
     
@@ -72,23 +72,24 @@ public class CalculatorView implements ViewObserver {
     
     // установка значений полей
     private void setParametrsToController(){
-        getFieldsValue();
+        /*getFieldsValue();
         boolean areaBoxOFF = generalPanel.getBasePanel().getDifficultAreaBox().isAreaBoxOFF();
         if(areaBoxOFF){
             controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
         }else{
             String area = this.length;
             controller.setFieldsValue(profileAssortment, profileType, profileNumber, area);
-        }
+        }*/
     }
     
     // получение значений полей
     private void getFieldsValue(){
-        ICalculatorData calculatorData = generalPanel.getBasePanel().getData();
+        /*Detail calculatorData = generalPanel.getBasePanel().getData();
         this.profileAssortment = calculatorData.getAssortment();        
         this.profileType = calculatorData.getType();        
         this.profileNumber = calculatorData.getNumber();        
         this.length = calculatorData.getLength();        
         this.width = calculatorData.getWidth();
+        */
     }
 }

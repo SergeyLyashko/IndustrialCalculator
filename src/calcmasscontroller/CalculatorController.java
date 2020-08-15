@@ -18,7 +18,6 @@ package calcmasscontroller;
 import calcdatabase.DataBase;
 import calcmassmodel.CalculatorModel;
 import calcmassview.CalculatorView;
-import calcdatabase.IDataBase;
 import calcmassmodel.ICalculatorModel;
 
 /**
@@ -39,7 +38,7 @@ public class CalculatorController implements ICalculatorController {
      * запуск приложения
      */
     public static void startApp(){
-        IDataBase dataBase = new DataBase(); 
+        DataBase dataBase = new DataBase(); 
         model = new CalculatorModel(dataBase);
         controller = new CalculatorController(model);
         new CalculatorView(model, controller, dataBase);

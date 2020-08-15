@@ -8,47 +8,56 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed activate an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 package calcmassview.base;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
-import calcdatabase.IDataBase;
+import calcdatabase.DataBase;
+import java.lang.annotation.Annotation;
+import calcmassview.settings.ToolTips;
 
 /**
  * Выпадающее меню типов профилей
  * для выбранного сортамента
  * @author Sergei Lyashko
  */
-public class TypesMenuBox extends JComboBox<String> implements ActionListener {
+@CalculatorPanel()
+@ValueReceiveble(getFieldValue = "")
+@IDetailWidthState(haveWidth = false)
+@ToolTips(getToolTipDescription = "")
+public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, IDetailWidthState, ToolTips {
     
-    private ICalculatorData calculatorData;
+    private final String toolTipsText = "выбор типа профиля детали";
+    private final String widthField = "Резиновая пластина";
     
-    private final BasePanel basePanel;
-    private final IDataBase dataBase;
-    private boolean haveWidth;
-    
-    private String selectedItem;
-    
+    private final DataBase dataBase;
+    private String selectedAssortment;
     private final NumbersMenuBox numbersMenu;
+    private String fieldValue;
+    private final ActiveStateField activeStateField;
+    private final ServiceInscription resetMarker;
     
-    public TypesMenuBox(BasePanel basePanel, IDataBase dataBase) {
+    public TypesMenuBox(DataBase dataBase, ActiveStateField activeStateField, ServiceInscription resetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
-        this.basePanel = basePanel;
         this.dataBase = dataBase;
+        this.activeStateField = activeStateField;
+        this.resetMarker = resetMarker;
         // пустое меню по-умолчанию
         Menu emptyMenu = new Menu();
         super.setModel(emptyMenu.createMenu(null));
-        
-        numbersMenu = new NumbersMenuBox(basePanel);
-        numbersMenu.addActionListener(numbersMenu);        
+        // создание меню номеров профиля
+        numbersMenu = new NumbersMenuBox(activeStateField, resetMarker);
+    }
+    
+    @Override
+    public String getToolTipDescription(){
+        return toolTipsText;
     }
     
     /**
@@ -61,52 +70,51 @@ public class TypesMenuBox extends JComboBox<String> implements ActionListener {
     
     /**
      *
-     * @param data
-     */
-    public void setData(ICalculatorData data){
-        this.calculatorData = data;
-    }
-    
-    /**
-     *
      * @param selectedItem
      */
     public void setSelectedMenu(String selectedItem){
-        this.selectedItem = selectedItem;
+        this.selectedAssortment = selectedItem;
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {
-        resetAllValues();
-        @SuppressWarnings("unchecked")
-        String selectedMenuItem = ((JComboBox<String>)e.getSource()).getSelectedItem().toString();
-        calculatorData.setType(selectedMenuItem);
+    public String getSelectedMenuItem(){
+        return super.getSelectedItem().toString();
+    }
+    
+    @Override
+    public void actionMenuSelect(String selectedMenuItem) {
+        this.fieldValue = selectedMenuItem;
+        resetMenuBox();
         // создание меню номеров профилей
         fillNumberProfilesMenu(selectedMenuItem);
     }
     
+    private void resetMenuBox(){
+        //System.out.println("type reset ");// TEST
+        numbersMenu.setSelectedIndex(0);
+        resetMarker.reset();
+        activeStateField.deactivate();
+    }
+    
+    @Override
+    public String getFieldValue(){
+        return fieldValue;
+    }
+    
     // обновление меню номеров профилей
-    private void fillNumberProfilesMenu(String menuItem){
-        String selectedAssortment = selectedItem;
+    private void fillNumberProfilesMenu(String selectedMenuItem){
         Menu menu = new Menu(dataBase);
-        Menu numberProfileMenu = menu.createMenu(selectedAssortment, menuItem);
-        numbersMenu.setData(calculatorData);
+        Menu numberProfileMenu = menu.createMenu(selectedAssortment, selectedMenuItem);
         numbersMenu.setModel(numberProfileMenu);
-        haveWidth = menu.haveWidth();
-        //System.out.println("have type width: "+haveWidth);// TEST
     }
-    
-    // сброс значений
-    private void resetAllValues(){
-        haveWidth = false;
-        basePanel.reset();
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
     }
-    
-    /**
-     *
-     * @return
-     */
-    public boolean haveWidth(){
-        return haveWidth;
+
+    @Override
+    public boolean haveWidth() {
+        return fieldValue.equals(widthField);
     }
 }

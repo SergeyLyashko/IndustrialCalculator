@@ -8,7 +8,7 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed activate an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -20,37 +20,47 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.annotation.Annotation;
 import javax.swing.JFormattedTextField;
+import calcmassview.settings.ToolTips;
 
 /**
  * ѕоле ввода ширины
  * @author Sergei Lyashko
  */
-public class WidthField extends JFormattedTextField implements FocusListener, KeyListener, StateFieldInterface {
+@CalculatorPanel()
+@ToolTips(getToolTipDescription = "")
+@ValueReceiveble(getFieldValue = "WidthField")
+@ActiveStateField(activate = false, deactivate = true)
+@SuppressWarnings("serial")
+public class WidthField extends JFormattedTextField implements CalculatorPanel, FocusListener, ActiveStateField, ValueReceiveble, KeyListener, ToolTips {
     
-    private ICalculatorData calculatorData;
+    private final String toolTipsText = "поле ввода ширины детали";
     
-    private final BasePanel basePanel;
     private final String fieldName = "введите ширину";
     private final String emptyField = "";
+    private String fieldValue;
+    private final ServiceInscription resetMarker;
     
-    public WidthField(BasePanel basePanel){
+    public WidthField(ServiceInscription resetMarker){
         super.setSize(125, 25);
-        super.setForeground(Color.GRAY);        
         super.setEditable(false);
-        super.setBackground(Color.DARK_GRAY);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
         super.setText(fieldName);
         super.setLocation(190, 20);
-        this.basePanel = basePanel;
+        this.resetMarker = resetMarker;
+        nonActiveFieldColor();
     }
     
-    /**
-     *
-     * @param data
-     */
-    public void setData(ICalculatorData data){
-        this.calculatorData = data;
+    // цвет неактивного пол€
+    private void nonActiveFieldColor(){
+        super.setForeground(Color.GRAY);
+        super.setBackground(Color.DARK_GRAY);
+    }
+    
+    @Override
+    public String getToolTipDescription(){
+        return toolTipsText;
     }
     
     /**
@@ -68,57 +78,61 @@ public class WidthField extends JFormattedTextField implements FocusListener, Ke
     }
     
     @Override
-    public void activeField() {
+    public boolean activate() {
         setEditable(true);
         setBackground(Color.white);        
         addFocusListener(this);
         addKeyListener(this);
+        return true;
     }
     
     @Override
-    public void deactiveField() {
+    public boolean deactivate() {
         setEditable(false);
-        setBackground(Color.DARK_GRAY);
-        setForeground(Color.GRAY);
+        nonActiveFieldColor();
         setText(fieldName);
         removeFocusListener(this);
         removeKeyListener(this);
+        return true;
     }
-        
-    /**
-     * переход в поле "длина" после нажати€ "Enter"
-     * @param e нажатие клавиши "Enter"
-     */
+
+    @Override
+    public void focusLost(FocusEvent e) {
+       this.fieldValue = super.getText();
+    }
+    
+    @Override
+    public String getFieldValue(){
+        return fieldValue;
+    }
+    
+    @Override
+    public void focusGained(FocusEvent e){
+        super.setForeground(Color.BLACK);
+        super.setText(emptyField);
+        resetMarker.reset();
+    } 
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return this.getClass();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            //System.out.println("width press");// TEST
+            this.fieldValue = super.getText();
+        }
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             this.transferFocus();
         }
     }
-    
-    /**
-     * установка значени€ из пол€ при потери фокуса
-     * @param e событие потери фокуса на поле
-     */
-    @Override
-    public void focusLost(FocusEvent e) {
-       calculatorData.setWidth(super.getText());
-    }
-    
-    /**
-     * очистка пол€ при установке фокуса на нем
-     * @param e установка фокуса
-     */
-    @Override
-    public void focusGained(FocusEvent e){
-        super.setForeground(Color.BLACK);
-        super.setText(emptyField);
-        basePanel.resetMarker();
-    }
-    
-    @Override
-    public void keyTyped(KeyEvent e) {}
-    
-    @Override
-    public void keyPressed(KeyEvent e){}
 }
