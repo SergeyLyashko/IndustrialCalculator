@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.general;
+package calcmassview.settings;
 
-import calcmassview.settings.ColorThemeImpl;
-import calcmassview.settings.SettingsPanel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,8 +22,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
 
 /**
  * Настройки приложения
@@ -35,29 +36,26 @@ public class Preference implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private final String saveFileName = "save.ser";
-    private SettingsPanel settingsPanel;
-    private ColorThemeImpl theme;
+    private final String saveFileName = "save.calc";
+    private Preference savedPreferences;
     
-    public void addComponent(SettingsPanel settingsPanel, ColorThemeImpl theme){
-        this.settingsPanel = settingsPanel;
-        this.theme = theme;
+    private final List<JComponent> components;
+
+    public Preference(List<JComponent> components) {
+        this.components = components;
+    }
+
+    public Preference() {
+       components = null;
     }
     
-    /**
-     *
-     * @return
-     */
-    public SettingsPanel getSettingsPanel(){
-        return settingsPanel;
+    public Preference load(){
+        extractPreferences();
+        return savedPreferences;
     }
     
-    /**
-     *
-     * @return
-     */
-    public ColorThemeImpl getTheme(){
-        return theme;
+    public List<JComponent> getComponents(){
+        return Collections.unmodifiableList(components);
     }
     
     /**
@@ -76,22 +74,20 @@ public class Preference implements Serializable {
         }
     }
     
-    /**
-     * Загрузка настроек приложения
-     * @return сохраненные настройки
-     */
-    public Preference load(){
+    // 
+    private void extractPreferences(){
         try {
             FileInputStream file = new FileInputStream(saveFileName);
             ObjectInputStream input = new ObjectInputStream(file);
-            Preference preference = (Preference)input.readObject();
+            this.savedPreferences = (Preference)input.readObject();
             input.close();
-            return preference;
+            System.out.println("saved: "+savedPreferences.toString());// TEST
         } catch (FileNotFoundException ex) {
-            return null;
+            
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
+
+    
 }

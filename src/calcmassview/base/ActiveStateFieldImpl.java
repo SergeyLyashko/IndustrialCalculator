@@ -24,7 +24,6 @@ import javax.swing.JComponent;
  * @author Korvin
  */
 @ActiveStateField(activate = false, deactivate = true)
-@SuppressWarnings("serial")
 public class ActiveStateFieldImpl implements ActiveStateField {
     
     private final ArrayList<JComponent> components;

@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import javax.swing.JCheckBox;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 
 /**
@@ -35,9 +36,9 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     private ColorThemeImpl theme;
     private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private final String boxName = "темная тема оформления";
-    private final ArrayList<JComponent> components;
+    private final List<JComponent> components;
     
-    public ColorThemeCheckBox(ArrayList<JComponent> components){
+    public ColorThemeCheckBox(List<JComponent> components){
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText(boxName);
@@ -45,6 +46,10 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
         this.components = components;
         components.add(this);
         createColorTheme();
+    }
+    
+    public void actionTheme(){
+        theme.actionTheme();;
     }
     
     private void createColorTheme(){
@@ -73,6 +78,4 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     public Class<? extends Annotation> annotationType() {
         return this.getClass();
     }
-
-    
 }

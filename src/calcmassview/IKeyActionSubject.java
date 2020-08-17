@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.general;
+package calcmassview;
 
 import calcmassview.ViewObserver;
 import calcmassview.base.IKeyActionObserver;

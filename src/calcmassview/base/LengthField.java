@@ -16,7 +16,7 @@
 package calcmassview.base;
 
 import calcmassview.ViewObserver;
-import calcmassview.general.IKeyActionSubject;
+import calcmassview.IKeyActionSubject;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

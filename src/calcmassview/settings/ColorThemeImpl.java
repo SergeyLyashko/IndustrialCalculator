@@ -19,6 +19,9 @@ import calcmassview.base.ServiceInscription;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JViewport;
@@ -31,10 +34,10 @@ public class ColorThemeImpl implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private final transient ArrayList<JComponent> components;
+    private final List<JComponent> components;
     private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
 
-    public ColorThemeImpl(ArrayList<JComponent> components) {
+    public ColorThemeImpl(List<JComponent> components) {
         this.components = components;
     }
         
@@ -55,7 +58,12 @@ public class ColorThemeImpl implements Serializable {
     }
     
     // активация выбранной темы
-    private void actionTheme(){
+    public void actionTheme(){
+        // TEST
+        components.stream().forEach((JComponent component) ->{
+            System.out.println("collect theme test: "+component.toString());
+        });
+        System.out.println("color: "+colorBackGround.toString());
         serviceInscriptionPaint();
         titleMarkerPaint();
         selectedComponentPaint();

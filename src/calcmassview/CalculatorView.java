@@ -15,36 +15,152 @@
  */
 package calcmassview;
 
-import calcmassview.general.GeneralPanel;
 import java.text.DecimalFormat;
 import calcdatabase.DataBase;
 import calcmasscontroller.ICalculatorController;
 import calcmassmodel.ICalculatorModel;
-import calcmassview.base.Detail;
+import calcmassview.base.CalculatorPanelImpl;
+import calcmassview.base.IKeyActionObserver;
+import calcmassview.info.InfoPanel;
+import calcmassview.settings.SettingsPanel;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * Представление приложения
  * @author Sergei Lyashko
  */
-public class CalculatorView implements ViewObserver {
+@SuppressWarnings("serial")
+public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObserver {
     
     private final ICalculatorModel model;
     private final ICalculatorController controller;
-    private final GeneralPanel generalPanel;
+    
+    // коллекция компонентов
+    private final ArrayList<JComponent> components;
+    private CalculatorPanelImpl calculatorPanel;
+    private SettingsPanel settingsPanel;
+    private InfoPanel infoPanel;
+    
+    private final ArrayList<ViewObserver> observers;
+    private final DataBase dataBase;
+    
     private String profileAssortment, profileType, profileNumber, length, width;
     private String resultValue;
     
     public CalculatorView(ICalculatorModel model, ICalculatorController controller, DataBase dataBase){
+        super(new GridLayout(1, 1));
         this.model = model;
         this.controller = controller;
-        this.generalPanel = new GeneralPanel(dataBase);
+        this.dataBase = dataBase;
+        this.components = new ArrayList<>();
+        //TODO
+        observers = new ArrayList<>(); 
+        
+        createPanels();
+        createAndShowGUI();
         registerObservers();
     }
+    
+    // создание панелей
+    private void createPanels(){
+        
+        this.calculatorPanel = new CalculatorPanelImpl(components, dataBase);
+        components.add(calculatorPanel);
+        
+        infoPanel = new InfoPanel(components);
+        components.add(infoPanel);
+        
+        this.settingsPanel = new SettingsPanel(components);
+        
+        //
+        this.setTabbedPane();        
+    }
+    
+    /**
+     * Добавление вкладок на панель
+     */
+    private void setTabbedPane(){
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.addTab("Калькулятор", calculatorPanel);       
+        tabbedPane.addTab("Настройки", settingsPanel);
+        tabbedPane.addTab("Справка", infoPanel);
+        this.add(tabbedPane);
+    }
+    
+    
+    
+    // основное окно
+    private void createAndShowGUI(){
+        JFrame appFrame = new JFrame("Калькулятор масс");
+        appFrame.setBounds(300, 300, 360, 220);
+        appFrame.setResizable(false);
+        appFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        appFrame.getContentPane().add(this, BorderLayout.CENTER);
+        closeApp(appFrame);
+        //отображение окна
+        appFrame.setVisible(true);
+    }
+    
+    // закрытие приложения
+    private void closeApp(JFrame appFrame){
+        appFrame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                System.out.println("win open");// TEST
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {                
+                settingsPanel.savePreference();
+                System.exit(0);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+    }
+    
+    @Override
+    public void registerObserver(ViewObserver ob) {
+        //TODO написать создание массива наблюдателей если их больше 1
+        observers.add(ob);
+    }
+
+    @Override
+    public void notifyObservers() {
+        //System.out.println("general observers");// TEST
+        observers.stream().forEach(ViewObserver::keyActionUpdate);
+    }
+
+    @Override
+    public void registerObserver(IKeyActionObserver keyActionObserver) {
+        
+    }
+    
     
     // регистрация наблюдателей
     private void registerObservers(){
         model.registerObserver(this);        
-        generalPanel.registerObserver(this);
     }
     
     @Override

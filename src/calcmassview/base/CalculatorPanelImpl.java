@@ -31,20 +31,22 @@ import javax.swing.JComponent;
  * @author Sergei Lyashko
  */
 @SuppressWarnings("serial")
-@ColorTheme()
-public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver, ColorTheme {
+//@ColorTheme()
+public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver/*, ColorTheme*/ {
     
     // коллекция компонентов
-    private final ArrayList<JComponent> components;    
+    private transient final ArrayList<JComponent> components;    
     // чек-бокс задания площади детали
-    private DifficultAreaBox difficultAreaBox;
+    private transient DifficultAreaBox difficultAreaBox;
     // Данные
-    private Detail calculatorData;    
+    private transient Detail calculatorData;    
+    private transient final DataBase dataBase;
     
     public CalculatorPanelImpl(ArrayList<JComponent> components, DataBase dataBase) {
         this.components =components;
+        this.dataBase = dataBase;
         // добавление компонентов
-        addComponents(dataBase);        
+        addComponents();        
         // политика обхода фокусом
         focusPolicy();    
         // отключение автокомпоновки элементов
@@ -53,7 +55,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     }
     
     // создание компонентов окна приложения
-    private void addComponents(DataBase dataBase){        
+    private void addComponents(){        
         // состояние активации полей ввода
         ActiveStateField activeStateField = new ActiveStateFieldImpl(components);
         // сброс маркеров
