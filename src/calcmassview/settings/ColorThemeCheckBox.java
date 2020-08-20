@@ -36,7 +36,7 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     private ColorThemeImpl theme;
     private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private final String boxName = "темная тема оформления";
-    private final List<JComponent> components;
+    private List<JComponent> components;
     
     public ColorThemeCheckBox(List<JComponent> components){
         super.setSelected(true);
@@ -46,15 +46,16 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
         this.components = components;
         components.add(this);
         createColorTheme();
+        theme.doDark();
     }
     
-    public void actionTheme(){
-        theme.actionTheme();;
+    public void actionTheme(List<JComponent> components){
+        this.components = components;
+        theme.actionTheme(components);
     }
     
     private void createColorTheme(){
-        this.theme = new ColorThemeImpl(components);
-        theme.doDark();
+        this.theme = new ColorThemeImpl(components);        
     }
     
     @Override

@@ -31,9 +31,9 @@ import calcmassview.settings.ToolTips;
 @CalculatorPanel()
 @ToolTips(getToolTipDescription = "")
 @ValueReceiveble(getFieldValue = "WidthField")
-@ActiveStateField(activate = false, deactivate = true)
+@StateField(activate = false, deactivate = true)
 @SuppressWarnings("serial")
-public class WidthField extends JFormattedTextField implements CalculatorPanel, FocusListener, ActiveStateField, ValueReceiveble, KeyListener, ToolTips {
+public class WidthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, ToolTips {
     
     private final String toolTipsText = "поле ввода ширины детали";
     

@@ -16,18 +16,19 @@
 package calcmassview;
 
 import java.text.DecimalFormat;
-import calcdatabase.DataBase;
 import calcmasscontroller.ICalculatorController;
 import calcmassmodel.ICalculatorModel;
 import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.base.IKeyActionObserver;
 import calcmassview.info.InfoPanel;
+import calcmassview.settings.ColorTheme;
 import calcmassview.settings.SettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,65 +38,70 @@ import javax.swing.JTabbedPane;
  * Представление приложения
  * @author Sergei Lyashko
  */
-@SuppressWarnings("serial")
 public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObserver {
+
+    private static final long serialVersionUID = 1L;
     
     private final ICalculatorModel model;
     private final ICalculatorController controller;
     
     // коллекция компонентов
     private final ArrayList<JComponent> components;
-    private CalculatorPanelImpl calculatorPanel;
-    private SettingsPanel settingsPanel;
-    private InfoPanel infoPanel;
+    private JPanel calculatorPanel;
+    private JPanel settingsPanel;
+    private JPanel infoPanel;
+    private Preference preference;
+    
+    private List<JPanel> panels = new ArrayList<>();
     
     private final ArrayList<ViewObserver> observers;
-    private final DataBase dataBase;
     
     private String profileAssortment, profileType, profileNumber, length, width;
     private String resultValue;
     
-    public CalculatorView(ICalculatorModel model, ICalculatorController controller, DataBase dataBase){
+    public CalculatorView(ICalculatorModel model, ICalculatorController controller){
         super(new GridLayout(1, 1));
         this.model = model;
         this.controller = controller;
-        this.dataBase = dataBase;
         this.components = new ArrayList<>();
         //TODO
-        observers = new ArrayList<>(); 
-        
+        observers = new ArrayList<>();        
         createPanels();
         createAndShowGUI();
         registerObservers();
     }
     
     // создание панелей
-    private void createPanels(){
-        
-        this.calculatorPanel = new CalculatorPanelImpl(components, dataBase);
-        components.add(calculatorPanel);
-        
-        infoPanel = new InfoPanel(components);
-        components.add(infoPanel);
-        
-        this.settingsPanel = new SettingsPanel(components);
-        
+    private void createPanels(){        
         //
-        this.setTabbedPane();        
+        preference = new Preference();
+        if(preference.isSaved()){
+            panels = preference.load();
+        }else{        
+            this.calculatorPanel = new CalculatorPanelImpl(components);
+            this.infoPanel = new InfoPanel(components);
+            components.add(calculatorPanel);
+            this.settingsPanel = new SettingsPanel(components);            
+            //components.add(settingsPanel);
+            components.add(infoPanel);
+        }
+        components.stream()
+                .filter((JComponent component) -> component.getClass().getSuperclass().isAssignableFrom(JPanel.class))
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class))
+                .forEach((JComponent component) -> {
+                    panels.add((JPanel)component);
+                });
+        this.setTabbedPane(panels);        
     }
     
     /**
      * Добавление вкладок на панель
      */
-    private void setTabbedPane(){
+    private void setTabbedPane(List<JPanel> panels){        
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.addTab("Калькулятор", calculatorPanel);       
-        tabbedPane.addTab("Настройки", settingsPanel);
-        tabbedPane.addTab("Справка", infoPanel);
+        panels.stream().forEach((JPanel panel) -> tabbedPane.addTab(panel.getName(), panel));
         this.add(tabbedPane);
     }
-    
-    
     
     // основное окно
     private void createAndShowGUI(){
@@ -113,13 +119,11 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
     private void closeApp(JFrame appFrame){
         appFrame.addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                System.out.println("win open");// TEST
-            }
+            public void windowOpened(WindowEvent e) {}
 
             @Override
             public void windowClosing(WindowEvent e) {                
-                settingsPanel.savePreference();
+                preference.save(components);
                 System.exit(0);
             }
 
@@ -200,7 +204,7 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
     
     // получение значений полей
     private void getFieldsValue(){
-        /*Detail calculatorData = generalPanel.getBasePanel().getData();
+        /*Detail calculatorData = generalPanel.getBasePanel().getDetail();
         this.profileAssortment = calculatorData.getAssortment();        
         this.profileType = calculatorData.getType();        
         this.profileNumber = calculatorData.getNumber();        

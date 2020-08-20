@@ -33,9 +33,9 @@ import calcmassview.settings.ToolTips;
 @CalculatorPanel()
 @ToolTips(getToolTipDescription = "")
 @ValueReceiveble(getFieldValue = "LengthField")
-@ActiveStateField(activate = false, deactivate = true)
+@StateField(activate = false, deactivate = true)
 @SuppressWarnings("serial")
-public class LengthField extends JFormattedTextField implements CalculatorPanel, FocusListener, ActiveStateField, ValueReceiveble, KeyListener, IKeyActionSubject, ToolTips {
+public class LengthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, IKeyActionSubject, ToolTips {
     
     private final String toolTipsText = "поле ввода длины детали";
     

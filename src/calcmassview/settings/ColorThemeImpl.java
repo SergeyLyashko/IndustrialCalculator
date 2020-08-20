@@ -46,7 +46,7 @@ public class ColorThemeImpl implements Serializable {
         colorForeGround = Color.WHITE;
         colorMarker = Color.WHITE;
         colorResultMarker = Color.GREEN;
-        actionTheme();               
+        actionTheme(components);               
     }
     
     public void doLight(){
@@ -54,22 +54,22 @@ public class ColorThemeImpl implements Serializable {
         colorForeGround = Color.BLACK;
         colorMarker = Color.BLACK;
         colorResultMarker = Color.BLUE;
-        actionTheme();                     
+        actionTheme(components);                     
     }
     
     // активация выбранной темы
-    public void actionTheme(){
+    public void actionTheme(List<JComponent> components){
         // TEST
-        components.stream().forEach((JComponent component) ->{
+        /*components.stream().forEach((JComponent component) ->{
             System.out.println("collect theme test: "+component.toString());
         });
-        System.out.println("color: "+colorBackGround.toString());
-        serviceInscriptionPaint();
-        titleMarkerPaint();
-        selectedComponentPaint();
+        System.out.println("color: "+colorBackGround.toString());*/
+        serviceInscriptionPaint(components);
+        titleMarkerPaint(components);
+        selectedComponentPaint(components);
     }
     
-    private void titleMarkerPaint(){
+    private void titleMarkerPaint(List<JComponent> components){
         components.stream()
                 .filter((JComponent component) -> component.getClass().isAssignableFrom(JLabel.class))
                 .forEach((JComponent component) -> {
@@ -77,7 +77,7 @@ public class ColorThemeImpl implements Serializable {
                 });
     }
     
-    private void serviceInscriptionPaint(){
+    private void serviceInscriptionPaint(List<JComponent> components){
         components.stream()
                 .filter((JComponent component) -> component.getClass().isAnnotationPresent(ServiceInscription.class))
                 .forEach((JComponent component) -> {
@@ -85,7 +85,7 @@ public class ColorThemeImpl implements Serializable {
                 });
     }
 
-    private void selectedComponentPaint() {
+    private void selectedComponentPaint(List<JComponent> components) {
         components.stream()
                 .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class) || component.getClass().isAssignableFrom(JViewport.class))
                 .forEach((JComponent component) -> {

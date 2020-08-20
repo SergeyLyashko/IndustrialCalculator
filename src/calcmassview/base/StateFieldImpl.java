@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import javax.swing.JComponent;
@@ -23,34 +24,42 @@ import javax.swing.JComponent;
  *
  * @author Korvin
  */
-@ActiveStateField(activate = false, deactivate = true)
-public class ActiveStateFieldImpl implements ActiveStateField {
+@StateField(activate = false, deactivate = true)
+public class StateFieldImpl implements Serializable, StateField {
+
+    private static final long serialVersionUID = 1L;
     
     private final ArrayList<JComponent> components;
     
-    public ActiveStateFieldImpl(ArrayList<JComponent> components){
+    public StateFieldImpl(ArrayList<JComponent> components){
         this.components = components;
     }
     
-    private boolean haveWidth() {
+    private boolean haveWidth(){
         return components.stream()                
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(IDetailWidthState.class))
-                .anyMatch((JComponent element) -> ((IDetailWidthState)element).haveWidth() == true);
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(DetailWidthState.class))
+                .anyMatch((JComponent element) -> ((DetailWidthState)element).haveWidth());
+    }
+    
+    private boolean areaBoxOFF(){
+        return components.stream() 
+            .filter((JComponent component) -> component.getClass().isAnnotationPresent(AreaBoxState.class))
+            .anyMatch((JComponent element) -> ((AreaBoxState)element).isAreaBoxStateOFF());
     }
 
     @Override
-    public boolean activate() {
+    public boolean activate(){
         System.out.println("ON: "+haveWidth());// TEST
         components.stream()
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(ActiveStateField.class))
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(StateField.class))
                 .forEach((JComponent element) -> {
-                    if(haveWidth()){
-                        ((ActiveStateField)element).activate();
-                    }else{
+                    if(haveWidth() && areaBoxOFF()){
+                        ((StateField)element).activate();
+                    }else if( (!haveWidth() && areaBoxOFF()) || ( (haveWidth() && !areaBoxOFF()) ) ){
                         String fieldName = ((ValueReceiveble)element).annotationType().getSimpleName();
                         //System.out.println("ON field: "+fieldValue);// TEST
-                        if(fieldName.equals("LengthField")){
-                            ((ActiveStateField)element).activate();
+                        if(fieldName.equalsIgnoreCase("LengthField")){
+                            ((StateField)element).activate();
                         }
                     }
                 });
@@ -61,9 +70,9 @@ public class ActiveStateFieldImpl implements ActiveStateField {
     public boolean deactivate() {
         System.out.println("OFF");// TEST
         components.stream()
-                .filter((JComponent comp) -> comp.getClass().isAnnotationPresent(ActiveStateField.class))
+                .filter((JComponent comp) -> comp.getClass().isAnnotationPresent(StateField.class))
                 .forEach((JComponent element) -> {
-                    ((ActiveStateField)element).deactivate();   
+                    ((StateField)element).deactivate();   
                     //System.out.println("off: "+element.getClass().getName());// TEST
                 });
         return true;

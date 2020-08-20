@@ -18,7 +18,7 @@ package calcmassview.settings;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
@@ -35,17 +35,17 @@ class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializabl
     private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
     private final String chBoxName = "включить всплывающие подсказки";
     private ToolTipsImpl toolTips;
-    private transient final ArrayList<JComponent> components;
+    private transient final List<JComponent> components;
     
-    public ToolTipsChBox(ArrayList<JComponent> components){
+    public ToolTipsChBox(List<JComponent> components){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
         super.setText(chBoxName);
         super.setToolTipText(TOOL_TIP_BOX_TEXT);
         this.components = components;
-        actionToolTips();
-              
+        components.add(this);
+        actionToolTips();              
     }
     
     private void actionToolTips(){

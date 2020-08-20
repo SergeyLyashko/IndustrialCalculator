@@ -29,8 +29,15 @@ public class Detail {
     private String number;
     private double width;
     private double length;
+    
+    private final ArrayList<JComponent> components;
 
     public Detail(ArrayList<JComponent> components) {                
+        this.components = components;
+        setFields();
+    }
+    
+    private void setFields(){
         components.stream()
             .filter((JComponent component) -> component.getClass().isAnnotationPresent(ValueReceiveble.class))
             .forEach((JComponent element) -> {

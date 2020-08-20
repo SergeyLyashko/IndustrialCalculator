@@ -27,32 +27,34 @@ import calcmassview.settings.ToolTips;
  */
 @CalculatorPanel()
 @ValueReceiveble(getFieldValue = "")
-@IDetailWidthState(haveWidth = false)
+@DetailWidthState(haveWidth = false)
 @ToolTips(getToolTipDescription = "")
-public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, IDetailWidthState, ToolTips {
+public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, DetailWidthState, ToolTips {
+
+    private static final long serialVersionUID = 1L;
     
     private final String toolTipsText = "выбор типа профиля детали";
     private final String widthField = "Резиновая пластина";
     
     private final DataBase dataBase;
-    private String selectedAssortment;
+    private transient String selectedAssortment;
     private final NumbersMenuBox numbersMenu;
-    private String fieldValue;
-    private final ActiveStateField activeStateField;
+    private transient String fieldValue;
+    private final StateField activeStateField;
     private final ServiceInscription resetMarker;
     
-    public TypesMenuBox(DataBase dataBase, ActiveStateField activeStateField, ServiceInscription resetMarker) {
+    public TypesMenuBox(DataBase dataBase, StateField activeStateField, ServiceInscription serviceResetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
         this.dataBase = dataBase;
         this.activeStateField = activeStateField;
-        this.resetMarker = resetMarker;
+        this.resetMarker = serviceResetMarker;
         // пустое меню по-умолчанию
         Menu emptyMenu = new Menu();
         super.setModel(emptyMenu.createMenu(null));
         // создание меню номеров профиля
-        numbersMenu = new NumbersMenuBox(activeStateField, resetMarker);
+        numbersMenu = new NumbersMenuBox(activeStateField, serviceResetMarker);
     }
     
     @Override

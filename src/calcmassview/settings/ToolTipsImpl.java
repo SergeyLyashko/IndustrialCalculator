@@ -17,7 +17,7 @@ package calcmassview.settings;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 
@@ -31,9 +31,9 @@ public class ToolTipsImpl implements Serializable, ToolTips {
     private static final long serialVersionUID = 1L;
 
     private boolean state;
-    private transient final ArrayList<JComponent> components;
+    private transient final List<JComponent> components;
     
-    public ToolTipsImpl(ArrayList<JComponent> components){
+    public ToolTipsImpl(List<JComponent> components){
         this.components = components;
         setToolTipsDescription();
     }

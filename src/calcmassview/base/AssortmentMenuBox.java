@@ -26,31 +26,33 @@ import calcmassview.settings.ToolTips;
  */
 @CalculatorPanel()
 @ValueReceiveble(getFieldValue = "")
-@IDetailWidthState(haveWidth = false)
+@DetailWidthState(haveWidth = false)
 @ToolTips(getToolTipDescription = "")
-public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, IDetailWidthState, ToolTips {
+public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, DetailWidthState, ToolTips {
+
+    private static final long serialVersionUID = 1L;
     
     private final String toolTipsText = "выбор сортамента детали";
     private final String widthField = "Лист"; 
         
     private final DataBase dataBase;
     private final TypesMenuBox typesMenu;
-    private String fieldValue;
-    private final ActiveStateField activeStateField;
+    private transient String fieldValue;
+    private final StateField activeStateField;
     private final ServiceInscription resetMarker;
     
-    public AssortmentMenuBox(DataBase dataBase, ActiveStateField activeStateField, ServiceInscription resetMarker) {
+    public AssortmentMenuBox(StateField activeStateField, ServiceInscription serviceResetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
-        this.dataBase = dataBase;
+        this.dataBase = new DataBase();
         this.activeStateField = activeStateField;
-        this.resetMarker = resetMarker;
+        this.resetMarker = serviceResetMarker;
         // пустое меню по-умолчанию
         Menu empty = new Menu(dataBase);
         super.setModel(empty.createMenu());
         // создание меню типов профиля
-        typesMenu = new TypesMenuBox(dataBase, activeStateField, resetMarker); 
+        typesMenu = new TypesMenuBox(dataBase, activeStateField, serviceResetMarker); 
     }
     
     @Override

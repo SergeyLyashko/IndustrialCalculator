@@ -19,7 +19,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import calcdatabase.DataBase;
 import calcmassview.settings.ColorTheme;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,21 +29,20 @@ import javax.swing.JComponent;
  * основная панель с компонентами
  * @author Sergei Lyashko
  */
-@SuppressWarnings("serial")
-//@ColorTheme()
-public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver/*, ColorTheme*/ {
+@ColorTheme()
+public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver, ColorTheme {
+
+    private static final long serialVersionUID = 1L;
     
     // коллекция компонентов
-    private transient final ArrayList<JComponent> components;    
+    private final ArrayList<JComponent> components;    
     // чек-бокс задания площади детали
-    private transient DifficultAreaBox difficultAreaBox;
+    private AreaBoxStateImpl difficultAreaBox;
     // Данные
-    private transient Detail calculatorData;    
-    private transient final DataBase dataBase;
+    private transient Detail detail;    
     
-    public CalculatorPanelImpl(ArrayList<JComponent> components, DataBase dataBase) {
+    public CalculatorPanelImpl(ArrayList<JComponent> components) {
         this.components =components;
-        this.dataBase = dataBase;
         // добавление компонентов
         addComponents();        
         // политика обхода фокусом
@@ -57,11 +55,11 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     // создание компонентов окна приложения
     private void addComponents(){        
         // состояние активации полей ввода
-        ActiveStateField activeStateField = new ActiveStateFieldImpl(components);
+        StateField stateField = new StateFieldImpl(components);
         // сброс маркеров
-        ServiceInscription resetMarkers = new ServiceInscriptionImpl(components);
+        ServiceInscription serviceResetMarkers = new ServiceInscriptionImpl(components);
         // <Тип изделия>
-        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(dataBase, activeStateField, resetMarkers);
+        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(stateField, serviceResetMarkers);
         assortmentBox.addActionListener(this);
         components.add(assortmentBox);
         // <Тип профиля>
@@ -73,10 +71,10 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         numbersBox.addActionListener(this);
         components.add(numbersBox);
         //текстовое поле Ширина (для листа)
-        WidthField widthField = new WidthField(resetMarkers);
+        WidthField widthField = new WidthField(serviceResetMarkers);
         components.add(widthField);
         //текстовое поле Длина
-        LengthField lengthField = new LengthField(resetMarkers);
+        LengthField lengthField = new LengthField(serviceResetMarkers);
         lengthField.registerObserver(this);
         components.add(lengthField);
         // текстовая строка результата
@@ -86,7 +84,8 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         MessageServiceInscription serviceInfo = new MessageServiceInscription();
         components.add(serviceInfo);
         // чек-бокс вычисления площади сложного периметра
-        difficultAreaBox = new DifficultAreaBox(this);
+        difficultAreaBox = new AreaBoxStateImpl();
+        difficultAreaBox.addItemListener(this);
         components.add(difficultAreaBox);
         //надпись мм для поля ширина
         Markmm widthMark = new Markmm(320, 22);
@@ -94,13 +93,11 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         //надпись мм для поля длина      
         Markmm lengthMark = new Markmm(320, 62);
         components.add(lengthMark);
-        
+        //        
         addComponentToPanel();
         // начальное состояние полей ввода
-        activeStateField.deactivate();
+        stateField.deactivate();
         
-        // установка начального состояния селектора выбора площади
-        //detailState = new AreaBoxOFFState(components);
     }
     // добавление комполнентов на панель
     private void addComponentToPanel(){
@@ -115,27 +112,32 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         super.setFocusTraversalPolicy(myFocusTraversalPolicy);
     }
     
+    @Override
+    public String getName(){
+        return "Калькулятор";
+    }
+    
     /**
      *
      * @return
      */
-    public Detail getData(){
-        return calculatorData;
+    public Detail getDetail(){
+        return detail;
     }
     
-    public void createData(){        
-        calculatorData = new Detail(components);
+    public void createDetail(){        
+        detail = new Detail(components);
         // TEST
-        calculatorData.getAssortment();
-        calculatorData.getType();
-        calculatorData.getNumber();
-        calculatorData.getWidth();
-        calculatorData.getLength();
+        detail.getAssortment();
+        detail.getType();
+        detail.getNumber();
+        detail.getWidth();
+        detail.getLength();
     }
         
     @Override
     public void itemStateChanged(ItemEvent event) {
-        DifficultAreaBox source = (DifficultAreaBox) event.getItemSelectable();
+        AreaBoxStateImpl source = (AreaBoxStateImpl) event.getItemSelectable();
         source.actionChooser(event);
     }
     
@@ -150,7 +152,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     @Override
     public void keyActionUpdate() {
         //System.out.println("base panel update");// TEST
-        createData();
+        createDetail();
     }
 
     @Override

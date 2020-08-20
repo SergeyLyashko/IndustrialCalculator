@@ -41,7 +41,7 @@ public class CalculatorController implements ICalculatorController {
         DataBase dataBase = new DataBase(); 
         model = new CalculatorModel(dataBase);
         controller = new CalculatorController(model);
-        new CalculatorView(model, controller, dataBase);
+        new CalculatorView(model, controller);
     }
     
     @Override

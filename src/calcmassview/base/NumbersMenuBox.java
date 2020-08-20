@@ -27,15 +27,17 @@ import calcmassview.settings.ToolTips;
 @ValueReceiveble(getFieldValue = "")
 @ToolTips(getToolTipDescription = "")
 public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, ToolTips {
+
+    private static final long serialVersionUID = 1L;
     
     private final String toolTipsText = "выбор номера профиля детали";
-    private String fieldValue;
+    private transient String fieldValue;
     private final String headerMenuName = "№ профиля";
     
-    private final ActiveStateField activeStateField;
+    private final StateField activeStateField;
     private final ServiceInscription resetMarker;
         
-    public NumbersMenuBox(ActiveStateField activeStateField, ServiceInscription resetMarker) {
+    public NumbersMenuBox(StateField activeStateField, ServiceInscription serviceResetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);        
@@ -43,7 +45,7 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
         Menu empty = new Menu();
         super.setModel(empty.createMenu(null, null));
         this.activeStateField = activeStateField;
-        this.resetMarker = resetMarker;
+        this.resetMarker = serviceResetMarker;
     }
     
     @Override

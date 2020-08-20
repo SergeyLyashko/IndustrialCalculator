@@ -18,6 +18,7 @@ package calcmassview.info;
 import calcmassview.settings.ColorTheme;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import javax.swing.JComponent;
@@ -31,7 +32,9 @@ import javax.swing.ScrollPaneConstants;
  * @author Sergei Lyashko
  */
 @ColorTheme()
-public class InfoPanel extends JPanel implements ColorTheme {
+public class InfoPanel extends JPanel implements Serializable, ColorTheme {
+    
+    private static final long serialVersionUID = 1L;
 
     private static final String TEXT =         
         "<html>"+
@@ -60,6 +63,7 @@ public class InfoPanel extends JPanel implements ColorTheme {
         "<br>"+
         " <font size=-2>Copyright &#169; 2019 Sergei Lyashko.<br>"+
         " <font size=-2>Contacts: 9llllepulla@gmail.com";
+    
     
     public InfoPanel(ArrayList<JComponent> components){
         super.setLayout(new BorderLayout());
@@ -91,5 +95,10 @@ public class InfoPanel extends JPanel implements ColorTheme {
     @Override
     public Class<? extends Annotation> annotationType() {
         return this.getClass();
+    }
+    
+    @Override
+    public String getName(){
+        return "Справка";
     }
 }

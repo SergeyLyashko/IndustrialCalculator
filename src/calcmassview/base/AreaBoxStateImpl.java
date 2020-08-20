@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.settings.ColorTheme;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.lang.annotation.Annotation;
@@ -26,23 +27,23 @@ import calcmassview.settings.ToolTips;
  * @author Sergei Lyashko
  */
 @ToolTips(getToolTipDescription = "")
-public class DifficultAreaBox extends JCheckBox implements ToolTips{
+@ColorTheme()
+@CalculatorPanel()
+@AreaBoxState(isAreaBoxStateOFF = true)
+public class AreaBoxStateImpl extends JCheckBox implements CalculatorPanel, ToolTips, ColorTheme, AreaBoxState{
     
     private final String toolTipsText = "расчет массы детали по задаваемой площади детали";
     private final String boxName = "сложный периметр";
-    private final CalculatorPanelImpl basePanel;
-    private boolean stateBoxOFF;
+    private boolean stateOFF;
         
-    public DifficultAreaBox(CalculatorPanelImpl basePanel){
+    public AreaBoxStateImpl(){
         super.setSelected(false);
         super.setSize(140, 17);
         super.setLocation(187, 90);  
         super.setText(boxName);
         Font deriveFont = super.getFont().deriveFont(10f);
         super.setFont(deriveFont);
-        this.basePanel = basePanel;
-        this.stateBoxOFF = true;
-        super.addItemListener(basePanel);
+        this.stateOFF = true;
     }
     
     @Override
@@ -55,11 +56,11 @@ public class DifficultAreaBox extends JCheckBox implements ToolTips{
      * @param e
      */
     public void actionChooser(ItemEvent e) {
-        setStateDifficultArea(e.getStateChange());
+        setState(e.getStateChange());
     }
     
     // установка состо€ни€ в зависимости от чек-бокса 
-    private void setStateDifficultArea(int stateChange) {
+    private void setState(int stateChange) {
         switch(stateChange){
             case ItemEvent.SELECTED:
                 oN();
@@ -71,25 +72,22 @@ public class DifficultAreaBox extends JCheckBox implements ToolTips{
     }
     
     // чек-бокс включен
-    public void oN(){
-        stateBoxOFF = false;
-        //basePanel.setDetailState(new AreaBoxONState(basePanel));
-        //basePanel.actionFields();
+    private void oN(){
+        stateOFF = false;     
     }
     
     // чек-бокс выключен
-    public void oFF(){
-        stateBoxOFF = true;
-        //basePanel.setDetailState(new AreaBoxOFFState(basePanel));
-        //basePanel.actionFields();
+    private void oFF(){
+        stateOFF = true;        
     }    
     
     /**
      * ѕровер€ет выключен ли чек-бокс
      * @return true если чек-бокс выключен
      */
-    public boolean isAreaBoxOFF(){
-        return stateBoxOFF;
+    @Override
+    public boolean isAreaBoxStateOFF(){
+        return stateOFF;
     }
 
     @Override

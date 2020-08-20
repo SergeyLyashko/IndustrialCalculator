@@ -15,6 +15,7 @@
  */
 package calcdatabase;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,9 @@ import java.util.logging.Logger;
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-public class DataBase {
+public class DataBase implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     // Sql запрос таблицы сортаментов(профилей)
     private static final String SQL_QUERY_PROFILES = 
@@ -57,6 +60,7 @@ public class DataBase {
     + "Profiles.ProfileName = ? and "
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
+    
     
     private final String numberName = "ProfileNumberName";
     private final String typeName = "ProfileTypeName";

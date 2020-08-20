@@ -15,12 +15,15 @@
  */
 package calcmassview.base;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 
 //@ServiceInscription(reset = false)
-public class ServiceInscriptionImpl implements ServiceInscription {
+public class ServiceInscriptionImpl implements Serializable, ServiceInscription {
+
+    private static final long serialVersionUID = 1L;
     
     private final ArrayList<JComponent> components;
     
