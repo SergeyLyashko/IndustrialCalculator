@@ -15,42 +15,30 @@
  */
 package calcmasscontroller;
 
-import calcdatabase.DataBase;
-import calcmassmodel.CalculatorModel;
-import calcmassview.CalculatorView;
-import calcmassmodel.ICalculatorModel;
-
 /**
- *  онтроллер
- * —оздание модели и представлени€
+ * »нтерфейс контроллера
+ * ѕолучение параметров полей
  * @author Sergei Lyashko
  */
-public class CalculatorController implements ICalculatorController {
-    
-    private static ICalculatorModel model;
-    private static CalculatorController controller;    
-    
-    private CalculatorController(ICalculatorModel model){
-        CalculatorController.model = model;
-    }
+public interface CalculatorController {
     
     /**
-     * запуск приложени€
+     * ”становка значений полей
+     * @param assortment наименование сортамента
+     * @param type наименование типа сортамента
+     * @param number номер профил€
+     * @param length длина детали
+     * @param width ширина детали
      */
-    public static void startApp(){
-        DataBase dataBase = new DataBase(); 
-        model = new CalculatorModel(dataBase);
-        controller = new CalculatorController(model);
-        new CalculatorView(model, controller);
-    }
+    public void setFieldsValue(String assortment, String type, String number, String length, String width);
     
-    @Override
-    public void setFieldsValue(String assortment, String type, String number, String length, String width) {
-        model.createDetail(assortment, type, number, length, width);        
-    }
-        
-    @Override
-    public void setFieldsValue(String assortment, String type, String number, String area) {
-        model.createDetail(assortment, type, number, area);        
-    }
+    /**
+     * ”становка значений полей
+     * @param assortment наименование сортамента
+     * @param type наименование типа сортамента
+     * @param number номер профил€
+     * @param area задаваема€ площадь детали
+     */
+    public void setFieldsValue(String assortment, String type, String number, String area);
+    
 }

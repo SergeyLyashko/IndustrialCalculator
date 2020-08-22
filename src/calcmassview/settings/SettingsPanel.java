@@ -21,12 +21,8 @@ import java.awt.event.ItemListener;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JViewport;
 
 /**
  * Панель настроек
@@ -36,43 +32,30 @@ import javax.swing.JViewport;
 public class SettingsPanel extends JPanel implements ItemListener, Serializable, ColorTheme {
 
     private static final long serialVersionUID = 1L;
-    
     private ColorThemeCheckBox themeChBox;
     private ToolTipsChBox toolTipsChBox;
-    private final ArrayList<JComponent> allComponents;
-    private List<JComponent> componentsForChange;
     
     public SettingsPanel(ArrayList<JComponent> components){
         super.setLayout(null);
-        this.allComponents = components;
-        components.add(this);
-        componentsFilterForChangeTheme(components);
-        addToolTipBox();
-        addThemeBox();
+        themeChBox = new ColorThemeCheckBox();
+        components.add(themeChBox);
+        toolTipsChBox = new ToolTipsChBox();
+        components.add(toolTipsChBox);
+        this.addToolTipBox(components);
+        this.addThemeBox(components);
     }
     
     // чек-бокс цветовой темы оформления
-    private void addThemeBox(){
-        themeChBox = new ColorThemeCheckBox(componentsForChange);
-        allComponents.add(themeChBox);
+    private void addThemeBox(ArrayList<JComponent> components){        
+        themeChBox.setComponents(components);        
         themeChBox.addItemListener(this);
-        super.add(themeChBox);              
-    }
-    
-    private void componentsFilterForChangeTheme(ArrayList<JComponent> components){
-        this.componentsForChange = components.stream()
-                .filter((JComponent component) -> 
-                        component.getClass().isAnnotationPresent(ColorTheme.class) || 
-                        component.getClass().isAssignableFrom(JViewport.class) ||
-                        component.getClass().isAssignableFrom(JLabel.class) ||
-                        component.getClass().isAnnotationPresent(ServiceInscription.class))
-                .collect(Collectors.toList());        
+        super.add(themeChBox);             
     }
     
     // чек-бокс всплывающих подсказок
-    private void addToolTipBox(){
-        toolTipsChBox = new ToolTipsChBox(componentsForChange);
-        allComponents.add(toolTipsChBox);
+    private void addToolTipBox(ArrayList<JComponent> components){
+        components.add(this);        
+        toolTipsChBox.setComponents(components);
         toolTipsChBox.addItemListener(this);
         super.add(toolTipsChBox); 
     }

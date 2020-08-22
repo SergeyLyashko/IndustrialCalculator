@@ -15,63 +15,46 @@
  */
 package calcmassmodel;
 
-import java.util.ArrayList;
 import calcmassview.ViewObserver;
-import calcdatabase.DataBase;
 
 /**
- * создание детали
+ * Интерфейс Модели
  * @author Sergei Lyashko
  */
-public class CalculatorModel implements ICalculatorModel {
-    
-    private DetailModel detail;
-    private final ArrayList<ViewObserver> observers;
-    private double mass;
-    private String serviceMessage;
-    private final DataBase dataBase;
-    
-    public CalculatorModel(DataBase dataBase){
-        this.dataBase = dataBase;
-        observers = new ArrayList<>();        
-    }
-    
-    @Override
-    public void createDetail(String assortment, String type, String number, String length, String width){
-        detail = new DetailModel(assortment, type, number, length, width);
-        detail.executeQuery(dataBase);
-        massChangedObservers();
-    }
-    
-    @Override
-    public void createDetail(String assortment, String type, String number, String area) {
-        detail = new DetailModel(assortment, type, number, area);
-        detail.executeQuery(dataBase);
-        massChangedObservers();
-    }
-    
-    @Override
-    public void registerObserver(ViewObserver o) {
-        observers.add(o);
-    }
+public interface CalculatorModel {
+        
+    /**
+     * Регистрация наблюдателей
+     * @param o экземпляр интерфейса Наблюдатель
+     */
+    public void registerObserver(ViewObserver o);
 
-    @Override
-    public void notifyObservers() {
-        observers.stream().forEach((ViewObserver observer) -> {
-            observer.massUpdate(mass);
-            observer.errorMessageUpdate(serviceMessage);
-        });
-    }
-
-    @Override
-    public void displayError() {
-        this.serviceMessage = detail.getErrorMessage();
-    }
+    /**
+     * оповещение наблюдателей об изменении состояния
+     */
+    public void notifyObservers();
     
-    // оповещение наблюдателей об изменениях
-    private void massChangedObservers(){
-        this.mass = detail.calculationMass();
-        displayError();
-        notifyObservers();
-    }
+    /**
+     * вывод сервисного сообщения об ошибке
+     */
+    public void displayError();
+    
+    /**
+     * Создание детали по параметрам
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param length длина детали
+     * @param width ширина детали (при наличии)
+     */
+    public void createDetail(String assortment, String type, String number, String length, String width);    
+
+    /**
+     * Создание детали заданной площади
+     * @param assortment наименование сортамента
+     * @param type тип сортамента
+     * @param number номер профиля
+     * @param area площадь детали
+     */
+    public void createDetail(String assortment, String type, String number, String area);
 }

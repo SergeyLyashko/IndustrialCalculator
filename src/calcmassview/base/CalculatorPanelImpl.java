@@ -30,14 +30,13 @@ import javax.swing.JComponent;
  * @author Sergei Lyashko
  */
 @ColorTheme()
+@CalculatorPanel()
 public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver, ColorTheme {
 
     private static final long serialVersionUID = 1L;
     
     // коллекция компонентов
     private final ArrayList<JComponent> components;    
-    // чек-бокс задания площади детали
-    private AreaBoxStateImpl difficultAreaBox;
     // Данные
     private transient Detail detail;    
     
@@ -84,9 +83,9 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         MessageServiceInscription serviceInfo = new MessageServiceInscription();
         components.add(serviceInfo);
         // чек-бокс вычисления площади сложного периметра
-        difficultAreaBox = new AreaBoxStateImpl();
-        difficultAreaBox.addItemListener(this);
-        components.add(difficultAreaBox);
+        AreaBoxStateImpl areaBoxSelector = new AreaBoxStateImpl();
+        areaBoxSelector.addItemListener(this);
+        components.add(areaBoxSelector);
         //надпись мм для поля ширина
         Markmm widthMark = new Markmm(320, 22);
         components.add(widthMark);

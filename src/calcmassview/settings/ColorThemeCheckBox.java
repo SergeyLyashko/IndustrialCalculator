@@ -15,13 +15,17 @@
  */
 package calcmassview.settings;
 
+import calcmassview.base.ServiceInscription;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import javax.swing.JCheckBox;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JViewport;
 
 /**
  * Color theme checkbox
@@ -36,26 +40,41 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     private ColorThemeImpl theme;
     private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private final String boxName = "темная тема оформления";
-    private List<JComponent> components;
+    //private List<JComponent> components;
     
-    public ColorThemeCheckBox(List<JComponent> components){
+    public ColorThemeCheckBox(){
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText(boxName);
         super.setLocation(15, 35);
-        this.components = components;
-        components.add(this);
-        createColorTheme();
-        theme.doDark();
+        // this.components = components;
+        //createColorTheme(components);
+        
     }
     
-    public void actionTheme(List<JComponent> components){
+    /*public void actionTheme(List<JComponent> components){
         this.components = components;
         theme.actionTheme(components);
+    }*/
+    
+    public void setComponents(ArrayList<JComponent> components){
+        List<JComponent> componentsFiltred = componentsFilterForChangeTheme(components);
+        createColorTheme(componentsFiltred);
     }
     
-    private void createColorTheme(){
-        this.theme = new ColorThemeImpl(components);        
+    private List<JComponent> componentsFilterForChangeTheme(ArrayList<JComponent> components){
+        return components.stream()
+                .filter((JComponent component) -> 
+                        component.getClass().isAnnotationPresent(ColorTheme.class) || 
+                        component.getClass().isAssignableFrom(JViewport.class) ||
+                        component.getClass().isAssignableFrom(JLabel.class) ||
+                        component.getClass().isAnnotationPresent(ServiceInscription.class))
+                .collect(Collectors.toList());        
+    }
+    
+    private void createColorTheme(List<JComponent> components){
+        this.theme = new ColorThemeImpl(components);
+        theme.doDark();
     }
     
     @Override

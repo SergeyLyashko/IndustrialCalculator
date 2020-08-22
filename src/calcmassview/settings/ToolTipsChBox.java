@@ -18,7 +18,9 @@ package calcmassview.settings;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
@@ -35,20 +37,28 @@ class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializabl
     private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
     private final String chBoxName = "включить всплывающие подсказки";
     private ToolTipsImpl toolTips;
-    private transient final List<JComponent> components;
     
-    public ToolTipsChBox(List<JComponent> components){
+    public ToolTipsChBox(){
         super.setSelected(true);
         super.setSize(320, 20);
         super.setLocation(15, 60);
         super.setText(chBoxName);
         super.setToolTipText(TOOL_TIP_BOX_TEXT);
-        this.components = components;
-        components.add(this);
-        actionToolTips();              
     }
     
-    private void actionToolTips(){
+    public void setComponents(ArrayList<JComponent> components){
+        List<JComponent> componentsFiltred = componentsFilterForToolTips(components);
+        createToolTips(componentsFiltred);
+    }
+    
+    private List<JComponent> componentsFilterForToolTips(ArrayList<JComponent> components){
+        return components.stream()
+                .filter((JComponent component) -> 
+                        component.getClass().isAnnotationPresent(ToolTips.class))
+                .collect(Collectors.toList());        
+    }
+    
+    private void createToolTips(List<JComponent> components){
         this.toolTips = new ToolTipsImpl(components);
         toolTips.oN();
     }

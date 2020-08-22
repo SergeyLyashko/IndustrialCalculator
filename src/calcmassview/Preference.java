@@ -15,8 +15,6 @@
  */
 package calcmassview;
 
-import calcmassview.base.CalculatorPanel;
-import calcmassview.settings.ColorTheme;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,14 +23,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 /**
  * Настройки приложения
@@ -46,29 +39,14 @@ public class Preference implements Serializable {
     private Preference savedPreferences;
     private transient FileInputStream fileInputStream;
     
-    private final List<JPanel> panels = new ArrayList<>();
+    private ArrayList<JComponent> components;
     
     /**
      * Сохранение настроек
      * @param components
      */
     public void save(ArrayList<JComponent> components){
-        /*components.stream().forEach((JComponent component) -> {
-            System.out.println("allComponents: "+component.getClass().getCanonicalName());
-        });*/
-        
-        components.stream()
-                .filter((JComponent component) -> component.getClass().getSuperclass().isAssignableFrom(JPanel.class))
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class))
-                .forEach((JComponent component) -> {
-                    panels.add((JPanel)component);
-                });
-        
-        // TEST
-        /*panels.stream().forEach((JPanel component) -> {
-            System.out.println("panels: "+component.getClass().getCanonicalName());
-        });*/
-        
+        this.components = components;
         FileOutputStream newFile = createSaveFile();
         savePreferenceToFile(newFile);
     }
@@ -94,7 +72,6 @@ public class Preference implements Serializable {
     
     public boolean isSaved(){
         if(findFile()){
-            extractPreferences();
             return true;
         }
         return false;
@@ -109,6 +86,11 @@ public class Preference implements Serializable {
         }        
     }
     
+    public ArrayList<JComponent> loadSavedComponents(){
+        extractPreferences();
+        return savedPreferences.getComponents();
+    }
+    
     // 
     private void extractPreferences(){
         try {
@@ -120,12 +102,7 @@ public class Preference implements Serializable {
         }
     }
     
-    private List<JPanel> getPanels(){
-        return Collections.unmodifiableList(panels);
+    private ArrayList<JComponent> getComponents(){
+        return components;
     }
-    
-    public List<JPanel> load(){
-        return savedPreferences.getPanels();
-    }
-    
 }
