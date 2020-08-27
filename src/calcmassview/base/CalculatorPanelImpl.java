@@ -56,28 +56,28 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         // состояние активации полей ввода
         StateField stateField = new StateFieldImpl(components);
         // сброс маркеров
-        ServiceInscription serviceResetMarkers = new ServiceInscriptionImpl(components);
+        Reset serviceReset = new ResetImpl(components);
         // <Тип изделия>
-        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(stateField, serviceResetMarkers);
+        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(stateField, serviceReset);
         assortmentBox.addActionListener(this);
         components.add(assortmentBox);
         // <Тип профиля>
-        TypesMenuBox typesBox = assortmentBox.getTypesMenu();
+        TypesMenuBox typesBox = assortmentBox.getTypesBox();
         typesBox.addActionListener(this);
         components.add(typesBox);
         // <№ профиля>
-        NumbersMenuBox numbersBox = typesBox.getNumbersMenu();
+        NumbersMenuBox numbersBox = typesBox.getNumbersBox();
         numbersBox.addActionListener(this);
         components.add(numbersBox);
         //текстовое поле Ширина (для листа)
-        WidthField widthField = new WidthField(serviceResetMarkers);
+        WidthField widthField = new WidthField(serviceReset);
         components.add(widthField);
         //текстовое поле Длина
-        LengthField lengthField = new LengthField(serviceResetMarkers);
+        LengthField lengthField = new LengthField(serviceReset);
         lengthField.registerObserver(this);
         components.add(lengthField);
         // текстовая строка результата
-        ResultServiceInscription resultMarker = new ResultServiceInscription();
+        ResultImpl resultMarker = new ResultImpl();
         components.add(resultMarker);
         // <Сервисная строка>
         MessageServiceInscription serviceInfo = new MessageServiceInscription();
@@ -125,7 +125,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     }
     
     public void createDetail(){        
-        detail = new Detail(components);
+        detail = new DetailImpl(components);
         // TEST
         detail.getAssortment();
         detail.getType();
@@ -144,8 +144,8 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     public void actionPerformed(ActionEvent e) {
         MenuBoxSelectable source = (MenuBoxSelectable) e.getSource();
         // выбор пунктов меню
-        String selectedMenuItem = source.getSelectedMenuItem();
-        source.actionMenuSelect(selectedMenuItem);
+        String currentItem = source.getCurrentMenuItem();
+        source.actionMenuSelect(currentItem);
     }    
 
     @Override

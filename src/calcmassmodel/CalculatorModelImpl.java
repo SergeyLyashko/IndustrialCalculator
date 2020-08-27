@@ -17,7 +17,7 @@ package calcmassmodel;
 
 import java.util.ArrayList;
 import calcmassview.ViewObserver;
-import calcdatabase.DataBase;
+import calcmassview.base.Detail;
 
 /**
  * создание детали
@@ -25,28 +25,18 @@ import calcdatabase.DataBase;
  */
 public class CalculatorModelImpl implements CalculatorModel {
     
-    private DetailModel detail;
+    private MassCalculation massCalculation;
     private final ArrayList<ViewObserver> observers;
     private double mass;
     private String serviceMessage;
-    private final DataBase dataBase;
     
-    public CalculatorModelImpl(DataBase dataBase){
-        this.dataBase = dataBase;
+    public CalculatorModelImpl(){
         observers = new ArrayList<>();        
     }
     
     @Override
-    public void createDetail(String assortment, String type, String number, String length, String width){
-        detail = new DetailModel(assortment, type, number, length, width);
-        detail.executeQuery(dataBase);
-        massChangedObservers();
-    }
-    
-    @Override
-    public void createDetail(String assortment, String type, String number, String area) {
-        detail = new DetailModel(assortment, type, number, area);
-        detail.executeQuery(dataBase);
+    public void setDetail(Detail detail) {
+        massCalculation = new MassCalculation(detail);
         massChangedObservers();
     }
     
@@ -65,12 +55,12 @@ public class CalculatorModelImpl implements CalculatorModel {
 
     @Override
     public void displayError() {
-        this.serviceMessage = detail.getErrorMessage();
+        //this.serviceMessage = massCalculation.getErrorMessage();
     }
     
     // оповещение наблюдателей об изменениях
     private void massChangedObservers(){
-        this.mass = detail.calculationMass();
+        //this.mass = massCalculation.calculationMass();
         displayError();
         notifyObservers();
     }

@@ -71,10 +71,7 @@ public class Preference implements Serializable {
     }
     
     public boolean isSaved(){
-        if(findFile()){
-            return true;
-        }
-        return false;
+        return findFile();
     }
     
     private boolean findFile(){

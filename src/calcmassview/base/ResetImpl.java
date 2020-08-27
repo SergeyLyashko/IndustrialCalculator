@@ -20,22 +20,22 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 
-//@ServiceInscription(reset = false)
-public class ServiceInscriptionImpl implements Serializable, ServiceInscription {
+@Reset(reset = false)
+public class ResetImpl implements Serializable, Reset {
 
     private static final long serialVersionUID = 1L;
     
     private final ArrayList<JComponent> components;
     
-    public ServiceInscriptionImpl(ArrayList<JComponent> components){
+    public ResetImpl(ArrayList<JComponent> components){
         this.components = components;
     }
 
     @Override
     public boolean reset() {
         components.stream()
-                .filter((JComponent comp) -> comp.getClass().isAnnotationPresent(ServiceInscription.class))
-                .forEach((JComponent element) -> ((ServiceInscription)element).reset());
+                .filter((JComponent comp) -> comp.getClass().isAnnotationPresent(Reset.class))
+                .forEach((JComponent element) -> ((Reset)element).reset());
         return true;
     }
 

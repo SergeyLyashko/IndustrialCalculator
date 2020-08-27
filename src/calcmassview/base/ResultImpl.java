@@ -26,13 +26,13 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 @CalculatorPanel()
-@ServiceInscription(reset = true)
-public class ResultServiceInscription extends JLabel implements CalculatorPanel, ServiceInscription {
+@Reset(reset = true)
+public class ResultImpl extends JLabel implements CalculatorPanel, Reset, Result {
     
     private final String defaultView = "0.0";
     private final String dimensionKg = "кг";
     
-    public ResultServiceInscription(){
+    public ResultImpl(){
         super.setLocation(190, 105);
         super.setVisible(true);
         super.setText(defaultView);
@@ -44,6 +44,7 @@ public class ResultServiceInscription extends JLabel implements CalculatorPanel,
      * Вывод значения на панели
      * @param result
      */
+    @Override
     public void show(String result){
         if(result.equals("error")){
             super.setForeground(Color.red);

@@ -15,10 +15,11 @@
  */
 package calcmasscontroller;
 
-import calcdatabase.DataBase;
 import calcmassmodel.CalculatorModelImpl;
 import calcmassview.CalculatorView;
 import calcmassmodel.CalculatorModel;
+import calcmassview.ViewObserver;
+import calcmassview.base.Detail;
 
 /**
  * Контроллер
@@ -28,7 +29,8 @@ import calcmassmodel.CalculatorModel;
 public class CalculatorControllerImpl implements CalculatorController {
     
     private static CalculatorModel model;
-    private static CalculatorControllerImpl controller;    
+    private static CalculatorController controller;    
+    private static ViewObserver view;
     
     private CalculatorControllerImpl(CalculatorModel model){
         CalculatorControllerImpl.model = model;
@@ -38,19 +40,18 @@ public class CalculatorControllerImpl implements CalculatorController {
      * запуск приложения
      */
     public static void startApp(){
-        DataBase dataBase = new DataBase(); 
-        model = new CalculatorModelImpl(dataBase);
+        model = new CalculatorModelImpl();
         controller = new CalculatorControllerImpl(model);
-        new CalculatorView(controller);
+        view = new CalculatorView(controller);
+    }
+
+    @Override
+    public void setDetail(Detail detail) {
+        model.setDetail(detail);
     }
     
     @Override
-    public void setFieldsValue(String assortment, String type, String number, String length, String width) {
-        model.createDetail(assortment, type, number, length, width);        
-    }
-        
-    @Override
-    public void setFieldsValue(String assortment, String type, String number, String area) {
-        model.createDetail(assortment, type, number, area);        
+    public void setResult(double value){
+        view.massUpdate(value);
     }
 }

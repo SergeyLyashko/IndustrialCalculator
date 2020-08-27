@@ -16,13 +16,14 @@
 package calcmassmodel;
 
 import static java.lang.Math.PI;
-import calcdatabase.DataBase;
+import calcdatabase.DataBaseDispatcher;
+import calcmassview.base.Detail;
 
 /**
  * Вычисление массы детали
  * @author Sergei Lyashko
  */
-class DetailModel implements Massable, IErrorMessage {
+class MassCalculation /*implements Massable, ErrorMessage */{
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
     private static final double DENSITY_STEEL = 7.85e-6;
@@ -35,35 +36,26 @@ class DetailModel implements Massable, IErrorMessage {
     // значение из Базы Данных
     private double valueFromDB;
     // параметры детали
-    private final String assortment, type, number, length;
-    // площадь детали
-    private String area;
-    private String width;
-    
-    public DetailModel(String assortment, String type, String number, String length, String width){
-        this.assortment = assortment;
-        this.type = type;
-        this.number = number;
-        this.length = length;
-        this.width = width;
-        //calculationArea(width, length);
-    }
+    private final String assortment, type, number;
 
-    public DetailModel(String assortment, String type, String number, String area) {
-        this.assortment = assortment;
-        this.type = type;
-        this.number = number;
-        this.length = null;
-        //calculationArea(area);
-        this.area = area;
+    private final double width;
+    private final double length;
+    private double area;
+    
+    public MassCalculation(Detail detail){
+        this.assortment = detail.getAssortment();
+        this.type = detail.getType();
+        this.number = detail.getNumber();
+        this.length = detail.getLength();
+        this.width = detail.getWidth();
     }
     
     /**
      * Запрос в базу данных
      * @param dataBase интерфейс базы данных
      */
-    public void executeQuery(DataBase dataBase) {
-        this.valueFromDB = dataBase.query(assortment, type, number);
+    public void executeQuery(DataBaseDispatcher dataBase) {
+        this.valueFromDB = dataBase.getDataBaseValue(assortment, type, number);
     }
     
     /**
@@ -95,7 +87,7 @@ class DetailModel implements Massable, IErrorMessage {
     
     // вычисление площади
     private double calculationArea(){
-        if(area != null){
+        /*if(area != null){
             return getValueOf(area);
         }
         if(width != null){
@@ -106,19 +98,14 @@ class DetailModel implements Massable, IErrorMessage {
             }else{
                 this.message = "ошибка! слишком большое число!";
             }
-        }
+        }*/
         return 0;
     }
-    /*
-    // числовое значение заданной в конструкторе площади
-    private void calculationArea(String area){
-        this.area = getValueOf(area);
-    }
-    */
     
     /**
      * Вычисление массы детали
      */
+    /*
     @Override
     public double calculationMass() {
         double valueOfArea = calculationArea();
@@ -150,10 +137,10 @@ class DetailModel implements Massable, IErrorMessage {
                             return DENSITY_RUBBER * valueOfArea * valueFromDB;  
         }
         return 0;
-    }
-
+    }*/
+/*
     @Override
     public String getErrorMessage() {
         return message;
-    }    
+    }    */
 }

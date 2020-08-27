@@ -24,8 +24,8 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 @CalculatorPanel()
-@ServiceInscription(reset = true)
-public class MessageServiceInscription extends JLabel implements CalculatorPanel, ServiceInscription {
+@Reset(reset = true)
+public class MessageServiceInscription extends JLabel implements CalculatorPanel, Reset {
    
     public MessageServiceInscription(){
         super.setLocation(20, 140);

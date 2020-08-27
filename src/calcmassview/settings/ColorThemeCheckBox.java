@@ -15,7 +15,6 @@
  */
 package calcmassview.settings;
 
-import calcmassview.base.ServiceInscription;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JViewport;
+import calcmassview.base.Reset;
 
 /**
  * Color theme checkbox
@@ -40,23 +40,15 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     private ColorThemeImpl theme;
     private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private final String boxName = "темная тема оформления";
-    //private List<JComponent> components;
     
     public ColorThemeCheckBox(){
         super.setSelected(true);
         super.setSize(180, 20);
         super.setText(boxName);
         super.setLocation(15, 35);
-        // this.components = components;
-        //createColorTheme(components);
-        
     }
     
-    /*public void actionTheme(List<JComponent> components){
-        this.components = components;
-        theme.actionTheme(components);
-    }*/
-    
+    @Override
     public void setComponents(ArrayList<JComponent> components){
         List<JComponent> componentsFiltred = componentsFilterForChangeTheme(components);
         createColorTheme(componentsFiltred);
@@ -68,7 +60,7 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
                         component.getClass().isAnnotationPresent(ColorTheme.class) || 
                         component.getClass().isAssignableFrom(JViewport.class) ||
                         component.getClass().isAssignableFrom(JLabel.class) ||
-                        component.getClass().isAnnotationPresent(ServiceInscription.class))
+                        component.getClass().isAnnotationPresent(Reset.class))
                 .collect(Collectors.toList());        
     }
     
@@ -78,8 +70,8 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     }
     
     @Override
-    public void actionChooser(int stateChange) {              
-        switch(stateChange){
+    public void actionChooser(ItemEvent event) {              
+        switch(event.getStateChange()){
             case ItemEvent.SELECTED:
                 theme.doDark();
                 break;

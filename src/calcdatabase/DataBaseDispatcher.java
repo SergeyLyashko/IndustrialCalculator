@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-public class DataBase implements Serializable {
+public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, DataBaseValueReceiver {
     
     private static final long serialVersionUID = 1L;
     
@@ -61,7 +61,6 @@ public class DataBase implements Serializable {
     + "ProfileTypes.ProfileTypeName = ? and "
     + "ProfileNumbers.ProfileNumberName = ?";
     
-    
     private final String numberName = "ProfileNumberName";
     private final String typeName = "ProfileTypeName";
     private final String assortmentName = "ProfileName";
@@ -72,36 +71,70 @@ public class DataBase implements Serializable {
     
     private final String valueFromDB = "AreaCut_Value";
     
-    private String assortment, type, number;
+    private String assortment;
+    private String type;
     
-    /**
-     *
-     * @param assortment
-     * @param type
-     * @param number
-     * @return
-     */
-    public ArrayList<String> receiveMenu(String assortment, String type, String number){
+    // создание списка меню номеров профиля
+    @Override
+    public ArrayList<String> getNumberMenu(String assortment, String type){
         this.assortment = assortment;
         this.type = type;
-        this.number = number;
-        if(type != null){
-            return getNumberMenu();
-        }else if(assortment != null){
-            return getTypeMenu();
-        }else{
-            return getAssortmentMenu();
+        return createMenuList(numberHeader, numberName, SQL_QUERY_NUMBERS);
+    }
+    
+    // создание списка меню типов профиля
+    @Override
+    public ArrayList<String> getTypeMenu(String assortment){
+        this.assortment = assortment;
+        return createMenuList(typeHeader, typeName, SQL_QUERY_TYPES);
+    }
+    
+    // создание списка меню сортамента
+    @Override
+    public ArrayList<String> getAssortmentMenu(){
+        return createMenuList(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
+    }
+       
+    private ArrayList<String> createMenuList(String menuHeader, String queryString, String sqlQuery) {
+        ArrayList<String> menuList = new ArrayList<>();
+        menuList.add(menuHeader);
+        addMenuFromDataBase(menuList, queryString, sqlQuery);
+        return menuList;
+    }
+    
+    private void addMenuFromDataBase(ArrayList<String> menuList, String queryString, String sqlQuery){
+        Connection connection = DataBaseConnection.getConnect();
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            // передача значений входных параметров
+            if(assortment != null){
+                preparedStatement.setString(1, assortment);
+            }
+            if(type != null){
+                preparedStatement.setString(2, type);
+            }            
+            
+            // test
+            //System.out.println("test data base assort: "+assortment+" type: "+type);
+            
+            // регистрация возвращаемого параметра
+            ResultSet resultSet = preparedStatement.executeQuery();
+            // добавление строк в меню
+            while(resultSet.next()){
+                menuList.add(resultSet.getString(queryString));
+            }
+            // закрытие
+            close(connection, preparedStatement, resultSet);
+        }catch(SQLException ex){
+            //Logger.getLogger(DataBaseDispatcher.class.getName()).log(Level.SEVERE, null, ex); // ?????????????????
+            //ex.printStackTrace();        
         }
     }
-
-    /**
-     *
-     * @param assortment
-     * @param type
-     * @param number
-     * @return
-     */
-    public double query(String assortment, String type, String number) {
+    
+    
+    
+    @Override
+    public double getDataBaseValue(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnection.getConnect();
@@ -116,7 +149,7 @@ public class DataBase implements Serializable {
             // закрытие
             close(connect, preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBaseDispatcher.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -128,50 +161,7 @@ public class DataBase implements Serializable {
             ps.close();
             resultSet.close();
         } catch (SQLException ex){
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBaseDispatcher.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    // создание списка меню сортамента
-    private ArrayList<String> getAssortmentMenu(){
-        return createMenuList(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
-    }
-    
-    // создание списка меню типов профиля
-    private ArrayList<String> getTypeMenu(){
-        return createMenuList(typeHeader, typeName, SQL_QUERY_TYPES);
-    }
-    
-    // создание списка меню номеров профиля
-    private ArrayList<String> getNumberMenu(){
-        return createMenuList(numberHeader, numberName, SQL_QUERY_NUMBERS);
-    }
-    
-    // создание списка для меню из базы данных
-    private ArrayList<String> createMenuList(String menuHeader, String queryString, String sqlQuery){
-        ArrayList<String> menuList = new ArrayList<>();
-        menuList.add(menuHeader);
-        try{
-            Connection connection = DataBaseConnection.getConnect();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            // передача значений входных параметров
-            if(assortment != null){
-                preparedStatement.setString(1, assortment);
-            }
-            if(type != null){
-                preparedStatement.setString(2, type);
-            }            
-            // регистрация возвращаемого параметра
-            ResultSet resultSet = preparedStatement.executeQuery();
-            // добавление строк в меню
-            while(resultSet.next()){
-                menuList.add(resultSet.getString(queryString));
-            }
-            // закрытие
-            close(connection, preparedStatement, resultSet);
-        }catch(SQLException ex){
-            //Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return menuList;
     }
 }

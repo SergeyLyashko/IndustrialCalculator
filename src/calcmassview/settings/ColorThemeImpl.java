@@ -15,16 +15,13 @@
  */
 package calcmassview.settings;
 
-import calcmassview.base.ServiceInscription;
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JViewport;
+import calcmassview.base.Reset;
 
 /**
  * Тема оформления окна приложения
@@ -79,7 +76,7 @@ public class ColorThemeImpl implements Serializable {
     
     private void serviceInscriptionPaint(List<JComponent> components){
         components.stream()
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(ServiceInscription.class))
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(Reset.class))
                 .forEach((JComponent component) -> {
                     component.setForeground(colorResultMarker);
                 });

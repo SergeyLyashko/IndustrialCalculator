@@ -47,7 +47,7 @@ public class CalculatorFrame extends JFrame implements Serializable {
 
             @Override
             public void windowClosing(WindowEvent e) {                
-                view.savePreferences();
+                //view.savePreferences();
                 System.exit(0);
             }
 

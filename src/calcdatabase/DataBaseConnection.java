@@ -29,17 +29,19 @@ import java.util.logging.Logger;
 class DataBaseConnection {
     
     // драйвер подключения к базе
-    private static final String DATA_BASE_DRIVER_NAME = "jdbc:sqlite:database\\calculator.db";
+    private static final String DATA_BASE_URL = "jdbc:sqlite:database\\calculator.db";
     
     /**
      * соединение с базой данных
      * @return соединение с БД
      */
-    public static Connection getConnect(){
+    public static Connection getConnect() {
         try {
             Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection(DATA_BASE_DRIVER_NAME);
-        } catch (SQLException | ClassNotFoundException ex) {
+            return DriverManager.getConnection(DATA_BASE_URL);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

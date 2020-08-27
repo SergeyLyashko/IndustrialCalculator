@@ -46,6 +46,7 @@ class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializabl
         super.setToolTipText(TOOL_TIP_BOX_TEXT);
     }
     
+    @Override
     public void setComponents(ArrayList<JComponent> components){
         List<JComponent> componentsFiltred = componentsFilterForToolTips(components);
         createToolTips(componentsFiltred);
@@ -64,8 +65,8 @@ class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializabl
     }
     
     @Override
-    public void actionChooser(int stateChange) {
-        switch(stateChange){
+    public void actionChooser(ItemEvent event) {
+        switch(event.getStateChange()){
             case ItemEvent.SELECTED:
                 toolTips.oN();
                 break;

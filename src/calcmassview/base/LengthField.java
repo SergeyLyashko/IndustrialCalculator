@@ -32,7 +32,7 @@ import calcmassview.settings.ToolTips;
  */
 @CalculatorPanel()
 @ToolTips(getToolTipDescription = "")
-@ValueReceiveble(getFieldValue = "LengthField")
+@ValueReceiveble(getCurrentMenuItem = "LengthField")
 @StateField(activate = false, deactivate = true)
 @SuppressWarnings("serial")
 public class LengthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, IKeyActionSubject, ToolTips {
@@ -44,9 +44,9 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     private final String emptyField = "";
     private String fieldValue;
     private IKeyActionObserver observer;
-    private final ServiceInscription resetMarker;
+    private final Reset resetMarker;
     
-    public LengthField(ServiceInscription resetMarker){
+    public LengthField(Reset resetMarker){
         super.setSize(125, 25);
         super.setEditable(false);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
@@ -103,7 +103,7 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     }
     
     @Override
-    public String getFieldValue(){
+    public String getCurrentMenuItem(){
         return fieldValue;
     }
         

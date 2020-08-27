@@ -28,6 +28,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import calcmasscontroller.CalculatorController;
+import calcmassview.base.CalculatorPanel;
+import calcmassview.base.Detail;
 import java.util.stream.Collectors;
 
 /**
@@ -47,8 +49,7 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
     
     private final Preference preference;
     
-    //private String profileAssortment, profileType, profileNumber, length, width;
-    private String resultValue;
+    private Detail detail;
     
     public CalculatorView(CalculatorController controller){
         super(new GridLayout(1, 1));
@@ -121,8 +122,14 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
     
     @Override
     public void massUpdate(double mass) {
-        formatDoubleToString(mass);
+        String formattedValue = formatDoubleToString(mass);
+        
         //generalPanel.getBasePanel().setResultation(resultValue);
+    }
+    
+    //форматирование строки результата
+    private String formatDoubleToString(double value){
+        return new DecimalFormat("#.###").format(value);
     }
     
     @Override
@@ -132,10 +139,7 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
         }
     }
     
-    //форматирование строки результата
-    private void formatDoubleToString(double mass){
-        this.resultValue = new DecimalFormat("#.###").format(mass);
-    }
+    
     
     @Override
     public void keyActionUpdate() {
@@ -144,24 +148,15 @@ public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObs
     
     // установка значений полей
     private void setParametrsToController(){
-        /*getFieldsValue();
-        boolean areaBoxOFF = generalPanel.getBasePanel().getDifficultAreaBox().isAreaBoxOFF();
-        if(areaBoxOFF){
-            controller.setFieldsValue(profileAssortment, profileType, profileNumber, length, width);
-        }else{
-            String area = this.length;
-            controller.setFieldsValue(profileAssortment, profileType, profileNumber, area);
-        }*/
+        receiveDetail();
+        controller.setDetail(detail);
     }
     
-    // получение значений полей
-    private void getFieldsValue(){
-        /*Detail calculatorData = generalPanel.getBasePanel().getDetail();
-        this.profileAssortment = calculatorData.getAssortment();        
-        this.profileType = calculatorData.getType();        
-        this.profileNumber = calculatorData.getNumber();        
-        this.length = calculatorData.getLength();        
-        this.width = calculatorData.getWidth();
-        */
+    private void receiveDetail(){
+        components.stream()
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(CalculatorPanel.class))
+                .forEach((JComponent component) -> {
+                    this.detail = ((CalculatorPanelImpl)component).getDetail();
+                        });
     }
 }

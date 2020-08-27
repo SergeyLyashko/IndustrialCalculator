@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settings;
-
-import java.awt.event.ItemEvent;
-import java.util.ArrayList;
-import javax.swing.JComponent;
-
+package calcdatabase;
 
 /**
- * Интерфейс выбора чек-бокса
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface CheckBoxSelectable {
+public interface DataBaseValueReceiver {
     
-    /**
-     *
-     * @param event
-     */
-    public void actionChooser(ItemEvent event);
-    
-    public void setComponents(ArrayList<JComponent> components);
+    public double getDataBaseValue(String assortment, String type, String number);
     
 }

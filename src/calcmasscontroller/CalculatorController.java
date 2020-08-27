@@ -15,30 +15,15 @@
  */
 package calcmasscontroller;
 
+import calcmassview.base.Detail;
+
 /**
  * »нтерфейс контроллера
- * ѕолучение параметров полей
  * @author Sergei Lyashko
  */
 public interface CalculatorController {
     
-    /**
-     * ”становка значений полей
-     * @param assortment наименование сортамента
-     * @param type наименование типа сортамента
-     * @param number номер профил€
-     * @param length длина детали
-     * @param width ширина детали
-     */
-    public void setFieldsValue(String assortment, String type, String number, String length, String width);
+    public void setDetail(Detail detail);  
     
-    /**
-     * ”становка значений полей
-     * @param assortment наименование сортамента
-     * @param type наименование типа сортамента
-     * @param number номер профил€
-     * @param area задаваема€ площадь детали
-     */
-    public void setFieldsValue(String assortment, String type, String number, String area);
-    
+    public void setResult(double value);
 }

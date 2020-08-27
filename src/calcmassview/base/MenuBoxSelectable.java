@@ -15,14 +15,18 @@
  */
 package calcmassview.base;
 
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Korvin
  */
-public interface MenuBoxSelectable {
+public interface MenuBoxSelectable extends ValueReceiveble{
     
     public void actionMenuSelect(String selectedMenuItem);
     
-    public String getSelectedMenuItem();
+    //public String getSelectedMenuItem();
+    
+    public ArrayList<String> receiveMenu();
 }

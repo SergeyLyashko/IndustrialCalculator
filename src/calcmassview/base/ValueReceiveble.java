@@ -28,5 +28,5 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface ValueReceiveble {
     
-    public String getFieldValue();    
+    public String getCurrentMenuItem();    
 }

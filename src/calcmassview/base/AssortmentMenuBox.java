@@ -16,16 +16,18 @@
 package calcmassview.base;
 
 import javax.swing.JComboBox;
-import calcdatabase.DataBase;
+import calcdatabase.DataBaseDispatcher;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
+import calcdatabase.DataBaseMenuReceiver;
+import java.util.ArrayList;
 
 /**
  * Меню типов сортамента
  * @author Sergei Lyashko
  */
 @CalculatorPanel()
-@ValueReceiveble(getFieldValue = "")
+@ValueReceiveble(getCurrentMenuItem = "")
 @DetailWidthState(haveWidth = false)
 @ToolTips(getToolTipDescription = "")
 public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, DetailWidthState, ToolTips {
@@ -35,38 +37,55 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     private final String toolTipsText = "выбор сортамента детали";
     private final String widthField = "Лист"; 
         
-    private final DataBase dataBase;
-    private final TypesMenuBox typesMenu;
-    private transient String fieldValue;
+    private final TypesMenuBox typesBox;
+    private transient String menuItem;
     private final StateField activeStateField;
-    private final ServiceInscription resetMarker;
+    private final Reset resetMarker;
     
-    public AssortmentMenuBox(StateField activeStateField, ServiceInscription serviceResetMarker) {
+    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
-        this.dataBase = new DataBase();
         this.activeStateField = activeStateField;
         this.resetMarker = serviceResetMarker;
-        // пустое меню по-умолчанию
-        Menu empty = new Menu(dataBase);
-        super.setModel(empty.createMenu());
+        addEmptyMenu();
         // создание меню типов профиля
-        typesMenu = new TypesMenuBox(dataBase, activeStateField, serviceResetMarker); 
+        typesBox = new TypesMenuBox(activeStateField, serviceResetMarker); 
+    }
+    
+    private void addEmptyMenu(){
+        // пустое меню по-умолчанию
+        Menu menu = new Menu();
+        Menu emptyMenu = menu.createMenu(this);
+        super.setModel(emptyMenu);
+    }
+    
+    @Override
+    public ArrayList<String> receiveMenu(){
+        DataBaseMenuReceiver receiver = new DataBaseDispatcher();
+        return receiver.getAssortmentMenu();
     }
     
     @Override
     public void actionMenuSelect(String selectedMenuItem) {
-        this.fieldValue = selectedMenuItem;
+        this.menuItem = selectedMenuItem;
+        System.out.println("test selectedMenuItem: "+menuItem);
         resetMenuBox();
         // создание меню типов профилей
         fillTypeProfilesMenu(selectedMenuItem);  
     }
     
+    // заполнение меню типов профилей
+    private void fillTypeProfilesMenu(String menuItem){
+        Menu menu = new Menu();
+        typesBox.setSelectedMenu(menuItem);
+        Menu typesMenu = menu.createMenu(typesBox);
+        typesBox.setModel(typesMenu);
+    }
+    
     private void resetMenuBox(){
-        //System.out.println("assort reset ");// TEST
         activeStateField.deactivate();
-        typesMenu.setSelectedIndex(0);
+        typesBox.setSelectedIndex(0);
         resetMarker.reset();
     }
     
@@ -76,29 +95,19 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     }
     
     @Override
-    public String getFieldValue(){
-        return fieldValue;
+    public String getCurrentMenuItem(){
+        //System.out.println("test aas getCurrentMenuItem: "+menuItem);
+        //return menuItem;
+        return super.getSelectedItem().toString();
     }
-    
-    // заполнение меню типов профилей
-    private void fillTypeProfilesMenu(String menuItem){
-        Menu menu = new Menu(dataBase);
-        Menu newTypeProfilesMenu = menu.createMenu(menuItem);
-        typesMenu.setSelectedMenu(menuItem);
-        typesMenu.setModel(newTypeProfilesMenu);
-    }
-    
+    /*
     @Override
     public String getSelectedMenuItem(){
         return super.getSelectedItem().toString();
-    }
+    }*/
     
-    /**
-     *
-     * @return
-     */
-    public TypesMenuBox getTypesMenu(){
-        return typesMenu;
+    public TypesMenuBox getTypesBox(){
+        return typesBox;
     }
 
     @Override
@@ -108,6 +117,6 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
 
     @Override
     public boolean haveWidth() {
-        return fieldValue.equals(widthField);
+        return menuItem.equals(widthField);
     }
 }

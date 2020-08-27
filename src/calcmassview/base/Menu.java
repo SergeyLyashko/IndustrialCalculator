@@ -18,8 +18,6 @@ package calcmassview.base;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import calcdatabase.DataBase;
-import java.util.Arrays;
 
 /**
  * Создание меню для комбо-бокс меню из профилей
@@ -28,114 +26,35 @@ import java.util.Arrays;
  */
 class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
     
-    private final static String[] ASSORTMENT_WITH_WIDTH = {"Лист", "Резиновая пластина"};
-    
-    private final String assortmentHeader = "Тип сортамента";
-    private final String typeHeader = "Тип профиля";
-    private final String numberHeader = "№ профиля";
-    
-    private ArrayList<String> menu;
+    private ArrayList<String> menuList;
     private int selected;
-    
-    private String assortment;
-    private String type;
-    private String number;
-    
-    private final DataBase dataBase;
-    
-    /**
-     * Конструктор меню
-     * @param dataBase интерфейс базы данных
-     */
-    public Menu(DataBase dataBase){
-        this.dataBase = dataBase;
-    }
-    
-    /**
-     * Конструктор по умолчанию
-     */
-    public Menu(){
-        dataBase = null;
-    }
     
     /**
      * создание модели меню для базовой панели выпадающего меню
      * @return 
      */
-    public Menu createMenu(){        
-        if(dataBase != null){
-            menu = dataBase.receiveMenu(assortment, type, number);
-        }else{
-            menu = new ArrayList<>();
-            menu.add(assortmentHeader);
-        }
-        return this;
-    }
-    
-    /**
-     * Создание модели меню типов профилей запрошенного сортамента
-     * @param assortment наименование сортамента
-     * @return 
-     */
-    public Menu createMenu(String assortment){
-        this.assortment = assortment;        
-        if(dataBase != null){
-            menu  = dataBase.receiveMenu(assortment, type, number);
-        }else{
-            menu = new ArrayList<>();
-            menu.add(typeHeader);
-        }
-        return this;
-    }
-    
-    /**
-     * Создание модели меню номеров профилей запрошенных сортамента и
-     * типа профиля
-     * @param assortment наименование сортамента
-     * @param type наименование типа профиля
-     * @return 
-     */
-    public Menu createMenu(String assortment, String type){
-        this.assortment = assortment;
-        this.type = type;        
-        if(dataBase != null){
-            menu = dataBase.receiveMenu(assortment, type, number);
-        }else{
-            menu = new ArrayList<>();
-            menu.add(numberHeader);
-        }
+    public Menu createMenu(MenuBoxSelectable source){    
+        menuList = source.receiveMenu();
         return this;
     }
     
     @Override
     public int getSize() {
-        return menu.size();
+        return menuList.size();
     }
 
     @Override
     public String getElementAt(int index) {
-        return menu.get(index);
+        return menuList.get(index);
     }
 
     @Override
     public void setSelectedItem(Object item) {
-        selected = menu.indexOf(item);
+        selected = menuList.indexOf(item);
     }
 
     @Override
     public Object getSelectedItem() {
-        return menu.get(selected);
-    }
-    
-    /**
-     * Проверка на наличие ширины
-     * @return
-     */
-    public boolean haveWidth(){
-        //System.out.println("assortment: "+assortment);// TEST
-        //System.out.println("type: "+type);// TEST
-        return Arrays.stream(ASSORTMENT_WITH_WIDTH).anyMatch((String element) -> {
-                return element.equals(assortment) || element.equals(type);
-            });
+        return menuList.get(selected);
     }
 }

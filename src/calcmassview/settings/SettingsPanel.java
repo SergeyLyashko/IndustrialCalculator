@@ -15,7 +15,6 @@
  */
 package calcmassview.settings;
 
-import calcmassview.base.ServiceInscription;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.Serializable;
@@ -32,8 +31,8 @@ import javax.swing.JPanel;
 public class SettingsPanel extends JPanel implements ItemListener, Serializable, ColorTheme {
 
     private static final long serialVersionUID = 1L;
-    private ColorThemeCheckBox themeChBox;
-    private ToolTipsChBox toolTipsChBox;
+    private final ColorThemeCheckBox themeChBox;
+    private final ToolTipsChBox toolTipsChBox;
     
     public SettingsPanel(ArrayList<JComponent> components){
         super.setLayout(null);
@@ -63,7 +62,7 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable,
     @Override
     public void itemStateChanged(ItemEvent event) {
         CheckBoxSelectable sourse = (CheckBoxSelectable)event.getItemSelectable();
-        sourse.actionChooser(event.getStateChange());
+        sourse.actionChooser(event);
     }
 
     @Override
@@ -74,6 +73,5 @@ public class SettingsPanel extends JPanel implements ItemListener, Serializable,
     @Override
     public String getName(){
         return "Настройки";
-    }
-    
+    }    
 }

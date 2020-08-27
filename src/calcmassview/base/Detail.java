@@ -15,88 +15,19 @@
  */
 package calcmassview.base;
 
-import java.util.ArrayList;
-import javax.swing.JComponent;
-
 /**
  *
  * @author Korvin
  */
-public class Detail {
+public interface Detail {
     
-    private String assortment;
-    private String type;
-    private String number;
-    private double width;
-    private double length;
+    public String getAssortment();
     
-    private final ArrayList<JComponent> components;
-
-    public Detail(ArrayList<JComponent> components) {                
-        this.components = components;
-        setFields();
-    }
+    public String getType();
     
-    private void setFields(){
-        components.stream()
-            .filter((JComponent component) -> component.getClass().isAnnotationPresent(ValueReceiveble.class))
-            .forEach((JComponent element) -> {
-                if(element.getClass().equals(AssortmentMenuBox.class)){
-                    assortment = ((ValueReceiveble)element).getFieldValue();
-                }
-                if(element.getClass().equals(TypesMenuBox.class)){
-                    type = ((ValueReceiveble)element).getFieldValue();
-                }
-                if(element.getClass().equals(NumbersMenuBox.class)){
-                    number = ((ValueReceiveble)element).getFieldValue();
-                }
-                if(element.getClass().equals(WidthField.class)){
-                    String value = ((ValueReceiveble)element).getFieldValue();
-                    width = getNumberOf(value);
-                }
-                if(element.getClass().equals(LengthField.class)){
-                    String value = ((ValueReceiveble)element).getFieldValue();
-                    length = getNumberOf(value);
-                }
-            });
-    }
+    public String getNumber();
     
-    /**
-     * Получение числового значения
-     * @param value Строковое представление значения
-     * @return числовое представление 
-     */
-    private double getNumberOf(String value) {
-        try{
-            return Double.parseDouble(value);
-        }catch(NumberFormatException ex){
-            //this.message = "ошибка! введенное значение не является числом!";
-        }
-        return 0;
-    }
+    public double getWidth();
     
-    public String getAssortment(){
-        System.out.println("test assort: "+assortment);// TEST
-        return assortment;
-    }
-    
-    public String getType(){
-        System.out.println(type);// TEST
-        return type;
-    }
-    
-    public String getNumber(){
-        System.out.println(number);// TEST
-        return number;
-    }
-    
-    public double getWidth(){
-        System.out.println(width);// TEST
-        return width;
-    }
-    
-    public double getLength(){
-        System.out.println(length);// TEST
-        return length;
-    }
+    public double getLength();    
 }

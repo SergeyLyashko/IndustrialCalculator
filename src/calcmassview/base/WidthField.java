@@ -30,7 +30,7 @@ import calcmassview.settings.ToolTips;
  */
 @CalculatorPanel()
 @ToolTips(getToolTipDescription = "")
-@ValueReceiveble(getFieldValue = "WidthField")
+@ValueReceiveble(getCurrentMenuItem = "WidthField")
 @StateField(activate = false, deactivate = true)
 @SuppressWarnings("serial")
 public class WidthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, ToolTips {
@@ -40,9 +40,9 @@ public class WidthField extends JFormattedTextField implements CalculatorPanel, 
     private final String fieldName = "введите ширину";
     private final String emptyField = "";
     private String fieldValue;
-    private final ServiceInscription resetMarker;
+    private final Reset resetMarker;
     
-    public WidthField(ServiceInscription resetMarker){
+    public WidthField(Reset resetMarker){
         super.setSize(125, 25);
         super.setEditable(false);
         super.setHorizontalAlignment(JFormattedTextField.RIGHT);
@@ -102,7 +102,7 @@ public class WidthField extends JFormattedTextField implements CalculatorPanel, 
     }
     
     @Override
-    public String getFieldValue(){
+    public String getCurrentMenuItem(){
         return fieldValue;
     }
     
