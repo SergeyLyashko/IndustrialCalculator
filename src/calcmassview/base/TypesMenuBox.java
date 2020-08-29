@@ -66,7 +66,6 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     @Override
     public ArrayList<String> receiveMenu(){
         DataBaseMenuReceiver receiver = new DataBaseDispatcher();
-        //System.out.println("test type box receive menu: "+selectedAssortment);
         return receiver.getTypeMenu(selectedAssortment);
     }
     

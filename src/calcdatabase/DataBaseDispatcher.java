@@ -74,31 +74,35 @@ public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, D
     private String assortment;
     private String type;
     
-    // создание списка меню номеров профиля
+    @Override
+    public ArrayList<String> getAssortmentMenu(){
+        ArrayList<String> menuList = new ArrayList<>();
+        menuList.add(assortmentHeader);
+        addMenuFromDataBase(menuList, assortmentName, SQL_QUERY_PROFILES);
+        return menuList;
+    }
+    
     @Override
     public ArrayList<String> getNumberMenu(String assortment, String type){
-        this.assortment = assortment;
-        this.type = type;
-        return createMenuList(numberHeader, numberName, SQL_QUERY_NUMBERS);
+        ArrayList<String> menuList = new ArrayList<>();
+        menuList.add(numberHeader);
+        if(assortment != null & type != null){
+            this.assortment = assortment;
+            this.type = type;
+            addMenuFromDataBase(menuList, numberName, SQL_QUERY_NUMBERS);
+        }
+        return menuList;
     }
     
     // создание списка меню типов профиля
     @Override
     public ArrayList<String> getTypeMenu(String assortment){
-        this.assortment = assortment;
-        return createMenuList(typeHeader, typeName, SQL_QUERY_TYPES);
-    }
-    
-    // создание списка меню сортамента
-    @Override
-    public ArrayList<String> getAssortmentMenu(){
-        return createMenuList(assortmentHeader, assortmentName, SQL_QUERY_PROFILES);
-    }
-       
-    private ArrayList<String> createMenuList(String menuHeader, String queryString, String sqlQuery) {
         ArrayList<String> menuList = new ArrayList<>();
-        menuList.add(menuHeader);
-        addMenuFromDataBase(menuList, queryString, sqlQuery);
+        menuList.add(typeHeader);
+        if(assortment != null){
+            this.assortment = assortment;
+            addMenuFromDataBase(menuList, typeName, SQL_QUERY_TYPES);
+        }
         return menuList;
     }
     
@@ -113,10 +117,8 @@ public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, D
             if(type != null){
                 preparedStatement.setString(2, type);
             }            
-            
             // test
             //System.out.println("test data base assort: "+assortment+" type: "+type);
-            
             // регистрация возвращаемого параметра
             ResultSet resultSet = preparedStatement.executeQuery();
             // добавление строк в меню
@@ -126,12 +128,9 @@ public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, D
             // закрытие
             close(connection, preparedStatement, resultSet);
         }catch(SQLException ex){
-            //Logger.getLogger(DataBaseDispatcher.class.getName()).log(Level.SEVERE, null, ex); // ?????????????????
-            //ex.printStackTrace();        
+            Logger.getLogger(DataBaseDispatcher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
     
     @Override
     public double getDataBaseValue(String assortment, String type, String number) {
