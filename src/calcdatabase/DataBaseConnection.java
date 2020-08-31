@@ -35,7 +35,7 @@ class DataBaseConnection {
      * соединение с базой данных
      * @return соединение с БД
      */
-    public static Connection getConnect() {
+    static Connection getConnect() {
         try {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection(DATA_BASE_URL);

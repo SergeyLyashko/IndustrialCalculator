@@ -21,6 +21,6 @@ package calcdatabase;
  */
 public interface DataBaseValueReceiver {
     
-    public double getDataBaseValue(String assortment, String type, String number);
+    double getDataBaseValue(String assortment, String type, String number);
     
 }

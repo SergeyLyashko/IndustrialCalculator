@@ -15,8 +15,8 @@
  */
 package calcmassview;
 
-import calcmassview.ViewObserver;
 import calcmassview.base.IKeyActionObserver;
+import calcmassview.CalculatorView;
 
 /**
  * Интерфейс наблюдаемого объекта
@@ -28,7 +28,7 @@ public interface IKeyActionSubject {
      * Регистрация наблюдателей
      * @param viewObserver экземпляр интерфейса Наблюдатель
      */
-    public void registerObserver(ViewObserver viewObserver);
+    public void registerObserver(CalculatorView viewObserver);
     
     /**
      * оповещение наблюдателей об изменении состояния

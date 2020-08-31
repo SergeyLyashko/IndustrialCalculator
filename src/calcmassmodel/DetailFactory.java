@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <slyashko@mail.ru>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,11 @@
 package calcmassmodel;
 
 /**
- * Получение массы
+ *
  * @author Korvin
  */
-@FunctionalInterface
-public interface Massable {
-    /**
-     * получение массы детали
-     * @return значение массы детали
-     */
-    public double calculationMass();
+public interface DetailFactory {
+    
+    public Detail createDetail();
+    
 }

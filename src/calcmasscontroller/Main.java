@@ -15,14 +15,32 @@
  */
 package calcmasscontroller;
 
+import calcdatabase.DataBase;
+import calcdatabase.DataBaseImpl;
+import calcdatabase.DataBaseMenuReceiver;
+import calcdatabase.DataBaseValueReceiver;
+import calcmassmodel.CalculatorModel;
+import calcmassmodel.CalculatorModelImpl;
+import calcmassview.CalculatorViewImpl;
 import javax.swing.SwingUtilities;
+import calcmassview.CalculatorView;
 
 /**
- * Запуск приложения
+ * Внедрение зависимостей
  * @author Sergei Lyashko
  */
 public class Main { 
     public static void main (String[] args) {
-        SwingUtilities.invokeLater(CalculatorControllerImpl::startApp);
+        SwingUtilities.invokeLater(() -> {
+            DataBase dataBase = new DataBaseImpl();
+            
+            DataBaseValueReceiver valueReceiver = dataBase.getValueFromDataBase();
+            CalculatorModel model = new CalculatorModelImpl(valueReceiver);
+            
+            DataBaseMenuReceiver receiver = dataBase.receiveMenu();
+            CalculatorView view = new CalculatorViewImpl(receiver);
+            
+            new CalculatorController(model, view);            
+                });
     }
 }

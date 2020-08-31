@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcmassview.base;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Интерфейс Модели
- * @author Sergei Lyashko
+ * Интерфейс состояния детали
+ * @author Korvin
  */
-public interface CalculatorModel {
-        
-    public CalculatorInputData receiveData();
-
-    public double getCalculationResult();
-
-    public String getError();
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface WidthFieldState {
+    
+    public boolean isWidthValid();
+    
 }

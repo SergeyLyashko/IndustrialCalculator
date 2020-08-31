@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,29 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassmodel;
 
 /**
- * интерфейс Представления
- * паттерн наблюдатель
+ *
  * @author Korvin
  */
-public interface ViewObserver {
+public interface CalculatorInputData {
     
-    /**
-     * обновление массы при ее изменении
-     * @param mass масса детали
-     */
-    public void massUpdate(double mass);
+    public void setAssortment(String assortment);
     
-    /**
-     * обновление строки об ошибке 
-     * @param message
-     */
-    public void errorMessageUpdate(String message);
+    public void setType(String type);
     
-    /**
-     * Обновление после нажатия клавиши
-     */
-    public void keyActionUpdate();
+    public void setNumber(String number);
+    
+    public void setLength(double length);
+    
+    public void setWidth(double width);
+    
 }

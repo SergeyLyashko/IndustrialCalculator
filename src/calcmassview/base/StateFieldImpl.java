@@ -37,8 +37,8 @@ public class StateFieldImpl implements Serializable, StateField {
     
     private boolean haveWidth(){
         return components.stream()                
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(DetailWidthState.class))
-                .anyMatch((JComponent element) -> ((DetailWidthState)element).haveWidth());
+                .filter((JComponent component) -> component.getClass().isAnnotationPresent(WidthFieldState.class))
+                .anyMatch((JComponent element) -> ((WidthFieldState)element).isWidthValid());
     }
     
     private boolean areaBoxOFF(){

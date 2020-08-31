@@ -22,17 +22,18 @@ import javax.swing.JComponent;
  *
  * @author Korvin
  */
-public class DetailImpl implements Detail {
+public class FieldsDataImpl implements FieldsData {
     
     private String assortment;
     private String type;
     private String number;
     private double width;
     private double length;
+    private double area;
     
     private final ArrayList<JComponent> components;
 
-    public DetailImpl(ArrayList<JComponent> components) {                
+    public FieldsDataImpl(ArrayList<JComponent> components) {                
         this.components = components;
         setFields();
     }
@@ -103,5 +104,10 @@ public class DetailImpl implements Detail {
     public double getLength(){
         System.out.println(length);// TEST
         return length;
+    }
+
+    @Override
+    public double getArea() {
+        return area;
     }
 }

@@ -15,15 +15,21 @@
  */
 package calcmasscontroller;
 
-import calcmassview.base.Detail;
+import calcmassmodel.CalculatorModel;
+import calcmassview.CalculatorView;
 
 /**
- * Интерфейс контроллера
+ * Контроллер
+ * Создание модели и представления
  * @author Sergei Lyashko
  */
-public interface CalculatorController {
+public class CalculatorController {
     
-    public void setDetail(Detail detail);  
-    
-    public void setResult(double value);
+    private final CalculatorModel model;
+    private final CalculatorView view;
+
+    CalculatorController(CalculatorModel model, CalculatorView view) {
+        this.model = model;
+        this.view = view;
+    }
 }

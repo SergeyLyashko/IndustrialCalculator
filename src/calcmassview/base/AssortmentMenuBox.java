@@ -15,11 +15,11 @@
  */
 package calcmassview.base;
 
+import calcdatabase.DataBase;
+import calcdatabase.DataBaseMenuReceiver;
 import javax.swing.JComboBox;
-import calcdatabase.DataBaseDispatcher;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
-import calcdatabase.DataBaseMenuReceiver;
 import java.util.ArrayList;
 
 /**
@@ -28,9 +28,9 @@ import java.util.ArrayList;
  */
 @CalculatorPanel()
 @ValueReceiveble(getCurrentMenuItem = "")
-@DetailWidthState(haveWidth = false)
+@WidthFieldState(isWidthValid = false)
 @ToolTips(getToolTipDescription = "")
-public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, DetailWidthState, ToolTips {
+public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, WidthFieldState, ToolTips {
 
     private static final long serialVersionUID = 1L;
     
@@ -42,15 +42,18 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker) {
+    private final DataBaseMenuReceiver receiver;
+    
+    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
         this.activeStateField = activeStateField;
         this.resetMarker = serviceResetMarker;
+        this.receiver = receiver;
         addEmptyMenu();
         // создание меню типов профиля
-        typesBox = new TypesMenuBox(activeStateField, serviceResetMarker); 
+        typesBox = new TypesMenuBox(activeStateField, serviceResetMarker, receiver); 
     }
     
     private void addEmptyMenu(){
@@ -62,14 +65,12 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     
     @Override
     public ArrayList<String> receiveMenu(){
-        DataBaseMenuReceiver receiver = new DataBaseDispatcher();
         return receiver.getAssortmentMenu();
     }
     
     @Override
     public void actionMenuSelect(String selectedMenuItem) {
         this.menuItem = selectedMenuItem;
-        System.out.println("test selectedMenuItem: "+menuItem);
         resetMenuBox();
         // создание меню типов профилей
         fillTypeProfilesMenu(selectedMenuItem);  
@@ -96,15 +97,8 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     
     @Override
     public String getCurrentMenuItem(){
-        //System.out.println("test aas getCurrentMenuItem: "+menuItem);
-        //return menuItem;
         return super.getSelectedItem().toString();
     }
-    /*
-    @Override
-    public String getSelectedMenuItem(){
-        return super.getSelectedItem().toString();
-    }*/
     
     public TypesMenuBox getTypesBox(){
         return typesBox;
@@ -116,7 +110,7 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     }
 
     @Override
-    public boolean haveWidth() {
+    public boolean isWidthValid() {
         return menuItem.equals(widthField);
     }
 }

@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseDispatcher;
+import calcdatabase.DataBase;
 import calcdatabase.DataBaseMenuReceiver;
 import java.lang.annotation.Annotation;
 import javax.swing.JComboBox;
@@ -34,22 +34,24 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     private static final long serialVersionUID = 1L;
     
     private final String toolTipsText = "выбор номера профиля детали";
-    private transient String menuItem;
     private final String headerMenuName = "№ профиля";
     
     private final StateField activeStateField;
     private final Reset resetMarker;
     private String assortment;
     private String type;
+    
+    private final DataBaseMenuReceiver receiver;
         
-    public NumbersMenuBox(StateField activeStateField, Reset serviceResetMarker) {
+    public NumbersMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);        
-        // пустое меню по-умолчанию
-        addEmptyMenu();
         this.activeStateField = activeStateField;
         this.resetMarker = serviceResetMarker;
+        System.out.println("test: "+receiver.toString());
+        this.receiver = receiver;
+         addEmptyMenu();
     }
     
     private void addEmptyMenu(){
@@ -60,8 +62,7 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     }
     
     @Override
-    public ArrayList<String> receiveMenu(){
-        DataBaseMenuReceiver receiver = new DataBaseDispatcher();
+    public ArrayList<String> receiveMenu(){        
         return receiver.getNumberMenu(assortment, type);
     }
     
@@ -77,7 +78,6 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     
     @Override
     public void actionMenuSelect(String selectedMenuItem) {
-        this.menuItem = selectedMenuItem;
         resetMenuBox();
         actionFields(selectedMenuItem);
     }
@@ -97,13 +97,7 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     @Override
     public String getCurrentMenuItem(){
         return super.getSelectedItem().toString();
-        //return menuItem;
     }
-    /*
-    @Override
-    public String getSelectedMenuItem(){
-        return super.getSelectedItem().toString();
-    }*/
     
     @Override
     public Class<? extends Annotation> annotationType() {

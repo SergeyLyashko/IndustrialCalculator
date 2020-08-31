@@ -15,132 +15,69 @@
  */
 package calcmassmodel;
 
-import static java.lang.Math.PI;
-import calcdatabase.DataBaseDispatcher;
-import calcmassview.base.Detail;
+import calcdatabase.DataBaseValueReceiver;
+import calcmassview.base.FieldsData;
 
 /**
- * Вычисление массы детали
+ * Интерактор
  * @author Sergei Lyashko
  */
-class MassCalculation /*implements Massable, ErrorMessage */{
+class MassCalculation {
     
-    // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
-    private static final double DENSITY_STEEL = 7.85e-6;
-    // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
-    private static final double DENSITY_RUBBER = 1.25e-6;
     // максимально возможное значение введенного или вычисляемого числа
-    private final double maxNumber = Double.MAX_VALUE;
+    private static final double MAX_NUMBER = Double.MAX_VALUE;
     // сообщение об ошибке
     private String message;
-    // значение из Базы Данных
-    private double valueFromDB;
-    // параметры детали
-    private final String assortment, type, number;
-
-    private final double width;
-    private final double length;
-    private double area;
     
-    public MassCalculation(Detail detail){
-        this.assortment = detail.getAssortment();
-        this.type = detail.getType();
-        this.number = detail.getNumber();
-        this.length = detail.getLength();
-        this.width = detail.getWidth();
+    private FieldsData data;
+    private Detail newDetail;
+    
+    
+    public MassCalculation(DataBaseValueReceiver valueReceiver){
+        createDetail();
     }
     
-    /**
-     * Запрос в базу данных
-     * @param dataBase интерфейс базы данных
-     */
-    public void executeQuery(DataBaseDispatcher dataBase) {
-        this.valueFromDB = dataBase.getDataBaseValue(assortment, type, number);
+    private void createDetail() {
+        double width = data.getWidth();
+        double length = data.getLength();
+        if(isValidValues(width, length)){
+            DetailFactoryImpl factory = new DetailFactoryImpl();
+            newDetail = factory.createDetail();
+        }        
     }
     
-    /**
-     * Получение числового значения
-     * @param value Строковое представление значения
-     * @return числовое представление 
-     */
-    private double getValueOf(String value) {
-        try{
-            double valueNum = Double.parseDouble(value);
-            if(valueNum > maxNumber){
-                this.message = "ошибка! слишком большое число!";
-            }else if(valueNum < 0){
-                this.message = "ошибка! отрицательное число!";
-            }else{
-                return valueNum;
-            }
-        }catch(NumberFormatException e){
-            this.message = "ошибка! введенное значение не является числом!";
-        }
-        return 0;
+    public double getMass(){
+        double mass = newDetail.calculationMass();
+        return mass;
     }
     
     // проверка на переполнение
-    private boolean isNotBigNumber(double widthNum, double lengthNum){
-        double checkNum = maxNumber / lengthNum;
-        return checkNum > widthNum;
-    }
-    
-    // вычисление площади
-    private double calculationArea(){
-        /*if(area != null){
-            return getValueOf(area);
-        }
-        if(width != null){
-            double widthNum = getValueOf(width);
-            double lengthNum = getValueOf(length);
-            if(isNotBigNumber(widthNum, lengthNum)){
-                return widthNum * lengthNum;
-            }else{
+    private boolean isValidValues(double widthNum, double lengthNum){
+        if(isValidNumber(widthNum) && isValidNumber(lengthNum)){
+            double checkNum = MAX_NUMBER / lengthNum;
+            if(checkNum > widthNum){
                 this.message = "ошибка! слишком большое число!";
+                return false;
             }
-        }*/
-        return 0;
+            return true;
+        }
+        return false;
     }
     
-    /**
-     * Вычисление массы детали
-     */
-    /*
-    @Override
-    public double calculationMass() {
-        double valueOfArea = calculationArea();
-        switch(assortment){
-            case "Лист":
-                            return selectedType(type, length, valueOfArea);
-            case "Швеллер":
-            case "Уголок":
-            case "Двутавр":
-                            return DENSITY_STEEL * valueFromDB * getValueOf(length) * 100;
-            case "Другое":               
-                            return selectedType(type, length, valueOfArea);
-        }
-        return 0;
-    }
     
-    private double selectedType(String type, String length, double valueOfArea){
-        switch (type){
-            case "рифленая(ромб)":
-                            return valueOfArea / 1000000 * valueFromDB;
-            case "тонколистовая":
-            case "толстолистовая":
-                            return DENSITY_STEEL * valueOfArea * valueFromDB;
-            case "Круг":
-                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
-            case "Квадрат":
-                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB);
-            case "Резиновая пластина":
-                            return DENSITY_RUBBER * valueOfArea * valueFromDB;  
+    private boolean isValidNumber(double number){
+        if(number > MAX_NUMBER){
+                this.message = "ошибка! слишком большое число!";
+                return false;
         }
-        return 0;
-    }*/
-/*
-    @Override
+        if(number < 0){
+                this.message = "ошибка! отрицательное число!";
+                return false;
+        }
+        return true;
+    }    
+
     public String getErrorMessage() {
         return message;
-    }    */
+    }
 }

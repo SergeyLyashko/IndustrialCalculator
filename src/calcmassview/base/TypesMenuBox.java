@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBaseDispatcher;
+import calcdatabase.DataBase;
 import calcdatabase.DataBaseMenuReceiver;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
@@ -29,9 +29,9 @@ import java.util.ArrayList;
  */
 @CalculatorPanel()
 @ValueReceiveble(getCurrentMenuItem = "")
-@DetailWidthState(haveWidth = false)
+@WidthFieldState(isWidthValid = false)
 @ToolTips(getToolTipDescription = "")
-public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, DetailWidthState, ToolTips {
+public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, MenuBoxSelectable, ValueReceiveble, WidthFieldState, ToolTips {
 
     private static final long serialVersionUID = 1L;
     
@@ -44,16 +44,20 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker) {
+    private final DataBaseMenuReceiver receiver;
+    
+    
+    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
         this.activeStateField = activeStateField;
         this.resetMarker = serviceResetMarker;
+        this.receiver = receiver;
         // пустое меню по-умолчанию
         addEmptyMenu();
-        // создание меню номеров профиля
-        numbersBox = new NumbersMenuBox(activeStateField, serviceResetMarker);
+        // создание меню номеров профиля        
+        numbersBox = new NumbersMenuBox(activeStateField, serviceResetMarker, receiver);
     }
     
     private void addEmptyMenu(){
@@ -65,7 +69,6 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     
     @Override
     public ArrayList<String> receiveMenu(){
-        DataBaseMenuReceiver receiver = new DataBaseDispatcher();
         return receiver.getTypeMenu(selectedAssortment);
     }
     
@@ -125,7 +128,7 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     }
 
     @Override
-    public boolean haveWidth() {
+    public boolean isWidthValid() {
         return menuItem.equals(widthField);
     }
 }

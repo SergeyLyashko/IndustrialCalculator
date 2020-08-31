@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcdatabase;
 
 /**
- * Интерфейс Модели
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface CalculatorModel {
-        
-    public CalculatorInputData receiveData();
-
-    public double getCalculationResult();
-
-    public String getError();
+public interface DataBase {
+    
+    DataBaseMenuReceiver receiveMenu();
+    
+    DataBaseValueReceiver getValueFromDataBase();
+    
 }

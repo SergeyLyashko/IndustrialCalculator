@@ -23,12 +23,10 @@ import java.util.ArrayList;
  */
 public interface DataBaseMenuReceiver {
     
-    //public ArrayList<String> receiveMenuList(String assortment, String type, String number);
+    ArrayList<String> getAssortmentMenu();
     
-    public ArrayList<String> getAssortmentMenu();
+    ArrayList<String> getTypeMenu(String assortment);
     
-    public ArrayList<String> getTypeMenu(String assortment);
-    
-    public ArrayList<String> getNumberMenu(String assortment, String type);
+    ArrayList<String> getNumberMenu(String assortment, String type);
     
 }

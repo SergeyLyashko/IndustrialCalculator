@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,21 @@
 package calcmassmodel;
 
 /**
- * Интерфейс Модели
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface CalculatorModel {
-        
-    public CalculatorInputData receiveData();
+class AssortmentDetail implements Detail{
+    
+    private final double area;
+    private final double length;
+    
+    public AssortmentDetail(double area, double length) {
+        this.area = area;
+        this.length = length;
+    }
 
-    public double getCalculationResult();
-
-    public String getError();
+    @Override
+    public double calculationMass() {
+        return DENSITY_STEEL * area * length * 100;
+    }
 }

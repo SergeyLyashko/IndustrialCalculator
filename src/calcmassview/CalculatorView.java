@@ -15,148 +15,19 @@
  */
 package calcmassview;
 
-import java.text.DecimalFormat;
-import calcmassview.base.CalculatorPanelImpl;
-import calcmassview.base.IKeyActionObserver;
-import calcmassview.info.InfoPanel;
-import calcmassview.settings.ColorTheme;
-import calcmassview.settings.SettingsPanel;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import calcmasscontroller.CalculatorController;
-import calcmassview.base.CalculatorPanel;
-import calcmassview.base.Detail;
-import java.util.stream.Collectors;
+import calcmassview.base.FieldsData;
 
 /**
- * Представление приложения
- * @author Sergei Lyashko
+ * интерфейс Представления
+ * паттерн наблюдатель
+ * @author Korvin
  */
-public class CalculatorView extends JPanel implements IKeyActionSubject, ViewObserver {
-
-    private static final long serialVersionUID = 1L;
-    
-    private final CalculatorController controller;
-    
-    // коллекция компонентов
-    private ArrayList<JComponent> components;
-    
-    private final ArrayList<ViewObserver> observers;
-    
-    private final Preference preference;
-    
-    private Detail detail;
-    
-    public CalculatorView(CalculatorController controller){
-        super(new GridLayout(1, 1));
-        this.controller = controller;
-        new CalculatorFrame(this);
-        this.preference = new Preference();
-        //TODO
-        observers = new ArrayList<>();        
-        this.addToTabbedPane();
-    }
-    
-    /**
-     * Добавление вкладок на панель
-     */
-    private void addToTabbedPane(){
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        List<JPanel> panels = loadPanels();        
-        panels.stream().forEach((JPanel panel) -> tabbedPane.addTab(panel.getName(), panel));
-        this.add(tabbedPane);
-    }
-    
-    private List<JPanel> loadPanels(){
-        if(preference.isSaved()){
-            this.components = preference.loadSavedComponents();
-        }else{
-            createComponents();
-        }
-        return extractPanels();
-    }
-    
-    private List<JPanel> extractPanels(){
-        return components.stream()
-                    .filter((JComponent component) -> component.getClass().getSuperclass().isAssignableFrom(JPanel.class))
-                    .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class))
-                    .map((JComponent component) -> (JPanel)component)
-                    .collect(Collectors.toList());
-    }
-    
-    // создание панелей
-    private void createComponents(){
-        components = new ArrayList<>();
-        JPanel calculatorPanel = new CalculatorPanelImpl(components);
-        components.add(calculatorPanel);
-        JPanel infoPanel = new InfoPanel(components);            
-        JPanel settingsPanel = new SettingsPanel(components);                                
-        components.add(settingsPanel);
-        components.add(infoPanel);
-    }
-    
-    public void savePreferences() {
-        preference.save(components);
-    }
-    
-    @Override
-    public void registerObserver(ViewObserver ob) {
-        //TODO написать создание массива наблюдателей если их больше 1
-        observers.add(ob);
-    }
-
-    @Override
-    public void notifyObservers() {
-        //System.out.println("general observers");// TEST
-        observers.stream().forEach(ViewObserver::keyActionUpdate);
-    }
-
-    @Override
-    public void registerObserver(IKeyActionObserver keyActionObserver) {
-        
-    }
-    
-    @Override
-    public void massUpdate(double mass) {
-        String formattedValue = formatDoubleToString(mass);
-        
-        //generalPanel.getBasePanel().setResultation(resultValue);
-    }
-    
-    //форматирование строки результата
-    private String formatDoubleToString(double value){
-        return new DecimalFormat("#.###").format(value);
-    }
-    
-    @Override
-    public void errorMessageUpdate(String message) {
-        if(message != null){
-            //generalPanel.getBasePanel().setError(message);
-        }
-    }
+public interface CalculatorView {
     
     
+    public void showResult(double mass);
     
-    @Override
-    public void keyActionUpdate() {
-        setParametrsToController();
-    }
+    public void showError(String message);
     
-    // установка значений полей
-    private void setParametrsToController(){
-        receiveDetail();
-        controller.setDetail(detail);
-    }
-    
-    private void receiveDetail(){
-        components.stream()
-                .filter((JComponent component) -> component.getClass().isAnnotationPresent(CalculatorPanel.class))
-                .forEach((JComponent component) -> {
-                    this.detail = ((CalculatorPanelImpl)component).getDetail();
-                        });
-    }
+    public FieldsData getData();
 }

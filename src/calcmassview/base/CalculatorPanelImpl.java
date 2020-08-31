@@ -15,6 +15,8 @@
  */
 package calcmassview.base;
 
+import calcdatabase.DataBase;
+import calcdatabase.DataBaseMenuReceiver;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -38,10 +40,12 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     // коллекция компонентов
     private final ArrayList<JComponent> components;    
     // Данные
-    private transient Detail detail;    
+    private transient FieldsData data;    
+    private final DataBaseMenuReceiver receiver;
     
-    public CalculatorPanelImpl(ArrayList<JComponent> components) {
+    public CalculatorPanelImpl(ArrayList<JComponent> components, DataBaseMenuReceiver receiver) {
         this.components =components;
+        this.receiver = receiver;
         // добавление компонентов
         addComponents();        
         // политика обхода фокусом
@@ -58,7 +62,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         // сброс маркеров
         Reset serviceReset = new ResetImpl(components);
         // <Тип изделия>
-        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(stateField, serviceReset);
+        AssortmentMenuBox assortmentBox = new AssortmentMenuBox(stateField, serviceReset, receiver);
         assortmentBox.addActionListener(this);
         components.add(assortmentBox);
         // <Тип профиля>
@@ -120,18 +124,18 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
      *
      * @return
      */
-    public Detail getDetail(){
-        return detail;
+    public FieldsData getFieldsData(){
+        return data;
     }
     
     public void createDetail(){        
-        detail = new DetailImpl(components);
+        data = new FieldsDataImpl(components);
         // TEST
-        detail.getAssortment();
-        detail.getType();
-        detail.getNumber();
-        detail.getWidth();
-        detail.getLength();
+        data.getAssortment();
+        data.getType();
+        data.getNumber();
+        data.getWidth();
+        data.getLength();
     }
         
     @Override

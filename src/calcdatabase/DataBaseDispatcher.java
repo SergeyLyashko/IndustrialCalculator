@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, DataBaseValueReceiver {
+class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, DataBaseValueReceiver {
     
     private static final long serialVersionUID = 1L;
     
@@ -82,18 +82,6 @@ public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, D
         return menuList;
     }
     
-    @Override
-    public ArrayList<String> getNumberMenu(String assortment, String type){
-        ArrayList<String> menuList = new ArrayList<>();
-        menuList.add(numberHeader);
-        if(assortment != null & type != null){
-            this.assortment = assortment;
-            this.type = type;
-            addMenuFromDataBase(menuList, numberName, SQL_QUERY_NUMBERS);
-        }
-        return menuList;
-    }
-    
     // создание списка меню типов профиля
     @Override
     public ArrayList<String> getTypeMenu(String assortment){
@@ -102,6 +90,19 @@ public class DataBaseDispatcher implements Serializable, DataBaseMenuReceiver, D
         if(assortment != null){
             this.assortment = assortment;
             addMenuFromDataBase(menuList, typeName, SQL_QUERY_TYPES);
+        }
+        return menuList;
+    }
+    
+    @Override
+    public ArrayList<String> getNumberMenu(String assortment, String type){
+        System.out.println("test data");
+        ArrayList<String> menuList = new ArrayList<>();
+        menuList.add(numberHeader);
+        if(assortment != null && type != null){
+            this.assortment = assortment;
+            this.type = type;
+            addMenuFromDataBase(menuList, numberName, SQL_QUERY_NUMBERS);
         }
         return menuList;
     }

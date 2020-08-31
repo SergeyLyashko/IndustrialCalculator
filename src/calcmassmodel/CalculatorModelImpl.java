@@ -15,53 +15,36 @@
  */
 package calcmassmodel;
 
-import java.util.ArrayList;
-import calcmassview.ViewObserver;
-import calcmassview.base.Detail;
+import calcdatabase.DataBaseValueReceiver;
+
 
 /**
- * создание детали
+ * 
  * @author Sergei Lyashko
  */
 public class CalculatorModelImpl implements CalculatorModel {
     
-    private MassCalculation massCalculation;
-    private final ArrayList<ViewObserver> observers;
-    private double mass;
-    private String serviceMessage;
+    private final MassCalculation massCalculation;
     
-    public CalculatorModelImpl(){
-        observers = new ArrayList<>();        
+
+    public CalculatorModelImpl(DataBaseValueReceiver valueReceiver) {
+        
+        massCalculation = new MassCalculation(valueReceiver);
     }
     
     @Override
-    public void setDetail(Detail detail) {
-        massCalculation = new MassCalculation(detail);
-        massChangedObservers();
-    }
-    
-    @Override
-    public void registerObserver(ViewObserver o) {
-        observers.add(o);
+    public double getCalculationResult() {
+        return massCalculation.getMass();
     }
 
     @Override
-    public void notifyObservers() {
-        observers.stream().forEach((ViewObserver observer) -> {
-            observer.massUpdate(mass);
-            observer.errorMessageUpdate(serviceMessage);
-        });
+    public String getError() {
+        return massCalculation.getErrorMessage();
     }
 
+
     @Override
-    public void displayError() {
-        //this.serviceMessage = massCalculation.getErrorMessage();
-    }
-    
-    // оповещение наблюдателей об изменениях
-    private void massChangedObservers(){
-        //this.mass = massCalculation.calculationMass();
-        displayError();
-        notifyObservers();
+    public CalculatorInputData receiveData() {
+        return new CalculatorInputDataImpl();
     }
 }
