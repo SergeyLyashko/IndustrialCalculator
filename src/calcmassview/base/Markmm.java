@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.settings.ColorTheme;
 import java.awt.Color;
 import java.lang.annotation.Annotation;
 import javax.swing.JLabel;
@@ -24,7 +25,8 @@ import javax.swing.JLabel;
  * @author Sergei Lyashko
  */
 @CalculatorPanel()
-public class Markmm extends JLabel implements CalculatorPanel{
+@ColorTheme()
+public class Markmm extends JLabel implements CalculatorPanel, ColorTheme{
     
     public Markmm(int xDestination, int yDestination){
         super.setVisible(true);

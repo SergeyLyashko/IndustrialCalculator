@@ -31,6 +31,7 @@ import javax.swing.JTabbedPane;
 import calcmassview.base.CalculatorPanel;
 import java.util.stream.Collectors;
 import calcmassview.base.FieldsData;
+import calcmassview.info.Info;
 
 /**
  * Представление приложения
@@ -47,11 +48,12 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
     
     private FieldsData data;
     private final DataBaseMenuReceiver receiver;
+    private final Info info;
     
-    public CalculatorViewImpl(DataBaseMenuReceiver receiver){
+    public CalculatorViewImpl(DataBaseMenuReceiver receiver, Info info){
         super(new GridLayout(1, 1));
         this.receiver = receiver;
-        new CalculatorFrame(this);
+        this.info = info;
         this.preference = new Preference();
         List<JPanel> panels = loadPanels();
         this.addToTabbedPane(panels);
@@ -66,9 +68,6 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
         return extractPanels();
     }
     
-    /**
-     * Добавление вкладок на панель
-     */
     private void addToTabbedPane(List<JPanel> panels){
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);             
         panels.stream().forEach((JPanel panel) -> tabbedPane.addTab(panel.getName(), panel));
@@ -88,10 +87,11 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
         components = new ArrayList<>();
         JPanel calculatorPanel = new CalculatorPanelImpl(components, receiver);
         components.add(calculatorPanel);
-        JPanel infoPanel = new InfoPanel(components);            
+        JPanel infoPanel = new InfoPanel(components, info);            
         JPanel settingsPanel = new SettingsPanel(components);                                
         components.add(settingsPanel);
         components.add(infoPanel);
+        new CalculatorFrame(this);
     }
     
     public void savePreferences() {

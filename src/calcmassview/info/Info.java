@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package calcmassview.info;
 
-import calcmassmodel.CalculatorModel;
-import calcmassview.CalculatorView;
+import calcmassview.settings.ColorTheme;
+import javax.swing.JLabel;
 
 /**
- * Контроллер
- * Создание модели и представления
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public class CalculatorController {
+public interface Info extends ColorTheme{
     
-    private final CalculatorModel model;
-    private final CalculatorView view;
-
-    CalculatorController(CalculatorModel model, CalculatorView view) {
-        this.model = model;
-        this.view = view;
-    }
-    
-    
+    public JLabel receiveInfo();
 }

@@ -15,79 +15,74 @@
  */
 package calcmassview.settings;
 
+import calcmassview.base.Markmm;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JViewport;
 import calcmassview.base.Reset;
 
 /**
- * Тема оформления окна приложения
+ * App color theme
  * @author Sergei Lyashko
  */
-public class ColorThemeImpl implements Serializable {
+public class ColorThemeChanger implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
     private final List<JComponent> components;
-    private Color colorBackGround, colorForeGround, colorMarker, colorResultMarker;
+    private Color backGround, foreGround, marker, serviceString;
 
-    public ColorThemeImpl(List<JComponent> components) {
+    public ColorThemeChanger(List<JComponent> components) {
         this.components = components;
     }
         
     public void doDark(){
-        colorBackGround = Color.BLACK;
-        colorForeGround = Color.WHITE;
-        colorMarker = Color.WHITE;
-        colorResultMarker = Color.GREEN;
+        backGround = Color.BLACK;
+        foreGround = Color.WHITE;
+        marker = Color.WHITE;
+        serviceString = Color.GREEN;
         actionTheme(components);               
     }
     
     public void doLight(){
-        colorBackGround = new Color(250, 236, 229);
-        colorForeGround = Color.BLACK;
-        colorMarker = Color.BLACK;
-        colorResultMarker = Color.BLUE;
+        backGround = new Color(250, 236, 229);
+        foreGround = Color.BLACK;
+        marker = Color.BLACK;
+        serviceString = Color.BLUE;
         actionTheme(components);                     
     }
     
     // активация выбранной темы
     public void actionTheme(List<JComponent> components){
-        // TEST
-        /*components.stream().forEach((JComponent component) ->{
-            System.out.println("collect theme test: "+component.toString());
-        });
-        System.out.println("color: "+colorBackGround.toString());*/
-        serviceInscriptionPaint(components);
+        serviceStringPaint(components);
         titleMarkerPaint(components);
-        selectedComponentPaint(components);
+        selectableComponentPaint(components);
     }
     
     private void titleMarkerPaint(List<JComponent> components){
         components.stream()
-                .filter((JComponent component) -> component.getClass().isAssignableFrom(JLabel.class))
+                .filter((JComponent component) -> component.getClass().isAssignableFrom(Markmm.class))
                 .forEach((JComponent component) -> {
-                    component.setForeground(colorMarker);
+                    component.setForeground(marker);
                 });
     }
     
-    private void serviceInscriptionPaint(List<JComponent> components){
+    private void serviceStringPaint(List<JComponent> components){
         components.stream()
                 .filter((JComponent component) -> component.getClass().isAnnotationPresent(Reset.class))
                 .forEach((JComponent component) -> {
-                    component.setForeground(colorResultMarker);
+                    component.setForeground(serviceString);
                 });
     }
 
-    private void selectedComponentPaint(List<JComponent> components) {
+    private void selectableComponentPaint(List<JComponent> components) {
         components.stream()
                 .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class) || component.getClass().isAssignableFrom(JViewport.class))
                 .forEach((JComponent component) -> {
-                    component.setBackground(colorBackGround);
-                    component.setForeground(colorForeGround);
+                    component.setBackground(backGround);
+                    component.setForeground(foreGround);
                 });
     }
 }

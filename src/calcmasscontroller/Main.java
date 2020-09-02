@@ -24,6 +24,8 @@ import calcmassmodel.CalculatorModelImpl;
 import calcmassview.CalculatorViewImpl;
 import javax.swing.SwingUtilities;
 import calcmassview.CalculatorView;
+import calcmassview.info.Info;
+import calcmassview.info.InfoImpl;
 
 /**
  * Внедрение зависимостей
@@ -35,12 +37,14 @@ public class Main {
             DataBase dataBase = new DataBaseImpl();
             
             DataBaseValueReceiver valueReceiver = dataBase.getValueFromDataBase();
-            CalculatorModel model = new CalculatorModelImpl(valueReceiver);
+            //CalculatorModel model = new CalculatorModelImpl(valueReceiver);
             
             DataBaseMenuReceiver receiver = dataBase.receiveMenu();
-            CalculatorView view = new CalculatorViewImpl(receiver);
+            Info info = new InfoImpl();
+            CalculatorView view = new CalculatorViewImpl(receiver, info);
             
-            new CalculatorController(model, view);            
+            //CalculatorController calculatorController = new CalculatorController(model, view);
+            
                 });
     }
 }
