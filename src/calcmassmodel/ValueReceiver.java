@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
-
-import java.util.ArrayList;
+package calcmassmodel;
 
 /**
  *
  * @author Korvin
  */
-public interface DataBaseMenuReceiver {
+public interface ValueReceiver {
     
-    ArrayList<String> getAssortmentMenu();
-    
-    ArrayList<String> getTypeMenu(String assortment);
-    
-    ArrayList<String> getNumberMenu(String assortment, String type);
+    double getValue(String assortment, String type, String number);
     
 }

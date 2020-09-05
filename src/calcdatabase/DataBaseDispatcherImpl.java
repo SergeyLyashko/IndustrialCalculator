@@ -15,12 +15,25 @@
  */
 package calcdatabase;
 
-/**
- *
- * @author Korvin
- */
-public interface DataBaseValueReceiver {
+import calcmassmodel.ValueReceiver;
+import calcmassview.MenuListReceiver;
+
+
+public class DataBaseDispatcherImpl implements DataBaseDispatcher {
     
-    double getDataBaseValue(String assortment, String type, String number);
+    private final DetailsAreaDataBase dataBaseDispatcher;
     
+    public DataBaseDispatcherImpl(){
+        dataBaseDispatcher = new DetailsAreaDataBase();
+    }
+
+    @Override
+    public MenuListReceiver getMenuList() {
+        return dataBaseDispatcher;
+    }
+
+    @Override
+    public ValueReceiver getValueReceiver() {
+        return dataBaseDispatcher;
+    }
 }

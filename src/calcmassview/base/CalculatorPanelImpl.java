@@ -15,8 +15,6 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBase;
-import calcdatabase.DataBaseMenuReceiver;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -26,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.annotation.Annotation;
 import javax.swing.JComponent;
+import calcmassview.MenuListReceiver;
+import calcdatabase.DataBaseDispatcher;
 
 /**
  * основная панель с компонентами
@@ -41,9 +41,9 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     private final ArrayList<JComponent> components;    
     // Данные
     private transient FieldsData data;    
-    private final DataBaseMenuReceiver receiver;
+    private final MenuListReceiver receiver;
     
-    public CalculatorPanelImpl(ArrayList<JComponent> components, DataBaseMenuReceiver receiver) {
+    public CalculatorPanelImpl(ArrayList<JComponent> components, MenuListReceiver receiver) {
         this.components =components;
         this.receiver = receiver;
         // добавление компонентов

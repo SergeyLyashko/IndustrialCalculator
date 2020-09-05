@@ -17,6 +17,7 @@ package calcmasscontroller;
 
 import calcmassmodel.CalculatorModel;
 import calcmassview.CalculatorView;
+import calcmassview.base.FieldsData;
 
 /**
  * Контроллер
@@ -33,5 +34,12 @@ public class CalculatorController {
         this.view = view;
     }
     
+    // ввод данных
+    public void input(FieldsData data){
+        
+    }
     
+    public void output(){
+        
+    }
 }

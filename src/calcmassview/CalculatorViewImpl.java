@@ -15,7 +15,6 @@
  */
 package calcmassview;
 
-import calcdatabase.DataBaseMenuReceiver;
 import java.text.DecimalFormat;
 import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.base.IKeyActionObserver;
@@ -47,10 +46,10 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
     private final Preference preference;
     
     private FieldsData data;
-    private final DataBaseMenuReceiver receiver;
+    private final MenuListReceiver receiver;
     private final Info info;
     
-    public CalculatorViewImpl(DataBaseMenuReceiver receiver, Info info){
+    public CalculatorViewImpl(MenuListReceiver receiver, Info info){
         super(new GridLayout(1, 1));
         this.receiver = receiver;
         this.info = info;

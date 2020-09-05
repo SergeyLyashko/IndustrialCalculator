@@ -15,12 +15,11 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBase;
-import calcdatabase.DataBaseMenuReceiver;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
-import java.util.ArrayList;
+import calcmassview.MenuListReceiver;
+import java.util.List;
 
 /**
  * Выпадающее меню типов профилей
@@ -44,10 +43,10 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    private final DataBaseMenuReceiver receiver;
+    private final MenuListReceiver receiver;
     
     
-    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
+    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);
@@ -62,13 +61,13 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     
     private void addEmptyMenu(){
         // пустое меню по-умолчанию
-        Menu menu = new Menu();
-        Menu emptyMenu = menu.createMenu(this);
+        MenuModel menu = new MenuModel();
+        MenuModel emptyMenu = menu.createMenuModel(this);
         super.setModel(emptyMenu);
     }
     
     @Override
-    public ArrayList<String> receiveMenu(){
+    public List<String> receiveMenu(){
         return receiver.getTypeMenu(selectedAssortment);
     }
     
@@ -108,9 +107,9 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     
     // обновление меню номеров профилей
     private void fillNumberProfilesMenu(String menuItem){
-        Menu menu = new Menu();
+        MenuModel menu = new MenuModel();
         numbersBox.setSelectedMenu(selectedAssortment, menuItem);
-        menu.createMenu(numbersBox);
+        menu.createMenuModel(numbersBox);
         numbersBox.setModel(menu);
     }
     

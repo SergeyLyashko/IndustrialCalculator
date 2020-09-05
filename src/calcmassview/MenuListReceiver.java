@@ -13,24 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
+package calcmassview;
 
+import java.util.List;
 
-public class DataBaseImpl implements DataBase {
+/**
+ *
+ * @author Korvin
+ */
+public interface MenuListReceiver {
     
-    private final DataBaseDispatcher dataBaseDispatcher;
+    List<String> getAssortmentMenu();
     
-    public DataBaseImpl(){
-        dataBaseDispatcher = new DataBaseDispatcher();
-    }
-
-    @Override
-    public DataBaseMenuReceiver receiveMenu() {
-        return dataBaseDispatcher;
-    }
-
-    @Override
-    public DataBaseValueReceiver getValueFromDataBase() {
-        return dataBaseDispatcher;
-    }
+    List<String> getTypeMenu(String assortment);
+    
+    List<String> getNumberMenu(String assortment, String type);
+    
 }

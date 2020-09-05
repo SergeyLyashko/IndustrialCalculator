@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * Подключение к Базе Данных 
  * @author Sergei Lyashko
  */
-class DataBaseConnection {
+class DataBaseConnector {
     
     // драйвер подключения к базе
     private static final String DATA_BASE_URL = "jdbc:sqlite:database\\calculator.db";
@@ -40,9 +40,9 @@ class DataBaseConnection {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection(DATA_BASE_URL);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

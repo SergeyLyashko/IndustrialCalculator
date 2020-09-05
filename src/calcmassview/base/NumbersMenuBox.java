@@ -15,12 +15,11 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBase;
-import calcdatabase.DataBaseMenuReceiver;
 import java.lang.annotation.Annotation;
 import javax.swing.JComboBox;
 import calcmassview.settings.ToolTips;
-import java.util.ArrayList;
+import calcmassview.MenuListReceiver;
+import java.util.List;
 
 /**
  * Панель меню номеров профилей
@@ -41,9 +40,9 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     private String assortment;
     private String type;
     
-    private final DataBaseMenuReceiver receiver;
+    private final MenuListReceiver receiver;
         
-    public NumbersMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
+    public NumbersMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 100);        
@@ -56,13 +55,13 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
     
     private void addEmptyMenu(){
         // пустое меню по-умолчанию
-        Menu menu = new Menu();
-        Menu emptyMenu = menu.createMenu(this);
+        MenuModel menu = new MenuModel();
+        MenuModel emptyMenu = menu.createMenuModel(this);
         super.setModel(emptyMenu);
     }
     
     @Override
-    public ArrayList<String> receiveMenu(){        
+    public List<String> receiveMenu(){        
         return receiver.getNumberMenu(assortment, type);
     }
     

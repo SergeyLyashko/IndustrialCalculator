@@ -15,7 +15,6 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseValueReceiver;
 import calcmassview.base.FieldsData;
 
 /**
@@ -33,7 +32,7 @@ class MassCalculation {
     private Detail newDetail;
     
     
-    public MassCalculation(DataBaseValueReceiver valueReceiver){
+    public MassCalculation(ValueReceiver valueReceiver){
         createDetail();
     }
     

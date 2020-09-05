@@ -15,7 +15,7 @@
  */
 package calcmassview.base;
 
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
@@ -24,16 +24,16 @@ import javax.swing.ComboBoxModel;
  * из Базы Данных
  * @author Sergei Lyashko
  */
-class Menu extends AbstractListModel<String> implements ComboBoxModel<String> {
+class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
     
-    private ArrayList<String> menuList;
+    private List<String> menuList;
     private int selected;
     
     /**
      * создание модели меню для базовой панели выпадающего меню
      * @return 
      */
-    public Menu createMenu(MenuBoxSelectable source){    
+    public MenuModel createMenuModel(MenuBoxSelectable source){    
         menuList = source.receiveMenu();
         return this;
     }

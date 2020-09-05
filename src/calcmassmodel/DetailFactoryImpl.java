@@ -15,19 +15,17 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseValueReceiver;
-
 
 public class DetailFactoryImpl implements DetailFactory {
     
-    private DataBaseValueReceiver receiver;
+    private ValueReceiver receiver;
     private CalculatorInputDataImpl data;
     
     private double getDataBaseValue() {
         String assortment = data.getAssortment();
         String type = data.getType();
         String number = data.getNumber();
-        return receiver.getDataBaseValue(assortment, type, number);
+        return receiver.getValue(assortment, type, number);
     }
 
     @Override

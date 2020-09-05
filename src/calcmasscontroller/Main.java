@@ -15,10 +15,7 @@
  */
 package calcmasscontroller;
 
-import calcdatabase.DataBase;
-import calcdatabase.DataBaseImpl;
-import calcdatabase.DataBaseMenuReceiver;
-import calcdatabase.DataBaseValueReceiver;
+import calcdatabase.DataBaseDispatcherImpl;
 import calcmassmodel.CalculatorModel;
 import calcmassmodel.CalculatorModelImpl;
 import calcmassview.CalculatorViewImpl;
@@ -26,6 +23,9 @@ import javax.swing.SwingUtilities;
 import calcmassview.CalculatorView;
 import calcmassview.info.Info;
 import calcmassview.info.InfoImpl;
+import calcmassview.MenuListReceiver;
+import calcmassmodel.ValueReceiver;
+import calcdatabase.DataBaseDispatcher;
 
 /**
  * Внедрение зависимостей
@@ -34,16 +34,16 @@ import calcmassview.info.InfoImpl;
 public class Main { 
     public static void main (String[] args) {
         SwingUtilities.invokeLater(() -> {
-            DataBase dataBase = new DataBaseImpl();
+            DataBaseDispatcher dispatcher = new DataBaseDispatcherImpl();
             
-            DataBaseValueReceiver valueReceiver = dataBase.getValueFromDataBase();
-            //CalculatorModel model = new CalculatorModelImpl(valueReceiver);
+            ValueReceiver valueReceiver = dispatcher.getValueReceiver();
+            CalculatorModel model = new CalculatorModelImpl(valueReceiver);
             
-            DataBaseMenuReceiver receiver = dataBase.receiveMenu();
+            MenuListReceiver menuList = dispatcher.getMenuList();
             Info info = new InfoImpl();
-            CalculatorView view = new CalculatorViewImpl(receiver, info);
+            CalculatorView view = new CalculatorViewImpl(menuList, info);
             
-            //CalculatorController calculatorController = new CalculatorController(model, view);
+            CalculatorController calculatorController = new CalculatorController(model, view);
             
                 });
     }

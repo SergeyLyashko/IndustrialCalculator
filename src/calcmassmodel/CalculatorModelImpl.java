@@ -15,8 +15,6 @@
  */
 package calcmassmodel;
 
-import calcdatabase.DataBaseValueReceiver;
-
 
 /**
  * 
@@ -27,7 +25,7 @@ public class CalculatorModelImpl implements CalculatorModel {
     private final MassCalculation massCalculation;
     
 
-    public CalculatorModelImpl(DataBaseValueReceiver valueReceiver) {
+    public CalculatorModelImpl(ValueReceiver valueReceiver) {
         
         massCalculation = new MassCalculation(valueReceiver);
     }

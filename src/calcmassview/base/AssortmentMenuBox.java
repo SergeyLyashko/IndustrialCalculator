@@ -15,12 +15,12 @@
  */
 package calcmassview.base;
 
-import calcdatabase.DataBase;
-import calcdatabase.DataBaseMenuReceiver;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
 import java.util.ArrayList;
+import calcmassview.MenuListReceiver;
+import java.util.List;
 
 /**
  * Меню типов сортамента
@@ -42,9 +42,9 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    private final DataBaseMenuReceiver receiver;
+    private final MenuListReceiver receiver;
     
-    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker, DataBaseMenuReceiver receiver) {
+    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiver receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);
@@ -58,13 +58,13 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     
     private void addEmptyMenu(){
         // пустое меню по-умолчанию
-        Menu menu = new Menu();
-        Menu emptyMenu = menu.createMenu(this);
+        MenuModel menu = new MenuModel();
+        MenuModel emptyMenu = menu.createMenuModel(this);
         super.setModel(emptyMenu);
     }
     
     @Override
-    public ArrayList<String> receiveMenu(){
+    public List<String> receiveMenu(){
         return receiver.getAssortmentMenu();
     }
     
@@ -78,9 +78,9 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     
     // заполнение меню типов профилей
     private void fillTypeProfilesMenu(String menuItem){
-        Menu menu = new Menu();
+        MenuModel menu = new MenuModel();
         typesBox.setSelectedMenu(menuItem);
-        Menu typesMenu = menu.createMenu(typesBox);
+        MenuModel typesMenu = menu.createMenuModel(typesBox);
         typesBox.setModel(typesMenu);
     }
     
