@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,11 @@
  */
 package calcmassview;
 
-import calcmassview.base.FieldsData;
-
 /**
- * интерфейс Представления
- * паттерн наблюдатель
+ *
  * @author Korvin
  */
 public interface CalculatorView {
     
-    
-    public void showResult(double mass);
-    
-    public void showError(String message);
-    
-    public FieldsData getData();
+    public void setMenuListReceiver(MenuListReceiver menuListReceiver);    
 }

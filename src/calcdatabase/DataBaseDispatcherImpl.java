@@ -15,25 +15,33 @@
  */
 package calcdatabase;
 
-import calcmassmodel.ValueReceiver;
 import calcmassview.MenuListReceiver;
+import calcmassmodel.DetailAreaReceiver;
+import calcmassmodel.ModelDispatcher;
+import calcmassview.CalculatorView;
 
 
 public class DataBaseDispatcherImpl implements DataBaseDispatcher {
     
-    private final DetailsAreaDataBase dataBaseDispatcher;
+    private final DetailsAreaDataBase dataBase;
+    private final ModelDispatcher model;
+    private final CalculatorView view;
     
-    public DataBaseDispatcherImpl(){
-        dataBaseDispatcher = new DetailsAreaDataBase();
+    public DataBaseDispatcherImpl(ModelDispatcher model, CalculatorView view){
+        this.model = model;
+        this.view = view;
+        dataBase = new DetailsAreaDataBase();
     }
 
     @Override
     public MenuListReceiver getMenuList() {
-        return dataBaseDispatcher;
+        view.setMenuListReceiver(dataBase);
+        return dataBase;
     }
 
     @Override
-    public ValueReceiver getValueReceiver() {
-        return dataBaseDispatcher;
+    public DetailAreaReceiver getDetailArea() {
+        model.setDetailAreaReceiver(dataBase);
+        return dataBase;
     }
 }

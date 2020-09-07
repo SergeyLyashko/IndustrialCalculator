@@ -15,17 +15,40 @@
  */
 package calcmassmodel;
 
-/**
- *
- * @author Korvin
- */
-public interface Detail {
+//DS
+class Detail {
     
-    // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
-    static final double DENSITY_STEEL = 7.85e-6;
-    // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
-    static final double DENSITY_RUBBER = 1.25e-6;
+    private final String assortment;
+    private final String type;
+    private final String number;
+    private final double length;
+    private final double width;
+
+    Detail(String assortment, String type, String number, double length, double width) {
+        this.assortment = assortment;
+        this.type = type;
+        this.number = number;
+        this.length = length;
+        this.width = width;
+    }
+
+    public String getAssortmentName(){
+        return assortment;
+    }
     
-    public double calculationMass();
+    public String getTypeName(){
+        return type;
+    }
     
+    public String getNumberName(){
+        return number;
+    }
+    
+    public double getDetailWidth(){
+        return width;
+    }
+    
+    public double getDetailLength(){
+        return length;
+    }
 }

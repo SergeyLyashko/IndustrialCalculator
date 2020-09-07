@@ -19,8 +19,8 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-public interface DetailFactory {
+public interface DetailAreaReceiver {
     
-    public Detail createDetail();
+    double getDetailArea(String assortment, String type, String number);
     
 }

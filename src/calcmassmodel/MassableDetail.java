@@ -19,18 +19,13 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-class AssortmentDetail implements Detail{
+public interface MassableDetail {
     
-    private final double area;
-    private final double length;
+    // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
+    static final double DENSITY_STEEL = 7.85e-6;
+    // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
+    static final double DENSITY_RUBBER = 1.25e-6;
     
-    public AssortmentDetail(double area, double length) {
-        this.area = area;
-        this.length = length;
-    }
-
-    @Override
-    public double calculationMass() {
-        return DENSITY_STEEL * area * length * 100;
-    }
+    public double calculationMass();
+    
 }

@@ -15,8 +15,8 @@
  */
 package calcdatabase;
 
-import calcmassmodel.ValueReceiver;
 import calcmassview.MenuListReceiver;
+import calcmassmodel.DetailAreaReceiver;
 
 /**
  *
@@ -26,6 +26,6 @@ public interface DataBaseDispatcher {
     
     MenuListReceiver getMenuList();
     
-    ValueReceiver getValueReceiver();
+    DetailAreaReceiver getDetailArea();
     
 }

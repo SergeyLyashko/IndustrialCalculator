@@ -25,7 +25,6 @@ import java.awt.event.ActionListener;
 import java.lang.annotation.Annotation;
 import javax.swing.JComponent;
 import calcmassview.MenuListReceiver;
-import calcdatabase.DataBaseDispatcher;
 
 /**
  * основная панель с компонентами
@@ -78,7 +77,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         components.add(widthField);
         //текстовое поле Длина
         LengthField lengthField = new LengthField(serviceReset);
-        lengthField.registerObserver(this);
+        //lengthField.registerObserver(this);
         components.add(lengthField);
         // текстовая строка результата
         ResultImpl resultMarker = new ResultImpl();

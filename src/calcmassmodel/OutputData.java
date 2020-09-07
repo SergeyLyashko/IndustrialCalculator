@@ -13,19 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
-
-import calcmassmodel.InputService;
-import calcmassmodel.OutputService;
+package calcmassmodel;
 
 
 /**
  *
  * @author Korvin
  */
-public interface CalculatorController {
+class OutputData {    
+
+    private final MassGenerator massGenerator;
+
+    OutputData(MassGenerator massGenerator) {
+        this.massGenerator = massGenerator;  
+    }
     
-    InputService getInputData();
+    double getDetailMass(){
+        return 0;
+    }
     
-    OutputService getOutputData();
 }

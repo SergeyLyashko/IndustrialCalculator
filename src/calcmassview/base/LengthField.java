@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.CalculatorViewImpl;
 import calcmassview.IKeyActionSubject;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
@@ -24,7 +25,6 @@ import java.awt.event.KeyListener;
 import java.lang.annotation.Annotation;
 import javax.swing.JFormattedTextField;
 import calcmassview.settings.ToolTips;
-import calcmassview.CalculatorView;
 
 /**
  * Поле ввода длины
@@ -145,9 +145,6 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     }
 
     @Override
-    public void registerObserver(CalculatorView observer) {}
-
-    @Override
     public void notifyObservers() {
         observer.keyActionUpdate();
     }
@@ -155,5 +152,10 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     @Override
     public void registerObserver(IKeyActionObserver keyActionObserver) {
         this.observer = keyActionObserver;
+    }
+
+    @Override
+    public void registerObserver(CalculatorViewImpl viewObserver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

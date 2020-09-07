@@ -15,17 +15,29 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.InputService;
 import calcmassmodel.OutputService;
-
 
 /**
  *
  * @author Korvin
  */
-public interface CalculatorController {
+public class DataSender implements OutputService {    
+
+    @Override
+    public String getErrorMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getServiceMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public double getDetailMass() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
-    InputService getInputData();
     
-    OutputService getOutputData();
 }

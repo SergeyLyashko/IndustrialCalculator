@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.MassableDetail;
 
 /**
  *
  * @author Korvin
  */
-public interface CalculatorInputData {
+public class AssortmentDetail implements MassableDetail{
     
-    public void setAssortment(String assortment);
+    private final double area;
+    private final double length;
     
-    public void setType(String type);
-    
-    public void setNumber(String number);
-    
-    public void setLength(double length);
-    
-    public void setWidth(double width);
-    
+    public AssortmentDetail(double area, double length) {
+        this.area = area;
+        this.length = length;
+    }
+
+    @Override
+    public double calculationMass() {
+        return DENSITY_STEEL * area * length * 100;
+    }
 }

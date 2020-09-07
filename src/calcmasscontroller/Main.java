@@ -16,16 +16,15 @@
 package calcmasscontroller;
 
 import calcdatabase.DataBaseDispatcherImpl;
-import calcmassmodel.CalculatorModel;
-import calcmassmodel.CalculatorModelImpl;
+import calcmassmodel.ModelDispatcherImpl;
 import calcmassview.CalculatorViewImpl;
 import javax.swing.SwingUtilities;
-import calcmassview.CalculatorView;
 import calcmassview.info.Info;
 import calcmassview.info.InfoImpl;
-import calcmassview.MenuListReceiver;
-import calcmassmodel.ValueReceiver;
 import calcdatabase.DataBaseDispatcher;
+import calcmassmodel.ModelDispatcher;
+import calcmassview.CalculatorView;
+import details.DetailMassCalculationFactory;
 
 /**
  * Внедрение зависимостей
@@ -34,16 +33,17 @@ import calcdatabase.DataBaseDispatcher;
 public class Main { 
     public static void main (String[] args) {
         SwingUtilities.invokeLater(() -> {
-            DataBaseDispatcher dispatcher = new DataBaseDispatcherImpl();
             
-            ValueReceiver valueReceiver = dispatcher.getValueReceiver();
-            CalculatorModel model = new CalculatorModelImpl(valueReceiver);
+            ModelDispatcher model = new ModelDispatcherImpl();
             
-            MenuListReceiver menuList = dispatcher.getMenuList();
-            Info info = new InfoImpl();
-            CalculatorView view = new CalculatorViewImpl(menuList, info);
+            DetailMassCalculationFactory detailFactory = new DetailMassCalculationFactory(model);
+                        
+            CalculatorController controller = new CalculatorControllerImpl(model);
             
-            CalculatorController calculatorController = new CalculatorController(model, view);
+            Info info = new InfoImpl();// ????????
+            CalculatorView view = new CalculatorViewImpl(info, controller);
+            
+            DataBaseDispatcher dataBase = new DataBaseDispatcherImpl(model, view);
             
                 });
     }

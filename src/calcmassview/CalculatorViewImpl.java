@@ -15,6 +15,7 @@
  */
 package calcmassview;
 
+import calcmasscontroller.CalculatorController;
 import java.text.DecimalFormat;
 import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.base.IKeyActionObserver;
@@ -31,12 +32,13 @@ import calcmassview.base.CalculatorPanel;
 import java.util.stream.Collectors;
 import calcmassview.base.FieldsData;
 import calcmassview.info.Info;
+import calcmassmodel.OutputService;
 
 /**
  * ѕредставление приложени€
  * @author Sergei Lyashko
  */
-public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/ CalculatorView {
+public class CalculatorViewImpl extends JPanel implements CalculatorView, IKeyActionSubject  {
 
     private static final long serialVersionUID = 1L;
     
@@ -46,13 +48,14 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
     private final Preference preference;
     
     private FieldsData data;
-    private final MenuListReceiver receiver;
+    private MenuListReceiver menuListReceiver;
     private final Info info;
-    
-    public CalculatorViewImpl(MenuListReceiver receiver, Info info){
+    private final CalculatorController controller;
+
+    public CalculatorViewImpl(Info info, CalculatorController controller) {
         super(new GridLayout(1, 1));
-        this.receiver = receiver;
         this.info = info;
+        this.controller = controller;
         this.preference = new Preference();
         List<JPanel> panels = loadPanels();
         this.addToTabbedPane(panels);
@@ -84,7 +87,7 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
     // создание панелей
     private void createComponents(){
         components = new ArrayList<>();
-        JPanel calculatorPanel = new CalculatorPanelImpl(components, receiver);
+        JPanel calculatorPanel = new CalculatorPanelImpl(components, menuListReceiver);
         components.add(calculatorPanel);
         JPanel infoPanel = new InfoPanel(components, info);            
         JPanel settingsPanel = new SettingsPanel(components);                                
@@ -93,15 +96,19 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
         new CalculatorFrame(this);
     }
     
+    @Override
+    public void setMenuListReceiver(MenuListReceiver menuListReceiver) {
+        this.menuListReceiver = menuListReceiver;
+    }
+    
     public void savePreferences() {
         preference.save(components);
     }
     
-    @Override
-    public void showResult(double mass) {
-        String formattedValue = formatDoubleToString(mass);
-        
-        //generalPanel.getBasePanel().setResultation(resultValue);
+    private void showResult() {
+        OutputService outputData = controller.getOutputData();
+        double detailMass = outputData.getDetailMass();
+        String formattedValue = formatDoubleToString(detailMass);
     }
     
     //форматирование строки результата
@@ -109,11 +116,9 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
         return new DecimalFormat("#.###").format(value);
     }
     
-    @Override
-    public void showError(String message) {
-        if(message != null){
-            //generalPanel.getBasePanel().setError(message);
-        }
+    private void showError() {
+        OutputService outputData = controller.getOutputData();
+        String errorMessage = outputData.getErrorMessage();
     }
     
     public void keyActionUpdate() {
@@ -135,7 +140,20 @@ public class CalculatorViewImpl extends JPanel implements /*IKeyActionSubject,*/
     }
 
     @Override
-    public FieldsData getData() {
-        return data;
+    public void registerObserver(CalculatorViewImpl viewObserver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void notifyObservers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registerObserver(IKeyActionObserver keyActionObserver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
 }

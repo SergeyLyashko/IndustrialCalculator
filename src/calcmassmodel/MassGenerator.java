@@ -15,43 +15,39 @@
  */
 package calcmassmodel;
 
-import calcmassview.base.FieldsData;
 
 /**
  * Интерактор
  * @author Sergei Lyashko
  */
-class MassCalculation {
+class MassGenerator {
     
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     // сообщение об ошибке
     private String message;
     
-    private FieldsData data;
-    private Detail newDetail;
+    private MassableDetail newDetail;   
+    private final DetailAreaReceiver detailArea;
+    private final Detail inputData;
     
-    
-    public MassCalculation(ValueReceiver valueReceiver){
+    public MassGenerator(DetailAreaReceiver detailArea, Detail data){
+        this.detailArea = detailArea;
+        this.inputData = data;
         createDetail();
     }
     
     private void createDetail() {
-        double width = data.getWidth();
-        double length = data.getLength();
-        if(isValidValues(width, length)){
-            DetailFactoryImpl factory = new DetailFactoryImpl();
-            newDetail = factory.createDetail();
+        double width = inputData.getDetailWidth();
+        double length = inputData.getDetailLength();
+        if(isValidFieldsValues(width, length)){
+            //CalculationMassFactory factory = new CalculationMassFactory(detailArea, inputData);
+            //newDetail = factory.createDetail();
         }        
     }
     
-    public double getMass(){
-        double mass = newDetail.calculationMass();
-        return mass;
-    }
-    
     // проверка на переполнение
-    private boolean isValidValues(double widthNum, double lengthNum){
+    private boolean isValidFieldsValues(double widthNum, double lengthNum){
         if(isValidNumber(widthNum) && isValidNumber(lengthNum)){
             double checkNum = MAX_NUMBER / lengthNum;
             if(checkNum > widthNum){
@@ -75,8 +71,4 @@ class MassCalculation {
         }
         return true;
     }    
-
-    public String getErrorMessage() {
-        return message;
-    }
 }

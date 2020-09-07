@@ -13,42 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
 
+import calcmassmodel.DetailAreaReceiver;
+import calcmassmodel.MassableDetail;
+import calcmassmodel.ModelDispatcher;
 
-public class DetailFactoryImpl implements DetailFactory {
+public class DetailMassCalculationFactory {
+
+    private final ModelDispatcher model;
     
-    private ValueReceiver receiver;
-    private CalculatorInputDataImpl data;
-    
-    private double getDataBaseValue() {
-        String assortment = data.getAssortment();
-        String type = data.getType();
-        String number = data.getNumber();
-        return receiver.getValue(assortment, type, number);
+    public DetailMassCalculationFactory(ModelDispatcher model) {
+        this.model = model;
     }
-
-    @Override
-    public Detail createDetail() {
-        return newDetail();
-    }
-    
-    private Detail newDetail(){
-        String assortment = data.getAssortment();
+    /*
+    public void createDetail() {
+        MassableDetail detail = null;
+        String assortment = detail.getAssortmentName();
         switch(assortment){
             case "Ћист":
                             //return new Sheet(assortment, type, number);
             case "Ўвеллер":
             case "”голок":
             case "ƒвутавр":
-                            double area = getDataBaseValue();
-                            double length = data.getLength();
-                            return new AssortmentDetail(area, length);
+                            detail = assortmentInstance(detail, areaReceiver);
             case "ƒругое":               
                             //return selectedType(type, length, valueOfArea);
         }
-        return null;
+        model.setMassableDetail(detail);
+    }*/
+    /*
+    private MassableDetail assortmentInstance(Detail data, DetailAreaReceiver areaReceiver) {
+        String assortment = data.getAssortmentName();
+        String type = data.getTypeName();
+        String number = data.getNumberName();
+        double detailArea = areaReceiver.getDetailArea(assortment, type, number);
+        double length = data.getDetailLength();
+        return new AssortmentDetail(detailArea, length);
     }
+    */
     
     /*
     private double selectedType(String type, String length, double valueOfArea){
@@ -67,5 +70,9 @@ public class DetailFactoryImpl implements DetailFactory {
         }
         return 0;
     }*/
+
+    
+
+    
     
 }

@@ -19,8 +19,16 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-public interface ValueReceiver {
+public interface InputService {
     
-    double getValue(String assortment, String type, String number);
+    public String getAssortment();
+    
+    public String getType();
+    
+    public String getNumber();
+    
+    public double getLength();
+    
+    public double getWidth();
     
 }

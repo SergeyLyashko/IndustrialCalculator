@@ -20,29 +20,37 @@ package calcmassmodel;
  * 
  * @author Sergei Lyashko
  */
-public class CalculatorModelImpl implements CalculatorModel {
+public class ModelDispatcherImpl implements ModelDispatcher {
     
-    private final MassCalculation massCalculation;
-    
+    private InputService inputDataService;
+    private OutputService outputDataService;
+    private DetailAreaReceiver areaReceiver;
+    private MassableDetail detail;
 
-    public CalculatorModelImpl(ValueReceiver valueReceiver) {
+    public ModelDispatcherImpl() {
         
-        massCalculation = new MassCalculation(valueReceiver);
+    }
+
+    @Override
+    public void setInputData(InputService inputDataService) {
+        this.inputDataService = inputDataService;
+    }
+
+    @Override
+    public void setOutputData(OutputService outputDataService) {
+        this.outputDataService = outputDataService;
+    }
+
+    @Override
+    public void setDetailAreaReceiver(DetailAreaReceiver areaReceiver) {
+        this.areaReceiver = areaReceiver;
+    }
+
+    @Override
+    public void setMassableDetail(MassableDetail detail) {
+        this.detail = detail;
     }
     
-    @Override
-    public double getCalculationResult() {
-        return massCalculation.getMass();
-    }
-
-    @Override
-    public String getError() {
-        return massCalculation.getErrorMessage();
-    }
-
-
-    @Override
-    public CalculatorInputData receiveData() {
-        return new CalculatorInputDataImpl();
-    }
+    
+    
 }

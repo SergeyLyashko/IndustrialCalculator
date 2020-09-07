@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,15 @@
 package calcmassmodel;
 
 /**
- * сообщени€ об ошибках
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface ErrorMessage {
-    /**
-     * ¬озвращает сервисное сообщение об ошибке
-     * @return строковое представление сообщени€
-     */
-    public String getErrorMessage();    
+public interface OutputService {
+    
+    public String getErrorMessage();
+    
+    public String getServiceMessage();
+    
+    public double getDetailMass();
+    
 }

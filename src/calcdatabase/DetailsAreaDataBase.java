@@ -15,7 +15,6 @@
  */
 package calcdatabase;
 
-import calcmassmodel.ValueReceiver;
 import calcmassview.MenuListReceiver;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -26,12 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import calcmassmodel.DetailAreaReceiver;
 
 /**
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-class DetailsAreaDataBase implements Serializable, MenuListReceiver, ValueReceiver {
+class DetailsAreaDataBase implements Serializable, MenuListReceiver, DetailAreaReceiver {
     
     private static final long serialVersionUID = 1L;
     
@@ -137,7 +137,7 @@ class DetailsAreaDataBase implements Serializable, MenuListReceiver, ValueReceiv
     }
     
     @Override
-    public double getValue(String assortment, String type, String number) {
+    public double getDetailArea(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnector.getConnect();

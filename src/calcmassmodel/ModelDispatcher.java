@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Sergei Lyashko. Contacts: <9lLLLepuLLa@gmail.com>.
+ * Copyright 2020 Korvin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,17 @@
 package calcmassmodel;
 
 /**
- * Интерфейс Модели
- * @author Sergei Lyashko
+ *
+ * @author Korvin
  */
-public interface CalculatorModel {
-        
-    public CalculatorInputData receiveData();
+public interface ModelDispatcher {
 
-    public double getCalculationResult();
+    public void setInputData(InputService inputData);
 
-    public String getError();
+    public void setOutputData(OutputService outputData);
+    
+    public void setDetailAreaReceiver(DetailAreaReceiver detailArea);
+    
+    public void setMassableDetail(MassableDetail detail);
+    
 }
