@@ -15,8 +15,8 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.InputService;
 import calcmassmodel.OutputService;
+import calcmassview.ViewDispatcher;
 
 
 /**
@@ -25,7 +25,10 @@ import calcmassmodel.OutputService;
  */
 public interface CalculatorController {
     
-    InputService getInputData();
+    void setInputData(ViewDispatcher viewData);
     
     OutputService getOutputData();
+    
+    //test
+    public void startCalc();
 }

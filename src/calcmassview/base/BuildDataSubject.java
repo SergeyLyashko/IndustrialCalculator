@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
+package calcmassview.base;
 
-import calcmassmodel.ModelDispatcher;
-import calcmassview.ViewDispatcher;
+import calcmassview.BuildDataObserver;
 
-
-public class DataBaseDispatcher {
+/**
+ *
+ * @author Korvin
+ */
+interface BuildDataSubject {
     
-    public DataBaseDispatcher(ModelDispatcher model, ViewDispatcher view){
-        AssortmentsAreaData data = new AssortmentsAreaData();
-        view.setMenuListReceiver(data);
-        model.setDetailAreaReceiver(data);
-    }
+    public void notifyObservers();
+    
+    public void registerObserver(BuildDataObserver observer);
+    
 }

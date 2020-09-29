@@ -62,6 +62,10 @@ public class FieldsDataImpl implements FieldsData {
             });
     }
     
+    private boolean isNotNullValue(String value){
+        return value != null;
+    }
+    
     /**
      * Получение числового значения
      * @param value Строковое представление значения
@@ -69,9 +73,12 @@ public class FieldsDataImpl implements FieldsData {
      */
     private double getNumberOf(String value) {
         try{
-            return Double.parseDouble(value);
+            if(isNotNullValue(value)){
+                return Double.parseDouble(value);
+            }
         }catch(NumberFormatException ex){
             //this.message = "ошибка! введенное значение не является числом!";
+            System.err.println("err: "+ex);
         }
         return 0;
     }

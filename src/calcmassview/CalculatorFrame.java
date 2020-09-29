@@ -29,7 +29,7 @@ public class CalculatorFrame extends JFrame implements Serializable {
     
     private static final long serialVersionUID = 1L;    
     
-    public CalculatorFrame(CalculatorViewImpl view){
+    public CalculatorFrame(ViewDispatcherImpl view){
         super("Industrial calculator");
         super.setBounds(300, 300, 360, 220);
         super.setResizable(false);
@@ -40,7 +40,7 @@ public class CalculatorFrame extends JFrame implements Serializable {
     }
     
     // закрытие приложения
-    private void savePreferencesForExit(CalculatorViewImpl view){
+    private void savePreferencesForExit(ViewDispatcherImpl view){
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {}

@@ -16,39 +16,28 @@
 package calcmassmodel;
 
 //DS
-class Detail {
+public abstract class Detail implements MassableDetail {
     
-    private final String assortment;
-    private final String type;
-    private final String number;
-    private final double length;
-    private final double width;
-
-    Detail(String assortment, String type, String number, double length, double width) {
-        this.assortment = assortment;
-        this.type = type;
-        this.number = number;
+    private String assortment;
+    private String type;
+    private String number;
+    private double length;
+    private double width;
+    private double area;
+    
+    void setLength(double length) {
         this.length = length;
-        this.width = width;
     }
 
-    public String getAssortmentName(){
-        return assortment;
+    void setArea(double area) {
+        this.area = area;
     }
     
-    public String getTypeName(){
-        return type;
+    double getArea(){
+        return area;
     }
     
-    public String getNumberName(){
-        return number;
-    }
-    
-    public double getDetailWidth(){
-        return width;
-    }
-    
-    public double getDetailLength(){
+    double getLength(){
         return length;
     }
 }

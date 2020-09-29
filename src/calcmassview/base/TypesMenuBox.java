@@ -83,30 +83,22 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     public NumbersMenuBox getNumbersBox(){
         return numbersBox;
     }
-    /*
-    @Override
-    public String getSelectedMenuItem(){
-        return super.getSelectedItem().toString();
-    }
-    */
     
     @Override
     public String getCurrentMenuItem(){
         return super.getSelectedItem().toString();
-        //return menuItem;
     }
     
     @Override
     public void actionMenuSelect(String selectedMenuItem) {
-        //System.out.println("test type box: "+selectedMenuItem);
         this.menuItem = selectedMenuItem;
         resetMenuBox();
         // создание меню номеров профилей
-        fillNumberProfilesMenu(selectedMenuItem);
+        createNumberProfilesMenu(selectedMenuItem);
     }
     
     // обновление меню номеров профилей
-    private void fillNumberProfilesMenu(String menuItem){
+    private void createNumberProfilesMenu(String menuItem){
         MenuModel menu = new MenuModel();
         numbersBox.setSelectedMenu(selectedAssortment, menuItem);
         menu.createMenuModel(numbersBox);
@@ -118,8 +110,6 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
         resetMarker.reset();
         activeStateField.deactivate();
     }
-    
-    
 
     @Override
     public Class<? extends Annotation> annotationType() {

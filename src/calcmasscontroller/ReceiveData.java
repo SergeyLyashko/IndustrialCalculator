@@ -15,29 +15,43 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.OutputService;
+import calcmassmodel.InputService;
+import calcmassview.ViewDispatcher;
 
 /**
  *
  * @author Korvin
  */
-public class DataSender implements OutputService {    
+public class ReceiveData implements InputService {
 
-    @Override
-    public String getErrorMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private final ViewDispatcher viewData;
+
+    ReceiveData(ViewDispatcher viewData) {
+        this.viewData = viewData;
     }
 
     @Override
-    public String getServiceMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getAssortment() {
+        return viewData.getViewData().getAssortment();
     }
 
     @Override
-    public double getDetailMass() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getType() {
+        return viewData.getViewData().getType();
     }
 
-    
-    
+    @Override
+    public String getNumber() {
+        return viewData.getViewData().getNumber();
+    }
+
+    @Override
+    public double getLength() {
+        return viewData.getViewData().getLength();
+    }
+
+    @Override
+    public double getWidth() {
+        return viewData.getViewData().getWidth();
+    }
 }

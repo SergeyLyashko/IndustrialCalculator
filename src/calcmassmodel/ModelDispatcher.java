@@ -25,8 +25,8 @@ public interface ModelDispatcher {
 
     public void setOutputData(OutputService outputData);
     
-    public void setDetailAreaReceiver(DetailAreaReceiver detailArea);
-    
-    public void setMassableDetail(MassableDetail detail);
+    public void setDetailAreaReceiver(AssortmentsAreaReceiver detailArea);
+
+    public void calcOrderStart();
     
 }

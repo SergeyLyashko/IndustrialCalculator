@@ -46,4 +46,13 @@ class DataBaseConnector {
         }
         return null;
     }
+    
+    static void close(){
+        try {
+            Connection connection = DriverManager.getConnection(DATA_BASE_URL);
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

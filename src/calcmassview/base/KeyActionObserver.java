@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcdatabase;
+package calcmassview.base;
 
-import calcmassmodel.ModelDispatcher;
-import calcmassview.ViewDispatcher;
-
-
-public class DataBaseDispatcher {
+/**
+ *
+ * @author Korvin
+ */
+public interface KeyActionObserver {
     
-    public DataBaseDispatcher(ModelDispatcher model, ViewDispatcher view){
-        AssortmentsAreaData data = new AssortmentsAreaData();
-        view.setMenuListReceiver(data);
-        model.setDetailAreaReceiver(data);
-    }
+    /**
+     * Обновление после нажатия клавиши
+     */
+    public void keyActionUpdate();
+    
 }

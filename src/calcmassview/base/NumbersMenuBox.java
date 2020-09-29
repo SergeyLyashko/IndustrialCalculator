@@ -48,7 +48,6 @@ public class NumbersMenuBox extends JComboBox<String> implements CalculatorPanel
         super.setLocation(20, 100);        
         this.activeStateField = activeStateField;
         this.resetMarker = serviceResetMarker;
-        System.out.println("test: "+receiver.toString());
         this.receiver = receiver;
          addEmptyMenu();
     }

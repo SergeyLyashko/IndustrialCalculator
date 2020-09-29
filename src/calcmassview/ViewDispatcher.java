@@ -13,26 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
+package calcmassview;
 
-import calcmassmodel.MassableDetail;
+import calcmassview.base.FieldsData;
 
 /**
  *
  * @author Korvin
  */
-public class AssortmentDetail implements MassableDetail{
+public interface ViewDispatcher {
     
-    private final double area;
-    private final double length;
+    public void setMenuListReceiver(MenuListReceiver menuListReceiver);
     
-    public AssortmentDetail(double area, double length) {
-        this.area = area;
-        this.length = length;
-    }
-
-    @Override
-    public double calculationMass() {
-        return DENSITY_STEEL * area * length * 100;
-    }
+    public FieldsData getViewData();
 }

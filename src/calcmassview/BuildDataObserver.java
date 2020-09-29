@@ -19,7 +19,8 @@ package calcmassview;
  *
  * @author Korvin
  */
-public interface CalculatorView {
+public interface BuildDataObserver {
     
-    public void setMenuListReceiver(MenuListReceiver menuListReceiver);    
+    public void dataUpdate();
+    
 }

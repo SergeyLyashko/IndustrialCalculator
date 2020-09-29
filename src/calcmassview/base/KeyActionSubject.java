@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package calcmassview.base;
 
-import calcmassview.base.IKeyActionObserver;
-import calcmassview.CalculatorViewImpl;
+import calcmassview.base.KeyActionObserver;
 
 /**
  * Интерфейс наблюдаемого объекта
  * @author Sergei Lyashko
  */
-public interface IKeyActionSubject {
-    
-    /**
-     * Регистрация наблюдателей
-     * @param viewObserver экземпляр интерфейса Наблюдатель
-     */
-    public void registerObserver(CalculatorViewImpl viewObserver);
+public interface KeyActionSubject {
     
     /**
      * оповещение наблюдателей об изменении состояния
@@ -36,5 +29,5 @@ public interface IKeyActionSubject {
     public void notifyObservers();
     
     
-    public void registerObserver(IKeyActionObserver keyActionObserver);
+    public void registerObserver(KeyActionObserver keyActionObserver);
 }

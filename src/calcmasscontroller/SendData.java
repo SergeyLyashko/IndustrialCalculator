@@ -15,36 +15,27 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.InputService;
+import calcmassmodel.OutputService;
 
 /**
  *
  * @author Korvin
  */
-public class DataReceiver implements InputService {
+public class SendData implements OutputService {    
 
     @Override
-    public String getAssortment() {
+    public String getErrorMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getType() {
+    public String getServiceMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getNumber() {
+    public double getDetailMass() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public double getLength() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public double getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

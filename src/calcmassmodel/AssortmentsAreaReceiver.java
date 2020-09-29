@@ -19,7 +19,7 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-public interface DetailAreaReceiver {
+public interface AssortmentsAreaReceiver {
     
     double getDetailArea(String assortment, String type, String number);
     

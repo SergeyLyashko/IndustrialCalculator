@@ -13,45 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
+package calcmassmodel;
 
-import calcmassmodel.DetailAreaReceiver;
-import calcmassmodel.MassableDetail;
-import calcmassmodel.ModelDispatcher;
-
-public class DetailMassCalculationFactory {
-
-    private final ModelDispatcher model;
+public class DetailMassCalculationFactory extends DetailFactory {
     
-    public DetailMassCalculationFactory(ModelDispatcher model) {
-        this.model = model;
-    }
-    /*
-    public void createDetail() {
-        MassableDetail detail = null;
-        String assortment = detail.getAssortmentName();
+    @Override
+    public Detail createDetail(String assortment, String type) {
         switch(assortment){
             case "Ћист":
                             //return new Sheet(assortment, type, number);
             case "Ўвеллер":
             case "”голок":
             case "ƒвутавр":
-                            detail = assortmentInstance(detail, areaReceiver);
+                            return new AssortmentDetail();
             case "ƒругое":               
                             //return selectedType(type, length, valueOfArea);
+            default:
+                    System.out.println("tets null factory");
+                    return null;
         }
-        model.setMassableDetail(detail);
-    }*/
-    /*
-    private MassableDetail assortmentInstance(Detail data, DetailAreaReceiver areaReceiver) {
-        String assortment = data.getAssortmentName();
-        String type = data.getTypeName();
-        String number = data.getNumberName();
-        double detailArea = areaReceiver.getDetailArea(assortment, type, number);
-        double length = data.getDetailLength();
-        return new AssortmentDetail(detailArea, length);
     }
-    */
     
     /*
     private double selectedType(String type, String length, double valueOfArea){
@@ -70,9 +51,5 @@ public class DetailMassCalculationFactory {
         }
         return 0;
     }*/
-
-    
-
-    
     
 }

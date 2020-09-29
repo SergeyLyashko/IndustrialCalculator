@@ -18,7 +18,6 @@ package calcmassview.base;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
-import java.util.ArrayList;
 import calcmassview.MenuListReceiver;
 import java.util.List;
 

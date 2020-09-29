@@ -25,33 +25,36 @@ class MassGenerator {
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     // сообщение об ошибке
-    private String message;
     
-    private MassableDetail newDetail;   
-    private final DetailAreaReceiver detailArea;
-    private final Detail inputData;
+    private final AssortmentsAreaReceiver detailArea;
+    private final InputService inputDataService;
+    private final OutputService outputDataService;
     
-    public MassGenerator(DetailAreaReceiver detailArea, Detail data){
+    public MassGenerator(AssortmentsAreaReceiver detailArea, InputService inputDataService, OutputService outputDataService){
         this.detailArea = detailArea;
-        this.inputData = data;
-        createDetail();
+        this.inputDataService = inputDataService;
+        this.outputDataService = outputDataService;
     }
     
-    private void createDetail() {
-        double width = inputData.getDetailWidth();
-        double length = inputData.getDetailLength();
+    void calculationOrder() {
+        double width = inputDataService.getWidth();
+        double length = inputDataService.getLength();
         if(isValidFieldsValues(width, length)){
-            //CalculationMassFactory factory = new CalculationMassFactory(detailArea, inputData);
-            //newDetail = factory.createDetail();
-        }        
+            DetailFactory factory = new DetailMassCalculationFactory();
+            Detail order = factory.order(inputDataService, detailArea);
+            //test
+            System.out.println("mass: "+order.calculationMass());
+        }else{
+            System.out.println("mass not");
+        } 
     }
     
     // проверка на переполнение
     private boolean isValidFieldsValues(double widthNum, double lengthNum){
         if(isValidNumber(widthNum) && isValidNumber(lengthNum)){
             double checkNum = MAX_NUMBER / lengthNum;
-            if(checkNum > widthNum){
-                this.message = "ошибка! слишком большое число!";
+            if(checkNum < widthNum){
+                //this.message = "ошибка! слишком большое число!";
                 return false;
             }
             return true;
@@ -62,13 +65,17 @@ class MassGenerator {
     
     private boolean isValidNumber(double number){
         if(number > MAX_NUMBER){
-                this.message = "ошибка! слишком большое число!";
+                //this.message = "ошибка! слишком большое число!";
                 return false;
         }
         if(number < 0){
-                this.message = "ошибка! отрицательное число!";
+                //this.message = "ошибка! отрицательное число!";
                 return false;
         }
         return true;
     }    
+
+    
+
+    
 }

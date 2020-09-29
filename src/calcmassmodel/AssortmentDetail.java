@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.base;
+package calcmassmodel;
 
 /**
  *
  * @author Korvin
  */
-public interface IKeyActionObserver {
-    
-    /**
-     * Обновление после нажатия клавиши
-     */
-    public void keyActionUpdate();
-    
+public class AssortmentDetail extends Detail {
+
+    @Override
+    public double calculationMass() {
+        double area = super.getArea();
+        double length = super.getLength();
+        return DENSITY_STEEL * area * length * 100;
+    }
 }

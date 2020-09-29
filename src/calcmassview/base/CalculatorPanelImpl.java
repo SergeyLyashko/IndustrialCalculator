@@ -15,6 +15,7 @@
  */
 package calcmassview.base;
 
+import calcmassview.BuildDataObserver;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import calcmassview.MenuListReceiver;
  */
 @ColorTheme()
 @CalculatorPanel()
-public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, IKeyActionObserver, ColorTheme {
+public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, ItemListener, ActionListener, ColorTheme, KeyActionObserver, BuildDataSubject {
 
     private static final long serialVersionUID = 1L;
     
@@ -41,6 +42,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     // Данные
     private transient FieldsData data;    
     private final MenuListReceiver receiver;
+    private BuildDataObserver observer;
     
     public CalculatorPanelImpl(ArrayList<JComponent> components, MenuListReceiver receiver) {
         this.components =components;
@@ -77,7 +79,7 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         components.add(widthField);
         //текстовое поле Длина
         LengthField lengthField = new LengthField(serviceReset);
-        //lengthField.registerObserver(this);
+        lengthField.registerObserver(this);
         components.add(lengthField);
         // текстовая строка результата
         ResultImpl resultMarker = new ResultImpl();
@@ -153,12 +155,23 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
 
     @Override
     public void keyActionUpdate() {
-        //System.out.println("base panel update");// TEST
+        System.out.println("base panel update");// TEST
         createDetail();
+        notifyObservers();
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
         return this.getClass();
+    }
+
+    @Override
+    public void registerObserver(BuildDataObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public void notifyObservers() {
+        observer.dataUpdate();
     }
 }

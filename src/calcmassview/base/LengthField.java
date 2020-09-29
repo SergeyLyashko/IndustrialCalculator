@@ -15,8 +15,6 @@
  */
 package calcmassview.base;
 
-import calcmassview.CalculatorViewImpl;
-import calcmassview.IKeyActionSubject;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -25,6 +23,7 @@ import java.awt.event.KeyListener;
 import java.lang.annotation.Annotation;
 import javax.swing.JFormattedTextField;
 import calcmassview.settings.ToolTips;
+import java.util.ArrayList;
 
 /**
  * Поле ввода длины
@@ -35,7 +34,7 @@ import calcmassview.settings.ToolTips;
 @ValueReceiveble(getCurrentMenuItem = "LengthField")
 @StateField(activate = false, deactivate = true)
 @SuppressWarnings("serial")
-public class LengthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, IKeyActionSubject, ToolTips {
+public class LengthField extends JFormattedTextField implements CalculatorPanel, FocusListener, StateField, ValueReceiveble, KeyListener, ToolTips, KeyActionSubject {
     
     private final String toolTipsText = "поле ввода длины детали";
     
@@ -43,8 +42,9 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     private final String difficultAreaName = "введите площадь";
     private final String emptyField = "";
     private String fieldValue;
-    private IKeyActionObserver observer;
     private final Reset resetMarker;
+    
+    private ArrayList<KeyActionObserver> observers;
     
     public LengthField(Reset resetMarker){
         super.setSize(125, 25);
@@ -53,6 +53,7 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
         super.setText(fieldName);
         super.setLocation(190, 60);
         this.resetMarker = resetMarker;
+        this.observers = new ArrayList<>();
         nonActiveFieldColor();
     }
     
@@ -84,7 +85,6 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     
     @Override
     public boolean deactivate() {
-        //System.out.println("length OFF");// TEST
         setEditable(false);              
         setText(fieldName);
         nonActiveFieldColor();
@@ -132,8 +132,7 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            this.fieldValue = super.getText();
-            //System.out.println("length press");// TEST
+            this.fieldValue = super.getText();            
         }
     }
 
@@ -146,16 +145,11 @@ public class LengthField extends JFormattedTextField implements CalculatorPanel,
 
     @Override
     public void notifyObservers() {
-        observer.keyActionUpdate();
+        observers.stream().forEach(KeyActionObserver::keyActionUpdate);
     }
 
     @Override
-    public void registerObserver(IKeyActionObserver keyActionObserver) {
-        this.observer = keyActionObserver;
-    }
-
-    @Override
-    public void registerObserver(CalculatorViewImpl viewObserver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void registerObserver(KeyActionObserver keyActionObserver) {
+        observers.add(keyActionObserver);
     }
 }

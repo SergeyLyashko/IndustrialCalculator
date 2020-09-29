@@ -18,6 +18,7 @@ package calcmasscontroller;
 import calcmassmodel.ModelDispatcher;
 import calcmassmodel.InputService;
 import calcmassmodel.OutputService;
+import calcmassview.ViewDispatcher;
 
 /**
  * Контроллер
@@ -27,6 +28,7 @@ import calcmassmodel.OutputService;
 public class CalculatorControllerImpl implements CalculatorController {
 
     private final ModelDispatcher model;
+    private InputService inputDataService;
     
     CalculatorControllerImpl(ModelDispatcher model) {
         this.model = model;
@@ -34,16 +36,20 @@ public class CalculatorControllerImpl implements CalculatorController {
 
     @Override
     public OutputService getOutputData() {
-        OutputService outputDataService = new DataSender();
+        OutputService outputDataService = new SendData();
         model.setOutputData(outputDataService);
         return outputDataService;
     }
 
     @Override
-    public InputService getInputData() {
-        InputService inputDataService = new DataReceiver();
+    public void setInputData(ViewDispatcher viewData) {
+        inputDataService = new ReceiveData(viewData);
         model.setInputData(inputDataService);
-        return inputDataService;
+    }
+
+    @Override
+    public void startCalc() {
+        model.calcOrderStart();
     }
     
 }
