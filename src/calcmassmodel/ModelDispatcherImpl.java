@@ -24,7 +24,7 @@ public class ModelDispatcherImpl implements ModelDispatcher {
     
     private InputService inputDataService;
     private OutputService outputDataService;
-    private AssortmentsAreaReceiver areaReceiver;
+    private DetailValueReceiver areaReceiver;
 
     @Override
     public void setInputData(InputService inputDataService) {
@@ -37,13 +37,13 @@ public class ModelDispatcherImpl implements ModelDispatcher {
     }
 
     @Override
-    public void setDetailAreaReceiver(AssortmentsAreaReceiver areaReceiver) {
+    public void setDetailAreaReceiver(DetailValueReceiver areaReceiver) {
         this.areaReceiver = areaReceiver;
     }    
 
     @Override
     public void calcOrderStart() {
-        MassGenerator massGenerator = new MassGenerator(areaReceiver, inputDataService, outputDataService);
+        DetailMassGenerator massGenerator = new DetailMassGenerator(areaReceiver, inputDataService, outputDataService);
         massGenerator.calculationOrder();
     }
 }

@@ -13,14 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractDetailMass;
+import static java.lang.Math.PI;
 
 /**
  *
  * @author Korvin
  */
-public interface AssortmentsAreaReceiver {
-    
-    double getDetailArea(String assortment, String type, String number);
-    
+class CircleSteelDetailMass extends AbstractDetailMass {
+
+    @Override
+    public double getMass() {
+        return DENSITY_STEEL * super.getLength() * (super.getDataBaseValue() * super.getDataBaseValue()) / 4 * PI;
+    }
 }

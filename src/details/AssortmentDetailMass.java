@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractDetailMass;
 
 /**
  *
  * @author Korvin
  */
-public interface MassableDetail {
-    
-    // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
-    static final double DENSITY_STEEL = 7.85e-6;
-    // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
-    static final double DENSITY_RUBBER = 1.25e-6;
-    
-    public double calculationMass();
-    
+public class AssortmentDetailMass extends AbstractDetailMass {
+
+    @Override
+    public double getMass() {
+        double area = super.getDataBaseValue();
+        double length = super.getLength();
+        return DENSITY_STEEL * area * length * 100;
+    }
 }

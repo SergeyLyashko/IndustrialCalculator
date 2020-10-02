@@ -15,31 +15,31 @@
  */
 package calcmassmodel;
 
-/**
- *
- * @author Korvin
- */
-class Detail {
+//DS
+public abstract class AbstractDetailMass {
     
-    private final double length;
-    private final double width;
-    private final double value;
-
-    Detail(double length, double width, double area) {
-        this.length = length;
-        this.width = width;
-        this.value = area;
+    // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
+    public static final double DENSITY_STEEL = 7.85e-6;
+    // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
+    public static final double DENSITY_RUBBER = 1.25e-6;
+    
+    private Detail detail;
+    
+    void receiveFrom(Detail detail) {
+        this.detail = detail;
     }
     
-    double getLength(){
-        return length;
+    public double getDataBaseValue(){
+        return detail.getDataBaseValue();
     }
     
-    double getWidth(){
-        return width;
+    public double getLength(){
+        return detail.getLength();
     }
     
-    double getDataBaseValue(){
-        return value;
+    public double getWidth(){
+        return detail.getWidth();
     }
+    
+    public abstract double getMass();    
 }

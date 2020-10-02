@@ -19,14 +19,7 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-public interface ModelDispatcher {
-
-    public void setInputData(InputService inputData);
-
-    public void setOutputData(OutputService outputData);
+public interface DetailValueReceiver {
     
-    public void setDetailAreaReceiver(DetailValueReceiver detailArea);
-
-    public void calcOrderStart();
-    
+    double getDetailValue(String assortment, String type, String number);    
 }

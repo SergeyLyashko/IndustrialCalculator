@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractDetailMass;
 
 /**
  *
  * @author Korvin
  */
-public interface ModelDispatcher {
+class SquareSteelDetailMass extends AbstractDetailMass {
 
-    public void setInputData(InputService inputData);
-
-    public void setOutputData(OutputService outputData);
-    
-    public void setDetailAreaReceiver(DetailValueReceiver detailArea);
-
-    public void calcOrderStart();
+    @Override
+    public double getMass() {
+        return DENSITY_STEEL * super.getLength() * (super.getDataBaseValue() * super.getDataBaseValue());
+    }
     
 }

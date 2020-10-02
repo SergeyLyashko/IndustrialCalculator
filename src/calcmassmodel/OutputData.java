@@ -22,9 +22,9 @@ package calcmassmodel;
  */
 class OutputData {    
 
-    private final MassGenerator massGenerator;
+    private final DetailMassGenerator massGenerator;
 
-    OutputData(MassGenerator massGenerator) {
+    OutputData(DetailMassGenerator massGenerator) {
         this.massGenerator = massGenerator;  
     }
     

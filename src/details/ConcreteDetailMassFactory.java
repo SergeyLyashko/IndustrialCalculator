@@ -13,43 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
 
-public class DetailMassCalculationFactory extends DetailFactory {
+import calcmassmodel.AbstractDetailMass;
+import calcmassmodel.AbstractDetailMassFactory;
+
+public class ConcreteDetailMassFactory extends AbstractDetailMassFactory {
     
     @Override
-    public Detail createDetail(String assortment, String type) {
+    public AbstractDetailMass createDetailMass(String assortment, String type) {
         switch(assortment){
             case "Лист":
-                            //return new Sheet(assortment, type, number);
+                            return selectedType(type);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
-                            return new AssortmentDetail();
+                            return new AssortmentDetailMass();
             case "Другое":               
-                            //return selectedType(type, length, valueOfArea);
+                            return selectedType(type);
             default:
                     System.out.println("tets null factory");
                     return null;
         }
     }
     
-    /*
-    private double selectedType(String type, String length, double valueOfArea){
+    private AbstractDetailMass selectedType(String type){
         switch (type){
             case "рифленая(ромб)":
-                            return valueOfArea / 1000000 * valueFromDB;
+                            return new RiffledSteelSheet();
             case "тонколистовая":
             case "толстолистовая":
-                            return DENSITY_STEEL * valueOfArea * valueFromDB;
+                            return new SheetSteelDetailMass();
             case "Круг":
-                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB) / 4 * PI;
+                            return new CircleSteelDetailMass();
             case "Квадрат":
-                            return DENSITY_STEEL * getValueOf(length) * (valueFromDB * valueFromDB);
+                            return new SquareSteelDetailMass();
             case "Резиновая пластина":
-                            return DENSITY_RUBBER * valueOfArea * valueFromDB;  
+                            return new SheetRubberDetailMass();
+            default:
+                    System.out.println("tets null factory");
+                    return null;
         }
-        return 0;
-    }*/
-    
+    }
 }

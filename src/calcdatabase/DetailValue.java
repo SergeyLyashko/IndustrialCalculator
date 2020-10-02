@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import calcmassmodel.AssortmentsAreaReceiver;
 import java.util.Collections;
+import calcmassmodel.DetailValueReceiver;
 
 /**
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-class AssortmentsAreaData implements Serializable, MenuListReceiver, AssortmentsAreaReceiver {
+class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver {
     
     private static final long serialVersionUID = 1L;
     
@@ -130,7 +130,7 @@ class AssortmentsAreaData implements Serializable, MenuListReceiver, Assortments
             }
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException ex) {
-            Logger.getLogger(AssortmentsAreaData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
     }
@@ -140,7 +140,7 @@ class AssortmentsAreaData implements Serializable, MenuListReceiver, Assortments
         try {
             return connection.prepareStatement(sqlQuery);
         } catch (SQLException ex) {
-            Logger.getLogger(AssortmentsAreaData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             DataBaseConnector.close();
         }
@@ -153,12 +153,12 @@ class AssortmentsAreaData implements Serializable, MenuListReceiver, Assortments
                 menuList.add(resultSet.getString(queryString));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AssortmentsAreaData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     @Override
-    public double getDetailArea(String assortment, String type, String number) {
+    public double getDetailValue(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnector.getConnect();
@@ -173,7 +173,7 @@ class AssortmentsAreaData implements Serializable, MenuListReceiver, Assortments
             // закрытие
             close(preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(AssortmentsAreaData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -184,7 +184,7 @@ class AssortmentsAreaData implements Serializable, MenuListReceiver, Assortments
             ps.close();
             resultSet.close();
         } catch (SQLException ex){
-            Logger.getLogger(AssortmentsAreaData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

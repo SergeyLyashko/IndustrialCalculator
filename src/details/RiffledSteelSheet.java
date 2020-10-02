@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractDetailMass;
 
 /**
  *
  * @author Korvin
  */
-public class AssortmentDetail extends Detail {
+class RiffledSteelSheet extends AbstractDetailMass {
 
     @Override
-    public double calculationMass() {
-        double area = super.getArea();
-        double length = super.getLength();
-        return DENSITY_STEEL * area * length * 100;
+    public double getMass() {
+        return super.getLength() * super.getWidth() / 1000000 * super.getDataBaseValue();
     }
+    
 }

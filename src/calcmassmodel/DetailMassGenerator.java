@@ -15,38 +15,45 @@
  */
 package calcmassmodel;
 
+import details.ConcreteDetailMassFactory;
+
 
 /**
  * Интерактор
  * @author Sergei Lyashko
  */
-class MassGenerator {
+class DetailMassGenerator {
     
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     // сообщение об ошибке
     
-    private final AssortmentsAreaReceiver detailArea;
-    private final InputService inputDataService;
+    private final DetailValueReceiver areaReceiver;
+    private final InputService inputService;
     private final OutputService outputDataService;
     
-    public MassGenerator(AssortmentsAreaReceiver detailArea, InputService inputDataService, OutputService outputDataService){
-        this.detailArea = detailArea;
-        this.inputDataService = inputDataService;
+    public DetailMassGenerator(DetailValueReceiver areaReceiver, InputService inputDataService, OutputService outputDataService){
+        this.areaReceiver = areaReceiver;
+        this.inputService = inputDataService;
         this.outputDataService = outputDataService;
     }
     
     void calculationOrder() {
-        double width = inputDataService.getWidth();
-        double length = inputDataService.getLength();
-        if(isValidFieldsValues(width, length)){
-            DetailFactory factory = new DetailMassCalculationFactory();
-            Detail order = factory.order(inputDataService, detailArea);
+        if(isValidInputData()){
+            AbstractDetailMassFactory detailMassFactory = new ConcreteDetailMassFactory();
+            AbstractDetailMass order = detailMassFactory.order(inputService, areaReceiver);
             //test
-            System.out.println("mass: "+order.calculationMass());
+            System.out.println("mass: "+order.getMass());
         }else{
+            //test
             System.out.println("mass not");
         } 
+    }
+    
+    private boolean isValidInputData(){
+        double width = inputService.getWidth();
+        double length = inputService.getLength();
+        return isValidFieldsValues(width, length);
     }
     
     // проверка на переполнение
@@ -74,8 +81,5 @@ class MassGenerator {
         }
         return true;
     }    
-
-    
-
     
 }

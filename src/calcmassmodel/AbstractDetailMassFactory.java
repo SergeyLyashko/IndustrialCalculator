@@ -19,25 +19,25 @@ package calcmassmodel;
  *
  * @author Korvin
  */
-public abstract class DetailFactory {
-    
+public abstract class AbstractDetailMassFactory {    
 
-    public Detail order(InputService inputService, AssortmentsAreaReceiver detailArea){
+    AbstractDetailMass order(InputService inputService, DetailValueReceiver areaReceiver){
         
         String assortment = inputService.getAssortment();
         String type = inputService.getType();
         String number = inputService.getNumber();
+        
+        double area = areaReceiver.getDetailValue(assortment, type, number);    
         double length = inputService.getLength();
         double width = inputService.getWidth();
+        Detail detail = new Detail(length, width, area);
         
-        double area = detailArea.getDetailArea(assortment, type, number);
-        
-        Detail detail = createDetail(assortment, type);
-        detail.setLength(length);
-        detail.setArea(area);
-        return detail;
+        AbstractDetailMass detailMass = createDetailMass(assortment, type);
+        detailMass.receiveFrom(detail);
+                
+        return detailMass;
     }
 
-    public abstract Detail createDetail(String assortment, String type);
+    protected abstract AbstractDetailMass createDetailMass(String assortment, String type);
     
 }

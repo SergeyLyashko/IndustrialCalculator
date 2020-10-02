@@ -22,7 +22,7 @@ import calcmassview.ViewDispatcher;
 public class DataBaseDispatcher {
     
     public DataBaseDispatcher(ModelDispatcher model, ViewDispatcher view){
-        AssortmentsAreaData data = new AssortmentsAreaData();
+        DetailValue data = new DetailValue();
         view.setMenuListReceiver(data);
         model.setDetailAreaReceiver(data);
     }
