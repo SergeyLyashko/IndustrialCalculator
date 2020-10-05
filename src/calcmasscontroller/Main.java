@@ -16,13 +16,13 @@
 package calcmasscontroller;
 
 import calcdatabase.DataBaseDispatcher;
-import calcmassmodel.ModelDispatcherImpl;
-import calcmassview.ViewDispatcherImpl;
+import calcmassview.ViewServiceDispatcher;
 import javax.swing.SwingUtilities;
 import calcmassview.info.Info;
-import calcmassview.info.InfoImpl;
-import calcmassmodel.ModelDispatcher;
-import calcmassview.ViewDispatcher;
+import calcmassmodel.ModelServiceDispatcher;
+import details.MassCalculatorFactory;
+import calcmassmodel.ModelService;
+import calcmassview.ViewService;
 
 /**
  * Внедрение зависимостей
@@ -32,15 +32,16 @@ public class Main {
     public static void main (String[] args) {
         SwingUtilities.invokeLater(() -> {
             
-            ModelDispatcher model = new ModelDispatcherImpl();
+            ModelService model = new ModelServiceDispatcher();
                         
-            CalculatorController controller = new CalculatorControllerImpl(model);
+            ControllerService controller = new CalculatorControllerImpl(model);
             
-            Info info = new InfoImpl();// ????????
-            ViewDispatcher view = new ViewDispatcherImpl(info, controller);
+            Info info = new InfoImpl();
+            ViewService view = new ViewServiceDispatcher(info, controller);
             
             new DataBaseDispatcher(model, view);
-            
+            MassCalculatorFactory massFactory = new MassCalculatorFactory();
+            model.acceptRealization(massFactory);
                 });
     }
 }

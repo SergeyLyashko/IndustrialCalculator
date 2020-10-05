@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractMassCalculator;
 
 /**
  *
  * @author Korvin
  */
-public interface ModelDispatcher {
+class SheetRubberMassCalculator extends AbstractMassCalculator {
 
-    public void setInputData(InputService inputData);
-
-    public void setOutputData(OutputService outputData);
-    
-    public void setDetailAreaReceiver(DetailValueReceiver detailArea);
-
-    public void calcOrderStart();
+    @Override
+    public double calculationMass() {
+        return DENSITY_RUBBER * super.getDetailLength() * super.getDetailWidth() * super.getDataBaseValue();
+    }
     
 }

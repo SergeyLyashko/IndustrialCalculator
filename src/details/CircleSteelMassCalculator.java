@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
+
+import calcmassmodel.AbstractMassCalculator;
+import static java.lang.Math.PI;
 
 /**
  *
  * @author Korvin
  */
-public interface OutputService {
-    
-    public String getErrorMessage();
-    
-    public String getServiceMessage();
+class CircleSteelMassCalculator extends AbstractMassCalculator {
 
-    public double getDetailMass();
-    
+    @Override
+    public double calculationMass() {
+        return DENSITY_STEEL * super.getDetailLength() * (super.getDataBaseValue() * super.getDataBaseValue()) / 4 * PI;
+    }
 }

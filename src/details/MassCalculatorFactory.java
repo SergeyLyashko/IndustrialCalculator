@@ -15,20 +15,20 @@
  */
 package details;
 
-import calcmassmodel.AbstractDetailMass;
-import calcmassmodel.AbstractDetailMassFactory;
+import calcmassmodel.AbstractMassCalculator;
+import calcmassmodel.AbstractCalculatorFactory;
 
-public class ConcreteDetailMassFactory extends AbstractDetailMassFactory {
+public class MassCalculatorFactory extends AbstractCalculatorFactory {
     
     @Override
-    public AbstractDetailMass createDetailMass(String assortment, String type) {
+    protected AbstractMassCalculator createMassCalculator(String assortment, String type) {
         switch(assortment){
             case "Лист":
                             return selectedType(type);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
-                            return new AssortmentDetailMass();
+                            return new AssortmentMassCalculator();
             case "Другое":               
                             return selectedType(type);
             default:
@@ -37,19 +37,19 @@ public class ConcreteDetailMassFactory extends AbstractDetailMassFactory {
         }
     }
     
-    private AbstractDetailMass selectedType(String type){
+    private AbstractMassCalculator selectedType(String type){
         switch (type){
             case "рифленая(ромб)":
-                            return new RiffledSteelSheet();
+                            return new RiffledSteelSheetMassCalculator();
             case "тонколистовая":
             case "толстолистовая":
-                            return new SheetSteelDetailMass();
+                            return new SheetSteelMassCalculator();
             case "Круг":
-                            return new CircleSteelDetailMass();
+                            return new CircleSteelMassCalculator();
             case "Квадрат":
-                            return new SquareSteelDetailMass();
+                            return new SquareSteelMassCalculator();
             case "Резиновая пластина":
-                            return new SheetRubberDetailMass();
+                            return new SheetRubberMassCalculator();
             default:
                     System.out.println("tets null factory");
                     return null;

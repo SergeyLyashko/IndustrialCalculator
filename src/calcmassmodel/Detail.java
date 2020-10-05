@@ -20,26 +20,26 @@ package calcmassmodel;
  * @author Korvin
  */
 class Detail {
-    
+
     private final double length;
     private final double width;
-    private final double value;
+    private final double detailValue;
 
-    Detail(double length, double width, double area) {
+    Detail(double length, double width, double detailValue) {
         this.length = length;
         this.width = width;
-        this.value = area;
+        this.detailValue = detailValue;
     }
-    
-    double getLength(){
+
+    double getDataBaseValue() {
+        return detailValue;
+    }
+
+    double getLength() {
         return length;
     }
-    
-    double getWidth(){
+
+    double getWidth() {
         return width;
-    }
-    
-    double getDataBaseValue(){
-        return value;
     }
 }

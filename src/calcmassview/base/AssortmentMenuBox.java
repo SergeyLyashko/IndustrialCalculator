@@ -18,8 +18,8 @@ package calcmassview.base;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
-import calcmassview.MenuListReceiver;
 import java.util.List;
+import calcmassview.MenuListReceiveService;
 
 /**
  * Меню типов сортамента
@@ -41,9 +41,9 @@ public class AssortmentMenuBox extends JComboBox<String> implements CalculatorPa
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    private final MenuListReceiver receiver;
+    private final MenuListReceiveService receiver;
     
-    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiver receiver) {
+    public AssortmentMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiveService receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 20);

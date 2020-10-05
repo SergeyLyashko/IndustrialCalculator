@@ -15,7 +15,6 @@
  */
 package calcdatabase;
 
-import calcmassview.MenuListReceiver;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,13 +25,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Collections;
-import calcmassmodel.DetailValueReceiver;
 
 /**
  * Класс работы с Базой данных
  * @author Sergei Lyashko
  */
-class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver {
+class DetailsData implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -77,8 +75,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
     
     private ArrayList<String> menuList;
     
-    @Override
-    public List<String> getAssortmentMenu(){
+    List<String> getAssortmentMenu(){
         String selectedAssortment = null;
         String selectedType = null;
         menuList = new ArrayList<>();
@@ -87,8 +84,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
         return Collections.unmodifiableList(menuList);
     }
     
-    @Override
-    public List<String> getTypeMenu(String selectedAssortment){
+    List<String> getTypeMenu(String selectedAssortment){
         String selectedType = null;
         menuList = new ArrayList<>();
         menuList.add(typeHeader);
@@ -98,8 +94,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
         return Collections.unmodifiableList(menuList);
     }
     
-    @Override
-    public List<String> getNumberMenu(String selectedAssortment, String selectedType){
+    List<String> getNumberMenu(String selectedAssortment, String selectedType){
         menuList = new ArrayList<>();
         menuList.add(numberHeader);
         if(selectedAssortment != null && selectedType != null){
@@ -130,7 +125,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
             }
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException ex) {
-            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailsData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
     }
@@ -140,7 +135,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
         try {
             return connection.prepareStatement(sqlQuery);
         } catch (SQLException ex) {
-            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailsData.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             DataBaseConnector.close();
         }
@@ -153,12 +148,11 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
                 menuList.add(resultSet.getString(queryString));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailsData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    @Override
-    public double getDetailValue(String assortment, String type, String number) {
+    double getDetailValue(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnector.getConnect();
@@ -173,7 +167,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
             // закрытие
             close(preparedStatement, resultSet);
         }catch(SQLException ex){
-            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailsData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -184,7 +178,7 @@ class DetailValue implements Serializable, MenuListReceiver, DetailValueReceiver
             ps.close();
             resultSet.close();
         } catch (SQLException ex){
-            Logger.getLogger(DetailValue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailsData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

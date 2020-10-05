@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package details;
 
-import calcmassmodel.OutputService;
-import calcmassview.ViewDispatcher;
-
+import calcmassmodel.AbstractMassCalculator;
 
 /**
  *
  * @author Korvin
  */
-public interface CalculatorController {
-    
-    void setInputData(ViewDispatcher viewData);
-    
-    OutputService getOutputData();
-    
-    //test
-    public void startCalc();
+class AssortmentMassCalculator extends AbstractMassCalculator {
+
+    @Override
+    public double calculationMass() {
+        double area = super.getDataBaseValue();
+        double length = super.getDetailLength();
+        return DENSITY_STEEL * area * length * 100;
+    }
 }

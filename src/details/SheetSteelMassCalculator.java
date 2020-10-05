@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package details;
 
+import calcmassmodel.AbstractMassCalculator;
 
 /**
  *
  * @author Korvin
  */
-class OutputData {    
+class SheetSteelMassCalculator extends AbstractMassCalculator {
 
-    private final DetailMassGenerator massGenerator;
-
-    OutputData(DetailMassGenerator massGenerator) {
-        this.massGenerator = massGenerator;  
+    @Override
+    public double calculationMass() {
+        double length = super.getDetailLength();
+        double width = super.getDetailWidth();
+        double area = super.getDataBaseValue();
+        return DENSITY_STEEL * length * width * area;
     }
-    
-    double getDetailMass(){
-        return 0;
-    }
-    
 }

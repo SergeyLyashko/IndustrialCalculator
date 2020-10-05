@@ -16,26 +16,34 @@
 package calcmasscontroller;
 
 import calcmassmodel.OutputService;
+import calcmassmodel.ModelService;
 
 /**
  *
  * @author Korvin
  */
-public class SendData implements OutputService {    
+public class OutputServiceImpl implements OutputService {
+
+    private final ModelService model;
+
+    OutputServiceImpl(ModelService model) {
+        this.model = model;
+    }
 
     @Override
     public String getErrorMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return model.getErrorMessage();
     }
 
     @Override
     public String getServiceMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return model.getServiceMessage();
     }
 
     @Override
     public double getDetailMass() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return model.calculationResult();
     }
+
     
 }

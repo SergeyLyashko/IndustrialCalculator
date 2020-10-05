@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package details;
 
-import java.util.List;
+import calcmassmodel.AbstractMassCalculator;
 
 /**
  *
  * @author Korvin
  */
-public interface MenuListReceiver {
-    
-    List<String> getAssortmentMenu();
-    
-    List<String> getTypeMenu(String assortment);
-    
-    List<String> getNumberMenu(String assortment, String type);
+class SquareSteelMassCalculator extends AbstractMassCalculator {
+
+    @Override
+    public double calculationMass() {
+        return DENSITY_STEEL * super.getDetailLength() * (super.getDataBaseValue() * super.getDataBaseValue());
+    }
     
 }

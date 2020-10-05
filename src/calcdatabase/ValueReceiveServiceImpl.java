@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcdatabase;
+
+import calcmassmodel.ValueReceiveService;
 
 /**
  *
  * @author Korvin
  */
-public interface InputService {
-    
-    public String getAssortment();
-    
-    public String getType();
-    
-    public String getNumber();
-    
-    public double getLength();
-    
-    public double getWidth();
+class ValueReceiveServiceImpl implements ValueReceiveService {
+
+    private final DetailsData data;
+
+    public ValueReceiveServiceImpl(DetailsData data) {
+        this.data = data;
+    }
+
+    @Override
+    public double getDetailValue(String assortment, String type, String number) {
+        return data.getDetailValue(assortment, type, number);
+    }
     
 }

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.info;
+package calcmasscontroller;
 
+import calcmassview.info.Info;
 import calcmassview.settings.ColorTheme;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -25,7 +26,7 @@ import javax.swing.JLabel;
  * @author Korvin
  */
 @ColorTheme()
-public class InfoImpl extends JLabel implements Serializable, Info {
+public class InfoImpl extends JLabel implements Serializable, Info, ColorTheme {
     
     private static final long serialVersionUID = 1L;
     
@@ -68,6 +69,6 @@ public class InfoImpl extends JLabel implements Serializable, Info {
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return getClass();
+        return this.getClass();
     }
 }

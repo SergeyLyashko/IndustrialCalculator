@@ -13,19 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
+package calcdatabase;
 
-import calcmassmodel.AbstractDetailMass;
-import static java.lang.Math.PI;
+import calcmassview.MenuListReceiveService;
+import java.util.List;
 
 /**
  *
  * @author Korvin
  */
-class CircleSteelDetailMass extends AbstractDetailMass {
+class MenuListReceiveServiceImpl implements MenuListReceiveService {
+
+    private final DetailsData data;
+
+    MenuListReceiveServiceImpl(DetailsData data) {
+        this.data = data;
+    }
 
     @Override
-    public double getMass() {
-        return DENSITY_STEEL * super.getLength() * (super.getDataBaseValue() * super.getDataBaseValue()) / 4 * PI;
+    public List<String> getAssortmentMenu() {
+        return data.getAssortmentMenu();
     }
+
+    @Override
+    public List<String> getTypeMenu(String assortment) {
+        return data.getTypeMenu(assortment);
+    }
+
+    @Override
+    public List<String> getNumberMenu(String assortment, String type) {
+        return data.getNumberMenu(assortment, type);
+    }
+    
 }

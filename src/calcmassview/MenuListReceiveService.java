@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
+package calcmassview;
 
-import calcmassmodel.AbstractDetailMass;
+import java.util.List;
 
 /**
  *
  * @author Korvin
  */
-class SheetRubberDetailMass extends AbstractDetailMass {
-
-    @Override
-    public double getMass() {
-        return DENSITY_RUBBER * super.getLength() * super.getWidth() * super.getDataBaseValue();
-    }
+public interface MenuListReceiveService {
+    
+    List<String> getAssortmentMenu();
+    
+    List<String> getTypeMenu(String assortment);
+    
+    List<String> getNumberMenu(String assortment, String type);
     
 }

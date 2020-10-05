@@ -15,49 +15,50 @@
  */
 package calcmassmodel;
 
-import details.ConcreteDetailMassFactory;
-
-
 /**
  * Интерактор
  * @author Sergei Lyashko
  */
-class DetailMassGenerator {
+class MassGenerator {
     
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
-    // сообщение об ошибке
-    
-    private final DetailValueReceiver areaReceiver;
-    private final InputService inputService;
-    private final OutputService outputDataService;
-    
-    public DetailMassGenerator(DetailValueReceiver areaReceiver, InputService inputDataService, OutputService outputDataService){
+    private final InputDataService inputService;
+    private final ValueReceiveService areaReceiver;
+    private double mass;
+
+    MassGenerator(InputDataService inputService, ValueReceiveService areaReceiver) {
+        this.inputService = inputService;
         this.areaReceiver = areaReceiver;
-        this.inputService = inputDataService;
-        this.outputDataService = outputDataService;
     }
     
-    void calculationOrder() {
-        if(isValidInputData()){
-            AbstractDetailMassFactory detailMassFactory = new ConcreteDetailMassFactory();
-            AbstractDetailMass order = detailMassFactory.order(inputService, areaReceiver);
-            //test
-            System.out.println("mass: "+order.getMass());
-        }else{
-            //test
-            System.out.println("mass not");
-        } 
+    void orderMass(AbstractCalculatorFactory calculatorFactory) {
+        AbstractMassCalculator massCalculator = calculatorFactory.calculatorOrder(inputService);
+        Detail newDetail = createDetail();
+        if(newDetail != null){
+            massCalculator.setDetail(newDetail);
+            this.mass = massCalculator.calculationMass();
+        }
     }
     
-    private boolean isValidInputData(){
-        double width = inputService.getWidth();
+    double getMass(){
+        return mass;
+    }
+    
+    private Detail createDetail(){
+        String assortment = inputService.getAssortment();
+        String type = inputService.getType();
+        String number = inputService.getNumber();
+        double detailValue = areaReceiver.getDetailValue(assortment, type, number);
         double length = inputService.getLength();
-        return isValidFieldsValues(width, length);
+        double width = inputService.getWidth();
+        if(isValidValues(width, length)){
+            return new Detail(length, width, detailValue);
+        }
+        return null;
     }
     
-    // проверка на переполнение
-    private boolean isValidFieldsValues(double widthNum, double lengthNum){
+    private boolean isValidValues(double widthNum, double lengthNum){
         if(isValidNumber(widthNum) && isValidNumber(lengthNum)){
             double checkNum = MAX_NUMBER / lengthNum;
             if(checkNum < widthNum){
@@ -69,7 +70,6 @@ class DetailMassGenerator {
         return false;
     }
     
-    
     private boolean isValidNumber(double number){
         if(number > MAX_NUMBER){
                 //this.message = "ошибка! слишком большое число!";
@@ -80,6 +80,14 @@ class DetailMassGenerator {
                 return false;
         }
         return true;
-    }    
+    }
+
+    String getError() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    String getServiceMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

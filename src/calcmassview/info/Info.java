@@ -15,14 +15,13 @@
  */
 package calcmassview.info;
 
-import calcmassview.settings.ColorTheme;
 import javax.swing.JLabel;
 
 /**
  *
  * @author Korvin
  */
-public interface Info extends ColorTheme{
+public interface Info {
     
     public JLabel receiveInfo();
 }

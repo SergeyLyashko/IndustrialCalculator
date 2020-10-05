@@ -16,30 +16,30 @@
 package calcmassmodel;
 
 //DS
-public abstract class AbstractDetailMass {
+public abstract class AbstractMassCalculator {
     
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
-    public static final double DENSITY_STEEL = 7.85e-6;
+    protected static final double DENSITY_STEEL = 7.85e-6;
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
-    public static final double DENSITY_RUBBER = 1.25e-6;
+    protected static final double DENSITY_RUBBER = 1.25e-6;
     
     private Detail detail;
     
-    void receiveFrom(Detail detail) {
+    void setDetail(Detail detail) {
         this.detail = detail;
     }
     
-    public double getDataBaseValue(){
+    protected double getDataBaseValue(){
         return detail.getDataBaseValue();
     }
     
-    public double getLength(){
+    protected double getDetailLength(){
         return detail.getLength();
     }
     
-    public double getWidth(){
+    protected double getDetailWidth(){
         return detail.getWidth();
     }
     
-    public abstract double getMass();    
+    protected abstract double calculationMass();    
 }

@@ -13,19 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
-
-import calcmassmodel.AbstractDetailMass;
+package calcmassmodel;
 
 /**
  *
  * @author Korvin
  */
-class SquareSteelDetailMass extends AbstractDetailMass {
-
-    @Override
-    public double getMass() {
-        return DENSITY_STEEL * super.getLength() * (super.getDataBaseValue() * super.getDataBaseValue());
-    }
+public interface ValueReceiveService {
     
+    double getDetailValue(String assortment, String type, String number);    
 }

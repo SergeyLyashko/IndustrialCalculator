@@ -13,17 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
-
-import calcmassview.base.FieldsData;
+package calcmassmodel;
 
 /**
  *
  * @author Korvin
  */
-public interface ViewDispatcher {
-    
-    public void setMenuListReceiver(MenuListReceiver menuListReceiver);
-    
-    public FieldsData getViewData();
+public abstract class AbstractCalculatorFactory {    
+
+    AbstractMassCalculator calculatorOrder(InputDataService dataService){
+        String assortment = dataService.getAssortment();
+        String type = dataService.getType();        
+        AbstractMassCalculator massCalculator = createMassCalculator(assortment, type);
+        return massCalculator;
+    }
+
+    protected abstract AbstractMassCalculator createMassCalculator(String assortment, String type);
 }

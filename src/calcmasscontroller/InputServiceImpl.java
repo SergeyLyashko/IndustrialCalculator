@@ -15,43 +15,43 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.InputService;
-import calcmassview.ViewDispatcher;
+import calcmassmodel.InputDataService;
+import calcmassview.ViewService;
 
 /**
  *
  * @author Korvin
  */
-public class ReceiveData implements InputService {
+class InputServiceImpl implements InputDataService {
 
-    private final ViewDispatcher viewData;
+    private final ViewService view;
 
-    ReceiveData(ViewDispatcher viewData) {
-        this.viewData = viewData;
+    InputServiceImpl(ViewService view) {
+        this.view = view;
     }
 
     @Override
     public String getAssortment() {
-        return viewData.getViewData().getAssortment();
+        return view.getAssortment();
     }
 
     @Override
     public String getType() {
-        return viewData.getViewData().getType();
+        return view.getType();
     }
 
     @Override
     public String getNumber() {
-        return viewData.getViewData().getNumber();
+        return view.getNumber();
     }
 
     @Override
     public double getLength() {
-        return viewData.getViewData().getLength();
+        return view.getLength();
     }
 
     @Override
     public double getWidth() {
-        return viewData.getViewData().getWidth();
+        return view.getDetailWidth();
     }
 }

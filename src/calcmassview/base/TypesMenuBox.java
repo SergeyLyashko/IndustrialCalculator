@@ -18,8 +18,8 @@ package calcmassview.base;
 import javax.swing.JComboBox;
 import java.lang.annotation.Annotation;
 import calcmassview.settings.ToolTips;
-import calcmassview.MenuListReceiver;
 import java.util.List;
+import calcmassview.MenuListReceiveService;
 
 /**
  * Выпадающее меню типов профилей
@@ -43,10 +43,10 @@ public class TypesMenuBox extends JComboBox<String> implements CalculatorPanel, 
     private final StateField activeStateField;
     private final Reset resetMarker;
     
-    private final MenuListReceiver receiver;
+    private final MenuListReceiveService receiver;
     
     
-    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiver receiver) {
+    public TypesMenuBox(StateField activeStateField, Reset serviceResetMarker, MenuListReceiveService receiver) {
         super.setSize(155, 25);
         super.setSelectedIndex(-1);
         super.setLocation(20, 60);

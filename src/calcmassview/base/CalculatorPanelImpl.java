@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.annotation.Annotation;
 import javax.swing.JComponent;
-import calcmassview.MenuListReceiver;
+import calcmassview.MenuListReceiveService;
 
 /**
  * основная панель с компонентами
@@ -41,10 +41,10 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
     private final ArrayList<JComponent> components;    
     // Данные
     private transient FieldsData data;    
-    private final MenuListReceiver receiver;
+    private final MenuListReceiveService receiver;
     private BuildDataObserver observer;
     
-    public CalculatorPanelImpl(ArrayList<JComponent> components, MenuListReceiver receiver) {
+    public CalculatorPanelImpl(ArrayList<JComponent> components, MenuListReceiveService receiver) {
         this.components =components;
         this.receiver = receiver;
         // добавление компонентов

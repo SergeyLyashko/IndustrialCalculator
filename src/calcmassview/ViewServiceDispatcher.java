@@ -15,7 +15,6 @@
  */
 package calcmassview;
 
-import calcmasscontroller.CalculatorController;
 import java.text.DecimalFormat;
 import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.info.InfoPanel;
@@ -30,13 +29,13 @@ import javax.swing.JTabbedPane;
 import java.util.stream.Collectors;
 import calcmassview.base.FieldsData;
 import calcmassview.info.Info;
-import calcmassmodel.OutputService;
+import calcmasscontroller.ControllerService;
 
 /**
  * Представление приложения
  * @author Sergei Lyashko
  */
-public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildDataObserver {
+public class ViewServiceDispatcher extends JPanel implements ViewService, BuildDataObserver {
 
     private static final long serialVersionUID = 1L;
     
@@ -46,11 +45,11 @@ public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildD
     private final Preference preference;
     
     private FieldsData data;
-    private MenuListReceiver menuListReceiver;
+    private MenuListReceiveService menuListReceiver;
     private final Info info;
-    private final CalculatorController controller;
+    private final ControllerService controller;
 
-    public ViewDispatcherImpl(Info info, CalculatorController controller) {
+    public ViewServiceDispatcher(Info info, ControllerService controller) {
         super(new GridLayout(1, 1));
         this.info = info;
         this.controller = controller;
@@ -94,7 +93,7 @@ public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildD
     }
     
     @Override
-    public void setMenuListReceiver(MenuListReceiver menuListReceiver) {
+    public void setMenuList(MenuListReceiveService menuListReceiver) {
         this.menuListReceiver = menuListReceiver;
         List<JPanel> panels = loadPanels();
         
@@ -106,9 +105,8 @@ public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildD
     }
     
     private void showResult() {
-        OutputService outputData = controller.getOutputData();
-        double detailMass = outputData.getDetailMass();
-        String formattedValue = formatDoubleToString(detailMass);
+        
+        //String formattedValue = formatDoubleToString(detailMass);
     }
     
     //форматирование строки результата
@@ -117,8 +115,7 @@ public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildD
     }
     
     private void showError() {
-        OutputService outputData = controller.getOutputData();
-        String errorMessage = outputData.getErrorMessage();
+        
     }
     
     private void receiveFieldsData(){
@@ -130,15 +127,42 @@ public class ViewDispatcherImpl extends JPanel implements ViewDispatcher, BuildD
     }
 
     @Override
-    public FieldsData getViewData() {
-        return data;
+    public void dataUpdate() {
+        receiveFieldsData();
+        controller.acceptData(this);
+        //test
+        double calculationResult = controller.getCalculationResult();
     }
 
     @Override
-    public void dataUpdate() {
-        receiveFieldsData();
-        controller.setInputData(this);//TEST
-        controller.startCalc();//TEST
+    public void setResult(double mass) {
+        
     }
+
+    @Override
+    public String getAssortment() {
+        return data.getAssortment();
+    }
+
+    @Override
+    public String getType() {
+        return data.getType();
+    }
+
+    @Override
+    public String getNumber() {
+        return data.getNumber();
+    }
+
+    @Override
+    public double getLength() {
+        return data.getLength();
+    }
+
+    @Override
+    public double getDetailWidth() {
+        return data.getWidth();
+    }
+
     
 }

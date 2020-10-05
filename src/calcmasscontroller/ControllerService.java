@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
+package calcmasscontroller;
 
-import calcmassmodel.AbstractDetailMass;
+import calcmassview.ViewService;
+
 
 /**
  *
  * @author Korvin
  */
-public class AssortmentDetailMass extends AbstractDetailMass {
-
-    @Override
-    public double getMass() {
-        double area = super.getDataBaseValue();
-        double length = super.getLength();
-        return DENSITY_STEEL * area * length * 100;
-    }
+public interface ControllerService {
+    
+    void acceptData(ViewService view);
+    
+    double getCalculationResult();
+    
+    String getErrorMessage();
+    
+    String getServiceMessage();
+    
 }

@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package details;
-
-import calcmassmodel.AbstractDetailMass;
+package calcmassmodel;
 
 /**
  *
  * @author Korvin
  */
-class RiffledSteelSheet extends AbstractDetailMass {
-
-    @Override
-    public double getMass() {
-        return super.getLength() * super.getWidth() / 1000000 * super.getDataBaseValue();
-    }
+public interface InputDataService {
+    
+    public String getAssortment();
+    
+    public String getType();
+    
+    public String getNumber();
+    
+    public double getLength();
+    
+    public double getWidth();
     
 }

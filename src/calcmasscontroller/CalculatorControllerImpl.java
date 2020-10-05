@@ -15,41 +15,41 @@
  */
 package calcmasscontroller;
 
-import calcmassmodel.ModelDispatcher;
-import calcmassmodel.InputService;
-import calcmassmodel.OutputService;
-import calcmassview.ViewDispatcher;
+import calcmassmodel.InputDataService;
+import calcmassmodel.ModelService;
+import calcmassview.ViewService;
 
 /**
  * Контроллер
  * Создание модели и представления
  * @author Sergei Lyashko
  */
-public class CalculatorControllerImpl implements CalculatorController {
+public class CalculatorControllerImpl implements ControllerService {
 
-    private final ModelDispatcher model;
-    private InputService inputDataService;
+    private final ModelService modelService;
     
-    CalculatorControllerImpl(ModelDispatcher model) {
-        this.model = model;
+    CalculatorControllerImpl(ModelService modelService) {
+        this.modelService = modelService;
     }
 
     @Override
-    public OutputService getOutputData() {
-        OutputService outputDataService = new SendData();
-        model.setOutputData(outputDataService);
-        return outputDataService;
-    }
-
-    @Override
-    public void setInputData(ViewDispatcher viewData) {
-        inputDataService = new ReceiveData(viewData);
-        model.setInputData(inputDataService);
-    }
-
-    @Override
-    public void startCalc() {
-        model.calcOrderStart();
+    public void acceptData(ViewService view) {
+        InputDataService dataService = new InputServiceImpl(view);
+        modelService.acceptData(dataService);
     }
     
+    @Override
+    public double getCalculationResult() {
+        return modelService.calculationResult();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return modelService.getErrorMessage();
+    }
+
+    @Override
+    public String getServiceMessage() {
+        return modelService.getServiceMessage();
+    }
 }
