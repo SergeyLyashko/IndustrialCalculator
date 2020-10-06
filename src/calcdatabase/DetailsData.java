@@ -152,7 +152,7 @@ class DetailsData implements Serializable {
         }
     }
     
-    double getDetailValue(String assortment, String type, String number) {
+    double getValue(String assortment, String type, String number) {
         double result = 0;
         try{
             Connection connect = DataBaseConnector.getConnect();

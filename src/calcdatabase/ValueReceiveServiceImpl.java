@@ -30,8 +30,8 @@ class ValueReceiveServiceImpl implements ValueReceiveService {
     }
 
     @Override
-    public double getDetailValue(String assortment, String type, String number) {
-        return data.getDetailValue(assortment, type, number);
+    public double receiveDataBaseValue(String assortment, String type, String number) {
+        return data.getValue(assortment, type, number);
     }
     
 }

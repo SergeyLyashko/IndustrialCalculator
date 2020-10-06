@@ -21,6 +21,6 @@ package calcmassview;
  */
 public interface BuildDataObserver {
     
-    public void dataUpdate();
+    public void updateData();
     
 }

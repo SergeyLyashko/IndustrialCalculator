@@ -21,5 +21,5 @@ package calcmassmodel;
  */
 public interface ValueReceiveService {
     
-    double getDetailValue(String assortment, String type, String number);    
+    double receiveDataBaseValue(String assortment, String type, String number);    
 }

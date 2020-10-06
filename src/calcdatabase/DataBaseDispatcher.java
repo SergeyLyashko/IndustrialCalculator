@@ -16,20 +16,13 @@
 package calcdatabase;
 
 import calcmassmodel.ModelService;
-import calcmassmodel.ValueReceiveService;
-import calcmassview.MenuListReceiveService;
-import calcmassview.ViewService;
 
 
 public class DataBaseDispatcher {
     
     public DataBaseDispatcher(ModelService model, ViewService view){
-        DetailsData data = new DetailsData();
-        
-        MenuListReceiveService receiveService = new MenuListReceiveServiceImpl(data);
-        view.setMenuList(receiveService);
-        
-        ValueReceiveService valueReceiveService = new ValueReceiveServiceImpl(data);
-        model.acceptDataFromDataBase(valueReceiveService);
+        DetailsData data = new DetailsData();        
+        view.setMenuList(new MenuListReceiveServiceImpl(data));
+        model.acceptDataFromDataBase(new ValueReceiveServiceImpl(data));
     }
 }

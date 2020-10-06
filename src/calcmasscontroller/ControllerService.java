@@ -15,8 +15,6 @@
  */
 package calcmasscontroller;
 
-import calcmassview.ViewService;
-
 
 /**
  *
@@ -24,7 +22,7 @@ import calcmassview.ViewService;
  */
 public interface ControllerService {
     
-    void acceptData(ViewService view);
+    void acceptData(ViewDataReceiveService receiveService);
     
     double getCalculationResult();
     

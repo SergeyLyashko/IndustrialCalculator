@@ -13,37 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmasscontroller;
+package calcmassview;
 
-import calcmassmodel.OutputService;
-import calcmassmodel.ModelService;
+import calcmassview.base.FieldsData;
+import calcmasscontroller.ViewDataReceiveService;
 
 /**
  *
  * @author Korvin
  */
-public class OutputServiceImpl implements OutputService {
+class ViewDataServiceImpl implements ViewDataReceiveService {
 
-    private final ModelService model;
+    private final FieldsData data;
 
-    OutputServiceImpl(ModelService model) {
-        this.model = model;
+    public ViewDataServiceImpl(FieldsData data) {
+        this.data = data;
     }
 
     @Override
-    public String getErrorMessage() {
-        return model.getErrorMessage();
+    public String getAssortment() {
+        return data.getAssortment();
     }
 
     @Override
-    public String getServiceMessage() {
-        return model.getServiceMessage();
+    public String getType() {
+        return data.getType();
     }
 
     @Override
-    public double getDetailMass() {
-        return model.calculationResult();
+    public String getNumber() {
+        return data.getNumber();
     }
 
+    @Override
+    public double getFieldLengthValue() {
+        return data.getLength();
+    }
+
+    @Override
+    public double getFieldWidthValue() {
+        return data.getWidth();
+    }
     
 }

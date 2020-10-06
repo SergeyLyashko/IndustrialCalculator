@@ -16,7 +16,6 @@
 package calcmasscontroller;
 
 import calcmassmodel.InputDataService;
-import calcmassview.ViewService;
 
 /**
  *
@@ -24,9 +23,9 @@ import calcmassview.ViewService;
  */
 class InputServiceImpl implements InputDataService {
 
-    private final ViewService view;
+    private final ViewDataReceiveService view;
 
-    InputServiceImpl(ViewService view) {
+    InputServiceImpl(ViewDataReceiveService view) {
         this.view = view;
     }
 
@@ -47,11 +46,11 @@ class InputServiceImpl implements InputDataService {
 
     @Override
     public double getLength() {
-        return view.getLength();
+        return view.getFieldLengthValue();
     }
 
     @Override
     public double getWidth() {
-        return view.getDetailWidth();
+        return view.getFieldWidthValue();
     }
 }

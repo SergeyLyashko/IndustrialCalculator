@@ -15,6 +15,7 @@
  */
 package calcmassview;
 
+import calcdatabase.ViewService;
 import java.text.DecimalFormat;
 import calcmassview.base.CalculatorPanelImpl;
 import calcmassview.info.InfoPanel;
@@ -40,11 +41,10 @@ public class ViewServiceDispatcher extends JPanel implements ViewService, BuildD
     private static final long serialVersionUID = 1L;
     
     // коллекция компонентов
-    private ArrayList<JComponent> components;
+    //private ArrayList<JComponent> components;
     
     private final Preference preference;
     
-    private FieldsData data;
     private MenuListReceiveService menuListReceiver;
     private final Info info;
     private final ControllerService controller;
@@ -57,31 +57,18 @@ public class ViewServiceDispatcher extends JPanel implements ViewService, BuildD
     }
     
     private List<JPanel> loadPanels(){
+        ArrayList<JComponent> components;
         if(preference.isSaved()){
-            this.components = preference.loadSavedComponents();
+            components = preference.loadSavedComponents();
         }else{
-            createComponents();
+            components = createComponents();
         }
-        return extractPanels();
-    }
-    
-    private void addToTabbedPane(List<JPanel> panels){
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);             
-        panels.stream().forEach((JPanel panel) -> tabbedPane.addTab(panel.getName(), panel));
-        this.add(tabbedPane);
-    }
-    
-    private List<JPanel> extractPanels(){
-        return components.stream()
-                    .filter((JComponent component) -> component.getClass().getSuperclass().isAssignableFrom(JPanel.class))
-                    .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class))
-                    .map((JComponent component) -> (JPanel)component)
-                    .collect(Collectors.toList());
+        return extractPanels(components);
     }
     
     // создание панелей
-    private void createComponents(){
-        components = new ArrayList<>();
+    private ArrayList<JComponent> createComponents(){
+        ArrayList<JComponent> components = new ArrayList<>();
         JPanel calculatorPanel = new CalculatorPanelImpl(components, menuListReceiver);
         ((CalculatorPanelImpl)calculatorPanel).registerObserver(this);
         components.add(calculatorPanel);
@@ -90,79 +77,52 @@ public class ViewServiceDispatcher extends JPanel implements ViewService, BuildD
         components.add(settingsPanel);
         components.add(infoPanel);
         new CalculatorFrame(this);
+        return components;
+    }
+    
+    private List<JPanel> extractPanels(ArrayList<JComponent> components){
+        return components.stream()
+                    .filter((JComponent component) -> component.getClass().getSuperclass().isAssignableFrom(JPanel.class))
+                    .filter((JComponent component) -> component.getClass().isAnnotationPresent(ColorTheme.class))
+                    .map((JComponent component) -> (JPanel)component)
+                    .collect(Collectors.toList());
     }
     
     @Override
     public void setMenuList(MenuListReceiveService menuListReceiver) {
         this.menuListReceiver = menuListReceiver;
-        List<JPanel> panels = loadPanels();
-        
+        List<JPanel> panels = loadPanels();        
         this.addToTabbedPane(panels);
     }
     
-    public void savePreferences() {
-        preference.save(components);
+    private void addToTabbedPane(List<JPanel> panels){
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);             
+        panels.stream().forEach((JPanel panel) -> tabbedPane.addTab(panel.getName(), panel));
+        this.add(tabbedPane);
     }
     
-    private void showResult() {
-        
-        //String formattedValue = formatDoubleToString(detailMass);
+    public void savePreferences() {
+        //preference.save(components);
+    }
+
+    @Override
+    public void updateData() {
+        FieldsData data = receiveFieldsData();    
+        controller.acceptData(new ViewDataServiceImpl(data));
+        //test
+        double calculationResult = controller.getCalculationResult();
+    }
+    
+    private FieldsData receiveFieldsData(){
+        JComponent get = components.stream()
+                .filter((JComponent component) -> component.getClass().equals(CalculatorPanelImpl.class))
+                .findFirst()
+                .get();
+        return ((CalculatorPanelImpl)get).getFieldsData();
     }
     
     //форматирование строки результата
     private String formatDoubleToString(double value){
         return new DecimalFormat("#.###").format(value);
     }
-    
-    private void showError() {
-        
-    }
-    
-    private void receiveFieldsData(){
-        JComponent get = components.stream()
-                .filter((JComponent component) -> component.getClass().equals(CalculatorPanelImpl.class))
-                .findFirst()
-                .get();
-        this.data = ((CalculatorPanelImpl)get).getFieldsData();
-    }
-
-    @Override
-    public void dataUpdate() {
-        receiveFieldsData();
-        controller.acceptData(this);
-        //test
-        double calculationResult = controller.getCalculationResult();
-    }
-
-    @Override
-    public void setResult(double mass) {
-        
-    }
-
-    @Override
-    public String getAssortment() {
-        return data.getAssortment();
-    }
-
-    @Override
-    public String getType() {
-        return data.getType();
-    }
-
-    @Override
-    public String getNumber() {
-        return data.getNumber();
-    }
-
-    @Override
-    public double getLength() {
-        return data.getLength();
-    }
-
-    @Override
-    public double getDetailWidth() {
-        return data.getWidth();
-    }
-
-    
 }

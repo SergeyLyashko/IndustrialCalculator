@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassmodel;
+package calcdatabase;
+
+import calcmassview.MenuListReceiveService;
+
 
 /**
  *
  * @author Korvin
  */
-public interface OutputService {
+public interface ViewService {
     
-    public String getErrorMessage();
-    
-    public String getServiceMessage();
+    public void setMenuList(MenuListReceiveService menuList);
 
-    public double getDetailMass();
-    
 }

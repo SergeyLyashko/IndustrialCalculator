@@ -49,7 +49,7 @@ class MassGenerator {
         String assortment = inputService.getAssortment();
         String type = inputService.getType();
         String number = inputService.getNumber();
-        double detailValue = areaReceiver.getDetailValue(assortment, type, number);
+        double detailValue = areaReceiver.receiveDataBaseValue(assortment, type, number);
         double length = inputService.getLength();
         double width = inputService.getWidth();
         if(isValidValues(width, length)){

@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
-
+package calcmasscontroller;
 
 /**
  *
  * @author Korvin
  */
-public interface ViewService {
+public interface ViewDataReceiveService {
     
-    public void setMenuList(MenuListReceiveService menuList);
-    
-    public void setResult(double mass);
-
     public String getAssortment();
 
     public String getType();
 
     public String getNumber();
 
-    public double getLength();
+    public double getFieldLengthValue();
 
-    public double getDetailWidth();
-
+    public double getFieldWidthValue();
+    
 }

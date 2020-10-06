@@ -17,7 +17,6 @@ package calcmasscontroller;
 
 import calcmassmodel.InputDataService;
 import calcmassmodel.ModelService;
-import calcmassview.ViewService;
 
 /**
  * Контроллер
@@ -33,8 +32,8 @@ public class CalculatorControllerImpl implements ControllerService {
     }
 
     @Override
-    public void acceptData(ViewService view) {
-        InputDataService dataService = new InputServiceImpl(view);
+    public void acceptData(ViewDataReceiveService viewService) {
+        InputDataService dataService = new InputServiceImpl(viewService);
         modelService.acceptData(dataService);
     }
     

@@ -172,6 +172,6 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
 
     @Override
     public void notifyObservers() {
-        observer.dataUpdate();
+        observer.updateData();
     }
 }

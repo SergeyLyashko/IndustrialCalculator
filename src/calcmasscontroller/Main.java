@@ -22,7 +22,7 @@ import calcmassview.info.Info;
 import calcmassmodel.ModelServiceDispatcher;
 import details.MassCalculatorFactory;
 import calcmassmodel.ModelService;
-import calcmassview.ViewService;
+import calcdatabase.ViewService;
 
 /**
  * Внедрение зависимостей
