@@ -48,6 +48,7 @@ class InfoText implements Serializable, SwingComponent {
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 510));
+        // TODO
         visitor.addVisitorComponent(this);
     }
 

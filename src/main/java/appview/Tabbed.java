@@ -9,6 +9,10 @@ class Tabbed implements SwingComponent {
 
     private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
+    void addTab(String type, JPanel panel) {
+        tabbedPane.addTab(type, panel);
+    }
+
     @Override
     public String getName() {
         return "tabbed pane";
@@ -20,13 +24,9 @@ class Tabbed implements SwingComponent {
         return new ArrayList<>();
     }
 
-    void addTab(String type, JPanel panel) {
-        tabbedPane.addTab(type, panel);
-    }
-
+    // TODO не используется
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
     }
 
     @Override

@@ -20,7 +20,6 @@ public class SettingsPanel implements Serializable, SwingComponent {
     }
 
     public List<SwingComponent> getComponents(Visitor visitor) {
-        visitor.addVisitorComponent(this);
         List<SwingComponent> componentList = new ArrayList<>();
         SelectableCheckBox theme = getNewCheckBox("theme", visitor);
         SelectableCheckBox toolTip = getNewCheckBox("toolTip", visitor);

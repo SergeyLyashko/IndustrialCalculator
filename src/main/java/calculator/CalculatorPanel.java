@@ -21,7 +21,6 @@ public class CalculatorPanel implements Serializable, SwingComponent {
     }
 
     public List<SwingComponent> getComponents(Visitor visitor) {
-        visitor.addVisitorComponent(this);
         return new ArrayList<>();
     }
 

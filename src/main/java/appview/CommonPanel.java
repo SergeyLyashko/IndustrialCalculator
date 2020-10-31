@@ -17,22 +17,21 @@ class CommonPanel implements Serializable, SwingComponent {
 
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
-        visitor.addVisitorComponent(this);
         // TODO создается без помощи абстрактного класса AbstractPanel
         this.tabbed = new Tabbed();
         List<SwingComponent> componentPanel = new ArrayList<>();
-        addNewPanel("Калькулятор", visitor);
-        addNewPanel("Настройки", visitor);
-        addNewPanel("Справка", visitor);
+        createPanel("Калькулятор", visitor);
+        createPanel("Настройки", visitor);
+        createPanel("Справка", visitor);
         // TODO в список добавляется 1 компонент - таббед
         componentPanel.add(tabbed);
         return componentPanel;
     }
 
-    private void addNewPanel(String type, Visitor visitor){
+    private void createPanel(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            SwingComponent createPanel(String type, Visitor visitor) {
+            public SwingComponent createPanel(String type, Visitor visitor) {
                 return createNewPanel(type);
             }
         };

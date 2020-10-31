@@ -12,12 +12,11 @@ class ScrollPanel implements SwingComponent {
 
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
-        visitor.addVisitorComponent(this);
         List<SwingComponent> componentList = new ArrayList<>();
         // TODO создается без AbstractPanel
         InfoText infoText = new InfoText(visitor);
         createScrollPane(infoText);
-        componentList.add(infoText);
+        componentList.add(this);
         return componentList;
     }
 

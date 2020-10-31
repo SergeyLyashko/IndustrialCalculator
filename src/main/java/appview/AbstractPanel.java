@@ -4,26 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-abstract class AbstractPanel {
+public abstract class AbstractPanel {
 
     private final JPanel jPanel;
     private List<SwingComponent> componentList;
 
-    AbstractPanel(){
+    public AbstractPanel(){
         jPanel = new JPanel();
     }
 
-    abstract SwingComponent createPanel(String type, Visitor visitor);
+    public abstract SwingComponent createPanel(String type, Visitor visitor);
 
-    void order(String type, Visitor visitor){
+    public SwingComponent order(String type, Visitor visitor){
         SwingComponent panel = createPanel(type, visitor);
         setLayout(panel);
-
+        visitor.addVisitorComponent(panel);// TODO !!!
         componentList = panel.getComponents(visitor);
         componentList.forEach(component -> setBorderLayout(panel, component));
+
+        return panel;
     }
 
-    List<SwingComponent> getComponentsPanelList(){
+    // TODO не используется
+    public List<SwingComponent> getComponentsPanelList(){
         return componentList;
     }
 
@@ -38,7 +41,7 @@ abstract class AbstractPanel {
         jPanel.setLayout(layout);
     }
 
-    JPanel getAbstractComponent(){
+    public JPanel getAbstractComponent(){
         return jPanel;
     }
 }

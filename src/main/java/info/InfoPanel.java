@@ -1,5 +1,6 @@
 package info;
 
+import appview.AbstractPanel;
 import appview.SwingComponent;
 import appview.Visitor;
 import java.awt.*;
@@ -18,15 +19,22 @@ public class InfoPanel implements Serializable, SwingComponent {
         return PANEL_NAME;
     }
 
-    public List<SwingComponent> getComponents(Visitor visitor){
-        visitor.addVisitorComponent(this);
-        List<SwingComponent> componentList = new ArrayList<>();
-        // TODO создается без AbstractPanel
-        ScrollPanel scrollPanel = new ScrollPanel();
-        scrollPanel.getComponents(visitor);
 
-        componentList.add(scrollPanel);
+    public List<SwingComponent> getComponents(Visitor visitor){
+        List<SwingComponent> componentList = new ArrayList<>();
+        SwingComponent panel = createPanel("", visitor);
+        componentList.add(panel);
         return componentList;
+    }
+
+    private SwingComponent createPanel(String type, Visitor visitor){
+        AbstractPanel abstractPanel = new AbstractPanel() {
+            @Override
+            public SwingComponent createPanel(String type, Visitor visitor) {
+                return new ScrollPanel();
+            }
+        };
+        return abstractPanel.order(type, visitor);
     }
 
     @Override

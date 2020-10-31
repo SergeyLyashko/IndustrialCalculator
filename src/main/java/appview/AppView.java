@@ -23,15 +23,19 @@ public class AppView implements Serializable {
     }
 
     public void create(){
+        JPanel panel = createPanel();
+        addContentPane(panel);
+    }
+
+    private JPanel createPanel(){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            SwingComponent createPanel(String name, Visitor visitor) {
+            public SwingComponent createPanel(String name, Visitor visitor) {
                 return new CommonPanel();
             }
         };
         abstractPanel.order("", visitor);
-        JPanel abstractPanelComponent = abstractPanel.getAbstractComponent();
-        addContentPane(abstractPanelComponent);
+        return abstractPanel.getAbstractComponent();
     }
 
     private void addContentPane(JPanel jPanel){
