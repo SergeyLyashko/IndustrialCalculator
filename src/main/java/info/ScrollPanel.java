@@ -1,5 +1,6 @@
 package info;
 
+import appview.AbstractPanel;
 import appview.SwingComponent;
 import appview.Visitor;
 import javax.swing.*;
@@ -13,15 +14,24 @@ class ScrollPanel implements SwingComponent {
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
         List<SwingComponent> componentList = new ArrayList<>();
-        // TODO создается без AbstractPanel
-        InfoText infoText = new InfoText(visitor);
-        createScrollPane(infoText);
+        SwingComponent panel = createPanel("", visitor);
+        createScrollPane(panel);
         componentList.add(this);
         return componentList;
     }
 
-    private void createScrollPane(InfoText infoText){
-        JComponent htmlText = infoText.getParentsComponent();
+    private SwingComponent createPanel(String type, Visitor visitor){
+        AbstractPanel abstractPanel = new AbstractPanel() {
+            @Override
+            public SwingComponent createPanel(String type, Visitor visitor) {
+                return new InfoText();
+            }
+        };
+        return abstractPanel.order(type, visitor);
+    }
+
+    private void createScrollPane(SwingComponent panel){
+        JComponent htmlText = panel.getParentsComponent();
         scrollPane = new JScrollPane(htmlText);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

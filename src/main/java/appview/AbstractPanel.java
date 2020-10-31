@@ -6,28 +6,18 @@ import java.util.List;
 
 public abstract class AbstractPanel {
 
-    private final JPanel jPanel;
-    private List<SwingComponent> componentList;
-
-    public AbstractPanel(){
-        jPanel = new JPanel();
-    }
+    private final JPanel jPanel = new JPanel();
 
     public abstract SwingComponent createPanel(String type, Visitor visitor);
 
     public SwingComponent order(String type, Visitor visitor){
         SwingComponent panel = createPanel(type, visitor);
         setLayout(panel);
-        visitor.addVisitorComponent(panel);// TODO !!!
-        componentList = panel.getComponents(visitor);
+        visitor.addVisitorComponent(panel);
+
+        List<SwingComponent> componentList = panel.getComponents(visitor);
         componentList.forEach(component -> setBorderLayout(panel, component));
-
         return panel;
-    }
-
-    // TODO не используется
-    public List<SwingComponent> getComponentsPanelList(){
-        return componentList;
     }
 
     private void setBorderLayout(SwingComponent panel, SwingComponent component) {

@@ -44,12 +44,10 @@ class InfoText implements Serializable, SwingComponent {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    InfoText(Visitor visitor){
+    InfoText(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 510));
-        // TODO
-        visitor.addVisitorComponent(this);
     }
 
     @Override
@@ -57,10 +55,11 @@ class InfoText implements Serializable, SwingComponent {
         return "infoText";
     }
 
-    // TODO delete this
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
-        return new ArrayList<>();
+        List<SwingComponent> componentList = new ArrayList<>();
+        componentList.add(this);
+        return componentList;
     }
 
     @Override
