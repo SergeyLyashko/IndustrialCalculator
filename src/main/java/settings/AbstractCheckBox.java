@@ -13,16 +13,18 @@ abstract class AbstractCheckBox {
         jCheckBox.setSize(320, 20);
     }
 
-    void order(String type, Visitor visitor){
+    SelectableCheckBox orderedCheckBox(String type, Visitor visitor){
         SelectableCheckBox selectableCheckBox = createCheckBox(type);
         setLocation(selectableCheckBox);
         setName(selectableCheckBox);
-        createListener(selectableCheckBox, visitor);
-        visitor.addVisitorComponent(selectableCheckBox);
+        addListener(selectableCheckBox, visitor);
+        addVisitor(visitor, selectableCheckBox);
+        selectableCheckBox.setParentComponent(jCheckBox);
+        return selectableCheckBox;
     }
 
-    JCheckBox getComponentSwing(){
-        return jCheckBox;
+    private void addVisitor(Visitor visitor, SelectableCheckBox checkBox){
+        visitor.addVisitorComponent(checkBox);
     }
 
     private void setLocation(SelectableCheckBox selectableCheckBox){
@@ -36,7 +38,7 @@ abstract class AbstractCheckBox {
         jCheckBox.setText(boxName);
     }
 
-    private void createListener(SelectableCheckBox selectableCheckBox, Visitor visitor) {
+    private void addListener(SelectableCheckBox selectableCheckBox, Visitor visitor) {
         CheckBoxState checkBoxState = new CheckBoxState(selectableCheckBox, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }

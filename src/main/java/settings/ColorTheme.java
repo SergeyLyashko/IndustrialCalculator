@@ -1,13 +1,9 @@
 package settings;
 
-import appview.SwingComponent;
 import appview.Visitor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 class ColorTheme implements Serializable, SelectableCheckBox {
 
@@ -38,35 +34,18 @@ class ColorTheme implements Serializable, SelectableCheckBox {
         return BOX_NAME;
     }
 
-    // TODO delete this
-    @Override
-    public List<SwingComponent> getComponents(Visitor visitor) {
-        visitor.addVisitorComponent(this);
-        return new ArrayList<>();
-    }
-
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    @Override
-    public JComponent getSwingComponent() {
+    public JComponent getParentsComponent() {
         return componentSwing;
     }
 
     @Override
-    public void setComponentSwing(JCheckBox componentSwing) {
+    public void setParentComponent(JCheckBox componentSwing) {
         this.componentSwing = componentSwing;
     }
 

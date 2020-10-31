@@ -68,17 +68,7 @@ class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    @Override
-    public JComponent getSwingComponent() {
+    public JComponent getParentsComponent() {
         return jLabel;
     }
 }

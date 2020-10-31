@@ -3,8 +3,6 @@ package settings;
 import appview.SwingComponent;
 import appview.Visitor;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,42 +13,30 @@ public class SettingsPanel implements Serializable, SwingComponent {
 
     // TODO del test string
     private static final String PANEL_NAME = "Настройки";
-    private JComponent componentSwing;
 
     // TODO del test method
     public String getName() {
         return PANEL_NAME;
     }
 
-    private List<SwingComponent> componentList;
-    private SelectableCheckBox selectableCheckBox;
-
     public List<SwingComponent> getComponents(Visitor visitor) {
         visitor.addVisitorComponent(this);
-        componentList = new ArrayList<>();
-        addNewCheckBox("theme", visitor);
-        addNewCheckBox("toolTip", visitor);
+        List<SwingComponent> componentList = new ArrayList<>();
+        SelectableCheckBox theme = getNewCheckBox("theme", visitor);
+        SelectableCheckBox toolTip = getNewCheckBox("toolTip", visitor);
+        componentList.add(theme);
+        componentList.add(toolTip);
         return componentList;
     }
-
-    private void addNewCheckBox(String type, Visitor visitor) {
+    // TODO вынести в фабрику
+    private SelectableCheckBox getNewCheckBox(String type, Visitor visitor) {
         AbstractCheckBox abstractCheckBox = new AbstractCheckBox() {
             @Override
             public SelectableCheckBox createCheckBox(String type) {
-                selectableCheckBox = createNewCheckBox(type);
-                return selectableCheckBox;
+                return createNewCheckBox(type);
             }
         };
-        abstractCheckBox.order(type, visitor);
-        JCheckBox componentSwing = abstractCheckBox.getComponentSwing();
-        selectableCheckBox.setComponentSwing(componentSwing);
-        componentList.add(selectableCheckBox);
-    }
-
-    // TODO Не используется
-    @Override
-    public JComponent getSwingComponent() {
-        return componentSwing;
+        return abstractCheckBox.orderedCheckBox(type, visitor);
     }
 
     private SelectableCheckBox createNewCheckBox(String type) throws IllegalStateException {
@@ -67,15 +53,5 @@ public class SettingsPanel implements Serializable, SwingComponent {
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
     }
 }

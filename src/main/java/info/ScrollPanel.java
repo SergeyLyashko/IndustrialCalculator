@@ -3,7 +3,6 @@ package info;
 import appview.SwingComponent;
 import appview.Visitor;
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ class ScrollPanel implements SwingComponent {
     public List<SwingComponent> getComponents(Visitor visitor) {
         visitor.addVisitorComponent(this);
         List<SwingComponent> componentList = new ArrayList<>();
+        // TODO создается без AbstractPanel
         InfoText infoText = new InfoText(visitor);
         createScrollPane(infoText);
         componentList.add(infoText);
@@ -22,7 +22,7 @@ class ScrollPanel implements SwingComponent {
     }
 
     private void createScrollPane(InfoText infoText){
-        JComponent htmlText = infoText.getSwingComponent();
+        JComponent htmlText = infoText.getParentsComponent();
         scrollPane = new JScrollPane(htmlText);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -34,17 +34,7 @@ class ScrollPanel implements SwingComponent {
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    @Override
-    public JComponent getSwingComponent() {
+    public JComponent getParentsComponent() {
         return scrollPane;
     }
 

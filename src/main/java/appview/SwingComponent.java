@@ -12,10 +12,15 @@ public interface SwingComponent {
 
     void acceptVisitor(Visitor visitor);
 
-    LayoutManager getLayout();
+    default LayoutManager getLayout() {
+        return null;
+    }
 
-    String getBorderLayout();
+    default String getBorderLayout() {
+        return null;
+    }
 
-    JComponent getSwingComponent();
-
+    default JComponent getParentsComponent() {
+        return null;
+    }
 }

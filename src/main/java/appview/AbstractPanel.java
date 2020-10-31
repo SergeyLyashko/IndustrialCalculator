@@ -28,7 +28,7 @@ abstract class AbstractPanel {
     }
 
     private void setBorderLayout(SwingComponent panel, SwingComponent component) {
-        JComponent jComponent = component.getSwingComponent();
+        JComponent jComponent = component.getParentsComponent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);
     }
@@ -38,7 +38,7 @@ abstract class AbstractPanel {
         jPanel.setLayout(layout);
     }
 
-    JPanel getComponentSwing(){
+    JPanel getAbstractComponent(){
         return jPanel;
     }
 }

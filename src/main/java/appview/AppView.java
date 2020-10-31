@@ -30,7 +30,7 @@ public class AppView implements Serializable {
             }
         };
         abstractPanel.order("", visitor);
-        JPanel abstractPanelComponent = abstractPanel.getComponentSwing();
+        JPanel abstractPanelComponent = abstractPanel.getAbstractComponent();
         addContentPane(abstractPanelComponent);
     }
 

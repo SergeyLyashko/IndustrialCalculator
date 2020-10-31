@@ -1,8 +1,9 @@
 package settings;
 
 import appview.SwingComponent;
-
+import appview.Visitor;
 import javax.swing.*;
+import java.util.List;
 
 public interface SelectableCheckBox extends SwingComponent {
 
@@ -14,5 +15,9 @@ public interface SelectableCheckBox extends SwingComponent {
 
     void deselect();
 
-    void setComponentSwing(JCheckBox componentSwing);
+    void setParentComponent(JCheckBox componentSwing);
+
+    default List<SwingComponent> getComponents(Visitor visitor) {
+        return null;
+    }
 }

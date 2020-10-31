@@ -20,8 +20,6 @@ public class CalculatorPanel implements Serializable, SwingComponent {
         return PANEL_NAME;
     }
 
-    private JComponent componentSwing;
-
     public List<SwingComponent> getComponents(Visitor visitor) {
         visitor.addVisitorComponent(this);
         return new ArrayList<>();
@@ -32,19 +30,4 @@ public class CalculatorPanel implements Serializable, SwingComponent {
         visitor.visit(this);
     }
 
-    @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    // TODO не используется
-    @Override
-    public JComponent getSwingComponent() {
-        return componentSwing;
-    }
 }

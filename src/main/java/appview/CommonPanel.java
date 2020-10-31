@@ -13,12 +13,12 @@ class CommonPanel implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
 
-    private JComponent componentSwing;
     private Tabbed tabbed;
 
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
         visitor.addVisitorComponent(this);
+        // TODO создается без помощи абстрактного класса AbstractPanel
         this.tabbed = new Tabbed();
         List<SwingComponent> componentPanel = new ArrayList<>();
         addNewPanel("Калькулятор", visitor);
@@ -37,20 +37,9 @@ class CommonPanel implements Serializable, SwingComponent {
             }
         };
         abstractPanel.order(type, visitor);
-        JPanel abstractPanelComponent = abstractPanel.getComponentSwing();
+        JPanel abstractPanelComponent = abstractPanel.getAbstractComponent();
         tabbed.addTab(type, abstractPanelComponent);
     }
-
-    // TODO не используется
-    @Override
-    public JComponent getSwingComponent() {
-        return componentSwing;
-    }
-/*
-    @Override
-    public void setComponentSwing(JComponent componentSwing) {
-        this.componentSwing = componentSwing;
-    }*/
 
     private SwingComponent createNewPanel(String type) {
         switch (type){
@@ -78,10 +67,5 @@ class CommonPanel implements Serializable, SwingComponent {
     @Override
     public LayoutManager getLayout() {
         return new GridLayout(1, 1);
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
     }
 }
