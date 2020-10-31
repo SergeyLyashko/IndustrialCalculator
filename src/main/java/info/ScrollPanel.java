@@ -10,7 +10,6 @@ import java.util.List;
 class ScrollPanel implements SwingComponent {
 
     private JScrollPane scrollPane;
-    private JComponent componentSwing;
 
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
@@ -48,12 +47,7 @@ class ScrollPanel implements SwingComponent {
     public JComponent getSwingComponent() {
         return scrollPane;
     }
-/*
-    @Override
-    public void setComponentSwing(JComponent componentSwing) {
-        this.componentSwing = componentSwing;
-    }
-*/
+
     @Override
     public String getName() {
         return "scroll";

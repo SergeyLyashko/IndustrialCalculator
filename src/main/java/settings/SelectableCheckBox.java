@@ -10,8 +10,6 @@ public interface SelectableCheckBox extends SwingComponent {
 
     int getLocationY();
 
-    //String getName();
-
     void select();
 
     void deselect();

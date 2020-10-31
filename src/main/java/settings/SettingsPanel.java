@@ -27,7 +27,6 @@ public class SettingsPanel implements Serializable, SwingComponent {
 
     public List<SwingComponent> getComponents(Visitor visitor) {
         visitor.addVisitorComponent(this);
-        System.out.println("settings get component");
         componentList = new ArrayList<>();
         addNewCheckBox("theme", visitor);
         addNewCheckBox("toolTip", visitor);
@@ -45,19 +44,14 @@ public class SettingsPanel implements Serializable, SwingComponent {
         abstractCheckBox.order(type, visitor);
         JCheckBox componentSwing = abstractCheckBox.getComponentSwing();
         selectableCheckBox.setComponentSwing(componentSwing);
-        System.out.println("checkBox: "+selectableCheckBox.getName());
         componentList.add(selectableCheckBox);
     }
 
+    // TODO Не используется
     @Override
     public JComponent getSwingComponent() {
         return componentSwing;
     }
-/*
-    @Override
-    public void setComponentSwing(JComponent componentSwing) {
-        this.componentSwing = componentSwing;
-    }*/
 
     private SelectableCheckBox createNewCheckBox(String type) throws IllegalStateException {
         switch (type){
@@ -84,6 +78,4 @@ public class SettingsPanel implements Serializable, SwingComponent {
     public String getBorderLayout() {
         return null;
     }
-
-
 }
