@@ -11,17 +11,22 @@ public abstract class AbstractPanel {
     public abstract SwingPanel createPanel(String type, Visitor visitor);
 
     public SwingPanel order(String type, Visitor visitor){
-        SwingPanel panel = createPanel(type, visitor);
-        setLayout(panel);
-        panel.setParentComponent(jPanel);
-
-        List<SwingPanel> componentList = panel.getComponents(visitor);
-        componentList.forEach(component -> setBorderLayout(panel, component));
-        visitor.addVisitorComponent(panel);
-        return panel;
+        SwingPanel newPanel = createPanel(type, visitor);
+        setLayout(newPanel);
+        newPanel.setParentComponent(jPanel);
+        addComponentsTo(newPanel, visitor);
+        visitor.addVisitorComponent(newPanel);
+        return newPanel;
     }
 
-    private void setBorderLayout(SwingPanel panel, SwingPanel component) {
+    private void addComponentsTo(SwingPanel panel, Visitor visitor){
+        List<SwingPanel> componentList = panel.getComponents(visitor);
+        if(!componentList.isEmpty()){
+            componentList.forEach(component -> addComponent(panel, component));
+        }
+    }
+
+    private void addComponent(SwingPanel panel, SwingPanel component) {
         JComponent jComponent = component.getParentsComponent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);
