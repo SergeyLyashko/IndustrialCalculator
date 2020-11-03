@@ -16,7 +16,11 @@ public interface SelectableCheckBox extends SwingPanel {
     void setParentComponent(JCheckBox componentSwing);
 
 
-    default List<SwingPanel> getComponents(Visitor visitor) {
+    default SwingPanel getPanel(Visitor visitor) {
+        return null;
+    }
+
+    default List<SwingPanel> getComponents(){
         return null;
     }
 }

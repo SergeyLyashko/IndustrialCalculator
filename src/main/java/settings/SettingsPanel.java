@@ -16,19 +16,25 @@ public class SettingsPanel implements Serializable, SwingPanel {
     // TODO del test string
     private static final String PANEL_NAME = "Настройки";
     private JPanel jPanel;
+    private List<SwingPanel> componentList;
 
     // TODO del test method
     public String getName() {
         return PANEL_NAME;
     }
 
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        List<SwingPanel> componentList = new ArrayList<>();
+    public SwingPanel getPanel(Visitor visitor) {
+        componentList = new ArrayList<>();
         CheckBoxFactory checkBoxFactory = new CheckBoxFactory();
         SelectableCheckBox theme = checkBoxFactory.getCheckBox("theme", visitor);
         SelectableCheckBox toolTip = checkBoxFactory.getCheckBox("toolTip", visitor);
         componentList.add(theme);
         componentList.add(toolTip);
+        return this;
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
         return componentList;
     }
 

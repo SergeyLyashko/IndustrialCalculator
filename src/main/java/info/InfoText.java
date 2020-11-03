@@ -56,10 +56,13 @@ class InfoText implements Serializable, SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        List<SwingPanel> componentList = new ArrayList<>();
-        componentList.add(this);
-        return componentList;
+    public SwingPanel getPanel(Visitor visitor) {
+        return this;
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     @Override

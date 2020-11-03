@@ -4,7 +4,6 @@ import appview.AbstractPanel;
 import appview.SwingPanel;
 import appview.Visitor;
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 class ScrollPanel implements SwingPanel {
@@ -12,12 +11,15 @@ class ScrollPanel implements SwingPanel {
     private JScrollPane scrollPane;
 
     @Override
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        List<SwingPanel> componentList = new ArrayList<>();
+    public SwingPanel getPanel(Visitor visitor) {
         SwingPanel panel = createPanel("", visitor);
         createScrollPane(panel);
-        componentList.add(this);
-        return componentList;
+        return this;
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     private SwingPanel createPanel(String type, Visitor visitor){

@@ -7,7 +7,6 @@ import appview.Visitor;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InfoPanel implements Serializable, SwingPanel {
@@ -24,11 +23,13 @@ public class InfoPanel implements Serializable, SwingPanel {
     }
 
 
-    public List<SwingPanel> getComponents(Visitor visitor){
-        List<SwingPanel> componentList = new ArrayList<>();
-        SwingPanel panel = createPanel("", visitor);
-        componentList.add(panel);
-        return componentList;
+    public SwingPanel getPanel(Visitor visitor){
+        return createPanel("", visitor);
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     private SwingPanel createPanel(String type, Visitor visitor){

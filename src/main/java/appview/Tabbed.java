@@ -5,7 +5,6 @@ import info.InfoPanel;
 import settings.SettingsPanel;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 class Tabbed implements SwingPanel {
@@ -18,8 +17,7 @@ class Tabbed implements SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        List<SwingPanel> componentPanel = new ArrayList<>();
+    public SwingPanel getPanel(Visitor visitor) {
         SwingPanel calc = createPanel("Калькулятор", visitor);
         SwingPanel settings = createPanel("Настройки", visitor);
         SwingPanel info = createPanel("Справка", visitor);
@@ -28,8 +26,12 @@ class Tabbed implements SwingPanel {
         addToTab("Настройки", settings);
         addToTab("Справка", info);
 
-        componentPanel.add(this);
-        return componentPanel;
+        return this;
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     private void addToTab(String type, SwingPanel component) {

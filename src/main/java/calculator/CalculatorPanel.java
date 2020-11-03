@@ -21,8 +21,13 @@ public class CalculatorPanel implements Serializable, SwingPanel {
         return PANEL_NAME;
     }
 
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        return new ArrayList<>();
+    public SwingPanel getPanel(Visitor visitor) {
+        return this;
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     @Override

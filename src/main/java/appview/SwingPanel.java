@@ -8,7 +8,9 @@ public interface SwingPanel {
 
     String getName();
 
-    List<SwingPanel> getComponents(Visitor visitor);
+    SwingPanel getPanel(Visitor visitor);
+
+    List<SwingPanel> getComponents();
 
     void acceptVisitor(Visitor visitor);
 

@@ -3,7 +3,6 @@ package appview;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 class CommonPanel implements Serializable, SwingPanel {
@@ -12,11 +11,13 @@ class CommonPanel implements Serializable, SwingPanel {
     private JPanel jPanel;
 
     @Override
-    public List<SwingPanel> getComponents(Visitor visitor) {
-        List<SwingPanel> componentPanel = new ArrayList<>();
-        SwingPanel panel = createPanel("", visitor);
-        componentPanel.add(panel);
-        return componentPanel;
+    public SwingPanel getPanel(Visitor visitor) {
+        return createPanel("", visitor);
+    }
+
+    @Override
+    public List<SwingPanel> getComponents() {
+        return null;
     }
 
     private SwingPanel createPanel(String type, Visitor visitor){
