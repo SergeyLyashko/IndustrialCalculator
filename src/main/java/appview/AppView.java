@@ -23,24 +23,24 @@ public class AppView implements Serializable {
     }
 
     public void create(){
-        JPanel panel = createPanel();
+        SwingComponent panel = createPanel();
         addContentPane(panel);
     }
 
-    private JPanel createPanel(){
+    private SwingComponent createPanel(){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
             public SwingComponent createPanel(String name, Visitor visitor) {
                 return new CommonPanel();
             }
         };
-        abstractPanel.order("", visitor);
-        return abstractPanel.getAbstractComponent();
+        return abstractPanel.order("", visitor);
     }
 
-    private void addContentPane(JPanel jPanel){
+    private void addContentPane(SwingComponent panel) {
+        JComponent parentsComponent = panel.getParentsComponent();
         Container contentPane = jFrame.getContentPane();
-        contentPane.add(jPanel, BorderLayout.CENTER);
+        contentPane.add(parentsComponent, BorderLayout.CENTER);
     }
 
     public void savePreferencesAndExit(){

@@ -23,4 +23,7 @@ public interface SwingComponent {
     default JComponent getParentsComponent() {
         return null;
     }
+
+    default void setParentComponent(JPanel jPanel) {}
+
 }

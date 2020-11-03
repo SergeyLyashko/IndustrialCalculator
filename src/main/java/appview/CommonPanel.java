@@ -1,5 +1,6 @@
 package appview;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 class CommonPanel implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
+    private JPanel jPanel;
 
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
@@ -40,5 +42,14 @@ class CommonPanel implements Serializable, SwingComponent {
     @Override
     public LayoutManager getLayout() {
         return new GridLayout(1, 1);
+    }
+
+    @Override
+    public void setParentComponent(JPanel jPanel) {
+        this.jPanel = jPanel;
+    }
+
+    public JComponent getParentsComponent() {
+        return jPanel;
     }
 }

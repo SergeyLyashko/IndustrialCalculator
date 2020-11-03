@@ -4,7 +4,6 @@ import appview.SwingComponent;
 import appview.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,8 @@ public class CalculatorPanel implements Serializable, SwingComponent {
 
     // TODO del test string
     private static final String PANEL_NAME = "Калькулятор";
+    private JPanel jPanel;
+
     // TODO del test method
     public String getName() {
         return PANEL_NAME;
@@ -27,6 +28,15 @@ public class CalculatorPanel implements Serializable, SwingComponent {
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void setParentComponent(JPanel jPanel) {
+        this.jPanel = jPanel;
+    }
+
+    public JComponent getParentsComponent() {
+        return jPanel;
     }
 
 }

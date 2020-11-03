@@ -20,23 +20,31 @@ class Tabbed implements SwingComponent {
     @Override
     public List<SwingComponent> getComponents(Visitor visitor) {
         List<SwingComponent> componentPanel = new ArrayList<>();
-        createPanel("Калькулятор", visitor);
-        createPanel("Настройки", visitor);
-        createPanel("Справка", visitor);
+        SwingComponent calc = createPanel("Калькулятор", visitor);
+        SwingComponent settings = createPanel("Настройки", visitor);
+        SwingComponent info = createPanel("Справка", visitor);
+
+        addToTab("Калькулятор", calc);
+        addToTab("Настройки", settings);
+        addToTab("Справка", info);
+
         componentPanel.add(this);
         return componentPanel;
     }
 
-    private void createPanel(String type, Visitor visitor){
+    private void addToTab(String type, SwingComponent component) {
+        JComponent parentsComponent = component.getParentsComponent();
+        tabbedPane.addTab(type, parentsComponent);
+    }
+
+    private SwingComponent createPanel(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
             public SwingComponent createPanel(String type, Visitor visitor) {
                 return createNewPanel(type);
             }
         };
-        abstractPanel.order(type, visitor);
-        JPanel abstractComponent = abstractPanel.getAbstractComponent();
-        tabbedPane.addTab(type, abstractComponent);
+        return abstractPanel.order(type, visitor);
     }
 
     private SwingComponent createNewPanel(String type) {

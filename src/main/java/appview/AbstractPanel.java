@@ -17,6 +17,8 @@ public abstract class AbstractPanel {
 
         List<SwingComponent> componentList = panel.getComponents(visitor);
         componentList.forEach(component -> setBorderLayout(panel, component));
+        visitor.addVisitorComponent(panel);
+        panel.setParentComponent(jPanel);
         return panel;
     }
 
@@ -29,9 +31,5 @@ public abstract class AbstractPanel {
     private void setLayout(SwingComponent panel) {
         LayoutManager layout = panel.getLayout();
         jPanel.setLayout(layout);
-    }
-
-    public JPanel getAbstractComponent(){
-        return jPanel;
     }
 }

@@ -3,6 +3,8 @@ package info;
 import appview.AbstractPanel;
 import appview.SwingComponent;
 import appview.Visitor;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class InfoPanel implements Serializable, SwingComponent {
 
     // TODO del test string
     private static final String PANEL_NAME = "Справка";
+    private JPanel jPanel;
+
     // TODO del test method
     public String getName() {
         return PANEL_NAME;
@@ -49,6 +53,15 @@ public class InfoPanel implements Serializable, SwingComponent {
 
     public String getBorderLayout(){
         return BorderLayout.CENTER;
+    }
+
+    @Override
+    public void setParentComponent(JPanel jPanel) {
+        this.jPanel = jPanel;
+    }
+
+    public JComponent getParentsComponent() {
+        return jPanel;
     }
 
 }
