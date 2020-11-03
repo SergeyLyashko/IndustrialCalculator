@@ -13,11 +13,11 @@ public abstract class AbstractPanel {
     public SwingPanel order(String type, Visitor visitor){
         SwingPanel panel = createPanel(type, visitor);
         setLayout(panel);
+        panel.setParentComponent(jPanel);
 
         List<SwingPanel> componentList = panel.getComponents(visitor);
         componentList.forEach(component -> setBorderLayout(panel, component));
         visitor.addVisitorComponent(panel);
-        panel.setParentComponent(jPanel);
         return panel;
     }
 
