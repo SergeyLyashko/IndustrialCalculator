@@ -6,14 +6,14 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
 
-public class AppView implements Serializable {
+public class ApplicationView implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final JFrame jFrame;
     private final Visitor visitor;
 
-    public AppView(){
+    public ApplicationView(){
         jFrame = new JFrame("Industrial calculator");
         jFrame.setBounds(300, 300, 360, 220);
         jFrame.setResizable(false);
@@ -23,21 +23,21 @@ public class AppView implements Serializable {
     }
 
     public void create(){
-        SwingComponent panel = createPanel();
+        SwingPanel panel = createPanel();
         addContentPane(panel);
     }
 
-    private SwingComponent createPanel(){
+    private SwingPanel createPanel(){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingComponent createPanel(String name, Visitor visitor) {
+            public SwingPanel createPanel(String name, Visitor visitor) {
                 return new CommonPanel();
             }
         };
         return abstractPanel.order("", visitor);
     }
 
-    private void addContentPane(SwingComponent panel) {
+    private void addContentPane(SwingPanel panel) {
         JComponent parentsComponent = panel.getParentsComponent();
         Container contentPane = jFrame.getContentPane();
         contentPane.add(parentsComponent, BorderLayout.CENTER);

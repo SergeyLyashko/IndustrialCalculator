@@ -5,10 +5,10 @@ import java.util.List;
 
 class VisitorImpl implements Visitor {
 
-    private final List<SwingComponent> componentsList = new ArrayList<>();
+    private final List<SwingPanel> componentsList = new ArrayList<>();
 
     @Override
-    public void visit(SwingComponent component) {
+    public void visit(SwingPanel component) {
         System.out.println("visit: "+component.getName());
     }
 
@@ -17,7 +17,7 @@ class VisitorImpl implements Visitor {
     }
 
     @Override
-    public void addVisitorComponent(SwingComponent component) {
+    public void addVisitorComponent(SwingPanel component) {
         componentsList.add(component);
     }
 }

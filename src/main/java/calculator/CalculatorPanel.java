@@ -1,6 +1,6 @@
 package calculator;
 
-import appview.SwingComponent;
+import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorPanel implements Serializable, SwingComponent {
+public class CalculatorPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class CalculatorPanel implements Serializable, SwingComponent {
         return PANEL_NAME;
     }
 
-    public List<SwingComponent> getComponents(Visitor visitor) {
+    public List<SwingPanel> getComponents(Visitor visitor) {
         return new ArrayList<>();
     }
 

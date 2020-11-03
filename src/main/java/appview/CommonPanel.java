@@ -6,23 +6,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-class CommonPanel implements Serializable, SwingComponent {
+class CommonPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
     private JPanel jPanel;
 
     @Override
-    public List<SwingComponent> getComponents(Visitor visitor) {
-        List<SwingComponent> componentPanel = new ArrayList<>();
-        SwingComponent panel = createPanel("", visitor);
+    public List<SwingPanel> getComponents(Visitor visitor) {
+        List<SwingPanel> componentPanel = new ArrayList<>();
+        SwingPanel panel = createPanel("", visitor);
         componentPanel.add(panel);
         return componentPanel;
     }
 
-    private SwingComponent createPanel(String type, Visitor visitor){
+    private SwingPanel createPanel(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingComponent createPanel(String type, Visitor visitor) {
+            public SwingPanel createPanel(String type, Visitor visitor) {
                 return new Tabbed();
             }
         };

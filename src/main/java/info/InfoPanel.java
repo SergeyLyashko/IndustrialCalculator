@@ -1,7 +1,7 @@
 package info;
 
 import appview.AbstractPanel;
-import appview.SwingComponent;
+import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoPanel implements Serializable, SwingComponent {
+public class InfoPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,17 +24,17 @@ public class InfoPanel implements Serializable, SwingComponent {
     }
 
 
-    public List<SwingComponent> getComponents(Visitor visitor){
-        List<SwingComponent> componentList = new ArrayList<>();
-        SwingComponent panel = createPanel("", visitor);
+    public List<SwingPanel> getComponents(Visitor visitor){
+        List<SwingPanel> componentList = new ArrayList<>();
+        SwingPanel panel = createPanel("", visitor);
         componentList.add(panel);
         return componentList;
     }
 
-    private SwingComponent createPanel(String type, Visitor visitor){
+    private SwingPanel createPanel(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingComponent createPanel(String type, Visitor visitor) {
+            public SwingPanel createPanel(String type, Visitor visitor) {
                 return new ScrollPanel();
             }
         };

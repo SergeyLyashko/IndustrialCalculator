@@ -1,5 +1,6 @@
 package settings;
 
+import appview.SelectableCheckBox;
 import appview.Visitor;
 import javax.swing.*;
 import java.io.Serializable;

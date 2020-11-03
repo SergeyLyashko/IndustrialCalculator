@@ -1,11 +1,9 @@
-package settings;
+package appview;
 
-import appview.SwingComponent;
-import appview.Visitor;
 import javax.swing.*;
 import java.util.List;
 
-public interface SelectableCheckBox extends SwingComponent {
+public interface SelectableCheckBox extends SwingPanel {
 
     int getLocationX();
 
@@ -17,7 +15,8 @@ public interface SelectableCheckBox extends SwingComponent {
 
     void setParentComponent(JCheckBox componentSwing);
 
-    default List<SwingComponent> getComponents(Visitor visitor) {
+
+    default List<SwingPanel> getComponents(Visitor visitor) {
         return null;
     }
 }

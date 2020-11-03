@@ -1,6 +1,8 @@
 package settings;
 
-import appview.SwingComponent;
+import appview.AbstractCheckBox;
+import appview.SelectableCheckBox;
+import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;
@@ -8,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsPanel implements Serializable, SwingComponent {
+public class SettingsPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,14 +23,15 @@ public class SettingsPanel implements Serializable, SwingComponent {
         return PANEL_NAME;
     }
 
-    public List<SwingComponent> getComponents(Visitor visitor) {
-        List<SwingComponent> componentList = new ArrayList<>();
+    public List<SwingPanel> getComponents(Visitor visitor) {
+        List<SwingPanel> componentList = new ArrayList<>();
         SelectableCheckBox theme = getNewCheckBox("theme", visitor);
         SelectableCheckBox toolTip = getNewCheckBox("toolTip", visitor);
         componentList.add(theme);
         componentList.add(toolTip);
         return componentList;
     }
+
     // TODO вынести в фабрику
     private SelectableCheckBox getNewCheckBox(String type, Visitor visitor) {
         AbstractCheckBox abstractCheckBox = new AbstractCheckBox() {

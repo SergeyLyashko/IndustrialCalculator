@@ -1,9 +1,9 @@
-import appview.AppView;
+import appview.ApplicationView;
 
 public class Main {
     public static void main(String[] args){
 
-        AppView view = new AppView();
+        ApplicationView view = new ApplicationView();
         view.create();
         view.savePreferencesAndExit();
     }

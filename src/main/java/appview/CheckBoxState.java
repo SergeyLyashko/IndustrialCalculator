@@ -1,15 +1,16 @@
-package settings;
+package appview;
 
+import appview.SelectableCheckBox;
 import appview.Visitor;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-class CheckBoxState implements ItemListener {
+public class CheckBoxState implements ItemListener {
 
     private final SelectableCheckBox selectableCheckBox;
     private final Visitor visitor;
 
-    CheckBoxState(SelectableCheckBox newCheckBox, Visitor visitor) {
+    public CheckBoxState(SelectableCheckBox newCheckBox, Visitor visitor) {
         this.selectableCheckBox = newCheckBox;
         this.visitor = visitor;
     }

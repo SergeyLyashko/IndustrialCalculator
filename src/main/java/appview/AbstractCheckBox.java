@@ -1,19 +1,18 @@
-package settings;
+package appview;
 
-import appview.Visitor;
 import javax.swing.*;
 
-abstract class AbstractCheckBox {
+public abstract class AbstractCheckBox {
 
     private final JCheckBox jCheckBox;
 
-    AbstractCheckBox(){
+    public AbstractCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(320, 20);
     }
 
-    SelectableCheckBox orderedCheckBox(String type, Visitor visitor){
+    public SelectableCheckBox orderedCheckBox(String type, Visitor visitor){
         SelectableCheckBox selectableCheckBox = createCheckBox(type);
         setLocation(selectableCheckBox);
         setName(selectableCheckBox);
@@ -43,5 +42,5 @@ abstract class AbstractCheckBox {
         jCheckBox.addItemListener(checkBoxState);
     }
 
-    abstract SelectableCheckBox createCheckBox(String type);
+    public abstract SelectableCheckBox createCheckBox(String type);
 }

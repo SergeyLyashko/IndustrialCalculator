@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public interface SwingComponent {
+public interface SwingPanel {
 
     String getName();
 
-    List<SwingComponent> getComponents(Visitor visitor);
+    List<SwingPanel> getComponents(Visitor visitor);
 
     void acceptVisitor(Visitor visitor);
+
 
     default LayoutManager getLayout() {
         return null;

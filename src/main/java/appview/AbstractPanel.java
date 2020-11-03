@@ -8,27 +8,26 @@ public abstract class AbstractPanel {
 
     private final JPanel jPanel = new JPanel();
 
-    public abstract SwingComponent createPanel(String type, Visitor visitor);
+    public abstract SwingPanel createPanel(String type, Visitor visitor);
 
-    public SwingComponent order(String type, Visitor visitor){
-        SwingComponent panel = createPanel(type, visitor);
+    public SwingPanel order(String type, Visitor visitor){
+        SwingPanel panel = createPanel(type, visitor);
         setLayout(panel);
-        visitor.addVisitorComponent(panel);
 
-        List<SwingComponent> componentList = panel.getComponents(visitor);
+        List<SwingPanel> componentList = panel.getComponents(visitor);
         componentList.forEach(component -> setBorderLayout(panel, component));
         visitor.addVisitorComponent(panel);
         panel.setParentComponent(jPanel);
         return panel;
     }
 
-    private void setBorderLayout(SwingComponent panel, SwingComponent component) {
+    private void setBorderLayout(SwingPanel panel, SwingPanel component) {
         JComponent jComponent = component.getParentsComponent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);
     }
 
-    private void setLayout(SwingComponent panel) {
+    private void setLayout(SwingPanel panel) {
         LayoutManager layout = panel.getLayout();
         jPanel.setLayout(layout);
     }

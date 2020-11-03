@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Tabbed implements SwingComponent {
+class Tabbed implements SwingPanel {
 
     private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
@@ -18,11 +18,11 @@ class Tabbed implements SwingComponent {
     }
 
     @Override
-    public List<SwingComponent> getComponents(Visitor visitor) {
-        List<SwingComponent> componentPanel = new ArrayList<>();
-        SwingComponent calc = createPanel("Калькулятор", visitor);
-        SwingComponent settings = createPanel("Настройки", visitor);
-        SwingComponent info = createPanel("Справка", visitor);
+    public List<SwingPanel> getComponents(Visitor visitor) {
+        List<SwingPanel> componentPanel = new ArrayList<>();
+        SwingPanel calc = createPanel("Калькулятор", visitor);
+        SwingPanel settings = createPanel("Настройки", visitor);
+        SwingPanel info = createPanel("Справка", visitor);
 
         addToTab("Калькулятор", calc);
         addToTab("Настройки", settings);
@@ -32,22 +32,22 @@ class Tabbed implements SwingComponent {
         return componentPanel;
     }
 
-    private void addToTab(String type, SwingComponent component) {
+    private void addToTab(String type, SwingPanel component) {
         JComponent parentsComponent = component.getParentsComponent();
         tabbedPane.addTab(type, parentsComponent);
     }
 
-    private SwingComponent createPanel(String type, Visitor visitor){
+    private SwingPanel createPanel(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingComponent createPanel(String type, Visitor visitor) {
+            public SwingPanel createPanel(String type, Visitor visitor) {
                 return createNewPanel(type);
             }
         };
         return abstractPanel.order(type, visitor);
     }
 
-    private SwingComponent createNewPanel(String type) {
+    private SwingPanel createNewPanel(String type) {
         switch (type){
             case "Калькулятор":
                 return new CalculatorPanel();

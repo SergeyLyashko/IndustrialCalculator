@@ -2,9 +2,9 @@ package appview;
 
 public interface Visitor {
 
-    void visit(SwingComponent components);
+    void visit(SwingPanel components);
 
     void raid();
 
-    void addVisitorComponent(SwingComponent components);
+    void addVisitorComponent(SwingPanel components);
 }

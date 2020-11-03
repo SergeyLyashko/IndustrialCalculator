@@ -1,6 +1,6 @@
 package info;
 
-import appview.SwingComponent;
+import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-class InfoText implements Serializable, SwingComponent {
+class InfoText implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,8 +56,8 @@ class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public List<SwingComponent> getComponents(Visitor visitor) {
-        List<SwingComponent> componentList = new ArrayList<>();
+    public List<SwingPanel> getComponents(Visitor visitor) {
+        List<SwingPanel> componentList = new ArrayList<>();
         componentList.add(this);
         return componentList;
     }
