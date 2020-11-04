@@ -27,6 +27,6 @@ public interface SwingPanel {
         return null;
     }
 
-    default void setParent(JPanel jPanel) {}
+    default void setParent(JComponent jPanel) {}
 
 }

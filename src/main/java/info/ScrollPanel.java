@@ -6,7 +6,7 @@ import appview.Visitor;
 import javax.swing.*;
 import java.util.List;
 
-public class ScrollPanel implements SwingPanel {
+class ScrollPanel implements SwingPanel {
 
     private JScrollPane scrollPane;
 

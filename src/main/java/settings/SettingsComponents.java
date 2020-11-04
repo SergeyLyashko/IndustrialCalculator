@@ -2,11 +2,25 @@ package settings;
 
 import appview.AbstractCheckBox;
 import appview.SelectableCheckBox;
+import appview.SwingPanel;
 import appview.Visitor;
 
-public class CheckBoxFactory {
+import java.util.ArrayList;
+import java.util.List;
 
-    public SelectableCheckBox getCheckBox(String type, Visitor visitor) {
+public class SettingsComponents {
+
+    private final List<SwingPanel> components = new ArrayList<>();
+
+    public List<SwingPanel> getComponents(Visitor visitor){
+        SelectableCheckBox theme = getCheckBox("theme", visitor);
+        SelectableCheckBox toolTip = getCheckBox("toolTip", visitor);
+        components.add(theme);
+        components.add(toolTip);
+        return components;
+    }
+
+    private SelectableCheckBox getCheckBox(String type, Visitor visitor) {
         AbstractCheckBox abstractCheckBox = new AbstractCheckBox() {
             @Override
             public SelectableCheckBox createCheckBox(String type) {

@@ -3,7 +3,7 @@ package appview;
 import javax.swing.*;
 import java.util.List;
 
-class Tabbed implements SwingPanel {
+class TabbedPane implements SwingPanel {
 
     private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 

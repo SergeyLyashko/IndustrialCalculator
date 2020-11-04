@@ -15,10 +15,6 @@ public class ApplicationView implements Serializable {
 
     public ApplicationView(){
         jFrame = new JFrame("Industrial calculator");
-        jFrame.setBounds(300, 300, 360, 220);
-        jFrame.setResizable(false);
-        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        jFrame.setVisible(true);
         visitor = new VisitorImpl();
     }
 
@@ -26,6 +22,14 @@ public class ApplicationView implements Serializable {
         PanelBuilder panelBuilder = new PanelBuilder();
         SwingPanel common = panelBuilder.build("Common", visitor);
         addContentPane(common);
+        setFramePreference();
+    }
+
+    private void setFramePreference(){
+        jFrame.setBounds(300, 300, 360, 220);
+        jFrame.setResizable(false);
+        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        jFrame.setVisible(true);
     }
 
     private void addContentPane(SwingPanel panel) {

@@ -14,16 +14,15 @@ public abstract class AbstractPanel {
         SwingPanel newPanel = createPanel(type, visitor);
         setLayout(newPanel);
         newPanel.setParent(jPanel);
-        System.out.println("create abs: "+newPanel.getName());
 
         SwingPanel thisPanel = newPanel.getPanel(visitor);
-        addComponentsTo(thisPanel, visitor);
+        addComponentsTo(thisPanel);
 
         visitor.addVisitorComponent(newPanel);
         return thisPanel;
     }
 
-    private void addComponentsTo(SwingPanel panel, Visitor visitor){
+    private void addComponentsTo(SwingPanel panel){
         List<SwingPanel> componentList = panel.getComponents();
         if(componentList != null){
             componentList.forEach(component -> addComponent(panel, component));

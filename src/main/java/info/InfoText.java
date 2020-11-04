@@ -6,7 +6,6 @@ import appview.Visitor;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 class InfoText implements Serializable, SwingPanel {

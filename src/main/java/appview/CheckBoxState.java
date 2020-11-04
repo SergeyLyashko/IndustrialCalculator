@@ -1,7 +1,5 @@
 package appview;
 
-import appview.SelectableCheckBox;
-import appview.Visitor;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
