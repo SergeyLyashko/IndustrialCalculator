@@ -6,7 +6,7 @@ import appview.Visitor;
 import javax.swing.*;
 import java.util.List;
 
-class ScrollPanel implements SwingPanel {
+public class ScrollPanel implements SwingPanel {
 
     private JScrollPane scrollPane;
 
@@ -33,7 +33,7 @@ class ScrollPanel implements SwingPanel {
     }
 
     private void createScrollPane(SwingPanel panel){
-        JComponent htmlText = panel.getParentsComponent();
+        JComponent htmlText = panel.getParent();
         scrollPane = new JScrollPane(htmlText);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -45,7 +45,7 @@ class ScrollPanel implements SwingPanel {
     }
 
     @Override
-    public JComponent getParentsComponent() {
+    public JComponent getParent() {
         return scrollPane;
     }
 

@@ -13,7 +13,8 @@ public abstract class AbstractPanel {
     public SwingPanel order(String type, Visitor visitor){
         SwingPanel newPanel = createPanel(type, visitor);
         setLayout(newPanel);
-        newPanel.setParentComponent(jPanel);
+        newPanel.setParent(jPanel);
+        System.out.println("create abs: "+newPanel.getName());
 
         SwingPanel thisPanel = newPanel.getPanel(visitor);
         addComponentsTo(thisPanel, visitor);
@@ -30,7 +31,7 @@ public abstract class AbstractPanel {
     }
 
     private void addComponent(SwingPanel panel, SwingPanel component) {
-        JComponent jComponent = component.getParentsComponent();
+        JComponent jComponent = component.getParent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);
     }

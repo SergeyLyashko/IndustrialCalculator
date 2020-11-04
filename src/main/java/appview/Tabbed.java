@@ -1,9 +1,5 @@
 package appview;
 
-import calculator.CalculatorPanel;
-import info.InfoPanel;
-import settings.SettingsPanel;
-
 import javax.swing.*;
 import java.util.List;
 
@@ -18,9 +14,9 @@ class Tabbed implements SwingPanel {
 
     @Override
     public SwingPanel getPanel(Visitor visitor) {
-        SwingPanel calc = createPanel("Калькулятор", visitor);
-        SwingPanel settings = createPanel("Настройки", visitor);
-        SwingPanel info = createPanel("Справка", visitor);
+        SwingPanel calc = createNewPanel("Калькулятор", visitor);
+        SwingPanel settings = createNewPanel("Настройки", visitor);
+        SwingPanel info = createNewPanel("Справка", visitor);
 
         addToTab("Калькулятор", calc);
         addToTab("Настройки", settings);
@@ -28,45 +24,35 @@ class Tabbed implements SwingPanel {
 
         return this;
     }
-
-    @Override
-    public List<SwingPanel> getComponents() {
-        return null;
-    }
-
     private void addToTab(String type, SwingPanel component) {
-        JComponent parentsComponent = component.getParentsComponent();
+        JComponent parentsComponent = component.getParent();
         tabbedPane.addTab(type, parentsComponent);
     }
 
-    private SwingPanel createPanel(String type, Visitor visitor){
-        AbstractPanel abstractPanel = new AbstractPanel() {
-            @Override
-            public SwingPanel createPanel(String type, Visitor visitor) {
-                return createNewPanel(type);
-            }
-        };
-        return abstractPanel.order(type, visitor);
-    }
-
-    private SwingPanel createNewPanel(String type) {
+    private SwingPanel createNewPanel(String type, Visitor visitor) {
+        PanelBuilder panelBuilder = new PanelBuilder();
         switch (type){
             case "Калькулятор":
-                return new CalculatorPanel();
+                return panelBuilder.build("Калькулятор", visitor);
             case "Настройки":
-                return new SettingsPanel();
+                return panelBuilder.build("Настройки", visitor);
             case "Справка":
-                return new InfoPanel();
+                return panelBuilder.build("Справка", visitor);
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 
     @Override
+    public List<SwingPanel> getComponents() {
+        return null;
+    }
+
+    @Override
     public void acceptVisitor(Visitor visitor) {}
 
     @Override
-    public JComponent getParentsComponent() {
+    public JComponent getParent() {
         return tabbedPane;
     }
 }

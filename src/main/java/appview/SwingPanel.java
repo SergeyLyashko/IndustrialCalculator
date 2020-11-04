@@ -23,10 +23,10 @@ public interface SwingPanel {
         return null;
     }
 
-    default JComponent getParentsComponent() {
+    default JComponent getParent() {
         return null;
     }
 
-    default void setParentComponent(JPanel jPanel) {}
+    default void setParent(JPanel jPanel) {}
 
 }

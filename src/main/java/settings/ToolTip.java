@@ -36,7 +36,7 @@ class ToolTip implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public JComponent getParentsComponent() {
+    public JComponent getParent() {
         return componentSwing;
     }
 

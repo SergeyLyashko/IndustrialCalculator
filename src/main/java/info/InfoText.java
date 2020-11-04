@@ -71,7 +71,7 @@ class InfoText implements Serializable, SwingPanel {
     }
 
     @Override
-    public JComponent getParentsComponent() {
+    public JComponent getParent() {
         return jLabel;
     }
 }

@@ -19,6 +19,7 @@ public abstract class AbstractCheckBox {
         addListener(selectableCheckBox, visitor);
         addVisitor(visitor, selectableCheckBox);
         selectableCheckBox.setParentComponent(jCheckBox);
+        System.out.println("create abs CH: "+selectableCheckBox.getName());
         return selectableCheckBox;
     }
 

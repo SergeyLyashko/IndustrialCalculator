@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
-
+/*
 class CommonPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
@@ -46,11 +46,12 @@ class CommonPanel implements Serializable, SwingPanel {
     }
 
     @Override
-    public void setParentComponent(JPanel jPanel) {
+    public void setParent(JPanel jPanel) {
         this.jPanel = jPanel;
     }
 
-    public JComponent getParentsComponent() {
+    public JComponent getParent() {
         return jPanel;
     }
 }
+*/

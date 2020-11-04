@@ -5,9 +5,8 @@ import appview.Visitor;
 
 import javax.swing.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class CalculatorPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
@@ -45,3 +44,4 @@ public class CalculatorPanel implements Serializable, SwingPanel {
     }
 
 }
+*/

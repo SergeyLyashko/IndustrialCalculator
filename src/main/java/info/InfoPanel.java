@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
-
+/*
 public class InfoPanel implements Serializable, SwingPanel {
 
     private static final long serialVersionUID = 1L;
@@ -65,4 +65,4 @@ public class InfoPanel implements Serializable, SwingPanel {
         return jPanel;
     }
 
-}
+}*/

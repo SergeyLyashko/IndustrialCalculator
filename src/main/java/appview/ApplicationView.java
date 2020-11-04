@@ -23,22 +23,13 @@ public class ApplicationView implements Serializable {
     }
 
     public void create(){
-        SwingPanel panel = createPanel();
-        addContentPane(panel);
-    }
-
-    private SwingPanel createPanel(){
-        AbstractPanel abstractPanel = new AbstractPanel() {
-            @Override
-            public SwingPanel createPanel(String name, Visitor visitor) {
-                return new CommonPanel();
-            }
-        };
-        return abstractPanel.order("", visitor);
+        PanelBuilder panelBuilder = new PanelBuilder();
+        SwingPanel common = panelBuilder.build("Common", visitor);
+        addContentPane(common);
     }
 
     private void addContentPane(SwingPanel panel) {
-        JComponent parentsComponent = panel.getParentsComponent();
+        JComponent parentsComponent = panel.getParent();
         Container contentPane = jFrame.getContentPane();
         contentPane.add(parentsComponent, BorderLayout.CENTER);
     }
@@ -62,5 +53,4 @@ public class ApplicationView implements Serializable {
             public void windowDeactivated(WindowEvent e) {}
         });
     }
-
 }
