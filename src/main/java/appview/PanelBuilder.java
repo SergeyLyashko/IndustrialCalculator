@@ -28,25 +28,30 @@ public class PanelBuilder implements SwingPanel {
     private SwingPanel create(String type, Visitor visitor) {
         switch (type){
             case "Калькулятор":
-                return getCalculator(visitor);
+                return getCalculatorPanel(visitor);
             case "Настройки":
-                return getSettings(visitor);
+                return getSettingsPanel(visitor);
             case "Справка":
-                return getInfo(visitor);
+                return getInfoPanel(visitor);
             case "Common":
-                return getCommon(visitor);
+                return getCommonPanel(visitor);
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 
-    private SwingPanel getCommon(Visitor visitor) {
+    private SwingPanel getCommonPanel(Visitor visitor) {
         layoutManager = new GridLayout(1, 1);
         panelName = "Common_Builder";
         return new TabbedPane();
     }
 
-    private SwingPanel getSettings(Visitor visitor){
+    @Override
+    public List<SwingComponent> getComponents() {
+        return componentList;
+    }
+
+    private SwingPanel getSettingsPanel(Visitor visitor){
         panelName = "Settings_Builder";
         componentList = createSettingsComponents(visitor);
         return this;
@@ -57,18 +62,24 @@ public class PanelBuilder implements SwingPanel {
         return settingsComponent.getComponents(visitor);
     }
 
-    private SwingPanel getCalculator(Visitor visitor){
+    private SwingPanel getCalculatorPanel(Visitor visitor){
         panelName = "Калькулятор_Builder";
         return this;
     }
 
-    private SwingPanel getInfo(Visitor visitor) {
+    private SwingPanel getInfoPanel(Visitor visitor) {
         layoutManager = new BorderLayout();
         borderLayout = BorderLayout.CENTER;
         panelName = "Справка_Builder";
-        InfoComponent infoComponent = new InfoComponent();
-        return infoComponent.getComponent(visitor);
+        componentList = createInfoComponents(visitor);
+        return this;
     }
+
+    private List<SwingComponent> createInfoComponents(Visitor visitor){
+        InfoComponent infoComponent = new InfoComponent();
+        return infoComponent.getComponents(visitor);
+    }
+
 
     @Override
     public String getName() {
@@ -80,10 +91,7 @@ public class PanelBuilder implements SwingPanel {
         return this;
     }
 
-    @Override
-    public List<SwingComponent> getComponents() {
-        return componentList;
-    }
+
 
     @Override
     public void acceptVisitor(Visitor visitor) {

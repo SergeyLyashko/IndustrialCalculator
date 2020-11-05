@@ -1,7 +1,6 @@
 package info;
 
 import appview.SwingComponent;
-import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;
@@ -9,7 +8,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
 
-class InfoText implements Serializable, SwingPanel {
+class InfoText implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,11 +52,6 @@ class InfoText implements Serializable, SwingPanel {
     @Override
     public String getName() {
         return "infoText";
-    }
-
-    @Override
-    public SwingPanel getPanel(Visitor visitor) {
-        return this;
     }
 
     @Override

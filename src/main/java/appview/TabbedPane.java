@@ -24,8 +24,8 @@ class TabbedPane implements SwingPanel {
 
         return this;
     }
-    private void addToTab(String type, SwingPanel component) {
-        JComponent parentsComponent = component.getParent();
+    private void addToTab(String type, SwingPanel panel) {
+        JComponent parentsComponent = panel.getParent();
         tabbedPane.addTab(type, parentsComponent);
     }
 

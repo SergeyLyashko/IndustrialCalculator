@@ -14,8 +14,11 @@ public abstract class AbstractPanel {
         SwingPanel newPanel = createPanel(type, visitor);
         setLayout(newPanel);
         newPanel.setParent(jPanel);
+        System.out.println("abs newPanel: "+newPanel.getName());
 
+        // TODO getPanel вызывается для создания панели Tab
         SwingPanel thisPanel = newPanel.getPanel(visitor);
+        System.out.println("abs thisPanel: "+thisPanel.getName());
         addComponentsTo(thisPanel);
 
         visitor.addVisitorPanel(newPanel);

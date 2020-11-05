@@ -12,7 +12,7 @@ public interface SwingComponent {
 
     void acceptVisitor(Visitor visitor);
 
-    LayoutManager getLayout();
+    //LayoutManager getLayout();
 
     JComponent getParent();
 }

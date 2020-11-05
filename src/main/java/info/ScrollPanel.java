@@ -1,20 +1,17 @@
 package info;
 
-import appview.AbstractPanel;
 import appview.SwingComponent;
-import appview.SwingPanel;
 import appview.Visitor;
 import javax.swing.*;
 import java.util.List;
 
-class ScrollPanel implements SwingPanel {
+class ScrollPanel implements SwingComponent {
 
     private JScrollPane scrollPane;
 
-    @Override
-    public SwingPanel getPanel(Visitor visitor) {
-        SwingPanel panel = createPanel("", visitor);
-        createScrollPane(panel);
+    // TODO перенести в getComponents
+    public SwingComponent getComponent(Visitor visitor) {
+        createScrollPane(new InfoText());
         return this;
     }
 
@@ -23,17 +20,7 @@ class ScrollPanel implements SwingPanel {
         return null;
     }
 
-    private SwingPanel createPanel(String type, Visitor visitor){
-        AbstractPanel abstractPanel = new AbstractPanel() {
-            @Override
-            public SwingPanel createPanel(String type, Visitor visitor) {
-                return new InfoText();
-            }
-        };
-        return abstractPanel.order(type, visitor);
-    }
-
-    private void createScrollPane(SwingPanel panel){
+    private void createScrollPane(SwingComponent panel){
         JComponent htmlText = panel.getParent();
         scrollPane = new JScrollPane(htmlText);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

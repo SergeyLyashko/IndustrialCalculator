@@ -20,6 +20,6 @@ public interface SelectableCheckBox extends SwingComponent {
         return null;
     }
 
-    default LayoutManager getLayout(){ return null; }
+    //default LayoutManager getLayout(){ return null; }
 
 }
