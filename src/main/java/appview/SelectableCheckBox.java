@@ -1,7 +1,6 @@
 package appview;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public interface SelectableCheckBox extends SwingComponent {
@@ -19,7 +18,5 @@ public interface SelectableCheckBox extends SwingComponent {
     default List<SwingComponent> getComponents(){
         return null;
     }
-
-    //default LayoutManager getLayout(){ return null; }
 
 }

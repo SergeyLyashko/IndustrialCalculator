@@ -8,25 +8,15 @@ public interface SwingPanel {
 
     String getName();
 
-    SwingPanel getPanel(Visitor visitor);
-
     List<SwingComponent> getComponents();
 
     void acceptVisitor(Visitor visitor);
 
+    LayoutManager getLayout();
 
-    default LayoutManager getLayout() {
-        return null;
-    }
+    String getBorderLayout();
 
-    default String getBorderLayout() {
-        return null;
-    }
+    JComponent getParent();
 
-    default JComponent getParent() {
-        return null;
-    }
-
-    default void setParent(JComponent jPanel) {}
-
+    void setParent(JComponent jPanel);
 }

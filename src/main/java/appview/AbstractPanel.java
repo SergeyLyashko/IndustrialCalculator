@@ -15,25 +15,20 @@ public abstract class AbstractPanel {
         setLayout(newPanel);
         newPanel.setParent(jPanel);
         System.out.println("abs newPanel: "+newPanel.getName());
-
-        // TODO getPanel вызывается для создания панели Tab
-        SwingPanel thisPanel = newPanel.getPanel(visitor);
-        System.out.println("abs thisPanel: "+thisPanel.getName());
-        addComponentsTo(thisPanel);
-
+        addComponentsTo(newPanel);
         visitor.addVisitorPanel(newPanel);
-        return thisPanel;
+        return newPanel;
     }
 
     private void addComponentsTo(SwingPanel panel){
         List<SwingComponent> componentList = panel.getComponents();
         if(componentList != null){
-            componentList.forEach(comp -> System.out.println("abs: "+comp.getName()));
-            componentList.forEach(component -> addComponent(panel, component));
+            componentList.forEach(comp -> System.out.println("abs comp: "+comp.getName()));
+            componentList.forEach(component -> addParent(panel, component));
         }
     }
 
-    private void addComponent(SwingPanel panel, SwingComponent component) {
+    private void addParent(SwingPanel panel, SwingComponent component) {
         JComponent jComponent = component.getParent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);

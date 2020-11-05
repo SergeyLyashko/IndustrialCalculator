@@ -33,17 +33,9 @@ public class PanelBuilder implements SwingPanel {
                 return getSettingsPanel(visitor);
             case "Справка":
                 return getInfoPanel(visitor);
-            case "Common":
-                return getCommonPanel(visitor);
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
-    }
-
-    private SwingPanel getCommonPanel(Visitor visitor) {
-        layoutManager = new GridLayout(1, 1);
-        panelName = "Common_Builder";
-        return new TabbedPane();
     }
 
     @Override
@@ -52,7 +44,7 @@ public class PanelBuilder implements SwingPanel {
     }
 
     private SwingPanel getSettingsPanel(Visitor visitor){
-        panelName = "Settings_Builder";
+        panelName = "Настройки";
         componentList = createSettingsComponents(visitor);
         return this;
     }
@@ -63,14 +55,14 @@ public class PanelBuilder implements SwingPanel {
     }
 
     private SwingPanel getCalculatorPanel(Visitor visitor){
-        panelName = "Калькулятор_Builder";
+        panelName = "Калькулятор";
         return this;
     }
 
     private SwingPanel getInfoPanel(Visitor visitor) {
         layoutManager = new BorderLayout();
         borderLayout = BorderLayout.CENTER;
-        panelName = "Справка_Builder";
+        panelName = "Справка";
         componentList = createInfoComponents(visitor);
         return this;
     }
@@ -80,18 +72,10 @@ public class PanelBuilder implements SwingPanel {
         return infoComponent.getComponents(visitor);
     }
 
-
     @Override
     public String getName() {
         return panelName;
     }
-
-    @Override
-    public SwingPanel getPanel(Visitor visitor) {
-        return this;
-    }
-
-
 
     @Override
     public void acceptVisitor(Visitor visitor) {
