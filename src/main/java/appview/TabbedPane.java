@@ -44,7 +44,7 @@ class TabbedPane implements SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents() {
+    public List<SwingComponent> getComponents() {
         return null;
     }
 

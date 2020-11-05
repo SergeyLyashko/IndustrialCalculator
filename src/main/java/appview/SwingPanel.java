@@ -10,7 +10,7 @@ public interface SwingPanel {
 
     SwingPanel getPanel(Visitor visitor);
 
-    List<SwingPanel> getComponents();
+    List<SwingComponent> getComponents();
 
     void acceptVisitor(Visitor visitor);
 

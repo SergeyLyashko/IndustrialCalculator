@@ -1,6 +1,7 @@
 package info;
 
 import appview.AbstractPanel;
+import appview.SwingComponent;
 import appview.SwingPanel;
 import appview.Visitor;
 import javax.swing.*;
@@ -18,7 +19,7 @@ class ScrollPanel implements SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents() {
+    public List<SwingComponent> getComponents() {
         return null;
     }
 

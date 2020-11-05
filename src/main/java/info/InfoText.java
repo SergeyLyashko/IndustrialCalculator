@@ -1,5 +1,6 @@
 package info;
 
+import appview.SwingComponent;
 import appview.SwingPanel;
 import appview.Visitor;
 
@@ -60,7 +61,7 @@ class InfoText implements Serializable, SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents() {
+    public List<SwingComponent> getComponents() {
         return null;
     }
 

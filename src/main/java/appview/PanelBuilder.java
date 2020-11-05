@@ -13,7 +13,7 @@ public class PanelBuilder implements SwingPanel {
     private LayoutManager layoutManager;
     private String borderLayout;
     private String panelName;
-    private List<SwingPanel> componentList;
+    private List<SwingComponent> componentList;
 
     public SwingPanel build(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
@@ -52,7 +52,7 @@ public class PanelBuilder implements SwingPanel {
         return this;
     }
 
-    private List<SwingPanel> createSettingsComponents(Visitor visitor){
+    private List<SwingComponent> createSettingsComponents(Visitor visitor){
         SettingsComponents settingsComponent = new SettingsComponents();
         return settingsComponent.getComponents(visitor);
     }
@@ -81,7 +81,7 @@ public class PanelBuilder implements SwingPanel {
     }
 
     @Override
-    public List<SwingPanel> getComponents() {
+    public List<SwingComponent> getComponents() {
         return componentList;
     }
 

@@ -1,18 +1,15 @@
 package settings;
 
-import appview.AbstractCheckBox;
-import appview.SelectableCheckBox;
-import appview.SwingPanel;
-import appview.Visitor;
+import appview.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsComponents {
 
-    private final List<SwingPanel> components = new ArrayList<>();
+    private final List<SwingComponent> components = new ArrayList<>();
 
-    public List<SwingPanel> getComponents(Visitor visitor){
+    public List<SwingComponent> getComponents(Visitor visitor){
         SelectableCheckBox theme = getCheckBox("theme", visitor);
         SelectableCheckBox toolTip = getCheckBox("toolTip", visitor);
         components.add(theme);

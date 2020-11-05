@@ -18,18 +18,19 @@ public abstract class AbstractPanel {
         SwingPanel thisPanel = newPanel.getPanel(visitor);
         addComponentsTo(thisPanel);
 
-        visitor.addVisitorComponent(newPanel);
+        visitor.addVisitorPanel(newPanel);
         return thisPanel;
     }
 
     private void addComponentsTo(SwingPanel panel){
-        List<SwingPanel> componentList = panel.getComponents();
+        List<SwingComponent> componentList = panel.getComponents();
         if(componentList != null){
+            componentList.forEach(comp -> System.out.println("abs: "+comp.getName()));
             componentList.forEach(component -> addComponent(panel, component));
         }
     }
 
-    private void addComponent(SwingPanel panel, SwingPanel component) {
+    private void addComponent(SwingPanel panel, SwingComponent component) {
         JComponent jComponent = component.getParent();
         String borderLayout = panel.getBorderLayout();
         jPanel.add(jComponent, borderLayout);
