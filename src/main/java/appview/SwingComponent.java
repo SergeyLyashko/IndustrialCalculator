@@ -19,4 +19,5 @@ public interface SwingComponent {
     Container getParent();
 
     void setParent(JComponent jPanel);
+
 }

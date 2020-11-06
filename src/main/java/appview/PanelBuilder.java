@@ -1,75 +1,34 @@
 package appview;
 
-import info.InfoComponent;
-import settings.SettingsComponents;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class PanelBuilder implements SwingComponent {
 
-    private JComponent jComponent;
+    private JComponent jPanel;
     private LayoutManager layoutManager;
     private String borderLayout;
     private String panelName;
     private List<SwingComponent> componentList;
 
-    public SwingComponent build(String type, Visitor visitor){
+    public SwingComponent build(Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingComponent createPanel(String type, Visitor visitor) {
-                return create(type, visitor);
+            public SwingComponent createPanel() {
+                return create();
             }
         };
-        return abstractPanel.order(type, visitor);
+        return abstractPanel.order(visitor);
     }
 
-    private SwingComponent create(String type, Visitor visitor) {
-        switch (type){
-            case "Калькулятор":
-                return getCalculatorPanel(visitor);
-            case "Настройки":
-                return getSettingsPanel(visitor);
-            case "Справка":
-                return getInfoPanel(visitor);
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
+    private SwingComponent create() {
+        return this;
     }
 
     @Override
     public List<SwingComponent> getComponents() {
         return componentList;
-    }
-
-    private SwingComponent getSettingsPanel(Visitor visitor){
-        panelName = "Настройки";
-        componentList = createSettingsComponents(visitor);
-        return this;
-    }
-
-    private List<SwingComponent> createSettingsComponents(Visitor visitor){
-        SettingsComponents settingsComponent = new SettingsComponents();
-        return settingsComponent.getComponents(visitor);
-    }
-
-    private SwingComponent getCalculatorPanel(Visitor visitor){
-        panelName = "Калькулятор";
-        return this;
-    }
-
-    private SwingComponent getInfoPanel(Visitor visitor) {
-        layoutManager = new BorderLayout();
-        borderLayout = BorderLayout.CENTER;
-        panelName = "Справка";
-        componentList = createInfoComponents(visitor);
-        return this;
-    }
-
-    private List<SwingComponent> createInfoComponents(Visitor visitor){
-        InfoComponent infoComponent = new InfoComponent();
-        return infoComponent.getComponents(visitor);
     }
 
     @Override
@@ -93,10 +52,26 @@ public class PanelBuilder implements SwingComponent {
 
     @Override
     public void setParent(JComponent jPanel) {
-        this.jComponent = jPanel;
+        this.jPanel = jPanel;
     }
 
-    public JComponent getParent() {
-        return jComponent;
+    public Container getParent() {
+        return jPanel;
+    }
+
+    public void setName(String panelName) {
+        this.panelName = panelName;
+    }
+
+    public void setComponentsList(List<SwingComponent> componentsList) {
+        this.componentList = componentsList;
+    }
+
+    public void setLayout(LayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
+    }
+
+    public void setBorderLayout(String borderLayout) {
+        this.borderLayout = borderLayout;
     }
 }

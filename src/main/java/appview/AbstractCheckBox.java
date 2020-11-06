@@ -12,6 +12,8 @@ public abstract class AbstractCheckBox {
         jCheckBox.setSize(320, 20);
     }
 
+    public abstract SelectableCheckBox createCheckBox(String type);
+
     public SelectableCheckBox orderedCheckBox(String type, Visitor visitor){
         SelectableCheckBox selectableCheckBox = createCheckBox(type);
         setLocation(selectableCheckBox);
@@ -42,6 +44,4 @@ public abstract class AbstractCheckBox {
         CheckBoxState checkBoxState = new CheckBoxState(selectableCheckBox, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }
-
-    public abstract SelectableCheckBox createCheckBox(String type);
 }

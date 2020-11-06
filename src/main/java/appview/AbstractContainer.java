@@ -5,16 +5,16 @@ import java.util.List;
 
 public abstract class AbstractContainer {
 
-    public abstract SwingComponent create(List<SwingComponent> contentList);
     public abstract List<SwingComponent> createContentList(String type);
+    public abstract SwingComponent createContainer(List<SwingComponent> contentList);
 
     public SwingComponent order(String type){
         List<SwingComponent> contentList = createContentList(type);
-        SwingComponent container = create(contentList);
+        SwingComponent container = createContainer(contentList);
         //addPanelsTo(container, contentList);
         return container;
     }
-
+/*
     private void addPanelsTo(SwingComponent swingContainer, List<SwingComponent> componentList) {
         componentList.forEach(component -> {
             String name = component.getName();
@@ -23,4 +23,6 @@ public abstract class AbstractContainer {
             containerParent.add(name, componentParent);
         });
     }
+
+ */
 }

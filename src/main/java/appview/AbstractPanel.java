@@ -8,10 +8,10 @@ public abstract class AbstractPanel {
 
     private final JPanel jPanel = new JPanel();
 
-    public abstract SwingComponent createPanel(String type, Visitor visitor);
+    public abstract SwingComponent createPanel();
 
-    public SwingComponent order(String type, Visitor visitor){
-        SwingComponent newPanel = createPanel(type, visitor);
+    public SwingComponent order(Visitor visitor){
+        SwingComponent newPanel = createPanel();
         setLayout(newPanel);
         newPanel.setParent(jPanel);
         System.out.println("abs newPanel: "+newPanel.getName());//TEST
@@ -30,12 +30,14 @@ public abstract class AbstractPanel {
 
     private void addParent(SwingComponent panel, SwingComponent component) {
         Container parentComponent = component.getParent();
+        Container panelParent = panel.getParent();
         String borderLayout = panel.getBorderLayout();
-        jPanel.add(parentComponent, borderLayout);
+        panelParent.add(parentComponent, borderLayout);
     }
 
     private void setLayout(SwingComponent panel) {
         LayoutManager layout = panel.getLayout();
-        jPanel.setLayout(layout);
+        Container parent = panel.getParent();
+        parent.setLayout(layout);
     }
 }
