@@ -20,7 +20,7 @@ public class ApplicationView implements Serializable {
 
     public void create(){
         ContainerBuilder containerBuilder = new ContainerBuilder();
-        SwingContainer build = containerBuilder.build("", visitor);
+        SwingComponent build = containerBuilder.build("Tab", visitor);
         setContentPane(build);
         setFramePreference();
     }
@@ -32,7 +32,7 @@ public class ApplicationView implements Serializable {
         jFrame.setVisible(true);
     }
 
-    private void setContentPane(SwingContainer swingContainer) {
+    private void setContentPane(SwingComponent swingContainer) {
         Container containerParent = swingContainer.getParent();
         jFrame.setContentPane(containerParent);
     }

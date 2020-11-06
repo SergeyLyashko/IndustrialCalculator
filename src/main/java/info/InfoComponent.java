@@ -1,5 +1,6 @@
 package info;
 
+import appview.ContainerBuilder;
 import appview.SwingComponent;
 import appview.Visitor;
 
@@ -11,8 +12,9 @@ public class InfoComponent {
     private final List<SwingComponent> components = new ArrayList<>();
 
     public List<SwingComponent> getComponents(Visitor visitor){
-        ScrollPanel scrollPanel = new ScrollPanel();
-        components.add(scrollPanel.getComponent(visitor));
+        ContainerBuilder containerBuilder = new ContainerBuilder();
+        SwingComponent scroll = containerBuilder.build("Scroll", visitor);
+        components.add(scroll);
         return components;
     }
 }

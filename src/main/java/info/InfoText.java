@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
 
-class InfoText implements Serializable, SwingComponent {
+public class InfoText implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ class InfoText implements Serializable, SwingComponent {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    InfoText(){
+    public InfoText(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 510));
@@ -65,7 +65,22 @@ class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
+    public LayoutManager getLayout() {
+        return null;
+    }
+
+    @Override
+    public String getBorderLayout() {
+        return null;
+    }
+
+    @Override
     public JComponent getParent() {
         return jLabel;
+    }
+
+    @Override
+    public void setParent(JComponent jPanel) {
+
     }
 }

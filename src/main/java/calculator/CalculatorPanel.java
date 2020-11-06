@@ -1,6 +1,5 @@
 package calculator;
 
-import appview.SwingPanel;
 import appview.Visitor;
 
 import javax.swing.*;

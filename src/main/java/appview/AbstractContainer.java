@@ -1,27 +1,26 @@
 package appview;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public abstract class AbstractContainer {
 
-    public abstract SwingContainer create();
-    public abstract List<SwingPanel> createContentList(String type);
+    public abstract SwingComponent create(List<SwingComponent> contentList);
+    public abstract List<SwingComponent> createContentList(String type);
 
-    public SwingContainer order(String type){
-        SwingContainer swingContainer = create();
-        List<SwingPanel> panelList = createContentList(type);
-        addPanelsTo(swingContainer, panelList);
-        return swingContainer;
+    public SwingComponent order(String type){
+        List<SwingComponent> contentList = createContentList(type);
+        SwingComponent container = create(contentList);
+        //addPanelsTo(container, contentList);
+        return container;
     }
 
-    private void addPanelsTo(SwingContainer swingContainer, List<SwingPanel> panelList) {
-        panelList.forEach(panel -> {
-            String name = panel.getName();
-            JComponent panelParent = panel.getParent();
+    private void addPanelsTo(SwingComponent swingContainer, List<SwingComponent> componentList) {
+        componentList.forEach(component -> {
+            String name = component.getName();
+            Container componentParent = component.getParent();
             Container containerParent = swingContainer.getParent();
-            containerParent.add(name, panelParent);
+            containerParent.add(name, componentParent);
         });
     }
 }

@@ -5,22 +5,10 @@ import java.util.List;
 
 class VisitorImpl implements Visitor {
 
-    private final List<SwingPanel> panelsList = new ArrayList<>();
     private final List<SwingComponent> componentsList = new ArrayList<>();
 
-    @Override
-    public void visit(SwingPanel panel) {
-        System.out.println("visit panel: "+ panel.getName());
-    }
-
     public void raid() {
-        panelsList.forEach(component -> component.acceptVisitor(this));
         componentsList.forEach(component -> component.acceptVisitor(this));
-    }
-
-    @Override
-    public void addVisitorPanel(SwingPanel panel) {
-        panelsList.add(panel);
     }
 
     @Override

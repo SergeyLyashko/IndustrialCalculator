@@ -8,33 +8,33 @@ public abstract class AbstractPanel {
 
     private final JPanel jPanel = new JPanel();
 
-    public abstract SwingPanel createPanel(String type, Visitor visitor);
+    public abstract SwingComponent createPanel(String type, Visitor visitor);
 
-    public SwingPanel order(String type, Visitor visitor){
-        SwingPanel newPanel = createPanel(type, visitor);
+    public SwingComponent order(String type, Visitor visitor){
+        SwingComponent newPanel = createPanel(type, visitor);
         setLayout(newPanel);
         newPanel.setParent(jPanel);
-        System.out.println("abs newPanel: "+newPanel.getName());
+        System.out.println("abs newPanel: "+newPanel.getName());//TEST
         addComponentsTo(newPanel);
-        visitor.addVisitorPanel(newPanel);
+        visitor.addVisitorComponent(newPanel);
         return newPanel;
     }
 
-    private void addComponentsTo(SwingPanel panel){
+    private void addComponentsTo(SwingComponent panel){
         List<SwingComponent> componentList = panel.getComponents();
         if(componentList != null){
-            componentList.forEach(comp -> System.out.println("abs comp: "+comp.getName()));
+            componentList.forEach(comp -> System.out.println("abs comp: "+comp.getName()));//TEST
             componentList.forEach(component -> addParent(panel, component));
         }
     }
 
-    private void addParent(SwingPanel panel, SwingComponent component) {
-        JComponent jComponent = component.getParent();
+    private void addParent(SwingComponent panel, SwingComponent component) {
+        Container parentComponent = component.getParent();
         String borderLayout = panel.getBorderLayout();
-        jPanel.add(jComponent, borderLayout);
+        jPanel.add(parentComponent, borderLayout);
     }
 
-    private void setLayout(SwingPanel panel) {
+    private void setLayout(SwingComponent panel) {
         LayoutManager layout = panel.getLayout();
         jPanel.setLayout(layout);
     }

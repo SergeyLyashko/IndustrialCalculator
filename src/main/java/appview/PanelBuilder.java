@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class PanelBuilder implements SwingPanel {
+public class PanelBuilder implements SwingComponent {
 
     private JComponent jComponent;
     private LayoutManager layoutManager;
@@ -15,17 +15,17 @@ public class PanelBuilder implements SwingPanel {
     private String panelName;
     private List<SwingComponent> componentList;
 
-    public SwingPanel build(String type, Visitor visitor){
+    public SwingComponent build(String type, Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
-            public SwingPanel createPanel(String type, Visitor visitor) {
+            public SwingComponent createPanel(String type, Visitor visitor) {
                 return create(type, visitor);
             }
         };
         return abstractPanel.order(type, visitor);
     }
 
-    private SwingPanel create(String type, Visitor visitor) {
+    private SwingComponent create(String type, Visitor visitor) {
         switch (type){
             case "Калькулятор":
                 return getCalculatorPanel(visitor);
@@ -43,7 +43,7 @@ public class PanelBuilder implements SwingPanel {
         return componentList;
     }
 
-    private SwingPanel getSettingsPanel(Visitor visitor){
+    private SwingComponent getSettingsPanel(Visitor visitor){
         panelName = "Настройки";
         componentList = createSettingsComponents(visitor);
         return this;
@@ -54,12 +54,12 @@ public class PanelBuilder implements SwingPanel {
         return settingsComponent.getComponents(visitor);
     }
 
-    private SwingPanel getCalculatorPanel(Visitor visitor){
+    private SwingComponent getCalculatorPanel(Visitor visitor){
         panelName = "Калькулятор";
         return this;
     }
 
-    private SwingPanel getInfoPanel(Visitor visitor) {
+    private SwingComponent getInfoPanel(Visitor visitor) {
         layoutManager = new BorderLayout();
         borderLayout = BorderLayout.CENTER;
         panelName = "Справка";

@@ -13,6 +13,7 @@ class ToolTip implements Serializable, SelectableCheckBox {
     private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
     private static final int LOCATION_X = 15;
     private static final int LOCATION_Y = 60;
+
     private JComponent componentSwing;
 
     @Override
@@ -41,7 +42,7 @@ class ToolTip implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public void setParentComponent(JCheckBox componentSwing) {
+    public void setParent(JComponent componentSwing) {
         this.componentSwing = componentSwing;
     }
 
