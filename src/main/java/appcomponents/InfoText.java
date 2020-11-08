@@ -1,7 +1,4 @@
-package info;
-
-import appview.SwingComponent;
-import appview.Visitor;
+package appcomponents;
 
 import javax.swing.*;
 import java.awt.*;

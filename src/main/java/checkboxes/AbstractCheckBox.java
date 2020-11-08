@@ -1,27 +1,29 @@
-package appview;
+package checkboxes;
+
+import appcomponents.SelectableCheckBox;
+import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public abstract class AbstractCheckBox {
+abstract class AbstractCheckBox {
 
     private final JCheckBox jCheckBox;
 
-    public AbstractCheckBox(){
+    AbstractCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(320, 20);
     }
 
-    public abstract SelectableCheckBox createCheckBox(String type);
+    abstract SelectableCheckBox create();
 
-    public SelectableCheckBox orderedCheckBox(String type, Visitor visitor){
-        SelectableCheckBox selectableCheckBox = createCheckBox(type);
+    SelectableCheckBox orderedCheckBox(Visitor visitor){
+        SelectableCheckBox selectableCheckBox = create();
         setLocation(selectableCheckBox);
         setName(selectableCheckBox);
         addListener(selectableCheckBox, visitor);
         addVisitor(visitor, selectableCheckBox);
         selectableCheckBox.setParent(jCheckBox);
-        System.out.println("create abs CH: "+selectableCheckBox.getName());
         return selectableCheckBox;
     }
 

@@ -1,14 +1,17 @@
-package appview;
+package checkboxes;
+
+import appcomponents.SelectableCheckBox;
+import appcomponents.Visitor;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class CheckBoxState implements ItemListener {
+class CheckBoxState implements ItemListener {
 
     private final SelectableCheckBox selectableCheckBox;
     private final Visitor visitor;
 
-    public CheckBoxState(SelectableCheckBox newCheckBox, Visitor visitor) {
+    CheckBoxState(SelectableCheckBox newCheckBox, Visitor visitor) {
         this.selectableCheckBox = newCheckBox;
         this.visitor = visitor;
     }
@@ -19,13 +22,11 @@ public class CheckBoxState implements ItemListener {
         switch (stateChange){
             case ItemEvent.SELECTED:
                 // TODO
-                selectableCheckBox.select();
-                visitor.raid();
+                selectableCheckBox.select(visitor);
                 break;
             case ItemEvent.DESELECTED:
                 // TODO
-                selectableCheckBox.deselect();
-                visitor.raid();
+                selectableCheckBox.deselect(visitor);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + event.getStateChange());

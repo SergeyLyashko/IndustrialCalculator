@@ -1,4 +1,4 @@
-package appview;
+package appcomponents;
 
 import java.awt.*;
 import java.util.List;
@@ -9,9 +9,9 @@ public interface SelectableCheckBox extends SwingComponent {
 
     int getLocationY();
 
-    void select();
+    void select(Visitor visitor);
 
-    void deselect();
+    void deselect(Visitor visitor);
 
     default List<SwingComponent> getComponents(){
         return null;

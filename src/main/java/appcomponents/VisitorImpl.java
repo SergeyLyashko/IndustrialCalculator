@@ -1,11 +1,11 @@
-package appview;
+package appcomponents;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-class VisitorImpl implements Visitor {
+public class VisitorImpl implements Visitor {
 
-    private final List<SwingComponent> componentsList = new ArrayList<>();
+    private final List<SwingComponent> componentsList = new CopyOnWriteArrayList<>();
 
     public void raid() {
         componentsList.forEach(component -> component.acceptVisitor(this));

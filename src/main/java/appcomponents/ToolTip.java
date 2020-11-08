@@ -1,11 +1,9 @@
-package settings;
+package appcomponents;
 
-import appview.SelectableCheckBox;
-import appview.Visitor;
 import javax.swing.*;
 import java.io.Serializable;
 
-class ToolTip implements Serializable, SelectableCheckBox {
+public class ToolTip implements Serializable, SelectableCheckBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,17 +45,19 @@ class ToolTip implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public void select() {
+    public void select(Visitor visitor) {
         // TODO
         System.out.println("toolTip selected");
         setState(true);
+        visitor.raid();
     }
 
     @Override
-    public void deselect() {
+    public void deselect(Visitor visitor) {
         // TODO
         System.out.println("toolTip deselected");
         setState(false);
+        visitor.raid();
     }
 
     private void setState(boolean state) {

@@ -1,19 +1,22 @@
-package appview;
+package tabs;
+
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public abstract class AbstractPanel {
+abstract class AbstractPanel {
 
     private final JPanel jPanel = new JPanel();
 
-    public abstract SwingComponent createPanel();
+    abstract SwingComponent createPanel();
 
-    public SwingComponent order(Visitor visitor){
+    SwingComponent order(Visitor visitor){
         SwingComponent newPanel = createPanel();
-        setLayout(newPanel);
         newPanel.setParent(jPanel);
+        setLayout(newPanel);
         System.out.println("abs newPanel: "+newPanel.getName());//TEST
         addComponentsTo(newPanel);
         visitor.addVisitorComponent(newPanel);

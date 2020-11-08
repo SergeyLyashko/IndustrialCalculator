@@ -1,10 +1,13 @@
-package appview;
+package tabs;
+
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class PanelBuilder implements SwingComponent {
+class PanelBuilder implements SwingComponent {
 
     private JComponent jPanel;
     private LayoutManager layoutManager;
@@ -12,7 +15,7 @@ public class PanelBuilder implements SwingComponent {
     private String panelName;
     private List<SwingComponent> componentList;
 
-    public SwingComponent build(Visitor visitor){
+    SwingComponent build(Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
             public SwingComponent createPanel() {

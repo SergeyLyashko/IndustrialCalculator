@@ -1,12 +1,10 @@
-package settings;
+package appcomponents;
 
-import appview.SelectableCheckBox;
-import appview.Visitor;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-class ColorTheme implements Serializable, SelectableCheckBox {
+public class ColorTheme implements Serializable, SelectableCheckBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,20 +49,23 @@ class ColorTheme implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public void select() {
+    public void select(Visitor visitor) {
         // TODO
-        System.out.println("theme selected");
+        //System.out.println("theme selected");
         setDarkColorTheme();
+        visitor.raid();
     }
 
     @Override
-    public void deselect() {
+    public void deselect(Visitor visitor) {
         // TODO
-        System.out.println("theme deselected");
+        //System.out.println("theme deselected");
         setLightColorTheme();
+        visitor.raid();
     }
 
     private void setDarkColorTheme() {
+        System.out.println("theme set dark");
         backGround = Color.BLACK;
         foreGround = Color.WHITE;
         markerColor = Color.WHITE;
@@ -72,6 +73,7 @@ class ColorTheme implements Serializable, SelectableCheckBox {
     }
 
     private void setLightColorTheme() {
+        System.out.println("theme set light");
         backGround = new Color(250, 236, 229);
         foreGround = Color.BLACK;
         markerColor = Color.BLACK;

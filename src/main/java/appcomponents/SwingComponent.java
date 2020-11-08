@@ -1,4 +1,4 @@
-package appview;
+package appcomponents;
 
 import javax.swing.*;
 import java.awt.*;

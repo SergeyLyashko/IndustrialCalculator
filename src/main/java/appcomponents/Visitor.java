@@ -1,4 +1,4 @@
-package appview;
+package appcomponents;
 
 public interface Visitor {
 
