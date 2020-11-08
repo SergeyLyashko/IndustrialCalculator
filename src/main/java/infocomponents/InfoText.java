@@ -1,4 +1,7 @@
-package appcomponents;
+package infocomponents;
+
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +50,16 @@ public class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
+    public int getLocationX() {
+        return 0;
+    }
+
+    @Override
+    public int getLocationY() {
+        return 0;
+    }
+
+    @Override
     public String getName() {
         return "infoText";
     }
@@ -77,7 +90,7 @@ public class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public void setParent(JComponent jPanel) {
+    public void setParent(JComponent jComponent) {
 
     }
 }

@@ -23,6 +23,16 @@ class Scroll implements SwingComponent {
     }
 
     @Override
+    public int getLocationX() {
+        return 0;
+    }
+
+    @Override
+    public int getLocationY() {
+        return 0;
+    }
+
+    @Override
     public String getName() {
         return null;
     }
@@ -53,7 +63,7 @@ class Scroll implements SwingComponent {
     }
 
     @Override
-    public void setParent(JComponent jPanel) {
+    public void setParent(JComponent jComponent) {
 
     }
 }

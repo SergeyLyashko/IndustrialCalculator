@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-class PanelBuilder implements SwingComponent {
+class Panel implements SwingComponent {
 
     private JComponent jPanel;
     private LayoutManager layoutManager;
@@ -15,7 +15,7 @@ class PanelBuilder implements SwingComponent {
     private String panelName;
     private List<SwingComponent> componentList;
 
-    SwingComponent build(Visitor visitor){
+    SwingComponent create(Visitor visitor){
         AbstractPanel abstractPanel = new AbstractPanel() {
             @Override
             public SwingComponent createPanel() {
@@ -32,6 +32,16 @@ class PanelBuilder implements SwingComponent {
     @Override
     public List<SwingComponent> getComponents() {
         return componentList;
+    }
+
+    @Override
+    public int getLocationX() {
+        return 0;
+    }
+
+    @Override
+    public int getLocationY() {
+        return 0;
     }
 
     @Override
@@ -54,13 +64,14 @@ class PanelBuilder implements SwingComponent {
     }
 
     @Override
-    public void setParent(JComponent jPanel) {
-        this.jPanel = jPanel;
+    public void setParent(JComponent jComponent) {
+        this.jPanel = jComponent;
     }
 
     public Container getParent() {
         return jPanel;
     }
+
 
     public void setName(String panelName) {
         this.panelName = panelName;

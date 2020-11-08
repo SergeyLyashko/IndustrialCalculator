@@ -8,10 +8,10 @@ import java.util.List;
 
 class PanelFactory {
 
-    private PanelBuilder panelBuilder;
+    private Panel panel;
 
     SwingComponent createPanel(String type, List<SwingComponent> components, Visitor visitor) throws IllegalStateException {
-        panelBuilder = new PanelBuilder();
+        panel = new Panel();
         switch (type){
             case "Калькулятор":
                 return createCalculatorPanel(components, visitor);
@@ -25,22 +25,22 @@ class PanelFactory {
     }
 
     private SwingComponent createSettingsPanel(List<SwingComponent> components, Visitor visitor){
-        panelBuilder.setName("Настройки");
-        panelBuilder.setComponentsList(components);
-        return panelBuilder.build(visitor);
+        panel.setName("Настройки");
+        panel.setComponentsList(components);
+        return panel.create(visitor);
     }
 
     private SwingComponent createInfoPanel(List<SwingComponent> components, Visitor visitor) {
-        panelBuilder.setLayout(new BorderLayout());
-        panelBuilder.setBorderLayout(BorderLayout.CENTER);
-        panelBuilder.setName("Справка");
-        panelBuilder.setComponentsList(components);
-        return panelBuilder.build(visitor);
+        panel.setLayout(new BorderLayout());
+        panel.setBorderLayout(BorderLayout.CENTER);
+        panel.setName("Справка");
+        panel.setComponentsList(components);
+        return panel.create(visitor);
     }
 
     private SwingComponent createCalculatorPanel(List<SwingComponent> components, Visitor visitor){
-        panelBuilder.setName("Калькулятор");
-        panelBuilder.setComponentsList(components);
-        return panelBuilder.build(visitor);
+        panel.setName("Калькулятор");
+        panel.setComponentsList(components);
+        return panel.create(visitor);
     }
 }

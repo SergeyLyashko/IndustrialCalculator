@@ -1,6 +1,5 @@
 package checkboxes;
 
-import appcomponents.SelectableCheckBox;
 import appcomponents.Visitor;
 
 import java.awt.event.ItemEvent;

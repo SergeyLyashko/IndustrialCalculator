@@ -1,4 +1,7 @@
-package appcomponents;
+package checkboxes;
+
+import appcomponents.Visitor;
+import checkboxes.SelectableCheckBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,8 +47,8 @@ public class ColorTheme implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public void setParent(JComponent componentSwing) {
-        this.componentSwing = componentSwing;
+    public void setParent(JComponent jComponent) {
+        this.componentSwing = jComponent;
     }
 
     @Override

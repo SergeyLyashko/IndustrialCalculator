@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface SwingComponent {
 
+    int getLocationX();
+
+    int getLocationY();
+
     String getName();
 
     List<SwingComponent> getComponents();
@@ -18,6 +22,6 @@ public interface SwingComponent {
 
     Container getParent();
 
-    void setParent(JComponent jPanel);
+    void setParent(JComponent jComponent);
 
 }

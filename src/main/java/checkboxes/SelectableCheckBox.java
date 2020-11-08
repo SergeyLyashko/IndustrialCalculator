@@ -1,4 +1,7 @@
-package appcomponents;
+package checkboxes;
+
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import java.awt.*;
 import java.util.List;

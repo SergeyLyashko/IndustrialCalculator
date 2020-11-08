@@ -1,8 +1,7 @@
 package tabs;
 
 import appcomponents.*;
-import calculatorcomponents.CalculatorComponents;
-import checkboxes.CheckBoxFactory;
+import appcomponents.CalculatorComponents;
 import infocomponents.InfoComponents;
 
 import javax.swing.*;
@@ -27,8 +26,8 @@ public class ApplicationView implements Serializable {
         panelsList = new ArrayList<>();
     }
 
-    public void setSettingsComponents(CheckBoxFactory checkBoxFactory, Visitor visitor) {
-        List<SwingComponent> components = checkBoxFactory.getComponents();
+    public void setSettingsComponents(SettingsComponents settingsComponents, Visitor visitor) {
+        List<SwingComponent> components = settingsComponents.getComponents();
         SwingComponent settings = panelFactory.createPanel("Настройки", components, visitor);
         panelsList.add(settings);
     }

@@ -1,23 +1,22 @@
 package checkboxes;
 
-import appcomponents.SelectableCheckBox;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-abstract class AbstractCheckBox {
+public abstract class AbstractCheckBox {
 
     private final JCheckBox jCheckBox;
 
-    AbstractCheckBox(){
+    public AbstractCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(320, 20);
     }
 
-    abstract SelectableCheckBox create();
+    public abstract SelectableCheckBox create();
 
-    SelectableCheckBox orderedCheckBox(Visitor visitor){
+    public SelectableCheckBox orderedCheckBox(Visitor visitor){
         SelectableCheckBox selectableCheckBox = create();
         setLocation(selectableCheckBox);
         setName(selectableCheckBox);

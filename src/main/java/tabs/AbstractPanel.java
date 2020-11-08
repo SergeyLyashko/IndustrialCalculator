@@ -17,7 +17,6 @@ abstract class AbstractPanel {
         SwingComponent newPanel = createPanel();
         newPanel.setParent(jPanel);
         setLayout(newPanel);
-        System.out.println("abs newPanel: "+newPanel.getName());//TEST
         addComponentsTo(newPanel);
         visitor.addVisitorComponent(newPanel);
         return newPanel;
