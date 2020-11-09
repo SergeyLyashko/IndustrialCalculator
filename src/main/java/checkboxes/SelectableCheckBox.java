@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface SelectableCheckBox extends SwingComponent {
 
-    int getLocationX();
-
-    int getLocationY();
 
     void select(Visitor visitor);
 

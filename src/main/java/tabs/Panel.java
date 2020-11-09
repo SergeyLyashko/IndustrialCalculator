@@ -1,5 +1,6 @@
 package tabs;
 
+import appcomponents.Factory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -66,6 +67,11 @@ class Panel implements SwingComponent {
     @Override
     public void setParent(JComponent jComponent) {
         this.jPanel = jComponent;
+    }
+
+    @Override
+    public Factory getFactory() {
+        return null;
     }
 
     public Container getParent() {

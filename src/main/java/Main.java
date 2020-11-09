@@ -1,31 +1,34 @@
 import appcomponents.*;
-import appcomponents.CalculatorComponents;
+import appcomponents.ComponentsCollector;
 import checkboxes.ColorTheme;
 import checkboxes.ComplexArea;
 import checkboxes.ToolTip;
 import comboboxes.AssortmentsMenu;
 import comboboxes.NumbersMenu;
 import comboboxes.TypesMenu;
+import fields.Length;
+import fields.Width;
 import infocomponents.InfoText;
 import tabs.ApplicationView;
-import infocomponents.InfoComponents;
 
 public class Main {
     public static void main(String[] args){
 
         Visitor visitor = new VisitorImpl();
 
-        CalculatorComponents calculatorComponents = new CalculatorComponents();
+        ComponentsCollector calculatorComponents = new ComponentsCollector();
         calculatorComponents.addComponent(new ComplexArea(), visitor);
-        calculatorComponents.addComponent(new AssortmentsMenu());
-        calculatorComponents.addComponent(new TypesMenu());
-        calculatorComponents.addComponent(new NumbersMenu());
+        calculatorComponents.addComponent(new AssortmentsMenu(), visitor);
+        calculatorComponents.addComponent(new TypesMenu(), visitor);
+        calculatorComponents.addComponent(new NumbersMenu(), visitor);
+        calculatorComponents.addComponent(new Length(), visitor);
+        calculatorComponents.addComponent(new Width(), visitor);
 
-        SettingsComponents settingsComponents = new SettingsComponents();
+        ComponentsCollector settingsComponents = new ComponentsCollector();
         settingsComponents.addComponent(new ColorTheme(), visitor);
         settingsComponents.addComponent(new ToolTip(), visitor);
 
-        InfoComponents infoComponents = new InfoComponents();
+        ComponentsCollector infoComponents = new ComponentsCollector();
         infoComponents.addComponent(new InfoText(), visitor);
 
         ApplicationView applicationView = new ApplicationView();

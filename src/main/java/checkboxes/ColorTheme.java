@@ -1,7 +1,7 @@
 package checkboxes;
 
+import appcomponents.Factory;
 import appcomponents.Visitor;
-import checkboxes.SelectableCheckBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,6 +49,11 @@ public class ColorTheme implements Serializable, SelectableCheckBox {
     @Override
     public void setParent(JComponent jComponent) {
         this.componentSwing = jComponent;
+    }
+
+    @Override
+    public Factory getFactory() {
+        return new CheckBoxFactory();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package checkboxes;
 
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
@@ -14,10 +15,10 @@ public abstract class AbstractCheckBox {
         jCheckBox.setSize(320, 20);
     }
 
-    public abstract SelectableCheckBox create();
+    public abstract SwingComponent create();
 
-    public SelectableCheckBox orderedCheckBox(Visitor visitor){
-        SelectableCheckBox selectableCheckBox = create();
+    public SwingComponent orderedCheckBox(Visitor visitor){
+        SwingComponent selectableCheckBox = create();
         setLocation(selectableCheckBox);
         setName(selectableCheckBox);
         addListener(selectableCheckBox, visitor);
@@ -26,22 +27,22 @@ public abstract class AbstractCheckBox {
         return selectableCheckBox;
     }
 
-    private void addVisitor(Visitor visitor, SelectableCheckBox checkBox){
+    private void addVisitor(Visitor visitor, SwingComponent checkBox){
         visitor.addVisitorComponent(checkBox);
     }
 
-    private void setLocation(SelectableCheckBox selectableCheckBox){
+    private void setLocation(SwingComponent selectableCheckBox){
         int locationX = selectableCheckBox.getLocationX();
         int locationY = selectableCheckBox.getLocationY();
         jCheckBox.setLocation(locationX, locationY);
     }
 
-    private void setName(SelectableCheckBox selectableCheckBox) {
+    private void setName(SwingComponent selectableCheckBox) {
         String boxName = selectableCheckBox.getName();
         jCheckBox.setText(boxName);
     }
 
-    private void addListener(SelectableCheckBox selectableCheckBox, Visitor visitor) {
+    private void addListener(SwingComponent selectableCheckBox, Visitor visitor) {
         CheckBoxState checkBoxState = new CheckBoxState(selectableCheckBox, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }

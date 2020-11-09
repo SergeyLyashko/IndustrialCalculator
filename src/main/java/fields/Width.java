@@ -1,4 +1,4 @@
-package comboboxes;
+package fields;
 
 import appcomponents.Factory;
 import appcomponents.Visitor;
@@ -6,12 +6,12 @@ import appcomponents.Visitor;
 import javax.swing.*;
 import java.awt.*;
 
-public class NumbersMenu implements SelectableComboBox {
+public class Width implements SelectableField {
 
-    private static final String BOX_NAME = "номер";
-    private static final String THEME_TOOL_TIP_TEXT = "выбор номера профиля детали";
-    private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 100;
+    private static final String BOX_NAME = "введите ширину";
+    private static final String THEME_TOOL_TIP_TEXT = "поле ввода ширины детали";
+    private static final int LOCATION_X = 190;
+    private static final int LOCATION_Y = 20;
     private JComponent componentSwing;
 
     @Override
@@ -30,6 +30,11 @@ public class NumbersMenu implements SelectableComboBox {
     }
 
     @Override
+    public void acceptVisitor(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
     public Container getParent() {
         return componentSwing;
     }
@@ -40,12 +45,7 @@ public class NumbersMenu implements SelectableComboBox {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public Factory getFactory() {
-        return new ComboBoxFactory();
+        return new FieldFactory();
     }
 }

@@ -1,5 +1,6 @@
 package infocomponents;
 
+import appcomponents.Factory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -64,6 +65,10 @@ class Scroll implements SwingComponent {
 
     @Override
     public void setParent(JComponent jComponent) {
+    }
 
+    @Override
+    public Factory getFactory() {
+        return new InfoFactory();
     }
 }

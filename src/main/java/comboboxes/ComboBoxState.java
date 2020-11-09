@@ -1,12 +1,14 @@
 package comboboxes;
 
+import appcomponents.SwingComponent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ComboBoxState implements ActionListener {
 
 
-    public ComboBoxState(SelectableComboBox selectableComboBox) {
+    public ComboBoxState(SwingComponent selectableComboBox) {
 
     }
 

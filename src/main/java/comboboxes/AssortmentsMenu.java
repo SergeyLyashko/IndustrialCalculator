@@ -1,5 +1,8 @@
 package comboboxes;
 
+import appcomponents.Factory;
+import appcomponents.Visitor;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,6 +30,11 @@ public class AssortmentsMenu implements SelectableComboBox {
     }
 
     @Override
+    public void acceptVisitor(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
     public Container getParent() {
         return componentSwing;
     }
@@ -34,5 +42,10 @@ public class AssortmentsMenu implements SelectableComboBox {
     @Override
     public void setParent(JComponent jComponent) {
         this.componentSwing = jComponent;
+    }
+
+    @Override
+    public Factory getFactory() {
+        return new ComboBoxFactory();
     }
 }

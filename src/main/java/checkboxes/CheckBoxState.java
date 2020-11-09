@@ -1,5 +1,6 @@
 package checkboxes;
 
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import java.awt.event.ItemEvent;
@@ -10,8 +11,8 @@ class CheckBoxState implements ItemListener {
     private final SelectableCheckBox selectableCheckBox;
     private final Visitor visitor;
 
-    CheckBoxState(SelectableCheckBox newCheckBox, Visitor visitor) {
-        this.selectableCheckBox = newCheckBox;
+    CheckBoxState(SwingComponent newCheckBox, Visitor visitor) {
+        this.selectableCheckBox = (SelectableCheckBox) newCheckBox;
         this.visitor = visitor;
     }
 

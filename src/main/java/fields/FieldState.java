@@ -1,14 +1,16 @@
 package fields;
 
+import appcomponents.SwingComponent;
+
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class FieldState implements FocusListener, KeyListener {
+class FieldState implements FocusListener, KeyListener {
 
 
-    public FieldState(SelectableField selectableField) {
+    FieldState(SwingComponent selectableField) {
 
     }
 

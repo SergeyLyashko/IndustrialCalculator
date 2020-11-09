@@ -1,5 +1,6 @@
 package infocomponents;
 
+import appcomponents.Factory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -11,7 +12,6 @@ import java.util.List;
 public class InfoText implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
-
     private final JLabel jLabel;
 
     private static final String TEXT =
@@ -91,6 +91,10 @@ public class InfoText implements Serializable, SwingComponent {
 
     @Override
     public void setParent(JComponent jComponent) {
+    }
 
+    @Override
+    public Factory getFactory() {
+        return new InfoFactory();
     }
 }

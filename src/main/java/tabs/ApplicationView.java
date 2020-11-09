@@ -1,8 +1,7 @@
 package tabs;
 
 import appcomponents.*;
-import appcomponents.CalculatorComponents;
-import infocomponents.InfoComponents;
+import appcomponents.ComponentsCollector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,19 +25,19 @@ public class ApplicationView implements Serializable {
         panelsList = new ArrayList<>();
     }
 
-    public void setSettingsComponents(SettingsComponents settingsComponents, Visitor visitor) {
+    public void setSettingsComponents(ComponentsCollector settingsComponents, Visitor visitor) {
         List<SwingComponent> components = settingsComponents.getComponents();
         SwingComponent settings = panelFactory.createPanel("Настройки", components, visitor);
         panelsList.add(settings);
     }
 
-    public void setInfoComponents(InfoComponents infoComponents, Visitor visitor){
+    public void setInfoComponents(ComponentsCollector infoComponents, Visitor visitor){
         List<SwingComponent> components = infoComponents.getComponents();
         SwingComponent info = panelFactory.createPanel("Справка", components, visitor);
         panelsList.add(info);
     }
 
-    public void setCalculatorComponents(CalculatorComponents calculatorComponents, Visitor visitor){
+    public void setCalculatorComponents(ComponentsCollector calculatorComponents, Visitor visitor){
         List<SwingComponent> components = calculatorComponents.getComponents();
         SwingComponent calc = panelFactory.createPanel("Калькулятор", components, visitor);
         panelsList.add(calc);

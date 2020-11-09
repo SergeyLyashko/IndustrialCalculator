@@ -9,7 +9,7 @@ import java.util.List;
 class PanelFactory {
 
     private Panel panel;
-
+    // TODO заменить LIST на ComponentsCollector ?????
     SwingComponent createPanel(String type, List<SwingComponent> components, Visitor visitor) throws IllegalStateException {
         panel = new Panel();
         switch (type){

@@ -1,5 +1,7 @@
 package comboboxes;
 
+import appcomponents.SwingComponent;
+
 import javax.swing.*;
 
 public abstract class AbstractComboBox {
@@ -14,22 +16,22 @@ public abstract class AbstractComboBox {
         jComboBox.setSelectedIndex(-1);
     }
 
-    public abstract SelectableComboBox create();
+    public abstract SwingComponent create();
 
-    public SelectableComboBox orderedComboBox(){
-        SelectableComboBox selectableComboBox = create();
+    public SwingComponent orderedComboBox(){
+        SwingComponent selectableComboBox = create();
         setLocation(selectableComboBox);
         addListener(selectableComboBox);
         selectableComboBox.setParent(jComboBox);
         return selectableComboBox;
     }
 
-    private void addListener(SelectableComboBox selectableComboBox) {
+    private void addListener(SwingComponent selectableComboBox) {
         ComboBoxState comboBoxState = new ComboBoxState(selectableComboBox);
         jComboBox.addActionListener(comboBoxState);
     }
 
-    private void setLocation(SelectableComboBox selectableComboBox) {
+    private void setLocation(SwingComponent selectableComboBox) {
         int locationX = selectableComboBox.getLocationX();
         int locationY = selectableComboBox.getLocationY();
         jComboBox.setLocation(locationX, locationY);
