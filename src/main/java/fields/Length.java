@@ -1,12 +1,13 @@
 package fields;
 
 import appcomponents.Factory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Length implements SelectableField {
+public class Length implements SelectableField, Field {
 
     private static final String BOX_NAME = "введите длину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";
@@ -47,5 +48,10 @@ public class Length implements SelectableField {
     @Override
     public Factory getFactory() {
         return new FieldFactory();
+    }
+
+    @Override
+    public SwingComponent create() {
+        return this;
     }
 }

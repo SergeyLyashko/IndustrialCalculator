@@ -1,12 +1,13 @@
 package fields;
 
 import appcomponents.Factory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Width implements SelectableField {
+public class Width implements SelectableField, Field {
 
     private static final String BOX_NAME = "введите ширину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода ширины детали";
@@ -47,5 +48,10 @@ public class Width implements SelectableField {
     @Override
     public Factory getFactory() {
         return new FieldFactory();
+    }
+
+    @Override
+    public SwingComponent create() {
+        return this;
     }
 }
