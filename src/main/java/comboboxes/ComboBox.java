@@ -1,0 +1,41 @@
+package comboboxes;
+
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
+
+import javax.swing.*;
+
+public interface ComboBox {
+
+    int WIDTH = 155;
+    int HEIGHT = 23;
+
+    default JComboBox<String> getComboBox(){
+        JComboBox<String> jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+        return jComboBox;
+    }
+
+    SwingComponent create();
+
+    default SwingComponent ordered(Visitor visitor){
+        SwingComponent selectableComboBox = create();
+        JComboBox<String> comboBox = getComboBox();
+        setLocation(selectableComboBox, comboBox);
+        addListener(selectableComboBox, comboBox);
+        selectableComboBox.setParent(comboBox);
+        return selectableComboBox;
+    }
+
+    default void addListener(SwingComponent selectableComboBox, JComboBox<String> comboBox) {
+        ComboBoxState comboBoxState = new ComboBoxState(selectableComboBox);
+        comboBox.addActionListener(comboBoxState);
+    }
+
+    default void setLocation(SwingComponent selectableComboBox, JComboBox<String> comboBox) {
+        int locationX = selectableComboBox.getLocationX();
+        int locationY = selectableComboBox.getLocationY();
+        comboBox.setLocation(locationX, locationY);
+    }
+}

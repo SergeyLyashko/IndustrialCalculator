@@ -16,7 +16,7 @@ public interface CheckBox {
 
     SwingComponent create();
 
-    default SwingComponent orderedCheckBox(Visitor visitor){
+    default SwingComponent ordered(Visitor visitor){
         SwingComponent selectableCheckBox = create();
         JCheckBox checkBox = getCheckBox();
         setLocation(selectableCheckBox, checkBox);

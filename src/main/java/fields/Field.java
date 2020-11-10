@@ -1,6 +1,7 @@
 package fields;
 
 import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import javax.swing.*;
 
@@ -19,7 +20,7 @@ public interface Field {
 
     SwingComponent create();
 
-    default SwingComponent orderedField(){
+    default SwingComponent ordered(Visitor visitor){
         SwingComponent component = create();
         JComponent jComponent = getField();
         setLocation(component, jComponent);
