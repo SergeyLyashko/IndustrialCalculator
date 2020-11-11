@@ -49,9 +49,11 @@ public class Length implements SelectableField, AbstractField {
     public FactoryableComponents getFactory() {
         return AbstractField.super::ordered;
     }
-
+/*
     @Override
     public SwingComponent create() {
         return this;
     }
+    
+ */
 }

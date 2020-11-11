@@ -14,7 +14,7 @@ public interface AbstractCheckBox {
         return jCheckBox;
     }
 
-    SwingComponent create();
+    //SwingComponent create();
 
     default SwingComponent ordered(SwingComponent selectableCheckBox, Visitor visitor){
         JCheckBox checkBox = getCheckBox();

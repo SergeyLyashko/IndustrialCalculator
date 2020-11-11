@@ -16,31 +16,32 @@ public class ApplicationView implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final JFrame jFrame;
-    private final PanelFactory panelFactory;
     private final List<SwingComponent> panelsList;
 
     public ApplicationView(){
         jFrame = new JFrame("Industrial calculator");
-        panelFactory = new PanelFactory();
         panelsList = new ArrayList<>();
     }
 
     public void setSettingsComponents(ComponentsCollector settingsComponents, Visitor visitor) {
         List<SwingComponent> components = settingsComponents.getComponents();
-        SwingComponent settings = panelFactory.createPanel("Настройки", components, visitor);
-        panelsList.add(settings);
+        SwingComponent settings = new PanelImpl().create("Настройки", components, visitor);
+        SwingComponent newComponent = settings.getFactory().createNewComponent(settings, visitor);
+        panelsList.add(newComponent);
     }
 
     public void setInfoComponents(ComponentsCollector infoComponents, Visitor visitor){
         List<SwingComponent> components = infoComponents.getComponents();
-        SwingComponent info = panelFactory.createPanel("Справка", components, visitor);
-        panelsList.add(info);
+        SwingComponent info = new PanelImpl().create("Справка", components, visitor);
+        SwingComponent newComponent = info.getFactory().createNewComponent(info, visitor);
+        panelsList.add(newComponent);
     }
 
     public void setCalculatorComponents(ComponentsCollector calculatorComponents, Visitor visitor){
         List<SwingComponent> components = calculatorComponents.getComponents();
-        SwingComponent calc = panelFactory.createPanel("Калькулятор", components, visitor);
-        panelsList.add(calc);
+        SwingComponent calc = new PanelImpl().create("Калькулятор", components, visitor);
+        SwingComponent newComponent = calc.getFactory().createNewComponent(calc, visitor);
+        panelsList.add(newComponent);
     }
 
     public void createView(){

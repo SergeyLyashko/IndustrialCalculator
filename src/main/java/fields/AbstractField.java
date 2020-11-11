@@ -18,7 +18,7 @@ public interface AbstractField {
         return textField;
     }
 
-    SwingComponent create();
+    //SwingComponent create();
 
     default SwingComponent ordered(SwingComponent component, Visitor visitor){
         JComponent jComponent = getField();

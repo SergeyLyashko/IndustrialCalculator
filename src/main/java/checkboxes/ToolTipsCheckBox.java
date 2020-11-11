@@ -71,9 +71,11 @@ public class ToolTipsCheckBox implements Serializable, SelectableCheckBox, Abstr
     private void setState(boolean state) {
         ToolTipManager.sharedInstance().setEnabled(state);
     }
-
+/*
     @Override
     public SwingComponent create() {
         return this;
     }
+
+ */
 }

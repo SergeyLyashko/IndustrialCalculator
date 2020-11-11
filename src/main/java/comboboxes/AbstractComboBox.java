@@ -17,7 +17,7 @@ public interface AbstractComboBox {
         return jComboBox;
     }
 
-    SwingComponent create();
+    //SwingComponent create();
 
     default SwingComponent ordered(SwingComponent selectableComboBox, Visitor visitor){
         JComboBox<String> comboBox = getComboBox();

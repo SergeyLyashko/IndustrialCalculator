@@ -49,9 +49,11 @@ public class NumbersBox implements SelectableComboBox, AbstractComboBox {
     public FactoryableComponents getFactory() {
         return AbstractComboBox.super::ordered;
     }
-
+/*
     @Override
     public SwingComponent create() {
         return this;
     }
+
+ */
 }

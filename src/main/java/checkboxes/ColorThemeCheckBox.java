@@ -84,9 +84,11 @@ public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, Abs
         markerColor = Color.BLACK;
         serviceStringColor = Color.BLUE;
     }
-
+/*
     @Override
     public SwingComponent create() {
         return this;
     }
+
+ */
 }

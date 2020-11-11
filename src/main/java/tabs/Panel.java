@@ -1,6 +1,5 @@
 package tabs;
 
-import appcomponents.FactoryableComponents;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -8,90 +7,41 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-class Panel implements SwingComponent {
+public interface Panel {
 
-    private JComponent jPanel;
-    private LayoutManager layoutManager;
-    private String borderLayout;
-    private String panelName;
-    private List<SwingComponent> componentList;
-
-    SwingComponent create(Visitor visitor){
-        AbstractPanel abstractPanel = new AbstractPanel() {
-            @Override
-            public SwingComponent createPanel() {
-                return create();
-            }
-        };
-        return abstractPanel.order(visitor);
+    default JPanel getPanel(){
+        return new JPanel();
     }
 
-    private SwingComponent create() {
-        return this;
+    SwingComponent create(String type, List<SwingComponent> components, Visitor visitor);
+
+    default SwingComponent ordered(SwingComponent component, Visitor visitor){
+        JPanel jPanel = getPanel();
+        component.setParent(jPanel);
+        setLayout(component);
+        addComponentsTo(component);
+        visitor.addVisitorComponent(component);
+        return component;
     }
 
-    @Override
-    public List<SwingComponent> getComponents() {
-        return componentList;
+    default void addComponentsTo(SwingComponent panel){
+        List<SwingComponent> componentList = panel.getComponents();
+        if(componentList != null){
+            componentList.forEach(comp -> System.out.println("abs panels components: "+comp.getName()));//TEST
+            componentList.forEach(component -> addParent(panel, component));
+        }
     }
 
-    @Override
-    public int getLocationX() {
-        return 0;
+    default void addParent(SwingComponent panel, SwingComponent component) {
+        Container parentComponent = component.getParent();
+        Container panelParent = panel.getParent();
+        String borderLayout = panel.getBorderLayout();
+        panelParent.add(parentComponent, borderLayout);
     }
 
-    @Override
-    public int getLocationY() {
-        return 0;
-    }
-
-    @Override
-    public String getName() {
-        return panelName;
-    }
-
-    @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public LayoutManager getLayout() {
-        return layoutManager;
-    }
-
-    public String getBorderLayout(){
-        return borderLayout;
-    }
-
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.jPanel = jComponent;
-    }
-
-    @Override
-    public FactoryableComponents getFactory() {
-        return null;
-    }
-
-    public Container getParent() {
-        return jPanel;
-    }
-
-
-    public void setName(String panelName) {
-        this.panelName = panelName;
-    }
-
-    public void setComponentsList(List<SwingComponent> componentsList) {
-        this.componentList = componentsList;
-    }
-
-    public void setLayout(LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
-    public void setBorderLayout(String borderLayout) {
-        this.borderLayout = borderLayout;
+    default void setLayout(SwingComponent panel) {
+        LayoutManager layout = panel.getLayout();
+        Container parent = panel.getParent();
+        parent.setLayout(layout);
     }
 }

@@ -59,11 +59,13 @@ public class ComplexAreaCheckBox implements SelectableCheckBox, AbstractCheckBox
         jComponent.setFont(deriveFont);
         this.componentSwing = jComponent;
     }
-
+/*
     @Override
     public SwingComponent create() {
         return this;
     }
+
+ */
 
     @Override
     public FactoryableComponents getFactory() {
