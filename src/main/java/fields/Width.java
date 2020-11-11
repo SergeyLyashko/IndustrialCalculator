@@ -1,7 +1,6 @@
 package fields;
 
-import appcomponents.FactoryableComponents;
-import appcomponents.SwingComponent;
+import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
@@ -46,7 +45,7 @@ public class Width implements SelectableField, AbstractField {
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return AbstractField.super::ordered;
     }
 /*

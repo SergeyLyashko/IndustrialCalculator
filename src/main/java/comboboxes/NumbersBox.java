@@ -1,7 +1,6 @@
 package comboboxes;
 
-import appcomponents.FactoryableComponents;
-import appcomponents.SwingComponent;
+import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
@@ -46,7 +45,7 @@ public class NumbersBox implements SelectableComboBox, AbstractComboBox {
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return AbstractComboBox.super::ordered;
     }
 /*

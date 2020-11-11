@@ -1,7 +1,7 @@
 package appcomponents;
 
 @FunctionalInterface
-public interface FactoryableComponents {
+public interface AbstractFactory {
 
     SwingComponent createNewComponent(SwingComponent component, Visitor visitor);
 }

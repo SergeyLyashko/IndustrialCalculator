@@ -16,13 +16,9 @@ public interface SwingComponent {
 
     void acceptVisitor(Visitor visitor);
 
-    LayoutManager getLayout();
-
-    String getBorderLayout();
-
     Container getParent();
 
     void setParent(JComponent jComponent);
 
-    FactoryableComponents getFactory();
+    AbstractFactory getFactory();
 }

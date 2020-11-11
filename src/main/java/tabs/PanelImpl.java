@@ -1,6 +1,6 @@
 package tabs;
 
-import appcomponents.FactoryableComponents;
+import appcomponents.AbstractFactory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -11,41 +11,37 @@ import java.util.List;
 class PanelImpl implements SwingComponent, Panel {
 
     private JComponent jPanel;
-    private LayoutManager layoutManager;
-    private String borderLayout;
     private String panelName;
     private List<SwingComponent> componentList;
 
     public SwingComponent create(String type, List<SwingComponent> components, Visitor visitor){
         switch (type){
             case "Калькулятор":
-                return createCalculatorPanel(components, visitor);
+                return createCalculatorPanel(type,components, visitor);
             case "Настройки":
-                return createSettingsPanel(components, visitor);
+                return createSettingsPanel(type, components, visitor);
             case "Справка":
-                return createInfoPanel(components, visitor);
+                return createInfoPanel(type, components, visitor);
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 
-    private SwingComponent createSettingsPanel(List<SwingComponent> components, Visitor visitor){
-        setName("Настройки");
-        setComponentsList(components);
+    private SwingComponent createSettingsPanel(String type, List<SwingComponent> components, Visitor visitor){
+        this.panelName = type;
+        this.componentList = components;
         return this;
     }
 
-    private SwingComponent createInfoPanel(List<SwingComponent> components, Visitor visitor) {
-        setLayout(new BorderLayout());
-        setBorderLayout(BorderLayout.CENTER);
-        setName("Справка");
-        setComponentsList(components);
+    private SwingComponent createInfoPanel(String type, List<SwingComponent> components, Visitor visitor) {
+        this.panelName = type;
+        this.componentList = components;
         return this;
     }
 
-    private SwingComponent createCalculatorPanel(List<SwingComponent> components, Visitor visitor){
-        setName("Калькулятор");
-        setComponentsList(components);
+    private SwingComponent createCalculatorPanel(String type, List<SwingComponent> components, Visitor visitor){
+        this.panelName = type;
+        this.componentList = components;
         return this;
     }
 
@@ -75,21 +71,12 @@ class PanelImpl implements SwingComponent, Panel {
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return layoutManager;
-    }
-
-    public String getBorderLayout(){
-        return borderLayout;
-    }
-
-    @Override
     public void setParent(JComponent jComponent) {
         this.jPanel = jComponent;
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return Panel.super::ordered;
     }
 
@@ -97,20 +84,4 @@ class PanelImpl implements SwingComponent, Panel {
         return jPanel;
     }
 
-
-    public void setName(String panelName) {
-        this.panelName = panelName;
-    }
-
-    public void setComponentsList(List<SwingComponent> componentsList) {
-        this.componentList = componentsList;
-    }
-
-    public void setLayout(LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
-    public void setBorderLayout(String borderLayout) {
-        this.borderLayout = borderLayout;
-    }
 }

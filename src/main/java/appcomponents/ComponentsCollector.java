@@ -9,7 +9,7 @@ public class ComponentsCollector {
     private final List<SwingComponent> swingComponents = new ArrayList<>();
 
     public void addComponent(SwingComponent swingComponent, Visitor visitor) {
-        FactoryableComponents factory = swingComponent.getFactory();
+        AbstractFactory factory = swingComponent.getFactory();
         SwingComponent newComponent = factory.createNewComponent(swingComponent, visitor);
         swingComponents.add(newComponent);
     }

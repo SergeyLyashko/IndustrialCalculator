@@ -1,6 +1,6 @@
 package infocomponents;
 
-import appcomponents.FactoryableComponents;
+import appcomponents.AbstractFactory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -18,6 +18,7 @@ class ScrollContainer implements SwingComponent {
         viewport.add(content.getParent());
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setSize(new Dimension(350, 165));
         container = scrollPane;
         visitor.addVisitorComponent(this);
         return this;
@@ -49,16 +50,6 @@ class ScrollContainer implements SwingComponent {
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    @Override
     public Container getParent() {
         return container;
     }
@@ -68,7 +59,7 @@ class ScrollContainer implements SwingComponent {
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return this::add;
     }
 }

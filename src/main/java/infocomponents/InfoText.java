@@ -1,6 +1,6 @@
 package infocomponents;
 
-import appcomponents.FactoryableComponents;
+import appcomponents.AbstractFactory;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -46,7 +46,7 @@ public class InfoText implements Serializable, SwingComponent {
     public InfoText(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
-        jLabel.setPreferredSize(new Dimension(250, 510));
+        jLabel.setPreferredSize(new Dimension(250, 500));
     }
 
     @Override
@@ -75,16 +75,6 @@ public class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public LayoutManager getLayout() {
-        return null;
-    }
-
-    @Override
-    public String getBorderLayout() {
-        return null;
-    }
-
-    @Override
     public JComponent getParent() {
         return jLabel;
     }
@@ -94,7 +84,7 @@ public class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return new ScrollContainer()::add;
     }
 }

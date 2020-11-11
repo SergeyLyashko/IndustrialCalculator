@@ -1,7 +1,6 @@
 package checkboxes;
 
-import appcomponents.FactoryableComponents;
-import appcomponents.SwingComponent;
+import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
@@ -53,7 +52,7 @@ public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, Abs
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return AbstractCheckBox.super::ordered;
     }
 

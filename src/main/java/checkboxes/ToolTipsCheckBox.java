@@ -1,7 +1,6 @@
 package checkboxes;
 
-import appcomponents.FactoryableComponents;
-import appcomponents.SwingComponent;
+import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
@@ -48,7 +47,7 @@ public class ToolTipsCheckBox implements Serializable, SelectableCheckBox, Abstr
     }
 
     @Override
-    public FactoryableComponents getFactory() {
+    public AbstractFactory getFactory() {
         return AbstractCheckBox.super::ordered;
     }
 
