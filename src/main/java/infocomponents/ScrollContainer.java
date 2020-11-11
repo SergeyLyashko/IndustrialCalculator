@@ -1,6 +1,6 @@
 package infocomponents;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -8,12 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-class Scroll implements SwingComponent {
+class ScrollContainer implements SwingComponent {
 
     private final JScrollPane scrollPane = new JScrollPane();
     private Container container;
 
-    SwingComponent createContainer(SwingComponent content, Visitor visitor){
+    SwingComponent add(SwingComponent content, Visitor visitor){
         JViewport viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -68,7 +68,7 @@ class Scroll implements SwingComponent {
     }
 
     @Override
-    public Factory getFactory() {
-        return new InfoFactory();
+    public FactoryableComponents getFactory() {
+        return this::add;
     }
 }

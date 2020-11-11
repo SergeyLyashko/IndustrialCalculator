@@ -1,13 +1,14 @@
 package checkboxes;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-public class ColorTheme implements Serializable, SelectableCheckBox {
+public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, AbstractCheckBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,22 +53,18 @@ public class ColorTheme implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public Factory getFactory() {
-        return new CheckBoxFactory();
+    public FactoryableComponents getFactory() {
+        return AbstractCheckBox.super::ordered;
     }
 
     @Override
     public void select(Visitor visitor) {
-        // TODO
-        //System.out.println("theme selected");
         setDarkColorTheme();
         visitor.raid();
     }
 
     @Override
     public void deselect(Visitor visitor) {
-        // TODO
-        //System.out.println("theme deselected");
         setLightColorTheme();
         visitor.raid();
     }
@@ -86,5 +83,10 @@ public class ColorTheme implements Serializable, SelectableCheckBox {
         foreGround = Color.BLACK;
         markerColor = Color.BLACK;
         serviceStringColor = Color.BLUE;
+    }
+
+    @Override
+    public SwingComponent create() {
+        return this;
     }
 }

@@ -5,7 +5,7 @@ import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface ComboBox {
+public interface AbstractComboBox {
 
     int WIDTH = 155;
     int HEIGHT = 23;
@@ -19,8 +19,7 @@ public interface ComboBox {
 
     SwingComponent create();
 
-    default SwingComponent ordered(Visitor visitor){
-        SwingComponent selectableComboBox = create();
+    default SwingComponent ordered(SwingComponent selectableComboBox, Visitor visitor){
         JComboBox<String> comboBox = getComboBox();
         setLocation(selectableComboBox, comboBox);
         addListener(selectableComboBox, comboBox);

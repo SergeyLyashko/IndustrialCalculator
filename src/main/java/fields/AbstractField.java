@@ -5,7 +5,7 @@ import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface Field {
+public interface AbstractField {
 
     int WIDTH = 125;
     int HEIGHT = 23;
@@ -20,8 +20,7 @@ public interface Field {
 
     SwingComponent create();
 
-    default SwingComponent ordered(Visitor visitor){
-        SwingComponent component = create();
+    default SwingComponent ordered(SwingComponent component, Visitor visitor){
         JComponent jComponent = getField();
         setLocation(component, jComponent);
         addListener(component, jComponent);

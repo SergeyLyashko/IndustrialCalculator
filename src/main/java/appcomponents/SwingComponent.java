@@ -24,5 +24,5 @@ public interface SwingComponent {
 
     void setParent(JComponent jComponent);
 
-    Factory getFactory();
+    FactoryableComponents getFactory();
 }

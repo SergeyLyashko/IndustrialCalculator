@@ -1,6 +1,6 @@
 package tabs;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -70,7 +70,7 @@ class Panel implements SwingComponent {
     }
 
     @Override
-    public Factory getFactory() {
+    public FactoryableComponents getFactory() {
         return null;
     }
 

@@ -5,7 +5,7 @@ import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface CheckBox {
+public interface AbstractCheckBox {
 
     default JCheckBox getCheckBox(){
         JCheckBox jCheckBox = new JCheckBox();
@@ -16,8 +16,7 @@ public interface CheckBox {
 
     SwingComponent create();
 
-    default SwingComponent ordered(Visitor visitor){
-        SwingComponent selectableCheckBox = create();
+    default SwingComponent ordered(SwingComponent selectableCheckBox, Visitor visitor){
         JCheckBox checkBox = getCheckBox();
         setLocation(selectableCheckBox, checkBox);
         setName(selectableCheckBox, checkBox);

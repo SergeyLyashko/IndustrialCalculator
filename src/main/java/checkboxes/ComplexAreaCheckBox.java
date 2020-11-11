@@ -1,12 +1,13 @@
 package checkboxes;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ComplexArea implements SelectableCheckBox {
+public class ComplexAreaCheckBox implements SelectableCheckBox, AbstractCheckBox {
 
     private static final String TOOL_TIP_BOX_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
@@ -60,7 +61,12 @@ public class ComplexArea implements SelectableCheckBox {
     }
 
     @Override
-    public Factory getFactory() {
-        return new CheckBoxFactory();
+    public SwingComponent create() {
+        return this;
+    }
+
+    @Override
+    public FactoryableComponents getFactory() {
+        return AbstractCheckBox.super::ordered;
     }
 }

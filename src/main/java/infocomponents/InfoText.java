@@ -1,6 +1,6 @@
 package infocomponents;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -94,7 +94,7 @@ public class InfoText implements Serializable, SwingComponent {
     }
 
     @Override
-    public Factory getFactory() {
-        return new InfoFactory();
+    public FactoryableComponents getFactory() {
+        return new ScrollContainer()::add;
     }
 }

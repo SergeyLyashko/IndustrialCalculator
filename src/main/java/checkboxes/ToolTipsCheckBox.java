@@ -1,12 +1,13 @@
 package checkboxes;
 
-import appcomponents.Factory;
+import appcomponents.FactoryableComponents;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.io.Serializable;
 
-public class ToolTip implements Serializable, SelectableCheckBox {
+public class ToolTipsCheckBox implements Serializable, SelectableCheckBox, AbstractCheckBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,8 +48,8 @@ public class ToolTip implements Serializable, SelectableCheckBox {
     }
 
     @Override
-    public Factory getFactory() {
-        return new CheckBoxFactory();
+    public FactoryableComponents getFactory() {
+        return AbstractCheckBox.super::ordered;
     }
 
     @Override
@@ -69,5 +70,10 @@ public class ToolTip implements Serializable, SelectableCheckBox {
 
     private void setState(boolean state) {
         ToolTipManager.sharedInstance().setEnabled(state);
+    }
+
+    @Override
+    public SwingComponent create() {
+        return this;
     }
 }

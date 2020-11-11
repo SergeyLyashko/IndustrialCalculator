@@ -1,11 +1,11 @@
 import appcomponents.*;
 import appcomponents.ComponentsCollector;
-import checkboxes.ColorTheme;
-import checkboxes.ComplexArea;
-import checkboxes.ToolTip;
-import comboboxes.AssortmentsMenu;
-import comboboxes.NumbersMenu;
-import comboboxes.TypesMenu;
+import checkboxes.ColorThemeCheckBox;
+import checkboxes.ComplexAreaCheckBox;
+import checkboxes.ToolTipsCheckBox;
+import comboboxes.AssortmentsBox;
+import comboboxes.NumbersBox;
+import comboboxes.TypesBox;
 import fields.Length;
 import fields.Width;
 import infocomponents.InfoText;
@@ -17,16 +17,16 @@ public class Main {
         Visitor visitor = new VisitorImpl();
 
         ComponentsCollector calculatorComponents = new ComponentsCollector();
-        calculatorComponents.addComponent(new ComplexArea(), visitor);
-        calculatorComponents.addComponent(new AssortmentsMenu(), visitor);
-        calculatorComponents.addComponent(new TypesMenu(), visitor);
-        calculatorComponents.addComponent(new NumbersMenu(), visitor);
+        calculatorComponents.addComponent(new ComplexAreaCheckBox(), visitor);
+        calculatorComponents.addComponent(new AssortmentsBox(), visitor);
+        calculatorComponents.addComponent(new TypesBox(), visitor);
+        calculatorComponents.addComponent(new NumbersBox(), visitor);
         calculatorComponents.addComponent(new Length(), visitor);
         calculatorComponents.addComponent(new Width(), visitor);
 
         ComponentsCollector settingsComponents = new ComponentsCollector();
-        settingsComponents.addComponent(new ColorTheme(), visitor);
-        settingsComponents.addComponent(new ToolTip(), visitor);
+        settingsComponents.addComponent(new ColorThemeCheckBox(), visitor);
+        settingsComponents.addComponent(new ToolTipsCheckBox(), visitor);
 
         ComponentsCollector infoComponents = new ComponentsCollector();
         infoComponents.addComponent(new InfoText(), visitor);
