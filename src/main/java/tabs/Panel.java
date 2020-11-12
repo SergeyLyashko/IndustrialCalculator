@@ -15,7 +15,7 @@ public interface Panel {
         return jPanel;
     }
 
-    SwingComponent create(String type, List<SwingComponent> components, Visitor visitor);
+    SwingComponent create(List<SwingComponent> components, Visitor visitor);
 
     default SwingComponent ordered(SwingComponent component, Visitor visitor){
         JPanel jPanel = getPanel();

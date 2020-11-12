@@ -32,9 +32,9 @@ public class Main {
         infoComponents.addComponent(new InfoText(), visitor);
 
         ApplicationView applicationView = new ApplicationView();
-        applicationView.setCalculatorComponents(calculatorComponents, visitor);
-        applicationView.setSettingsComponents(settingsComponents, visitor);
-        applicationView.setInfoComponents(infoComponents, visitor);
+        applicationView.createPanel("Калькулятор", calculatorComponents, visitor);
+        applicationView.createPanel("Настройки", settingsComponents, visitor);
+        applicationView.createPanel("Справка", infoComponents, visitor);
 
         applicationView.createView();
         applicationView.savePreferencesAndExit();

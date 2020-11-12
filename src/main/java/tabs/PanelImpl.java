@@ -11,36 +11,9 @@ import java.util.List;
 class PanelImpl implements SwingComponent, Panel {
 
     private JComponent jPanel;
-    private String panelName;
     private List<SwingComponent> componentList;
 
-    public SwingComponent create(String type, List<SwingComponent> components, Visitor visitor){
-        switch (type){
-            case "Калькулятор":
-                return createCalculatorPanel(type,components, visitor);
-            case "Настройки":
-                return createSettingsPanel(type, components, visitor);
-            case "Справка":
-                return createInfoPanel(type, components, visitor);
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
-    }
-
-    private SwingComponent createSettingsPanel(String type, List<SwingComponent> components, Visitor visitor){
-        this.panelName = type;
-        this.componentList = components;
-        return this;
-    }
-
-    private SwingComponent createInfoPanel(String type, List<SwingComponent> components, Visitor visitor) {
-        this.panelName = type;
-        this.componentList = components;
-        return this;
-    }
-
-    private SwingComponent createCalculatorPanel(String type, List<SwingComponent> components, Visitor visitor){
-        this.panelName = type;
+    public SwingComponent create(List<SwingComponent> components, Visitor visitor){
         this.componentList = components;
         return this;
     }
@@ -62,7 +35,7 @@ class PanelImpl implements SwingComponent, Panel {
 
     @Override
     public String getName() {
-        return panelName;
+        return "Panel";
     }
 
     @Override
@@ -83,5 +56,4 @@ class PanelImpl implements SwingComponent, Panel {
     public Container getParent() {
         return jPanel;
     }
-
 }
