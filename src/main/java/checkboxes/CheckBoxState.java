@@ -1,5 +1,6 @@
 package checkboxes;
 
+import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
@@ -8,11 +9,11 @@ import java.awt.event.ItemListener;
 
 class CheckBoxState implements ItemListener {
 
-    private final SelectableCheckBox selectableCheckBox;
+    private final SelectableComponent selectableCheckBox;
     private final Visitor visitor;
 
     CheckBoxState(SwingComponent newCheckBox, Visitor visitor) {
-        this.selectableCheckBox = (SelectableCheckBox) newCheckBox;
+        this.selectableCheckBox = (SelectableComponent) newCheckBox;
         this.visitor = visitor;
     }
 
@@ -22,11 +23,11 @@ class CheckBoxState implements ItemListener {
         switch (stateChange){
             case ItemEvent.SELECTED:
                 // TODO
-                selectableCheckBox.select(visitor);
+                selectableCheckBox.activate(visitor);
                 break;
             case ItemEvent.DESELECTED:
                 // TODO
-                selectableCheckBox.deselect(visitor);
+                selectableCheckBox.deactivate(visitor);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + event.getStateChange());

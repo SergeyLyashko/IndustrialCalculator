@@ -1,12 +1,13 @@
 package fields;
 
 import appcomponents.AbstractFactory;
+import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Width implements SelectableField, AbstractField {
+public class Width implements SelectableComponent, AbstractField {
 
     private static final String BOX_NAME = "введите ширину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода ширины детали";
@@ -48,11 +49,15 @@ public class Width implements SelectableField, AbstractField {
     public AbstractFactory getFactory() {
         return AbstractField.super::ordered;
     }
-/*
+
     @Override
-    public SwingComponent create() {
-        return this;
+    public void activate(Visitor visitor) {
+        System.out.println("width activate");
     }
 
- */
+    @Override
+    public void deactivate(Visitor visitor) {
+        System.out.println("width deactivate");
+        componentSwing.transferFocus();
+    }
 }

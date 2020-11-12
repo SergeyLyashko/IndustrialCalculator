@@ -4,7 +4,8 @@ public interface Visitor {
 
     void raid();
 
-    void addVisitorComponent(SwingComponent component);
+    void addHost(Host host);
 
-    void visit(SwingComponent component);
+    void visit(Host host);
+
 }

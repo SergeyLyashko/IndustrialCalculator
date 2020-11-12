@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public interface SwingComponent {
+public interface SwingComponent extends Host {
 
     int getLocationX();
 
@@ -13,8 +13,6 @@ public interface SwingComponent {
     String getName();
 
     List<SwingComponent> getComponents();
-
-    void acceptVisitor(Visitor visitor);
 
     Container getParent();
 

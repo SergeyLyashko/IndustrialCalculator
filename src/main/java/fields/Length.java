@@ -1,12 +1,13 @@
 package fields;
 
 import appcomponents.AbstractFactory;
+import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Length implements SelectableField, AbstractField {
+public class Length implements SelectableComponent, AbstractField {
 
     private static final String BOX_NAME = "введите длину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";
@@ -48,11 +49,14 @@ public class Length implements SelectableField, AbstractField {
     public AbstractFactory getFactory() {
         return AbstractField.super::ordered;
     }
-/*
+
     @Override
-    public SwingComponent create() {
-        return this;
+    public void activate(Visitor visitor) {
+        System.out.println("length activate");
     }
-    
- */
+
+    @Override
+    public void deactivate(Visitor visitor) {
+        System.out.println("length deactivate");
+    }
 }

@@ -3,18 +3,17 @@ package appcomponents;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO нужен ли класс ??? заменить на List<SwingComponents> ????
-public class ComponentsCollector {
+public class FactoryComponents {
 
-    private final List<SwingComponent> swingComponents = new ArrayList<>();
+    private final List<SwingComponent> components = new ArrayList<>();
 
     public void addComponent(SwingComponent swingComponent, Visitor visitor) {
         AbstractFactory factory = swingComponent.getFactory();
         SwingComponent newComponent = factory.createNewComponent(swingComponent, visitor);
-        swingComponents.add(newComponent);
+        components.add(newComponent);
     }
 
     public List<SwingComponent> getComponents() {
-        return swingComponents;
+        return components;
     }
 }

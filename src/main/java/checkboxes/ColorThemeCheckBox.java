@@ -1,13 +1,14 @@
 package checkboxes;
 
 import appcomponents.AbstractFactory;
+import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, AbstractCheckBox {
+public class ColorThemeCheckBox implements Serializable, SelectableComponent, AbstractCheckBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,13 +58,13 @@ public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, Abs
     }
 
     @Override
-    public void select(Visitor visitor) {
+    public void activate(Visitor visitor) {
         setDarkColorTheme();
         visitor.raid();
     }
 
     @Override
-    public void deselect(Visitor visitor) {
+    public void deactivate(Visitor visitor) {
         setLightColorTheme();
         visitor.raid();
     }
@@ -83,11 +84,4 @@ public class ColorThemeCheckBox implements Serializable, SelectableCheckBox, Abs
         markerColor = Color.BLACK;
         serviceStringColor = Color.BLUE;
     }
-/*
-    @Override
-    public SwingComponent create() {
-        return this;
-    }
-
- */
 }

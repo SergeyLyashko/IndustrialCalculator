@@ -1,4 +1,4 @@
-package infocomponents;
+package appcomponents.staticelements;
 
 import appcomponents.AbstractFactory;
 import appcomponents.SwingComponent;
@@ -20,7 +20,7 @@ class ScrollContainer implements SwingComponent {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
         container = scrollPane;
-        visitor.addVisitorComponent(this);
+        visitor.addHost(this);
         return this;
     }
 
@@ -46,7 +46,7 @@ class ScrollContainer implements SwingComponent {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.addVisitorComponent(this);
+        visitor.addHost(this);
     }
 
     @Override

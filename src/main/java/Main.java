@@ -1,5 +1,5 @@
 import appcomponents.*;
-import appcomponents.ComponentsCollector;
+import appcomponents.FactoryComponents;
 import checkboxes.ColorThemeCheckBox;
 import checkboxes.ComplexAreaCheckBox;
 import checkboxes.ToolTipsCheckBox;
@@ -8,15 +8,15 @@ import comboboxes.NumbersBox;
 import comboboxes.TypesBox;
 import fields.Length;
 import fields.Width;
-import infocomponents.InfoText;
-import tabs.ApplicationView;
+import appcomponents.staticelements.InfoText;
+import appcomponents.staticelements.ApplicationView;
 
 public class Main {
     public static void main(String[] args){
 
         Visitor visitor = new VisitorImpl();
 
-        ComponentsCollector calculatorComponents = new ComponentsCollector();
+        FactoryComponents calculatorComponents = new FactoryComponents();
         calculatorComponents.addComponent(new ComplexAreaCheckBox(), visitor);
         calculatorComponents.addComponent(new AssortmentsBox(), visitor);
         calculatorComponents.addComponent(new TypesBox(), visitor);
@@ -24,11 +24,11 @@ public class Main {
         calculatorComponents.addComponent(new Length(), visitor);
         calculatorComponents.addComponent(new Width(), visitor);
 
-        ComponentsCollector settingsComponents = new ComponentsCollector();
+        FactoryComponents settingsComponents = new FactoryComponents();
         settingsComponents.addComponent(new ColorThemeCheckBox(), visitor);
         settingsComponents.addComponent(new ToolTipsCheckBox(), visitor);
 
-        ComponentsCollector infoComponents = new ComponentsCollector();
+        FactoryComponents infoComponents = new FactoryComponents();
         infoComponents.addComponent(new InfoText(), visitor);
 
         ApplicationView applicationView = new ApplicationView();

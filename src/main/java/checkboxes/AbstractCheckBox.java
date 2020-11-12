@@ -7,15 +7,6 @@ import javax.swing.*;
 
 public interface AbstractCheckBox {
 
-    default JCheckBox getCheckBox(){
-        JCheckBox jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(true);
-        jCheckBox.setSize(320, 20);
-        return jCheckBox;
-    }
-
-    //SwingComponent create();
-
     default SwingComponent ordered(SwingComponent selectableCheckBox, Visitor visitor){
         JCheckBox checkBox = getCheckBox();
         setLocation(selectableCheckBox, checkBox);
@@ -26,8 +17,15 @@ public interface AbstractCheckBox {
         return selectableCheckBox;
     }
 
+    default JCheckBox getCheckBox(){
+        JCheckBox jCheckBox = new JCheckBox();
+        jCheckBox.setSelected(true);
+        jCheckBox.setSize(320, 20);
+        return jCheckBox;
+    }
+
     default void addVisitor(Visitor visitor, SwingComponent checkBox){
-        visitor.addVisitorComponent(checkBox);
+        visitor.addHost(checkBox);
     }
 
     default void setLocation(SwingComponent selectableCheckBox, JCheckBox checkBox){

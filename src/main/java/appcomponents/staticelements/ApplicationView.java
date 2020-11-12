@@ -1,9 +1,11 @@
-package tabs;
+package appcomponents.staticelements;
 
-import appcomponents.*;
-import appcomponents.ComponentsCollector;
+import appcomponents.FactoryComponents;
+import appcomponents.SwingComponent;
+import appcomponents.Visitor;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
@@ -16,15 +18,15 @@ public class ApplicationView implements Serializable {
     private final JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
     private final JFrame jFrame = new JFrame("Industrial calculator");
 
-    public void createPanel(String type, ComponentsCollector collector, Visitor visitor){
-        List<SwingComponent> components = collector.getComponents();
-        SwingComponent panel = new PanelImpl().create(components, visitor);
-        SwingComponent newPanel = panel.getFactory().createNewComponent(panel, visitor);
+    public void createPanel(String type, FactoryComponents factoryComponents, Visitor visitor){
+        List<SwingComponent> components = factoryComponents.getComponents();
+        AppPanel newPanel = new AppPanel(components, visitor);
         addTab(type, newPanel);
     }
 
-    private void addTab(String type, SwingComponent panel){
-        jTabbedPane.add(type, panel.getParent());
+    private void addTab(String type, AppPanel newPanel){
+        Container parentContainer = newPanel.getParent();
+        jTabbedPane.add(type, parentContainer);
     }
 
     public void createView(){

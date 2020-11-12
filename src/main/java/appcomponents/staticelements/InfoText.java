@@ -1,4 +1,4 @@
-package infocomponents;
+package appcomponents.staticelements;
 
 import appcomponents.AbstractFactory;
 import appcomponents.SwingComponent;

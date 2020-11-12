@@ -1,12 +1,13 @@
 package comboboxes;
 
 import appcomponents.AbstractFactory;
+import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AssortmentsBox implements SelectableComboBox, AbstractComboBox {
+public class AssortmentsBox implements SelectableComponent, AbstractComboBox {
 
     private static final String BOX_NAME = "сортамент";
     private static final String THEME_TOOL_TIP_TEXT = "выбор сортамента детали";
@@ -48,11 +49,14 @@ public class AssortmentsBox implements SelectableComboBox, AbstractComboBox {
     public AbstractFactory getFactory() {
         return AbstractComboBox.super::ordered;
     }
-/*
+
     @Override
-    public SwingComponent create() {
-        return this;
+    public void activate(Visitor visitor) {
+
     }
 
- */
+    @Override
+    public void deactivate(Visitor visitor) {
+
+    }
 }
