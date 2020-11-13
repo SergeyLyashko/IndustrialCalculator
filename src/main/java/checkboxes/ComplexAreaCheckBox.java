@@ -1,13 +1,12 @@
 package checkboxes;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ComplexAreaCheckBox implements SelectableComponent, AbstractCheckBox {
+public class ComplexAreaCheckBox implements AbstractCheckBox {
 
     private static final String TOOL_TIP_BOX_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";

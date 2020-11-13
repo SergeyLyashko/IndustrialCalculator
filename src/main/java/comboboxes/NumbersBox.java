@@ -1,13 +1,12 @@
 package comboboxes;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class NumbersBox implements SelectableComponent, AbstractComboBox {
+public class NumbersBox implements AbstractComboBox {
 
     private static final String BOX_NAME = "номер";
     private static final String THEME_TOOL_TIP_TEXT = "выбор номера профиля детали";

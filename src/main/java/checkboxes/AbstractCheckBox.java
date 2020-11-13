@@ -1,11 +1,12 @@
 package checkboxes;
 
+import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface AbstractCheckBox {
+public interface AbstractCheckBox extends SelectableComponent{
 
     default SwingComponent ordered(SwingComponent selectableCheckBox, Visitor visitor){
         JCheckBox checkBox = getCheckBox();

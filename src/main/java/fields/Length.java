@@ -1,13 +1,12 @@
 package fields;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Length implements SelectableComponent, AbstractField {
+public class Length implements AbstractField {
 
     private static final String BOX_NAME = "введите длину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";

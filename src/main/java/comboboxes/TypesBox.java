@@ -1,13 +1,12 @@
 package comboboxes;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TypesBox implements SelectableComponent, AbstractComboBox {
+public class TypesBox implements AbstractComboBox {
 
     private static final String BOX_NAME = "тип";
     private static final String THEME_TOOL_TIP_TEXT = "выбор типа профиля детали";

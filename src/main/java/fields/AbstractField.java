@@ -1,11 +1,12 @@
 package fields;
 
+import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface AbstractField {
+public interface AbstractField extends SelectableComponent {
 
     int WIDTH = 125;
     int HEIGHT = 23;

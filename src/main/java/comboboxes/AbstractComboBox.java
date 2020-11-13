@@ -1,11 +1,12 @@
 package comboboxes;
 
+import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface AbstractComboBox {
+public interface AbstractComboBox extends SelectableComponent {
 
     int WIDTH = 155;
     int HEIGHT = 23;

@@ -1,13 +1,12 @@
 package checkboxes;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.io.Serializable;
 
-public class ToolTipsCheckBox implements Serializable, SelectableComponent, AbstractCheckBox {
+public class ToolTipsCheckBox implements Serializable, AbstractCheckBox {
 
     private static final long serialVersionUID = 1L;
 

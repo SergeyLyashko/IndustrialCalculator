@@ -1,14 +1,13 @@
 package checkboxes;
 
 import appcomponents.AbstractFactory;
-import appcomponents.SelectableComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-public class ColorThemeCheckBox implements Serializable, SelectableComponent, AbstractCheckBox {
+public class ColorThemeCheckBox implements Serializable, AbstractCheckBox {
 
     private static final long serialVersionUID = 1L;
 
