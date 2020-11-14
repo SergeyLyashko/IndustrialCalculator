@@ -1,4 +1,4 @@
-package comboboxes;
+package menuboxes;
 
 import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
@@ -6,7 +6,7 @@ import appcomponents.Visitor;
 import javax.swing.*;
 import java.awt.*;
 
-public class AssortmentsBox implements AbstractComboBox {
+public class AssortmentsMenu implements AbstractMenu {
 
     private static final String BOX_NAME = "сортамент";
     private static final String THEME_TOOL_TIP_TEXT = "выбор сортамента детали";
@@ -35,7 +35,7 @@ public class AssortmentsBox implements AbstractComboBox {
     }
 
     @Override
-    public Container getParent() {
+    public JComponent getParent() {
         return componentSwing;
     }
 
@@ -46,16 +46,18 @@ public class AssortmentsBox implements AbstractComboBox {
 
     @Override
     public AbstractFactory getFactory() {
-        return AbstractComboBox.super::ordered;
+        return AbstractMenu.super::initialization;
+    }
+
+
+    @Override
+    public String getCurrentMenu() {
+        System.out.println("assortment select");
+        return null;
     }
 
     @Override
-    public void activate(Visitor visitor) {
-
-    }
-
-    @Override
-    public void deactivate(Visitor visitor) {
+    public void actionMenu(String currentMenu) {
 
     }
 }

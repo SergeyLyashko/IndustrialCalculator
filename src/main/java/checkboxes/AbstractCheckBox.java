@@ -1,21 +1,20 @@
 package checkboxes;
 
-import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface AbstractCheckBox extends SelectableComponent{
+public interface AbstractCheckBox extends SwingComponent, CheckBoxSelectable {
 
-    default SwingComponent ordered(SwingComponent selectableCheckBox, Visitor visitor){
-        JCheckBox checkBox = getCheckBox();
-        setLocation(selectableCheckBox, checkBox);
-        setName(selectableCheckBox, checkBox);
-        addListener(selectableCheckBox, checkBox, visitor);
-        addVisitor(visitor, selectableCheckBox);
-        selectableCheckBox.setParent(checkBox);
-        return selectableCheckBox;
+    default SwingComponent initialization(SwingComponent component, Visitor visitor){
+        JCheckBox jCheckBox = getCheckBox();
+        setLocation(component, jCheckBox);
+        setName(component, jCheckBox);
+        addListener(component, jCheckBox, visitor);
+        addVisitor(visitor, component);
+        component.setParent(jCheckBox);
+        return component;
     }
 
     default JCheckBox getCheckBox(){
@@ -25,19 +24,19 @@ public interface AbstractCheckBox extends SelectableComponent{
         return jCheckBox;
     }
 
-    default void addVisitor(Visitor visitor, SwingComponent checkBox){
-        visitor.addHost(checkBox);
+    default void addVisitor(Visitor visitor, SwingComponent component){
+        visitor.addHost(component);
     }
 
-    default void setLocation(SwingComponent selectableCheckBox, JCheckBox checkBox){
-        int locationX = selectableCheckBox.getLocationX();
-        int locationY = selectableCheckBox.getLocationY();
-        checkBox.setLocation(locationX, locationY);
+    default void setLocation(SwingComponent component, JCheckBox jCheckBox){
+        int locationX = component.getLocationX();
+        int locationY = component.getLocationY();
+        jCheckBox.setLocation(locationX, locationY);
     }
 
-    default void setName(SwingComponent selectableCheckBox, JCheckBox checkBox) {
-        String boxName = selectableCheckBox.getName();
-        checkBox.setText(boxName);
+    default void setName(SwingComponent component, JCheckBox jCheckBox) {
+        String boxName = component.getName();
+        jCheckBox.setText(boxName);
     }
 
     default void addListener(SwingComponent selectableCheckBox, JCheckBox checkBox, Visitor visitor) {

@@ -53,7 +53,7 @@ public class ColorThemeCheckBox implements Serializable, AbstractCheckBox {
 
     @Override
     public AbstractFactory getFactory() {
-        return AbstractCheckBox.super::ordered;
+        return AbstractCheckBox.super::initialization;
     }
 
     @Override

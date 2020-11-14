@@ -1,4 +1,4 @@
-package comboboxes;
+package menuboxes;
 
 import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
@@ -6,13 +6,13 @@ import appcomponents.Visitor;
 import javax.swing.*;
 import java.awt.*;
 
-public class NumbersBox implements AbstractComboBox {
+public class NumbersMenu implements AbstractMenu {
 
     private static final String BOX_NAME = "номер";
     private static final String THEME_TOOL_TIP_TEXT = "выбор номера профиля детали";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 100;
-    private JComponent componentSwing;
+    private JComponent jComponent;
 
     @Override
     public int getLocationX() {
@@ -30,13 +30,13 @@ public class NumbersBox implements AbstractComboBox {
     }
 
     @Override
-    public Container getParent() {
-        return componentSwing;
+    public JComponent getParent() {
+        return jComponent;
     }
 
     @Override
     public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
+        this.jComponent = jComponent;
     }
 
     @Override
@@ -46,16 +46,17 @@ public class NumbersBox implements AbstractComboBox {
 
     @Override
     public AbstractFactory getFactory() {
-        return AbstractComboBox.super::ordered;
+        return AbstractMenu.super::initialization;
     }
 
     @Override
-    public void activate(Visitor visitor) {
-
+    public String getCurrentMenu() {
+        System.out.println("numbers select");
+        return null;
     }
 
     @Override
-    public void deactivate(Visitor visitor) {
+    public void actionMenu(String currentMenu) {
 
     }
 }

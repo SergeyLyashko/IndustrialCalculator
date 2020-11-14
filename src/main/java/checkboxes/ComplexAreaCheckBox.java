@@ -61,6 +61,6 @@ public class ComplexAreaCheckBox implements AbstractCheckBox {
 
     @Override
     public AbstractFactory getFactory() {
-        return AbstractCheckBox.super::ordered;
+        return AbstractCheckBox.super::initialization;
     }
 }

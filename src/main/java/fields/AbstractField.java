@@ -1,25 +1,24 @@
 package fields;
 
-import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public interface AbstractField extends SelectableComponent {
+public interface AbstractField extends SwingComponent, FieldSelectable {
 
     int WIDTH = 125;
     int HEIGHT = 23;
 
     default SwingComponent ordered(SwingComponent component, Visitor visitor){
-        JComponent jComponent = getField();
-        setLocation(component, jComponent);
-        addListener(component, visitor, jComponent);
-        component.setParent(jComponent);
+        JFormattedTextField jFormattedText = getField();
+        setLocation(component, jFormattedText);
+        addListener(component, visitor, jFormattedText);
+        component.setParent(jFormattedText);
         return component;
     }
 
-    default JComponent getField(){
+    default JFormattedTextField getField(){
         JFormattedTextField textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
@@ -27,15 +26,15 @@ public interface AbstractField extends SelectableComponent {
         return textField;
     }
 
-    default void setLocation(SwingComponent selectableField, JComponent component) {
-        int locationX = selectableField.getLocationX();
-        int locationY = selectableField.getLocationY();
-        component.setLocation(locationX, locationY);
+    default void setLocation(SwingComponent component, JFormattedTextField jFormattedTextField) {
+        int locationX = component.getLocationX();
+        int locationY = component.getLocationY();
+        jFormattedTextField.setLocation(locationX, locationY);
     }
 
-    default void addListener(SwingComponent selectableField, Visitor visitor, JComponent component) {
-        FieldState fieldState = new FieldState(selectableField, visitor);
-        component.addFocusListener(fieldState);
-        component.addKeyListener(fieldState);
+    default void addListener(SwingComponent component, Visitor visitor, JFormattedTextField jFormattedTextField) {
+        FieldBehavior fieldState = new FieldBehavior(component, visitor);
+        jFormattedTextField.addFocusListener(fieldState);
+        jFormattedTextField.addKeyListener(fieldState);
     }
 }

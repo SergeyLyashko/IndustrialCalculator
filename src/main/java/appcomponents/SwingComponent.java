@@ -1,7 +1,6 @@
 package appcomponents;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public interface SwingComponent extends Host {
@@ -12,11 +11,13 @@ public interface SwingComponent extends Host {
 
     String getName();
 
-    List<SwingComponent> getComponents();
+    default List<SwingComponent> getComponents(){
+        return null;
+    }
 
-    Container getParent();
+    JComponent getParent();
 
-    void setParent(JComponent jComponent);
+    <T extends JComponent> void setParent(T jComponent);
 
     AbstractFactory getFactory();
 }

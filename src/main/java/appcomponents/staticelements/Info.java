@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
 
-public class InfoText implements Serializable, SwingComponent {
+public class Info implements Serializable, SwingComponent {
 
     private static final long serialVersionUID = 1L;
     private final JLabel jLabel;
@@ -43,7 +43,7 @@ public class InfoText implements Serializable, SwingComponent {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    public InfoText(){
+    public Info(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));

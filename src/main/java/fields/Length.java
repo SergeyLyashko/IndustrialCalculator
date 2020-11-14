@@ -4,7 +4,6 @@ import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Length implements AbstractField {
 
@@ -12,7 +11,7 @@ public class Length implements AbstractField {
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 60;
-    private JComponent componentSwing;
+    private JFormattedTextField jComponent;
 
     @Override
     public int getLocationX() {
@@ -30,32 +29,24 @@ public class Length implements AbstractField {
     }
 
     @Override
+    public JComponent getParent() {
+        return jComponent;
+    }
+
+    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public Container getParent() {
-        return componentSwing;
+    public <T extends JComponent> void setParent(T jComponent) {
+        this.jComponent = (JFormattedTextField) jComponent;
     }
 
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
-    }
 
     @Override
     public AbstractFactory getFactory() {
         return AbstractField.super::ordered;
     }
 
-    @Override
-    public void activate(Visitor visitor) {
-        System.out.println("length activate");
-    }
-
-    @Override
-    public void deactivate(Visitor visitor) {
-        System.out.println("length deactivate");
-    }
 }

@@ -4,7 +4,6 @@ import appcomponents.AbstractFactory;
 import appcomponents.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Width implements AbstractField {
 
@@ -12,7 +11,7 @@ public class Width implements AbstractField {
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода ширины детали";
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 20;
-    private JComponent componentSwing;
+    private JFormattedTextField jComponent;
 
     @Override
     public int getLocationX() {
@@ -35,13 +34,13 @@ public class Width implements AbstractField {
     }
 
     @Override
-    public Container getParent() {
-        return componentSwing;
+    public JComponent getParent() {
+        return jComponent;
     }
 
     @Override
-    public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
+    public <T extends JComponent> void setParent(T jComponent) {
+        this.jComponent = (JFormattedTextField) jComponent;
     }
 
     @Override
@@ -49,14 +48,4 @@ public class Width implements AbstractField {
         return AbstractField.super::ordered;
     }
 
-    @Override
-    public void activate(Visitor visitor) {
-        System.out.println("width activate");
-    }
-
-    @Override
-    public void deactivate(Visitor visitor) {
-        System.out.println("width deactivate");
-        componentSwing.transferFocus();
-    }
 }

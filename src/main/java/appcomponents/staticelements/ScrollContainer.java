@@ -11,7 +11,7 @@ import java.util.List;
 class ScrollContainer implements SwingComponent {
 
     private final JScrollPane scrollPane = new JScrollPane();
-    private Container container;
+    private JComponent container;
 
     SwingComponent add(SwingComponent content, Visitor visitor){
         JViewport viewport = scrollPane.getViewport();
@@ -50,7 +50,7 @@ class ScrollContainer implements SwingComponent {
     }
 
     @Override
-    public Container getParent() {
+    public JComponent getParent() {
         return container;
     }
 

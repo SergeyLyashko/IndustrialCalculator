@@ -1,21 +1,21 @@
 package fields;
 
-import appcomponents.SelectableComponent;
 import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
+import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class FieldState implements FocusListener, KeyListener {
+class FieldBehavior implements FocusListener, KeyListener {
 
-    private final SelectableComponent selectableField;
     private final Visitor visitor;
+    private final SwingComponent component;
 
-    FieldState(SwingComponent selectableField, Visitor visitor) {
-        this.selectableField = (SelectableComponent) selectableField;
+    FieldBehavior(SwingComponent component, Visitor visitor) {
+        this.component = component;
         this.visitor = visitor;
     }
 
@@ -35,14 +35,16 @@ class FieldState implements FocusListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            selectableField.activate(visitor);
+            JTextField parent = (JFormattedTextField) component.getParent();
+            parent.getText();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            selectableField.deactivate(visitor);
+            JComponent parent = component.getParent();
+            parent.transferFocus();
         }
     }
 }
