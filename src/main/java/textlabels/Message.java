@@ -1,51 +1,51 @@
 package textlabels;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public class Message implements AbstractLabel {
+public class Message implements SwingComponent {
 
-    private static final String DEFAULT_VIEW = "";
+    private final JLabel jLabel;
+
+    private static final String DEFAULT_VIEW = "test";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 140;
     private static final int SIZE_X = 315;
     private static final int SIZE_Y = 15;
-    private JLabel component;
+
+    public Message(){
+        jLabel = new JLabel();
+        jLabel.setSize(SIZE_X, SIZE_Y);
+        jLabel.setVisible(true);
+        jLabel.setText(DEFAULT_VIEW);
+        jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+
+    }
 
     @Override
     public int getLocationX() {
-        return 0;
+        return LOCATION_X;
     }
 
     @Override
     public int getLocationY() {
-        return 0;
+        return LOCATION_Y;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 
     @Override
     public JComponent getParent() {
-        return null;
-    }
-
-    @Override
-    public <T extends JComponent> void setParent(T jComponent) {
-
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return null;
+        return jLabel;
     }
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-
+        visitor.visit(this);
     }
 }

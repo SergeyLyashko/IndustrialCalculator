@@ -1,18 +1,43 @@
 package menuboxes;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class NumbersMenu implements AbstractMenu {
+public class NumbersMenu implements SwingComponent, MenuSelectable {
+
+    private final JComboBox<String> jComboBox;
 
     private static final String BOX_NAME = "номер";
     private static final String THEME_TOOL_TIP_TEXT = "выбор номера профиля детали";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 100;
-    private JComponent jComponent;
+    private static final int WIDTH = 155;
+    private static final int HEIGHT = 23;
+
+    public NumbersMenu(){
+        jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+    }
+
+    @Override
+    public String getCurrentMenu() {
+        System.out.println("assortment select");
+        return null;
+    }
+
+    @Override
+    public void actionMenu(String currentMenu) {
+
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+        MenuBehavior menuItemBehavior = new MenuBehavior();
+        jComboBox.addActionListener(menuItemBehavior);
+    }
 
     @Override
     public int getLocationX() {
@@ -25,38 +50,12 @@ public class NumbersMenu implements AbstractMenu {
     }
 
     @Override
-    public String getName() {
-        return BOX_NAME;
-    }
-
-    @Override
     public JComponent getParent() {
-        return jComponent;
-    }
-
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.jComponent = jComponent;
+        return jComboBox;
     }
 
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return AbstractMenu.super::initialization;
-    }
-
-    @Override
-    public String getCurrentMenu() {
-        System.out.println("numbers select");
-        return null;
-    }
-
-    @Override
-    public void actionMenu(String currentMenu) {
-
     }
 }

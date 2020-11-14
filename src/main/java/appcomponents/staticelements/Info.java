@@ -6,12 +6,9 @@ import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
-import java.util.List;
 
-public class Info implements Serializable, SwingComponent {
+public class Info implements SwingComponent {
 
-    private static final long serialVersionUID = 1L;
     private final JLabel jLabel;
 
     private static final String TEXT =
@@ -60,16 +57,6 @@ public class Info implements Serializable, SwingComponent {
     }
 
     @Override
-    public String getName() {
-        return "infoText";
-    }
-
-    @Override
-    public List<SwingComponent> getComponents() {
-        return null;
-    }
-
-    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
@@ -79,12 +66,14 @@ public class Info implements Serializable, SwingComponent {
         return jLabel;
     }
 
-    @Override
-    public void setParent(JComponent jComponent) {
-    }
 
     @Override
     public AbstractFactory getFactory() {
         return new ScrollContainer()::add;
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+
     }
 }

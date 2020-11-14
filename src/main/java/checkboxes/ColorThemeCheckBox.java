@@ -1,25 +1,39 @@
 package checkboxes;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
 
-public class ColorThemeCheckBox implements Serializable, AbstractCheckBox {
+public class ColorThemeCheckBox implements SwingComponent, CheckBoxSelectable {
 
-    private static final long serialVersionUID = 1L;
+    private final JCheckBox jCheckBox;
 
     private static final String BOX_NAME = "темная тема оформления";
     private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private static final int LOCATION_X = 15;
     private static final int LOCATION_Y = 35;
+    private static final int WIDTH = 320;
+    private static final int HEIGHT = 20;
     private Color backGround;
     private Color foreGround;
     private Color markerColor;
     private Color serviceStringColor;
-    private JComponent componentSwing;
+
+    public ColorThemeCheckBox(){
+        jCheckBox = new JCheckBox();
+        jCheckBox.setSelected(true);
+        jCheckBox.setSize(WIDTH, HEIGHT);
+        jCheckBox.setText(BOX_NAME);
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
+        jCheckBox.addItemListener(checkBoxState);
+    }
+
 
     @Override
     public int getLocationX() {
@@ -31,10 +45,6 @@ public class ColorThemeCheckBox implements Serializable, AbstractCheckBox {
         return LOCATION_Y;
     }
 
-    @Override
-    public String getName() {
-        return BOX_NAME;
-    }
 
     @Override
     public void acceptVisitor(Visitor visitor) {
@@ -43,17 +53,7 @@ public class ColorThemeCheckBox implements Serializable, AbstractCheckBox {
 
     @Override
     public JComponent getParent() {
-        return componentSwing;
-    }
-
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return AbstractCheckBox.super::initialization;
+        return jCheckBox;
     }
 
     @Override

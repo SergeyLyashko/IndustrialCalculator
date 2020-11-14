@@ -5,23 +5,22 @@ import appcomponents.Visitor;
 
 import javax.swing.*;
 
-public class Result implements SwingComponent {
+public class DimensionLabel implements SwingComponent {
 
+    private static final String DEFAULT_VIEW = "mm";
+    private static final int SIZE_X = 25;
+    private static final int SIZE_Y = 20;
     private final JLabel jLabel;
+    private final int locationX;
+    private final int locationY;
 
-    private static final String DEFAULT_VIEW = "0.0";
-    private static final String KG = "кг";
-    private static final int LOCATION_X = 190;
-    private static final int LOCATION_Y = 105;
-    private static final int SIZE_X = 125;
-    private static final int SIZE_Y = 25;
-
-    public Result(){
+    public DimensionLabel(int locationX, int locationY){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
-        jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        this.locationX = locationX;
+        this.locationY = locationY;
     }
 
     @Override
@@ -31,12 +30,12 @@ public class Result implements SwingComponent {
 
     @Override
     public int getLocationX() {
-        return LOCATION_X;
+        return locationX;
     }
 
     @Override
     public int getLocationY() {
-        return LOCATION_Y;
+        return locationY;
     }
 
     @Override
@@ -48,4 +47,5 @@ public class Result implements SwingComponent {
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
+
 }

@@ -1,18 +1,30 @@
 package checkboxes;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ComplexAreaCheckBox implements AbstractCheckBox {
+public class ComplexAreaCheckBox implements SwingComponent, CheckBoxSelectable {
+
+    private final JCheckBox jCheckBox;
 
     private static final String TOOL_TIP_BOX_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
     private static final int LOCATION_X = 187;
     private static final int LOCATION_Y = 85;
-    private JComponent componentSwing;
+    private static final int WIDTH = 320;
+    private static final int HEIGHT = 20;
+
+    public ComplexAreaCheckBox(){
+        jCheckBox = new JCheckBox();
+        jCheckBox.setSelected(true);
+        jCheckBox.setSize(WIDTH, HEIGHT);
+        jCheckBox.setText(BOX_NAME);
+        Font deriveFont = jCheckBox.getFont().deriveFont(10f);
+        jCheckBox.setFont(deriveFont);
+    }
 
     @Override
     public int getLocationX() {
@@ -25,10 +37,10 @@ public class ComplexAreaCheckBox implements AbstractCheckBox {
     }
 
     @Override
-    public String getName() {
-        return BOX_NAME;
+    public void addListener(SwingComponent component, Visitor visitor) {
+        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
+        jCheckBox.addItemListener(checkBoxState);
     }
-
 
     @Override
     public void activate(Visitor visitor) {
@@ -49,18 +61,7 @@ public class ComplexAreaCheckBox implements AbstractCheckBox {
 
     @Override
     public JComponent getParent() {
-        return componentSwing;
+        return jCheckBox;
     }
 
-    @Override
-    public void setParent(JComponent jComponent) {
-        Font deriveFont = jComponent.getFont().deriveFont(10f);
-        jComponent.setFont(deriveFont);
-        this.componentSwing = jComponent;
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return AbstractCheckBox.super::initialization;
-    }
 }

@@ -1,18 +1,43 @@
 package menuboxes;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class AssortmentsMenu implements AbstractMenu {
+public class AssortmentsMenu implements SwingComponent, MenuSelectable {
+
+    private final JComboBox<String> jComboBox;
 
     private static final String BOX_NAME = "сортамент";
     private static final String THEME_TOOL_TIP_TEXT = "выбор сортамента детали";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 20;
-    private JComponent componentSwing;
+    private static final int WIDTH = 155;
+    private static final int HEIGHT = 23;
+
+    public AssortmentsMenu(){
+        jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+    }
+
+    @Override
+    public String getCurrentMenu() {
+        System.out.println("assortment select");
+        return null;
+    }
+
+    @Override
+    public void actionMenu(String currentMenu) {
+
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+        MenuBehavior menuItemBehavior = new MenuBehavior();
+        jComboBox.addActionListener(menuItemBehavior);
+    }
 
     @Override
     public int getLocationX() {
@@ -25,39 +50,12 @@ public class AssortmentsMenu implements AbstractMenu {
     }
 
     @Override
-    public String getName() {
-        return BOX_NAME;
+    public JComponent getParent() {
+        return jComboBox;
     }
 
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public JComponent getParent() {
-        return componentSwing;
-    }
-
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return AbstractMenu.super::initialization;
-    }
-
-
-    @Override
-    public String getCurrentMenu() {
-        System.out.println("assortment select");
-        return null;
-    }
-
-    @Override
-    public void actionMenu(String currentMenu) {
-
     }
 }

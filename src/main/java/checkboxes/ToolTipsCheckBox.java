@@ -1,20 +1,33 @@
 package checkboxes;
 
-import appcomponents.AbstractFactory;
+import appcomponents.SwingComponent;
 import appcomponents.Visitor;
 
 import javax.swing.*;
-import java.io.Serializable;
 
-public class ToolTipsCheckBox implements Serializable, AbstractCheckBox {
+public class ToolTipsCheckBox implements SwingComponent, CheckBoxSelectable {
 
-    private static final long serialVersionUID = 1L;
+    private final JCheckBox jCheckBox;
 
     private static final String BOX_NAME = "включить всплывающие подсказки";
     private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
     private static final int LOCATION_X = 15;
     private static final int LOCATION_Y = 60;
-    private JComponent componentSwing;
+    private static final int WIDTH = 320;
+    private static final int HEIGHT = 20;
+
+    public ToolTipsCheckBox(){
+        jCheckBox = new JCheckBox();
+        jCheckBox.setSelected(true);
+        jCheckBox.setSize(WIDTH, HEIGHT);
+        jCheckBox.setText(BOX_NAME);
+    }
+
+    @Override
+    public void addListener(SwingComponent component, Visitor visitor) {
+        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
+        jCheckBox.addItemListener(checkBoxState);
+    }
 
     @Override
     public int getLocationX() {
@@ -27,28 +40,13 @@ public class ToolTipsCheckBox implements Serializable, AbstractCheckBox {
     }
 
     @Override
-    public String getName() {
-        return BOX_NAME;
-    }
-
-    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public JComponent getParent() {
-        return componentSwing;
-    }
-
-    @Override
-    public void setParent(JComponent jComponent) {
-        this.componentSwing = jComponent;
-    }
-
-    @Override
-    public AbstractFactory getFactory() {
-        return AbstractCheckBox.super::initialization;
+        return jCheckBox;
     }
 
     @Override
