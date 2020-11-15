@@ -1,11 +1,11 @@
 package viewcomponents.textlabels;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 
-public class Result implements SwingComponent {
+public class Result implements AppComponent {
 
     private final JLabel jLabel;
 
@@ -25,7 +25,7 @@ public class Result implements SwingComponent {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
 
     }
 

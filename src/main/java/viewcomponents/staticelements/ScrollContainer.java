@@ -1,13 +1,13 @@
 package viewcomponents.staticelements;
 
 import viewcomponents.AbstractFactory;
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-class ScrollContainer implements SwingComponent {
+class ScrollContainer implements AppComponent {
 
     private final JScrollPane scrollPane;
 
@@ -18,7 +18,7 @@ class ScrollContainer implements SwingComponent {
         scrollPane.setSize(new Dimension(350, 165));
     }
 
-    SwingComponent add(SwingComponent content, Visitor visitor){
+    AppComponent add(AppComponent content, Visitor visitor){
         JViewport viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
         visitor.addHost(this);
@@ -51,7 +51,7 @@ class ScrollContainer implements SwingComponent {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
 
     }
 

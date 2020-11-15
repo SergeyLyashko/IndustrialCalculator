@@ -1,7 +1,7 @@
 package viewcomponents.staticelements;
 
 import viewcomponents.FactoryComponents;
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class ApplicationView implements Serializable {
     private final JFrame jFrame = new JFrame("Industrial calculator");
 
     public void createPanel(String type, FactoryComponents factoryComponents, Visitor visitor){
-        List<SwingComponent> components = factoryComponents.getComponents();
+        List<AppComponent> components = factoryComponents.getComponents();
         AppPanel newPanel = new AppPanel(components, visitor);
         addTab(type, newPanel);
     }

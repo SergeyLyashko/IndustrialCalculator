@@ -1,13 +1,13 @@
 package viewcomponents.staticelements;
 
 import viewcomponents.AbstractFactory;
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Info implements SwingComponent {
+public class Info implements AppComponent {
 
     private final JLabel jLabel;
 
@@ -73,7 +73,7 @@ public class Info implements SwingComponent {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
 
     }
 }

@@ -1,6 +1,6 @@
 package viewcomponents.fields;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
@@ -12,9 +12,9 @@ import java.awt.event.KeyListener;
 class FieldBehavior implements FocusListener, KeyListener {
 
     private final Visitor visitor;
-    private final SwingComponent component;
+    private final AppComponent component;
 
-    FieldBehavior(SwingComponent component, Visitor visitor) {
+    FieldBehavior(AppComponent component, Visitor visitor) {
         this.component = component;
         this.visitor = visitor;
     }

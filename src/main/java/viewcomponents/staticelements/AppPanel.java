@@ -1,7 +1,7 @@
 package viewcomponents.staticelements;
 
 import viewcomponents.Host;
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
@@ -12,13 +12,13 @@ class AppPanel implements Host {
 
     private final JPanel jPanel = new JPanel();
 
-    AppPanel(List<SwingComponent> components, Visitor visitor){
+    AppPanel(List<AppComponent> components, Visitor visitor){
         jPanel.setLayout(null);
         components.forEach(this::add);
         visitor.addHost(this);
     }
 
-    private void add(SwingComponent component) {
+    private void add(AppComponent component) {
         Container parentComponent = component.getParent();
         jPanel.add(parentComponent);
     }

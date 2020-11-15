@@ -1,12 +1,12 @@
 package viewcomponents.checkboxes;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ColorThemeCheckBox implements SwingComponent, CheckBoxSelectable {
+public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable {
 
     private final JCheckBox jCheckBox;
 
@@ -29,7 +29,7 @@ public class ColorThemeCheckBox implements SwingComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
         CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }

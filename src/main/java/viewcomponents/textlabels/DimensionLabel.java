@@ -1,11 +1,11 @@
 package viewcomponents.textlabels;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 
-public class DimensionLabel implements SwingComponent {
+public class DimensionLabel implements AppComponent {
 
     private static final String DEFAULT_VIEW = "mm";
     private static final int SIZE_X = 25;
@@ -24,7 +24,7 @@ public class DimensionLabel implements SwingComponent {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
 
     }
 

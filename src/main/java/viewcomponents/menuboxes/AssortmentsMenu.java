@@ -1,11 +1,11 @@
 package viewcomponents.menuboxes;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 
-public class AssortmentsMenu implements SwingComponent, MenuSelectable {
+public class AssortmentsMenu implements AppComponent, MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
@@ -34,7 +34,7 @@ public class AssortmentsMenu implements SwingComponent, MenuSelectable {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
         MenuBehavior menuItemBehavior = new MenuBehavior();
         jComboBox.addActionListener(menuItemBehavior);
     }

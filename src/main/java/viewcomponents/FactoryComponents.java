@@ -5,15 +5,15 @@ import java.util.List;
 
 public class FactoryComponents {
 
-    private final List<SwingComponent> components = new ArrayList<>();
+    private final List<AppComponent> components = new ArrayList<>();
 
-    public void addComponent(SwingComponent swingComponent, Visitor visitor) {
+    public void addComponent(AppComponent swingComponent, Visitor visitor) {
         AbstractFactory factory = swingComponent.getFactory();
-        SwingComponent newComponent = factory.createNewComponent(swingComponent, visitor);
+        AppComponent newComponent = factory.createNewComponent(swingComponent, visitor);
         components.add(newComponent);
     }
 
-    public List<SwingComponent> getComponents() {
+    public List<AppComponent> getComponents() {
         return components;
     }
 }

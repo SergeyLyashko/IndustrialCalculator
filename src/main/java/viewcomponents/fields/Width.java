@@ -1,11 +1,11 @@
 package viewcomponents.fields;
 
-import viewcomponents.SwingComponent;
+import viewcomponents.AppComponent;
 import viewcomponents.Visitor;
 
 import javax.swing.*;
 
-public class Width implements SwingComponent {
+public class Width implements AppComponent {
 
     private final JFormattedTextField textField;
 
@@ -29,7 +29,7 @@ public class Width implements SwingComponent {
     }
 
     @Override
-    public void addListener(SwingComponent component, Visitor visitor) {
+    public void addListener(AppComponent component, Visitor visitor) {
         FieldBehavior fieldState = new FieldBehavior(component, visitor);
         textField.addFocusListener(fieldState);
         textField.addKeyListener(fieldState);
