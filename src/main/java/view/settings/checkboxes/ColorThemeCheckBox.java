@@ -31,7 +31,7 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
         CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }

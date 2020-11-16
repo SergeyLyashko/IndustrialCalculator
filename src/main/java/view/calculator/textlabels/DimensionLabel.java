@@ -24,7 +24,7 @@ public class DimensionLabel implements AppComponent {
     }
 
     @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
 
     }
 

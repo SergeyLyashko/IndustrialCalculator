@@ -1,6 +1,5 @@
 package view.info;
 
-import view.Integrator;
 import view.AppComponent;
 import view.Visitor;
 
@@ -46,13 +45,7 @@ class ScrollContainer implements AppComponent {
     }
 
     @Override
-    public Integrator getIntegrator() {
-        return this::add;
-    }
-
-    @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
 
     }
-
 }

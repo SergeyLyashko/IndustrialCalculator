@@ -4,29 +4,24 @@ import javax.swing.*;
 
 public interface AppComponent extends Host {
 
-    default void addVisitor(Visitor visitor, AppComponent component){
-        visitor.addHost(component);
+    default void integration(Visitor visitor){
+        JComponent jComponent = getParent();
+        setLocation(jComponent);
+        addListener(visitor);
+        addVisitor(visitor);
     }
 
-    default void setLocation(AppComponent appComponent, JComponent jComponent) {
-        int locationX = appComponent.getLocationX();
-        int locationY = appComponent.getLocationY();
+    default void setLocation(JComponent jComponent) {
+        int locationX = getLocationX();
+        int locationY = getLocationY();
         jComponent.setLocation(locationX, locationY);
     }
 
-    default AppComponent integration(AppComponent component, Visitor visitor){
-        JComponent jComponent = getParent();
-        setLocation(component, jComponent);
-        addListener(component, visitor);
-        addVisitor(visitor, component);
-        return component;
+    default void addVisitor(Visitor visitor){
+        visitor.addHost(this);
     }
 
-    default Integrator getIntegrator(){
-        return this::integration;
-    }
-
-    void addListener(AppComponent component, Visitor visitor);
+    void addListener(Visitor visitor);
 
     int getLocationX();
 

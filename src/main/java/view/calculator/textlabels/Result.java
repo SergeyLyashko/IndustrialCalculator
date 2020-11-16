@@ -25,7 +25,7 @@ public class Result implements AppComponent {
     }
 
     @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
 
     }
 

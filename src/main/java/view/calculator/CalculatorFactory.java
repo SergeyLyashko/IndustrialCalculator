@@ -20,22 +20,21 @@ public class CalculatorFactory implements ComponentsFactory {
 
     @Override
     public void create(MenuReceiver menuReceiver, Visitor visitor){
-        addInit(new ComplexAreaCheckBox(), visitor);
-        addInit(new AssortmentsMenu(), visitor);
-        addInit(new TypesMenu(), visitor);
-        addInit(new NumbersMenu(), visitor);
-        addInit(new Length(), visitor);
-        addInit(new Width(), visitor);
-        addInit(new Result(), visitor);
-        addInit(new Message(), visitor);
-        addInit(new DimensionLabel(320, 22), visitor);
-        addInit(new DimensionLabel(320, 62), visitor);
+        integration(new ComplexAreaCheckBox(), visitor);
+        integration(new AssortmentsMenu(), visitor);
+        integration(new TypesMenu(), visitor);
+        integration(new NumbersMenu(), visitor);
+        integration(new Length(), visitor);
+        integration(new Width(), visitor);
+        integration(new Result(), visitor);
+        integration(new Message(), visitor);
+        integration(new DimensionLabel(320, 22), visitor);
+        integration(new DimensionLabel(320, 62), visitor);
     }
 
-    private void addInit(AppComponent component, Visitor visitor) {
-        Integrator initializer = component.getIntegrator();
-        AppComponent initComponent = initializer.integration(component, visitor);
-        components.add(initComponent);
+    private void integration(AppComponent component, Visitor visitor) {
+        component.integration(visitor);
+        components.add(component);
     }
 
     @Override

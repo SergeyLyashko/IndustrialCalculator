@@ -41,7 +41,7 @@ public class NumbersMenu implements AppComponent, MenuSelectable {
     }
 
     @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
         MenuBehavior menuItemBehavior = new MenuBehavior();
         jComboBox.addActionListener(menuItemBehavior);
     }

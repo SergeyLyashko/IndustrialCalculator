@@ -9,10 +9,9 @@ public class InfoFactory implements ComponentsFactory {
 
     private final List<AppComponent> components = new ArrayList<>();
 
-    private void addInit(AppComponent swingComponent, Visitor visitor) {
-        Integrator initializer = swingComponent.getIntegrator();
-        AppComponent appComponent = initializer.integration(swingComponent, visitor);
-        components.add(appComponent);
+    private void integration(AppComponent swingComponent, Visitor visitor) {
+        swingComponent.integration(visitor);
+        components.add(swingComponent);
     }
 
     @Override
@@ -22,6 +21,8 @@ public class InfoFactory implements ComponentsFactory {
 
     @Override
     public void create(MenuReceiver menuReceiver, Visitor visitor) {
-        addInit(new Info(), visitor);
+        ScrollContainer scrollContainer = new ScrollContainer();
+        scrollContainer.add(new Info(), visitor);
+        integration(scrollContainer, visitor);
     }
 }

@@ -29,8 +29,8 @@ public class Length implements AppComponent {
     }
 
     @Override
-    public void addListener(AppComponent component, Visitor visitor) {
-        FieldBehavior fieldState = new FieldBehavior(component, visitor);
+    public void addListener(Visitor visitor) {
+        FieldBehavior fieldState = new FieldBehavior(this, visitor);
         textField.addFocusListener(fieldState);
         textField.addKeyListener(fieldState);
     }

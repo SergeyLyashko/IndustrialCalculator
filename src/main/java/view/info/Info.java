@@ -1,6 +1,5 @@
 package view.info;
 
-import view.Integrator;
 import view.AppComponent;
 import view.Visitor;
 
@@ -66,14 +65,8 @@ public class Info implements AppComponent {
         return jLabel;
     }
 
-
     @Override
-    public Integrator getIntegrator() {
-        return new ScrollContainer()::add;
-    }
-
-    @Override
-    public void addListener(AppComponent component, Visitor visitor) {
+    public void addListener(Visitor visitor) {
 
     }
 }
