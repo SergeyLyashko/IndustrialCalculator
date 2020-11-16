@@ -1,12 +1,12 @@
 package database;
 
-import viewcomponents.MenuReceiver;
+import view.MenuReceiver;
 
 public class DataBaseDispatcher {
 
-    private Data data;
+    private final Data data;
 
-    public void connected(){
+    public DataBaseDispatcher(){
         data = new Data();
         Connector connector = new Connector();
         data.addConnection(connector);

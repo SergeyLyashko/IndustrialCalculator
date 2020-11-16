@@ -1,6 +1,6 @@
 package database;
 
-import viewcomponents.MenuReceiver;
+import view.MenuReceiver;
 
 import java.util.List;
 
