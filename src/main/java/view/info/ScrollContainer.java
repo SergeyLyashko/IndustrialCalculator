@@ -1,6 +1,6 @@
 package view.info;
 
-import view.Initializer;
+import view.Integrator;
 import view.AppComponent;
 import view.Visitor;
 
@@ -46,7 +46,7 @@ class ScrollContainer implements AppComponent {
     }
 
     @Override
-    public Initializer getInitializer() {
+    public Integrator getIntegrator() {
         return this::add;
     }
 

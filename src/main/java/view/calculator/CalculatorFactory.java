@@ -33,8 +33,8 @@ public class CalculatorFactory implements ComponentsFactory {
     }
 
     private void addInit(AppComponent component, Visitor visitor) {
-        Initializer initializer = component.getInitializer();
-        AppComponent initComponent = initializer.initComponent(component, visitor);
+        Integrator initializer = component.getIntegrator();
+        AppComponent initComponent = initializer.integration(component, visitor);
         components.add(initComponent);
     }
 

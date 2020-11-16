@@ -14,7 +14,7 @@ public interface AppComponent extends Host {
         jComponent.setLocation(locationX, locationY);
     }
 
-    default AppComponent initialization(AppComponent component, Visitor visitor){
+    default AppComponent integration(AppComponent component, Visitor visitor){
         JComponent jComponent = getParent();
         setLocation(component, jComponent);
         addListener(component, visitor);
@@ -22,8 +22,8 @@ public interface AppComponent extends Host {
         return component;
     }
 
-    default Initializer getInitializer(){
-        return this::initialization;
+    default Integrator getIntegrator(){
+        return this::integration;
     }
 
     void addListener(AppComponent component, Visitor visitor);

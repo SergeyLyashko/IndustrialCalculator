@@ -10,8 +10,8 @@ public class InfoFactory implements ComponentsFactory {
     private final List<AppComponent> components = new ArrayList<>();
 
     private void addInit(AppComponent swingComponent, Visitor visitor) {
-        Initializer initializer = swingComponent.getInitializer();
-        AppComponent appComponent = initializer.initComponent(swingComponent, visitor);
+        Integrator initializer = swingComponent.getIntegrator();
+        AppComponent appComponent = initializer.integration(swingComponent, visitor);
         components.add(appComponent);
     }
 
