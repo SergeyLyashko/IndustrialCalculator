@@ -1,35 +1,22 @@
 package view.calculator.menuboxes;
 
-import view.AppComponent;
-import view.MenuReceiver;
 import view.calculator.MenuSelectable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 
-    private final MenuReceiver menuReceiver;
-    private MenuSelectable assortmentsMenu;
-    private MenuSelectable typesMenu;
-    private MenuSelectable numbersMenu;
+    private final List<String> menuList = new ArrayList<>();
 
-    public Menu(MenuReceiver menuReceiver){
-        this.menuReceiver = menuReceiver;
-    }
-
-    public void create(){
-        assortmentsMenu = new AssortmentsMenu();
-        typesMenu = new TypesMenu();
-        numbersMenu = new NumbersMenu();
-
-
-    }
-
-    public AppComponent createMenu(MenuSelectable menuSelectable){
-        MenuModel menuModel = new MenuModel(menuReceiver);
-        menuModel.createMenu(menuSelectable);
+    public void createMenu(MenuSelectable menuSelectable, String menuItem){
+        menuList.add(menuSelectable.getHeaderMenu());
+        List<String> receiveMenu = menuSelectable.receiveMenu(menuItem);
+        if(receiveMenu != null){
+            menuList.addAll(receiveMenu);
+        }
+        MenuModel menuModel = new MenuModel();
+        menuModel.createModel(menuList);
         menuSelectable.setModel(menuModel);
-        return menuSelectable.getMenu();
     }
-
-
-
 }

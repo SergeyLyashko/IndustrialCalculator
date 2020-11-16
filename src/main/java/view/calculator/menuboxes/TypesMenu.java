@@ -8,7 +8,7 @@ import view.calculator.MenuSelectable;
 import javax.swing.*;
 import java.util.List;
 
-public class TypesMenu implements AppComponent, MenuSelectable {
+public class TypesMenu implements MenuSelectable{
 
     private final JComboBox<String> jComboBox;
 
@@ -18,6 +18,7 @@ public class TypesMenu implements AppComponent, MenuSelectable {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
+    private MenuReceiver menuReceiver;
 
     public TypesMenu(){
         jComboBox = new JComboBox<>();
@@ -26,19 +27,13 @@ public class TypesMenu implements AppComponent, MenuSelectable {
     }
 
     @Override
-    public String getCurrentMenu() {
-        return (String) jComboBox.getSelectedItem();
+    public void addReceiver(MenuReceiver menuReceiver) {
+        this.menuReceiver = menuReceiver;
     }
 
     @Override
-    public void actionMenu(String currentMenu) {
-        System.out.println("types select: "+currentMenu);
-    }
-
-    @Override
-    public List<String> receiveMenu(MenuReceiver menuReceiver) {
-        //menuReceiver.getTypeMenu();
-        return null;
+    public List<String> receiveMenu(String menuItem) {
+        return menuReceiver.getTypeMenu(menuItem);
     }
 
     @Override
@@ -57,8 +52,8 @@ public class TypesMenu implements AppComponent, MenuSelectable {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-        MenuBehavior menuItemBehavior = new MenuBehavior(this);
+    public void addListener(MenuSelectable menuSelectable) {
+        MenuBehavior menuItemBehavior = new MenuBehavior(menuSelectable);
         jComboBox.addActionListener(menuItemBehavior);
     }
 
@@ -81,5 +76,4 @@ public class TypesMenu implements AppComponent, MenuSelectable {
     public void acceptVisitor(Visitor visitor) {
         visitor.visit(this);
     }
-
  }

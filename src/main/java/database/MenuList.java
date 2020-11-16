@@ -2,7 +2,6 @@ package database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 class MenuList {
@@ -31,6 +30,7 @@ class MenuList {
                     + "ProfileTypes.ProfileTypeName = ?";
 
     private final Data data;
+    private String assortment;
 
     MenuList(Data data) {
         this.data = data;
@@ -47,6 +47,7 @@ class MenuList {
     }
 
     List<String> receiveTypeList(String assortment) {
+        this.assortment = assortment;
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_TYPES);
             data.initPreparedStatement(preparedStatement, 1, assortment);
@@ -57,7 +58,7 @@ class MenuList {
         return null;
     }
 
-    List<String> receiveNumberList(String assortment, String type) {
+    List<String> receiveNumberList(String type) {
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_NUMBERS);
             data.initPreparedStatement(preparedStatement, 1, assortment);

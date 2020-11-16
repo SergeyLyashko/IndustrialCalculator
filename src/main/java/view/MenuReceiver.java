@@ -8,5 +8,5 @@ public interface MenuReceiver {
 
     List<String> getTypeMenu(String assortment);
 
-    List<String> getNumberMenu(String assortment, String type);
+    List<String> getNumberMenu(String type);
 }

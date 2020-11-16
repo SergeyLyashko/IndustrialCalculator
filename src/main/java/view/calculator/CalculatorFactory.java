@@ -21,14 +21,25 @@ public class CalculatorFactory implements ComponentsFactory {
 
     @Override
     public void create(MenuReceiver menuReceiver, Visitor visitor){
-        Menu menu = new Menu(menuReceiver);
-        AppComponent assortment = menu.createMenu(new AssortmentsMenu());
-        AppComponent types = menu.createMenu(new TypesMenu());
-        AppComponent numbers = menu.createMenu(new NumbersMenu());
 
-        integration(assortment, visitor);
-        integration(types, visitor);
-        integration(numbers, visitor);
+        MenuSelectable assortment = new AssortmentsMenu();
+        assortment.addReceiver(menuReceiver);
+        MenuSelectable types = new TypesMenu();
+        types.addReceiver(menuReceiver);
+        MenuSelectable numbers = new NumbersMenu();
+        numbers.addReceiver(menuReceiver);
+        assortment.addListener(types);
+        assortment.addListener(numbers);
+        types.addListener(numbers);
+
+        Menu menu = new Menu();
+        menu.createMenu(assortment, assortment.getHeaderMenu());
+        menu.createMenu(types, types.getHeaderMenu());
+        menu.createMenu(numbers, numbers.getHeaderMenu());
+
+        integration(assortment.getMenu(), visitor);
+        integration(types.getMenu(), visitor);
+        integration(numbers.getMenu(), visitor);
 
         integration(new ComplexAreaCheckBox(), visitor);
         integration(new Length(), visitor);

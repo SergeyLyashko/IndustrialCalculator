@@ -2,22 +2,27 @@ package view.calculator.menuboxes;
 
 import view.calculator.MenuSelectable;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuBehavior implements ActionListener {
 
-    private final MenuSelectable menuSelectable;
+    private final MenuSelectable menuListener;
 
-    public MenuBehavior(MenuSelectable menuSelectable){
-        this.menuSelectable = menuSelectable;
+    public MenuBehavior(MenuSelectable menuListener){
+        this.menuListener = menuListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        //MenuSelectable source = (MenuSelectable) event.getSource();
-        String currentMenu = menuSelectable.getCurrentMenu();
+        JComboBox<String> comboBox = (JComboBox<String>) event.getSource();
+        String selectedItem = (String)comboBox.getSelectedItem();
+        createMenu(menuListener, selectedItem);
+    }
 
-        menuSelectable.actionMenu(currentMenu);
+    private void createMenu(MenuSelectable menuListener, String selectedItem) {
+        Menu menu = new Menu();
+        menu.createMenu(menuListener, selectedItem);
     }
 }

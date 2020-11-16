@@ -23,7 +23,7 @@ class MenuReceiverImpl implements MenuReceiver {
     }
 
     @Override
-    public List<String> getNumberMenu(String assortment, String type) {
-        return menuList.receiveNumberList(assortment, type);
+    public List<String> getNumberMenu(String type) {
+        return menuList.receiveNumberList(type);
     }
 }
