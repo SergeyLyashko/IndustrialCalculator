@@ -5,7 +5,7 @@ import view.calculator.checkbox.ComplexAreaCheckBox;
 import view.calculator.fields.Length;
 import view.calculator.fields.Width;
 import view.calculator.menuboxes.AssortmentsMenu;
-import view.calculator.menuboxes.Menu;
+import view.calculator.menuboxes.MenuModel;
 import view.calculator.menuboxes.NumbersMenu;
 import view.calculator.menuboxes.TypesMenu;
 import view.calculator.textlabels.DimensionLabel;
@@ -32,10 +32,10 @@ public class CalculatorFactory implements ComponentsFactory {
         assortment.addListener(numbers);
         types.addListener(numbers);
 
-        Menu menu = new Menu();
-        menu.createMenu(assortment, assortment.getHeaderMenu());
-        menu.createMenu(types, types.getHeaderMenu());
-        menu.createMenu(numbers, numbers.getHeaderMenu());
+        MenuModel menuModel = new MenuModel();
+        menuModel.createModel(assortment, assortment.getHeaderMenu());
+        menuModel.createModel(types, types.getHeaderMenu());
+        menuModel.createModel(numbers, numbers.getHeaderMenu());
 
         integration(assortment.getMenu(), visitor);
         integration(types.getMenu(), visitor);

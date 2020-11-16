@@ -1,15 +1,24 @@
 package view.calculator.menuboxes;
 
+import view.calculator.MenuSelectable;
+
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
-    private List<String> menuList;
+    private final List<String> menuList = new ArrayList<>();
     private int selected;
 
-    void createModel(List<String> receiveMenu){
-        menuList = receiveMenu;
+    public void createModel(MenuSelectable menuSelectable, String menuItem){
+        String headerMenu = menuSelectable.getHeaderMenu();
+        menuList.add(headerMenu);
+        List<String> receiveMenu = menuSelectable.receiveMenu(menuItem);
+        if(receiveMenu != null){
+            menuList.addAll(receiveMenu);
+        }
+        menuSelectable.setModel(this);
     }
 
     @Override

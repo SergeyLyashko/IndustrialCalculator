@@ -22,7 +22,7 @@ public class MenuBehavior implements ActionListener {
     }
 
     private void createMenu(MenuSelectable menuListener, String selectedItem) {
-        Menu menu = new Menu();
-        menu.createMenu(menuListener, selectedItem);
+        MenuModel menuModel = new MenuModel();
+        menuModel.createModel(menuListener, selectedItem);
     }
 }
