@@ -2,15 +2,10 @@ package database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class MenuList {
-
-    private static final String ASSORTMENT_HEADER = "Тип сортамента";
-    private static final String TYPE_HEADER = "Тип профиля";
-    private static final String NUMBER_HEADER = "№ профиля";
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
@@ -41,46 +36,36 @@ class MenuList {
         this.data = data;
     }
 
-    private List<String> createDefaultMenu(String header){
-        return Stream.of(header).collect(Collectors.toList());
-    }
-
     List<String> receiveAssortmentList() {
-        List<String> menu = createDefaultMenu(ASSORTMENT_HEADER);
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_PROFILES);
-            List<String> menuList = data.getMenuList(preparedStatement, ASSORTMENT_QUERY);
-            menu.addAll(menuList);
+            return data.getMenuList(preparedStatement, ASSORTMENT_QUERY);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return menu;
+        return null;
     }
 
     List<String> receiveTypeList(String assortment) {
-        List<String> menu = createDefaultMenu(TYPE_HEADER);
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_TYPES);
             data.initPreparedStatement(preparedStatement, 1, assortment);
-            List<String> menuList = data.getMenuList(preparedStatement, TYPE_QUERY);
-            menu.addAll(menuList);
+            return data.getMenuList(preparedStatement, TYPE_QUERY);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return menu;
+        return null;
     }
 
     List<String> receiveNumberList(String assortment, String type) {
-        List<String> menu = createDefaultMenu(NUMBER_HEADER);
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_NUMBERS);
             data.initPreparedStatement(preparedStatement, 1, assortment);
             data.initPreparedStatement(preparedStatement, 2, type);
-            List<String> menuList = data.getMenuList(preparedStatement, NUMBER_QUERY);
-            menu.addAll(menuList);
+            return data.getMenuList(preparedStatement, NUMBER_QUERY);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return menu;
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package view.calculator.menuboxes;
 import view.AppComponent;
 import view.MenuReceiver;
 import view.Visitor;
+import view.calculator.MenuSelectable;
 
 import javax.swing.*;
 import java.util.List;
@@ -11,7 +12,7 @@ public class TypesMenu implements AppComponent, MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
-    private static final String BOX_NAME = "тип";
+    private static final String TYPE_HEADER = "Тип профиля";
     private static final String THEME_TOOL_TIP_TEXT = "выбор типа профиля детали";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 60;
@@ -26,23 +27,38 @@ public class TypesMenu implements AppComponent, MenuSelectable {
 
     @Override
     public String getCurrentMenu() {
-        System.out.println("assortment select");
-        return null;
+        return (String) jComboBox.getSelectedItem();
     }
 
     @Override
     public void actionMenu(String currentMenu) {
-
+        System.out.println("types select: "+currentMenu);
     }
 
     @Override
     public List<String> receiveMenu(MenuReceiver menuReceiver) {
+        //menuReceiver.getTypeMenu();
         return null;
     }
 
     @Override
+    public String getHeaderMenu() {
+        return TYPE_HEADER;
+    }
+
+    @Override
+    public void setModel(MenuModel menuModel) {
+        jComboBox.setModel(menuModel);
+    }
+
+    @Override
+    public AppComponent getMenu() {
+        return this;
+    }
+
+    @Override
     public void addListener(Visitor visitor) {
-        MenuBehavior menuItemBehavior = new MenuBehavior();
+        MenuBehavior menuItemBehavior = new MenuBehavior(this);
         jComboBox.addActionListener(menuItemBehavior);
     }
 
