@@ -20,7 +20,7 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     @Override
-    public void create(MenuReceiver menuReceiver, Visitor visitor) {
+    public void create(ReceivableMenu receivableMenu, Visitor visitor) {
         ScrollContainer scrollContainer = new ScrollContainer();
         scrollContainer.add(new Info(), visitor);
         integration(scrollContainer, visitor);

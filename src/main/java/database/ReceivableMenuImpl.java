@@ -1,14 +1,14 @@
 package database;
 
-import view.MenuReceiver;
+import view.ReceivableMenu;
 
 import java.util.List;
 
-class MenuReceiverImpl implements MenuReceiver {
+class ReceivableMenuImpl implements ReceivableMenu {
 
     private final MenuList menuList;
 
-    MenuReceiverImpl(Data data) {
+    ReceivableMenuImpl(Data data) {
         menuList = new MenuList(data);
     }
 

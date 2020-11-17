@@ -1,14 +1,14 @@
 package view.calculator.menuboxes;
 
 import view.AppComponent;
-import view.MenuReceiver;
+import view.ReceivableMenu;
 import view.Visitor;
-import view.calculator.MenuSelectable;
+import view.calculator.SelectableMenu;
 
 import javax.swing.*;
 import java.util.List;
 
-public class AssortmentsMenu implements MenuSelectable {
+public class AssortmentsMenu implements SelectableMenu {
 
     private final JComboBox<String> jComboBox;
 
@@ -19,7 +19,7 @@ public class AssortmentsMenu implements MenuSelectable {
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private MenuReceiver menuReceiver;
+    private ReceivableMenu receivableMenu;
 
     public AssortmentsMenu(){
         jComboBox = new JComboBox<>();
@@ -29,7 +29,7 @@ public class AssortmentsMenu implements MenuSelectable {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        return menuReceiver.getAssortmentMenu();
+        return receivableMenu.getAssortmentMenu();
     }
 
     @Override
@@ -43,19 +43,19 @@ public class AssortmentsMenu implements MenuSelectable {
     }
 
     @Override
-    public AppComponent getMenu() {
+    public AppComponent getComponent() {
         return this;
     }
 
     @Override
-    public void addListener(MenuSelectable menuListener) {
+    public void addListener(SelectableMenu menuListener) {
         MenuBehavior menuItemBehavior = new MenuBehavior(menuListener);
         jComboBox.addActionListener(menuItemBehavior);
     }
 
     @Override
-    public void addReceiver(MenuReceiver menuReceiver) {
-        this.menuReceiver = menuReceiver;
+    public void addReceiver(ReceivableMenu receivableMenu) {
+        this.receivableMenu = receivableMenu;
     }
 
     @Override

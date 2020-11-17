@@ -22,7 +22,7 @@ public class SettingsFactory implements ComponentsFactory {
     }
 
     @Override
-    public void create(MenuReceiver menuReceiver, Visitor visitor) {
+    public void create(ReceivableMenu receivableMenu, Visitor visitor) {
         integration(new ColorThemeCheckBox(), visitor);
         integration(new ToolTipsCheckBox(), visitor);
     }

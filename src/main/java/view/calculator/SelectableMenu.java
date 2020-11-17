@@ -1,14 +1,13 @@
 package view.calculator;
 
 import view.AppComponent;
-import view.MenuReceiver;
+import view.ReceivableMenu;
 import view.Visitor;
 import view.calculator.menuboxes.MenuModel;
 
 import java.util.List;
 
-public interface MenuSelectable extends AppComponent {
-
+public interface SelectableMenu extends AppComponent {
 
     List<String> receiveMenu(String menuItem);
 
@@ -16,11 +15,11 @@ public interface MenuSelectable extends AppComponent {
 
     void setModel(MenuModel menuModel);
 
-    AppComponent getMenu();
+    AppComponent getComponent();
 
-    void addListener(MenuSelectable menuSelectable);
+    void addListener(SelectableMenu selectableMenu);
 
     default void addListener(Visitor visitor){}
 
-    void addReceiver(MenuReceiver menuReceiver);
+    void addReceiver(ReceivableMenu receivableMenu);
 }

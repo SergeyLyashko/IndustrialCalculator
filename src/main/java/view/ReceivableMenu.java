@@ -2,7 +2,7 @@ package view;
 
 import java.util.List;
 
-public interface MenuReceiver {
+public interface ReceivableMenu {
 
     List<String> getAssortmentMenu();
 

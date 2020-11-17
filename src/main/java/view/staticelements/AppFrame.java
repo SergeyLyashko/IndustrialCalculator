@@ -6,8 +6,8 @@ import view.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.Serializable;
 import java.util.List;
 
@@ -43,23 +43,11 @@ public class AppFrame implements Serializable {
     }
 
     public void savePreferencesAndExit(){
-        jFrame.addWindowListener(new WindowListener() {
-            public void windowOpened(WindowEvent e) {}
-
+        jFrame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
-                // TODO saved preferences
                 System.exit(0);
             }
-
-            public void windowClosed(WindowEvent e) {}
-
-            public void windowIconified(WindowEvent e) {}
-
-            public void windowDeiconified(WindowEvent e) {}
-
-            public void windowActivated(WindowEvent e) {}
-
-            public void windowDeactivated(WindowEvent e) {}
         });
     }
 }

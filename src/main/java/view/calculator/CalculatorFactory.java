@@ -20,26 +20,20 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components = new ArrayList<>();
 
     @Override
-    public void create(MenuReceiver menuReceiver, Visitor visitor){
+    public void create(ReceivableMenu receivableMenu, Visitor visitor){
 
-        MenuSelectable assortment = new AssortmentsMenu();
-        assortment.addReceiver(menuReceiver);
-        MenuSelectable types = new TypesMenu();
-        types.addReceiver(menuReceiver);
-        MenuSelectable numbers = new NumbersMenu();
-        numbers.addReceiver(menuReceiver);
+        SelectableMenu assortment = new AssortmentsMenu();
+        createComponentsMenu(assortment, receivableMenu, visitor);
+
+        SelectableMenu types = new TypesMenu();
+        createComponentsMenu(types, receivableMenu, visitor);
+
+        SelectableMenu numbers = new NumbersMenu();
+        createComponentsMenu(numbers, receivableMenu, visitor);
+
         assortment.addListener(types);
         assortment.addListener(numbers);
         types.addListener(numbers);
-
-        MenuModel menuModel = new MenuModel();
-        menuModel.createModel(assortment, assortment.getHeaderMenu());
-        menuModel.createModel(types, types.getHeaderMenu());
-        menuModel.createModel(numbers, numbers.getHeaderMenu());
-
-        integration(assortment.getMenu(), visitor);
-        integration(types.getMenu(), visitor);
-        integration(numbers.getMenu(), visitor);
 
         integration(new ComplexAreaCheckBox(), visitor);
         integration(new Length(), visitor);
@@ -48,6 +42,18 @@ public class CalculatorFactory implements ComponentsFactory {
         integration(new Message(), visitor);
         integration(new DimensionLabel(320, 22), visitor);
         integration(new DimensionLabel(320, 62), visitor);
+    }
+
+    private void createComponentsMenu(SelectableMenu selectable, ReceivableMenu receivableMenu, Visitor visitor){
+        selectable.addReceiver(receivableMenu);
+        createMenu(selectable);
+        integration(selectable.getComponent(), visitor);
+    }
+
+    private void createMenu(SelectableMenu selectable){
+        MenuModel menuModel = new MenuModel();
+        String headerMenu = selectable.getHeaderMenu();
+        menuModel.createModel(selectable, headerMenu);
     }
 
     private void integration(AppComponent component, Visitor visitor) {

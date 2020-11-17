@@ -7,23 +7,23 @@ import view.staticelements.AppFrame;
 
 public class ViewDispatcher {
 
-    private final MenuReceiver menuReceiver;
+    private final ReceivableMenu receivableMenu;
 
-    public ViewDispatcher(MenuReceiver menuReceiver) {
-        this.menuReceiver = menuReceiver;
+    public ViewDispatcher(ReceivableMenu receivableMenu) {
+        this.receivableMenu = receivableMenu;
     }
 
     public void createVew(){
         Visitor visitor = new VisitorImpl();
 
         ComponentsFactory calculator = new CalculatorFactory();
-        calculator.create(menuReceiver, visitor);
+        calculator.create(receivableMenu, visitor);
 
         ComponentsFactory settings = new SettingsFactory();
-        settings.create(menuReceiver, visitor);
+        settings.create(receivableMenu, visitor);
 
         ComponentsFactory info = new InfoFactory();
-        info.create(menuReceiver, visitor);
+        info.create(receivableMenu, visitor);
 
         AppFrame appFrame = new AppFrame();
         appFrame.createPanel("Калькулятор", calculator, visitor);
