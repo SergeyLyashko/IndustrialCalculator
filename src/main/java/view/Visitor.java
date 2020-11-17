@@ -7,5 +7,4 @@ public interface Visitor {
     void addHost(Host host);
 
     void visit(Host host);
-
 }

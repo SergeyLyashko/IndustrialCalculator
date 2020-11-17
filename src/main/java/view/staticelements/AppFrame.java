@@ -46,6 +46,7 @@ public class AppFrame implements Serializable {
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                System.out.println("make save");
                 System.exit(0);
             }
         });

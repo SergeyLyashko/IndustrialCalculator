@@ -2,7 +2,6 @@ package view.calculator.menuboxes;
 
 import view.AppComponent;
 import view.ReceivableMenu;
-import view.Visitor;
 import view.calculator.SelectableMenu;
 
 import javax.swing.*;
@@ -72,8 +71,4 @@ public class TypesMenu implements SelectableMenu {
         return jComboBox;
     }
 
-    @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
-    }
  }

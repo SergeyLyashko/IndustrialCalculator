@@ -1,11 +1,12 @@
 package view.calculator.textlabels;
 
 import view.AppComponent;
+import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
 
-public class Message implements AppComponent {
+public class Message implements AppComponent, Host {
 
     private final JLabel jLabel;
 
@@ -24,8 +25,8 @@ public class Message implements AppComponent {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-
+    public void registerHost(Visitor visitor) {
+        visitor.addHost(this);
     }
 
     @Override

@@ -1,26 +1,26 @@
 package view.info;
 
 import view.AppComponent;
+import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-class ScrollContainer implements AppComponent {
+class ScrollWrapper implements AppComponent, Host {
 
     private final JScrollPane scrollPane;
 
-    ScrollContainer(){
+    ScrollWrapper(){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
     }
 
-    AppComponent add(AppComponent content, Visitor visitor){
+    AppComponent add(AppComponent content){
         JViewport viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
-        visitor.addHost(this);
         return this;
     }
 
@@ -36,7 +36,7 @@ class ScrollContainer implements AppComponent {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.addHost(this);
+        visitor.visit(this);
     }
 
     @Override
@@ -45,7 +45,7 @@ class ScrollContainer implements AppComponent {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-
+    public void registerHost(Visitor visitor) {
+        visitor.addHost(this);
     }
 }

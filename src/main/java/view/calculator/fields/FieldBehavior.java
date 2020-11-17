@@ -1,7 +1,6 @@
 package view.calculator.fields;
 
 import view.AppComponent;
-import view.Visitor;
 
 import javax.swing.*;
 import java.awt.event.FocusEvent;
@@ -11,12 +10,10 @@ import java.awt.event.KeyListener;
 
 class FieldBehavior implements FocusListener, KeyListener {
 
-    private final Visitor visitor;
     private final AppComponent component;
 
-    FieldBehavior(AppComponent component, Visitor visitor) {
+    FieldBehavior(AppComponent component) {
         this.component = component;
-        this.visitor = visitor;
     }
 
     @Override

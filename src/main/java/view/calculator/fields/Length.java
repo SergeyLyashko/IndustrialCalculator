@@ -1,7 +1,6 @@
 package view.calculator.fields;
 
 import view.AppComponent;
-import view.Visitor;
 
 import javax.swing.*;
 
@@ -21,16 +20,7 @@ public class Length implements AppComponent {
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-    }
-
-    @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void addListener(Visitor visitor) {
-        FieldBehavior fieldState = new FieldBehavior(this, visitor);
+        FieldBehavior fieldState = new FieldBehavior(this);
         textField.addFocusListener(fieldState);
         textField.addKeyListener(fieldState);
     }

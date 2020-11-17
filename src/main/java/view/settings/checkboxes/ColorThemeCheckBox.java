@@ -1,14 +1,11 @@
 package view.settings.checkboxes;
 
-import view.AppComponent;
-import view.CheckBoxSelectable;
-import view.CheckBoxState;
-import view.Visitor;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable {
+public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -22,18 +19,21 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable {
     private Color foreGround;
     private Color markerColor;
     private Color serviceStringColor;
+    private Visitor visitor;
 
     public ColorThemeCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
+        CheckBoxState checkBoxState = new CheckBoxState(this);
+        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
-        jCheckBox.addItemListener(checkBoxState);
+    public void registerHost(Visitor visitor) {
+        this.visitor = visitor;
+        visitor.addHost(this);
     }
 
 
@@ -59,13 +59,13 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void activate(Visitor visitor) {
+    public void activate() {
         setDarkColorTheme();
         visitor.raid();
     }
 
     @Override
-    public void deactivate(Visitor visitor) {
+    public void deactivate() {
         setLightColorTheme();
         visitor.raid();
     }

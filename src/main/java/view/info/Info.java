@@ -1,12 +1,13 @@
 package view.info;
 
 import view.AppComponent;
+import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Info implements AppComponent {
+public class Info implements AppComponent, Host {
 
     private final JLabel jLabel;
 
@@ -66,7 +67,7 @@ public class Info implements AppComponent {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-
+    public void registerHost(Visitor visitor) {
+        visitor.addHost(this);
     }
 }

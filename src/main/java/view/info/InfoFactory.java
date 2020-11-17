@@ -9,9 +9,17 @@ public class InfoFactory implements ComponentsFactory {
 
     private final List<AppComponent> components = new ArrayList<>();
 
-    private void integration(AppComponent swingComponent, Visitor visitor) {
-        swingComponent.integration(visitor);
-        components.add(swingComponent);
+    private void integration(AppComponent appComponent, Visitor visitor) {
+        AppComponent wrapperComponent = wrap(appComponent, visitor);
+        components.add(wrapperComponent);
+    }
+
+    private AppComponent wrap(AppComponent appComponent, Visitor visitor){
+        appComponent.integration(visitor);
+        ScrollWrapper scrollWrapper = new ScrollWrapper();
+        AppComponent wrapperComponent = scrollWrapper.add(appComponent);
+        wrapperComponent.integration(visitor);
+        return wrapperComponent;
     }
 
     @Override
@@ -21,8 +29,6 @@ public class InfoFactory implements ComponentsFactory {
 
     @Override
     public void create(ReceivableMenu receivableMenu, Visitor visitor) {
-        ScrollContainer scrollContainer = new ScrollContainer();
-        scrollContainer.add(new Info(), visitor);
-        integration(scrollContainer, visitor);
+        integration(new Info(), visitor);
     }
 }

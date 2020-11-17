@@ -1,13 +1,10 @@
 package view.settings.checkboxes;
 
-import view.AppComponent;
-import view.CheckBoxSelectable;
-import view.CheckBoxState;
-import view.Visitor;
+import view.*;
 
 import javax.swing.*;
 
-public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable {
+public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -17,6 +14,7 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
+    private Visitor visitor;
 
     public ToolTipsCheckBox(){
         jCheckBox = new JCheckBox();
@@ -26,8 +24,10 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
+    public void registerHost(Visitor visitor) {
+        this.visitor = visitor;
+        visitor.addHost(this);
+        CheckBoxState checkBoxState = new CheckBoxState(this);
         jCheckBox.addItemListener(checkBoxState);
     }
 
@@ -52,7 +52,7 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void activate(Visitor visitor) {
+    public void activate() {
         // TODO
         System.out.println("toolTip selected");
         setState(true);
@@ -60,7 +60,7 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void deactivate(Visitor visitor) {
+    public void deactivate() {
         // TODO
         System.out.println("toolTip deselected");
         setState(false);

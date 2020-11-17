@@ -2,13 +2,12 @@ package view;
 
 import javax.swing.*;
 
-public interface AppComponent extends Host {
+public interface AppComponent {
 
     default void integration(Visitor visitor){
         JComponent jComponent = getParent();
         setLocation(jComponent);
-        addListener(visitor);
-        addVisitor(visitor);
+        registerHost(visitor);
     }
 
     default void setLocation(JComponent jComponent) {
@@ -17,11 +16,7 @@ public interface AppComponent extends Host {
         jComponent.setLocation(locationX, locationY);
     }
 
-    default void addVisitor(Visitor visitor){
-        visitor.addHost(this);
-    }
-
-    void addListener(Visitor visitor);
+    default void registerHost(Visitor visitor){}
 
     int getLocationX();
 

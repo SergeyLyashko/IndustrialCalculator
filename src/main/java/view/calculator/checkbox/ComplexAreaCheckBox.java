@@ -1,14 +1,11 @@
 package view.calculator.checkbox;
 
-import view.AppComponent;
-import view.Visitor;
-import view.CheckBoxSelectable;
-import view.CheckBoxState;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable {
+public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -26,6 +23,8 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable {
         jCheckBox.setText(BOX_NAME);
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
         jCheckBox.setFont(deriveFont);
+        CheckBoxState checkBoxState = new CheckBoxState(this);
+        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
@@ -39,19 +38,18 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
-        jCheckBox.addItemListener(checkBoxState);
+    public void registerHost(Visitor visitor) {
+        visitor.addHost(this);
     }
 
     @Override
-    public void activate(Visitor visitor) {
+    public void activate() {
         // TODO
         System.out.println("complexArea selected");
     }
 
     @Override
-    public void deactivate(Visitor visitor) {
+    public void deactivate() {
         // TODO
         System.out.println("complexArea deselected");
     }

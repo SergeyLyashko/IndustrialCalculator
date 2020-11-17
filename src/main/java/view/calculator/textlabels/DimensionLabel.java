@@ -1,11 +1,12 @@
 package view.calculator.textlabels;
 
 import view.AppComponent;
+import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
 
-public class DimensionLabel implements AppComponent {
+public class DimensionLabel implements AppComponent, Host {
 
     private static final String DEFAULT_VIEW = "mm";
     private static final int SIZE_X = 25;
@@ -24,8 +25,8 @@ public class DimensionLabel implements AppComponent {
     }
 
     @Override
-    public void addListener(Visitor visitor) {
-
+    public void registerHost(Visitor visitor) {
+        visitor.addHost(this);
     }
 
     @Override
