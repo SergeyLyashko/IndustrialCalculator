@@ -22,18 +22,9 @@ public class CalculatorFactory implements ComponentsFactory {
     @Override
     public void create(ReceivableMenu receivableMenu, Visitor visitor){
 
-        SelectableMenu assortment = new AssortmentsMenu();
-        createComponentsMenu(assortment, receivableMenu, visitor);
-
-        SelectableMenu types = new TypesMenu();
-        createComponentsMenu(types, receivableMenu, visitor);
-
-        SelectableMenu numbers = new NumbersMenu();
-        createComponentsMenu(numbers, receivableMenu, visitor);
-
-        assortment.addListener(types);
-        assortment.addListener(numbers);
-        types.addListener(numbers);
+        MenuWrapper menuWrapper = new MenuWrapper(receivableMenu);
+        menuWrapper.createComponents(new AssortmentsMenu(), new TypesMenu(), new NumbersMenu());
+        menuWrapper.getComponents().forEach((AppComponent element) -> integration(element, visitor));
 
         integration(new ComplexAreaCheckBox(), visitor);
         integration(new Length(), visitor);
@@ -42,18 +33,6 @@ public class CalculatorFactory implements ComponentsFactory {
         integration(new Message(), visitor);
         integration(new DimensionLabel(320, 22), visitor);
         integration(new DimensionLabel(320, 62), visitor);
-    }
-
-    private void createComponentsMenu(SelectableMenu selectable, ReceivableMenu receivableMenu, Visitor visitor){
-        selectable.addReceiver(receivableMenu);
-        createMenu(selectable);
-        integration(selectable.getComponent(), visitor);
-    }
-
-    private void createMenu(SelectableMenu selectable){
-        MenuModel menuModel = new MenuModel();
-        String headerMenu = selectable.getHeaderMenu();
-        menuModel.createModel(selectable, headerMenu);
     }
 
     private void integration(AppComponent component, Visitor visitor) {

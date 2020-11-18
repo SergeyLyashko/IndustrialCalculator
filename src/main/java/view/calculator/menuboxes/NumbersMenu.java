@@ -31,8 +31,15 @@ public class NumbersMenu implements SelectableMenu {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
-        return receivableMenu.getNumberMenu(menuItem);
+    public void setSelected(String selectedItem) {
+        System.out.println("number set selected: "+selectedItem);
+    }
+
+    @Override
+    public List<String> receiveMenu(String...menuItem) {
+        //String assortment = menuItem[0];
+        String type = menuItem[0];
+        return receivableMenu.getNumberMenu(type);
     }
 
     @Override
@@ -52,8 +59,10 @@ public class NumbersMenu implements SelectableMenu {
 
     @Override
     public void addListener(SelectableMenu selectableMenu) {
-        MenuBehavior menuItemBehavior = new MenuBehavior(selectableMenu);
-        jComboBox.addActionListener(menuItemBehavior);
+        System.out.println("add numbers listener: "+selectableMenu.getHeaderMenu());
+        // TODO должен быть слушатель поле ввода!
+        //MenuBehavior menuItemBehavior = new MenuBehavior(selectableMenu);
+        //jComboBox.addActionListener(menuItemBehavior);
     }
 
     @Override

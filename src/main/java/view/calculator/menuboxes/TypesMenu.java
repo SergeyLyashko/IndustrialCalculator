@@ -31,8 +31,14 @@ public class TypesMenu implements SelectableMenu {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
-        return receivableMenu.getTypeMenu(menuItem);
+    public void setSelected(String selectedItem) {
+        System.out.println("type set selected: "+selectedItem);
+    }
+
+    @Override
+    public List<String> receiveMenu(String...menuItem) {
+        String assortment = menuItem[0];
+        return receivableMenu.getTypeMenu(assortment);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class TypesMenu implements SelectableMenu {
 
     @Override
     public void addListener(SelectableMenu selectableMenu) {
-        MenuBehavior menuItemBehavior = new MenuBehavior(selectableMenu);
+        SelectableMenuBehavior menuItemBehavior = new SelectableMenuBehavior(selectableMenu);
         jComboBox.addActionListener(menuItemBehavior);
     }
 

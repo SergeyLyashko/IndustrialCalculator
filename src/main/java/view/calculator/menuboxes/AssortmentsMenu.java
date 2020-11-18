@@ -27,7 +27,7 @@ public class AssortmentsMenu implements SelectableMenu {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
+    public List<String> receiveMenu(String...menuItem) {
         return receivableMenu.getAssortmentMenu();
     }
 
@@ -48,13 +48,18 @@ public class AssortmentsMenu implements SelectableMenu {
 
     @Override
     public void addListener(SelectableMenu menuListener) {
-        MenuBehavior menuItemBehavior = new MenuBehavior(menuListener);
+        SelectableMenuBehavior menuItemBehavior = new SelectableMenuBehavior(menuListener);
         jComboBox.addActionListener(menuItemBehavior);
     }
 
     @Override
     public void addReceiver(ReceivableMenu receivableMenu) {
         this.receivableMenu = receivableMenu;
+    }
+
+    @Override
+    public void setSelected(String selectedItem) {
+        System.out.println("assort set selected: "+selectedItem);
     }
 
     @Override
