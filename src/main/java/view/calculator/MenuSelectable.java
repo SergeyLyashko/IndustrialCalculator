@@ -1,12 +1,12 @@
 package view.calculator;
 
 import view.AppComponent;
-import view.ReceivableMenu;
+import view.MenuReceivable;
 import view.calculator.menuboxes.MenuModel;
 
 import java.util.List;
 
-public interface SelectableMenu extends AppComponent {
+public interface MenuSelectable extends AppComponent {
 
     List<String> receiveMenu(String menuItem);
 
@@ -14,5 +14,5 @@ public interface SelectableMenu extends AppComponent {
 
     void setMenuModel(MenuModel menuModel);
 
-    void addReceiver(ReceivableMenu receivableMenu);
+    void addReceiver(MenuReceivable menuReceivable);
 }

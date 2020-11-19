@@ -1,14 +1,14 @@
 package view.calculator.menuboxes;
 
 import view.AppComponent;
-import view.ReceivableMenu;
-import view.calculator.SelectableMenu;
+import view.MenuReceivable;
+import view.calculator.MenuSelectable;
 import view.calculator.fields.FieldSelectable;
 
 import javax.swing.*;
 import java.util.List;
 
-public class AssortmentsMenu implements SelectableMenu {
+public class AssortmentsMenu implements MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
@@ -19,7 +19,7 @@ public class AssortmentsMenu implements SelectableMenu {
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private ReceivableMenu receivableMenu;
+    private MenuReceivable menuReceivable;
 
     public AssortmentsMenu(){
         jComboBox = new JComboBox<>();
@@ -29,7 +29,7 @@ public class AssortmentsMenu implements SelectableMenu {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        return receivableMenu.getAssortmentMenu();
+        return menuReceivable.getAssortmentMenu();
     }
 
     @Override
@@ -44,18 +44,24 @@ public class AssortmentsMenu implements SelectableMenu {
 
     @Override
     public <T extends AppComponent> void addListener(T componentListener) {
-        if(componentListener instanceof SelectableMenu){
-            SelectableMenuBehavior menuItemBehavior = new SelectableMenuBehavior((SelectableMenu) componentListener);
-            jComboBox.addActionListener(menuItemBehavior);
+        if(componentListener instanceof MenuSelectable){
+            addActionListener((MenuSelectable) componentListener);
         }
         if(componentListener instanceof FieldSelectable){
             jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).deactivate());
         }
     }
 
+    private void addActionListener(MenuSelectable menuSelectable){
+        jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            new MenuModel(menuSelectable, selectedItem);
+        });
+    }
+
     @Override
-    public void addReceiver(ReceivableMenu receivableMenu) {
-        this.receivableMenu = receivableMenu;
+    public void addReceiver(MenuReceivable menuReceivable) {
+        this.menuReceivable = menuReceivable;
     }
 
     @Override

@@ -20,13 +20,13 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components = new ArrayList<>();
 
     @Override
-    public void create(ReceivableMenu receivableMenu, Visitor visitor){
+    public void create(MenuReceivable menuReceivable, Visitor visitor){
 
-        SelectableMenu assortment = new AssortmentsMenu();
-        SelectableMenu types = new TypesMenu();
-        SelectableMenu numbers = new NumbersMenu();
+        MenuSelectable assortment = new AssortmentsMenu();
+        MenuSelectable types = new TypesMenu();
+        MenuSelectable numbers = new NumbersMenu();
 
-        MenuWrapper menuWrapper = new MenuWrapper(receivableMenu);
+        MenuWrapper menuWrapper = new MenuWrapper(menuReceivable);
         menuWrapper.createMenu(assortment, types, numbers);
         menuWrapper.getComponents().forEach(this::integration);
 

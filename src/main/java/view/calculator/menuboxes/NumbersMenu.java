@@ -1,16 +1,14 @@
 package view.calculator.menuboxes;
 
 import view.AppComponent;
-import view.ReceivableMenu;
-import view.calculator.SelectableMenu;
+import view.MenuReceivable;
+import view.calculator.MenuSelectable;
 import view.calculator.fields.FieldSelectable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-public class NumbersMenu implements SelectableMenu {
+public class NumbersMenu implements MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
@@ -20,7 +18,7 @@ public class NumbersMenu implements SelectableMenu {
     private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private ReceivableMenu receivableMenu;
+    private MenuReceivable menuReceivable;
 
     public NumbersMenu(){
         jComboBox = new JComboBox<>();
@@ -29,13 +27,13 @@ public class NumbersMenu implements SelectableMenu {
     }
 
     @Override
-    public void addReceiver(ReceivableMenu receivableMenu) {
-        this.receivableMenu = receivableMenu;
+    public void addReceiver(MenuReceivable menuReceivable) {
+        this.menuReceivable = menuReceivable;
     }
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        return receivableMenu.getNumberMenu(menuItem);
+        return menuReceivable.getNumberMenu(menuItem);
     }
 
     @Override

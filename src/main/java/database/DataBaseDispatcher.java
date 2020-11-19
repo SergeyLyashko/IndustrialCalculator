@@ -1,6 +1,6 @@
 package database;
 
-import view.ReceivableMenu;
+import view.MenuReceivable;
 
 public class DataBaseDispatcher {
 
@@ -12,7 +12,7 @@ public class DataBaseDispatcher {
         data.addConnection(connector);
     }
 
-    public ReceivableMenu getMenuReceiver(){
-        return new ReceivableMenuImpl(data);
+    public MenuReceivable getMenuReceiver(){
+        return new MenuReceivableImpl(data);
     }
 }

@@ -30,7 +30,7 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     @Override
-    public void create(ReceivableMenu receivableMenu, Visitor visitor) {
+    public void create(MenuReceivable menuReceivable, Visitor visitor) {
         integration(new Info(), visitor);
     }
 }
