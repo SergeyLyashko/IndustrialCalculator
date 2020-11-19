@@ -16,7 +16,7 @@ class Connector {
      * @return соединение с БД
      */
     Connection getConnection() throws SQLException {
-        URL resource = this.getClass().getResource("data/database/calculator.db");
+        URL resource = this.getClass().getResource("/data/database/calculator.db");
         String url = DRIVER_PREFIX +resource;
         return DriverManager.getConnection(url);
     }

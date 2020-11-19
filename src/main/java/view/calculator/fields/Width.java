@@ -1,9 +1,6 @@
 package view.calculator.fields;
 
-import view.AppComponent;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class Width implements FieldSelectable {
 
@@ -15,12 +12,16 @@ public class Width implements FieldSelectable {
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 20;
+    private final FieldFocusBehavior fieldFocusBehavior;
 
     public Width(){
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
+        textField.setText(BOX_NAME);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
+        fieldFocusBehavior = new FieldFocusBehavior(this);
+        fieldFocusBehavior.deactivate();
     }
 
     @Override
@@ -39,18 +40,20 @@ public class Width implements FieldSelectable {
     }
 
     @Override
-    public void addListener(AppComponent component) {
-
-    }
-
-    @Override
     public void activate() {
         System.out.println("width activate");
+        fieldFocusBehavior.activate();
     }
 
     @Override
     public void deactivate() {
         System.out.println("width Deactivate");
+        fieldFocusBehavior.deactivate();
+    }
+
+    @Override
+    public String getName() {
+        return BOX_NAME;
     }
 
 }

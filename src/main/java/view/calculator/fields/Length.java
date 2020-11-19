@@ -1,13 +1,11 @@
 package view.calculator.fields;
 
-import view.AppComponent;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class Length implements FieldSelectable {
 
     private final JFormattedTextField textField;
+    private final FieldFocusBehavior fieldFocusBehavior;
 
     private static final String BOX_NAME = "введите длину";
     private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";
@@ -20,7 +18,10 @@ public class Length implements FieldSelectable {
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
+        textField.setText(BOX_NAME);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
+        fieldFocusBehavior = new FieldFocusBehavior(this);
+        fieldFocusBehavior.deactivate();
     }
 
     @Override
@@ -39,21 +40,19 @@ public class Length implements FieldSelectable {
     }
 
     @Override
-    public void addListener(AppComponent component) {
-
-    }
-
-    @Override
     public void activate() {
         System.out.println("length activate");
-        //textField.setEditable(true);
-        //textField.setBackground(Color.white);
-        //textField.addFocusListener(this);
-        //textField.addKeyListener(this);
+        fieldFocusBehavior.activate();
     }
 
     @Override
     public void deactivate() {
         System.out.println("length Deactivate");
+        fieldFocusBehavior.deactivate();
+    }
+
+    @Override
+    public String getName() {
+        return BOX_NAME;
     }
 }
