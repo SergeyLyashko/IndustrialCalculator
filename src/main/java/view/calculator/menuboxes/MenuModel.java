@@ -18,7 +18,6 @@ public class MenuModel extends AbstractListModel<String> implements ComboBoxMode
         if(menu != null){
             menuList.addAll(menu);
         }
-        menuListener.setMenuModel(this);
     }
 
     @Override

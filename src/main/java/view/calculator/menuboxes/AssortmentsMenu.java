@@ -55,7 +55,8 @@ public class AssortmentsMenu implements MenuSelectable {
     private void addActionListener(MenuSelectable menuSelectable){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            new MenuModel(menuSelectable, selectedItem);
+            MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
+            menuSelectable.setMenuModel(menuModel);
         });
     }
 

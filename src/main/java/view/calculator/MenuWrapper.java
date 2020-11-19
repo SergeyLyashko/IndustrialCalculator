@@ -21,7 +21,10 @@ public class MenuWrapper {
     public void createMenu(MenuSelectable...menus) {
         addListeners(menus);
         Arrays.stream(menus).forEach(element -> element.addReceiver(menuReceivable));
-        Arrays.stream(menus).forEach(element -> new MenuModel(element, ""));
+        Arrays.stream(menus).forEach(element -> {
+            MenuModel menuModel = new MenuModel(element, "");
+            element.setMenuModel(menuModel);
+        });
         this.components = Stream.of(menus).collect(Collectors.toList());
     }
 
