@@ -17,9 +17,9 @@ public interface AppComponent {
 
     default void registerHost(Visitor visitor){}
 
-    int getLocationX();
+    default int getLocationX(){ return 0; };
 
-    int getLocationY();
+    default int getLocationY() { return 0; }
 
     JComponent getParent();
 

@@ -14,7 +14,6 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private Visitor visitor;
 
     public ToolTipsCheckBox(){
         jCheckBox = new JCheckBox();
@@ -25,9 +24,8 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
 
     @Override
     public void registerHost(Visitor visitor) {
-        this.visitor = visitor;
         visitor.addHost(this);
-        CheckBoxState checkBoxState = new CheckBoxState(this);
+        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
         jCheckBox.addItemListener(checkBoxState);
     }
 
@@ -43,7 +41,7 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitComponent(this);
     }
 
     @Override
@@ -52,19 +50,17 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
     }
 
     @Override
-    public void activate() {
+    public void activate(Visitor visitor) {
         // TODO
         System.out.println("toolTip selected");
         setState(true);
-        visitor.raid();
     }
 
     @Override
-    public void deactivate() {
+    public void deactivate(Visitor visitor) {
         // TODO
         System.out.println("toolTip deselected");
         setState(false);
-        visitor.raid();
     }
 
     private void setState(boolean state) {

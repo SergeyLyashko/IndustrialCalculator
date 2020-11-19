@@ -47,6 +47,6 @@ public class Message implements AppComponent, Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitMessageLabel(this);
     }
 }

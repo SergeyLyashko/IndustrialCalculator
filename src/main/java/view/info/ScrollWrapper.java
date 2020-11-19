@@ -10,6 +10,7 @@ import java.awt.*;
 class ScrollWrapper implements AppComponent, Host {
 
     private final JScrollPane scrollPane;
+    private JViewport viewport;
 
     ScrollWrapper(){
         scrollPane = new JScrollPane();
@@ -19,7 +20,7 @@ class ScrollWrapper implements AppComponent, Host {
     }
 
     AppComponent add(AppComponent content){
-        JViewport viewport = scrollPane.getViewport();
+        viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
         return this;
     }
@@ -36,7 +37,12 @@ class ScrollWrapper implements AppComponent, Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitScroll(this);
+    }
+
+    @Override
+    public JComponent getScrollViewPort(){
+        return viewport;
     }
 
     @Override

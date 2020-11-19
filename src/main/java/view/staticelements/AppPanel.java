@@ -25,10 +25,10 @@ class AppPanel implements Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitComponent(this);
     }
 
-    Container getParent() {
+    public JComponent getParent() {
         return jPanel;
     }
 }

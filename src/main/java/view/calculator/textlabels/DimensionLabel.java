@@ -46,7 +46,7 @@ public class DimensionLabel implements AppComponent, Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitLabel(this);
     }
 
 }

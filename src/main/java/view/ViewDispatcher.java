@@ -14,7 +14,8 @@ public class ViewDispatcher {
     }
 
     public void createVew(){
-        Visitor visitor = new VisitorImpl();
+        Visitor visitor = new ColorVisitorImpl();
+
 
         ComponentsFactory calculator = new CalculatorFactory();
         calculator.create(menuReceivable, visitor);
@@ -30,6 +31,7 @@ public class ViewDispatcher {
         appFrame.createPanel("Настройки", settings, visitor);
         appFrame.createPanel("Справка", info, visitor);
 
+        visitor.activate();
         appFrame.create();
         appFrame.savePreferencesAndExit();
     }

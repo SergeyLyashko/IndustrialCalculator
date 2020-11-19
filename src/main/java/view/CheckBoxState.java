@@ -6,9 +6,11 @@ import java.awt.event.ItemListener;
 public class CheckBoxState implements ItemListener {
 
     private final CheckBoxSelectable checkBoxSelectable;
+    private final Visitor visitor;
 
-    public CheckBoxState(AppComponent newCheckBox) {
+    public CheckBoxState(AppComponent newCheckBox, Visitor visitor) {
         this.checkBoxSelectable = (CheckBoxSelectable) newCheckBox;
+        this.visitor = visitor;
     }
 
     @Override
@@ -16,10 +18,10 @@ public class CheckBoxState implements ItemListener {
         int stateChange = event.getStateChange();
         switch (stateChange){
             case ItemEvent.SELECTED:
-                checkBoxSelectable.activate();
+                checkBoxSelectable.activate(visitor);
                 break;
             case ItemEvent.DESELECTED:
-                checkBoxSelectable.deactivate();
+                checkBoxSelectable.deactivate(visitor);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + event.getStateChange());

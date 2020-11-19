@@ -47,6 +47,6 @@ public class Result implements AppComponent, Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitResultLabel(this);
     }
 }

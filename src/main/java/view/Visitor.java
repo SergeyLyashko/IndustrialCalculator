@@ -2,9 +2,20 @@ package view;
 
 public interface Visitor {
 
-    void raid();
-
     void addHost(Host host);
 
-    void visit(Host host);
+    void visitComponent(Host host);
+
+    void visitResultLabel(Host host);
+
+    void visitMessageLabel(Host host);
+
+    void visitLabel(Host host);
+
+    void deactivate();
+
+    void activate();
+
+    void visitScroll(Host host);
+
 }

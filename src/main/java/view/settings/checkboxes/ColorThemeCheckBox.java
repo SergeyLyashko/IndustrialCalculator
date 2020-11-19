@@ -3,7 +3,7 @@ package view.settings.checkboxes;
 import view.*;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ItemEvent;
 
 public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Host {
 
@@ -15,27 +15,26 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
     private static final int LOCATION_Y = 35;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private Color backGround;
-    private Color foreGround;
-    private Color markerColor;
-    private Color serviceStringColor;
-    private Visitor visitor;
+
 
     public ColorThemeCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
-        CheckBoxState checkBoxState = new CheckBoxState(this);
-        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
     public void registerHost(Visitor visitor) {
-        this.visitor = visitor;
         visitor.addHost(this);
+        jCheckBox.addItemListener(event -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                visitor.activate();
+            } else {
+                visitor.deactivate();
+            }
+        });
     }
-
 
     @Override
     public int getLocationX() {
@@ -47,42 +46,13 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
         return LOCATION_Y;
     }
 
-
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitComponent(this);
     }
 
     @Override
     public JComponent getParent() {
         return jCheckBox;
-    }
-
-    @Override
-    public void activate() {
-        setDarkColorTheme();
-        visitor.raid();
-    }
-
-    @Override
-    public void deactivate() {
-        setLightColorTheme();
-        visitor.raid();
-    }
-
-    private void setDarkColorTheme() {
-        System.out.println("theme set dark");
-        backGround = Color.BLACK;
-        foreGround = Color.WHITE;
-        markerColor = Color.WHITE;
-        serviceStringColor = Color.GREEN;
-    }
-
-    private void setLightColorTheme() {
-        System.out.println("theme set light");
-        backGround = new Color(250, 236, 229);
-        foreGround = Color.BLACK;
-        markerColor = Color.BLACK;
-        serviceStringColor = Color.BLUE;
     }
 }

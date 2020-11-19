@@ -23,8 +23,6 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
         jCheckBox.setText(BOX_NAME);
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
         jCheckBox.setFont(deriveFont);
-        CheckBoxState checkBoxState = new CheckBoxState(this);
-        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
@@ -40,23 +38,25 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
     @Override
     public void registerHost(Visitor visitor) {
         visitor.addHost(this);
+        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
+        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
-    public void activate() {
+    public void activate(Visitor visitor) {
         // TODO
         System.out.println("complexArea selected");
     }
 
     @Override
-    public void deactivate() {
+    public void deactivate(Visitor visitor) {
         // TODO
         System.out.println("complexArea deselected");
     }
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visit(this);
+        visitor.visitComponent(this);
     }
 
     @Override

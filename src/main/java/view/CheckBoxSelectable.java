@@ -2,8 +2,8 @@ package view;
 
 public interface CheckBoxSelectable {
 
-    void activate();
+    default void activate(Visitor visitor){}
 
-    void deactivate();
+    default void deactivate(Visitor visitor){}
 
 }
