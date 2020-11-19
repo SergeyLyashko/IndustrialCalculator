@@ -3,8 +3,11 @@ package view.calculator.menuboxes;
 import view.AppComponent;
 import view.ReceivableMenu;
 import view.calculator.SelectableMenu;
+import view.calculator.fields.FieldSelectable;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class NumbersMenu implements SelectableMenu {
@@ -31,15 +34,8 @@ public class NumbersMenu implements SelectableMenu {
     }
 
     @Override
-    public void setSelected(String selectedItem) {
-        System.out.println("number set selected: "+selectedItem);
-    }
-
-    @Override
-    public List<String> receiveMenu(String...menuItem) {
-        //String assortment = menuItem[0];
-        String type = menuItem[0];
-        return receivableMenu.getNumberMenu(type);
+    public List<String> receiveMenu(String menuItem) {
+        return receivableMenu.getNumberMenu(menuItem);
     }
 
     @Override
@@ -48,21 +44,15 @@ public class NumbersMenu implements SelectableMenu {
     }
 
     @Override
-    public void setModel(MenuModel menuModel) {
+    public void setMenuModel(MenuModel menuModel) {
         jComboBox.setModel(menuModel);
     }
 
     @Override
-    public AppComponent getComponent() {
-        return this;
-    }
-
-    @Override
-    public void addListener(SelectableMenu selectableMenu) {
-        System.out.println("add numbers listener: "+selectableMenu.getHeaderMenu());
-        // TODO должен быть слушатель поле ввода!
-        //MenuBehavior menuItemBehavior = new MenuBehavior(selectableMenu);
-        //jComboBox.addActionListener(menuItemBehavior);
+    public <T extends AppComponent> void addListener(T componentListener) {
+        if(componentListener instanceof FieldSelectable){
+            jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).activate());
+        }
     }
 
     @Override

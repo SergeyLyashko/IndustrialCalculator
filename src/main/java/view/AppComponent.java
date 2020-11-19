@@ -4,10 +4,9 @@ import javax.swing.*;
 
 public interface AppComponent {
 
-    default void integration(Visitor visitor){
+    default void integration(){
         JComponent jComponent = getParent();
         setLocation(jComponent);
-        registerHost(visitor);
     }
 
     default void setLocation(JComponent jComponent) {
@@ -23,4 +22,7 @@ public interface AppComponent {
     int getLocationY();
 
     JComponent getParent();
+
+    default <T extends AppComponent> void addListener(T component){}
+
 }

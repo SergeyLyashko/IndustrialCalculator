@@ -3,8 +3,9 @@ package view.calculator.fields;
 import view.AppComponent;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
-public class Width implements AppComponent {
+public class Width implements FieldSelectable {
 
     private final JFormattedTextField textField;
 
@@ -20,9 +21,6 @@ public class Width implements AppComponent {
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        FieldBehavior fieldState = new FieldBehavior(this);
-        textField.addFocusListener(fieldState);
-        textField.addKeyListener(fieldState);
     }
 
     @Override
@@ -38,6 +36,21 @@ public class Width implements AppComponent {
     @Override
     public JComponent getParent() {
         return textField;
+    }
+
+    @Override
+    public void addListener(AppComponent component) {
+
+    }
+
+    @Override
+    public void activate() {
+        System.out.println("width activate");
+    }
+
+    @Override
+    public void deactivate() {
+        System.out.println("width Deactivate");
     }
 
 }

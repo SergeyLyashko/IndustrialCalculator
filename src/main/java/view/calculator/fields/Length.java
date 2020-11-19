@@ -3,8 +3,9 @@ package view.calculator.fields;
 import view.AppComponent;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class Length implements AppComponent {
+public class Length implements FieldSelectable {
 
     private final JFormattedTextField textField;
 
@@ -20,9 +21,6 @@ public class Length implements AppComponent {
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        FieldBehavior fieldState = new FieldBehavior(this);
-        textField.addFocusListener(fieldState);
-        textField.addKeyListener(fieldState);
     }
 
     @Override
@@ -40,4 +38,22 @@ public class Length implements AppComponent {
         return textField;
     }
 
+    @Override
+    public void addListener(AppComponent component) {
+
+    }
+
+    @Override
+    public void activate() {
+        System.out.println("length activate");
+        //textField.setEditable(true);
+        //textField.setBackground(Color.white);
+        //textField.addFocusListener(this);
+        //textField.addKeyListener(this);
+    }
+
+    @Override
+    public void deactivate() {
+        System.out.println("length Deactivate");
+    }
 }

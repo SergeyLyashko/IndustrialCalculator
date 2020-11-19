@@ -3,6 +3,7 @@ package view.calculator.menuboxes;
 import view.AppComponent;
 import view.ReceivableMenu;
 import view.calculator.SelectableMenu;
+import view.calculator.fields.FieldSelectable;
 
 import javax.swing.*;
 import java.util.List;
@@ -27,7 +28,7 @@ public class AssortmentsMenu implements SelectableMenu {
     }
 
     @Override
-    public List<String> receiveMenu(String...menuItem) {
+    public List<String> receiveMenu(String menuItem) {
         return receivableMenu.getAssortmentMenu();
     }
 
@@ -37,29 +38,24 @@ public class AssortmentsMenu implements SelectableMenu {
     }
 
     @Override
-    public void setModel(MenuModel menuModel) {
+    public void setMenuModel(MenuModel menuModel) {
         jComboBox.setModel(menuModel);
     }
 
     @Override
-    public AppComponent getComponent() {
-        return this;
-    }
-
-    @Override
-    public void addListener(SelectableMenu menuListener) {
-        SelectableMenuBehavior menuItemBehavior = new SelectableMenuBehavior(menuListener);
-        jComboBox.addActionListener(menuItemBehavior);
+    public <T extends AppComponent> void addListener(T componentListener) {
+        if(componentListener instanceof SelectableMenu){
+            SelectableMenuBehavior menuItemBehavior = new SelectableMenuBehavior((SelectableMenu) componentListener);
+            jComboBox.addActionListener(menuItemBehavior);
+        }
+        if(componentListener instanceof FieldSelectable){
+            jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).deactivate());
+        }
     }
 
     @Override
     public void addReceiver(ReceivableMenu receivableMenu) {
         this.receivableMenu = receivableMenu;
-    }
-
-    @Override
-    public void setSelected(String selectedItem) {
-        System.out.println("assort set selected: "+selectedItem);
     }
 
     @Override

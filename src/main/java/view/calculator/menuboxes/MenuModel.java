@@ -9,21 +9,16 @@ import java.util.List;
 public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
     private final List<String> menuList = new ArrayList<>();
-    private final SelectableMenu menuListener;
     private int selected;
 
-    public MenuModel(SelectableMenu menuListener) {
-        this.menuListener = menuListener;
-    }
-
-    public void createModel(String...menuItem){
+    public MenuModel(SelectableMenu menuListener, String menuItem){
         String headerMenu = menuListener.getHeaderMenu();
         menuList.add(headerMenu);
         List<String> menu = menuListener.receiveMenu(menuItem);
         if(menu != null){
             menuList.addAll(menu);
         }
-        menuListener.setModel(this);
+        menuListener.setMenuModel(this);
     }
 
     @Override

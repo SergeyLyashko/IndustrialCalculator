@@ -9,16 +9,17 @@ import java.util.List;
 
 public class SettingsFactory implements ComponentsFactory {
 
-    private final List<AppComponent> components = new ArrayList<>();
+    private final List<AppComponent> componentList = new ArrayList<>();
 
-    private void integration(AppComponent swingComponent, Visitor visitor) {
-        swingComponent.integration(visitor);
-        components.add(swingComponent);
+    private void integration(AppComponent component, Visitor visitor) {
+        component.integration();
+        component.registerHost(visitor);
+        componentList.add(component);
     }
 
     @Override
-    public List<AppComponent> getComponents() {
-        return components;
+    public List<AppComponent> getComponentList() {
+        return componentList;
     }
 
     @Override

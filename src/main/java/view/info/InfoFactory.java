@@ -15,15 +15,17 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     private AppComponent wrap(AppComponent appComponent, Visitor visitor){
-        appComponent.integration(visitor);
+        appComponent.integration();
+        appComponent.registerHost(visitor);
         ScrollWrapper scrollWrapper = new ScrollWrapper();
         AppComponent wrapperComponent = scrollWrapper.add(appComponent);
-        wrapperComponent.integration(visitor);
+        wrapperComponent.integration();
+        wrapperComponent.registerHost(visitor);
         return wrapperComponent;
     }
 
     @Override
-    public List<AppComponent> getComponents() {
+    public List<AppComponent> getComponentList() {
         return components;
     }
 

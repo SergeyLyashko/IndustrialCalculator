@@ -19,7 +19,7 @@ public class AppFrame implements Serializable {
     private final JFrame jFrame = new JFrame("Industrial calculator");
 
     public void createPanel(String type, ComponentsFactory factory, Visitor visitor){
-        List<AppComponent> components = factory.getComponents();
+        List<AppComponent> components = factory.getComponentList();
         AppPanel newPanel = new AppPanel(components, visitor);
         addTab(type, newPanel);
     }

@@ -18,11 +18,11 @@ public class MenuWrapper {
         this.receivableMenu = receivableMenu;
     }
 
-    public void createComponents(SelectableMenu...menus) {
+    public void createMenu(SelectableMenu...menus) {
         addListeners(menus);
-        Arrays.stream(menus).forEach(this::addReceiver);
-        Arrays.stream(menus).forEach(this::createMenu);
-        this.components = Stream.of(menus).map(SelectableMenu::getComponent).collect(Collectors.toList());
+        Arrays.stream(menus).forEach(element -> element.addReceiver(receivableMenu));
+        Arrays.stream(menus).forEach(element -> new MenuModel(element, ""));
+        this.components = Stream.of(menus).collect(Collectors.toList());
     }
 
     public List<AppComponent> getComponents(){
@@ -36,15 +36,5 @@ public class MenuWrapper {
         assortment.addListener(types);
         assortment.addListener(numbers);
         types.addListener(numbers);
-    }
-
-    private void addReceiver(SelectableMenu selectable){
-        selectable.addReceiver(receivableMenu);
-    }
-
-    private void createMenu(SelectableMenu selectable){
-        String headerMenu = selectable.getHeaderMenu();
-        MenuModel menuModel = new MenuModel(selectable);
-        menuModel.createModel(headerMenu);
     }
 }

@@ -8,17 +8,11 @@ import java.util.List;
 
 public interface SelectableMenu extends AppComponent {
 
-    List<String> receiveMenu(String...menuItem);
+    List<String> receiveMenu(String menuItem);
 
     String getHeaderMenu();
 
-    void setModel(MenuModel menuModel);
-
-    AppComponent getComponent();
-
-    void addListener(SelectableMenu selectableMenu);
+    void setMenuModel(MenuModel menuModel);
 
     void addReceiver(ReceivableMenu receivableMenu);
-
-    void setSelected(String selectedItem);
 }
