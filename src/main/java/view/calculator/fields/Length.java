@@ -8,7 +8,7 @@ public class Length implements FieldSelectable {
     private final FieldFocusBehavior fieldFocusBehavior;
 
     private static final String BOX_NAME = "введите длину";
-    private static final String THEME_TOOL_TIP_TEXT = "поле ввода длины детали";
+    private static final String TOOL_TIP_TEXT = "поле ввода длины детали";
     private static final int WIDTH = 125;
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
@@ -20,6 +20,7 @@ public class Length implements FieldSelectable {
         textField.setEditable(false);
         textField.setText(BOX_NAME);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
+        textField.setToolTipText(TOOL_TIP_TEXT);
         fieldFocusBehavior = new FieldFocusBehavior(this);
         fieldFocusBehavior.deactivate();
     }

@@ -54,7 +54,7 @@ public class CalculatorFactory implements ComponentsFactory {
 
     private void integration(AppComponent component, Visitor visitor) {
         component.integration();
-        component.registerHost(visitor);
+        component.registerAsHost(visitor);
         components.add(component);
     }
 

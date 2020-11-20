@@ -13,7 +13,7 @@ public class SettingsFactory implements ComponentsFactory {
 
     private void integration(AppComponent component, Visitor visitor) {
         component.integration();
-        component.registerHost(visitor);
+        component.registerAsHost(visitor);
         componentList.add(component);
     }
 

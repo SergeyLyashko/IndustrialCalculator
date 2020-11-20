@@ -13,7 +13,7 @@ public class AssortmentsMenu implements MenuSelectable {
     private final JComboBox<String> jComboBox;
 
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
-    private static final String THEME_TOOL_TIP_TEXT = "выбор сортамента детали";
+    private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
 
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 20;
@@ -25,6 +25,7 @@ public class AssortmentsMenu implements MenuSelectable {
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
+        jComboBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
     @Override

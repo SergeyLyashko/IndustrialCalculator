@@ -10,7 +10,7 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
     private final JCheckBox jCheckBox;
 
     private static final String BOX_NAME = "темная тема оформления";
-    private static final String THEME_TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
+    private static final String TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private static final int LOCATION_X = 15;
     private static final int LOCATION_Y = 35;
     private static final int WIDTH = 320;
@@ -22,10 +22,11 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
+        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
     @Override
-    public void registerHost(Visitor visitor) {
+    public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
         jCheckBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -55,4 +56,5 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
     public JComponent getParent() {
         return jCheckBox;
     }
+
 }

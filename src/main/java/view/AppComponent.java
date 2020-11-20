@@ -15,7 +15,7 @@ public interface AppComponent {
         jComponent.setLocation(locationX, locationY);
     }
 
-    default void registerHost(Visitor visitor){}
+    default void registerAsHost(Visitor visitor){}
 
     default int getLocationX(){ return 0; };
 

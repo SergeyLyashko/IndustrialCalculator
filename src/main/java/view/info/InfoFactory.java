@@ -16,11 +16,11 @@ public class InfoFactory implements ComponentsFactory {
 
     private AppComponent wrap(AppComponent appComponent, Visitor visitor){
         appComponent.integration();
-        appComponent.registerHost(visitor);
+        appComponent.registerAsHost(visitor);
         ScrollWrapper scrollWrapper = new ScrollWrapper();
         AppComponent wrapperComponent = scrollWrapper.add(appComponent);
         wrapperComponent.integration();
-        wrapperComponent.registerHost(visitor);
+        wrapperComponent.registerAsHost(visitor);
         return wrapperComponent;
     }
 

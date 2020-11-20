@@ -25,7 +25,7 @@ public class DimensionLabel implements AppComponent, Host {
     }
 
     @Override
-    public void registerHost(Visitor visitor) {
+    public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
     }
 

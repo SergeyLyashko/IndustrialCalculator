@@ -9,7 +9,7 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
 
     private final JCheckBox jCheckBox;
 
-    private static final String TOOL_TIP_BOX_TEXT = "расчет массы детали по задаваемой площади детали";
+    private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
     private static final int LOCATION_X = 187;
     private static final int LOCATION_Y = 85;
@@ -23,6 +23,7 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
         jCheckBox.setText(BOX_NAME);
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
         jCheckBox.setFont(deriveFont);
+        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
     }
 
     @Override
-    public void registerHost(Visitor visitor) {
+    public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
         CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
         jCheckBox.addItemListener(checkBoxState);

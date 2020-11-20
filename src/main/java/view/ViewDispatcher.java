@@ -16,7 +16,6 @@ public class ViewDispatcher {
     public void createVew(){
         Visitor visitor = new ColorVisitorImpl();
 
-
         ComponentsFactory calculator = new CalculatorFactory();
         calculator.create(menuReceivable, visitor);
 

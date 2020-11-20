@@ -7,7 +7,7 @@ public class Width implements FieldSelectable {
     private final JFormattedTextField textField;
 
     private static final String BOX_NAME = "введите ширину";
-    private static final String THEME_TOOL_TIP_TEXT = "поле ввода ширины детали";
+    private static final String TOOL_TIP_TEXT = "поле ввода ширины детали";
     private static final int WIDTH = 125;
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
@@ -19,6 +19,7 @@ public class Width implements FieldSelectable {
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setText(BOX_NAME);
+        textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         fieldFocusBehavior = new FieldFocusBehavior(this);
         fieldFocusBehavior.deactivate();

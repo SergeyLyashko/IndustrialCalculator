@@ -3,13 +3,14 @@ package view.settings.checkboxes;
 import view.*;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
 
 public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host {
 
     private final JCheckBox jCheckBox;
 
     private static final String BOX_NAME = "включить всплывающие подсказки";
-    private static final String TOOL_TIP_BOX_TEXT = "включение/отключение всплывающих подсказок";
+    private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
     private static final int LOCATION_X = 15;
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
@@ -20,13 +21,14 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
+        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
     @Override
-    public void registerHost(Visitor visitor) {
+    public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
-        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
-        jCheckBox.addItemListener(checkBoxState);
+        jCheckBox.addItemListener(event ->
+                ToolTipManager.sharedInstance().setEnabled(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override
@@ -48,23 +50,4 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
     public JComponent getParent() {
         return jCheckBox;
     }
-
-    @Override
-    public void activate(Visitor visitor) {
-        // TODO
-        System.out.println("toolTip selected");
-        setState(true);
-    }
-
-    @Override
-    public void deactivate(Visitor visitor) {
-        // TODO
-        System.out.println("toolTip deselected");
-        setState(false);
-    }
-
-    private void setState(boolean state) {
-        ToolTipManager.sharedInstance().setEnabled(state);
-    }
-
 }

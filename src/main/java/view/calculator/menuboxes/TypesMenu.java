@@ -13,7 +13,7 @@ public class TypesMenu implements MenuSelectable {
     private final JComboBox<String> jComboBox;
 
     private static final String TYPE_HEADER = "Тип профиля";
-    private static final String THEME_TOOL_TIP_TEXT = "выбор типа профиля детали";
+    private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
@@ -24,6 +24,7 @@ public class TypesMenu implements MenuSelectable {
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
+        jComboBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
     @Override
