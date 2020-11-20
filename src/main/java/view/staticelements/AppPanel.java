@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-class AppPanel implements Host {
+public class AppPanel implements Host {
 
     private final JPanel jPanel = new JPanel();
 
-    AppPanel(List<AppComponent> components, Visitor visitor){
+    public AppPanel(List<AppComponent> components, Visitor visitor){
         jPanel.setLayout(null);
         components.forEach(this::add);
         visitor.addHost(this);
@@ -31,4 +31,5 @@ class AppPanel implements Host {
     public JComponent getParent() {
         return jPanel;
     }
+
 }

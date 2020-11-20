@@ -57,4 +57,9 @@ public class Width implements FieldSelectable {
         return BOX_NAME;
     }
 
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
+
 }

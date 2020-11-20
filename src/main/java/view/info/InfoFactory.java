@@ -25,12 +25,8 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     @Override
-    public List<AppComponent> getComponentList() {
-        return components;
-    }
-
-    @Override
-    public void create(MenuReceivable menuReceivable, Visitor visitor) {
+    public List<AppComponent> createComponents(MenuReceivable menuReceivable, Visitor visitor) {
         integration(new Info(), visitor);
+        return components;
     }
 }

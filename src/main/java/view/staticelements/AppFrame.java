@@ -1,15 +1,10 @@
 package view.staticelements;
 
-import view.ComponentsFactory;
-import view.AppComponent;
-import view.Visitor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
-import java.util.List;
 
 public class AppFrame implements Serializable {
 
@@ -18,14 +13,8 @@ public class AppFrame implements Serializable {
     private final JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
     private final JFrame jFrame = new JFrame("Industrial calculator");
 
-    public void createPanel(String type, ComponentsFactory factory, Visitor visitor){
-        List<AppComponent> components = factory.getComponentList();
-        AppPanel newPanel = new AppPanel(components, visitor);
-        addTab(type, newPanel);
-    }
-
-    private void addTab(String type, AppPanel newPanel){
-        Container parentContainer = newPanel.getParent();
+    public void createPanel(String type, AppPanel panel){
+        Container parentContainer = panel.getParent();
         jTabbedPane.add(type, parentContainer);
     }
 

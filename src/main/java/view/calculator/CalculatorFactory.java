@@ -20,7 +20,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components = new ArrayList<>();
 
     @Override
-    public void create(MenuReceivable menuReceivable, Visitor visitor){
+    public List<AppComponent> createComponents(MenuReceivable menuReceivable, Visitor visitor){
 
         MenuSelectable assortment = new AssortmentsMenu();
         MenuSelectable types = new TypesMenu();
@@ -42,14 +42,15 @@ public class CalculatorFactory implements ComponentsFactory {
         numbers.addListener(length);
         numbers.addListener(width);
 
-
         integration(new ComplexAreaCheckBox(), visitor);
-        integration(length, visitor);
         integration(width, visitor);
+        integration(length, visitor);
         integration(new Result(), visitor);
         integration(new Message(), visitor);
         integration(new DimensionLabel(320, 22), visitor);
         integration(new DimensionLabel(320, 62), visitor);
+
+        return components;
     }
 
     private void integration(AppComponent component, Visitor visitor) {
@@ -63,8 +64,4 @@ public class CalculatorFactory implements ComponentsFactory {
         components.add(component);
     }
 
-    @Override
-    public List<AppComponent> getComponentList() {
-        return components;
-    }
 }

@@ -57,4 +57,9 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
         return jCheckBox;
     }
 
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
+
 }

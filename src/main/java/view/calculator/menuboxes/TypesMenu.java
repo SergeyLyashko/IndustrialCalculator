@@ -80,4 +80,8 @@ public class TypesMenu implements MenuSelectable {
         return jComboBox;
     }
 
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
  }

@@ -53,6 +53,11 @@ public class AssortmentsMenu implements MenuSelectable {
         }
     }
 
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
+
     private void addActionListener(MenuSelectable menuSelectable){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();

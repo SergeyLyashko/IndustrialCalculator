@@ -18,13 +18,9 @@ public class SettingsFactory implements ComponentsFactory {
     }
 
     @Override
-    public List<AppComponent> getComponentList() {
-        return componentList;
-    }
-
-    @Override
-    public void create(MenuReceivable menuReceivable, Visitor visitor) {
+    public List<AppComponent> createComponents(MenuReceivable menuReceivable, Visitor visitor) {
         integration(new ColorThemeCheckBox(), visitor);
         integration(new ToolTipsCheckBox(), visitor);
+        return componentList;
     }
 }

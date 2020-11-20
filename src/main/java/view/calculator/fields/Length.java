@@ -56,4 +56,9 @@ public class Length implements FieldSelectable {
     public String getName() {
         return BOX_NAME;
     }
+
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
 }

@@ -1,16 +1,28 @@
 package view;
 
+import view.staticelements.AppPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
     private final ArrayList<JComponent> thisOrder;
 
-    public CalculatorFocusTraversalPolicy(ArrayList<JComponent> order) {
-        this.thisOrder = new ArrayList<>(order.size());
-        thisOrder.addAll(order);
+    public CalculatorFocusTraversalPolicy(List<AppComponent> componentList) {
+        thisOrder = componentList.stream()
+                .filter(AppComponent::isFocused)
+                .map(AppComponent::getParent)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void setFocusPolicy(AppPanel panel){
+        JComponent parent = panel.getParent();
+        parent.setFocusCycleRoot(true);
+        parent.setFocusTraversalPolicy(this);
     }
 
     @Override
@@ -42,5 +54,4 @@ public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
     public Component getDefaultComponent(Container container) {
         return thisOrder.get(0);
     }
-
 }

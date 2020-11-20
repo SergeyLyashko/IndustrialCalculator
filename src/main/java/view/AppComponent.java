@@ -25,4 +25,5 @@ public interface AppComponent {
 
     default <T extends AppComponent> void addListener(T component){}
 
+    default boolean isFocused(){ return  false; }
 }
