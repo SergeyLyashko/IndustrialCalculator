@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class Length implements FieldSelectable {
 
+    private static final String BOX_NAME_AREA = "введите площадь";
     private final JFormattedTextField textField;
     private final FieldFocusBehavior fieldFocusBehavior;
 
@@ -55,6 +56,16 @@ public class Length implements FieldSelectable {
     @Override
     public String getName() {
         return BOX_NAME;
+    }
+
+    @Override
+    public void complexAreaDeactivate() {
+
+    }
+
+    @Override
+    public void complexAreaActivate() {
+        textField.setText(BOX_NAME_AREA);
     }
 
     @Override

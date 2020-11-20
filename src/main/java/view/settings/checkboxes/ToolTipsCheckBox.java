@@ -5,7 +5,7 @@ import view.*;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 
-public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host {
+public class ToolTipsCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -22,13 +22,13 @@ public class ToolTipsCheckBox implements AppComponent, CheckBoxSelectable, Host 
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
+        jCheckBox.addItemListener(event ->
+                ToolTipManager.sharedInstance().setEnabled(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override
     public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
-        jCheckBox.addItemListener(event ->
-                ToolTipManager.sharedInstance().setEnabled(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override

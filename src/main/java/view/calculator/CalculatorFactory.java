@@ -42,7 +42,11 @@ public class CalculatorFactory implements ComponentsFactory {
         numbers.addListener(length);
         numbers.addListener(width);
 
-        integration(new ComplexAreaCheckBox(), visitor);
+        AppComponent complexAreaCheckBox = new ComplexAreaCheckBox();
+        complexAreaCheckBox.addListener(length);
+        complexAreaCheckBox.addListener(width);
+
+        integration(complexAreaCheckBox, visitor);
         integration(width, visitor);
         integration(length, visitor);
         integration(new Result(), visitor);

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class Width implements FieldSelectable {
 
+    private static final String EMPTY = "";
     private final JFormattedTextField textField;
 
     private static final String BOX_NAME = "введите ширину";
@@ -55,6 +56,17 @@ public class Width implements FieldSelectable {
     @Override
     public String getName() {
         return BOX_NAME;
+    }
+
+    @Override
+    public void complexAreaDeactivate() {
+
+    }
+
+    @Override
+    public void complexAreaActivate() {
+        deactivate();
+        textField.setText(EMPTY);
     }
 
     @Override

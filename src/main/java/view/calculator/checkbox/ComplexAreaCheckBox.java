@@ -1,11 +1,13 @@
 package view.calculator.checkbox;
 
 import view.*;
+import view.calculator.fields.FieldSelectable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 
-public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Host {
+public class ComplexAreaCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -18,7 +20,7 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
 
     public ComplexAreaCheckBox(){
         jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(true);
+        jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
@@ -39,20 +41,20 @@ public class ComplexAreaCheckBox implements AppComponent, CheckBoxSelectable, Ho
     @Override
     public void registerAsHost(Visitor visitor) {
         visitor.addHost(this);
-        CheckBoxState checkBoxState = new CheckBoxState(this, visitor);
-        jCheckBox.addItemListener(checkBoxState);
     }
 
     @Override
-    public void activate(Visitor visitor) {
-        // TODO
-        System.out.println("complexArea selected");
-    }
-
-    @Override
-    public void deactivate(Visitor visitor) {
-        // TODO
-        System.out.println("complexArea deselected");
+    public <T extends AppComponent> void addListener(T componentListener) {
+        jCheckBox.addItemListener(event -> {
+            FieldSelectable source = (FieldSelectable) componentListener;
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                System.out.println("complexArea selected");
+                source.complexAreaActivate();
+            } else {
+                System.out.println("complexArea deselected");
+                source.complexAreaDeactivate();
+            }
+        });
     }
 
     @Override

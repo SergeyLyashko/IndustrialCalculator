@@ -5,7 +5,7 @@ import view.*;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 
-public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Host {
+public class ColorThemeCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -61,5 +61,4 @@ public class ColorThemeCheckBox implements AppComponent, CheckBoxSelectable, Hos
     public boolean isFocused() {
         return true;
     }
-
 }
