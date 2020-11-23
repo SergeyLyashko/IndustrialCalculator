@@ -15,4 +15,6 @@ public interface MenuSelectable extends AppComponent {
     void setMenuModel(MenuModel menuModel);
 
     void addReceiver(MenuReceivable menuReceivable);
+
+    void addListener(CalculatorFieldState calculatorFieldState);
 }

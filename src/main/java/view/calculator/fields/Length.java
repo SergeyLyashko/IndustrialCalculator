@@ -60,7 +60,7 @@ public class Length implements FieldSelectable {
 
     @Override
     public void complexAreaDeactivate() {
-
+        textField.setText(BOX_NAME);
     }
 
     @Override

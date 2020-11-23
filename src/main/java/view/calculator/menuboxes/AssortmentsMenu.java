@@ -2,8 +2,10 @@ package view.calculator.menuboxes;
 
 import view.AppComponent;
 import view.MenuReceivable;
+import view.calculator.CalculatorFieldState;
 import view.calculator.MenuSelectable;
 import view.calculator.fields.FieldSelectable;
+import view.calculator.state.FieldState;
 
 import javax.swing.*;
 import java.util.List;
@@ -46,19 +48,14 @@ public class AssortmentsMenu implements MenuSelectable {
     @Override
     public <T extends AppComponent> void addListener(T componentListener) {
         if(componentListener instanceof MenuSelectable){
-            addActionListener((MenuSelectable) componentListener);
+            addMenuListener((MenuSelectable) componentListener);
         }
         if(componentListener instanceof FieldSelectable){
-            jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).deactivate());
+            addFieldListener((FieldSelectable) componentListener);
         }
     }
 
-    @Override
-    public boolean isFocused() {
-        return true;
-    }
-
-    private void addActionListener(MenuSelectable menuSelectable){
+    private void addMenuListener(MenuSelectable menuSelectable){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
@@ -66,9 +63,28 @@ public class AssortmentsMenu implements MenuSelectable {
         });
     }
 
+    private void addFieldListener(FieldSelectable fieldSelectable){
+        jComboBox.addActionListener(event -> {
+            fieldSelectable.deactivate();
+        });
+    }
+
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
+
     @Override
     public void addReceiver(MenuReceivable menuReceivable) {
         this.menuReceivable = menuReceivable;
+    }
+
+    @Override
+    public void addListener(CalculatorFieldState fieldState) {
+        jComboBox.addActionListener(event -> {
+            fieldState.setState(fieldState.getWidthFieldOffState());
+            fieldState.selectMenu();
+        });
     }
 
     @Override
@@ -85,5 +101,4 @@ public class AssortmentsMenu implements MenuSelectable {
     public JComponent getParent() {
         return jComboBox;
     }
-
 }

@@ -2,8 +2,10 @@ package view.calculator.menuboxes;
 
 import view.AppComponent;
 import view.MenuReceivable;
+import view.calculator.CalculatorFieldState;
 import view.calculator.MenuSelectable;
 import view.calculator.fields.FieldSelectable;
+import view.calculator.state.FieldState;
 
 import javax.swing.*;
 import java.util.List;
@@ -33,6 +35,25 @@ public class TypesMenu implements MenuSelectable {
     }
 
     @Override
+    public void addListener(CalculatorFieldState calculatorFieldState) {
+        jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
+                selectedItem.equalsIgnoreCase("тонколистовая") ||
+                selectedItem.equalsIgnoreCase("толстолистовая") ||
+                selectedItem.equalsIgnoreCase("рифленая(ромб)")){
+                    FieldState haveWidthState = calculatorFieldState.getHaveWidthState();
+                    calculatorFieldState.setState(haveWidthState);
+                    calculatorFieldState.selectMenu();
+            } else{
+                FieldState notWidthState = calculatorFieldState.getNotWidthState();
+                calculatorFieldState.setState(notWidthState);
+                calculatorFieldState.selectMenu();
+            }
+        });
+    }
+
+    @Override
     public List<String> receiveMenu(String menuItem) {
         return menuReceivable.getTypeMenu(menuItem);
     }
@@ -50,20 +71,28 @@ public class TypesMenu implements MenuSelectable {
     @Override
     public <T extends AppComponent> void addListener(T componentListener) {
         if(componentListener instanceof MenuSelectable){
-            addActionListener((MenuSelectable) componentListener);
+            addMenuListener((MenuSelectable) componentListener);
         }
         if(componentListener instanceof FieldSelectable){
-            jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).deactivate());
+            addFieldListener((FieldSelectable) componentListener);
         }
     }
 
-    private void addActionListener(MenuSelectable menuSelectable){
+    private void addMenuListener(MenuSelectable menuSelectable){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
             menuSelectable.setMenuModel(menuModel);
         });
     }
+
+    private void addFieldListener(FieldSelectable fieldSelectable){
+        jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            fieldSelectable.deactivate();
+        });
+    }
+
 
     @Override
     public int getLocationX() {

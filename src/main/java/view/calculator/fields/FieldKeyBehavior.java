@@ -31,7 +31,7 @@ class FieldKeyBehavior extends KeyAdapter {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            //this.transferFocus();
+            textField.transferFocus();
         }
     }
 }
