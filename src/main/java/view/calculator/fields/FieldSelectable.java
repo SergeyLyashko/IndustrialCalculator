@@ -10,7 +10,5 @@ public interface FieldSelectable extends AppComponent {
 
     String getName();
 
-    void complexAreaDeactivate();
-
-    void complexAreaActivate();
+    void transformArea();
 }

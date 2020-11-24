@@ -1,7 +1,7 @@
 package view.calculator.checkbox;
 
 import view.*;
-import view.calculator.fields.FieldSelectable;
+import view.calculator.CalculatorFieldState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,15 +44,14 @@ public class ComplexAreaCheckBox implements AppComponent, Host {
     }
 
     @Override
-    public <T extends AppComponent> void addListener(T componentListener) {
+    public void addFieldStateListener(CalculatorFieldState fieldState) {
         jCheckBox.addItemListener(event -> {
-            FieldSelectable source = (FieldSelectable) componentListener;
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 System.out.println("complexArea selected");
-                source.complexAreaActivate();
+                fieldState.checkBoxSelect(true);
             } else {
                 System.out.println("complexArea deselected");
-                source.complexAreaDeactivate();
+                fieldState.checkBoxSelect(false);
             }
         });
     }

@@ -34,19 +34,12 @@ public class CalculatorFactory implements ComponentsFactory {
         FieldSelectable length = new Length();
 
         AppComponent complexAreaCheckBox = new ComplexAreaCheckBox();
-        complexAreaCheckBox.addListener(length);
-        complexAreaCheckBox.addListener(width);
 
         CalculatorFieldState calculatorFieldState = new CalculatorFieldState(width, length);
-        assortment.addListener(calculatorFieldState);
-        types.addListener(calculatorFieldState);
-        numbers.addListener(calculatorFieldState);
-
-        //// del
-        assortment.addListener(length);
-        types.addListener(length);
-        numbers.addListener(length);
-        ///
+        assortment.addFieldStateListener(calculatorFieldState);
+        types.addFieldStateListener(calculatorFieldState);
+        numbers.addFieldStateListener(calculatorFieldState);
+        complexAreaCheckBox.addFieldStateListener(calculatorFieldState);
 
         integration(complexAreaCheckBox, visitor);
         integration(width, visitor);

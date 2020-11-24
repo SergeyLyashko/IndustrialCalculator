@@ -4,7 +4,6 @@ import view.AppComponent;
 import view.MenuReceivable;
 import view.calculator.CalculatorFieldState;
 import view.calculator.MenuSelectable;
-import view.calculator.fields.FieldSelectable;
 import view.calculator.state.FieldState;
 
 import javax.swing.*;
@@ -35,7 +34,7 @@ public class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public void addListener(CalculatorFieldState calculatorFieldState) {
+    public void addFieldStateListener(CalculatorFieldState calculatorFieldState) {
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
@@ -69,30 +68,13 @@ public class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public <T extends AppComponent> void addListener(T componentListener) {
-        if(componentListener instanceof MenuSelectable){
-            addMenuListener((MenuSelectable) componentListener);
-        }
-        if(componentListener instanceof FieldSelectable){
-            addFieldListener((FieldSelectable) componentListener);
-        }
-    }
-
-    private void addMenuListener(MenuSelectable menuSelectable){
+    public void addMenuListener(MenuSelectable menuSelectable){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
             menuSelectable.setMenuModel(menuModel);
         });
     }
-
-    private void addFieldListener(FieldSelectable fieldSelectable){
-        jComboBox.addActionListener(event -> {
-            String selectedItem = (String) jComboBox.getSelectedItem();
-            fieldSelectable.deactivate();
-        });
-    }
-
 
     @Override
     public int getLocationX() {

@@ -44,12 +44,14 @@ public class Width implements FieldSelectable {
     @Override
     public void activate() {
         System.out.println("width activate");
+        textField.setText(BOX_NAME);
         fieldFocusBehavior.activate();
     }
 
     @Override
     public void deactivate() {
         System.out.println("width Deactivate");
+        textField.setText(BOX_NAME);
         fieldFocusBehavior.deactivate();
     }
 
@@ -59,12 +61,7 @@ public class Width implements FieldSelectable {
     }
 
     @Override
-    public void complexAreaDeactivate() {
-        textField.setText(BOX_NAME);
-    }
-
-    @Override
-    public void complexAreaActivate() {
+    public void transformArea() {
         fieldFocusBehavior.deactivate();
         textField.setText(EMPTY);
     }

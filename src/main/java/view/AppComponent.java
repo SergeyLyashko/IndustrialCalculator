@@ -1,5 +1,8 @@
 package view;
 
+import view.calculator.CalculatorFieldState;
+import view.calculator.MenuSelectable;
+
 import javax.swing.*;
 
 public interface AppComponent {
@@ -23,7 +26,9 @@ public interface AppComponent {
 
     JComponent getParent();
 
-    default <T extends AppComponent> void addListener(T component){}
+    default void addMenuListener(MenuSelectable menuSelectable){}
+
+    default void addFieldStateListener(CalculatorFieldState calculatorFieldState){}
 
     default boolean isFocused(){ return  false; }
 }

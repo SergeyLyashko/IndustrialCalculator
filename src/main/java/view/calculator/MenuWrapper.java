@@ -36,8 +36,8 @@ public class MenuWrapper {
         MenuSelectable assortment = menus[0];
         MenuSelectable types = menus[1];
         MenuSelectable numbers = menus[2];
-        assortment.addListener(types);
-        assortment.addListener(numbers);
-        types.addListener(numbers);
+        assortment.addMenuListener(types);
+        assortment.addMenuListener(numbers);
+        types.addMenuListener(numbers);
     }
 }

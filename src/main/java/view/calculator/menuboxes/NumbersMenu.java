@@ -1,15 +1,10 @@
 package view.calculator.menuboxes;
 
-import view.AppComponent;
 import view.MenuReceivable;
 import view.calculator.CalculatorFieldState;
 import view.calculator.MenuSelectable;
-import view.calculator.fields.FieldSelectable;
-import view.calculator.state.FieldState;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class NumbersMenu implements MenuSelectable {
@@ -37,7 +32,7 @@ public class NumbersMenu implements MenuSelectable {
     }
 
     @Override
-    public void addListener(CalculatorFieldState calculatorFieldState) {
+    public void addFieldStateListener(CalculatorFieldState calculatorFieldState) {
         jComboBox.addActionListener(event -> {
             calculatorFieldState.turnNumbers();
         });
@@ -56,13 +51,6 @@ public class NumbersMenu implements MenuSelectable {
     @Override
     public void setMenuModel(MenuModel menuModel) {
         jComboBox.setModel(menuModel);
-    }
-
-    @Override
-    public <T extends AppComponent> void addListener(T componentListener) {
-        if(componentListener instanceof FieldSelectable){
-            jComboBox.addActionListener(e -> ((FieldSelectable) componentListener).activate());
-        }
     }
 
     @Override

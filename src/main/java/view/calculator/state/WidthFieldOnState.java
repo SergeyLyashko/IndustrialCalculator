@@ -12,20 +12,35 @@ public class WidthFieldOnState implements FieldState {
     }
 
     @Override
-    public void menuSelected(FieldSelectable width) {
+    public void menuSelected(FieldSelectable width, FieldSelectable length) {
         width.deactivate();
-        System.out.println("test off state menu select");//nothing
+        length.deactivate();
+        System.out.print("test field ON state menu select:");
+        System.out.println(" width ON, length ON");
+    }
+
+    @Override
+    public void checkBoxState(boolean checkBoxState) {
+        System.out.print("test field ON state checkbox select: "+checkBoxState);
+        System.out.println(" width OFF, length -> area");
+        fieldState.setCheckBoxState(checkBoxState);
+        fieldState.turnNumbers();
     }
 
     @Override
     public void turnNumbers() {
-        System.out.println("width field on state turn numbers");
+        System.out.println("test field ON state turn num");
     }
 
     @Override
-    public void fieldOn(FieldSelectable width) {
-        width.activate();
-        System.out.println("поле включено");
-        fieldState.setState(fieldState.getWidthFieldOffState());
+    public void fieldAction(FieldSelectable width, FieldSelectable length) {
+        System.out.println("test field ON state field action");
+        if(fieldState.getCurrentCheckBoxState()){
+            width.transformArea();
+            length.transformArea();
+        }else {
+            width.activate();
+            length.activate();
+        }
     }
 }

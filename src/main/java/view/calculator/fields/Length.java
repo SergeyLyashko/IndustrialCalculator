@@ -44,28 +44,27 @@ public class Length implements FieldSelectable {
     @Override
     public void activate() {
         System.out.println("length activate");
+        textField.setText(BOX_NAME);
         fieldFocusBehavior.activate();
     }
 
     @Override
     public void deactivate() {
         System.out.println("length Deactivate");
+        textField.setText(BOX_NAME);
         fieldFocusBehavior.deactivate();
+    }
+
+    @Override
+    public void transformArea(){
+        System.out.println("length transform");
+        textField.setText(BOX_NAME_AREA);
+        fieldFocusBehavior.activate();
     }
 
     @Override
     public String getName() {
         return BOX_NAME;
-    }
-
-    @Override
-    public void complexAreaDeactivate() {
-        textField.setText(BOX_NAME);
-    }
-
-    @Override
-    public void complexAreaActivate() {
-        textField.setText(BOX_NAME_AREA);
     }
 
     @Override

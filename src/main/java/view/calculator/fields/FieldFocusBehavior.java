@@ -20,6 +20,7 @@ class FieldFocusBehavior extends FocusAdapter {
 
     void activate(){
         textField.setEditable(true);
+        textField.setForeground(Color.GRAY);
         textField.setBackground(Color.white);
         textField.addFocusListener(this);
         fieldKeyBehavior.activate();
