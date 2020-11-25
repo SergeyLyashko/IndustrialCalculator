@@ -14,6 +14,7 @@ public class Width implements FieldSelectable {
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 20;
     private final FieldFocusBehavior fieldFocusBehavior;
+    private final FieldKeyBehavior fieldKeyBehavior;
 
     public Width(){
         textField = new JFormattedTextField();
@@ -24,6 +25,7 @@ public class Width implements FieldSelectable {
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         fieldFocusBehavior = new FieldFocusBehavior(this);
         fieldFocusBehavior.deactivate();
+        fieldKeyBehavior = new FieldKeyBehavior(textField);
     }
 
     @Override
@@ -43,16 +45,18 @@ public class Width implements FieldSelectable {
 
     @Override
     public void activate() {
-        System.out.println("width activate");
+        //System.out.println("width activate");
         textField.setText(BOX_NAME);
         fieldFocusBehavior.activate();
+        fieldKeyBehavior.activate(this);
     }
 
     @Override
     public void deactivate() {
-        System.out.println("width Deactivate");
+        //System.out.println("width Deactivate");
         textField.setText(BOX_NAME);
         fieldFocusBehavior.deactivate();
+        fieldKeyBehavior.deactivate();
     }
 
     @Override
@@ -63,6 +67,7 @@ public class Width implements FieldSelectable {
     @Override
     public void transformArea() {
         fieldFocusBehavior.deactivate();
+        fieldKeyBehavior.deactivate();
         textField.setText(EMPTY);
     }
 

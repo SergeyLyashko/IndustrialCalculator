@@ -1,10 +1,9 @@
 package view.calculator.menuboxes;
 
-import view.AppComponent;
 import view.MenuReceivable;
 import view.calculator.CalculatorFieldState;
 import view.calculator.MenuSelectable;
-import view.calculator.state.FieldState;
+import view.calculator.FieldState;
 
 import javax.swing.*;
 import java.util.List;

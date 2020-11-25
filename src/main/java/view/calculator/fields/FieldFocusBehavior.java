@@ -10,12 +10,11 @@ class FieldFocusBehavior extends FocusAdapter {
     private final JFormattedTextField textField;
     private static final String EMPTY_FIELD = "";
     private final FieldSelectable fieldSelectable;
-    private final FieldKeyBehavior fieldKeyBehavior;
+
 
     FieldFocusBehavior(FieldSelectable fieldSelectable) {
         this.fieldSelectable = fieldSelectable;
         this.textField = (JFormattedTextField) fieldSelectable.getParent();
-        fieldKeyBehavior = new FieldKeyBehavior(textField);
     }
 
     void activate(){
@@ -23,7 +22,6 @@ class FieldFocusBehavior extends FocusAdapter {
         textField.setForeground(Color.GRAY);
         textField.setBackground(Color.white);
         textField.addFocusListener(this);
-        fieldKeyBehavior.activate();
     }
 
     @Override
@@ -38,6 +36,5 @@ class FieldFocusBehavior extends FocusAdapter {
         textField.setText(fieldSelectable.getName());
         textField.setForeground(Color.GRAY);
         textField.setBackground(Color.LIGHT_GRAY);
-        fieldKeyBehavior.deactivate();
     }
 }

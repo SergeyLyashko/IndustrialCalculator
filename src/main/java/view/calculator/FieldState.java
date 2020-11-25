@@ -1,5 +1,4 @@
-package view.calculator.state;
-
+package view.calculator;
 
 import view.calculator.fields.FieldSelectable;
 
