@@ -1,5 +1,5 @@
 import database.DataBaseDispatcher;
-import view.*;
+import view.controller.MenuReceivable;
 
 import java.awt.*;
 
@@ -10,8 +10,8 @@ public class Main {
             DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             MenuReceivable menuReceivable = dataBaseDispatcher.getMenuReceiver();
 
-            ViewDispatcher viewDispatcher = new ViewDispatcher(menuReceivable);
-            viewDispatcher.createVew();
+            //View view = new View(menuReceivable);
+            //view.createVew();
         });
     }
 }

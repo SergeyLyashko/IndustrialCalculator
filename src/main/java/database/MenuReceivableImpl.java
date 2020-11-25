@@ -1,6 +1,6 @@
 package database;
 
-import view.MenuReceivable;
+import view.controller.MenuReceivable;
 
 import java.util.List;
 
