@@ -18,18 +18,12 @@ public class NumbersMenu implements MenuSelectable {
     private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private MenuReceivable menuReceivable;
 
     public NumbersMenu(){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-    }
-
-    @Override
-    public void addReceiver(MenuReceivable menuReceivable) {
-        this.menuReceivable = menuReceivable;
     }
 
     @Override
@@ -40,7 +34,7 @@ public class NumbersMenu implements MenuSelectable {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
+    public List<String> receiveMenu(MenuReceivable menuReceivable, String menuItem) {
         return menuReceivable.getNumberMenu(menuItem);
     }
 

@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.AppComponent;
+import view.view.AppComponent;
 import view.view.AppPanel;
 
 import javax.swing.*;

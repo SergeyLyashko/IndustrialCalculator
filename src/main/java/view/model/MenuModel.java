@@ -11,10 +11,9 @@ public class MenuModel extends AbstractListModel<String> implements ComboBoxMode
     private final List<String> menuList = new ArrayList<>();
     private int selected;
 
-    public MenuModel(MenuSelectable menuListener, String menuItem){
-        String headerMenu = menuListener.getHeaderMenu();
+    public MenuModel(MenuSelectable menuSelectable, List<String> menu){
+        String headerMenu = menuSelectable.getHeaderMenu();
         menuList.add(headerMenu);
-        List<String> menu = menuListener.receiveMenu(menuItem);
         if(menu != null){
             menuList.addAll(menu);
         }

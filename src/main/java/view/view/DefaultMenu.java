@@ -1,8 +1,8 @@
-package view.model;
+package view.view;
 
-import view.controller.AppComponent;
+import view.controller.ViewController;
+import view.view.AppComponent;
 import view.controller.MenuReceivable;
-import view.model.MenuModel;
 import view.controller.MenuSelectable;
 
 import java.util.Arrays;
@@ -10,21 +10,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MenuWrapper {
+public class DefaultMenu {
 
-    private final MenuReceivable menuReceivable;
+    private final ViewController viewController;
     private List<AppComponent> components;
 
-    public MenuWrapper(MenuReceivable menuReceivable) {
-        this.menuReceivable = menuReceivable;
+    public DefaultMenu(ViewController viewController) {
+        this.viewController = viewController;
     }
 
-    public void createMenu(MenuSelectable...menus) {
+    public void createDefaultMenu(MenuSelectable...menus) {
         addListeners(menus);
-        Arrays.stream(menus).forEach(element -> element.addReceiver(menuReceivable));
+        //Arrays.stream(menus).forEach(element -> element.addReceiver(menuReceivable));
+
         Arrays.stream(menus).forEach(element -> {
-            MenuModel menuModel = new MenuModel(element, "");
-            element.setMenuModel(menuModel);
+            //MenuModel menuModel = new MenuModel(element, "");
+            //element.setMenuModel(menuModel);
+            viewController.selectMenu(element, "");
         });
         this.components = Stream.of(menus).collect(Collectors.toList());
     }

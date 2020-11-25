@@ -1,6 +1,7 @@
 package view.view.menuboxes;
 
 import view.controller.MenuReceivable;
+import view.controller.ViewController;
 import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
 import view.model.MenuModel;
@@ -19,17 +20,18 @@ public class AssortmentsMenu implements MenuSelectable {
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private MenuReceivable menuReceivable;
+    private final ViewController viewController;
 
-    public AssortmentsMenu(){
+    public AssortmentsMenu(ViewController viewController){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        this.viewController = viewController;
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
+    public List<String> receiveMenu(MenuReceivable menuReceivable, String menuItem) {
         return menuReceivable.getAssortmentMenu();
     }
 
@@ -44,22 +46,16 @@ public class AssortmentsMenu implements MenuSelectable {
     }
 
     @Override
-    public void addMenuListener(MenuSelectable menuSelectable){
+    public void addMenuListener(MenuSelectable menuListener){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
-            menuSelectable.setMenuModel(menuModel);
+            viewController.selectMenu(menuListener, selectedItem);
         });
     }
 
     @Override
     public boolean isFocused() {
         return true;
-    }
-
-    @Override
-    public void addReceiver(MenuReceivable menuReceivable) {
-        this.menuReceivable = menuReceivable;
     }
 
     @Override

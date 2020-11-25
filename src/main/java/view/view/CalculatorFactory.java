@@ -2,7 +2,6 @@ package view.view;
 
 import view.controller.*;
 import view.model.CalculatorFieldState;
-import view.model.MenuWrapper;
 import view.view.checkboxes.ComplexAreaCheckBox;
 import view.view.fields.Length;
 import view.view.fields.Width;
@@ -21,15 +20,15 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components = new ArrayList<>();
 
     @Override
-    public List<AppComponent> createComponents(MenuReceivable menuReceivable, Visitor visitor){
+    public List<AppComponent> createComponents(ViewController viewController, Visitor visitor){
 
-        MenuSelectable assortment = new AssortmentsMenu();
-        MenuSelectable types = new TypesMenu();
+        MenuSelectable assortment = new AssortmentsMenu(viewController);
+        MenuSelectable types = new TypesMenu(viewController);
         MenuSelectable numbers = new NumbersMenu();
 
-        MenuWrapper menuWrapper = new MenuWrapper(menuReceivable);
-        menuWrapper.createMenu(assortment, types, numbers);
-        menuWrapper.getComponents().forEach(this::integration);
+        DefaultMenu defaultMenu = new DefaultMenu(viewController);
+        defaultMenu.createDefaultMenu(assortment, types, numbers);
+        defaultMenu.getComponents().forEach(this::integration);
 
         FieldSelectable width = new Width();
         FieldSelectable length = new Length();

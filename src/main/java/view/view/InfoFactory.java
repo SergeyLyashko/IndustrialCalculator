@@ -1,11 +1,7 @@
 package view.view;
 
-import view.controller.AppComponent;
-import view.controller.ComponentsFactory;
-import view.controller.MenuReceivable;
-import view.controller.Visitor;
+import view.controller.*;
 import view.model.ScrollWrapper;
-import view.view.Info;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,7 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     @Override
-    public List<AppComponent> createComponents(MenuReceivable menuReceivable, Visitor visitor) {
+    public List<AppComponent> createComponents(ViewController viewController, Visitor visitor) {
         integration(new Info(), visitor);
         return components;
     }

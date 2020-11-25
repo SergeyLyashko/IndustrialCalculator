@@ -1,6 +1,7 @@
 package view.view.menuboxes;
 
 import view.controller.MenuReceivable;
+import view.controller.ViewController;
 import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
 import view.controller.FieldState;
@@ -19,18 +20,14 @@ public class TypesMenu implements MenuSelectable {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private MenuReceivable menuReceivable;
+    private final ViewController viewController;
 
-    public TypesMenu(){
+    public TypesMenu(ViewController viewController){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-    }
-
-    @Override
-    public void addReceiver(MenuReceivable menuReceivable) {
-        this.menuReceivable = menuReceivable;
+        this.viewController = viewController;
     }
 
     @Override
@@ -53,7 +50,7 @@ public class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
+    public List<String> receiveMenu(MenuReceivable menuReceivable, String menuItem) {
         return menuReceivable.getTypeMenu(menuItem);
     }
 
@@ -68,11 +65,10 @@ public class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public void addMenuListener(MenuSelectable menuSelectable){
+    public void addMenuListener(MenuSelectable menuListener){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            MenuModel menuModel = new MenuModel(menuSelectable, selectedItem);
-            menuSelectable.setMenuModel(menuModel);
+            viewController.selectMenu(menuListener, selectedItem);
         });
     }
 

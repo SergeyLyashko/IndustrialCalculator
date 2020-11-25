@@ -1,31 +1,18 @@
 package view.controller;
 
-import view.view.View;
+import view.model.ViewModelInterface;
 
 public class ViewControllerImpl implements ViewController {
 
-    private final ViewModelInterface viewModelInterface;
-    private View view;
+    private final ViewModelInterface viewModel;
 
-    public ViewControllerImpl(ViewModelInterface viewModelInterface, MenuReceivable menuReceivable){
-        this.viewModelInterface = viewModelInterface;
-        this.view = new View(menuReceivable);
-        view.createView();
+    public ViewControllerImpl(ViewModelInterface viewModel){
+        this.viewModel = viewModel;
     }
 
     @Override
-    public void assortmentSelect() {
-
-    }
-
-    @Override
-    public void typeSelect() {
-
-    }
-
-    @Override
-    public void numberSelect() {
-
+    public void selectMenu(MenuSelectable menuSelectable, String selectedItem) {
+        viewModel.createMenu(menuSelectable, selectedItem);
     }
 
     @Override

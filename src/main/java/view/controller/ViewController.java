@@ -2,11 +2,7 @@ package view.controller;
 
 public interface ViewController {
 
-    void assortmentSelect();
-
-    void typeSelect();
-
-    void numberSelect();
+    void selectMenu(MenuSelectable menuSelectable, String selectedItem);
 
     void setWidth();
 

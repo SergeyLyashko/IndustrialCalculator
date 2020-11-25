@@ -1,6 +1,6 @@
 package view.view.textlabels;
 
-import view.controller.AppComponent;
+import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
 
