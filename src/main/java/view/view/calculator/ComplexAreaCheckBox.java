@@ -1,5 +1,6 @@
-package view.view.checkboxes;
+package view.view.calculator;
 
+import view.controller.ViewController;
 import view.model.CalculatorFieldState;
 import view.view.AppComponent;
 import view.controller.Host;
@@ -9,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
-public class ComplexAreaCheckBox implements AppComponent, Host {
+class ComplexAreaCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -19,8 +20,9 @@ public class ComplexAreaCheckBox implements AppComponent, Host {
     private static final int LOCATION_Y = 85;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
+    private final ViewController viewController;
 
-    public ComplexAreaCheckBox(){
+    ComplexAreaCheckBox(ViewController viewController){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
@@ -28,6 +30,8 @@ public class ComplexAreaCheckBox implements AppComponent, Host {
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
         jCheckBox.setFont(deriveFont);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
+
+        this.viewController = viewController;
     }
 
     @Override
@@ -51,9 +55,11 @@ public class ComplexAreaCheckBox implements AppComponent, Host {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 System.out.println("complexArea selected");
                 fieldState.checkBoxSelect(true);
+                //viewController.checkBoxSelect(this);
             } else {
                 System.out.println("complexArea deselected");
                 fieldState.checkBoxSelect(false);
+                //viewController.checkBoxDeselect(this);
             }
         });
     }

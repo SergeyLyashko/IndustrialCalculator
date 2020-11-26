@@ -1,4 +1,4 @@
-package view.view.menuboxes;
+package view.view.calculator;
 
 import view.controller.MenuReceivable;
 import view.model.CalculatorFieldState;
@@ -7,7 +7,7 @@ import view.controller.MenuSelectable;
 import javax.swing.*;
 import java.util.List;
 
-public class NumbersMenu implements MenuSelectable {
+class NumbersMenu implements MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
@@ -18,7 +18,7 @@ public class NumbersMenu implements MenuSelectable {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
 
-    public NumbersMenu(){
+    NumbersMenu(){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);

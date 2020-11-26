@@ -1,37 +1,33 @@
-package view.view;
+package view.view.calculator;
 
 import view.controller.ViewController;
-import view.view.AppComponent;
-import view.controller.MenuReceivable;
 import view.controller.MenuSelectable;
+import view.view.AppComponent;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DefaultMenu {
+class DefaultMenuBoxes {
 
     private final ViewController viewController;
     private List<AppComponent> components;
 
-    public DefaultMenu(ViewController viewController) {
+    DefaultMenuBoxes(ViewController viewController) {
         this.viewController = viewController;
     }
 
-    public void createDefaultMenu(MenuSelectable...menus) {
+    void createDefaultMenu(MenuSelectable...menus) {
         addListeners(menus);
-        //Arrays.stream(menus).forEach(element -> element.addReceiver(menuReceivable));
 
         Arrays.stream(menus).forEach(element -> {
-            //MenuModel menuModel = new MenuModel(element, "");
-            //element.setMenuModel(menuModel);
             viewController.selectMenu(element, "");
         });
         this.components = Stream.of(menus).collect(Collectors.toList());
     }
 
-    public List<AppComponent> getComponents(){
+    List<AppComponent> getComponents(){
         return components;
     }
 

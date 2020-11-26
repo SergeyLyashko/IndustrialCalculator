@@ -1,4 +1,4 @@
-package view.view.menuboxes;
+package view.view.calculator;
 
 import view.controller.MenuReceivable;
 import view.controller.ViewController;
@@ -8,7 +8,7 @@ import view.controller.MenuSelectable;
 import javax.swing.*;
 import java.util.List;
 
-public class AssortmentsMenu implements MenuSelectable {
+class AssortmentsMenu implements MenuSelectable {
 
     private final JComboBox<String> jComboBox;
 
@@ -21,7 +21,7 @@ public class AssortmentsMenu implements MenuSelectable {
     private static final int HEIGHT = 23;
     private final ViewController viewController;
 
-    public AssortmentsMenu(ViewController viewController){
+    AssortmentsMenu(ViewController viewController){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);

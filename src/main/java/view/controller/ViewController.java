@@ -1,7 +1,5 @@
 package view.controller;
 
-import view.view.fields.Width;
-
 import java.awt.event.KeyEvent;
 
 public interface ViewController {
@@ -12,15 +10,13 @@ public interface ViewController {
 
     void fieldDeactivate(FieldSelectable fieldSelectable);
 
-    void colorThemeSelect();
-
-    void toolTipsSelect();
-
-    void complexAreaBoxSelect();
-
     void fieldFocusGained(FieldSelectable fieldSelectable);
 
     void keyPressed(KeyEvent event);
 
     void keyReleased(KeyEvent event);
+
+    void activateVisitor(Host host);
+
+    void deactivateVisitor(Host host);
 }

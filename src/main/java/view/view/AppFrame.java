@@ -6,19 +6,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class AppFrame implements Serializable {
+class AppFrame implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
     private final JFrame jFrame = new JFrame("Industrial calculator");
 
-    public void createPanel(String type, AppPanel panel){
+    void createPanel(String type, AppPanel panel){
         Container parentContainer = panel.getParent();
         jTabbedPane.add(type, parentContainer);
     }
 
-    public void create(){
+    void create(){
         jFrame.setContentPane(jTabbedPane);
         setFramePreference();
     }
@@ -31,7 +31,7 @@ public class AppFrame implements Serializable {
         jFrame.setVisible(true);
     }
 
-    public void savePreferencesAndExit(){
+    void savePreferencesAndExit(){
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

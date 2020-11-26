@@ -1,8 +1,8 @@
-package view.view;
+package view.view.settings;
 
 import view.controller.*;
-import view.view.checkboxes.ColorThemeCheckBox;
-import view.view.checkboxes.ToolTipsCheckBox;
+import view.view.AppComponent;
+import view.view.ComponentsFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ public class SettingsFactory implements ComponentsFactory {
 
     @Override
     public List<AppComponent> createComponents(ViewController viewController, Visitor visitor) {
-        integration(new ColorThemeCheckBox(), visitor);
-        integration(new ToolTipsCheckBox(), visitor);
+        integration(new ColorThemeCheckBox(viewController), visitor);
+        integration(new ToolTipsCheckBox(viewController), visitor);
         return componentList;
     }
 }

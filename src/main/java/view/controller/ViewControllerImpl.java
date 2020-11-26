@@ -27,20 +27,6 @@ public class ViewControllerImpl implements ViewController {
         viewModel.fieldDeactivate(fieldSelectable);
     }
 
-    @Override
-    public void colorThemeSelect() {
-
-    }
-
-    @Override
-    public void toolTipsSelect() {
-
-    }
-
-    @Override
-    public void complexAreaBoxSelect() {
-
-    }
 
     @Override
     public void fieldFocusGained(FieldSelectable fieldSelectable) {
@@ -55,5 +41,16 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void keyReleased(KeyEvent event) {
         viewModel.keyReleased(event);
+    }
+
+
+    @Override
+    public void activateVisitor(Host host) {
+        viewModel.activateVisitor(host);
+    }
+
+    @Override
+    public void deactivateVisitor(Host host) {
+        viewModel.deactivateVisitor(host);
     }
 }

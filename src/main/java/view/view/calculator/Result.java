@@ -1,4 +1,4 @@
-package view.view.textlabels;
+package view.view.calculator;
 
 import view.view.AppComponent;
 import view.controller.Host;
@@ -6,7 +6,7 @@ import view.controller.Visitor;
 
 import javax.swing.*;
 
-public class Result implements AppComponent, Host {
+class Result implements AppComponent, Host {
 
     private final JLabel jLabel;
 
@@ -17,7 +17,7 @@ public class Result implements AppComponent, Host {
     private static final int SIZE_X = 125;
     private static final int SIZE_Y = 25;
 
-    public Result(){
+    Result(){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);

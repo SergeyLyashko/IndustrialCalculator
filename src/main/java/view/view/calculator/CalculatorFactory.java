@@ -1,16 +1,9 @@
-package view.view;
+package view.view.calculator;
 
 import view.controller.*;
 import view.model.CalculatorFieldState;
-import view.view.checkboxes.ComplexAreaCheckBox;
-import view.view.fields.Length;
-import view.view.fields.Width;
-import view.view.menuboxes.AssortmentsMenu;
-import view.view.menuboxes.NumbersMenu;
-import view.view.menuboxes.TypesMenu;
-import view.view.textlabels.DimensionLabel;
-import view.view.textlabels.Message;
-import view.view.textlabels.Result;
+import view.view.AppComponent;
+import view.view.ComponentsFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +19,14 @@ public class CalculatorFactory implements ComponentsFactory {
         MenuSelectable types = new TypesMenu(viewController);
         MenuSelectable numbers = new NumbersMenu();
 
-        DefaultMenu defaultMenu = new DefaultMenu(viewController);
-        defaultMenu.createDefaultMenu(assortment, types, numbers);
-        defaultMenu.getComponents().forEach(this::integration);
+        DefaultMenuBoxes defaultMenuBoxes = new DefaultMenuBoxes(viewController);
+        defaultMenuBoxes.createDefaultMenu(assortment, types, numbers);
+        defaultMenuBoxes.getComponents().forEach(this::integration);
 
         FieldSelectable width = new Width(viewController);
         FieldSelectable length = new Length(viewController);
 
-        AppComponent complexAreaCheckBox = new ComplexAreaCheckBox();
+        AppComponent complexAreaCheckBox = new ComplexAreaCheckBox(viewController);
 
         CalculatorFieldState calculatorFieldState = new CalculatorFieldState(width, length);
         assortment.addFieldStateListener(calculatorFieldState);

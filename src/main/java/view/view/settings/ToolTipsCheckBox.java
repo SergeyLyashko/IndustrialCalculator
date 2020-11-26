@@ -1,5 +1,6 @@
-package view.view.checkboxes;
+package view.view.settings;
 
+import view.controller.ViewController;
 import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
@@ -7,7 +8,7 @@ import view.controller.Visitor;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 
-public class ToolTipsCheckBox implements AppComponent, Host {
+class ToolTipsCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -18,7 +19,7 @@ public class ToolTipsCheckBox implements AppComponent, Host {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    public ToolTipsCheckBox(){
+    ToolTipsCheckBox(ViewController viewController){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);

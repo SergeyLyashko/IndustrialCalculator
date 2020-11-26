@@ -1,4 +1,4 @@
-package view.view.textlabels;
+package view.view.calculator;
 
 import view.view.AppComponent;
 import view.controller.Host;
@@ -6,22 +6,22 @@ import view.controller.Visitor;
 
 import javax.swing.*;
 
-public class DimensionLabel implements AppComponent, Host {
+class Message implements AppComponent, Host {
 
-    private static final String DEFAULT_VIEW = "mm";
-    private static final int SIZE_X = 25;
-    private static final int SIZE_Y = 20;
     private final JLabel jLabel;
-    private final int locationX;
-    private final int locationY;
 
-    public DimensionLabel(int locationX, int locationY){
+    private static final String DEFAULT_VIEW = "test";
+    private static final int LOCATION_X = 20;
+    private static final int LOCATION_Y = 140;
+    private static final int SIZE_X = 315;
+    private static final int SIZE_Y = 15;
+
+    Message(){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
-        this.locationX = locationX;
-        this.locationY = locationY;
+        jLabel.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     @Override
@@ -31,13 +31,14 @@ public class DimensionLabel implements AppComponent, Host {
 
     @Override
     public int getLocationX() {
-        return locationX;
+        return LOCATION_X;
     }
 
     @Override
     public int getLocationY() {
-        return locationY;
+        return LOCATION_Y;
     }
+
 
     @Override
     public JComponent getParent() {
@@ -46,7 +47,6 @@ public class DimensionLabel implements AppComponent, Host {
 
     @Override
     public void acceptVisitor(Visitor visitor) {
-        visitor.visitLabel(this);
+        visitor.visitMessageLabel(this);
     }
-
 }

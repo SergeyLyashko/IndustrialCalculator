@@ -1,8 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
-import view.controller.MenuReceivable;
-import view.controller.MenuSelectable;
+import view.controller.*;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -12,6 +10,8 @@ public class ViewModel implements ViewModelInterface {
     private final MenuReceivable menuReceivable;
     private final FieldKeyBehavior fieldKeyBehavior;
     private final FieldFocusBehavior fieldFocusBehavior;
+
+    //private Visitor visitor = new ColorVisitorImpl();
 
     public ViewModel(MenuReceivable menuReceivable) {
         this.menuReceivable = menuReceivable;
@@ -52,5 +52,15 @@ public class ViewModel implements ViewModelInterface {
     @Override
     public void keyReleased(KeyEvent event) {
         fieldKeyBehavior.keyReleased(event);
+    }
+
+    @Override
+    public void activateVisitor(Host host) {
+
+    }
+
+    @Override
+    public void deactivateVisitor(Host host) {
+
     }
 }

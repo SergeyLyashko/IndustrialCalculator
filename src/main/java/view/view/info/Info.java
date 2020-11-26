@@ -1,12 +1,13 @@
-package view.view;
+package view.view.info;
 
 import view.controller.Host;
 import view.controller.Visitor;
+import view.view.AppComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Info implements AppComponent, Host {
+class Info implements AppComponent, Host {
 
     private final JLabel jLabel;
 
@@ -39,7 +40,7 @@ public class Info implements AppComponent, Host {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    public Info(){
+    Info(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));

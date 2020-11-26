@@ -4,6 +4,9 @@ import view.controller.*;
 import view.model.CalculatorFocusTraversalPolicy;
 import view.model.ColorVisitorImpl;
 import view.model.ViewModelInterface;
+import view.view.calculator.CalculatorFactory;
+import view.view.info.InfoFactory;
+import view.view.settings.SettingsFactory;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class View {
     }
 
     public void createView(){
+
         Visitor visitor = new ColorVisitorImpl();
 
         ComponentsFactory calculator = new CalculatorFactory();
