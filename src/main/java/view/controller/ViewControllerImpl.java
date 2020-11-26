@@ -47,4 +47,34 @@ public class ViewControllerImpl implements ViewController {
     public Visitor getVisitor() {
         return viewModel.createVisitor();
     }
+
+    @Override
+    public void setNotWidthState(MenuSelectable menuSelectable) {
+        viewModel.setNotWidthState(menuSelectable);
+    }
+
+    @Override
+    public void setWidthState(MenuSelectable menuSelectable) {
+        viewModel.setWidthState(menuSelectable);
+    }
+
+    @Override
+    public void actionState(MenuSelectable menuSelectable) {
+        viewModel.actionState(menuSelectable);
+    }
+
+    @Override
+    public void setStateTarget(FieldSelectable fieldSelectable) {
+        viewModel.setStateTarget(fieldSelectable);
+    }
+
+    @Override
+    public void checkBoxSelect() {
+        viewModel.checkBoxSelect();
+    }
+
+    @Override
+    public void checkBoxDeselect() {
+        viewModel.checkBoxDeselect();
+    }
 }

@@ -11,12 +11,14 @@ public class ViewModel implements ViewModelInterface {
     private final FieldKeyBehavior fieldKeyBehavior;
     private final FieldFocusBehavior fieldFocusBehavior;
     private final Visitor colorVisitor;
+    private final CalculatorFieldState fieldState;
 
     public ViewModel(MenuReceivable menuReceivable) {
         this.menuReceivable = menuReceivable;
         fieldKeyBehavior = new FieldKeyBehavior();
         fieldFocusBehavior = new FieldFocusBehavior();
         colorVisitor = new ColorVisitorImpl();
+        fieldState = new CalculatorFieldState();
     }
 
     @Override
@@ -59,4 +61,38 @@ public class ViewModel implements ViewModelInterface {
     public Visitor createVisitor() {
         return colorVisitor;
     }
+
+    @Override
+    public void setNotWidthState(MenuSelectable menuSelectable) {
+        fieldState.setState(fieldState.getNotWidthState());
+        fieldState.selectMenu();
+    }
+
+    @Override
+    public void setWidthState(MenuSelectable menuSelectable) {
+        fieldState.setState(fieldState.getHaveWidthState());
+        fieldState.selectMenu();
+    }
+
+    @Override
+    public void actionState(MenuSelectable menuSelectable) {
+        fieldState.turnNumbers();
+    }
+
+    @Override
+    public void setStateTarget(FieldSelectable fieldSelectable) {
+        fieldState.setStateTarget(fieldSelectable);
+    }
+
+    @Override
+    public void checkBoxSelect() {
+        fieldState.checkBoxSelect(true);
+    }
+
+    @Override
+    public void checkBoxDeselect() {
+        fieldState.checkBoxSelect(false);
+    }
+
+
 }

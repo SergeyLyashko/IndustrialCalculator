@@ -2,12 +2,11 @@ package view.model;
 
 import view.controller.FieldSelectable;
 import view.controller.FieldState;
-import view.model.state.*;
 
-public class CalculatorFieldState {
+class CalculatorFieldState {
 
-    private final FieldSelectable width;
-    private final FieldSelectable length;
+    private FieldSelectable width;
+    private FieldSelectable length;
     private FieldState state;
 
     private final FieldState widthFieldOffState;
@@ -16,10 +15,7 @@ public class CalculatorFieldState {
     private final FieldState notWidthState;
     private boolean checkBoxState;
 
-    public CalculatorFieldState(FieldSelectable width, FieldSelectable length){
-        this.width = width;
-        this.length = length;
-
+    CalculatorFieldState(){
         haveWidthState = new HaveWidthState(this);
         notWidthState = new NotWidthState(this);
         widthFieldOffState = new WidthFieldOffState(this);
@@ -28,45 +24,53 @@ public class CalculatorFieldState {
         state = notWidthState;
     }
 
-    public void checkBoxSelect(boolean checkBoxState){
+    void setStateTarget(FieldSelectable fieldSelectable){
+        String name = fieldSelectable.getName();
+        if(name.equalsIgnoreCase("введите ширину")){
+            width = fieldSelectable;
+        }else{
+            length = fieldSelectable;
+        }
+    }
+
+    void checkBoxSelect(boolean checkBoxState){
         state.checkBoxState(checkBoxState);
     }
 
-    public void selectMenu(){
+    void selectMenu(){
         state.menuSelected(width, length);
     }
 
-    public void turnNumbers(){
+    void turnNumbers(){
         state.turnNumbers();
         state.fieldAction(width, length);
     }
 
-    public void setState(FieldState state){
+    void setState(FieldState state){
         this.state = state;
     }
 
-    public void setCheckBoxState(boolean checkBoxState){
+    void setCheckBoxState(boolean checkBoxState){
         this.checkBoxState = checkBoxState;
     }
 
-    public boolean getCurrentCheckBoxState(){
+    boolean getCurrentCheckBoxState(){
         return checkBoxState;
     }
 
-    public FieldState getHaveWidthState(){
+    FieldState getHaveWidthState(){
         return haveWidthState;
     }
 
-    public FieldState getNotWidthState(){
+    FieldState getNotWidthState(){
         return notWidthState;
     }
 
-    public FieldState getWidthFieldOnState(){
+    FieldState getWidthFieldOnState(){
         return widthFieldOnState;
     }
 
-    public FieldState getWidthFieldOffState(){
+    FieldState getWidthFieldOffState(){
         return widthFieldOffState;
     }
-
 }

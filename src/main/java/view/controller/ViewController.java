@@ -17,4 +17,16 @@ public interface ViewController {
     void keyReleased(KeyEvent event);
 
     Visitor getVisitor();
+
+    void setNotWidthState(MenuSelectable menuSelectable);
+
+    void setWidthState(MenuSelectable menuSelectable);
+
+    void actionState(MenuSelectable menuSelectable);
+
+    void setStateTarget(FieldSelectable fieldSelectable);
+
+    void checkBoxSelect();
+
+    void checkBoxDeselect();
 }

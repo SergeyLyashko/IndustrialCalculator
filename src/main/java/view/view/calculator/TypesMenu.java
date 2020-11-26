@@ -2,9 +2,7 @@ package view.view.calculator;
 
 import view.controller.MenuReceivable;
 import view.controller.ViewController;
-import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
-import view.controller.FieldState;
 
 import javax.swing.*;
 import java.util.List;
@@ -27,23 +25,16 @@ class TypesMenu implements MenuSelectable {
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         this.viewController = viewController;
-    }
 
-    @Override
-    public void addFieldStateListener(CalculatorFieldState calculatorFieldState) {
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
-                selectedItem.equalsIgnoreCase("тонколистовая") ||
-                selectedItem.equalsIgnoreCase("толстолистовая") ||
-                selectedItem.equalsIgnoreCase("рифленая(ромб)")){
-                    FieldState haveWidthState = calculatorFieldState.getHaveWidthState();
-                    calculatorFieldState.setState(haveWidthState);
-                    calculatorFieldState.selectMenu();
+                    selectedItem.equalsIgnoreCase("тонколистовая") ||
+                    selectedItem.equalsIgnoreCase("толстолистовая") ||
+                    selectedItem.equalsIgnoreCase("рифленая(ромб)")){
+                viewController.setWidthState(this);
             } else{
-                FieldState notWidthState = calculatorFieldState.getNotWidthState();
-                calculatorFieldState.setState(notWidthState);
-                calculatorFieldState.selectMenu();
+                viewController.setNotWidthState(this);
             }
         });
     }

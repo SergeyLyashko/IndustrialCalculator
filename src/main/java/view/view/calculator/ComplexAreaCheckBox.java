@@ -1,7 +1,6 @@
 package view.view.calculator;
 
 import view.controller.ViewController;
-import view.model.CalculatorFieldState;
 import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
@@ -34,6 +33,16 @@ class ComplexAreaCheckBox implements AppComponent, Host {
         this.viewController = viewController;
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
+
+        jCheckBox.addItemListener(event -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                System.out.println("complexArea selected");
+                viewController.checkBoxSelect();
+            } else {
+                System.out.println("complexArea deselected");
+                viewController.checkBoxDeselect();
+            }
+        });
     }
 
     @Override
@@ -44,19 +53,6 @@ class ComplexAreaCheckBox implements AppComponent, Host {
     @Override
     public int getLocationY() {
         return LOCATION_Y;
-    }
-
-    @Override
-    public void addFieldStateListener(CalculatorFieldState fieldState) {
-        jCheckBox.addItemListener(event -> {
-            if (event.getStateChange() == ItemEvent.SELECTED) {
-                System.out.println("complexArea selected");
-                fieldState.checkBoxSelect(true);
-            } else {
-                System.out.println("complexArea deselected");
-                fieldState.checkBoxSelect(false);
-            }
-        });
     }
 
     @Override

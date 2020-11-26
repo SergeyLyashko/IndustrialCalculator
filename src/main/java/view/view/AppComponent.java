@@ -2,7 +2,6 @@ package view.view;
 
 import view.controller.MenuSelectable;
 import view.controller.Visitor;
-import view.model.CalculatorFieldState;
 
 import javax.swing.*;
 
@@ -28,8 +27,6 @@ public interface AppComponent {
     JComponent getParent();
 
     default void addMenuListener(MenuSelectable menuListener){}
-
-    default void addFieldStateListener(CalculatorFieldState calculatorFieldState){}
 
     default boolean isFocused(){ return  false; }
 }

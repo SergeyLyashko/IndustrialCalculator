@@ -31,6 +31,7 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
 
         this.viewController = viewController;
         viewController.fieldDeactivate(this);
+        viewController.setStateTarget(this);
     }
 
     @Override

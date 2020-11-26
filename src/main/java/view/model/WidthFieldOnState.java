@@ -1,14 +1,13 @@
-package view.model.state;
+package view.model;
 
-import view.model.CalculatorFieldState;
 import view.controller.FieldState;
 import view.controller.FieldSelectable;
 
-public class WidthFieldOnState implements FieldState {
+class WidthFieldOnState implements FieldState {
 
     private final CalculatorFieldState fieldState;
 
-    public WidthFieldOnState(CalculatorFieldState fieldState){
+    WidthFieldOnState(CalculatorFieldState fieldState){
         this.fieldState = fieldState;
     }
 

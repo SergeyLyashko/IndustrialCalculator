@@ -1,7 +1,7 @@
 package view.view.calculator;
 
 import view.controller.MenuReceivable;
-import view.model.CalculatorFieldState;
+import view.controller.ViewController;
 import view.controller.MenuSelectable;
 
 import javax.swing.*;
@@ -17,18 +17,17 @@ class NumbersMenu implements MenuSelectable {
     private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
+    private final ViewController viewController;
 
-    NumbersMenu(){
+    NumbersMenu(ViewController viewController){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-    }
 
-    @Override
-    public void addFieldStateListener(CalculatorFieldState calculatorFieldState) {
+        this.viewController = viewController;
         jComboBox.addActionListener(event -> {
-            calculatorFieldState.turnNumbers();
+            viewController.actionState(this);
         });
     }
 

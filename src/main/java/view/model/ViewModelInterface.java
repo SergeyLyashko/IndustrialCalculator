@@ -21,4 +21,16 @@ public interface ViewModelInterface {
     void keyReleased(KeyEvent event);
 
     Visitor createVisitor();
+
+    void setNotWidthState(MenuSelectable menuSelectable);
+
+    void setWidthState(MenuSelectable menuSelectable);
+
+    void actionState(MenuSelectable menuSelectable);
+
+    void setStateTarget(FieldSelectable fieldSelectable);
+
+    void checkBoxSelect();
+
+    void checkBoxDeselect();
 }

@@ -1,7 +1,6 @@
 package view.view.calculator;
 
 import view.controller.*;
-import view.model.CalculatorFieldState;
 import view.view.AppComponent;
 import view.view.ComponentsFactory;
 
@@ -33,7 +32,7 @@ public class CalculatorFactory implements ComponentsFactory {
 
         assortment = new AssortmentsMenu(viewController);
         types = new TypesMenu(viewController);
-        numbers = new NumbersMenu();
+        numbers = new NumbersMenu(viewController);
 
         width = new Width(viewController);
         length = new Length(viewController);
@@ -52,12 +51,6 @@ public class CalculatorFactory implements ComponentsFactory {
 
         Visitor controllerVisitor = viewController.getVisitor();
         createDefaultMenu(assortment, types, numbers);
-
-        CalculatorFieldState calculatorFieldState = new CalculatorFieldState(width, length);
-        assortment.addFieldStateListener(calculatorFieldState);
-        types.addFieldStateListener(calculatorFieldState);
-        numbers.addFieldStateListener(calculatorFieldState);
-        complexAreaCheckBox.addFieldStateListener(calculatorFieldState);
 
         integration(complexAreaCheckBox, controllerVisitor);
         integration(width, controllerVisitor);

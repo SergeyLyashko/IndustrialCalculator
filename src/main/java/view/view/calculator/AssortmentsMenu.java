@@ -2,7 +2,6 @@ package view.view.calculator;
 
 import view.controller.MenuReceivable;
 import view.controller.ViewController;
-import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
 
 import javax.swing.*;
@@ -27,6 +26,9 @@ class AssortmentsMenu implements MenuSelectable {
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         this.viewController = viewController;
+        jComboBox.addActionListener(event -> {
+            viewController.setNotWidthState(this);
+        });
     }
 
     @Override
@@ -50,14 +52,6 @@ class AssortmentsMenu implements MenuSelectable {
     @Override
     public boolean isFocused() {
         return true;
-    }
-
-    @Override
-    public void addFieldStateListener(CalculatorFieldState fieldState) {
-        jComboBox.addActionListener(event -> {
-            fieldState.setState(fieldState.getNotWidthState());
-            fieldState.selectMenu();
-        });
     }
 
     @Override
