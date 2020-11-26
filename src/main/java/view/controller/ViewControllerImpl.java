@@ -43,14 +43,8 @@ public class ViewControllerImpl implements ViewController {
         viewModel.keyReleased(event);
     }
 
-
     @Override
-    public void activateVisitor(Host host) {
-        viewModel.activateVisitor(host);
-    }
-
-    @Override
-    public void deactivateVisitor(Host host) {
-        viewModel.deactivateVisitor(host);
+    public Visitor getVisitor() {
+        return viewModel.createVisitor();
     }
 }

@@ -1,8 +1,6 @@
 package view.view;
 
 import view.controller.*;
-import view.model.CalculatorFocusTraversalPolicy;
-import view.model.ColorVisitorImpl;
 import view.model.ViewModelInterface;
 import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
@@ -22,20 +20,23 @@ public class View {
 
     public void createView(){
 
-        Visitor visitor = new ColorVisitorImpl();
+        Visitor visitor = viewController.getVisitor();
 
-        ComponentsFactory calculator = new CalculatorFactory();
-        List<AppComponent> calculatorComponents = calculator.createComponents(viewController, visitor);
+        ComponentsFactory calculator = new CalculatorFactory(viewController);
+        List<AppComponent> calculatorComponents = calculator.createComponents();
+
         AppPanel calculatorPanel = new AppPanel(calculatorComponents, visitor);
-        addFocusPolicy(calculatorComponents, calculatorPanel);
+        calculatorPanel.addFocusPolicy(calculatorComponents);
 
-        ComponentsFactory settings = new SettingsFactory();
-        List<AppComponent> settingsComponents = settings.createComponents(viewController, visitor);
+        ComponentsFactory settings = new SettingsFactory(viewController);
+        List<AppComponent> settingsComponents = settings.createComponents();
+
         AppPanel settingsPanel = new AppPanel(settingsComponents, visitor);
 
 
-        ComponentsFactory info = new InfoFactory();
-        List<AppComponent> infoComponents = info.createComponents(viewController, visitor);
+        ComponentsFactory info = new InfoFactory(viewController);
+        List<AppComponent> infoComponents = info.createComponents();
+
         AppPanel infoPanel = new AppPanel(infoComponents, visitor);
 
         AppFrame appFrame = new AppFrame();
@@ -43,13 +44,8 @@ public class View {
         appFrame.createPanel("Настройки", settingsPanel);
         appFrame.createPanel("Справка", infoPanel);
 
-        visitor.activate();
+        visitor.activate();// TODO решить вопрос с активацией по умолчанию
         appFrame.create();
         appFrame.savePreferencesAndExit();
-    }
-
-    private void addFocusPolicy(List<AppComponent> componentList, AppPanel panel){
-        CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy(componentList);
-        focusTraversalPolicy.setFocusPolicy(panel);
     }
 }

@@ -27,10 +27,8 @@ class ToolTipsCheckBox implements AppComponent, Host {
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
         jCheckBox.addItemListener(event ->
                 ToolTipManager.sharedInstance().setEnabled(event.getStateChange() == ItemEvent.SELECTED));
-    }
 
-    @Override
-    public void registerAsHost(Visitor visitor) {
+        Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }
 

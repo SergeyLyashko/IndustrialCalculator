@@ -10,13 +10,13 @@ public class ViewModel implements ViewModelInterface {
     private final MenuReceivable menuReceivable;
     private final FieldKeyBehavior fieldKeyBehavior;
     private final FieldFocusBehavior fieldFocusBehavior;
-
-    //private Visitor visitor = new ColorVisitorImpl();
+    private final Visitor colorVisitor;
 
     public ViewModel(MenuReceivable menuReceivable) {
         this.menuReceivable = menuReceivable;
         fieldKeyBehavior = new FieldKeyBehavior();
         fieldFocusBehavior = new FieldFocusBehavior();
+        colorVisitor = new ColorVisitorImpl();
     }
 
     @Override
@@ -54,13 +54,9 @@ public class ViewModel implements ViewModelInterface {
         fieldKeyBehavior.keyReleased(event);
     }
 
-    @Override
-    public void activateVisitor(Host host) {
-
-    }
 
     @Override
-    public void deactivateVisitor(Host host) {
-
+    public Visitor createVisitor() {
+        return colorVisitor;
     }
 }

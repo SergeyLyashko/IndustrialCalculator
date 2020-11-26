@@ -1,8 +1,8 @@
 package view.model;
 
 import view.controller.FieldSelectable;
-import view.controller.Host;
 import view.controller.MenuSelectable;
+import view.controller.Visitor;
 
 import java.awt.event.KeyEvent;
 
@@ -20,7 +20,5 @@ public interface ViewModelInterface {
 
     void keyReleased(KeyEvent event);
 
-    void activateVisitor(Host host);
-
-    void deactivateVisitor(Host host);
+    Visitor createVisitor();
 }

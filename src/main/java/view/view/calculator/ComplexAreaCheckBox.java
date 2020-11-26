@@ -32,6 +32,8 @@ class ComplexAreaCheckBox implements AppComponent, Host {
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
 
         this.viewController = viewController;
+        Visitor visitor = viewController.getVisitor();
+        visitor.addHost(this);
     }
 
     @Override
@@ -45,21 +47,14 @@ class ComplexAreaCheckBox implements AppComponent, Host {
     }
 
     @Override
-    public void registerAsHost(Visitor visitor) {
-        visitor.addHost(this);
-    }
-
-    @Override
     public void addFieldStateListener(CalculatorFieldState fieldState) {
         jCheckBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 System.out.println("complexArea selected");
                 fieldState.checkBoxSelect(true);
-                //viewController.checkBoxSelect(this);
             } else {
                 System.out.println("complexArea deselected");
                 fieldState.checkBoxSelect(false);
-                //viewController.checkBoxDeselect(this);
             }
         });
     }

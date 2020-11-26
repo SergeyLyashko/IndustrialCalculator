@@ -10,7 +10,13 @@ import java.util.List;
 
 public class InfoFactory implements ComponentsFactory {
 
-    private final List<AppComponent> components = new ArrayList<>();
+    private final List<AppComponent> components;
+    private final ViewController viewController;
+
+    public InfoFactory(ViewController viewController) {
+        this.viewController = viewController;
+        components = new ArrayList<>();
+    }
 
     private void integration(AppComponent appComponent, Visitor visitor) {
         AppComponent wrapperComponent = wrap(appComponent, visitor);
@@ -28,8 +34,9 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     @Override
-    public List<AppComponent> createComponents(ViewController viewController, Visitor visitor) {
-        integration(new Info(), visitor);
+    public List<AppComponent> createComponents() {
+        Visitor controllerVisitor = viewController.getVisitor();
+        integration(new Info(), controllerVisitor);
         return components;
     }
 }

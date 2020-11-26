@@ -1,5 +1,6 @@
 package view.view.calculator;
 
+import view.controller.ViewController;
 import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
@@ -17,16 +18,14 @@ class Result implements AppComponent, Host {
     private static final int SIZE_X = 125;
     private static final int SIZE_Y = 25;
 
-    Result(){
+    Result(ViewController viewController){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-    }
 
-    @Override
-    public void registerAsHost(Visitor visitor) {
+        Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }
 

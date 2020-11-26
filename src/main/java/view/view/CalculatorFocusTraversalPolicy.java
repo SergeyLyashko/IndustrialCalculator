@@ -1,7 +1,4 @@
-package view.model;
-
-import view.view.AppComponent;
-import view.view.AppPanel;
+package view.view;
 
 import javax.swing.*;
 import java.awt.*;

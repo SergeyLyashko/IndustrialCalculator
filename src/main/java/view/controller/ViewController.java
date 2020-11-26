@@ -16,7 +16,5 @@ public interface ViewController {
 
     void keyReleased(KeyEvent event);
 
-    void activateVisitor(Host host);
-
-    void deactivateVisitor(Host host);
+    Visitor getVisitor();
 }

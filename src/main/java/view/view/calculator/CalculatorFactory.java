@@ -6,27 +6,52 @@ import view.view.AppComponent;
 import view.view.ComponentsFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CalculatorFactory implements ComponentsFactory {
 
-    private final List<AppComponent> components = new ArrayList<>();
+    private final List<AppComponent> components;
+    private final ViewController viewController;
+
+    private final MenuSelectable assortment;
+    private final MenuSelectable types;
+    private final MenuSelectable numbers;
+
+    private final FieldSelectable width;
+    private final FieldSelectable length;
+
+    private final AppComponent complexAreaCheckBox;
+    private final Result result;
+    private final Message message;
+    private final DimensionLabel dimensionWidth;
+    private final DimensionLabel dimensionLength;
+
+    public CalculatorFactory(ViewController viewController) {
+        this.viewController = viewController;
+        components = new ArrayList<>();
+
+        assortment = new AssortmentsMenu(viewController);
+        types = new TypesMenu(viewController);
+        numbers = new NumbersMenu();
+
+        width = new Width(viewController);
+        length = new Length(viewController);
+
+        complexAreaCheckBox = new ComplexAreaCheckBox(viewController);
+
+        result = new Result(viewController);
+        message = new Message(viewController);
+        dimensionWidth = new DimensionLabel(320, 22);
+        dimensionLength = new DimensionLabel(320, 62);
+
+    }
 
     @Override
-    public List<AppComponent> createComponents(ViewController viewController, Visitor visitor){
+    public List<AppComponent> createComponents(){
 
-        MenuSelectable assortment = new AssortmentsMenu(viewController);
-        MenuSelectable types = new TypesMenu(viewController);
-        MenuSelectable numbers = new NumbersMenu();
-
-        DefaultMenuBoxes defaultMenuBoxes = new DefaultMenuBoxes(viewController);
-        defaultMenuBoxes.createDefaultMenu(assortment, types, numbers);
-        defaultMenuBoxes.getComponents().forEach(this::integration);
-
-        FieldSelectable width = new Width(viewController);
-        FieldSelectable length = new Length(viewController);
-
-        AppComponent complexAreaCheckBox = new ComplexAreaCheckBox(viewController);
+        Visitor controllerVisitor = viewController.getVisitor();
+        createDefaultMenu(assortment, types, numbers);
 
         CalculatorFieldState calculatorFieldState = new CalculatorFieldState(width, length);
         assortment.addFieldStateListener(calculatorFieldState);
@@ -34,13 +59,14 @@ public class CalculatorFactory implements ComponentsFactory {
         numbers.addFieldStateListener(calculatorFieldState);
         complexAreaCheckBox.addFieldStateListener(calculatorFieldState);
 
-        integration(complexAreaCheckBox, visitor);
-        integration(width, visitor);
-        integration(length, visitor);
-        integration(new Result(), visitor);
-        integration(new Message(), visitor);
-        integration(new DimensionLabel(320, 22), visitor);
-        integration(new DimensionLabel(320, 62), visitor);
+        integration(complexAreaCheckBox, controllerVisitor);
+        integration(width, controllerVisitor);
+        integration(length, controllerVisitor);
+
+        integration(result, controllerVisitor);
+        integration(message, controllerVisitor);
+        integration(dimensionWidth, controllerVisitor);
+        integration(dimensionLength, controllerVisitor);
 
         return components;
     }
@@ -54,5 +80,22 @@ public class CalculatorFactory implements ComponentsFactory {
     private void integration(AppComponent component) {
         component.integration();
         components.add(component);
+    }
+
+    private void createDefaultMenu(MenuSelectable...menus){
+        addListeners(menus);
+        Arrays.stream(menus).forEach(element -> {
+            viewController.selectMenu(element, "");
+            integration(element);
+        });
+    }
+
+    private void addListeners(MenuSelectable...menus) {
+        MenuSelectable assortment = menus[0];
+        MenuSelectable types = menus[1];
+        MenuSelectable numbers = menus[2];
+        assortment.addMenuListener(types);
+        assortment.addMenuListener(numbers);
+        types.addMenuListener(numbers);
     }
 }
