@@ -30,8 +30,8 @@ public class CalculatorFactory implements ComponentsFactory {
         defaultMenu.createDefaultMenu(assortment, types, numbers);
         defaultMenu.getComponents().forEach(this::integration);
 
-        FieldSelectable width = new Width();
-        FieldSelectable length = new Length();
+        FieldSelectable width = new Width(viewController);
+        FieldSelectable length = new Length(viewController);
 
         AppComponent complexAreaCheckBox = new ComplexAreaCheckBox();
 

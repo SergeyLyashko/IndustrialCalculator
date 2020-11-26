@@ -6,17 +6,26 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
     private final List<String> menuList = new ArrayList<>();
+    private final MenuSelectable menuSelectable;
+    private final List<String> receiveMenuList;
     private int selected;
 
-    public MenuModel(MenuSelectable menuSelectable, List<String> menu){
+    MenuModel(MenuSelectable menuSelectable, List<String> receiveMenuList){
+        this.menuSelectable = menuSelectable;
         String headerMenu = menuSelectable.getHeaderMenu();
         menuList.add(headerMenu);
-        if(menu != null){
-            menuList.addAll(menu);
+        this.receiveMenuList = receiveMenuList;
+    }
+
+    void createMenu(){
+        if(receiveMenuList != null){
+            menuList.addAll(receiveMenuList);
         }
+        JComboBox<String> parent = (JComboBox<String>) menuSelectable.getParent();
+        parent.setModel(this);
     }
 
     @Override

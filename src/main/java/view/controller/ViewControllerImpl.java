@@ -2,6 +2,8 @@ package view.controller;
 
 import view.model.ViewModelInterface;
 
+import java.awt.event.KeyEvent;
+
 public class ViewControllerImpl implements ViewController {
 
     private final ViewModelInterface viewModel;
@@ -16,13 +18,13 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setWidth() {
-
+    public void fieldActivate(FieldSelectable fieldSelectable) {
+        viewModel.fieldActivate(fieldSelectable);
     }
 
     @Override
-    public void setLength() {
-
+    public void fieldDeactivate(FieldSelectable fieldSelectable) {
+        viewModel.fieldDeactivate(fieldSelectable);
     }
 
     @Override
@@ -38,5 +40,20 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void complexAreaBoxSelect() {
 
+    }
+
+    @Override
+    public void fieldFocusGained(FieldSelectable fieldSelectable) {
+        viewModel.fieldFocusGained(fieldSelectable);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent event) {
+        viewModel.keyPressed(event);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent event) {
+        viewModel.keyReleased(event);
     }
 }

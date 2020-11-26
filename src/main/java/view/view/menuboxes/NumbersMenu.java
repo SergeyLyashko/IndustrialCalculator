@@ -3,7 +3,6 @@ package view.view.menuboxes;
 import view.controller.MenuReceivable;
 import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
-import view.model.MenuModel;
 
 import javax.swing.*;
 import java.util.List;
@@ -41,11 +40,6 @@ public class NumbersMenu implements MenuSelectable {
     @Override
     public String getHeaderMenu() {
         return NUMBER_HEADER;
-    }
-
-    @Override
-    public void setMenuModel(MenuModel menuModel) {
-        jComboBox.setModel(menuModel);
     }
 
     @Override

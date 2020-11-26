@@ -4,39 +4,31 @@ import view.controller.FieldSelectable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
-public class FieldFocusBehavior extends FocusAdapter {
+class FieldFocusBehavior {
 
-    private final JFormattedTextField textField;
-    private static final String EMPTY_FIELD = "";
-    private final FieldSelectable fieldSelectable;
+    private static final String EMPTY = "";
 
-
-    public FieldFocusBehavior(FieldSelectable fieldSelectable) {
-        this.fieldSelectable = fieldSelectable;
-        this.textField = (JFormattedTextField) fieldSelectable.getParent();
+    void fieldActivate(FieldSelectable fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.setEditable(true);
+        parent.setForeground(Color.GRAY);
+        parent.setBackground(Color.white);
+        parent.addFocusListener((FocusListener) fieldSelectable);
     }
 
-    public void activate(){
-        textField.setEditable(true);
-        textField.setForeground(Color.GRAY);
-        textField.setBackground(Color.white);
-        textField.addFocusListener(this);
+    void fieldDeactivate(FieldSelectable fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.setEditable(false);
+        parent.setForeground(Color.GRAY);
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.removeFocusListener((FocusListener) fieldSelectable);
     }
 
-    @Override
-    public void focusGained(FocusEvent e) {
-        textField.setForeground(Color.BLACK);
-        textField.setText(EMPTY_FIELD);
-    }
-
-    public void deactivate() {
-        textField.removeFocusListener(this);
-        textField.setEditable(false);
-        textField.setText(fieldSelectable.getName());
-        textField.setForeground(Color.GRAY);
-        textField.setBackground(Color.LIGHT_GRAY);
+    void fieldFocusGained(FieldSelectable fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.setForeground(Color.BLACK);
+        parent.setText(EMPTY);
     }
 }

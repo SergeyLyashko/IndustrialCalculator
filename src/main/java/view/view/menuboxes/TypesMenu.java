@@ -5,7 +5,6 @@ import view.controller.ViewController;
 import view.model.CalculatorFieldState;
 import view.controller.MenuSelectable;
 import view.controller.FieldState;
-import view.model.MenuModel;
 
 import javax.swing.*;
 import java.util.List;
@@ -57,11 +56,6 @@ public class TypesMenu implements MenuSelectable {
     @Override
     public String getHeaderMenu() {
         return TYPE_HEADER;
-    }
-
-    @Override
-    public void setMenuModel(MenuModel menuModel) {
-        jComboBox.setModel(menuModel);
     }
 
     @Override

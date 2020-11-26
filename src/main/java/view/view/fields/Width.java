@@ -1,14 +1,16 @@
 package view.view.fields;
 
-import view.model.FieldFocusBehavior;
-import view.model.FieldKeyBehavior;
+import view.controller.ViewController;
 import view.controller.FieldSelectable;
 
 import javax.swing.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Width implements FieldSelectable {
+public class Width extends FocusAdapter implements KeyListener, FieldSelectable {
 
-    private static final String EMPTY = "";
     private final JFormattedTextField textField;
 
     private static final String BOX_NAME = "введите ширину";
@@ -17,19 +19,18 @@ public class Width implements FieldSelectable {
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 20;
-    private final FieldFocusBehavior fieldFocusBehavior;
-    private final FieldKeyBehavior fieldKeyBehavior;
+    private final ViewController viewController;
 
-    public Width(){
+    public Width(ViewController viewController){
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setText(BOX_NAME);
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        fieldFocusBehavior = new FieldFocusBehavior(this);
-        fieldFocusBehavior.deactivate();
-        fieldKeyBehavior = new FieldKeyBehavior(textField);
+
+        this.viewController = viewController;
+        viewController.fieldDeactivate(this);
     }
 
     @Override
@@ -49,18 +50,21 @@ public class Width implements FieldSelectable {
 
     @Override
     public void activate() {
-        //System.out.println("width activate");
+        System.out.println("width activate");
         textField.setText(BOX_NAME);
-        fieldFocusBehavior.activate();
-        fieldKeyBehavior.activate(this);
+        viewController.fieldActivate(this);
     }
 
     @Override
     public void deactivate() {
-        //System.out.println("width Deactivate");
+        System.out.println("width Deactivate");
         textField.setText(BOX_NAME);
-        fieldFocusBehavior.deactivate();
-        fieldKeyBehavior.deactivate();
+        viewController.fieldDeactivate(this);
+    }
+
+    @Override
+    public void focusGained(FocusEvent event) {
+        viewController.fieldFocusGained(this);
     }
 
     @Override
@@ -70,9 +74,8 @@ public class Width implements FieldSelectable {
 
     @Override
     public void transformArea() {
-        fieldFocusBehavior.deactivate();
-        fieldKeyBehavior.deactivate();
-        textField.setText(EMPTY);
+        System.out.println("width transform Area");
+        viewController.fieldDeactivate(this);
     }
 
     @Override
@@ -80,4 +83,16 @@ public class Width implements FieldSelectable {
         return true;
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent event) {
+        viewController.keyPressed(event);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent event) {
+        viewController.keyReleased(event);
+    }
 }

@@ -1,46 +1,37 @@
 package view.model;
 
 import view.controller.FieldSelectable;
-import view.view.fields.Width;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class FieldKeyBehavior extends KeyAdapter {
+class FieldKeyBehavior {
 
-    private final JFormattedTextField textField;
-    private FieldSelectable field;
-
-    public FieldKeyBehavior(JFormattedTextField textField) {
-        this.textField = textField;
-    }
-
-    public void activate(FieldSelectable field) {
-        this.field = field;
-        textField.addKeyListener(this);
-    }
-
-    public void deactivate() {
-        textField.removeKeyListener(this);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent event) {
+    void keyPressed(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
-            String text = textField.getText();
-            //System.out.println("test press: "+text);
+            JTextField source = (JFormattedTextField) event.getSource();
+            String text = source.getText();
+            System.out.println("test press: "+text);
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent event) {
+    void keyReleased(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
-            if(field instanceof Width){
-                textField.transferFocus();
-                System.out.println("test width key");
-            }
+            JTextField source = (JFormattedTextField) event.getSource();
+            String text = source.getText();
+            System.out.println("test release: "+text);
+            source.transferFocus();
         }
     }
 
+    void fieldActivate(FieldSelectable fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.addKeyListener((KeyListener) fieldSelectable);
+    }
+
+    void fieldDeactivate(FieldSelectable fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.removeKeyListener((KeyListener) fieldSelectable);
+    }
 }
