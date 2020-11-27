@@ -43,7 +43,6 @@ public class CalculatorFactory implements ComponentsFactory {
         message = new Message(viewController);
         dimensionWidth = new DimensionLabel(320, 22);
         dimensionLength = new DimensionLabel(320, 62);
-
     }
 
     @Override
@@ -65,13 +64,13 @@ public class CalculatorFactory implements ComponentsFactory {
     }
 
     private void integration(AppComponent component, Visitor visitor) {
-        component.integration();
+        component.integrationToPanel();
         component.registerAsHost(visitor);
         components.add(component);
     }
 
     private void integration(AppComponent component) {
-        component.integration();
+        component.integrationToPanel();
         components.add(component);
     }
 
@@ -87,8 +86,8 @@ public class CalculatorFactory implements ComponentsFactory {
         MenuSelectable assortment = menus[0];
         MenuSelectable types = menus[1];
         MenuSelectable numbers = menus[2];
-        assortment.addMenuListener(types);
-        assortment.addMenuListener(numbers);
-        types.addMenuListener(numbers);
+        assortment.addChildMenu(types);
+        assortment.addChildMenu(numbers);
+        types.addChildMenu(numbers);
     }
 }

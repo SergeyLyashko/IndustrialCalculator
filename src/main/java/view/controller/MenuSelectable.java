@@ -10,4 +10,5 @@ public interface MenuSelectable extends AppComponent {
 
     String getHeaderMenu();
 
+    default void addChildMenu(MenuSelectable child){}
 }

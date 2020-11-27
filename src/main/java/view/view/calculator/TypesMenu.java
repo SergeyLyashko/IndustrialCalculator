@@ -50,10 +50,10 @@ class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public void addMenuListener(MenuSelectable menuListener){
+    public void addChildMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            viewController.selectMenu(menuListener, selectedItem);
+            viewController.selectMenu(child, selectedItem);
         });
     }
 

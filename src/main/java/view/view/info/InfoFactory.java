@@ -23,11 +23,11 @@ public class InfoFactory implements ComponentsFactory {
     }
 
     private AppComponent wrap(AppComponent appComponent, Visitor visitor){
-        appComponent.integration();
+        appComponent.integrationToPanel();
         appComponent.registerAsHost(visitor);
         ScrollWrapper scrollWrapper = new ScrollWrapper();
         AppComponent wrapperComponent = scrollWrapper.add(appComponent);
-        wrapperComponent.integration();
+        wrapperComponent.integrationToPanel();
         wrapperComponent.registerAsHost(visitor);
         return wrapperComponent;
     }

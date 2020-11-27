@@ -57,9 +57,4 @@ class ColorThemeCheckBox implements AppComponent, Host {
     public JComponent getParent() {
         return jCheckBox;
     }
-
-    @Override
-    public boolean isFocused() {
-        return true;
-    }
 }
