@@ -18,15 +18,13 @@ public interface ViewController {
 
     Visitor getVisitor();
 
-    void setNotWidthState(MenuSelectable menuSelectable);
+    void setNotWidthState();
 
-    void setWidthState(MenuSelectable menuSelectable);
+    void setWidthState();
 
-    void actionState(MenuSelectable menuSelectable);
+    void actionState();
 
     void setStateTarget(FieldSelectable fieldSelectable);
 
-    void checkBoxSelect();
-
-    void checkBoxDeselect();
+    void checkBoxSelect(boolean state);
 }

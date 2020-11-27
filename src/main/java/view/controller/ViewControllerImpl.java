@@ -1,7 +1,6 @@
 package view.controller;
 
 import view.model.ViewModelInterface;
-
 import java.awt.event.KeyEvent;
 
 public class ViewControllerImpl implements ViewController {
@@ -49,32 +48,27 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setNotWidthState(MenuSelectable menuSelectable) {
-        viewModel.setNotWidthState(menuSelectable);
+    public void setNotWidthState() {
+        viewModel.setNotWidthState();
     }
 
     @Override
-    public void setWidthState(MenuSelectable menuSelectable) {
-        viewModel.setWidthState(menuSelectable);
+    public void setWidthState() {
+        viewModel.setWidthState();
     }
 
     @Override
-    public void actionState(MenuSelectable menuSelectable) {
-        viewModel.actionState(menuSelectable);
+    public void actionState() {
+        viewModel.actionState();
     }
 
     @Override
     public void setStateTarget(FieldSelectable fieldSelectable) {
-        viewModel.setStateTarget(fieldSelectable);
+        viewModel.setField(fieldSelectable);
     }
 
     @Override
-    public void checkBoxSelect() {
-        viewModel.checkBoxSelect();
-    }
-
-    @Override
-    public void checkBoxDeselect() {
-        viewModel.checkBoxDeselect();
+    public void checkBoxSelect(boolean state) {
+        viewModel.checkBoxSelect(state);
     }
 }

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
-class ComplexAreaCheckBox implements AppComponent, Host {
+class AreaSettableCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
@@ -21,7 +21,8 @@ class ComplexAreaCheckBox implements AppComponent, Host {
     private static final int HEIGHT = 20;
     private final ViewController viewController;
 
-    ComplexAreaCheckBox(ViewController viewController){
+    AreaSettableCheckBox(ViewController viewController){
+        this.viewController = viewController;
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
@@ -30,19 +31,9 @@ class ComplexAreaCheckBox implements AppComponent, Host {
         jCheckBox.setFont(deriveFont);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
 
-        this.viewController = viewController;
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
-
-        jCheckBox.addItemListener(event -> {
-            if (event.getStateChange() == ItemEvent.SELECTED) {
-                System.out.println("complexArea selected");
-                viewController.checkBoxSelect();
-            } else {
-                System.out.println("complexArea deselected");
-                viewController.checkBoxDeselect();
-            }
-        });
+        jCheckBox.addItemListener(event -> viewController.checkBoxSelect(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override

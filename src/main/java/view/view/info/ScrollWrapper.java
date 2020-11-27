@@ -1,4 +1,4 @@
-package view.model;
+package view.view.info;
 
 import view.view.AppComponent;
 import view.controller.Host;
@@ -7,19 +7,19 @@ import view.controller.Visitor;
 import javax.swing.*;
 import java.awt.*;
 
-public class ScrollWrapper implements AppComponent, Host {
+class ScrollWrapper implements AppComponent, Host {
 
     private final JScrollPane scrollPane;
     private JViewport viewport;
 
-    public ScrollWrapper(){
+    ScrollWrapper(){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
     }
 
-    public AppComponent add(AppComponent content){
+    AppComponent add(AppComponent content){
         viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
         return this;

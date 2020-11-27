@@ -37,7 +37,6 @@ class Message implements AppComponent, Host {
         return LOCATION_Y;
     }
 
-
     @Override
     public JComponent getParent() {
         return jLabel;

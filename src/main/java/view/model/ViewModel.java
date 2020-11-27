@@ -17,7 +17,7 @@ public class ViewModel implements ViewModelInterface {
         this.menuReceivable = menuReceivable;
         fieldKeyBehavior = new FieldKeyBehavior();
         fieldFocusBehavior = new FieldFocusBehavior();
-        colorVisitor = new ColorVisitorImpl();
+        colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState();
     }
 
@@ -63,36 +63,29 @@ public class ViewModel implements ViewModelInterface {
     }
 
     @Override
-    public void setNotWidthState(MenuSelectable menuSelectable) {
+    public void setNotWidthState() {
         fieldState.setState(fieldState.getNotWidthState());
         fieldState.selectMenu();
     }
 
     @Override
-    public void setWidthState(MenuSelectable menuSelectable) {
+    public void setWidthState() {
         fieldState.setState(fieldState.getHaveWidthState());
         fieldState.selectMenu();
     }
 
     @Override
-    public void actionState(MenuSelectable menuSelectable) {
+    public void actionState() {
         fieldState.turnNumbers();
     }
 
     @Override
-    public void setStateTarget(FieldSelectable fieldSelectable) {
-        fieldState.setStateTarget(fieldSelectable);
+    public void setField(FieldSelectable fieldSelectable) {
+        fieldState.setField(fieldSelectable);
     }
 
     @Override
-    public void checkBoxSelect() {
-        fieldState.checkBoxSelect(true);
+    public void checkBoxSelect(boolean state) {
+        fieldState.checkBoxSelect(state);
     }
-
-    @Override
-    public void checkBoxDeselect() {
-        fieldState.checkBoxSelect(false);
-    }
-
-
 }

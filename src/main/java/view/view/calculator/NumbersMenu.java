@@ -27,7 +27,7 @@ class NumbersMenu implements MenuSelectable {
 
         this.viewController = viewController;
         jComboBox.addActionListener(event -> {
-            viewController.actionState(this);
+            viewController.actionState();
         });
     }
 

@@ -24,7 +24,7 @@ class CalculatorFieldState {
         state = notWidthState;
     }
 
-    void setStateTarget(FieldSelectable fieldSelectable){
+    void setField(FieldSelectable fieldSelectable){
         String name = fieldSelectable.getName();
         if(name.equalsIgnoreCase("введите ширину")){
             width = fieldSelectable;

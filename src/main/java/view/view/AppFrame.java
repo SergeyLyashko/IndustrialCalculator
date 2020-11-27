@@ -10,28 +10,16 @@ class AppFrame implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-    private final JFrame jFrame = new JFrame("Industrial calculator");
+    private final JTabbedPane jTabbedPane;
 
-    void createPanel(String type, AppPanel panel){
-        Container parentContainer = panel.getParent();
-        jTabbedPane.add(type, parentContainer);
-    }
-
-    void create(){
-        jFrame.setContentPane(jTabbedPane);
-        setFramePreference();
-    }
-
-    private void setFramePreference(){
+    AppFrame() {
+        jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        JFrame jFrame = new JFrame("Industrial calculator");
         jFrame.setSize(360, 220);
         jFrame.setLocationByPlatform(true);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
-    }
-
-    void savePreferencesAndExit(){
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -39,5 +27,11 @@ class AppFrame implements Serializable {
                 System.exit(0);
             }
         });
+        jFrame.setContentPane(jTabbedPane);
+    }
+
+    void addPanel(String type, AppPanel panel){
+        Container parentContainer = panel.getParent();
+        jTabbedPane.add(type, parentContainer);
     }
 }

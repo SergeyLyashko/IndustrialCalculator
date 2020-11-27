@@ -6,8 +6,6 @@ import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
 import view.view.settings.SettingsFactory;
 
-import java.util.List;
-
 public class View {
 
     private final ViewController viewController;
@@ -20,32 +18,21 @@ public class View {
 
     public void createView(){
 
-        Visitor visitor = viewController.getVisitor();
+        ComponentsFactory calculatorComponents = new CalculatorFactory(viewController);
+        ComponentsFactory settingsComponents = new SettingsFactory(viewController);
+        ComponentsFactory infoComponents = new InfoFactory(viewController);
 
-        ComponentsFactory calculator = new CalculatorFactory(viewController);
-        List<AppComponent> calculatorComponents = calculator.createComponents();
-
-        AppPanel calculatorPanel = new AppPanel(calculatorComponents, visitor);
-        calculatorPanel.addFocusPolicy(calculatorComponents);
-
-        ComponentsFactory settings = new SettingsFactory(viewController);
-        List<AppComponent> settingsComponents = settings.createComponents();
-
-        AppPanel settingsPanel = new AppPanel(settingsComponents, visitor);
-
-
-        ComponentsFactory info = new InfoFactory(viewController);
-        List<AppComponent> infoComponents = info.createComponents();
-
-        AppPanel infoPanel = new AppPanel(infoComponents, visitor);
+        AppPanel calculatorPanel = new AppPanel(calculatorComponents, viewController);
+        AppPanel settingsPanel = new AppPanel(settingsComponents, viewController);
+        AppPanel infoPanel = new AppPanel(infoComponents, viewController);
 
         AppFrame appFrame = new AppFrame();
-        appFrame.createPanel("Калькулятор", calculatorPanel);
-        appFrame.createPanel("Настройки", settingsPanel);
-        appFrame.createPanel("Справка", infoPanel);
+        appFrame.addPanel("Калькулятор", calculatorPanel);
+        appFrame.addPanel("Настройки", settingsPanel);
+        appFrame.addPanel("Справка", infoPanel);
 
-        visitor.activate();// TODO решить вопрос с активацией по умолчанию
-        appFrame.create();
-        appFrame.savePreferencesAndExit();
+        calculatorPanel.addFocusPolicy(calculatorComponents);
+        Visitor visitor = viewController.getVisitor();
+        visitor.activate();
     }
 }

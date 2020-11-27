@@ -32,9 +32,9 @@ class TypesMenu implements MenuSelectable {
                     selectedItem.equalsIgnoreCase("тонколистовая") ||
                     selectedItem.equalsIgnoreCase("толстолистовая") ||
                     selectedItem.equalsIgnoreCase("рифленая(ромб)")){
-                viewController.setWidthState(this);
+                viewController.setWidthState();
             } else{
-                viewController.setNotWidthState(this);
+                viewController.setNotWidthState();
             }
         });
     }

@@ -52,14 +52,12 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
 
     @Override
     public void activate() {
-        System.out.println("length activate");
         textField.setText(BOX_NAME);
         viewController.fieldActivate(this);
     }
 
     @Override
     public void deactivate() {
-        System.out.println("length Deactivate");
         textField.setText(BOX_NAME);
         viewController.fieldDeactivate(this);
     }

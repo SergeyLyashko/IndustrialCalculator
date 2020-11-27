@@ -21,13 +21,14 @@ class AssortmentsMenu implements MenuSelectable {
     private final ViewController viewController;
 
     AssortmentsMenu(ViewController viewController){
+        this.viewController = viewController;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        this.viewController = viewController;
+
         jComboBox.addActionListener(event -> {
-            viewController.setNotWidthState(this);
+            viewController.setNotWidthState();
         });
     }
 

@@ -37,7 +37,7 @@ public class CalculatorFactory implements ComponentsFactory {
         width = new Width(viewController);
         length = new Length(viewController);
 
-        complexAreaCheckBox = new ComplexAreaCheckBox(viewController);
+        complexAreaCheckBox = new AreaSettableCheckBox(viewController);
 
         result = new Result(viewController);
         message = new Message(viewController);

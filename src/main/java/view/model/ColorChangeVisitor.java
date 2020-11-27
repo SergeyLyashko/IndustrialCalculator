@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-class ColorVisitorImpl implements Visitor {
+class ColorChangeVisitor implements Visitor {
 
     private final List<Host> componentsList = new CopyOnWriteArrayList<>();
     private Color backGround;

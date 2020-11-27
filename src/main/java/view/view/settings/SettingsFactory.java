@@ -17,17 +17,17 @@ public class SettingsFactory implements ComponentsFactory {
         componentList = new ArrayList<>();
     }
 
-    private void integration(AppComponent component, Visitor visitor) {
-        component.integration();
-        component.registerAsHost(visitor);
-        componentList.add(component);
-    }
-
     @Override
     public List<AppComponent> createComponents() {
         Visitor controllerVisitor = viewController.getVisitor();
         integration(new ColorThemeCheckBox(viewController), controllerVisitor);
         integration(new ToolTipsCheckBox(viewController), controllerVisitor);
         return componentList;
+    }
+
+    private void integration(AppComponent component, Visitor visitor) {
+        component.integration();
+        component.registerAsHost(visitor);
+        componentList.add(component);
     }
 }

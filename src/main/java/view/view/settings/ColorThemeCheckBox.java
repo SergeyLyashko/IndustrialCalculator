@@ -18,8 +18,6 @@ class ColorThemeCheckBox implements AppComponent, Host {
     private static final int LOCATION_Y = 35;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private final ViewController viewController;
-
 
     ColorThemeCheckBox(ViewController viewController){
         jCheckBox = new JCheckBox();
@@ -28,9 +26,9 @@ class ColorThemeCheckBox implements AppComponent, Host {
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
 
-        this.viewController = viewController;
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
+
         jCheckBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 visitor.activate();

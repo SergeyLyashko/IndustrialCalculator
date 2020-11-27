@@ -1,7 +1,6 @@
 package view.view.info;
 
 import view.controller.*;
-import view.model.ScrollWrapper;
 import view.view.AppComponent;
 import view.view.ComponentsFactory;
 
