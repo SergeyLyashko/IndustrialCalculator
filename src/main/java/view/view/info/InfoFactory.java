@@ -15,25 +15,22 @@ public class InfoFactory implements ComponentsFactory {
     public InfoFactory(ViewController viewController) {
         this.viewController = viewController;
         components = new ArrayList<>();
+        integration(new Info(viewController));
     }
 
-    private void integration(AppComponent appComponent, Visitor visitor) {
-        AppComponent wrapperComponent = wrap(appComponent, visitor);
-        components.add(wrapperComponent);
+    private void integration(AppComponent component) {
+        component.integrationToPanel();
+        wrap(component);
     }
 
-    private AppComponent wrap(AppComponent appComponent, Visitor visitor){
-        appComponent.integrationToPanel();
-        ScrollWrapper scrollWrapper = new ScrollWrapper(viewController);
-        AppComponent wrapperComponent = scrollWrapper.add(appComponent);
-        wrapperComponent.integrationToPanel();
-        return wrapperComponent;
+    private void wrap(AppComponent appComponent){
+        ScrollWrapper scrollWrapper = new ScrollWrapper(viewController, appComponent);
+        scrollWrapper.integrationToPanel();
+        components.add(scrollWrapper);
     }
 
     @Override
-    public List<AppComponent> createComponents() {
-        Visitor controllerVisitor = viewController.getVisitor();
-        integration(new Info(viewController), controllerVisitor);
+    public List<AppComponent> getComponents(){
         return components;
     }
 }

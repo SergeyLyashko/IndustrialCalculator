@@ -25,6 +25,10 @@ class Result implements AppComponent, Host {
         jLabel.setText(DEFAULT_VIEW);
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
+        addHost(viewController);
+    }
+
+    private void addHost(ViewController viewController){
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }

@@ -9,24 +9,21 @@ import java.util.List;
 
 public class SettingsFactory implements ComponentsFactory {
 
-    private final List<AppComponent> componentList;
-    private final ViewController viewController;
+    private final List<AppComponent> components;
 
     public SettingsFactory(ViewController viewController) {
-        this.viewController = viewController;
-        componentList = new ArrayList<>();
+        components = new ArrayList<>();
+        integration(new ColorThemeCheckBox(viewController));
+        integration(new ToolTipsCheckBox(viewController));
+    }
+
+    private void integration(AppComponent component) {
+        component.integrationToPanel();
+        components.add(component);
     }
 
     @Override
-    public List<AppComponent> createComponents() {
-        Visitor controllerVisitor = viewController.getVisitor();
-        integration(new ColorThemeCheckBox(viewController), controllerVisitor);
-        integration(new ToolTipsCheckBox(viewController), controllerVisitor);
-        return componentList;
-    }
-
-    private void integration(AppComponent component, Visitor visitor) {
-        component.integrationToPanel();
-        componentList.add(component);
+    public List<AppComponent> getComponents(){
+        return components;
     }
 }

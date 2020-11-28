@@ -5,7 +5,6 @@ import view.controller.ViewController;
 import view.controller.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public class AppPanel implements Host {
@@ -13,21 +12,21 @@ public class AppPanel implements Host {
     private final JPanel jPanel;
 
     public AppPanel(ComponentsFactory componentsFactory, ViewController viewController){
-        List<AppComponent> components = componentsFactory.createComponents();
         jPanel = new JPanel();
         jPanel.setLayout(null);
+        List<AppComponent> components = componentsFactory.getComponents();
         components.forEach(this::add);
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }
 
     private void add(AppComponent component) {
-        Container parentComponent = component.getParent();
-        jPanel.add(parentComponent);
+        JComponent parent = component.getParent();
+        jPanel.add(parent);
     }
 
     public void addFocusPolicy(ComponentsFactory componentsFactory){
-        List<AppComponent> components = componentsFactory.createComponents();
+        List<AppComponent> components = componentsFactory.getComponents();
         CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy(components);
         focusTraversalPolicy.setFocusPolicy(this);
     }

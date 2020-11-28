@@ -1,7 +1,7 @@
 package view.view;
 
 import view.controller.*;
-import view.model.ViewModelInterface;
+import view.model.ViewModel;
 import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
 import view.view.settings.SettingsFactory;
@@ -9,11 +9,12 @@ import view.view.settings.SettingsFactory;
 public class View {
 
     private final ViewController viewController;
-    private final ViewModelInterface viewModel;
+    private final ViewModel viewModel;
 
-    public View(ViewModelInterface viewModel, ViewController viewController) {
+    public View(ViewModel viewModel, ViewController viewController) {
         this.viewModel = viewModel;
         this.viewController = viewController;
+
     }
 
     public void createView(){

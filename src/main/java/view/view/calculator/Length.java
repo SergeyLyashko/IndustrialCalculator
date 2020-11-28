@@ -23,6 +23,7 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
     private final ViewController viewController;
 
     Length(ViewController viewController){
+        this.viewController = viewController;
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
@@ -30,7 +31,6 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         textField.setToolTipText(TOOL_TIP_TEXT);
 
-        this.viewController = viewController;
         viewController.fieldDeactivate(this);
         viewController.setStateTarget(this);
     }

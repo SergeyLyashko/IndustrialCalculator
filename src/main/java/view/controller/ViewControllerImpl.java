@@ -1,13 +1,14 @@
 package view.controller;
 
-import view.model.ViewModelInterface;
+import view.model.ViewModel;
+
 import java.awt.event.KeyEvent;
 
 public class ViewControllerImpl implements ViewController {
 
-    private final ViewModelInterface viewModel;
+    private final ViewModel viewModel;
 
-    public ViewControllerImpl(ViewModelInterface viewModel){
+    public ViewControllerImpl(ViewModel viewModel){
         this.viewModel = viewModel;
     }
 

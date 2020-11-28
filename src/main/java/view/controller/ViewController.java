@@ -29,4 +29,5 @@ public interface ViewController {
     void checkBoxSelect(boolean state);
 
     MenuReceivable getMenuReceiver();
+
 }

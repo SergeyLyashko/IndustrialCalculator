@@ -1,6 +1,5 @@
 package view.model;
 
-import view.controller.FieldState;
 import view.controller.FieldSelectable;
 
 class NotWidthState implements FieldState {

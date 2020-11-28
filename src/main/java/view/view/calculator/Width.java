@@ -22,6 +22,7 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
     private final ViewController viewController;
 
     Width(ViewController viewController){
+        this.viewController = viewController;
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
@@ -29,7 +30,6 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
 
-        this.viewController = viewController;
         viewController.fieldDeactivate(this);
         viewController.setStateTarget(this);
     }
@@ -51,14 +51,12 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
 
     @Override
     public void activate() {
-        System.out.println("width activate");
         textField.setText(BOX_NAME);
         viewController.fieldActivate(this);
     }
 
     @Override
     public void deactivate() {
-        System.out.println("width Deactivate");
         textField.setText(BOX_NAME);
         viewController.fieldDeactivate(this);
     }

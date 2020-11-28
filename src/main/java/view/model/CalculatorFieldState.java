@@ -1,7 +1,6 @@
 package view.model;
 
 import view.controller.FieldSelectable;
-import view.controller.FieldState;
 
 class CalculatorFieldState {
 

@@ -1,4 +1,6 @@
-package view.controller;
+package view.model;
+
+import view.controller.FieldSelectable;
 
 public interface FieldState {
 

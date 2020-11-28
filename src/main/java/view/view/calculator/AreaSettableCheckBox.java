@@ -26,14 +26,14 @@ class AreaSettableCheckBox implements AppComponent, Host {
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        setFont(jCheckBox);
+        setFont();
         addHost(viewController);
         addItemListener(viewController);
     }
 
-    private void setFont(JCheckBox checkBox){
-        Font deriveFont = checkBox.getFont().deriveFont(10f);
-        checkBox.setFont(deriveFont);
+    private void setFont(){
+        Font deriveFont = jCheckBox.getFont().deriveFont(10f);
+        jCheckBox.setFont(deriveFont);
     }
 
     private void addHost(ViewController viewController){

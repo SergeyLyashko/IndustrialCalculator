@@ -13,12 +13,13 @@ class ScrollWrapper implements AppComponent, Host {
     private final JScrollPane scrollPane;
     private JViewport viewport;
 
-    ScrollWrapper(ViewController viewController){
+    ScrollWrapper(ViewController viewController, AppComponent appComponent){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
         addHost(viewController);
+        wrap(appComponent);
     }
 
     private void addHost(ViewController viewController){
@@ -26,10 +27,9 @@ class ScrollWrapper implements AppComponent, Host {
         visitor.addHost(this);
     }
 
-    AppComponent add(AppComponent content){
+    private void wrap(AppComponent content){
         viewport = scrollPane.getViewport();
         viewport.add(content.getParent());
-        return this;
     }
 
     @Override

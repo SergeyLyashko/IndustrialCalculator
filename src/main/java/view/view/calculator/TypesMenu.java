@@ -20,12 +20,16 @@ class TypesMenu implements MenuSelectable {
     private final ViewController viewController;
 
     TypesMenu(ViewController viewController){
+        this.viewController = viewController;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        this.viewController = viewController;
 
+        addListener(viewController);
+    }
+
+    private void addListener(ViewController viewController){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||

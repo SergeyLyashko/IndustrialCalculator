@@ -13,59 +13,28 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components;
     private final ViewController viewController;
 
-    private final MenuSelectable assortment;
-    private final MenuSelectable types;
-    private final MenuSelectable numbers;
-
-    private final FieldSelectable width;
-    private final FieldSelectable length;
-
-    private final AppComponent complexAreaCheckBox;
-    private final Result result;
-    private final Message message;
-    private final DimensionLabel dimensionWidth;
-    private final DimensionLabel dimensionLength;
-
     public CalculatorFactory(ViewController viewController) {
         this.viewController = viewController;
         components = new ArrayList<>();
 
-        assortment = new AssortmentsMenu(viewController);
-        types = new TypesMenu(viewController);
-        numbers = new NumbersMenu(viewController);
+        MenuSelectable assortment = new AssortmentsMenu(viewController);
+        MenuSelectable types = new TypesMenu(viewController);
+        MenuSelectable numbers = new NumbersMenu(viewController);
+        createDefaultMenu(assortment, types, numbers);
 
-        width = new Width(viewController);
-        length = new Length(viewController);
+        integration(new Width(viewController));
+        integration(new Length(viewController));
+        integration(new AreaSettableCheckBox(viewController));
 
-        complexAreaCheckBox = new AreaSettableCheckBox(viewController);
-
-        result = new Result(viewController);
-        message = new Message(viewController);
-        dimensionWidth = new DimensionLabel(viewController,320, 22);
-        dimensionLength = new DimensionLabel(viewController, 320, 62);
+        integration(new Result(viewController));
+        integration(new Message(viewController));
+        integration(new DimensionLabel(viewController,320, 22));
+        integration(new DimensionLabel(viewController, 320, 62));
     }
 
     @Override
-    public List<AppComponent> createComponents(){
-
-        Visitor controllerVisitor = viewController.getVisitor();
-        createDefaultMenu(assortment, types, numbers);
-
-        integration(complexAreaCheckBox, controllerVisitor);
-        integration(width, controllerVisitor);
-        integration(length, controllerVisitor);
-
-        integration(result, controllerVisitor);
-        integration(message, controllerVisitor);
-        integration(dimensionWidth, controllerVisitor);
-        integration(dimensionLength, controllerVisitor);
-
+    public List<AppComponent> getComponents(){
         return components;
-    }
-
-    private void integration(AppComponent component, Visitor visitor) {
-        component.integrationToPanel();
-        components.add(component);
     }
 
     private void integration(AppComponent component) {
