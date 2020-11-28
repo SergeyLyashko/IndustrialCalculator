@@ -1,6 +1,7 @@
 package view.view.info;
 
 import view.controller.Host;
+import view.controller.ViewController;
 import view.controller.Visitor;
 import view.view.AppComponent;
 
@@ -40,10 +41,16 @@ class Info implements AppComponent, Host {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    Info(){
+    Info(ViewController viewController){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));
+        addHost(viewController);
+    }
+
+    private void addHost(ViewController viewController){
+        Visitor visitor = viewController.getVisitor();
+        visitor.addHost(this);
     }
 
     @Override
@@ -66,8 +73,4 @@ class Info implements AppComponent, Host {
         return jLabel;
     }
 
-    @Override
-    public void registerAsHost(Visitor visitor) {
-        visitor.addHost(this);
-    }
 }

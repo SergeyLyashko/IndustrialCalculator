@@ -41,8 +41,8 @@ public class CalculatorFactory implements ComponentsFactory {
 
         result = new Result(viewController);
         message = new Message(viewController);
-        dimensionWidth = new DimensionLabel(320, 22);
-        dimensionLength = new DimensionLabel(320, 62);
+        dimensionWidth = new DimensionLabel(viewController,320, 22);
+        dimensionLength = new DimensionLabel(viewController, 320, 62);
     }
 
     @Override
@@ -65,7 +65,6 @@ public class CalculatorFactory implements ComponentsFactory {
 
     private void integration(AppComponent component, Visitor visitor) {
         component.integrationToPanel();
-        component.registerAsHost(visitor);
         components.add(component);
     }
 

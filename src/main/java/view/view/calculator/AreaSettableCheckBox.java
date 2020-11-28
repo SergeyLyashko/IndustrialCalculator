@@ -19,21 +19,31 @@ class AreaSettableCheckBox implements AppComponent, Host {
     private static final int LOCATION_Y = 85;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private final ViewController viewController;
 
     AreaSettableCheckBox(ViewController viewController){
-        this.viewController = viewController;
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
-        Font deriveFont = jCheckBox.getFont().deriveFont(10f);
-        jCheckBox.setFont(deriveFont);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
+        setFont(jCheckBox);
+        addHost(viewController);
+        addItemListener(viewController);
+    }
 
+    private void setFont(JCheckBox checkBox){
+        Font deriveFont = checkBox.getFont().deriveFont(10f);
+        checkBox.setFont(deriveFont);
+    }
+
+    private void addHost(ViewController viewController){
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
-        jCheckBox.addItemListener(event -> viewController.checkBoxSelect(event.getStateChange() == ItemEvent.SELECTED));
+    }
+
+    private void addItemListener(ViewController viewController){
+        jCheckBox.addItemListener(event ->
+                viewController.checkBoxSelect(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override

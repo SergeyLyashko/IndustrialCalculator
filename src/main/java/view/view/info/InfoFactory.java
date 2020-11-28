@@ -24,18 +24,16 @@ public class InfoFactory implements ComponentsFactory {
 
     private AppComponent wrap(AppComponent appComponent, Visitor visitor){
         appComponent.integrationToPanel();
-        appComponent.registerAsHost(visitor);
-        ScrollWrapper scrollWrapper = new ScrollWrapper();
+        ScrollWrapper scrollWrapper = new ScrollWrapper(viewController);
         AppComponent wrapperComponent = scrollWrapper.add(appComponent);
         wrapperComponent.integrationToPanel();
-        wrapperComponent.registerAsHost(visitor);
         return wrapperComponent;
     }
 
     @Override
     public List<AppComponent> createComponents() {
         Visitor controllerVisitor = viewController.getVisitor();
-        integration(new Info(), controllerVisitor);
+        integration(new Info(viewController), controllerVisitor);
         return components;
     }
 }

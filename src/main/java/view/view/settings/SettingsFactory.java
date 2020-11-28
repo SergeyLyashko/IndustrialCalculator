@@ -27,7 +27,6 @@ public class SettingsFactory implements ComponentsFactory {
 
     private void integration(AppComponent component, Visitor visitor) {
         component.integrationToPanel();
-        component.registerAsHost(visitor);
         componentList.add(component);
     }
 }

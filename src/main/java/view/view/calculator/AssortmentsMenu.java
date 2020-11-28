@@ -13,7 +13,6 @@ class AssortmentsMenu implements MenuSelectable {
 
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
-
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
@@ -52,7 +51,7 @@ class AssortmentsMenu implements MenuSelectable {
     }
 
     @Override
-    public boolean isFocused() {
+    public boolean isTraversalPolicyFocused() {
         return true;
     }
 

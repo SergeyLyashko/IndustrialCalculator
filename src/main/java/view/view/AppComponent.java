@@ -1,7 +1,5 @@
 package view.view;
 
-import view.controller.Visitor;
-
 import javax.swing.*;
 
 public interface AppComponent {
@@ -13,13 +11,11 @@ public interface AppComponent {
         jComponent.setLocation(locationX, locationY);
     }
 
-    default void registerAsHost(Visitor visitor){}
-
     int getLocationX();
 
     int getLocationY();
 
     JComponent getParent();
 
-    default boolean isFocused(){ return  false; }
+    default boolean isTraversalPolicyFocused(){ return  false; }
 }

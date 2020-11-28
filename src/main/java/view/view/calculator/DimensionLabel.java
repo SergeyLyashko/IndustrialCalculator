@@ -1,5 +1,6 @@
 package view.view.calculator;
 
+import view.controller.ViewController;
 import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
@@ -15,17 +16,18 @@ class DimensionLabel implements AppComponent, Host {
     private final int locationX;
     private final int locationY;
 
-    DimensionLabel(int locationX, int locationY){
+    DimensionLabel(ViewController viewController, int locationX, int locationY){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
         this.locationX = locationX;
         this.locationY = locationY;
+        addHost(viewController);
     }
 
-    @Override
-    public void registerAsHost(Visitor visitor) {
+    private void addHost(ViewController viewController){
+        Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }
 

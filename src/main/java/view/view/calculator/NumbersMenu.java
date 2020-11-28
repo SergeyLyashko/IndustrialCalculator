@@ -58,7 +58,7 @@ class NumbersMenu implements MenuSelectable {
     }
 
     @Override
-    public boolean isFocused() {
+    public boolean isTraversalPolicyFocused() {
         return true;
     }
 

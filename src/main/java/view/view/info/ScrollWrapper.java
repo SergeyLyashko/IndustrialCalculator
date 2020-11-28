@@ -1,5 +1,6 @@
 package view.view.info;
 
+import view.controller.ViewController;
 import view.view.AppComponent;
 import view.controller.Host;
 import view.controller.Visitor;
@@ -12,11 +13,17 @@ class ScrollWrapper implements AppComponent, Host {
     private final JScrollPane scrollPane;
     private JViewport viewport;
 
-    ScrollWrapper(){
+    ScrollWrapper(ViewController viewController){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
+        addHost(viewController);
+    }
+
+    private void addHost(ViewController viewController){
+        Visitor visitor = viewController.getVisitor();
+        visitor.addHost(this);
     }
 
     AppComponent add(AppComponent content){
@@ -48,10 +55,5 @@ class ScrollWrapper implements AppComponent, Host {
     @Override
     public JComponent getParent() {
         return scrollPane;
-    }
-
-    @Override
-    public void registerAsHost(Visitor visitor) {
-        visitor.addHost(this);
     }
 }
