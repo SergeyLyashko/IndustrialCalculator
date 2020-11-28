@@ -71,4 +71,9 @@ public class ViewControllerImpl implements ViewController {
     public void checkBoxSelect(boolean state) {
         viewModel.checkBoxSelect(state);
     }
+
+    @Override
+    public MenuReceivable getMenuReceiver() {
+        return viewModel.getMenuReceiver();
+    }
 }

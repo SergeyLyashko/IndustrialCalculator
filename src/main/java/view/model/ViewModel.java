@@ -24,7 +24,7 @@ public class ViewModel implements ViewModelInterface {
     @Override
     public void createMenu(MenuSelectable menuSelectable, String selectedItem) {
         // TODO проверка на null
-        List<String> receiveMenuList = menuSelectable.receiveMenu(menuReceivable, selectedItem);
+        List<String> receiveMenuList = menuSelectable.receiveMenu(selectedItem);
         MenuModel menuModel = new MenuModel(menuSelectable, receiveMenuList);
         menuModel.createMenu();
     }
@@ -87,5 +87,10 @@ public class ViewModel implements ViewModelInterface {
     @Override
     public void checkBoxSelect(boolean state) {
         fieldState.checkBoxSelect(state);
+    }
+
+    @Override
+    public MenuReceivable getMenuReceiver() {
+        return menuReceivable;
     }
 }

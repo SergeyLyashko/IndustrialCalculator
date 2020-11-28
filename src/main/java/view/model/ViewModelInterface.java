@@ -1,6 +1,7 @@
 package view.model;
 
 import view.controller.FieldSelectable;
+import view.controller.MenuReceivable;
 import view.controller.MenuSelectable;
 import view.controller.Visitor;
 
@@ -31,4 +32,6 @@ public interface ViewModelInterface {
     void setField(FieldSelectable fieldSelectable);
 
     void checkBoxSelect(boolean state);
+
+    MenuReceivable getMenuReceiver();
 }

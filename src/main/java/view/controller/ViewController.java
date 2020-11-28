@@ -27,4 +27,6 @@ public interface ViewController {
     void setStateTarget(FieldSelectable fieldSelectable);
 
     void checkBoxSelect(boolean state);
+
+    MenuReceivable getMenuReceiver();
 }

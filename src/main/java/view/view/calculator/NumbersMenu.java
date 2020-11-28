@@ -32,8 +32,9 @@ class NumbersMenu implements MenuSelectable {
     }
 
     @Override
-    public List<String> receiveMenu(MenuReceivable menuReceivable, String menuItem) {
-        return menuReceivable.getNumberMenu(menuItem);
+    public List<String> receiveMenu(String menuItem) {
+        MenuReceivable menuReceiver = viewController.getMenuReceiver();
+        return menuReceiver.getNumberMenu(menuItem);
     }
 
     @Override

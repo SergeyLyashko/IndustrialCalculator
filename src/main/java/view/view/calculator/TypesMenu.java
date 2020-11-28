@@ -40,8 +40,9 @@ class TypesMenu implements MenuSelectable {
     }
 
     @Override
-    public List<String> receiveMenu(MenuReceivable menuReceivable, String menuItem) {
-        return menuReceivable.getTypeMenu(menuItem);
+    public List<String> receiveMenu(String menuItem) {
+        MenuReceivable menuReceiver = viewController.getMenuReceiver();
+        return menuReceiver.getTypeMenu(menuItem);
     }
 
     @Override
