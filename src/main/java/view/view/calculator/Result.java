@@ -24,7 +24,6 @@ class Result implements AppComponent, Host {
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
         addHost(viewController);
     }
 

@@ -10,9 +10,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
             DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             MenuReceivable menuReceivable = dataBaseDispatcher.getMenuReceiver();
-
             ViewDispatcher view = new ViewDispatcher(menuReceivable);
-            view.createVew();
         });
     }
 }

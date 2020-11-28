@@ -8,16 +8,14 @@ import view.view.settings.SettingsFactory;
 
 public class View {
 
-    private final ViewController viewController;
     private final ViewModel viewModel;
 
     public View(ViewModel viewModel, ViewController viewController) {
         this.viewModel = viewModel;
-        this.viewController = viewController;
-
+        createView(viewController);
     }
 
-    public void createView(){
+    private void createView(ViewController viewController){
 
         ComponentsFactory calculatorComponents = new CalculatorFactory(viewController);
         ComponentsFactory settingsComponents = new SettingsFactory(viewController);
