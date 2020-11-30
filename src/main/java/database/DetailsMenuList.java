@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-class MenuList {
+class DetailsMenuList {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
@@ -32,7 +32,7 @@ class MenuList {
     private final Data data;
     private String assortment;
 
-    MenuList(Data data) {
+    DetailsMenuList(Data data) {
         this.data = data;
     }
 

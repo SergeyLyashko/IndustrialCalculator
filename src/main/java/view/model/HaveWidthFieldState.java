@@ -2,11 +2,11 @@ package view.model;
 
 import view.controller.FieldSelectable;
 
-class HaveWidthState implements FieldState {
+class HaveWidthFieldState implements FieldState {
 
     private final CalculatorFieldState fieldState;
 
-    HaveWidthState(CalculatorFieldState fieldState){
+    HaveWidthFieldState(CalculatorFieldState fieldState){
         this.fieldState = fieldState;
     }
 

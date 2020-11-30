@@ -15,8 +15,8 @@ class CalculatorFieldState {
     private boolean checkBoxState;
 
     CalculatorFieldState(){
-        haveWidthState = new HaveWidthState(this);
-        notWidthState = new NotWidthState(this);
+        haveWidthState = new HaveWidthFieldState(this);
+        notWidthState = new NotWidthFieldState(this);
         widthFieldOffState = new WidthFieldOffState(this);
         widthFieldOnState = new WidthFieldOnState(this);
 

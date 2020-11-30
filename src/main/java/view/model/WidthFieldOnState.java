@@ -37,6 +37,7 @@ class WidthFieldOnState implements FieldState {
         if(fieldState.getCurrentCheckBoxState()){
             width.transformArea();
             length.transformArea();
+
         }else {
             width.activate();
             length.activate();

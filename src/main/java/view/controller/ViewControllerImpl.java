@@ -1,8 +1,10 @@
 package view.controller;
 
+import view.MenuListReceivable;
 import view.model.ViewModel;
 
 import java.awt.event.KeyEvent;
+import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController {
 
@@ -74,7 +76,12 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public MenuReceivable getMenuReceiver() {
+    public MenuListReceivable getMenuReceiver() {
         return viewModel.getMenuReceiver();
+    }
+
+    @Override
+    public Queue<String> getFieldValues() {
+        return viewModel.getFieldValues();
     }
 }

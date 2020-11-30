@@ -1,6 +1,6 @@
 package view.view.calculator;
 
-import view.controller.MenuReceivable;
+import view.MenuListReceivable;
 import view.controller.ViewController;
 import view.controller.MenuSelectable;
 
@@ -33,7 +33,7 @@ class AssortmentsMenu implements MenuSelectable {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        MenuReceivable menuReceiver = viewController.getMenuReceiver();
+        MenuListReceivable menuReceiver = viewController.getMenuReceiver();
         return menuReceiver.getAssortmentMenu();
     }
 

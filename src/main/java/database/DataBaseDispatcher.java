@@ -1,6 +1,7 @@
 package database;
 
-import view.controller.MenuReceivable;
+import model.ValueReceivable;
+import view.MenuListReceivable;
 
 public class DataBaseDispatcher {
 
@@ -12,7 +13,11 @@ public class DataBaseDispatcher {
         data.addConnection(connector);
     }
 
-    public MenuReceivable getMenuReceiver(){
-        return new MenuReceivableImpl(data);
+    public MenuListReceivable getMenuReceiver(){
+        return new MenuListReceivableImpl(data);
+    }
+
+    public ValueReceivable getValueReceiver() {
+        return new ValueReceivableImpl(data);
     }
 }

@@ -8,19 +8,24 @@ import java.awt.event.KeyListener;
 
 class FieldKeyBehavior {
 
+    private final ViewModel viewModel;
+
+    public FieldKeyBehavior(ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     void keyPressed(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
             JTextField source = (JFormattedTextField) event.getSource();
             String text = source.getText();
             System.out.println("test press: "+text);
+            viewModel.keyPressedValue(text);
         }
     }
 
     void keyReleased(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
             JTextField source = (JFormattedTextField) event.getSource();
-            String text = source.getText();
-            System.out.println("test release: "+text);
             source.transferFocus();
         }
     }

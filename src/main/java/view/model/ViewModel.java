@@ -1,11 +1,12 @@
 package view.model;
 
 import view.controller.FieldSelectable;
-import view.controller.MenuReceivable;
+import view.MenuListReceivable;
 import view.controller.MenuSelectable;
 import view.controller.Visitor;
 
 import java.awt.event.KeyEvent;
+import java.util.Queue;
 
 public interface ViewModel {
 
@@ -33,5 +34,9 @@ public interface ViewModel {
 
     void checkBoxSelect(boolean state);
 
-    MenuReceivable getMenuReceiver();
+    MenuListReceivable getMenuReceiver();
+
+    void keyPressedValue(String text);
+
+    Queue<String> getFieldValues();
 }

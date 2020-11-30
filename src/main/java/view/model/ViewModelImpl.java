@@ -1,24 +1,29 @@
 package view.model;
 
+import view.MenuListReceivable;
 import view.controller.*;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class ViewModelImpl implements ViewModel {
 
-    private final MenuReceivable menuReceivable;
+    private final MenuListReceivable menuListReceivable;
     private final FieldKeyBehavior fieldKeyBehavior;
     private final FieldFocusBehavior fieldFocusBehavior;
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
+    private final Queue<String> fieldValues;
 
-    public ViewModelImpl(MenuReceivable menuReceivable) {
-        this.menuReceivable = menuReceivable;
-        fieldKeyBehavior = new FieldKeyBehavior();
+    public ViewModelImpl(MenuListReceivable menuListReceivable) {
+        this.menuListReceivable = menuListReceivable;
+        fieldKeyBehavior = new FieldKeyBehavior(this);
         fieldFocusBehavior = new FieldFocusBehavior();
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState();
+        fieldValues = new LinkedList<>();
     }
 
     @Override
@@ -56,7 +61,6 @@ public class ViewModelImpl implements ViewModel {
         fieldKeyBehavior.keyReleased(event);
     }
 
-
     @Override
     public Visitor createVisitor() {
         return colorVisitor;
@@ -90,7 +94,17 @@ public class ViewModelImpl implements ViewModel {
     }
 
     @Override
-    public MenuReceivable getMenuReceiver() {
-        return menuReceivable;
+    public MenuListReceivable getMenuReceiver() {
+        return menuListReceivable;
+    }
+
+    @Override
+    public void keyPressedValue(String text) {
+        fieldValues.add(text);
+    }
+
+    @Override
+    public Queue<String> getFieldValues() {
+        return fieldValues;
     }
 }

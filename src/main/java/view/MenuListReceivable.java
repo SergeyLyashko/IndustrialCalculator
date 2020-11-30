@@ -1,8 +1,8 @@
-package view.controller;
+package view;
 
 import java.util.List;
 
-public interface MenuReceivable {
+public interface MenuListReceivable {
 
     List<String> getAssortmentMenu();
 

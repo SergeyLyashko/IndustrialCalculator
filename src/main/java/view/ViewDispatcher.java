@@ -1,6 +1,7 @@
 package view;
 
-import view.controller.MenuReceivable;
+import controller.Controller;
+import model.CalculatorModel;
 import view.controller.ViewController;
 import view.controller.ViewControllerImpl;
 import view.model.ViewModelImpl;
@@ -9,8 +10,9 @@ import view.view.View;
 
 public class ViewDispatcher {
 
-    public ViewDispatcher(MenuReceivable menuReceivable) {
-        ViewModel viewModel = new ViewModelImpl(menuReceivable);
+    public ViewDispatcher(MenuListReceivable menuListReceivable, CalculatorModel model, Controller controller) {
+
+        ViewModel viewModel = new ViewModelImpl(menuListReceivable);
         ViewController viewController = new ViewControllerImpl(viewModel);
         View view = new View(viewModel, viewController);
     }

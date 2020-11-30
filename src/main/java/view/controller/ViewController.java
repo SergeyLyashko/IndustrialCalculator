@@ -1,6 +1,9 @@
 package view.controller;
 
+import view.MenuListReceivable;
+
 import java.awt.event.KeyEvent;
+import java.util.Queue;
 
 public interface ViewController {
 
@@ -28,6 +31,8 @@ public interface ViewController {
 
     void checkBoxSelect(boolean state);
 
-    MenuReceivable getMenuReceiver();
+    MenuListReceivable getMenuReceiver();
+
+    Queue<String> getFieldValues();
 
 }
