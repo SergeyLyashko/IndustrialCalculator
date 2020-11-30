@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 public interface FieldState {
 
@@ -8,6 +8,6 @@ public interface FieldState {
 
     void checkBoxState(boolean checkBoxState);
 
-    void fieldAction(FieldSelectable width, FieldSelectable length);
+    void fieldAction(AppComponent width, AppComponent length);
 
 }

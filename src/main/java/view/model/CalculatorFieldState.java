@@ -1,12 +1,12 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 class CalculatorFieldState {
 
     private final ViewModelImpl viewModel;
-    private FieldSelectable width;
-    private FieldSelectable length;
+    private AppComponent width;
+    private AppComponent length;
     private FieldState state;
 
     private final FieldState allFieldOffState;
@@ -16,8 +16,14 @@ class CalculatorFieldState {
     private final FieldState notWidthState;
     private boolean checkBoxState;
 
+    private final FieldKeyBehavior fieldKeyBehavior;
+    private final FieldFocusBehavior fieldFocusBehavior;
+
     CalculatorFieldState(ViewModelImpl viewModel){
         this.viewModel = viewModel;
+
+        fieldKeyBehavior = new FieldKeyBehavior(viewModel);
+        fieldFocusBehavior = new FieldFocusBehavior();
 
         allFieldOffState = new AllFieldOffState(this);
         haveWidthState = new HaveWidthFieldState(this);
@@ -28,7 +34,7 @@ class CalculatorFieldState {
         state = notWidthState;
     }
 
-    void setField(FieldSelectable fieldSelectable){
+    void setField(AppComponent fieldSelectable){
         String name = fieldSelectable.getName();
         if(name.equalsIgnoreCase("введите ширину")){
             width = fieldSelectable;
@@ -81,8 +87,18 @@ class CalculatorFieldState {
         return widthFieldOffState;
     }
 
+    void fieldActivate(AppComponent fieldSelectable) {
+        fieldFocusBehavior.fieldActivate(fieldSelectable);
+        fieldKeyBehavior.fieldActivate(fieldSelectable);
+    }
 
-    public void createNotWidthData(FieldSelectable length) {
-        NotWidthData notWidthData = new NotWidthData(length);
+    void fieldDeactivate(AppComponent fieldSelectable) {
+        fieldFocusBehavior.fieldDeactivate(fieldSelectable);
+        fieldKeyBehavior.fieldDeactivate(fieldSelectable);
+    }
+
+    void areaActivate(AppComponent fieldSelectable){
+        fieldFocusBehavior.areaActivate(fieldSelectable);
+        fieldKeyBehavior.fieldActivate(fieldSelectable);
     }
 }

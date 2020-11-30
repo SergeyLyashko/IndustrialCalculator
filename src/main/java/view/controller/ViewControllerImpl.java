@@ -2,8 +2,7 @@ package view.controller;
 
 import view.MenuListReceivable;
 import view.model.ViewModelImpl;
-
-import java.awt.event.KeyEvent;
+import view.view.AppComponent;
 
 public class ViewControllerImpl implements ViewController {
 
@@ -16,32 +15,6 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void selectMenu(MenuSelectable menuSelectable, String selectedItem) {
         viewModel.createMenu(menuSelectable, selectedItem);
-    }
-
-    @Override
-    public void fieldActivate(FieldSelectable fieldSelectable) {
-        viewModel.fieldActivate(fieldSelectable);
-    }
-
-    @Override
-    public void fieldDeactivate(FieldSelectable fieldSelectable) {
-        viewModel.fieldDeactivate(fieldSelectable);
-    }
-
-
-    @Override
-    public void fieldFocusGained(FieldSelectable fieldSelectable) {
-        viewModel.fieldFocusGained(fieldSelectable);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-        viewModel.keyPressed(event);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
-        viewModel.keyReleased(event);
     }
 
     @Override
@@ -70,9 +43,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setStateTarget(FieldSelectable fieldSelectable) {
+    public void setStateTarget(AppComponent fieldSelectable) {
         viewModel.setField(fieldSelectable);
-
     }
 
     @Override

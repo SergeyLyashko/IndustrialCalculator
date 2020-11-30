@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 class WidthFieldOnState implements FieldState {
 
@@ -27,15 +27,14 @@ class WidthFieldOnState implements FieldState {
     }
 
     @Override
-    public void fieldAction(FieldSelectable width, FieldSelectable length) {
+    public void fieldAction(AppComponent width, AppComponent length) {
         //System.out.println("test field ON state field action");
         if(fieldState.getCurrentCheckBoxState()){
-            width.transformArea();
-            length.transformArea();
-
+            fieldState.fieldDeactivate(width);
+            fieldState.areaActivate(length);
         }else {
-            width.activate();
-            length.activate();
+            fieldState.fieldActivate(width);
+            fieldState.fieldActivate(length);
         }
     }
 }

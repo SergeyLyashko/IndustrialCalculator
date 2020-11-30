@@ -1,15 +1,10 @@
 package view.view.calculator;
 
 import view.controller.ViewController;
-import view.controller.FieldSelectable;
-
+import view.view.AppComponent;
 import javax.swing.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-class Width extends FocusAdapter implements KeyListener, FieldSelectable {
+class Width implements AppComponent {
 
     private final JFormattedTextField textField;
 
@@ -30,7 +25,6 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
 
-        viewController.fieldDeactivate(this);
         viewController.setStateTarget(this);
     }
 
@@ -50,48 +44,12 @@ class Width extends FocusAdapter implements KeyListener, FieldSelectable {
     }
 
     @Override
-    public void activate() {
-        textField.setText(BOX_NAME);
-        viewController.fieldActivate(this);
-    }
-
-    @Override
-    public void deactivate() {
-        textField.setText(BOX_NAME);
-        viewController.fieldDeactivate(this);
-    }
-
-    @Override
-    public void focusGained(FocusEvent event) {
-        viewController.fieldFocusGained(this);
-    }
-
-    @Override
     public String getName() {
         return BOX_NAME;
     }
 
     @Override
-    public void transformArea() {
-        System.out.println("width transform Area");
-        viewController.fieldDeactivate(this);
-    }
-
-    @Override
     public boolean isTraversalPolicyFocused() {
         return true;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-        viewController.keyPressed(event);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
-        viewController.keyReleased(event);
     }
 }

@@ -1,10 +1,11 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 class FieldKeyBehavior {
 
@@ -14,29 +15,40 @@ class FieldKeyBehavior {
         this.viewModel = viewModel;
     }
 
-    void keyPressed(KeyEvent event) {
+    void fieldActivate(AppComponent fieldSelectable) {
+        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+        parent.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+                pressed(event);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent event) {
+                released(event);
+            }
+        });
+    }
+
+    private void pressed(KeyEvent event){
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
             JTextField source = (JFormattedTextField) event.getSource();
             String text = source.getText();
             System.out.println("test press: "+text);
-            viewModel.keyPressedValue(text);
+            //TODO!
+
         }
     }
 
-    void keyReleased(KeyEvent event) {
+    private void released(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
             JTextField source = (JFormattedTextField) event.getSource();
             source.transferFocus();
         }
     }
 
-    void fieldActivate(FieldSelectable fieldSelectable) {
+    void fieldDeactivate(AppComponent fieldSelectable) {
         JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
-        parent.addKeyListener((KeyListener) fieldSelectable);
-    }
-
-    void fieldDeactivate(FieldSelectable fieldSelectable) {
-        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
-        parent.removeKeyListener((KeyListener) fieldSelectable);
+        Arrays.stream(parent.getKeyListeners()).forEach(parent::removeKeyListener);
     }
 }

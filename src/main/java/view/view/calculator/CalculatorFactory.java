@@ -17,14 +17,14 @@ public class CalculatorFactory implements ComponentsFactory {
         this.viewController = viewController;
         components = new ArrayList<>();
 
+        integration(new Width(viewController));
+        integration(new Length(viewController));
+        integration(new AreaSettableCheckBox(viewController));
+
         MenuSelectable assortment = new AssortmentsMenu(viewController);
         MenuSelectable types = new TypesMenu(viewController);
         MenuSelectable numbers = new NumbersMenu(viewController);
         createDefaultMenu(assortment, types, numbers);
-
-        integration(new Width(viewController));
-        integration(new Length(viewController));
-        integration(new AreaSettableCheckBox(viewController));
 
         integration(new Result(viewController));
         integration(new Message(viewController));

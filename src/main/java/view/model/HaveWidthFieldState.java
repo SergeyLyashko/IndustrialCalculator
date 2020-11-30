@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 class HaveWidthFieldState implements FieldState {
 
@@ -25,7 +25,7 @@ class HaveWidthFieldState implements FieldState {
     }
 
     @Override
-    public void fieldAction(FieldSelectable width, FieldSelectable length) {
+    public void fieldAction(AppComponent width, AppComponent length) {
         //System.out.println("test have width state field action");
     }
 }

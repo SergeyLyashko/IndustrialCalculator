@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 class WidthFieldOffState implements FieldState {
 
@@ -26,10 +26,9 @@ class WidthFieldOffState implements FieldState {
     }
 
     @Override
-    public void fieldAction(FieldSelectable width, FieldSelectable length) {
+    public void fieldAction(AppComponent width, AppComponent length) {
         //System.out.println("test field OFF state field action");
-        width.deactivate();
-        length.activate();
-        fieldState.createNotWidthData(length);
+        fieldState.fieldDeactivate(width);
+        fieldState.fieldActivate(length);
     }
 }

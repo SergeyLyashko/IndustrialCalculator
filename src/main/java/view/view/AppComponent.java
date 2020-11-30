@@ -17,5 +17,7 @@ public interface AppComponent {
 
     JComponent getParent();
 
+    default String getName(){ return  null; }
+
     default boolean isTraversalPolicyFocused(){ return  false; }
 }

@@ -26,6 +26,11 @@ class AssortmentsMenu implements MenuSelectable {
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
 
+        viewController.setAllFieldOffState();
+        addListener(viewController);
+    }
+
+    private void addListener(ViewController viewController){
         jComboBox.addActionListener(event -> {
             viewController.setAllFieldOffState();
         });

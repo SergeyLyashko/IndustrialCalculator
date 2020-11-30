@@ -1,17 +1,11 @@
 package view.view.calculator;
 
 import view.controller.ViewController;
-import view.controller.FieldSelectable;
-
+import view.view.AppComponent;
 import javax.swing.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-class Length extends FocusAdapter implements KeyListener, FieldSelectable {
+class Length implements AppComponent {
 
-    private static final String BOX_NAME_AREA = "введите площадь";
     private final JFormattedTextField textField;
 
     private static final String BOX_NAME = "введите длину";
@@ -31,7 +25,6 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         textField.setToolTipText(TOOL_TIP_TEXT);
 
-        viewController.fieldDeactivate(this);
         viewController.setStateTarget(this);
     }
 
@@ -51,30 +44,6 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
     }
 
     @Override
-    public void activate() {
-        textField.setText(BOX_NAME);
-        viewController.fieldActivate(this);
-    }
-
-    @Override
-    public void deactivate() {
-        textField.setText(BOX_NAME);
-        viewController.fieldDeactivate(this);
-    }
-
-    @Override
-    public void focusGained(FocusEvent event) {
-        viewController.fieldFocusGained(this);
-    }
-
-    @Override
-    public void transformArea(){
-        System.out.println("length transform");
-        textField.setText(BOX_NAME_AREA);
-        viewController.fieldActivate(this);
-    }
-
-    @Override
     public String getName() {
         return BOX_NAME;
     }
@@ -84,16 +53,4 @@ class Length extends FocusAdapter implements KeyListener, FieldSelectable {
         return true;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-        viewController.keyPressed(event);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
-        viewController.keyReleased(event);
-    }
 }

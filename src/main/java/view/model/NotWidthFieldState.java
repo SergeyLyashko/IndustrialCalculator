@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 class NotWidthFieldState implements FieldState {
 
@@ -12,8 +12,6 @@ class NotWidthFieldState implements FieldState {
 
     @Override
     public void menuSelected() {
-        //width.deactivate();
-        //length.deactivate();
         //System.out.print("test NOT width state menu select");
         //System.out.println(" width OFF, length ON");
         fieldState.setState(fieldState.getWidthFieldOffState());
@@ -27,7 +25,7 @@ class NotWidthFieldState implements FieldState {
     }
 
     @Override
-    public void fieldAction(FieldSelectable width, FieldSelectable length) {
+    public void fieldAction(AppComponent width, AppComponent length) {
         //System.out.println("test NOT width state field action");
     }
 }

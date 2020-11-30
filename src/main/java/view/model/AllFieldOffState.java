@@ -1,6 +1,6 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 public class AllFieldOffState implements FieldState {
 
@@ -21,8 +21,8 @@ public class AllFieldOffState implements FieldState {
     }
 
     @Override
-    public void fieldAction(FieldSelectable width, FieldSelectable length) {
-        width.deactivate();
-        length.deactivate();
+    public void fieldAction(AppComponent width, AppComponent length) {
+        fieldState.fieldDeactivate(width);
+        fieldState.fieldDeactivate(length);
     }
 }

@@ -1,10 +1,10 @@
 package view.model;
 
-import view.controller.FieldSelectable;
+import view.view.AppComponent;
 
 public class NotWidthData {
 
-    public NotWidthData(FieldSelectable length) {
-        
+    public NotWidthData(CalculatorFieldState fieldState, AppComponent fieldSelectable) {
+
     }
 }
