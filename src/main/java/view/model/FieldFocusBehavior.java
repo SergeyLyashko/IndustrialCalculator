@@ -16,10 +16,12 @@ class FieldFocusBehavior {
     private static final String BOX_NAME_AREA = "введите площадь";
     private final DocumentFilter defaultFilter;
     private final DigitalFilter digitalFilter;
+    private final FieldKeyBehavior fieldKeyBehavior;
 
     FieldFocusBehavior(){
         defaultFilter = new DocumentFilter();
         digitalFilter = new DigitalFilter();
+        fieldKeyBehavior = new FieldKeyBehavior();
     }
 
     void fieldActivate(AppComponent fieldSelectable) {
@@ -37,6 +39,12 @@ class FieldFocusBehavior {
             @Override
             public void focusGained(FocusEvent e) {
                 fieldFocusGained(fieldSelectable);
+                fieldKeyBehavior.fieldActivate(fieldSelectable);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                fieldKeyBehavior.fieldDeactivate(fieldSelectable);
             }
         });
     }
@@ -49,7 +57,7 @@ class FieldFocusBehavior {
         parent.setForeground(Color.GRAY);
         parent.setBackground(Color.LIGHT_GRAY);
         Arrays.stream(parent.getFocusListeners()).forEach(parent::removeFocusListener);
-
+        fieldKeyBehavior.fieldDeactivate(fieldSelectable);
     }
 
     private void fieldFocusGained(AppComponent fieldSelectable) {

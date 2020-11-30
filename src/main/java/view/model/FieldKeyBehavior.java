@@ -9,12 +9,6 @@ import java.util.Arrays;
 
 class FieldKeyBehavior {
 
-    private final ViewModelImpl viewModel;
-
-    public FieldKeyBehavior(ViewModelImpl viewModel) {
-        this.viewModel = viewModel;
-    }
-
     void fieldActivate(AppComponent fieldSelectable) {
         JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
         parent.addKeyListener(new KeyAdapter() {
@@ -36,7 +30,6 @@ class FieldKeyBehavior {
             String text = source.getText();
             System.out.println("test press: "+text);
             //TODO!
-
         }
     }
 

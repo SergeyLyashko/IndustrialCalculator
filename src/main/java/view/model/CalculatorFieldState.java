@@ -16,13 +16,10 @@ class CalculatorFieldState {
     private final FieldState notWidthState;
     private boolean checkBoxState;
 
-    private final FieldKeyBehavior fieldKeyBehavior;
     private final FieldFocusBehavior fieldFocusBehavior;
 
     CalculatorFieldState(ViewModelImpl viewModel){
         this.viewModel = viewModel;
-
-        fieldKeyBehavior = new FieldKeyBehavior(viewModel);
         fieldFocusBehavior = new FieldFocusBehavior();
 
         allFieldOffState = new AllFieldOffState(this);
@@ -89,16 +86,13 @@ class CalculatorFieldState {
 
     void fieldActivate(AppComponent fieldSelectable) {
         fieldFocusBehavior.fieldActivate(fieldSelectable);
-        fieldKeyBehavior.fieldActivate(fieldSelectable);
     }
 
     void fieldDeactivate(AppComponent fieldSelectable) {
         fieldFocusBehavior.fieldDeactivate(fieldSelectable);
-        fieldKeyBehavior.fieldDeactivate(fieldSelectable);
     }
 
     void areaActivate(AppComponent fieldSelectable){
         fieldFocusBehavior.areaActivate(fieldSelectable);
-        fieldKeyBehavior.fieldActivate(fieldSelectable);
     }
 }
