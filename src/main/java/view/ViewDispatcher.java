@@ -5,14 +5,13 @@ import model.CalculatorModel;
 import view.controller.ViewController;
 import view.controller.ViewControllerImpl;
 import view.model.ViewModelImpl;
-import view.model.ViewModel;
 import view.view.View;
 
 public class ViewDispatcher {
 
-    public ViewDispatcher(MenuListReceivable menuListReceivable, CalculatorModel model, Controller controller) {
+    public ViewDispatcher(MenuListReceiver menuListReceiver, CalculatorModel model, Controller controller) {
 
-        ViewModelImpl viewModel = new ViewModelImpl(menuListReceivable);
+        ViewModelImpl viewModel = new ViewModelImpl(menuListReceiver);
         ViewController viewController = new ViewControllerImpl(viewModel);
         View view = new View(viewController);
     }

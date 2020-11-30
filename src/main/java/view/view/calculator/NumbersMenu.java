@@ -1,16 +1,18 @@
 package view.view.calculator;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.controller.ViewController;
 import view.controller.MenuSelectable;
+import view.view.AppComponent;
 
 import javax.swing.*;
 import java.util.List;
 
-class NumbersMenu implements MenuSelectable {
+class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
 
+    private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
     private static final String TOOL_TIP_TEXT = "выбор номера профиля детали";
     private static final int LOCATION_X = 20;
@@ -33,7 +35,7 @@ class NumbersMenu implements MenuSelectable {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        MenuListReceivable menuReceiver = viewController.getMenuReceiver();
+        MenuListReceiver menuReceiver = viewController.getMenuReceiver();
         return menuReceiver.getNumberMenu(menuItem);
     }
 
@@ -62,4 +64,13 @@ class NumbersMenu implements MenuSelectable {
         return true;
     }
 
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
+    public int compareTo(AppComponent o) {
+        return this.getFocusedRate() - o.getFocusedRate();
+    }
 }

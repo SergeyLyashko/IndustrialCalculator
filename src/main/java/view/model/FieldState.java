@@ -4,10 +4,10 @@ import view.view.AppComponent;
 
 public interface FieldState {
 
-    void menuSelected();
+    default void menuSelected(){}
 
-    void checkBoxState(boolean checkBoxState);
+    default void checkBoxState(boolean checkBoxState){}
 
-    void fieldAction(AppComponent width, AppComponent length);
+    default void fieldAction(AppComponent width, AppComponent length){}
 
 }

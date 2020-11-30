@@ -13,6 +13,7 @@ class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
     CalculatorFocusTraversalPolicy(List<AppComponent> componentList) {
         thisOrder = componentList.stream()
                 .filter(AppComponent::isTraversalPolicyFocused)
+                .sorted(AppComponent::compareTo)
                 .map(AppComponent::getParent)
                 .collect(Collectors.toCollection(ArrayList::new));
     }

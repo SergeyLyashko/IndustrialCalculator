@@ -1,6 +1,6 @@
 package view.model;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.controller.MenuSelectable;
 import view.controller.Visitor;
 import view.view.AppComponent;
@@ -21,5 +21,5 @@ public interface ViewModel {
 
     void checkBoxSelect(boolean state);
 
-    MenuListReceivable getMenuReceiver();
+    MenuListReceiver getMenuReceiver();
 }

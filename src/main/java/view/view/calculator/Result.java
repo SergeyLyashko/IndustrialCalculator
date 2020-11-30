@@ -7,10 +7,11 @@ import view.controller.Visitor;
 
 import javax.swing.*;
 
-class Result implements AppComponent, Host {
+class Result implements AppComponent, Host, Comparable<AppComponent>  {
 
     private final JLabel jLabel;
 
+    private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0";
     private static final String KG = "кг";
     private static final int LOCATION_X = 190;
@@ -48,7 +49,22 @@ class Result implements AppComponent, Host {
     }
 
     @Override
+    public boolean isTraversalPolicyFocused() {
+        return true;
+    }
+
+    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visitResultLabel(this);
+    }
+
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
+    public int compareTo(AppComponent o) {
+        return this.getFocusedRate() - o.getFocusedRate();
     }
 }

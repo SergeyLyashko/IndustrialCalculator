@@ -1,6 +1,6 @@
 package view.controller;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.model.ViewModelImpl;
 import view.view.AppComponent;
 
@@ -53,7 +53,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public MenuListReceivable getMenuReceiver() {
+    public MenuListReceiver getMenuReceiver() {
         return viewModel.getMenuReceiver();
     }
 

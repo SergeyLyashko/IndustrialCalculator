@@ -1,16 +1,18 @@
 package view.view.calculator;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.controller.ViewController;
 import view.controller.MenuSelectable;
+import view.view.AppComponent;
 
 import javax.swing.*;
 import java.util.List;
 
-class TypesMenu implements MenuSelectable {
+class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
 
+    private static final int FOCUSED_RATE = 2;
     private static final String TYPE_HEADER = "Тип профиля";
     private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
     private static final int LOCATION_X = 20;
@@ -46,7 +48,7 @@ class TypesMenu implements MenuSelectable {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        MenuListReceivable menuReceiver = viewController.getMenuReceiver();
+        MenuListReceiver menuReceiver = viewController.getMenuReceiver();
         return menuReceiver.getTypeMenu(menuItem);
     }
 
@@ -81,5 +83,15 @@ class TypesMenu implements MenuSelectable {
     @Override
     public boolean isTraversalPolicyFocused() {
         return true;
+    }
+
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
+    public int compareTo(AppComponent o) {
+        return this.getFocusedRate() - o.getFocusedRate();
     }
  }

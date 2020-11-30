@@ -1,16 +1,18 @@
 package view.view.calculator;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.controller.ViewController;
 import view.controller.MenuSelectable;
+import view.view.AppComponent;
 
 import javax.swing.*;
 import java.util.List;
 
-class AssortmentsMenu implements MenuSelectable {
+class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
 
+    private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
     private static final int LOCATION_X = 20;
@@ -38,7 +40,7 @@ class AssortmentsMenu implements MenuSelectable {
 
     @Override
     public List<String> receiveMenu(String menuItem) {
-        MenuListReceivable menuReceiver = viewController.getMenuReceiver();
+        MenuListReceiver menuReceiver = viewController.getMenuReceiver();
         return menuReceiver.getAssortmentMenu();
     }
 
@@ -61,6 +63,11 @@ class AssortmentsMenu implements MenuSelectable {
     }
 
     @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
     public int getLocationX() {
         return LOCATION_X;
     }
@@ -73,5 +80,10 @@ class AssortmentsMenu implements MenuSelectable {
     @Override
     public JComponent getParent() {
         return jComboBox;
+    }
+
+    @Override
+    public int compareTo(AppComponent o) {
+        return this.getFocusedRate() - o.getFocusedRate();
     }
 }

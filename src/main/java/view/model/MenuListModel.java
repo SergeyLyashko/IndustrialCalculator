@@ -6,14 +6,14 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+class MenuListModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
     private final List<String> menuList = new ArrayList<>();
     private final MenuSelectable menuSelectable;
     private final List<String> receiveMenuList;
     private int selected;
 
-    MenuModel(MenuSelectable menuSelectable, List<String> receiveMenuList){
+    MenuListModel(MenuSelectable menuSelectable, List<String> receiveMenuList){
         this.menuSelectable = menuSelectable;
         String headerMenu = menuSelectable.getHeaderMenu();
         menuList.add(headerMenu);

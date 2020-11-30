@@ -1,6 +1,6 @@
 package view.controller;
 
-import view.MenuListReceivable;
+import view.MenuListReceiver;
 import view.view.AppComponent;
 
 public interface ViewController {
@@ -21,5 +21,5 @@ public interface ViewController {
 
     void checkBoxSelect(boolean state);
 
-    MenuListReceivable getMenuReceiver();
+    MenuListReceiver getMenuReceiver();
 }

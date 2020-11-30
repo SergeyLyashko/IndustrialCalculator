@@ -4,10 +4,11 @@ import view.controller.ViewController;
 import view.view.AppComponent;
 import javax.swing.*;
 
-class Width implements AppComponent {
+class Width implements AppComponent, Comparable<AppComponent>  {
 
     private final JFormattedTextField textField;
 
+    private static final int FOCUSED_RATE = 4;
     private static final String BOX_NAME = "введите ширину";
     private static final String TOOL_TIP_TEXT = "поле ввода ширины детали";
     private static final int WIDTH = 125;
@@ -51,5 +52,15 @@ class Width implements AppComponent {
     @Override
     public boolean isTraversalPolicyFocused() {
         return true;
+    }
+
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
+    public int compareTo(AppComponent o) {
+        return this.getFocusedRate() - o.getFocusedRate();
     }
 }
