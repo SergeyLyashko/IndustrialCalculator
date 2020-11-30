@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractMassCalculator;
 
 class SquareSteelMassCalculator extends AbstractMassCalculator {
@@ -9,3 +9,5 @@ class SquareSteelMassCalculator extends AbstractMassCalculator {
         return DENSITY_STEEL * super.getDetailLength() * (super.getDataBaseValue() * super.getDataBaseValue());
     }
 }
+
+ */

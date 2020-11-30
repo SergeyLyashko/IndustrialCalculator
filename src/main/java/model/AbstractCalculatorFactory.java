@@ -1,5 +1,5 @@
 package model;
-
+/*
 public abstract class AbstractCalculatorFactory {
 
     AbstractMassCalculator calculatorOrder(InputDataService dataService){
@@ -11,3 +11,5 @@ public abstract class AbstractCalculatorFactory {
 
     protected abstract AbstractMassCalculator createMassCalculator(String assortment, String type);
 }
+
+ */

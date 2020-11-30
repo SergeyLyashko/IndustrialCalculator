@@ -12,8 +12,8 @@ class NotWidthFieldState implements FieldState {
 
     @Override
     public void menuSelected(FieldSelectable width, FieldSelectable length) {
-        width.deactivate();
-        length.deactivate();
+        //width.deactivate();
+        //length.deactivate();
         //System.out.print("test NOT width state menu select");
         //System.out.println(" width OFF, length ON");
         fieldState.setState(fieldState.getWidthFieldOffState());

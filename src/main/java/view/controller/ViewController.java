@@ -20,6 +20,8 @@ public interface ViewController {
     void keyReleased(KeyEvent event);
 
     Visitor getVisitor();
+///////////////////////////////////////////////////////////
+    void setAllFieldOffState();
 
     void setNotWidthState();
 
@@ -30,9 +32,9 @@ public interface ViewController {
     void setStateTarget(FieldSelectable fieldSelectable);
 
     void checkBoxSelect(boolean state);
+    /////////////////////////////////////////////////////////
 
     MenuListReceivable getMenuReceiver();
 
-    Queue<String> getFieldValues();
 
 }

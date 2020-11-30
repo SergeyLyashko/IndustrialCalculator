@@ -4,17 +4,22 @@ import view.controller.FieldSelectable;
 
 class CalculatorFieldState {
 
+    private final ViewModelImpl viewModel;
     private FieldSelectable width;
     private FieldSelectable length;
     private FieldState state;
 
+    private final FieldState allFieldOffState;
     private final FieldState widthFieldOffState;
     private final FieldState widthFieldOnState;
     private final FieldState haveWidthState;
     private final FieldState notWidthState;
     private boolean checkBoxState;
 
-    CalculatorFieldState(){
+    CalculatorFieldState(ViewModelImpl viewModel){
+        this.viewModel = viewModel;
+
+        allFieldOffState = new AllFieldOffState(this);
         haveWidthState = new HaveWidthFieldState(this);
         notWidthState = new NotWidthFieldState(this);
         widthFieldOffState = new WidthFieldOffState(this);
@@ -57,6 +62,10 @@ class CalculatorFieldState {
         return checkBoxState;
     }
 
+    FieldState getAllFieldOffState(){
+        return allFieldOffState;
+    }
+
     FieldState getHaveWidthState(){
         return haveWidthState;
     }
@@ -71,5 +80,10 @@ class CalculatorFieldState {
 
     FieldState getWidthFieldOffState(){
         return widthFieldOffState;
+    }
+
+
+    public void createNotWidthData(FieldSelectable length) {
+        NotWidthData notWidthData = new NotWidthData(length);
     }
 }

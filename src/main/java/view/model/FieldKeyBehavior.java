@@ -8,9 +8,9 @@ import java.awt.event.KeyListener;
 
 class FieldKeyBehavior {
 
-    private final ViewModel viewModel;
+    private final ViewModelImpl viewModel;
 
-    public FieldKeyBehavior(ViewModel viewModel) {
+    public FieldKeyBehavior(ViewModelImpl viewModel) {
         this.viewModel = viewModel;
     }
 

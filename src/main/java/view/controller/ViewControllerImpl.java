@@ -1,16 +1,15 @@
 package view.controller;
 
 import view.MenuListReceivable;
-import view.model.ViewModel;
+import view.model.ViewModelImpl;
 
 import java.awt.event.KeyEvent;
-import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController {
 
-    private final ViewModel viewModel;
+    private final ViewModelImpl viewModel;
 
-    public ViewControllerImpl(ViewModel viewModel){
+    public ViewControllerImpl(ViewModelImpl viewModel){
         this.viewModel = viewModel;
     }
 
@@ -47,7 +46,12 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public Visitor getVisitor() {
-        return viewModel.createVisitor();
+        return viewModel.getVisitor();
+    }
+
+    @Override
+    public void setAllFieldOffState() {
+        viewModel.setAllFieldOffState();
     }
 
     @Override
@@ -68,6 +72,7 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void setStateTarget(FieldSelectable fieldSelectable) {
         viewModel.setField(fieldSelectable);
+
     }
 
     @Override
@@ -80,8 +85,4 @@ public class ViewControllerImpl implements ViewController {
         return viewModel.getMenuReceiver();
     }
 
-    @Override
-    public Queue<String> getFieldValues() {
-        return viewModel.getFieldValues();
-    }
 }

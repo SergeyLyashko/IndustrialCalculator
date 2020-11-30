@@ -6,7 +6,6 @@ import view.controller.MenuSelectable;
 import view.controller.Visitor;
 
 import java.awt.event.KeyEvent;
-import java.util.Queue;
 
 public interface ViewModel {
 
@@ -22,7 +21,7 @@ public interface ViewModel {
 
     void keyReleased(KeyEvent event);
 
-    Visitor createVisitor();
+    Visitor getVisitor();
 
     void setNotWidthState();
 
@@ -38,5 +37,4 @@ public interface ViewModel {
 
     void keyPressedValue(String text);
 
-    Queue<String> getFieldValues();
 }

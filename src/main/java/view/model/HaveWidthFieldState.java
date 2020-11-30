@@ -12,8 +12,8 @@ class HaveWidthFieldState implements FieldState {
 
     @Override
     public void menuSelected(FieldSelectable width, FieldSelectable length) {
-        width.deactivate();
-        length.deactivate();
+        //width.deactivate();
+        //length.deactivate();
         //System.out.print("test have width menu select:");
         //System.out.println(" width ON, length ON");
         fieldState.setState(fieldState.getWidthFieldOnState());

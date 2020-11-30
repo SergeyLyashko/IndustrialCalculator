@@ -32,6 +32,7 @@ class TypesMenu implements MenuSelectable {
     private void addListener(ViewController viewController){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
+            viewController.setAllFieldOffState();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
                     selectedItem.equalsIgnoreCase("тонколистовая") ||
                     selectedItem.equalsIgnoreCase("толстолистовая") ||

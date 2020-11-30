@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractCalculatorFactory;
 import model.AbstractMassCalculator;
 
@@ -40,3 +40,5 @@ public class CalculatorMassFactory extends AbstractCalculatorFactory {
         }
     }
 }
+
+ */

@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractMassCalculator;
 
 class SheetRubberMassCalculator extends AbstractMassCalculator {
@@ -9,3 +9,5 @@ class SheetRubberMassCalculator extends AbstractMassCalculator {
         return DENSITY_RUBBER * super.getDetailLength() * super.getDetailWidth() * super.getDataBaseValue();
     }
 }
+
+ */

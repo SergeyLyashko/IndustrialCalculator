@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractMassCalculator;
 import static java.lang.Math.PI;
 
@@ -11,3 +11,5 @@ class CircleSteelMassCalculator extends AbstractMassCalculator {
                 (super.getDataBaseValue() * super.getDataBaseValue()) / 4 * PI;
     }
 }
+
+ */

@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractMassCalculator;
 
 class SheetSteelMassCalculator extends AbstractMassCalculator {
@@ -12,3 +12,5 @@ class SheetSteelMassCalculator extends AbstractMassCalculator {
         return DENSITY_STEEL * length * width * area;
     }
 }
+
+ */

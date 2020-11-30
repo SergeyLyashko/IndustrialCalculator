@@ -1,5 +1,5 @@
 package model.detailmass;
-
+/*
 import model.AbstractMassCalculator;
 
 class AssortmentMassCalculator extends AbstractMassCalculator {
@@ -11,3 +11,5 @@ class AssortmentMassCalculator extends AbstractMassCalculator {
         return DENSITY_STEEL * area * length * 100;
     }
 }
+
+ */

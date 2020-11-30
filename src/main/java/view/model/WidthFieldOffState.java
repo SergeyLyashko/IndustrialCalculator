@@ -12,9 +12,9 @@ class WidthFieldOffState implements FieldState {
 
     @Override
     public void menuSelected(FieldSelectable width, FieldSelectable length) {
-        width.deactivate();
-        length.deactivate();
-        //System.out.print("test field OFF state menu select:");
+        //width.deactivate();
+        //length.deactivate();
+        System.out.print("test field OFF state menu select:");
         //System.out.println(" width OFF, length ON");
     }
 
@@ -35,6 +35,6 @@ class WidthFieldOffState implements FieldState {
         //System.out.println("test field OFF state field action");
         width.deactivate();
         length.activate();
-
+        fieldState.createNotWidthData(length);
     }
 }

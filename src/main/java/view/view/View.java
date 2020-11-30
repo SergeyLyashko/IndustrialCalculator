@@ -1,17 +1,13 @@
 package view.view;
 
 import view.controller.*;
-import view.model.ViewModel;
 import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
 import view.view.settings.SettingsFactory;
 
 public class View {
 
-    private final ViewModel viewModel;
-
-    public View(ViewModel viewModel, ViewController viewController) {
-        this.viewModel = viewModel;
+    public View(ViewController viewController) {
         createView(viewController);
     }
 
