@@ -1,7 +1,5 @@
 package view.model;
 
-import view.view.AppComponent;
-
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,8 +7,7 @@ import java.util.Arrays;
 
 class FieldKeyBehavior {
 
-    void fieldActivate(AppComponent fieldSelectable) {
-        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+    void fieldActivate(JTextField parent) {
         parent.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
@@ -40,8 +37,7 @@ class FieldKeyBehavior {
         }
     }
 
-    void fieldDeactivate(AppComponent fieldSelectable) {
-        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+    void fieldDeactivate(JTextField parent) {
         Arrays.stream(parent.getKeyListeners()).forEach(parent::removeKeyListener);
     }
 }

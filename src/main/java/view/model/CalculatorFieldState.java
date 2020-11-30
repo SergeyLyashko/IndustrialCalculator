@@ -5,6 +5,7 @@ import view.view.AppComponent;
 class CalculatorFieldState {
 
     private final ViewModelImpl viewModel;
+    private final FieldBehavior fieldBehavior;
     private AppComponent width;
     private AppComponent length;
     private FieldState state;
@@ -16,11 +17,9 @@ class CalculatorFieldState {
     private final FieldState notWidthState;
     private boolean checkBoxState;
 
-    private final FieldFocusBehavior fieldFocusBehavior;
-
     CalculatorFieldState(ViewModelImpl viewModel){
         this.viewModel = viewModel;
-        fieldFocusBehavior = new FieldFocusBehavior();
+        fieldBehavior = new FieldBehavior();
 
         allFieldOffState = new AllFieldOffState(this);
         haveWidthState = new HaveWidthFieldState(this);
@@ -84,15 +83,16 @@ class CalculatorFieldState {
         return widthFieldOffState;
     }
 
+
     void fieldActivate(AppComponent fieldSelectable) {
-        fieldFocusBehavior.fieldActivate(fieldSelectable);
+        fieldBehavior.fieldActivate(fieldSelectable);
     }
 
     void fieldDeactivate(AppComponent fieldSelectable) {
-        fieldFocusBehavior.fieldDeactivate(fieldSelectable);
+        fieldBehavior.fieldDeactivate(fieldSelectable);
     }
 
     void areaActivate(AppComponent fieldSelectable){
-        fieldFocusBehavior.areaActivate(fieldSelectable);
+        fieldBehavior.areaActivate(fieldSelectable);
     }
 }
