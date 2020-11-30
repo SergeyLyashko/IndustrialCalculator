@@ -42,11 +42,10 @@ class CalculatorFieldState {
     }
 
     void selectMenu(){
-        state.menuSelected(width, length);
+        state.menuSelected();
     }
 
     void turnNumbers(){
-        state.turnNumbers();
         state.fieldAction(width, length);
     }
 

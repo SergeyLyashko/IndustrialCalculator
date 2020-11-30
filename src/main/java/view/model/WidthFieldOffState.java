@@ -11,7 +11,7 @@ class WidthFieldOffState implements FieldState {
     }
 
     @Override
-    public void menuSelected(FieldSelectable width, FieldSelectable length) {
+    public void menuSelected() {
         //width.deactivate();
         //length.deactivate();
         System.out.print("test field OFF state menu select:");
@@ -23,11 +23,6 @@ class WidthFieldOffState implements FieldState {
         //System.out.print("test field OFF state checkbox select:");
         //System.out.println(" chBox not working");
         fieldState.setCheckBoxState(checkBoxState);
-    }
-
-    @Override
-    public void turnNumbers() {
-        //System.out.println("test field OFF state turn num");
     }
 
     @Override

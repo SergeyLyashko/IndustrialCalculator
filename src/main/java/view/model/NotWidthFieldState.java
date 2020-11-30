@@ -11,7 +11,7 @@ class NotWidthFieldState implements FieldState {
     }
 
     @Override
-    public void menuSelected(FieldSelectable width, FieldSelectable length) {
+    public void menuSelected() {
         //width.deactivate();
         //length.deactivate();
         //System.out.print("test NOT width state menu select");
@@ -24,11 +24,6 @@ class NotWidthFieldState implements FieldState {
         //System.out.println("test NOT width state checkbox select");
         //System.out.println(" chBox not working");
         fieldState.setCheckBoxState(checkBoxState);
-    }
-
-    @Override
-    public void turnNumbers() {
-        //System.out.println("test NOT width state turn num");
     }
 
     @Override

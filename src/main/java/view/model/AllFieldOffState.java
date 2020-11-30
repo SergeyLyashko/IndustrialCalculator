@@ -11,10 +11,8 @@ public class AllFieldOffState implements FieldState {
     }
 
     @Override
-    public void menuSelected(FieldSelectable width, FieldSelectable length) {
-        System.out.println("test All field off");
-        width.deactivate();
-        length.deactivate();
+    public void menuSelected() {
+
     }
 
     @Override
@@ -23,12 +21,8 @@ public class AllFieldOffState implements FieldState {
     }
 
     @Override
-    public void turnNumbers() {
-
-    }
-
-    @Override
     public void fieldAction(FieldSelectable width, FieldSelectable length) {
-
+        width.deactivate();
+        length.deactivate();
     }
 }

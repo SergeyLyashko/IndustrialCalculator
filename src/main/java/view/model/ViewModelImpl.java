@@ -67,7 +67,7 @@ public class ViewModelImpl {
 
     public void setAllFieldOffState() {
         fieldState.setState(fieldState.getAllFieldOffState());
-        fieldState.selectMenu();
+        fieldState.turnNumbers();
     }
     ////////////////////////////////////////////////////////////////////////////
 

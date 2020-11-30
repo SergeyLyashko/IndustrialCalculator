@@ -11,9 +11,7 @@ class HaveWidthFieldState implements FieldState {
     }
 
     @Override
-    public void menuSelected(FieldSelectable width, FieldSelectable length) {
-        //width.deactivate();
-        //length.deactivate();
+    public void menuSelected() {
         //System.out.print("test have width menu select:");
         //System.out.println(" width ON, length ON");
         fieldState.setState(fieldState.getWidthFieldOnState());
@@ -24,11 +22,6 @@ class HaveWidthFieldState implements FieldState {
         //System.out.print("test have width checkbox select:");
         //System.out.println(" width OFF, length -> area");
         fieldState.setCheckBoxState(checkBoxState);
-    }
-
-    @Override
-    public void turnNumbers() {
-        //System.out.println("test have width state turn num");
     }
 
     @Override
