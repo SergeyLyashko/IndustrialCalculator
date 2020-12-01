@@ -1,8 +1,9 @@
 package view.controller;
 
-import view.MenuListReceiver;
 import view.model.ViewModelImpl;
 import view.view.AppComponent;
+
+import java.util.List;
 
 public class ViewControllerImpl implements ViewController {
 
@@ -13,8 +14,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void selectMenu(MenuSelectable menuSelectable, String selectedItem) {
-        viewModel.createMenu(menuSelectable, selectedItem);
+    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
+        viewModel.createMenu(receiveMenu, menuSelectable);
     }
 
     @Override
@@ -50,10 +51,5 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void checkBoxSelect(boolean state) {
         viewModel.checkBoxSelect(state);
-    }
-
-    @Override
-    public MenuListReceiver getMenuReceiver() {
-        return viewModel.getMenuReceiver();
     }
 }

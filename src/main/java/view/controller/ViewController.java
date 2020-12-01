@@ -1,11 +1,12 @@
 package view.controller;
 
-import view.MenuListReceiver;
 import view.view.AppComponent;
+
+import java.util.List;
 
 public interface ViewController {
 
-    void selectMenu(MenuSelectable menuSelectable, String selectedItem);
+    void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable);
 
     Visitor getVisitor();
 
@@ -21,5 +22,4 @@ public interface ViewController {
 
     void checkBoxSelect(boolean state);
 
-    MenuListReceiver getMenuReceiver();
 }

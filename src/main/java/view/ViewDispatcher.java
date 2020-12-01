@@ -11,8 +11,8 @@ public class ViewDispatcher {
 
     public ViewDispatcher(MenuListReceiver menuListReceiver, CalculatorModel model, Controller controller) {
 
-        ViewModelImpl viewModel = new ViewModelImpl(menuListReceiver);
+        ViewModelImpl viewModel = new ViewModelImpl();
         ViewController viewController = new ViewControllerImpl(viewModel);
-        View view = new View(viewController);
+        View view = new View(viewController, menuListReceiver);
     }
 }

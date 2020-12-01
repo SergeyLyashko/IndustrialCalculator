@@ -1,5 +1,6 @@
 package view.view;
 
+import view.MenuListReceiver;
 import view.controller.*;
 import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
@@ -7,13 +8,13 @@ import view.view.settings.SettingsFactory;
 
 public class View {
 
-    public View(ViewController viewController) {
-        createView(viewController);
+    public View(ViewController viewController, MenuListReceiver menuListReceiver) {
+        createView(viewController, menuListReceiver);
     }
 
-    private void createView(ViewController viewController){
+    private void createView(ViewController viewController, MenuListReceiver menuListReceiver){
 
-        ComponentsFactory calculatorComponents = new CalculatorFactory(viewController);
+        ComponentsFactory calculatorComponents = new CalculatorFactory(viewController, menuListReceiver);
         ComponentsFactory settingsComponents = new SettingsFactory(viewController);
         ComponentsFactory infoComponents = new InfoFactory(viewController);
 

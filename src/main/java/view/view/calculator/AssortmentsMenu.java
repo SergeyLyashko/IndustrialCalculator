@@ -6,6 +6,7 @@ import view.controller.MenuSelectable;
 import view.view.AppComponent;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
@@ -20,9 +21,12 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
+    private final MenuListReceiver menuListReceiver;
 
-    AssortmentsMenu(ViewController viewController){
+    AssortmentsMenu(ViewController viewController, MenuListReceiver menuListReceiver){
         this.viewController = viewController;
+        this.menuListReceiver = menuListReceiver;
+
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
@@ -39,21 +43,19 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
-        MenuListReceiver menuReceiver = viewController.getMenuReceiver();
-        return menuReceiver.getAssortmentMenu();
-    }
-
-    @Override
-    public String getHeaderMenu() {
-        return ASSORTMENT_HEADER;
+    public void receiveMenu(String menuItem) {
+        List<String> menu = new ArrayList<>();
+        menu.add(ASSORTMENT_HEADER);
+        List<String> assortmentMenu = menuListReceiver.getAssortmentMenu();
+        menu.addAll(assortmentMenu);
+        viewController.createMenu(menu, this);
     }
 
     @Override
     public void addChildMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            viewController.selectMenu(child, selectedItem);
+            child.receiveMenu(selectedItem);
         });
     }
 

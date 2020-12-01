@@ -3,48 +3,39 @@ package view.model;
 import view.controller.MenuSelectable;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 class MenuListModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
-    private final List<String> menuList = new ArrayList<>();
-    private final MenuSelectable menuSelectable;
     private final List<String> receiveMenuList;
     private int selected;
 
-    MenuListModel(MenuSelectable menuSelectable, List<String> receiveMenuList){
-        this.menuSelectable = menuSelectable;
-        String headerMenu = menuSelectable.getHeaderMenu();
-        menuList.add(headerMenu);
+    MenuListModel(List<String> receiveMenuList){
         this.receiveMenuList = receiveMenuList;
     }
 
-    void createMenu(){
-        if(receiveMenuList != null){
-            menuList.addAll(receiveMenuList);
-        }
+    void createMenu(MenuSelectable menuSelectable){
         JComboBox<String> parent = (JComboBox<String>) menuSelectable.getParent();
         parent.setModel(this);
     }
 
     @Override
     public int getSize() {
-        return menuList.size();
+        return receiveMenuList.size();
     }
 
     @Override
     public String getElementAt(int index) {
-        return menuList.get(index);
+        return receiveMenuList.get(index);
     }
 
     @Override
     public void setSelectedItem(Object item) {
-        selected = menuList.indexOf(item);
+        selected = receiveMenuList.indexOf(item);
     }
 
     @Override
     public Object getSelectedItem() {
-        return menuList.get(selected);
+        return receiveMenuList.get(selected);
     }
 }

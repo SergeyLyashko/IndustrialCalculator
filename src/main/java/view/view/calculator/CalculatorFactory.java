@@ -1,5 +1,6 @@
 package view.view.calculator;
 
+import view.MenuListReceiver;
 import view.controller.*;
 import view.view.AppComponent;
 import view.view.ComponentsFactory;
@@ -13,7 +14,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components;
     private final ViewController viewController;
 
-    public CalculatorFactory(ViewController viewController) {
+    public CalculatorFactory(ViewController viewController, MenuListReceiver menuListReceiver) {
         this.viewController = viewController;
         components = new ArrayList<>();
 
@@ -21,9 +22,9 @@ public class CalculatorFactory implements ComponentsFactory {
         integration(new Length(viewController));
         integration(new AreaSettableCheckBox(viewController));
 
-        MenuSelectable assortment = new AssortmentsMenu(viewController);
-        MenuSelectable types = new TypesMenu(viewController);
-        MenuSelectable numbers = new NumbersMenu(viewController);
+        MenuSelectable assortment = new AssortmentsMenu(viewController, menuListReceiver);
+        MenuSelectable types = new TypesMenu(viewController, menuListReceiver);
+        MenuSelectable numbers = new NumbersMenu(viewController, menuListReceiver);
         createDefaultMenu(assortment, types, numbers);
 
         integration(new Result(viewController));
@@ -45,7 +46,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private void createDefaultMenu(MenuSelectable...menus){
         addListeners(menus);
         Arrays.stream(menus).forEach(element -> {
-            viewController.selectMenu(element, "");
+            element.receiveMenu("");
             integration(element);
         });
     }

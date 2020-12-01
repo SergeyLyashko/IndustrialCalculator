@@ -6,6 +6,7 @@ import view.controller.MenuSelectable;
 import view.view.AppComponent;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
@@ -20,28 +21,29 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
+    private final MenuListReceiver menuListReceiver;
 
-    NumbersMenu(ViewController viewController){
+    NumbersMenu(ViewController viewController, MenuListReceiver menuListReceiver){
+        this.viewController = viewController;
+        this.menuListReceiver = menuListReceiver;
+
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
 
-        this.viewController = viewController;
         jComboBox.addActionListener(event -> {
             viewController.actionState();
         });
     }
 
     @Override
-    public List<String> receiveMenu(String menuItem) {
-        MenuListReceiver menuReceiver = viewController.getMenuReceiver();
-        return menuReceiver.getNumberMenu(menuItem);
-    }
-
-    @Override
-    public String getHeaderMenu() {
-        return NUMBER_HEADER;
+    public void receiveMenu(String menuItem) {
+        List<String> menu = new ArrayList<>();
+        menu.add(NUMBER_HEADER);
+        List<String> numberMenu = menuListReceiver.getNumberMenu(menuItem);
+        menu.addAll(numberMenu);
+        viewController.createMenu(menu, this);
     }
 
     @Override

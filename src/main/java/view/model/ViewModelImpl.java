@@ -1,6 +1,5 @@
 package view.model;
 
-import view.MenuListReceiver;
 import view.controller.*;
 import view.model.behavior.FieldBehavior;
 import view.model.state.CalculatorFieldState;
@@ -10,27 +9,19 @@ import java.util.List;
 
 public class ViewModelImpl {
 
-    private final MenuListReceiver menuListReceiver;
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
     private final FieldBehavior fieldBehavior;
 
-    public ViewModelImpl(MenuListReceiver menuListReceiver) {
-        this.menuListReceiver = menuListReceiver;
+    public ViewModelImpl() {
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState(this);
         fieldBehavior = new FieldBehavior(this);
     }
 
-    public void createMenu(MenuSelectable menuSelectable, String selectedItem) {
-        // TODO проверка на null
-        List<String> receiveMenuList = menuSelectable.receiveMenu(selectedItem);
-        MenuListModel menuListModel = new MenuListModel(menuSelectable, receiveMenuList);
-        menuListModel.createMenu();
-    }
-
-    public MenuListReceiver getMenuReceiver() {
-        return menuListReceiver;
+    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
+        MenuListModel menuListModel = new MenuListModel(receiveMenu);
+        menuListModel.createMenu(menuSelectable);
     }
 
     public Visitor getVisitor() {
