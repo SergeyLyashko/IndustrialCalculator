@@ -19,7 +19,7 @@ class CalculatorFieldState {
 
     CalculatorFieldState(ViewModelImpl viewModel){
         this.viewModel = viewModel;
-        fieldBehavior = new FieldBehavior();
+        fieldBehavior = new FieldBehavior(viewModel);
 
         allFieldOffState = new AllFieldOffState(this);
         haveWidthState = new HaveWidthFieldState(this);
@@ -95,4 +95,26 @@ class CalculatorFieldState {
     void areaActivate(AppComponent fieldSelectable){
         fieldBehavior.areaActivate(fieldSelectable);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    public void createData(AppComponent length) {
+        ReceiveDataObserver calculatorLengthData = new CalculatorLengthData(length);
+        fieldBehavior.add(calculatorLengthData);
+
+    }
+
+    public void createData(AppComponent width, AppComponent length) {
+        ReceiveDataObserver calculatorWidthLengthData = new CalculatorWidthLengthData(width, length);
+        fieldBehavior.add(calculatorWidthLengthData);
+        // TODO set model
+    }
+
+    public void createAreaData(AppComponent length) {
+        CalculatorAreaData calculatorAreaData = new CalculatorAreaData(length);
+        fieldBehavior.add(calculatorAreaData);
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
 }

@@ -5,7 +5,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-class FieldKeyBehavior {
+// TODO только для длины ???
+class FieldKeyBehavior implements KeyAction {
+
+    private ReceiveDataObserver keyActionObserver;
 
     void fieldActivate(JTextField parent) {
         parent.addKeyListener(new KeyAdapter() {
@@ -27,6 +30,7 @@ class FieldKeyBehavior {
             String text = source.getText();
             System.out.println("test press: "+text);
             //TODO!
+            notifyObservers();
         }
     }
 
@@ -39,5 +43,15 @@ class FieldKeyBehavior {
 
     void fieldDeactivate(JTextField parent) {
         Arrays.stream(parent.getKeyListeners()).forEach(parent::removeKeyListener);
+    }
+
+    @Override
+    public void notifyObservers() {
+        keyActionObserver.keyActionUpdate();
+    }
+
+    @Override
+    public void registerObserver(ReceiveDataObserver keyActionObserver) {
+        this.keyActionObserver = keyActionObserver;
     }
 }

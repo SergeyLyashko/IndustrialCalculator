@@ -14,8 +14,10 @@ class FieldBehavior {
     private final DocumentFilter defaultFilter;
     private final DigitalFilter digitalFilter;
     private final FieldKeyBehavior fieldKeyBehavior;
+    private final ViewModelImpl viewModel;
 
-    FieldBehavior(){
+    FieldBehavior(ViewModelImpl viewModel){
+        this.viewModel = viewModel;
         fieldFocusBehavior = new FieldFocusBehavior(this);
         defaultFilter = new DocumentFilter();
         digitalFilter = new DigitalFilter();
@@ -61,5 +63,9 @@ class FieldBehavior {
 
     void keyDeactivate(JTextField textField){
         fieldKeyBehavior.fieldDeactivate(textField);
+    }
+
+    public void add(ReceiveDataObserver receiveData) {
+        fieldKeyBehavior.registerObserver(receiveData);
     }
 }

@@ -25,10 +25,11 @@ public class ViewModelImpl {
         menuListModel.createMenu();
     }
 
+    // TODO ???/
     public Visitor getVisitor() {
         return colorVisitor;
     }
-
+///////////////////////////////////////////////////////////////////////
     public void setNotWidthState() {
         fieldState.setState(fieldState.getNotWidthState());
         fieldState.selectMenu();
@@ -55,6 +56,7 @@ public class ViewModelImpl {
     public void checkBoxSelect(boolean state) {
         fieldState.checkBoxSelect(state);
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public MenuListReceiver getMenuReceiver() {
         return menuListReceiver;

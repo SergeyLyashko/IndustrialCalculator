@@ -30,5 +30,7 @@ class WidthFieldOffState implements FieldState {
         //System.out.println("test field OFF state field action");
         fieldState.fieldDeactivate(width);
         fieldState.fieldActivate(length);
+        //
+        fieldState.createData(length);
     }
 }
