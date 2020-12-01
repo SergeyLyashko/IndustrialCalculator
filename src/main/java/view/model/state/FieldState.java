@@ -1,4 +1,4 @@
-package view.model;
+package view.model.state;
 
 import view.view.AppComponent;
 

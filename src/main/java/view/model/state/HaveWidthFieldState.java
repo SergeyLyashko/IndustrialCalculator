@@ -1,6 +1,4 @@
-package view.model;
-
-import view.view.AppComponent;
+package view.model.state;
 
 class HaveWidthFieldState implements FieldState {
 
@@ -12,20 +10,11 @@ class HaveWidthFieldState implements FieldState {
 
     @Override
     public void menuSelected() {
-        //System.out.print("test have width menu select:");
-        //System.out.println(" width ON, length ON");
         fieldState.setState(fieldState.getWidthFieldOnState());
     }
 
     @Override
     public void checkBoxState(boolean checkBoxState) {
-        //System.out.print("test have width checkbox select:");
-        //System.out.println(" width OFF, length -> area");
         fieldState.setCheckBoxState(checkBoxState);
-    }
-
-    @Override
-    public void fieldAction(AppComponent width, AppComponent length) {
-        //System.out.println("test have width state field action");
     }
 }

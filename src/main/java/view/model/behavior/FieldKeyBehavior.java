@@ -1,4 +1,6 @@
-package view.model;
+package view.model.behavior;
+
+import view.model.CalculatorDataObserver;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -8,7 +10,7 @@ import java.util.Arrays;
 // TODO только для длины ???
 class FieldKeyBehavior implements KeyAction {
 
-    private ReceiveDataObserver keyActionObserver;
+    private CalculatorDataObserver keyActionObserver;
 
     void fieldActivate(JTextField parent) {
         parent.addKeyListener(new KeyAdapter() {
@@ -51,7 +53,7 @@ class FieldKeyBehavior implements KeyAction {
     }
 
     @Override
-    public void registerObserver(ReceiveDataObserver keyActionObserver) {
+    public void registerObserver(CalculatorDataObserver keyActionObserver) {
         this.keyActionObserver = keyActionObserver;
     }
 }

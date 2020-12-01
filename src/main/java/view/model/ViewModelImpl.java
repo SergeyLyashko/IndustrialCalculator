@@ -2,6 +2,8 @@ package view.model;
 
 import view.MenuListReceiver;
 import view.controller.*;
+import view.model.behavior.FieldBehavior;
+import view.model.state.CalculatorFieldState;
 import view.view.AppComponent;
 
 import java.util.List;
@@ -11,11 +13,13 @@ public class ViewModelImpl {
     private final MenuListReceiver menuListReceiver;
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
+    private final FieldBehavior fieldBehavior;
 
     public ViewModelImpl(MenuListReceiver menuListReceiver) {
         this.menuListReceiver = menuListReceiver;
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState(this);
+        fieldBehavior = new FieldBehavior(this);
     }
 
     public void createMenu(MenuSelectable menuSelectable, String selectedItem) {
@@ -25,11 +29,14 @@ public class ViewModelImpl {
         menuListModel.createMenu();
     }
 
-    // TODO ???/
+    public MenuListReceiver getMenuReceiver() {
+        return menuListReceiver;
+    }
+
     public Visitor getVisitor() {
         return colorVisitor;
     }
-///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
     public void setNotWidthState() {
         fieldState.setState(fieldState.getNotWidthState());
         fieldState.selectMenu();
@@ -56,10 +63,30 @@ public class ViewModelImpl {
     public void checkBoxSelect(boolean state) {
         fieldState.checkBoxSelect(state);
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public MenuListReceiver getMenuReceiver() {
-        return menuListReceiver;
+    public void fieldActivate(AppComponent fieldSelectable) {
+        fieldBehavior.fieldActivate(fieldSelectable);
     }
 
+    public void fieldDeactivate(AppComponent fieldSelectable) {
+        fieldBehavior.fieldDeactivate(fieldSelectable);
+    }
+
+    public void areaActivate(AppComponent fieldSelectable){
+        fieldBehavior.areaActivate(fieldSelectable);
+    }
+
+    public void createData(AppComponent[] components) {
+        CalculatorDataObserver calculatorData = new CalculatorData(components);
+        fieldBehavior.add(calculatorData);
+        // TODO set model
+    }
+
+    public void createAreaData(AppComponent[] components) {
+        CalculatorDataObserver calculatorData = new CalculatorData(components);
+        calculatorData.setAreaStatus(true);
+        fieldBehavior.add(calculatorData);
+        // TODO set model
+    }
 }

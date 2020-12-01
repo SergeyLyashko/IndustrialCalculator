@@ -43,8 +43,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setStateTarget(AppComponent fieldSelectable) {
-        viewModel.setField(fieldSelectable);
+    public void setStateTarget(AppComponent component) {
+        viewModel.setField(component);
     }
 
     @Override
@@ -56,5 +56,4 @@ public class ViewControllerImpl implements ViewController {
     public MenuListReceiver getMenuReceiver() {
         return viewModel.getMenuReceiver();
     }
-
 }

@@ -17,7 +17,7 @@ public interface ViewController {
 
     void actionState();
 
-    void setStateTarget(AppComponent fieldSelectable);
+    void setStateTarget(AppComponent component);
 
     void checkBoxSelect(boolean state);
 

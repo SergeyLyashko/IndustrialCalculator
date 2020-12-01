@@ -3,25 +3,24 @@ package view.model;
 import view.view.AppComponent;
 
 import javax.swing.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CalculatorWidthLengthData implements ReceiveDataObserver {
+public class CalculatorData implements CalculatorDataObserver, DataReceiver {
 
+    private final AppComponent[] components;
     private final List<String> data;
-    private final AppComponent width;
-    private final AppComponent length;
+    private boolean areaStatus;
 
-    public CalculatorWidthLengthData(AppComponent width, AppComponent length) {
+    public CalculatorData(AppComponent[] components) {
+        this.components = components;
         data = new LinkedList<>();
-        this.width = width;
-        this.length = length;
     }
 
     @Override
     public void keyActionUpdate(){
-        update(width);
-        update(length);
+        Arrays.stream(components).forEach(this::update);
     }
 
     private void update(AppComponent component){
@@ -34,5 +33,15 @@ public class CalculatorWidthLengthData implements ReceiveDataObserver {
     @Override
     public List<String> getData(){
         return data;
+    }
+
+    @Override
+    public boolean isArea() {
+        return areaStatus;
+    }
+
+    @Override
+    public void setAreaStatus(boolean status){
+        this.areaStatus = status;
     }
 }

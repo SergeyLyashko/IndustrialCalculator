@@ -1,4 +1,4 @@
-package view.model;
+package view.model.state;
 
 import view.view.AppComponent;
 
@@ -8,11 +8,6 @@ public class AllFieldOffState implements FieldState {
 
     public AllFieldOffState(CalculatorFieldState fieldState) {
         this.fieldState = fieldState;
-    }
-
-    @Override
-    public void menuSelected() {
-
     }
 
     @Override
