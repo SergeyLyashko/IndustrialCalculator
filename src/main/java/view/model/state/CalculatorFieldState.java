@@ -30,6 +30,9 @@ public class CalculatorFieldState {
 
     // TODO ??
     public void setField(AppComponent component){
+        // TODO new
+        state.action(component);
+
         String name = component.getName();
         if(name.equalsIgnoreCase("введите ширину")){
             width = component;
@@ -41,6 +44,9 @@ public class CalculatorFieldState {
     // TODO
     public void actionState(){
         state.fieldAction(width, length);
+        //
+        state.action(width);
+        state.action(length);
     }
 
     public void selectMenu(){
@@ -59,7 +65,7 @@ public class CalculatorFieldState {
         this.checkBoxState = checkBoxState;
     }
 
-    public boolean getCurrentCheckBoxState(){
+    public boolean isCheckBoxAction(){
         return checkBoxState;
     }
 

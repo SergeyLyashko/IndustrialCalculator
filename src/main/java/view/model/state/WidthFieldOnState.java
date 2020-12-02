@@ -18,7 +18,7 @@ class WidthFieldOnState implements FieldState {
 
     @Override
     public void fieldAction(AppComponent width, AppComponent length) {
-        if(fieldState.getCurrentCheckBoxState()){
+        if(fieldState.isCheckBoxAction()){
             fieldState.fieldDeactivate(width);
             fieldState.areaActivate(length);
             // TODO 1 area

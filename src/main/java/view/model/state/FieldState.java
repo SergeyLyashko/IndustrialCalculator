@@ -10,4 +10,6 @@ public interface FieldState {
 
     default void fieldAction(AppComponent width, AppComponent length){}
 
+    default void action(AppComponent component){}
+
 }

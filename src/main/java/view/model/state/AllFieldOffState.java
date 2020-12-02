@@ -15,9 +15,15 @@ public class AllFieldOffState implements FieldState {
         fieldState.setCheckBoxState(checkBoxState);
     }
 
+    /*
     @Override
     public void fieldAction(AppComponent width, AppComponent length) {
         fieldState.fieldDeactivate(width);
         fieldState.fieldDeactivate(length);
+    }*/
+
+    @Override
+    public void action(AppComponent component) {
+        fieldState.fieldDeactivate(component);
     }
 }

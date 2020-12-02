@@ -37,9 +37,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void addListener(ViewController viewController){
-        jComboBox.addActionListener(event -> {
-            viewController.setAllFieldOffState();
-        });
+        jComboBox.addActionListener(event -> viewController.setAllFieldOffState());
     }
 
     @Override
