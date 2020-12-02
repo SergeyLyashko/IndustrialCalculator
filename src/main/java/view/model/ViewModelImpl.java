@@ -5,6 +5,7 @@ import view.model.behavior.FieldBehavior;
 import view.model.state.CalculatorFieldState;
 import view.view.AppComponent;
 
+import javax.swing.*;
 import java.util.List;
 
 public class ViewModelImpl {
@@ -20,8 +21,8 @@ public class ViewModelImpl {
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        MenuListModel menuListModel = new MenuListModel(receiveMenu);
-        menuListModel.createMenu(menuSelectable);
+        JComboBox<String> comboBox = menuSelectable.getParent();
+        new MenuListModel(receiveMenu, comboBox);
     }
 
     public Visitor getVisitor() {
