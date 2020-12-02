@@ -26,7 +26,7 @@ class Length implements AppComponent, Comparable<AppComponent>  {
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         textField.setToolTipText(TOOL_TIP_TEXT);
 
-        viewController.setField(this);
+        viewController.setLength(this);
     }
 
     @Override

@@ -29,11 +29,6 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setNotWidthState() {
-        viewModel.setNotWidthState();
-    }
-
-    @Override
     public void setWidthState() {
         viewModel.setWidthState();
     }
@@ -44,12 +39,17 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setField(AppComponent component) {
-        viewModel.setField(component);
+    public void setWidth(AppComponent component) {
+        viewModel.setWidth(component);
     }
 
     @Override
     public void checkBoxSelect(boolean state) {
         viewModel.checkBoxSelect(state);
+    }
+
+    @Override
+    public void setLength(AppComponent component) {
+        viewModel.setLength(component);
     }
 }

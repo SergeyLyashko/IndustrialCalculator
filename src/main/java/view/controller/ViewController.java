@@ -12,14 +12,13 @@ public interface ViewController {
 
     void setAllFieldOffState();
 
-    void setNotWidthState();
-
     void setWidthState();
 
     void actionState();
 
-    void setField(AppComponent component);
+    void setWidth(AppComponent component);
 
     void checkBoxSelect(boolean state);
 
+    void setLength(AppComponent component);
 }

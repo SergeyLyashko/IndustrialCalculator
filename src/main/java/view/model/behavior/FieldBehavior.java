@@ -25,18 +25,19 @@ public class FieldBehavior {
         fieldKeyBehavior = new FieldKeyBehavior();
     }
 
-    public void fieldActivate(AppComponent fieldSelectable) {
-        JTextField textField = (JFormattedTextField) fieldSelectable.getParent();
+    public void fieldActivate(AppComponent component) {
+        JTextField textField = (JFormattedTextField) component.getParent();
+        textField.setText(component.getName());
         textField.setEditable(true);
         textField.setForeground(Color.GRAY);
         textField.setBackground(Color.white);
         fieldFocusBehavior.activate(textField);
     }
 
-    public void fieldDeactivate(AppComponent fieldSelectable) {
-        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+    public void fieldDeactivate(AppComponent component) {
+        JTextField parent = (JFormattedTextField) component.getParent();
         removeFilter(parent);
-        parent.setText(fieldSelectable.getName());
+        parent.setText(component.getName());
         parent.setEditable(false);
         parent.setForeground(Color.GRAY);
         parent.setBackground(Color.LIGHT_GRAY);
@@ -44,10 +45,10 @@ public class FieldBehavior {
         fieldKeyBehavior.fieldDeactivate(parent);
     }
 
-    public void areaActivate(AppComponent fieldSelectable){
-        JTextField parent = (JFormattedTextField) fieldSelectable.getParent();
+    public void areaActivate(AppComponent component){
+        JTextField parent = (JFormattedTextField) component.getParent();
+        fieldActivate(component);
         parent.setText(BOX_NAME_AREA);
-        fieldActivate(fieldSelectable);
     }
 
     void setFilter(JTextField textField){

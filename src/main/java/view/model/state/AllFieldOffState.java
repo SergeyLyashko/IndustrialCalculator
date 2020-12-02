@@ -1,7 +1,5 @@
 package view.model.state;
 
-import view.view.AppComponent;
-
 public class AllFieldOffState implements FieldState {
 
     private final CalculatorFieldState fieldState;
@@ -13,17 +11,5 @@ public class AllFieldOffState implements FieldState {
     @Override
     public void checkBoxState(boolean checkBoxState) {
         fieldState.setCheckBoxState(checkBoxState);
-    }
-
-    /*
-    @Override
-    public void fieldAction(AppComponent width, AppComponent length) {
-        fieldState.fieldDeactivate(width);
-        fieldState.fieldDeactivate(length);
-    }*/
-
-    @Override
-    public void action(AppComponent component) {
-        fieldState.fieldDeactivate(component);
     }
 }
