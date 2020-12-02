@@ -80,7 +80,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public JComponent getParent() {
+    public JComboBox<String> getParent() {
         return jComboBox;
     }
 

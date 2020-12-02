@@ -20,6 +20,6 @@ class WidthFieldOffState implements FieldState {
         fieldState.fieldDeactivate(width);
         fieldState.fieldActivate(length);
         // TODO 1
-        fieldState.createData(length);
+        //fieldState.addData(length);
     }
 }

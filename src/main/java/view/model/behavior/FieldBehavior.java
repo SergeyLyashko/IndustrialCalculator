@@ -66,6 +66,7 @@ public class FieldBehavior {
         fieldKeyBehavior.fieldDeactivate(textField);
     }
 
+    // TODO add to constructor
     public void add(CalculatorDataObserver receiveData) {
         fieldKeyBehavior.registerObserver(receiveData);
     }

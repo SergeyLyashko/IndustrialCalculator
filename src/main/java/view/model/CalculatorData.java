@@ -3,24 +3,28 @@ package view.model;
 import view.view.AppComponent;
 
 import javax.swing.*;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CalculatorData implements CalculatorDataObserver, DataReceiver {
 
-    private final AppComponent[] components;
+    private final List<AppComponent> componentsData;
     private final List<String> data;
     private boolean areaStatus;
 
-    public CalculatorData(AppComponent[] components) {
-        this.components = components;
-        data = new LinkedList<>();
+    public CalculatorData() {
+        componentsData = new LinkedList<>();
+        data = new ArrayList<>();
+    }
+
+    public void addData(AppComponent component){
+        componentsData.add(component);
     }
 
     @Override
     public void keyActionUpdate(){
-        Arrays.stream(components).forEach(this::update);
+        componentsData.forEach(this::update);
     }
 
     private void update(AppComponent component){

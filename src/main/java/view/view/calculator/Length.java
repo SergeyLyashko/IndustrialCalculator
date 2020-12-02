@@ -3,7 +3,6 @@ package view.view.calculator;
 import view.controller.ViewController;
 import view.view.AppComponent;
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
 
 class Length implements AppComponent, Comparable<AppComponent>  {
 
@@ -26,7 +25,8 @@ class Length implements AppComponent, Comparable<AppComponent>  {
         textField.setText(BOX_NAME);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         textField.setToolTipText(TOOL_TIP_TEXT);
-        viewController.setStateTarget(this);
+
+        viewController.setField(this);
     }
 
     @Override

@@ -13,7 +13,7 @@ class WidthFieldOnState implements FieldState {
     @Override
     public void checkBoxState(boolean checkBoxState) {
         fieldState.setCheckBoxState(checkBoxState);
-        fieldState.turnNumbers();
+        fieldState.actionState();
     }
 
     @Override
@@ -22,12 +22,13 @@ class WidthFieldOnState implements FieldState {
             fieldState.fieldDeactivate(width);
             fieldState.areaActivate(length);
             // TODO 1 area
-            fieldState.createAreaData(length);
+            //fieldState.addAreaData(length);
         }else {
             fieldState.fieldActivate(width);
             fieldState.fieldActivate(length);
             // TODO 2
-            fieldState.createData(width, length);
+            //fieldState.addData(width);
+            //fieldState.addData(length);
         }
     }
 }

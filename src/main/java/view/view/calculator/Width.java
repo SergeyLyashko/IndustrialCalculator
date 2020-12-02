@@ -26,7 +26,7 @@ class Width implements AppComponent, Comparable<AppComponent>  {
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
 
-        viewController.setStateTarget(this);
+        viewController.setField(this);
     }
 
     @Override

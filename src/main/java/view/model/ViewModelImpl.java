@@ -13,11 +13,13 @@ public class ViewModelImpl {
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
     private final FieldBehavior fieldBehavior;
+    private CalculatorDataObserver calculatorData;
 
     public ViewModelImpl() {
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState(this);
         fieldBehavior = new FieldBehavior(this);
+        calculatorData = new CalculatorData();
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
@@ -41,15 +43,15 @@ public class ViewModelImpl {
 
     public void setAllFieldOffState() {
         fieldState.setState(fieldState.getAllFieldOffState());
-        fieldState.turnNumbers();
+        fieldState.actionState();
     }
 
     public void actionState() {
-        fieldState.turnNumbers();
+        fieldState.actionState();
     }
 
-    public void setField(AppComponent fieldSelectable) {
-        fieldState.setField(fieldSelectable);
+    public void setField(AppComponent component) {
+        fieldState.setField(component);
     }
 
     public void checkBoxSelect(boolean state) {
@@ -69,14 +71,14 @@ public class ViewModelImpl {
         fieldBehavior.areaActivate(fieldSelectable);
     }
 
-    public void createData(AppComponent[] components) {
-        CalculatorDataObserver calculatorData = new CalculatorData(components);
+    public void addData(AppComponent component) {
+        calculatorData.addData(component);
         fieldBehavior.add(calculatorData);
         // TODO set model
     }
 
-    public void createAreaData(AppComponent[] components) {
-        CalculatorDataObserver calculatorData = new CalculatorData(components);
+    public void addAreaData(AppComponent component) {
+        calculatorData.addData(component);
         calculatorData.setAreaStatus(true);
         fieldBehavior.add(calculatorData);
         // TODO set model

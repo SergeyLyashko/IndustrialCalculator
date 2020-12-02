@@ -44,7 +44,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setStateTarget(AppComponent component) {
+    public void setField(AppComponent component) {
         viewModel.setField(component);
     }
 

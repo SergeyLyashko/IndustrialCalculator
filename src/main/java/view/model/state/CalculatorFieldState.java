@@ -28,25 +28,27 @@ public class CalculatorFieldState {
         state = allFieldOffState;
     }
 
-    public void setField(AppComponent fieldSelectable){
-        String name = fieldSelectable.getName();
+    // TODO ??
+    public void setField(AppComponent component){
+        String name = component.getName();
         if(name.equalsIgnoreCase("введите ширину")){
-            width = fieldSelectable;
+            width = component;
         }else{
-            length = fieldSelectable;
+            length = component;
         }
     }
 
-    public void checkBoxSelect(boolean checkBoxState){
-        state.checkBoxState(checkBoxState);
+    // TODO
+    public void actionState(){
+        state.fieldAction(width, length);
     }
 
     public void selectMenu(){
         state.menuSelected();
     }
 
-    public void turnNumbers(){
-        state.fieldAction(width, length);
+    public void checkBoxSelect(boolean checkBoxState){
+        state.checkBoxState(checkBoxState);
     }
 
     public void setState(FieldState state){
@@ -81,23 +83,17 @@ public class CalculatorFieldState {
         return widthFieldOffState;
     }
 
-    public void fieldActivate(AppComponent fieldSelectable) {
-        viewModel.fieldActivate(fieldSelectable);
+    public void fieldActivate(AppComponent component) {
+        viewModel.fieldActivate(component);
+        viewModel.addData(component);
     }
 
-    public void fieldDeactivate(AppComponent fieldSelectable) {
-        viewModel.fieldDeactivate(fieldSelectable);
+    public void fieldDeactivate(AppComponent component) {
+        viewModel.fieldDeactivate(component);
     }
 
-    public void areaActivate(AppComponent fieldSelectable){
-        viewModel.areaActivate(fieldSelectable);
-    }
-
-    public void createData(AppComponent...components) {
-        viewModel.createData(components);
-    }
-
-    public void createAreaData(AppComponent...components) {
-        viewModel.createAreaData(components);
+    public void areaActivate(AppComponent component){
+        viewModel.areaActivate(component);
+        viewModel.addAreaData(component);
     }
 }
