@@ -44,12 +44,17 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void checkBoxSelect(boolean state) {
+    public void areaCheckBoxState(boolean state) {
         viewModel.checkBoxSelect(state);
     }
 
     @Override
     public void setLength(AppComponent component) {
         viewModel.setLength(component);
+    }
+
+    @Override
+    public void setParameters(String assortment, String type, String selectedItem) {
+        // TODO
     }
 }

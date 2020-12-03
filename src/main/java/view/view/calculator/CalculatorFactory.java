@@ -55,8 +55,8 @@ public class CalculatorFactory implements ComponentsFactory {
         MenuSelectable assortment = menus[0];
         MenuSelectable types = menus[1];
         MenuSelectable numbers = menus[2];
-        assortment.addChildMenu(types);
-        assortment.addChildMenu(numbers);
-        types.addChildMenu(numbers);
+        assortment.addListenerMenu(types);
+        assortment.addListenerMenu(numbers);
+        types.addListenerMenu(numbers);
     }
 }

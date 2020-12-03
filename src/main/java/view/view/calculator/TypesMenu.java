@@ -55,15 +55,19 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         if(menuItem.length != 0){
             assortment = menuItem[0];
         }
+        List<String> typeMenu = menuListReceiver.getTypeMenu(assortment);
+        createMenu(typeMenu);
+    }
+
+    private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
         menu.add(TYPE_HEADER);
-        List<String> typeMenu = menuListReceiver.getTypeMenu(assortment);
-        menu.addAll(typeMenu);
+        menu.addAll(receiveMenu);
         viewController.createMenu(menu, this);
     }
 
     @Override
-    public void addChildMenu(MenuSelectable child){
+    public void addListenerMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             child.receiveMenu(assortment, selectedItem);

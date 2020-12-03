@@ -43,7 +43,7 @@ class AreaSettableCheckBox implements AppComponent, Host {
 
     private void addItemListener(ViewController viewController){
         jCheckBox.addItemListener(event ->
-                viewController.checkBoxSelect(event.getStateChange() == ItemEvent.SELECTED));
+                viewController.areaCheckBoxState(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override

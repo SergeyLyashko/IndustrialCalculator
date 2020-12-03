@@ -8,7 +8,7 @@ public interface MenuSelectable extends AppComponent {
 
     void receiveMenu(String...menuItem);
 
-    default void addChildMenu(MenuSelectable child){}
+    default void addListenerMenu(MenuSelectable child){}
 
     JComboBox<String> getParent();
 }

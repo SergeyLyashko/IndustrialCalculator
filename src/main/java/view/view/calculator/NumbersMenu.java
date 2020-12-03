@@ -29,13 +29,21 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     NumbersMenu(ViewController viewController, MenuListReceiver menuListReceiver){
         this.viewController = viewController;
         this.menuListReceiver = menuListReceiver;
-
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        setParameters();
+    }
 
+    private void setParameters(){
         jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            if(!selectedItem.equals(NUMBER_HEADER)){
+                // TODO test
+                System.out.println("test param: "+assortment+" "+type+" "+selectedItem);
+                viewController.setParameters(assortment, type, selectedItem);
+            }
             viewController.actionState();
         });
     }
@@ -48,10 +56,14 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         if(menuItem.length > 0){
             type = menuItem[1];
         }
+        List<String> numberMenu = menuListReceiver.getNumberMenu(assortment, type);
+        createMenu(numberMenu);
+    }
+
+    private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
         menu.add(NUMBER_HEADER);
-        List<String> numberMenu = menuListReceiver.getNumberMenu(assortment, type);
-        menu.addAll(numberMenu);
+        menu.addAll(receiveMenu);
         viewController.createMenu(menu, this);
     }
 

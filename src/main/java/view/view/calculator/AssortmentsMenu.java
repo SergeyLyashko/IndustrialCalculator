@@ -43,15 +43,19 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     @Override
     public void receiveMenu(String...menuItem) {
+        List<String> assortmentMenu = menuListReceiver.getAssortmentMenu();
+        createMenu(assortmentMenu);
+    }
+
+    private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
         menu.add(ASSORTMENT_HEADER);
-        List<String> assortmentMenu = menuListReceiver.getAssortmentMenu();
-        menu.addAll(assortmentMenu);
+        menu.addAll(receiveMenu);
         viewController.createMenu(menu, this);
     }
 
     @Override
-    public void addChildMenu(MenuSelectable child){
+    public void addListenerMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             child.receiveMenu(selectedItem, DEFAULT_MENU_VALUE);

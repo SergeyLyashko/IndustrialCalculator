@@ -16,9 +16,11 @@ public interface ViewController {
 
     void actionState();
 
+    void areaCheckBoxState(boolean state);
+
     void setWidth(AppComponent component);
 
-    void checkBoxSelect(boolean state);
-
     void setLength(AppComponent component);
+
+    void setParameters(String assortment, String type, String selectedItem);
 }
