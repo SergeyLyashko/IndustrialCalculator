@@ -30,7 +30,6 @@ class DetailsMenuList {
                     + "ProfileTypes.ProfileTypeName = ?";
 
     private final Data data;
-    private String assortment;
 
     DetailsMenuList(Data data) {
         this.data = data;
@@ -47,7 +46,6 @@ class DetailsMenuList {
     }
 
     List<String> receiveTypeList(String assortment) {
-        this.assortment = assortment;
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_TYPES);
             data.initPreparedStatement(preparedStatement, 1, assortment);
@@ -58,7 +56,7 @@ class DetailsMenuList {
         return null;
     }
 
-    List<String> receiveNumberList(String type) {
+    List<String> receiveNumberList(String assortment, String type) {
         try {
             PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_NUMBERS);
             data.initPreparedStatement(preparedStatement, 1, assortment);

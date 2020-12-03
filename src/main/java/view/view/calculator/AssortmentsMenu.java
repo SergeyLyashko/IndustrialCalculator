@@ -16,6 +16,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
+    private static final String DEFAULT_MENU_VALUE = "";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
@@ -41,7 +42,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public void receiveMenu(String menuItem) {
+    public void receiveMenu(String...menuItem) {
         List<String> menu = new ArrayList<>();
         menu.add(ASSORTMENT_HEADER);
         List<String> assortmentMenu = menuListReceiver.getAssortmentMenu();
@@ -53,7 +54,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     public void addChildMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            child.receiveMenu(selectedItem);
+            child.receiveMenu(selectedItem, DEFAULT_MENU_VALUE);
         });
     }
 

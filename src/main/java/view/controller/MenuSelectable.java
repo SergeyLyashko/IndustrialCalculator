@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public interface MenuSelectable extends AppComponent {
 
-    void receiveMenu(String menuItem);
+    void receiveMenu(String...menuItem);
 
     default void addChildMenu(MenuSelectable child){}
 

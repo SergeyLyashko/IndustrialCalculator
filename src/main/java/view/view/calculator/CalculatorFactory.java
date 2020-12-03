@@ -46,7 +46,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private void createDefaultMenu(MenuSelectable...menus){
         addListeners(menus);
         Arrays.stream(menus).forEach(element -> {
-            element.receiveMenu("");
+            element.receiveMenu();
             integration(element);
         });
     }
