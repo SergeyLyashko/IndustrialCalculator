@@ -13,7 +13,7 @@ public class ViewModelImpl {
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
     private final FieldBehavior fieldBehavior;
-    private CalculatorDataObserver calculatorData;
+    private CalculatorData calculatorData;
     private AppComponent width;
     private AppComponent length;
 
@@ -21,7 +21,6 @@ public class ViewModelImpl {
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState(this);
         fieldBehavior = new FieldBehavior(this);
-        calculatorData = new CalculatorData();
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
@@ -33,65 +32,65 @@ public class ViewModelImpl {
         return colorVisitor;
     }
 
-    public void setWidthOnState() {
-        fieldState.setField(width);
-        fieldState.setState(fieldState.getWidthFieldOnState());
-    }
-
-    public void setAllFieldOffState() {
-        fieldDeactivate(width);
-        fieldDeactivate(length);
-        fieldState.setState(fieldState.getAllFieldOffState());
-    }
-
-    public void actionState() {
-        fieldActivate(length);
-        fieldState.actionState();
-    }
-
-    public void setWidth(AppComponent component) {
+    public void setWidthField(AppComponent component) {
         this.width = component;
     }
 
-    public void setLength(AppComponent component) {
+    public void setLengthField(AppComponent component) {
         this.length = component;
+    }
+
+    public void setData(String param) {
+        calculatorData.addData(param);
+    }
+
+    public void setAllFieldOffState() {
+        fieldBehavior.fieldDeactivate(width);
+        fieldBehavior.fieldDeactivate(length);
+        fieldState.setState(fieldState.getAllFieldOffState());
+    }
+
+    public void setWidthOnState() {
+        fieldState.setState(fieldState.getWidthFieldOnState());
     }
 
     public void checkBoxSelect(boolean state) {
         fieldState.checkBoxSelect(state);
     }
 
-    public void fieldDeactivate(AppComponent fieldSelectable) {
-        fieldBehavior.fieldDeactivate(fieldSelectable);
+    // активация Number box
+    public void actionState() {
+        createData();
+        fieldBehavior.fieldActivate(length);
+        fieldState.actionState();
     }
 
-    public void fieldActivate(AppComponent fieldSelectable) {
-        fieldBehavior.fieldActivate(fieldSelectable);
+    // TODO ???? инициализацию Data перенести в конструктор ??
+    private void createData(){
+        calculatorData = new CalculatorDataImpl();
+        calculatorData.addData(width);
+        calculatorData.addData(length);
+        fieldBehavior.registerObserver(calculatorData);
     }
 
-    public void areaActivate(){
+    public void widthDeactivate() {
+        fieldBehavior.fieldDeactivate(width);
+        areaActivate();
+    }
+
+    public void widthActivate() {
+        fieldBehavior.fieldActivate(width);
+        areaDeactivate();
+        calculatorData.setWidthStatus(true);
+    }
+
+    private void areaActivate(){
         fieldBehavior.areaActivate(length);
-        addAreaData(length);
-    }
-
-    public void areaDeactivate(){
-        fieldActivate(length);
-    }
-
-    private void addAreaData(AppComponent component) {
-        calculatorData.addData(component);
         calculatorData.setAreaStatus(true);
-        fieldBehavior.add(calculatorData);
-        // TODO set model
     }
 
-    private void addData(AppComponent component) {
-        calculatorData.addData(component);
-        fieldBehavior.add(calculatorData);
-        // TODO set model
-    }
-
-    public void setParameter(String param) {
-        calculatorData.addData(param);
+    private void areaDeactivate(){
+        fieldBehavior.fieldActivate(length);
+        calculatorData.setAreaStatus(false);
     }
 }

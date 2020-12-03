@@ -40,7 +40,7 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void setWidth(AppComponent component) {
-        viewModel.setWidth(component);
+        viewModel.setWidthField(component);
     }
 
     @Override
@@ -50,13 +50,13 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void setLength(AppComponent component) {
-        viewModel.setLength(component);
+        viewModel.setLengthField(component);
     }
 
     @Override
     public void setParameters(String assortment, String type, String number) {
-        viewModel.setParameter(assortment);
-        viewModel.setParameter(type);
-        viewModel.setParameter(number);
+        viewModel.setData(assortment);
+        viewModel.setData(type);
+        viewModel.setData(number);
     }
 }

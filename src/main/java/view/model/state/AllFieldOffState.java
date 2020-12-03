@@ -1,6 +1,6 @@
 package view.model.state;
 
-public class AllFieldOffState implements FieldState {
+public class AllFieldOffState implements WidthFieldState {
 
     private final CalculatorFieldState fieldState;
 

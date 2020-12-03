@@ -1,8 +1,6 @@
 package view.model.state;
 
-import view.view.AppComponent;
-
-class WidthOnState implements FieldState {
+class WidthOnState implements WidthFieldState {
 
     private final CalculatorFieldState fieldState;
 
@@ -17,13 +15,11 @@ class WidthOnState implements FieldState {
     }
 
     @Override
-    public void action(AppComponent component){
-        if(fieldState.isCheckBoxAction()){
-            fieldState.fieldDeactivate(component);
-            fieldState.areaActivate();
+    public void actionState(){
+        if(fieldState.isCheckBoxSelected()){
+            fieldState.deactivate();
         }else {
-            fieldState.fieldActivate(component);
-            fieldState.areaDeactivate();
+            fieldState.activate();
         }
     }
 }

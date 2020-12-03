@@ -1,39 +1,32 @@
 package view.model.state;
 
 import view.model.*;
-import view.view.AppComponent;
 
 public class CalculatorFieldState {
 
     private final ViewModelImpl viewModel;
-    private FieldState state;
+    private WidthFieldState state;
 
-    private final FieldState allFieldOffState;
-    private final FieldState widthFieldOnState;
+    private final WidthFieldState allFieldOffState;
+    private final WidthFieldState widthFieldOnState;
     private boolean checkBoxState;
-    private AppComponent component;
 
     public CalculatorFieldState(ViewModelImpl viewModel){
         this.viewModel = viewModel;
-
         allFieldOffState = new AllFieldOffState(this);
         widthFieldOnState = new WidthOnState(this);
         state = allFieldOffState;
     }
 
-    public void setField(AppComponent component){
-        this.component = component;
-    }
-
     public void actionState(){
-        state.action(component);
+        state.actionState();
     }
 
     public void checkBoxSelect(boolean checkBoxState){
         state.checkBoxState(checkBoxState);
     }
 
-    public void setState(FieldState state){
+    public void setState(WidthFieldState state){
         this.state = state;
     }
 
@@ -41,31 +34,23 @@ public class CalculatorFieldState {
         this.checkBoxState = checkBoxState;
     }
 
-    public boolean isCheckBoxAction(){
+    public boolean isCheckBoxSelected(){
         return checkBoxState;
     }
 
-    public FieldState getAllFieldOffState(){
+    public WidthFieldState getAllFieldOffState(){
         return allFieldOffState;
     }
 
-    public FieldState getWidthFieldOnState(){
+    public WidthFieldState getWidthFieldOnState(){
         return widthFieldOnState;
     }
 
-    public void fieldActivate(AppComponent component) {
-        viewModel.fieldActivate(component);
+    void activate() {
+        viewModel.widthActivate();
     }
 
-    public void fieldDeactivate(AppComponent component) {
-        viewModel.fieldDeactivate(component);
-    }
-
-    public void areaActivate(){
-        viewModel.areaActivate();
-    }
-
-    public void areaDeactivate() {
-        viewModel.areaDeactivate();
+    void deactivate() {
+        viewModel.widthDeactivate();
     }
 }

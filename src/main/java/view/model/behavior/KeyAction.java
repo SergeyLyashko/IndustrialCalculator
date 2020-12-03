@@ -1,10 +1,10 @@
 package view.model.behavior;
 
-import view.model.CalculatorDataObserver;
+import view.model.CalculatorData;
 
 public interface KeyAction {
 
     void notifyObservers();
 
-    void registerObserver(CalculatorDataObserver keyActionObserver);
+    void registerObserver(CalculatorData keyActionObserver);
 }
