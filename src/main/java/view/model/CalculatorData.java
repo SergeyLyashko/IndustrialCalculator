@@ -10,16 +10,22 @@ import java.util.List;
 public class CalculatorData implements CalculatorDataObserver, DataReceiver {
 
     private final List<AppComponent> componentsData;
-    private final List<String> data;
+    private final List<String> dataList;
     private boolean areaStatus;
 
     public CalculatorData() {
         componentsData = new LinkedList<>();
-        data = new ArrayList<>();
+        dataList = new ArrayList<>();
     }
 
+    @Override
     public void addData(AppComponent component){
         componentsData.add(component);
+    }
+
+    @Override
+    public void addData(String data){
+        dataList.add(data);
     }
 
     @Override
@@ -31,12 +37,12 @@ public class CalculatorData implements CalculatorDataObserver, DataReceiver {
         JTextField parent = (JFormattedTextField) component.getParent();
         String text = parent.getText();
         System.out.println("test double DATA: "+text);
-        data.add(text);
+        dataList.add(text);
     }
 
     @Override
-    public List<String> getData(){
-        return data;
+    public List<String> getDataList(){
+        return dataList;
     }
 
     @Override

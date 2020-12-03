@@ -29,8 +29,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setWidthState() {
-        viewModel.setWidthState();
+    public void setWidthOnState() {
+        viewModel.setWidthOnState();
     }
 
     @Override
@@ -54,7 +54,9 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setParameters(String assortment, String type, String selectedItem) {
-        // TODO
+    public void setParameters(String assortment, String type, String number) {
+        viewModel.setParameter(assortment);
+        viewModel.setParameter(type);
+        viewModel.setParameter(number);
     }
 }

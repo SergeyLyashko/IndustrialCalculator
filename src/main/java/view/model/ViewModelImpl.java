@@ -33,7 +33,7 @@ public class ViewModelImpl {
         return colorVisitor;
     }
 
-    public void setWidthState() {
+    public void setWidthOnState() {
         fieldState.setField(width);
         fieldState.setState(fieldState.getWidthFieldOnState());
     }
@@ -89,5 +89,9 @@ public class ViewModelImpl {
         calculatorData.addData(component);
         fieldBehavior.add(calculatorData);
         // TODO set model
+    }
+
+    public void setParameter(String param) {
+        calculatorData.addData(param);
     }
 }

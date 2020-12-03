@@ -9,4 +9,6 @@ public interface CalculatorDataObserver {
     void setAreaStatus(boolean status);
 
     void addData(AppComponent component);
+
+    void addData(String data);
 }

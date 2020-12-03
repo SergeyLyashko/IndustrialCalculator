@@ -45,7 +45,7 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
                     selectedItem.equalsIgnoreCase("тонколистовая") ||
                     selectedItem.equalsIgnoreCase("толстолистовая") ||
                     selectedItem.equalsIgnoreCase("рифленая(ромб)")){
-                viewController.setWidthState();
+                viewController.setWidthOnState();
             }
         });
     }

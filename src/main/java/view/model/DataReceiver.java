@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DataReceiver {
 
-    List<String> getData();
+    List<String> getDataList();
 
     boolean isArea();
 }

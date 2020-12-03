@@ -12,7 +12,7 @@ public interface ViewController {
 
     void setAllFieldOffState();
 
-    void setWidthState();
+    void setWidthOnState();
 
     void actionState();
 
