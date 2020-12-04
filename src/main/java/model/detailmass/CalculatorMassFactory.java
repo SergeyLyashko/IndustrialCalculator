@@ -1,12 +1,12 @@
 package model.detailmass;
-/*
+
 import model.AbstractCalculatorFactory;
 import model.AbstractMassCalculator;
 
 public class CalculatorMassFactory extends AbstractCalculatorFactory {
 
     @Override
-    protected AbstractMassCalculator createMassCalculator(String assortment, String type) {
+    public AbstractMassCalculator createMassCalculator(String assortment, String type) {
         switch(assortment){
             case "Лист":
             case "Другое":
@@ -40,5 +40,3 @@ public class CalculatorMassFactory extends AbstractCalculatorFactory {
         }
     }
 }
-
- */

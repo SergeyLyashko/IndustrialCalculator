@@ -1,6 +1,6 @@
 package database;
 
-import model.ValueReceivable;
+import model.ValueReceiver;
 import view.MenuListReceiver;
 
 public class DataBaseDispatcher {
@@ -17,7 +17,7 @@ public class DataBaseDispatcher {
         return new MenuListReceiverImpl(data);
     }
 
-    public ValueReceivable getValueReceiver() {
-        return new ValueReceivableImpl(data);
+    public ValueReceiver getValueReceiver() {
+        return new ValueReceiverImpl(data);
     }
 }

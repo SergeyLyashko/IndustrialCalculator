@@ -1,15 +1,15 @@
 package view.controller;
 
-import view.model.ViewModelImpl;
+import view.model.ViewModel;
 import view.view.AppComponent;
 
 import java.util.List;
 
 public class ViewControllerImpl implements ViewController {
 
-    private final ViewModelImpl viewModel;
+    private final ViewModel viewModel;
 
-    public ViewControllerImpl(ViewModelImpl viewModel){
+    public ViewControllerImpl(ViewModel viewModel){
         this.viewModel = viewModel;
     }
 

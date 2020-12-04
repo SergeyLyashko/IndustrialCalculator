@@ -1,16 +1,17 @@
 package view.model.behavior;
 
-import view.model.CalculatorData;
+import view.model.KeyActionObserver;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-// TODO только для длины ???
-class FieldKeyBehavior implements KeyAction {
+class KeyBehavior implements KeyActionSubject {
 
-    private CalculatorData keyActionObserver;
+    private final List<KeyActionObserver> observer = new ArrayList<>();
 
     void fieldActivate(JTextField parent) {
         parent.addKeyListener(new KeyAdapter() {
@@ -28,10 +29,9 @@ class FieldKeyBehavior implements KeyAction {
 
     private void pressed(KeyEvent event){
         if(event.getKeyCode() == KeyEvent.VK_ENTER){
-            JTextField source = (JFormattedTextField) event.getSource();
-            String text = source.getText();
-            System.out.println("test press: "+text);
-            //TODO!
+            //JTextField source = (JFormattedTextField) event.getSource();
+            //String text = source.getText();
+            //System.out.println("test press: "+text);
             notifyObservers();
         }
     }
@@ -49,11 +49,11 @@ class FieldKeyBehavior implements KeyAction {
 
     @Override
     public void notifyObservers() {
-        keyActionObserver.keyActionUpdate();
+        observer.forEach(KeyActionObserver::keyActionUpdate);
     }
 
     @Override
-    public void registerObserver(CalculatorData keyActionObserver) {
-        this.keyActionObserver = keyActionObserver;
+    public void registerObserver(KeyActionObserver keyActionObserver) {
+        observer.add(keyActionObserver);
     }
 }

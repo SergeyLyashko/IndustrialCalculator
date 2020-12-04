@@ -2,9 +2,9 @@ package view.model;
 
 import view.view.AppComponent;
 
-public interface CalculatorData {
+import java.util.Queue;
 
-    void keyActionUpdate();
+public interface CalculatorData extends KeyActionObserver {
 
     void setAreaStatus(boolean status);
 
@@ -13,4 +13,8 @@ public interface CalculatorData {
     void addData(String data);
 
     void setWidthStatus(boolean status);
+
+    Queue<String> getDataList();
+
+    boolean isArea();
 }

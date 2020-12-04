@@ -1,9 +1,10 @@
 import controller.Controller;
 import controller.ControllerImpl;
 import database.DataBaseDispatcher;
-import model.ValueReceivable;
+import model.ValueReceiver;
 import model.CalculatorModel;
 import model.ModelDispatcher;
+import model.detailmass.CalculatorMassFactory;
 import view.ViewDispatcher;
 import view.MenuListReceiver;
 
@@ -16,9 +17,11 @@ public class Main {
 
             DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             MenuListReceiver menuListReceiver = dataBaseDispatcher.getMenuReceiver();
-            ValueReceivable valueReceivable = dataBaseDispatcher.getValueReceiver();
+            ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
 
-            CalculatorModel model = new ModelDispatcher(valueReceivable);
+            CalculatorMassFactory massFactory = new CalculatorMassFactory();
+            CalculatorModel model = new ModelDispatcher(valueReceiver);
+            model.accept(massFactory);
 
             Controller controller = new ControllerImpl(model);
 

@@ -4,14 +4,14 @@ import view.model.*;
 
 public class CalculatorFieldState {
 
-    private final ViewModelImpl viewModel;
+    private final ViewModel viewModel;
     private WidthFieldState state;
 
     private final WidthFieldState allFieldOffState;
     private final WidthFieldState widthFieldOnState;
     private boolean checkBoxState;
 
-    public CalculatorFieldState(ViewModelImpl viewModel){
+    public CalculatorFieldState(ViewModel viewModel){
         this.viewModel = viewModel;
         allFieldOffState = new AllFieldOffState(this);
         widthFieldOnState = new WidthOnState(this);

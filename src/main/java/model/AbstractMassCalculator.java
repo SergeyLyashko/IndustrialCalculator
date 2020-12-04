@@ -1,5 +1,5 @@
 package model;
-/*
+
 public abstract class AbstractMassCalculator {
 
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3
@@ -9,23 +9,17 @@ public abstract class AbstractMassCalculator {
 
     private Detail detail;
 
-    void setDetail(Detail detail) {
+    protected void setDetail(Detail detail){
         this.detail = detail;
+    }
+
+    protected double getFieldsValue(){
+        return detail.getFieldsValue();
     }
 
     protected double getDataBaseValue(){
         return detail.getDataBaseValue();
     }
 
-    protected double getDetailLength(){
-        return detail.getLength();
-    }
-
-    protected double getDetailWidth(){
-        return detail.getWidth();
-    }
-
     protected abstract double calculationMass();
 }
-
- */

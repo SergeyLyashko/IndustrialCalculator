@@ -6,17 +6,18 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
-public class CalculatorDataImpl implements CalculatorData, DataReceiver {
+public class CalculatorDataImpl implements CalculatorData {
 
     private final List<AppComponent> componentsData;
-    private final List<String> dataList;
-    private boolean areaStatus;
-    private boolean widthStatus;
+    private final Queue<String> dataList;
+    private boolean isArea;
+    private boolean isWidth;
 
     public CalculatorDataImpl() {
-        componentsData = new LinkedList<>();
-        dataList = new ArrayList<>();
+        componentsData = new ArrayList<>();
+        dataList = new LinkedList<>();
     }
 
     @Override
@@ -31,12 +32,16 @@ public class CalculatorDataImpl implements CalculatorData, DataReceiver {
 
     @Override
     public void setWidthStatus(boolean status) {
-        this.widthStatus = status;
+        this.isWidth = status;
     }
 
     @Override
     public void keyActionUpdate(){
-        componentsData.forEach(this::update);
+        if(isWidth && !isArea){
+            componentsData.forEach(this::update);
+        }else{
+            update(componentsData.get(1));
+        }
     }
 
     private void update(AppComponent component){
@@ -47,17 +52,17 @@ public class CalculatorDataImpl implements CalculatorData, DataReceiver {
     }
 
     @Override
-    public List<String> getDataList(){
+    public Queue<String> getDataList(){
         return dataList;
     }
 
     @Override
     public boolean isArea() {
-        return areaStatus;
+        return isArea;
     }
 
     @Override
     public void setAreaStatus(boolean status){
-        this.areaStatus = status;
+        this.isArea = status;
     }
 }

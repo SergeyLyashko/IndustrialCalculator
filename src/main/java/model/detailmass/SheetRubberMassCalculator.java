@@ -1,13 +1,13 @@
 package model.detailmass;
-/*
+
 import model.AbstractMassCalculator;
 
 class SheetRubberMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculationMass() {
-        return DENSITY_RUBBER * super.getDetailLength() * super.getDetailWidth() * super.getDataBaseValue();
+        double dataBaseValue = super.getDataBaseValue();
+        double fieldsValue = super.getFieldsValue();
+        return DENSITY_RUBBER * fieldsValue * dataBaseValue;
     }
 }
-
- */

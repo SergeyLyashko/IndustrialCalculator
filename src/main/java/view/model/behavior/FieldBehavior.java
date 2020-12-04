@@ -11,18 +11,16 @@ import java.awt.*;
 public class FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
-    private final FieldFocusBehavior fieldFocusBehavior;
+    private final FocusBehavior focusBehavior;
     private final DocumentFilter defaultFilter;
     private final DigitalFilter digitalFilter;
-    private final FieldKeyBehavior fieldKeyBehavior;
-    private final ViewModelImpl viewModel;
+    private final KeyBehavior keyBehavior;
 
-    public FieldBehavior(ViewModelImpl viewModel){
-        this.viewModel = viewModel;
-        fieldFocusBehavior = new FieldFocusBehavior(this);
+    public FieldBehavior(){
+        focusBehavior = new FocusBehavior(this);
         defaultFilter = new DocumentFilter();
         digitalFilter = new DigitalFilter();
-        fieldKeyBehavior = new FieldKeyBehavior();
+        keyBehavior = new KeyBehavior();
     }
 
     public void fieldActivate(AppComponent component) {
@@ -31,7 +29,21 @@ public class FieldBehavior {
         textField.setEditable(true);
         textField.setForeground(Color.GRAY);
         textField.setBackground(Color.white);
-        fieldFocusBehavior.activate(textField);
+        focusBehavior.activate(textField);
+    }
+
+    public void areaActivate(AppComponent component){
+        JTextField parent = (JFormattedTextField) component.getParent();
+        parent.setText(BOX_NAME_AREA);
+    }
+
+    public void areaDeactivate(AppComponent component){
+        JTextField textField = (JFormattedTextField) component.getParent();
+        textField.setText(component.getName());
+    }
+
+    public void keyActivate(JTextField textField){
+        keyBehavior.fieldActivate(textField);
     }
 
     public void fieldDeactivate(AppComponent component) {
@@ -41,14 +53,8 @@ public class FieldBehavior {
         parent.setEditable(false);
         parent.setForeground(Color.GRAY);
         parent.setBackground(Color.LIGHT_GRAY);
-        fieldFocusBehavior.deactivate(parent);
-        fieldKeyBehavior.fieldDeactivate(parent);
-    }
-
-    public void areaActivate(AppComponent component){
-        JTextField parent = (JFormattedTextField) component.getParent();
-        fieldActivate(component);
-        parent.setText(BOX_NAME_AREA);
+        focusBehavior.deactivate(parent);
+        keyBehavior.fieldDeactivate(parent);
     }
 
     void setFilter(JTextField textField){
@@ -59,15 +65,11 @@ public class FieldBehavior {
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(defaultFilter);
     }
 
-    void keyActivate(JTextField textField){
-        fieldKeyBehavior.fieldActivate(textField);
-    }
-
     void keyDeactivate(JTextField textField){
-        fieldKeyBehavior.fieldDeactivate(textField);
+        keyBehavior.fieldDeactivate(textField);
     }
 
-    public void registerObserver(CalculatorData receiveData) {
-        fieldKeyBehavior.registerObserver(receiveData);
+    public void registerObserver(KeyActionObserver observer) {
+        keyBehavior.registerObserver(observer);
     }
 }

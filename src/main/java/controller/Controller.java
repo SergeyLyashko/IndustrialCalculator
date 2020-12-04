@@ -6,6 +6,5 @@ public interface Controller {
 
     void setDetailData(Queue<String> detailData);
 
-    void setDetailValues(Queue<String> values);
-
+    void setIsArea(boolean status);
 }

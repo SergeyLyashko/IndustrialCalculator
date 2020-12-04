@@ -1,5 +1,5 @@
 package model.detailmass;
-/*
+
 import model.AbstractMassCalculator;
 import static java.lang.Math.PI;
 
@@ -7,9 +7,8 @@ class CircleSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculationMass() {
-        return DENSITY_STEEL * super.getDetailLength() *
-                (super.getDataBaseValue() * super.getDataBaseValue()) / 4 * PI;
+        double dataBaseValue = super.getDataBaseValue();
+        double fieldsValue = super.getFieldsValue();
+        return DENSITY_STEEL * fieldsValue * (dataBaseValue * dataBaseValue) / 4 * PI;
     }
 }
-
- */

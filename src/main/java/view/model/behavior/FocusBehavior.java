@@ -1,19 +1,17 @@
 package view.model.behavior;
 
-import view.model.behavior.FieldBehavior;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
 
-class FieldFocusBehavior {
+class FocusBehavior {
 
     private static final String EMPTY = "";
     private final FieldBehavior fieldBehavior;
 
-    FieldFocusBehavior(FieldBehavior fieldBehavior){
+    FocusBehavior(FieldBehavior fieldBehavior){
         this.fieldBehavior = fieldBehavior;
     }
 

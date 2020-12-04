@@ -1,14 +1,14 @@
 package database;
 
-import model.ValueReceivable;
+import model.ValueReceiver;
 
 import java.sql.SQLException;
 
-public class ValueReceivableImpl implements ValueReceivable {
+public class ValueReceiverImpl implements ValueReceiver {
 
     private final DetailsValue detailsValue;
 
-    public ValueReceivableImpl(Data data) {
+    public ValueReceiverImpl(Data data) {
         detailsValue = new DetailsValue(data);
     }
 
