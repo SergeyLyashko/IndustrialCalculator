@@ -1,9 +1,6 @@
 package model;
 
-import model.detailmass.CalculatorMassFactory;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class MassGenerator {
@@ -11,12 +8,10 @@ class MassGenerator {
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     private final double receiveValue;
-    private final boolean isArea;
     private final List<String> values;
 
-    MassGenerator(double receiveValue, boolean isArea) {
+    MassGenerator(double receiveValue) {
         this.receiveValue = receiveValue;
-        this.isArea = isArea;
         values = new ArrayList<>(2);
     }
 
@@ -26,9 +21,11 @@ class MassGenerator {
 
     void orderMass(AbstractMassCalculator massCalculator){
         double[] parseValues = values.stream().mapToDouble(this::parse).toArray();
-        System.out.println("test parse: "+ Arrays.toString(parseValues));
-        massCalculator.setDetail(new Detail(isArea, receiveValue, parseValues));
-        // TODO
+        if(parseValues.length > 1){
+            //TODO Написать свое исключение если не проходит проверку validValues
+        }
+        massCalculator.setDetail(new Detail(receiveValue, parseValues));
+        // TODO наблюдатель
         double mass = massCalculator.calculationMass();
         System.out.println("test mass: "+mass);
     }
@@ -61,11 +58,8 @@ class MassGenerator {
         return false;
     }
 
+    // TODO ????
     private boolean isValidNumber(double number){
-        if(number > MAX_NUMBER){
-            // TODO message "ошибка! слишком большое число!";
-            return false;
-        }
         if(number < 0){
             //TODO message "ошибка! отрицательное число!";
             return false;

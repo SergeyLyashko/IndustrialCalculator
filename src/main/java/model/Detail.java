@@ -4,12 +4,10 @@ import java.util.Arrays;
 
 public class Detail {
 
-    private final boolean isArea;
     private final double dataBaseValue;
     private final double reduceValue;
 
-    public Detail(boolean isArea, double dataBaseValue, double...values){
-        this.isArea = isArea;
+    public Detail(double dataBaseValue, double...values){
         this.dataBaseValue = dataBaseValue;
         this.reduceValue = Arrays.stream(values).reduce(1, (acc, element) -> acc * element);
     }
@@ -20,10 +18,5 @@ public class Detail {
 
     public double getDataBaseValue(){
         return dataBaseValue;
-    }
-
-    // TODO ???? зачем
-    public boolean isArea() {
-        return isArea;
     }
 }

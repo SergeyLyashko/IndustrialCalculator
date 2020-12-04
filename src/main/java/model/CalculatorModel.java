@@ -10,8 +10,6 @@ public interface CalculatorModel {
 
     void setDetailData(Queue<String> detailData);
 
-    void setIsArea(boolean status);
-
     void accept(CalculatorMassFactory massFactory);
 
     //void registerObserver(ResultObserver observer);

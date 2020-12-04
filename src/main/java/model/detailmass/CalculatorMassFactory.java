@@ -1,9 +1,9 @@
 package model.detailmass;
 
-import model.AbstractCalculatorFactory;
+import model.CalculatorFactory;
 import model.AbstractMassCalculator;
 
-public class CalculatorMassFactory extends AbstractCalculatorFactory {
+public class CalculatorMassFactory implements CalculatorFactory {
 
     @Override
     public AbstractMassCalculator createMassCalculator(String assortment, String type) {

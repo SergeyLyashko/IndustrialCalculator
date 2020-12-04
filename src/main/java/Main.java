@@ -3,7 +3,7 @@ import controller.ControllerImpl;
 import database.DataBaseDispatcher;
 import model.ValueReceiver;
 import model.CalculatorModel;
-import model.ModelDispatcher;
+import model.CalculatorModelImpl;
 import model.detailmass.CalculatorMassFactory;
 import view.ViewDispatcher;
 import view.MenuListReceiver;
@@ -20,7 +20,7 @@ public class Main {
             ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
 
             CalculatorMassFactory massFactory = new CalculatorMassFactory();
-            CalculatorModel model = new ModelDispatcher(valueReceiver);
+            CalculatorModel model = new CalculatorModelImpl(valueReceiver);
             model.accept(massFactory);
 
             Controller controller = new ControllerImpl(model);

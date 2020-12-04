@@ -57,11 +57,6 @@ public class CalculatorDataImpl implements CalculatorData {
     }
 
     @Override
-    public boolean isArea() {
-        return isArea;
-    }
-
-    @Override
     public void setAreaStatus(boolean status){
         this.isArea = status;
     }
