@@ -16,9 +16,4 @@ public class ControllerImpl implements Controller {
     public void setDetailData(Queue<String> detailData) {
         model.setDetailData(detailData);
     }
-
-    @Override
-    public void setIsArea(boolean status) {
-        model.setIsArea(status);
-    }
 }

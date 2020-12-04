@@ -14,5 +14,5 @@ public interface CalculatorData extends KeyActionObserver {
 
     void addData(String data);
 
-    Queue<String> getDataList();
+    Queue<String> getData();
 }

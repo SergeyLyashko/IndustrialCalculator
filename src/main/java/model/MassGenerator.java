@@ -1,14 +1,17 @@
 package model;
 
+import controller.ResultObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class MassGenerator {
+class MassGenerator implements ResultSubject {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     private final double receiveValue;
     private final List<String> values;
+    private ResultObserver observer;
 
     MassGenerator(double receiveValue) {
         this.receiveValue = receiveValue;
@@ -65,5 +68,15 @@ class MassGenerator {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void notifyObservers() {
+        observer.resultUpdate();
+    }
+
+    @Override
+    public void registerObserver(ResultObserver observer) {
+        this.observer = observer;
     }
 }

@@ -104,10 +104,8 @@ public class ViewModel implements KeyActionObserver{
 
     @Override
     public void keyActionUpdate() {
-        Queue<String> dataList = calculatorData.getDataList();
-        boolean area = calculatorData.isArea();
+        Queue<String> dataList = calculatorData.getData();
         System.out.println("test data: "+dataList);
         appController.setDetailData(dataList);
-        appController.setIsArea(area);
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class KeyBehavior implements KeyActionSubject {
+class  KeyBehavior implements KeyActionSubject {
 
     private final List<KeyActionObserver> observer = new ArrayList<>();
 
@@ -17,30 +17,15 @@ class KeyBehavior implements KeyActionSubject {
         parent.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
-                pressed(event);
+                notifyObservers();
             }
 
             @Override
             public void keyReleased(KeyEvent event) {
-                released(event);
+                JTextField source = (JFormattedTextField) event.getSource();
+                source.transferFocus();
             }
         });
-    }
-
-    private void pressed(KeyEvent event){
-        if(event.getKeyCode() == KeyEvent.VK_ENTER){
-            //JTextField source = (JFormattedTextField) event.getSource();
-            //String text = source.getText();
-            //System.out.println("test press: "+text);
-            notifyObservers();
-        }
-    }
-
-    private void released(KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.VK_ENTER){
-            JTextField source = (JFormattedTextField) event.getSource();
-            source.transferFocus();
-        }
     }
 
     void fieldDeactivate(JTextField parent) {
