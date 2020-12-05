@@ -3,6 +3,7 @@ package view.model;
 import controller.Controller;
 import view.controller.*;
 import view.model.behavior.FieldBehavior;
+import view.model.behavior.LabelBehavior;
 import view.model.state.CalculatorFieldState;
 import view.view.AppComponent;
 
@@ -14,12 +15,17 @@ public class ViewModel implements KeyActionObserver{
 
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
-    private final FieldBehavior lengthBehavior;
-    private final FieldBehavior widthBehavior;
     private final Controller appController;
     private CalculatorData calculatorData;
+
     private AppComponent width;
     private AppComponent length;
+
+    private final FieldBehavior lengthBehavior;
+    private final FieldBehavior widthBehavior;
+    private final LabelBehavior resultBehavior;
+    private final LabelBehavior messageBehavior;
+
 
     public ViewModel(Controller appController) {
         this.appController = appController;
@@ -27,6 +33,9 @@ public class ViewModel implements KeyActionObserver{
         fieldState = new CalculatorFieldState(this);
         widthBehavior = new FieldBehavior();
         lengthBehavior = new FieldBehavior();
+        resultBehavior = new LabelBehavior();
+        messageBehavior = new LabelBehavior();
+
         calculatorData = new CalculatorDataImpl();
     }
 
@@ -48,9 +57,15 @@ public class ViewModel implements KeyActionObserver{
     }
 
     public void setAllFieldOffState() {
+        resetField();
+        fieldState.setState(fieldState.getAllFieldOffState());
+    }
+
+    private void resetField(){
+        resultBehavior.reset();
+        messageBehavior.reset();
         widthBehavior.fieldDeactivate(width);
         lengthBehavior.fieldDeactivate(length);
-        fieldState.setState(fieldState.getAllFieldOffState());
     }
 
     public void setWidthOnState() {
@@ -105,7 +120,24 @@ public class ViewModel implements KeyActionObserver{
     @Override
     public void keyActionUpdate() {
         Queue<String> dataList = calculatorData.getData();
-        System.out.println("test data: "+dataList);
-        appController.setDetailData(dataList);
+        System.out.println("test data: "+dataList);// TODO DEL TEST
+        appController.setData(dataList);
+    }
+
+    public void setResultComponent(AppComponent component) {
+        resultBehavior.setComponent(component);
+    }
+
+    public void setResult(double result) {
+        String value = String.valueOf(result);
+        resultBehavior.show(value);
+    }
+
+    public void setMessage(String message) {
+        messageBehavior.show(message);
+    }
+
+    public void setMessageComponent(AppComponent component) {
+        messageBehavior.setComponent(component);
     }
 }

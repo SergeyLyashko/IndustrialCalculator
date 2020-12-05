@@ -9,10 +9,6 @@ import view.view.settings.SettingsFactory;
 public class View {
 
     public View(ViewController viewController, MenuListReceiver menuListReceiver) {
-        createView(viewController, menuListReceiver);
-    }
-
-    private void createView(ViewController viewController, MenuListReceiver menuListReceiver){
 
         ComponentsFactory calculatorComponents = new CalculatorFactory(viewController, menuListReceiver);
         ComponentsFactory settingsComponents = new SettingsFactory(viewController);

@@ -1,7 +1,6 @@
 package view.controller;
 
 import view.view.AppComponent;
-
 import java.util.List;
 
 public interface ViewController {
@@ -23,4 +22,12 @@ public interface ViewController {
     void setLength(AppComponent component);
 
     void setParameters(String assortment, String type, String selectedItem);
+
+    void setResultComponent(AppComponent component);
+
+    void setResult(double result);
+
+    void setMessage(String message);
+
+    void setMessageComponent(AppComponent component);
 }

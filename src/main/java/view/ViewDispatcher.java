@@ -1,19 +1,31 @@
 package view;
 
 import controller.Controller;
+import controller.ViewObserver;
 import model.CalculatorModel;
 import view.controller.ViewController;
 import view.controller.ViewControllerImpl;
 import view.model.ViewModel;
 import view.view.View;
 
-public class ViewDispatcher {
+public class ViewDispatcher implements ViewObserver {
+
+    private final ViewController viewController;
 
     public ViewDispatcher(MenuListReceiver menuListReceiver, CalculatorModel appModel, Controller appController) {
 
         ViewModel viewModel = new ViewModel(appController);
-        ViewController viewController = new ViewControllerImpl(viewModel);
+        viewController = new ViewControllerImpl(viewModel);
         View view = new View(viewController, menuListReceiver);
+    }
 
+    @Override
+    public void messageUpdate(String message) {
+        viewController.setMessage(message);
+    }
+
+    @Override
+    public void resultUpdate(double result) {
+        viewController.setResult(result);
     }
 }

@@ -4,10 +4,12 @@ import model.detailmass.CalculatorMassFactory;
 
 import java.util.Queue;
 
-public interface CalculatorModel {
+public interface CalculatorModel extends ViewSubject {
 
-    void setDetailData(Queue<String> detailData);
+    void setData(Queue<String> detailData);
 
     void accept(CalculatorMassFactory massFactory);
+
+    void calculation();
 
 }

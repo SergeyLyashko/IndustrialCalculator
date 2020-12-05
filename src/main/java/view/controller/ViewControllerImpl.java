@@ -59,4 +59,24 @@ public class ViewControllerImpl implements ViewController {
         viewModel.setData(type);
         viewModel.setData(number);
     }
+
+    @Override
+    public void setResultComponent(AppComponent component) {
+        viewModel.setResultComponent(component);
+    }
+
+    @Override
+    public void setResult(double result) {
+        viewModel.setResult(result);
+    }
+
+    @Override
+    public void setMessage(String message) {
+        viewModel.setMessage(message);
+    }
+
+    @Override
+    public void setMessageComponent(AppComponent component) {
+        viewModel.setMessageComponent(component);
+    }
 }

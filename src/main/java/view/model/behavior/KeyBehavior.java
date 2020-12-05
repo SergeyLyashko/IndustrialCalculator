@@ -17,13 +17,17 @@ class  KeyBehavior implements KeyActionSubject {
         parent.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
-                notifyObservers();
+                if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                    notifyObservers();
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent event) {
-                JTextField source = (JFormattedTextField) event.getSource();
-                source.transferFocus();
+                if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                    JTextField source = (JFormattedTextField) event.getSource();
+                    source.transferFocus();
+                }
             }
         });
     }

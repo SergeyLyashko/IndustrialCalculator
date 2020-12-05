@@ -35,7 +35,7 @@ public class CalculatorMassFactory implements CalculatorFactory {
             case "Резиновая пластина":
                 return new SheetRubberMassCalculator();
             default:
-                System.out.println("test null factory");
+                System.out.println("test null type factory");
                 return null;
         }
     }

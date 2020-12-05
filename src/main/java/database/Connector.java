@@ -15,7 +15,8 @@ class Connector {
      * префикс драйвера соединения
      * @return соединение с БД
      */
-    Connection getConnection() throws SQLException {
+    Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
         URL resource = this.getClass().getResource("/data/database/calculator.db");
         String url = DRIVER_PREFIX +resource;
         return DriverManager.getConnection(url);

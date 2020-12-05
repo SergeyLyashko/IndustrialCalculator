@@ -1,5 +1,5 @@
-import controller.Controller;
-import controller.ControllerImpl;
+package controller;
+
 import database.DataBaseDispatcher;
 import model.ValueReceiver;
 import model.CalculatorModel;
@@ -25,7 +25,8 @@ public class Main {
 
             Controller controller = new ControllerImpl(model);
 
-            ViewDispatcher viewDispatcher = new ViewDispatcher(menuListReceiver, model, controller);
+            ViewObserver observer = new ViewDispatcher(menuListReceiver, model, controller);
+            model.registerObserver(observer);
 
         });
     }

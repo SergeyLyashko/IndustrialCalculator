@@ -14,7 +14,7 @@ class Data {
     void addConnection(Connector connector) {
         try {
             connection = connector.getConnection();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

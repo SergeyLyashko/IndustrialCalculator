@@ -13,7 +13,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void setDetailData(Queue<String> detailData) {
-        model.setDetailData(detailData);
+    public void setData(Queue<String> detailData) {
+        model.setData(detailData);
+        model.calculation();
     }
 }

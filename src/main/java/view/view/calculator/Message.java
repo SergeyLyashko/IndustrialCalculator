@@ -11,7 +11,7 @@ class Message implements AppComponent, Host {
 
     private final JLabel jLabel;
 
-    private static final String DEFAULT_VIEW = "test";
+    private static final String DEFAULT_VIEW = "test";// TODO DEL
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 140;
     private static final int SIZE_X = 315;
@@ -23,6 +23,11 @@ class Message implements AppComponent, Host {
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        viewController.setMessageComponent(this);
+        addHost(viewController);
+    }
+
+    private void addHost(ViewController viewController){
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }

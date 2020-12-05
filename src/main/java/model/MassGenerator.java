@@ -1,17 +1,14 @@
 package model;
 
-import controller.ResultObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 
-class MassGenerator implements ResultSubject {
+class MassGenerator {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
     private final double receiveValue;
     private final List<String> values;
-    private ResultObserver observer;
 
     MassGenerator(double receiveValue) {
         this.receiveValue = receiveValue;
@@ -22,15 +19,13 @@ class MassGenerator implements ResultSubject {
         values.add(data);
     }
 
-    void orderMass(AbstractMassCalculator massCalculator){
+    double generateMass(AbstractMassCalculator massCalculator){
         double[] parseValues = values.stream().mapToDouble(this::parse).toArray();
-        if(parseValues.length > 1){
-            //TODO Написать свое исключение если не проходит проверку validValues
+        if(parseValues.length > 0){
+            //TODO Написать свое исключение если не проходит проверку validValues на переполнение
+            massCalculator.setDetail(new Detail(receiveValue, parseValues));
         }
-        massCalculator.setDetail(new Detail(receiveValue, parseValues));
-        // TODO наблюдатель
-        double mass = massCalculator.calculationMass();
-        System.out.println("test mass: "+mass);
+        return massCalculator.calculationMass();
     }
 
     /**
@@ -38,15 +33,11 @@ class MassGenerator implements ResultSubject {
      * @param value Строковое представление значения
      */
     private double parse(String value) {
-        if(isNotNullValue(value)){
+        if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }
         // TODO написать свое исключение проверки на null для отправки сообщения об отсутствии ввода
         return 0;
-    }
-
-    private boolean isNotNullValue(String value){
-        return value != null;
     }
 
     private boolean isValidValues(double widthNum, double lengthNum){
@@ -68,15 +59,5 @@ class MassGenerator implements ResultSubject {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void notifyObservers() {
-        observer.resultUpdate();
-    }
-
-    @Override
-    public void registerObserver(ResultObserver observer) {
-        this.observer = observer;
     }
 }
