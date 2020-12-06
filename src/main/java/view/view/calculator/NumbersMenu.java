@@ -43,7 +43,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
                 // TODO test
-                System.out.println("test param: "+assortment+" "+type+" "+selectedItem);
+                System.out.println("test Numbers class set: "+assortment+" "+type+" "+selectedItem);
                 viewController.setParameters(assortment, type, selectedItem);
             }
         });

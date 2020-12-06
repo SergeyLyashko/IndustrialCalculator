@@ -9,6 +9,8 @@ import java.util.Queue;
 public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
+    private static final String NOT_FULL_DATA_MESSAGE = "Введены не все параметры";
+    private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private final ValueReceiver valueReceiver;
     private CalculatorMassFactory massFactory;
     private ViewObserver observer;
@@ -25,10 +27,13 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyResultObservers(double mass) {
         observer.resultUpdate(mass);
-        // TODO ???
-        observer.messageUpdate(RESULT_MESSAGE);
+    }
+
+    @Override
+    public void notifyMessageObservers(String message) {
+        observer.messageUpdate(message);
     }
 
     @Override
@@ -50,24 +55,27 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
             AbstractMassCalculator massCalculator = massFactory.createMassCalculator(assortment, type);
             double value = receiveValue(assortment, type, number);
             MassGenerator generator = createGenerator(value);
-            this.mass = generator.generateMass(massCalculator);
-            notifyObservers();
+            double mass = generator.generateMass(massCalculator);
+            if(mass > 0) {
+                notifyResultObservers(mass);
+                notifyMessageObservers(RESULT_MESSAGE);
+            }
+        }else{
+            notifyMessageObservers(NOT_FULL_DATA_MESSAGE);
         }
-        // TODO Написать исключение на неполную дату
     }
 
     private double receiveValue(String assortment, String type, String number){
         try {
             return valueReceiver.getValue(assortment, type, number);
         } catch (SQLException exception) {
-            //TODO messages
-            exception.printStackTrace();
+            notifyMessageObservers(NOT_DATABASE_MESSAGE);
         }
         return 0;
     }
 
     private MassGenerator createGenerator(double receiveValue){
-        MassGenerator massGenerator = new MassGenerator(receiveValue);
+        MassGenerator massGenerator = new MassGenerator(receiveValue, this);
         while (!detailData.isEmpty()){
             massGenerator.addData(detailData.poll());
         }

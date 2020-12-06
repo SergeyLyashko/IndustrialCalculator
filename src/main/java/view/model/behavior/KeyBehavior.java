@@ -5,13 +5,11 @@ import view.model.KeyActionObserver;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-class  KeyBehavior implements KeyActionSubject {
+class KeyBehavior implements KeyActionSubject {
 
-    private final List<KeyActionObserver> observer = new ArrayList<>();
+    private KeyActionObserver observer;
 
     void fieldActivate(JTextField parent) {
         parent.addKeyListener(new KeyAdapter() {
@@ -38,11 +36,13 @@ class  KeyBehavior implements KeyActionSubject {
 
     @Override
     public void notifyObservers() {
-        observer.forEach(KeyActionObserver::keyActionUpdate);
+        if(observer != null){
+            observer.keyActionUpdate();
+        }
     }
 
     @Override
     public void registerObserver(KeyActionObserver keyActionObserver) {
-        observer.add(keyActionObserver);
+        this.observer = keyActionObserver;
     }
 }

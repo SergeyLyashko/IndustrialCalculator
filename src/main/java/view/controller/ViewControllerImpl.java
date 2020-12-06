@@ -55,9 +55,9 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void setParameters(String assortment, String type, String number) {
-        viewModel.setData(assortment);
-        viewModel.setData(type);
-        viewModel.setData(number);
+        viewModel.setAssortment(assortment);
+        viewModel.setType(type);
+        viewModel.setNumber(number);
     }
 
     @Override

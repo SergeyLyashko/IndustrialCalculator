@@ -4,10 +4,9 @@ import controller.ViewObserver;
 
 public interface ViewSubject {
 
-    // TODO for result ?
-    void notifyObservers();
+    void notifyResultObservers(double result);
 
-    //void notifyMessageObservers(String message);
+    void notifyMessageObservers(String message);
 
     void registerObserver(ViewObserver observer);
 

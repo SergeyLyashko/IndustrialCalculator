@@ -16,36 +16,48 @@ public class ViewModel implements KeyActionObserver{
     private final Visitor colorVisitor;
     private final CalculatorFieldState fieldState;
     private final Controller appController;
-    private CalculatorData calculatorData;
-
-    private AppComponent width;
-    private AppComponent length;
 
     private final FieldBehavior lengthBehavior;
     private final FieldBehavior widthBehavior;
     private final LabelBehavior resultBehavior;
     private final LabelBehavior messageBehavior;
 
+    private AppComponent width;
+    private AppComponent length;
+    private boolean widthStatus;
+    private String assortment;
+    private String type;
+    private String number;
+    private boolean areaStatus;
+
 
     public ViewModel(Controller appController) {
         this.appController = appController;
         colorVisitor = new ColorChangeVisitor();
         fieldState = new CalculatorFieldState(this);
+
         widthBehavior = new FieldBehavior();
         lengthBehavior = new FieldBehavior();
+        lengthBehavior.registerObserver(this);
+
         resultBehavior = new LabelBehavior();
         messageBehavior = new LabelBehavior();
-
-        calculatorData = new CalculatorDataImpl();
     }
 
-    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        JComboBox<String> comboBox = menuSelectable.getParent();
-        new MenuListModel(receiveMenu, comboBox);
+    public void widthActivate() {
+        widthBehavior.fieldActivate(width);
+        areaDeactivate();
+        widthStatus = true;
     }
 
-    public Visitor getVisitor() {
-        return colorVisitor;
+    private void areaActivate(){
+        lengthBehavior.areaActivate(length);
+        areaStatus = true;
+    }
+
+    private void areaDeactivate(){
+        lengthBehavior.areaDeactivate(length);
+        areaStatus = false;
     }
 
     public void setWidthField(AppComponent component) {
@@ -70,30 +82,27 @@ public class ViewModel implements KeyActionObserver{
 
     public void setWidthOnState() {
         fieldState.setState(fieldState.getWidthFieldOnState());
-        calculatorData.setWidthStatus(true);
+        widthStatus = true;
     }
 
     public void checkBoxSelect(boolean state) {
         fieldState.checkBoxSelect(state);
     }
 
-    public void setData(String param) {
-        calculatorData.addData(param);
+    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
+        // TODO убрать в класс ???
+        JComboBox<String> comboBox = menuSelectable.getParent();
+        new MenuListModel(receiveMenu, comboBox);
+    }
+
+    public Visitor getVisitor() {
+        return colorVisitor;
     }
 
     // активация Number box
     public void actionState() {
-        createData();
         lengthBehavior.fieldActivate(length);
         fieldState.actionState();
-    }
-
-    private void createData(){
-        calculatorData = new CalculatorDataImpl();
-        calculatorData.addData(width);
-        calculatorData.addData(length);
-        lengthBehavior.registerObserver(calculatorData);
-        lengthBehavior.registerObserver(this);
     }
 
     public void widthDeactivate() {
@@ -101,27 +110,16 @@ public class ViewModel implements KeyActionObserver{
         areaActivate();
     }
 
-    public void widthActivate() {
-        widthBehavior.fieldActivate(width);
-        areaDeactivate();
-        calculatorData.setWidthStatus(true);
-    }
-
-    private void areaActivate(){
-        lengthBehavior.areaActivate(length);
-        calculatorData.setAreaStatus(true);
-    }
-
-    private void areaDeactivate(){
-        lengthBehavior.areaDeactivate(length);
-        calculatorData.setAreaStatus(false);
-    }
-
     @Override
     public void keyActionUpdate() {
-        Queue<String> dataList = calculatorData.getData();
+        CalculatorData newData = createNewData();
+        Queue<String> dataList = newData.getData();
         System.out.println("test data: "+dataList);// TODO DEL TEST
         appController.setData(dataList);
+    }
+
+    public CalculatorData createNewData() {
+        return new CalculatorDataImpl(assortment, type, number, width, length, widthStatus, areaStatus);
     }
 
     public void setResultComponent(AppComponent component) {
@@ -139,5 +137,17 @@ public class ViewModel implements KeyActionObserver{
 
     public void setMessageComponent(AppComponent component) {
         messageBehavior.setComponent(component);
+    }
+
+    public void setAssortment(String assortment) {
+        this.assortment = assortment;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
