@@ -1,6 +1,6 @@
 package controller;
 
-import model.CalculatorModel;
+import detailmass.CalculatorModel;
 import view.Controller;
 
 import java.util.Queue;

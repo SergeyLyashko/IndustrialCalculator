@@ -1,4 +1,4 @@
-package model.detailmass;
+package detailmass;
 
 import model.AbstractMassCalculator;
 

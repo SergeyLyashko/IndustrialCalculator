@@ -1,6 +1,4 @@
-package model;
-
-import controller.ViewObserver;
+package controller;
 
 public interface ViewSubject {
 

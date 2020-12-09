@@ -2,21 +2,21 @@ package model;
 
 import java.util.Arrays;
 
-public class Detail {
+class Detail {
 
     private final double dataBaseValue;
     private final double reduceValue;
 
-    public Detail(double dataBaseValue, double...values){
+    Detail(double dataBaseValue, double...values){
         this.dataBaseValue = dataBaseValue;
         this.reduceValue = Arrays.stream(values).reduce(1, (acc, element) -> acc * element);
     }
 
-    public double getFieldsValue() {
+    double getFieldsValue() {
         return reduceValue;
     }
 
-    public double getDataBaseValue(){
+    double getDataBaseValue(){
         return dataBaseValue;
     }
 }

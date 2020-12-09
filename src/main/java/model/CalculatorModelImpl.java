@@ -1,7 +1,8 @@
 package model;
 
 import controller.ViewObserver;
-import model.detailmass.CalculatorMassFactory;
+import controller.ViewSubject;
+import detailmass.CalculatorModel;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -17,18 +18,14 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     private static final String ERROR = "error";
 
     private final ValueReceiver valueReceiver;
-    private CalculatorMassFactory massFactory;
+    private final CalculatorFactory massFactory;
     private ViewObserver observer;
     private Queue<String> detailData;
     private static final boolean ALERT = true;
     private static final boolean CALM = false;
 
-    public CalculatorModelImpl(ValueReceiver valueReceiver) {
+    public CalculatorModelImpl(ValueReceiver valueReceiver, CalculatorFactory massFactory) {
         this.valueReceiver = valueReceiver;
-    }
-
-    @Override
-    public void accept(CalculatorMassFactory massFactory) {
         this.massFactory = massFactory;
     }
 

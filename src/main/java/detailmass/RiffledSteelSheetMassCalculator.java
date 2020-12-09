@@ -1,13 +1,13 @@
-package model.detailmass;
+package detailmass;
 
 import model.AbstractMassCalculator;
 
-class SheetRubberMassCalculator extends AbstractMassCalculator {
+class RiffledSteelSheetMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculationMass() {
         double dataBaseValue = super.getDataBaseValue();
         double fieldsValue = super.getFieldsValue();
-        return DENSITY_RUBBER * fieldsValue * dataBaseValue;
+        return fieldsValue / 1000000 * dataBaseValue;
     }
 }
