@@ -1,7 +1,7 @@
 package view.model;
 
-import view.controller.Host;
-import view.controller.Visitor;
+import view.view.Host;
+import view.view.Visitor;
 import view.view.AppComponent;
 
 import javax.swing.*;
@@ -33,19 +33,13 @@ class ColorChangeVisitor implements Visitor {
         parent.setBackground(backGround);
         parent.setForeground(foreGround);
     }
-////////////////////////////////////////////////////////
+
     @Override
-    public void visitResultLabel(Host host) {
+    public void visitServiceLabel(Host host) {
         JComponent parent = host.getParent();
         parent.setForeground(serviceStringColor);
     }
 
-    @Override
-    public void visitMessageLabel(Host host) {
-        JComponent parent = host.getParent();
-        parent.setForeground(serviceStringColor);
-    }
-///////////////////////////////////////////////////////
     @Override
     public void visitLabel(Host host) {
         JComponent parent = host.getParent();

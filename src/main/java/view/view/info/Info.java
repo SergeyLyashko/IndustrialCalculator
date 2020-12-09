@@ -1,8 +1,8 @@
 package view.view.info;
 
-import view.controller.Host;
+import view.view.Host;
 import view.controller.ViewController;
-import view.controller.Visitor;
+import view.view.Visitor;
 import view.view.AppComponent;
 
 import javax.swing.*;

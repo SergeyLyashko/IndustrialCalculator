@@ -1,16 +1,16 @@
 package view.view;
 
-import view.MenuListReceiver;
+import view.DataBaseMenuReceiver;
 import view.controller.*;
 import view.view.calculator.CalculatorFactory;
 import view.view.info.InfoFactory;
 import view.view.settings.SettingsFactory;
 
-public class View {
+public class ViewDispatcher {
 
-    public View(ViewController viewController, MenuListReceiver menuListReceiver) {
+    public ViewDispatcher(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
 
-        ComponentsFactory calculatorComponents = new CalculatorFactory(viewController, menuListReceiver);
+        ComponentsFactory calculatorComponents = new CalculatorFactory(viewController, dataBaseMenuReceiver);
         ComponentsFactory settingsComponents = new SettingsFactory(viewController);
         ComponentsFactory infoComponents = new InfoFactory(viewController);
 

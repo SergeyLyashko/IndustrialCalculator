@@ -1,6 +1,9 @@
 package view.controller;
 
 import view.view.AppComponent;
+import view.view.MenuSelectable;
+import view.view.Visitor;
+
 import java.util.List;
 
 public interface ViewController {
@@ -25,7 +28,7 @@ public interface ViewController {
 
     void setResultComponent(AppComponent component);
 
-    void setResult(double result);
+    void setResult(String result, boolean alert);
 
     void setMessage(String message, boolean alert);
 

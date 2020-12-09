@@ -1,6 +1,6 @@
 package view.model.behavior;
 
-import view.controller.Visitor;
+import view.view.Visitor;
 import view.view.AppComponent;
 
 import javax.swing.*;

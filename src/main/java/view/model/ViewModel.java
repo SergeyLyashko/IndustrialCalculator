@@ -1,13 +1,13 @@
 package view.model;
 
-import controller.Controller;
-import view.controller.*;
+import view.Controller;
 import view.model.behavior.FieldBehavior;
 import view.model.behavior.LabelBehavior;
 import view.model.state.CalculatorFieldState;
 import view.view.AppComponent;
+import view.view.MenuSelectable;
+import view.view.Visitor;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
@@ -79,6 +79,7 @@ public class ViewModel implements KeyActionObserver{
     private void resetField(){
         widthBehavior.fieldDeactivate(width);
         lengthBehavior.fieldDeactivate(length);
+        widthStatus = false;
     }
 
     private void resetServiceString(){
@@ -96,9 +97,7 @@ public class ViewModel implements KeyActionObserver{
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        // TODO убрать в класс ???
-        JComboBox<String> comboBox = menuSelectable.getParent();
-        new MenuListModel(receiveMenu, comboBox);
+        new MenuListModel(receiveMenu, menuSelectable);
     }
 
     public Visitor getVisitor() {
@@ -122,7 +121,6 @@ public class ViewModel implements KeyActionObserver{
     public void keyActionUpdate() {
         CalculatorData newData = createNewData();
         Queue<String> dataList = newData.getData();
-        System.out.println("test data: "+dataList);// TODO DEL TEST
         appController.setData(dataList);
     }
 
@@ -134,9 +132,12 @@ public class ViewModel implements KeyActionObserver{
         resultBehavior.setComponent(component);
     }
 
-    public void setResult(double result) {
-        String value = String.valueOf(result);
-        resultBehavior.show(value, false);//TODO
+    public void setResult(String result, boolean alert) {
+        String value = result;
+        if(!alert){
+            value = result+" кг";
+        }
+        resultBehavior.show(value, alert);
     }
 
     public void setMessage(String message, boolean alert) {

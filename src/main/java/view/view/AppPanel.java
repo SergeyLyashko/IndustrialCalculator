@@ -1,8 +1,6 @@
 package view.view;
 
-import view.controller.Host;
 import view.controller.ViewController;
-import view.controller.Visitor;
 
 import javax.swing.*;
 import java.util.List;

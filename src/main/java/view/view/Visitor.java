@@ -1,6 +1,4 @@
-package view.controller;
-
-import view.view.AppComponent;
+package view.view;
 
 public interface Visitor {
 
@@ -8,9 +6,7 @@ public interface Visitor {
 
     void visitComponent(Host host);
 
-    void visitResultLabel(Host host);
-
-    void visitMessageLabel(Host host);
+    void visitServiceLabel(Host host);
 
     void visitLabel(Host host);
 

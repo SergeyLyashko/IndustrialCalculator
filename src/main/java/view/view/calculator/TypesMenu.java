@@ -1,8 +1,8 @@
 package view.view.calculator;
 
-import view.MenuListReceiver;
+import view.DataBaseMenuReceiver;
 import view.controller.ViewController;
-import view.controller.MenuSelectable;
+import view.view.MenuSelectable;
 import view.view.AppComponent;
 
 import javax.swing.*;
@@ -22,12 +22,12 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
-    private final MenuListReceiver menuListReceiver;
+    private final DataBaseMenuReceiver dataBaseMenuReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
 
-    TypesMenu(ViewController viewController, MenuListReceiver menuListReceiver){
+    TypesMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
-        this.menuListReceiver = menuListReceiver;
+        this.dataBaseMenuReceiver = dataBaseMenuReceiver;
 
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
@@ -51,11 +51,11 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public void receiveMenu(String...menuItem) {
+    public void createMenu(String...menuItem) {
         if(menuItem.length != 0){
             assortment = menuItem[0];
         }
-        List<String> typeMenu = menuListReceiver.getTypeMenu(assortment);
+        List<String> typeMenu = dataBaseMenuReceiver.getTypeMenu(assortment);
         createMenu(typeMenu);
     }
 
@@ -70,7 +70,7 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     public void addListenerMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            child.receiveMenu(assortment, selectedItem);
+            child.createMenu(assortment, selectedItem);
         });
     }
 

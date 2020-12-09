@@ -1,8 +1,8 @@
 package view.view.calculator;
 
-import view.MenuListReceiver;
+import view.DataBaseMenuReceiver;
 import view.controller.ViewController;
-import view.controller.MenuSelectable;
+import view.view.MenuSelectable;
 import view.view.AppComponent;
 
 import javax.swing.*;
@@ -22,13 +22,13 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
-    private final MenuListReceiver menuListReceiver;
+    private final DataBaseMenuReceiver dataBaseMenuReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private String type = DEFAULT_MENU_VALUE;
 
-    NumbersMenu(ViewController viewController, MenuListReceiver menuListReceiver){
+    NumbersMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
-        this.menuListReceiver = menuListReceiver;
+        this.dataBaseMenuReceiver = dataBaseMenuReceiver;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
@@ -50,14 +50,14 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public void receiveMenu(String...menuItem) {
+    public void createMenu(String...menuItem) {
         if(menuItem.length != 0) {
             assortment = menuItem[0];
         }
         if(menuItem.length > 0){
             type = menuItem[1];
         }
-        List<String> numberMenu = menuListReceiver.getNumberMenu(assortment, type);
+        List<String> numberMenu = dataBaseMenuReceiver.getNumberMenu(assortment, type);
         createMenu(numberMenu);
     }
 

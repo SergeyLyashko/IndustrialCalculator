@@ -8,13 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class CalculatorDataImpl implements CalculatorData {
+class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
     private final List<AppComponent> components;
     private final Queue<String> data;
 
-    public CalculatorDataImpl(String assortment, String type, String number,
+    CalculatorDataImpl(String assortment, String type, String number,
                               AppComponent width, AppComponent length, boolean widthStatus, boolean areaStatus) {
 
         data = new LinkedList<>();

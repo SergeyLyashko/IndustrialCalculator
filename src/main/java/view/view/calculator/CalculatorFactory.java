@@ -1,9 +1,10 @@
 package view.view.calculator;
 
-import view.MenuListReceiver;
+import view.DataBaseMenuReceiver;
 import view.controller.*;
 import view.view.AppComponent;
 import view.view.ComponentsFactory;
+import view.view.MenuSelectable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private final List<AppComponent> components;
     private final ViewController viewController;
 
-    public CalculatorFactory(ViewController viewController, MenuListReceiver menuListReceiver) {
+    public CalculatorFactory(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
         this.viewController = viewController;
         components = new ArrayList<>();
 
@@ -22,9 +23,9 @@ public class CalculatorFactory implements ComponentsFactory {
         integration(new Length(viewController));
         integration(new AreaSettableCheckBox(viewController));
 
-        MenuSelectable assortment = new AssortmentsMenu(viewController, menuListReceiver);
-        MenuSelectable types = new TypesMenu(viewController, menuListReceiver);
-        MenuSelectable numbers = new NumbersMenu(viewController, menuListReceiver);
+        MenuSelectable assortment = new AssortmentsMenu(viewController, dataBaseMenuReceiver);
+        MenuSelectable types = new TypesMenu(viewController, dataBaseMenuReceiver);
+        MenuSelectable numbers = new NumbersMenu(viewController, dataBaseMenuReceiver);
         createDefaultMenu(assortment, types, numbers);
 
         integration(new Result(viewController));
@@ -46,7 +47,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private void createDefaultMenu(MenuSelectable...menus){
         addListeners(menus);
         Arrays.stream(menus).forEach(element -> {
-            element.receiveMenu();
+            element.createMenu();
             integration(element);
         });
     }

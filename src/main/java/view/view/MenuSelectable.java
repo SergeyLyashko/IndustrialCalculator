@@ -1,12 +1,10 @@
-package view.controller;
-
-import view.view.AppComponent;
+package view.view;
 
 import javax.swing.*;
 
 public interface MenuSelectable extends AppComponent {
 
-    void receiveMenu(String...menuItem);
+    void createMenu(String...menuItem);
 
     default void addListenerMenu(MenuSelectable child){}
 

@@ -2,6 +2,8 @@ package view.controller;
 
 import view.model.ViewModel;
 import view.view.AppComponent;
+import view.view.MenuSelectable;
+import view.view.Visitor;
 
 import java.util.List;
 
@@ -66,17 +68,17 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setResult(double result) {
-        viewModel.setResult(result);
+    public void setMessageComponent(AppComponent component) {
+        viewModel.setMessageComponent(component);
+    }
+
+    @Override
+    public void setResult(String result, boolean alert) {
+        viewModel.setResult(result, alert);
     }
 
     @Override
     public void setMessage(String message, boolean alert) {
         viewModel.setMessage(message, alert);
-    }
-
-    @Override
-    public void setMessageComponent(AppComponent component) {
-        viewModel.setMessageComponent(component);
     }
 }
