@@ -14,7 +14,6 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     private final ValueReceiver valueReceiver;
     private CalculatorMassFactory massFactory;
     private ViewObserver observer;
-    private double mass;
     private Queue<String> detailData;
 
     public CalculatorModelImpl(ValueReceiver valueReceiver) {

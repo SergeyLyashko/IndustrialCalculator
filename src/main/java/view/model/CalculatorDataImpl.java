@@ -10,6 +10,7 @@ import java.util.Queue;
 
 public class CalculatorDataImpl implements CalculatorData {
 
+    private static final String EMPTY = "";
     private final List<AppComponent> components;
     private final Queue<String> data;
 
@@ -26,10 +27,10 @@ public class CalculatorDataImpl implements CalculatorData {
         componentsUpdate(widthStatus, areaStatus);
     }
 
-    private void componentsUpdate(boolean widthStatus, boolean areaStatus){
-        if(widthStatus && !areaStatus){
+    private void componentsUpdate(boolean isWidth, boolean isArea){
+        if(isWidth && !isArea){
             components.forEach(this::update);
-        }else{
+        }else if(isArea){
             update(components.get(1));
         }
     }
@@ -38,6 +39,9 @@ public class CalculatorDataImpl implements CalculatorData {
         JTextField parent = (JFormattedTextField) component.getParent();
         String text = parent.getText();
         System.out.println("test double DATA: "+text);
+        if(text.equals(component.getName())) {
+            text = EMPTY;
+        }
         data.add(text);
     }
 
