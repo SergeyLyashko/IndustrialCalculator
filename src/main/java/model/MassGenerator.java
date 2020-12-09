@@ -10,6 +10,7 @@ class MassGenerator {
     private static final String NOT_FULL_DATA_MESSAGE = "Введены не все параметры";
     private static final String TOO_BIG_NUM_MESSAGE = "Размеры за пределами здравого смысла";
     private static final String NEGATIVE_MESSAGE = "Отрицательное значение размера";
+    private static final boolean ALERT = true;
 
     private final double receiveValue;
     private final List<String> values;
@@ -48,7 +49,7 @@ class MassGenerator {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            calculatorModel.notifyMessageObservers(NOT_FULL_DATA_MESSAGE);
+            calculatorModel.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
         }
         return 0;
     }
@@ -59,7 +60,7 @@ class MassGenerator {
             if(first < checkNum){
                 return true;
             }
-            calculatorModel.notifyMessageObservers(TOO_BIG_NUM_MESSAGE);
+            calculatorModel.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
             return false;
         }
         return false;
@@ -67,7 +68,7 @@ class MassGenerator {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            calculatorModel.notifyMessageObservers(NEGATIVE_MESSAGE);
+            calculatorModel.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
             return false;
         }
         return true;

@@ -27,7 +27,7 @@ public interface ViewController {
 
     void setResult(double result);
 
-    void setMessage(String message);
+    void setMessage(String message, boolean alert);
 
     void setMessageComponent(AppComponent component);
 }

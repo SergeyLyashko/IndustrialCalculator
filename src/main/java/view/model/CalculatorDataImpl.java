@@ -29,8 +29,10 @@ public class CalculatorDataImpl implements CalculatorData {
 
     private void componentsUpdate(boolean isWidth, boolean isArea){
         if(isWidth && !isArea){
+            System.out.println("test upd all");
             components.forEach(this::update);
-        }else if(isArea){
+        }else {
+            System.out.println("test upd 1");
             update(components.get(1));
         }
     }

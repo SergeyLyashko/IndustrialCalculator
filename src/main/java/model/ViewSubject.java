@@ -6,7 +6,7 @@ public interface ViewSubject {
 
     void notifyResultObservers(double result);
 
-    void notifyMessageObservers(String message);
+    void notifyMessageObservers(String message, boolean alert);
 
     void registerObserver(ViewObserver observer);
 

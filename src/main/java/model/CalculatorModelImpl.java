@@ -11,10 +11,13 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final String NOT_FULL_DATA_MESSAGE = "Введены не все параметры";
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
+
     private final ValueReceiver valueReceiver;
     private CalculatorMassFactory massFactory;
     private ViewObserver observer;
     private Queue<String> detailData;
+    private static final boolean ALERT = true;
+    private static final boolean CALM = false;
 
     public CalculatorModelImpl(ValueReceiver valueReceiver) {
         this.valueReceiver = valueReceiver;
@@ -31,8 +34,8 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void notifyMessageObservers(String message) {
-        observer.messageUpdate(message);
+    public void notifyMessageObservers(String message, boolean alert) {
+        observer.messageUpdate(message, alert);
     }
 
     @Override
@@ -57,10 +60,10 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
             double mass = generator.generateMass(massCalculator);
             if(mass > 0) {
                 notifyResultObservers(mass);
-                notifyMessageObservers(RESULT_MESSAGE);
+                notifyMessageObservers(RESULT_MESSAGE, CALM);
             }
         }else{
-            notifyMessageObservers(NOT_FULL_DATA_MESSAGE);
+            notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
         }
     }
 
@@ -68,7 +71,7 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
         try {
             return valueReceiver.getValue(assortment, type, number);
         } catch (SQLException exception) {
-            notifyMessageObservers(NOT_DATABASE_MESSAGE);
+            notifyMessageObservers(NOT_DATABASE_MESSAGE, ALERT);
         }
         return 0;
     }

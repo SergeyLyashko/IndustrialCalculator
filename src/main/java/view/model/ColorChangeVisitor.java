@@ -2,6 +2,7 @@ package view.model;
 
 import view.controller.Host;
 import view.controller.Visitor;
+import view.view.AppComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ class ColorChangeVisitor implements Visitor {
     private Color foreGround;
     private Color markerColor;
     private Color serviceStringColor;
+    private final Color alertColor = Color.RED;
 
     private void raid() {
         componentsList.forEach(component -> component.acceptVisitor(this));
@@ -31,7 +33,7 @@ class ColorChangeVisitor implements Visitor {
         parent.setBackground(backGround);
         parent.setForeground(foreGround);
     }
-
+////////////////////////////////////////////////////////
     @Override
     public void visitResultLabel(Host host) {
         JComponent parent = host.getParent();
@@ -43,7 +45,7 @@ class ColorChangeVisitor implements Visitor {
         JComponent parent = host.getParent();
         parent.setForeground(serviceStringColor);
     }
-
+///////////////////////////////////////////////////////
     @Override
     public void visitLabel(Host host) {
         JComponent parent = host.getParent();
@@ -54,6 +56,18 @@ class ColorChangeVisitor implements Visitor {
     public void visitScroll(Host host) {
         JComponent scrollViewPort = host.getScrollViewPort();
         scrollViewPort.setBackground(backGround);
+    }
+
+    @Override
+    public void alertColor(AppComponent component) {
+        JComponent parent = component.getParent();
+        parent.setForeground(alertColor);
+    }
+
+    @Override
+    public void resetColor(AppComponent component) {
+        JComponent parent = component.getParent();
+        parent.setForeground(serviceStringColor);
     }
 
     @Override

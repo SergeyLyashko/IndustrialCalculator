@@ -24,11 +24,13 @@ public class ViewModel implements KeyActionObserver{
 
     private AppComponent width;
     private AppComponent length;
-    private boolean widthStatus;
+
     private String assortment;
     private String type;
     private String number;
+
     private boolean areaStatus;
+    private boolean widthStatus;
 
 
     public ViewModel(Controller appController) {
@@ -40,8 +42,8 @@ public class ViewModel implements KeyActionObserver{
         lengthBehavior = new FieldBehavior();
         lengthBehavior.registerObserver(this);
 
-        resultBehavior = new LabelBehavior();
-        messageBehavior = new LabelBehavior();
+        resultBehavior = new LabelBehavior(colorVisitor);
+        messageBehavior = new LabelBehavior(colorVisitor);
     }
 
     public void widthActivate() {
@@ -70,14 +72,18 @@ public class ViewModel implements KeyActionObserver{
 
     public void setAllFieldOffState() {
         resetField();
+        resetServiceString();
         fieldState.setState(fieldState.getAllFieldOffState());
     }
 
     private void resetField(){
-        resultBehavior.reset();
-        messageBehavior.reset();
         widthBehavior.fieldDeactivate(width);
         lengthBehavior.fieldDeactivate(length);
+    }
+
+    private void resetServiceString(){
+        resultBehavior.reset();
+        messageBehavior.reset();
     }
 
     public void setWidthOnState() {
@@ -101,6 +107,7 @@ public class ViewModel implements KeyActionObserver{
 
     // активация Number box
     public void actionState() {
+        resetServiceString();
         lengthBehavior.fieldActivate(length);
         fieldState.actionState();
     }
@@ -108,6 +115,7 @@ public class ViewModel implements KeyActionObserver{
     public void widthDeactivate() {
         widthBehavior.fieldDeactivate(width);
         areaActivate();
+        widthStatus = false;
     }
 
     @Override
@@ -128,11 +136,11 @@ public class ViewModel implements KeyActionObserver{
 
     public void setResult(double result) {
         String value = String.valueOf(result);
-        resultBehavior.show(value);
+        resultBehavior.show(value, false);//TODO
     }
 
-    public void setMessage(String message) {
-        messageBehavior.show(message);
+    public void setMessage(String message, boolean alert) {
+        messageBehavior.show(message, alert);
     }
 
     public void setMessageComponent(AppComponent component) {

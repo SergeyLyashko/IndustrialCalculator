@@ -20,8 +20,8 @@ public class ViewDispatcher implements ViewObserver {
     }
 
     @Override
-    public void messageUpdate(String message) {
-        viewController.setMessage(message);
+    public void messageUpdate(String message, boolean alert) {
+        viewController.setMessage(message, alert);
     }
 
     @Override

@@ -71,8 +71,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setMessage(String message) {
-        viewModel.setMessage(message);
+    public void setMessage(String message, boolean alert) {
+        viewModel.setMessage(message, alert);
     }
 
     @Override

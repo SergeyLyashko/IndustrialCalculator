@@ -1,5 +1,7 @@
 package view.controller;
 
+import view.view.AppComponent;
+
 public interface Visitor {
 
     void addHost(Host host);
@@ -18,4 +20,7 @@ public interface Visitor {
 
     void visitScroll(Host host);
 
+    void alertColor(AppComponent component);
+
+    void resetColor(AppComponent component);
 }
