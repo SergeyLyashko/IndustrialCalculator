@@ -3,7 +3,7 @@ package view.model;
 import view.Controller;
 import view.model.behavior.FieldBehavior;
 import view.model.behavior.LabelBehavior;
-import view.model.state.CalculatorFieldState;
+import view.model.state.FieldState;
 import view.view.AppComponent;
 import view.view.MenuSelectable;
 import view.view.Visitor;
@@ -14,7 +14,7 @@ import java.util.Queue;
 public class ViewModel implements KeyActionObserver{
 
     private final Visitor colorVisitor;
-    private final CalculatorFieldState fieldState;
+    private final State fieldState;
     private final Controller appController;
 
     private final FieldBehavior lengthBehavior;
@@ -36,7 +36,7 @@ public class ViewModel implements KeyActionObserver{
     public ViewModel(Controller appController) {
         this.appController = appController;
         colorVisitor = new ColorChangeVisitor();
-        fieldState = new CalculatorFieldState(this);
+        fieldState = new FieldState(this);
 
         widthBehavior = new FieldBehavior();
         lengthBehavior = new FieldBehavior();
@@ -45,11 +45,18 @@ public class ViewModel implements KeyActionObserver{
         resultBehavior = new LabelBehavior(colorVisitor);
         messageBehavior = new LabelBehavior(colorVisitor);
     }
-
+////////////////////////////////////////////////////////////////
+    
     public void widthActivate() {
         widthBehavior.fieldActivate(width);
         areaDeactivate();
         widthStatus = true;
+    }
+
+    public void widthDeactivate() {
+        widthBehavior.fieldDeactivate(width);
+        areaActivate();
+        widthStatus = false;
     }
 
     private void areaActivate(){
@@ -61,19 +68,12 @@ public class ViewModel implements KeyActionObserver{
         lengthBehavior.areaDeactivate(length);
         areaStatus = false;
     }
-
-    public void setWidthField(AppComponent component) {
-        this.width = component;
-    }
-
-    public void setLengthField(AppComponent component) {
-        this.length = component;
-    }
+///////////////////////////////////////////////////
 
     public void setAllFieldOffState() {
         resetField();
         resetServiceString();
-        fieldState.setState(fieldState.getAllFieldOffState());
+        fieldState.setFieldsOff();
     }
 
     private void resetField(){
@@ -88,7 +88,7 @@ public class ViewModel implements KeyActionObserver{
     }
 
     public void setWidthOnState() {
-        fieldState.setState(fieldState.getWidthFieldOnState());
+        fieldState.setWidthOn();
         widthStatus = true;
     }
 
@@ -109,12 +109,6 @@ public class ViewModel implements KeyActionObserver{
         resetServiceString();
         lengthBehavior.fieldActivate(length);
         fieldState.actionState();
-    }
-
-    public void widthDeactivate() {
-        widthBehavior.fieldDeactivate(width);
-        areaActivate();
-        widthStatus = false;
     }
 
     @Override
@@ -158,5 +152,13 @@ public class ViewModel implements KeyActionObserver{
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public void setWidthField(AppComponent component) {
+        this.width = component;
+    }
+
+    public void setLengthField(AppComponent component) {
+        this.length = component;
     }
 }

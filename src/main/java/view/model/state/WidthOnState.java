@@ -2,9 +2,9 @@ package view.model.state;
 
 class WidthOnState implements WidthFieldState {
 
-    private final CalculatorFieldState fieldState;
+    private final FieldState fieldState;
 
-    WidthOnState(CalculatorFieldState fieldState){
+    WidthOnState(FieldState fieldState){
         this.fieldState = fieldState;
     }
 

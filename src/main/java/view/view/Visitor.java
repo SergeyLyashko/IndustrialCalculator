@@ -16,7 +16,7 @@ public interface Visitor {
 
     void visitScroll(Host host);
 
-    void alertColor(AppComponent component);
+    void alert(AppComponent component);
 
-    void resetColor(AppComponent component);
+    void reset(AppComponent component);
 }

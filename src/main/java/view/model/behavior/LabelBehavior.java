@@ -19,7 +19,7 @@ public class LabelBehavior {
             JLabel parent = (JLabel) component.getParent();
             parent.setText(text);
             if(alert) {
-                colorVisitor.alertColor(component);
+                colorVisitor.alert(component);
             }
         }
     }
@@ -28,7 +28,7 @@ public class LabelBehavior {
         if(component != null){
             JLabel parent = (JLabel) component.getParent();
             parent.setText(component.getName());
-            colorVisitor.resetColor(component);
+            colorVisitor.reset(component);
         }
     }
 

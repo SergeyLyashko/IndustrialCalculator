@@ -2,7 +2,7 @@ package view.model.state;
 
 import view.model.*;
 
-public class CalculatorFieldState {
+public class FieldState implements State {
 
     private final ViewModel viewModel;
     private WidthFieldState state;
@@ -11,23 +11,21 @@ public class CalculatorFieldState {
     private final WidthFieldState widthFieldOnState;
     private boolean checkBoxState;
 
-    public CalculatorFieldState(ViewModel viewModel){
+    public FieldState(ViewModel viewModel){
         this.viewModel = viewModel;
         allFieldOffState = new AllFieldOffState(this);
         widthFieldOnState = new WidthOnState(this);
         state = allFieldOffState;
     }
 
+    @Override
     public void actionState(){
         state.actionState();
     }
 
+    @Override
     public void checkBoxSelect(boolean checkBoxState){
         state.checkBoxState(checkBoxState);
-    }
-
-    public void setState(WidthFieldState state){
-        this.state = state;
     }
 
     public void setCheckBoxState(boolean checkBoxState){
@@ -38,14 +36,16 @@ public class CalculatorFieldState {
         return checkBoxState;
     }
 
-    public WidthFieldState getAllFieldOffState(){
-        return allFieldOffState;
+    @Override
+    public void setFieldsOff() {
+        this.state = allFieldOffState;
     }
 
-    public WidthFieldState getWidthFieldOnState(){
-        return widthFieldOnState;
+    @Override
+    public void setWidthOn() {
+        this.state = widthFieldOnState;
     }
-
+///////////////////////////////////////////////////////
     void activate() {
         viewModel.widthActivate();
     }

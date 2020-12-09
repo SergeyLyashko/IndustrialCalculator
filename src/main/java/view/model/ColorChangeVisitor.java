@@ -53,13 +53,13 @@ class ColorChangeVisitor implements Visitor {
     }
 
     @Override
-    public void alertColor(AppComponent component) {
+    public void alert(AppComponent component) {
         JComponent parent = component.getParent();
         parent.setForeground(alertColor);
     }
 
     @Override
-    public void resetColor(AppComponent component) {
+    public void reset(AppComponent component) {
         JComponent parent = component.getParent();
         parent.setForeground(serviceStringColor);
     }
