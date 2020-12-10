@@ -1,8 +1,6 @@
 package view.model;
 
 import view.Controller;
-import view.model.behavior.FieldBehaviorImpl;
-import view.model.behavior.LabelBehaviorImpl;
 import view.view.AppComponent;
 import view.view.MenuSelectable;
 import view.view.Visitor;
@@ -16,8 +14,8 @@ public class ViewModel implements KeyActionObserver{
     private final FieldState fieldState;
     private final Controller appController;
 
-    private LabelBehavior resultBehavior;
-    private LabelBehavior messageBehavior;
+    private LabelBehaviorImpl resultBehavior;
+    private LabelBehaviorImpl messageBehavior;
 
     private AppComponent width;
     private AppComponent length;

@@ -1,4 +1,4 @@
-package view.model.behavior;
+package view.model;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

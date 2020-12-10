@@ -1,23 +1,21 @@
-package view.model.behavior;
+package view.model;
 
-import view.model.LabelBehavior;
 import view.view.Visitor;
 import view.view.AppComponent;
 
 import javax.swing.*;
 
-public class LabelBehaviorImpl implements LabelBehavior {
+class LabelBehaviorImpl {
 
     private final Visitor colorVisitor;
     private final AppComponent component;
 
-    public LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
+    LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
         this.component = component;
         this.colorVisitor = colorVisitor;
     }
 
-    @Override
-    public void show(String text, boolean alert) {
+    void show(String text, boolean alert) {
         if(component != null) {
             JLabel parent = (JLabel) component.getParent();
             parent.setText(text);
@@ -27,8 +25,7 @@ public class LabelBehaviorImpl implements LabelBehavior {
         }
     }
 
-    @Override
-    public void reset(){
+    void reset(){
         if(component != null){
             JLabel parent = (JLabel) component.getParent();
             parent.setText(component.getName());

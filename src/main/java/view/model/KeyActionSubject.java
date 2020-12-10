@@ -1,6 +1,4 @@
-package view.model.behavior;
-
-import view.model.KeyActionObserver;
+package view.model;
 
 public interface KeyActionSubject {
 

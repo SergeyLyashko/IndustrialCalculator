@@ -1,6 +1,5 @@
-package view.model.behavior;
+package view.model;
 
-import view.model.*;
 import view.view.AppComponent;
 
 import javax.swing.*;
@@ -8,7 +7,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-public class FieldBehaviorImpl implements FieldBehavior {
+class FieldBehaviorImpl implements FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private final FocusBehavior focusBehavior;
@@ -47,7 +46,7 @@ public class FieldBehaviorImpl implements FieldBehavior {
         textField.setText(component.getName());
     }
 
-    public void keyActivate(JTextField textField){
+    void keyActivate(JTextField textField){
         keyBehavior.fieldActivate(textField);
     }
 
@@ -75,6 +74,7 @@ public class FieldBehaviorImpl implements FieldBehavior {
         keyBehavior.fieldDeactivate(textField);
     }
 
+    @Override
     public void registerObserver(KeyActionObserver observer) {
         keyBehavior.registerObserver(observer);
     }

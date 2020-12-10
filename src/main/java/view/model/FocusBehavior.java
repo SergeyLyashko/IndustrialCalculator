@@ -1,4 +1,6 @@
-package view.model.behavior;
+package view.model;
+
+import view.model.FieldBehaviorImpl;
 
 import javax.swing.*;
 import java.awt.*;

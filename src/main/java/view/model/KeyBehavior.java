@@ -1,6 +1,4 @@
-package view.model.behavior;
-
-import view.model.KeyActionObserver;
+package view.model;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
