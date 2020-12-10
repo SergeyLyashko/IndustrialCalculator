@@ -13,7 +13,6 @@ import java.util.Queue;
 public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
-    private static final String NOT_FULL_DATA_MESSAGE = "Введены не все параметры";
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
 
@@ -51,39 +50,16 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     @Override
     public void calculation() {
-        if(detailData.size() > 3){
-            String assortment = detailData.poll();
-            String type = detailData.poll();
-            String number = detailData.poll();
-            AbstractMassCalculator massCalculator = massFactory.createMassCalculator(assortment, type);
-            double value = receiveValue(assortment, type, number);
-            MassGenerator generator = createGenerator(value);
-            double mass = generator.generateMass(massCalculator);
-            if(mass >= 0) {
-                notifyResult(mass);
-            }
-        }else{
-            notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
-            notifyResultObservers(ERROR, ALERT);
+        String assortment = detailData.poll();
+        String type = detailData.poll();
+        String number = detailData.poll();
+        AbstractMassCalculator massCalculator = massFactory.createMassCalculator(assortment, type);
+        double value = receiveValue(assortment, type, number);
+        MassGenerator generator = createGenerator(value);
+        double mass = generator.generateMass(massCalculator);
+        if(mass > 0) {
+            notifyResult(mass);
         }
-    }
-
-    private void notifyResult(double mass){
-        String formattedResult = formatDoubleToString(mass);
-        setResultToSystemClipboard(formattedResult);
-        notifyResultObservers(formattedResult, CALM);
-        notifyMessageObservers(RESULT_MESSAGE, CALM);
-    }
-
-    //форматирование строки результата
-    private String formatDoubleToString(double value){
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        return decimalFormat.format(value);
-    }
-
-    // метод копирования в буфер обмена при выводе результата
-    private void setResultToSystemClipboard(String value){
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(value), null);
     }
 
     private double receiveValue(String assortment, String type, String number){
@@ -102,5 +78,23 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
             massGenerator.addData(detailData.poll());
         }
         return massGenerator;
+    }
+
+    private void notifyResult(double mass){
+        String formattedResult = formatDoubleToString(mass);
+        setResultToSystemClipboard(formattedResult);
+        notifyResultObservers(formattedResult, CALM);
+        notifyMessageObservers(RESULT_MESSAGE, CALM);
+    }
+
+    //форматирование строки результата
+    private String formatDoubleToString(double value){
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        return decimalFormat.format(value);
+    }
+
+    // метод копирования в буфер обмена при выводе результата
+    private void setResultToSystemClipboard(String value){
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(value), null);
     }
 }

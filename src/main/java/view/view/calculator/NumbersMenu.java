@@ -33,17 +33,14 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        setParameters();
+        addListener(viewController);
     }
 
-    private void setParameters(){
+    private void addListener(ViewController viewController){
         jComboBox.addActionListener(event -> {
             viewController.actionState();
-
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
-                // TODO test
-                System.out.println("test Numbers class set: "+assortment+" "+type+" "+selectedItem);
                 viewController.setParameters(assortment, type, selectedItem);
             }
         });

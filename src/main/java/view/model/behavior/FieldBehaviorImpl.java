@@ -8,7 +8,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-public class FieldBehavior implements Behavior{
+public class FieldBehaviorImpl implements FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private final FocusBehavior focusBehavior;
@@ -17,7 +17,7 @@ public class FieldBehavior implements Behavior{
     private final KeyBehavior keyBehavior;
     private final AppComponent component;
 
-    public FieldBehavior(AppComponent component){
+    public FieldBehaviorImpl(AppComponent component){
         this.component = component;
         focusBehavior = new FocusBehavior(this);
         defaultFilter = new DocumentFilter();

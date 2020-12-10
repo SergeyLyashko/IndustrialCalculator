@@ -1,7 +1,5 @@
 package view.model;
 
-import view.view.AppComponent;
-
 public interface State {
 
     void checkBoxSelect(boolean state);
@@ -16,7 +14,7 @@ public interface State {
 
     boolean isWidth();
 
-    void setLength(AppComponent length);
+    void setLengthBehavior(FieldBehavior length);
 
-    void setWidth(AppComponent width);
+    void setWidthBehavior(FieldBehavior width);
 }

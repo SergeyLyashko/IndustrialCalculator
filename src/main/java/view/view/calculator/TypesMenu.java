@@ -28,12 +28,10 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     TypesMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
         this.dataBaseMenuReceiver = dataBaseMenuReceiver;
-
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-
         addListener(viewController);
     }
 

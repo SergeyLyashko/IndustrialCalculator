@@ -1,6 +1,6 @@
 package view.model;
 
-public interface Behavior {
+public interface FieldBehavior {
 
     void fieldActivate();
 

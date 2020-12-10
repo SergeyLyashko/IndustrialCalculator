@@ -1,40 +1,36 @@
 package view.model.state;
 
-import view.model.*;
-import view.model.behavior.FieldBehavior;
-import view.view.AppComponent;
+import view.model.FieldBehavior;
+import view.model.State;
 
 public class FieldState implements State {
 
-    private final KeyActionObserver observer;
     private WidthFieldState state;
 
     private final WidthFieldState allFieldOffState;
     private final WidthFieldState widthFieldOnState;
     private boolean checkBoxState;
 
-    private Behavior lengthBehavior;
-    private Behavior widthBehavior;
+    private FieldBehavior lengthBehavior;
+    private FieldBehavior widthBehavior;
 
     private boolean areaStatus;
     private boolean widthStatus;
 
-    public FieldState(KeyActionObserver observer){
-        this.observer = observer;
+    public FieldState(){
         allFieldOffState = new AllFieldOffState(this);
         widthFieldOnState = new WidthOnState(this);
         state = allFieldOffState;
     }
 
     @Override
-    public void setLength(AppComponent length) {
-        lengthBehavior = new FieldBehavior(length);
-        lengthBehavior.registerObserver(observer);
+    public void setLengthBehavior(FieldBehavior lengthBehavior) {
+        this.lengthBehavior = lengthBehavior;
     }
 
     @Override
-    public void setWidth(AppComponent width) {
-        widthBehavior = new FieldBehavior(width);
+    public void setWidthBehavior(FieldBehavior widthBehavior) {
+        this.widthBehavior = widthBehavior;
     }
 
     @Override

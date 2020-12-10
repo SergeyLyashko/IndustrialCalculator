@@ -1,7 +1,8 @@
 package view.model;
 
 import view.Controller;
-import view.model.behavior.LabelBehavior;
+import view.model.behavior.FieldBehaviorImpl;
+import view.model.behavior.LabelBehaviorImpl;
 import view.model.state.FieldState;
 import view.view.AppComponent;
 import view.view.MenuSelectable;
@@ -16,8 +17,8 @@ public class ViewModel implements KeyActionObserver{
     private final State fieldState;
     private final Controller appController;
 
-    private final LabelBehavior resultBehavior;
-    private final LabelBehavior messageBehavior;
+    private LabelBehavior resultBehavior;
+    private LabelBehavior messageBehavior;
 
     private AppComponent width;
     private AppComponent length;
@@ -29,26 +30,38 @@ public class ViewModel implements KeyActionObserver{
     public ViewModel(Controller appController) {
         this.appController = appController;
         colorVisitor = new ColorChangeVisitor();
-
-        fieldState = new FieldState(this);
-
-        resultBehavior = new LabelBehavior(colorVisitor);
-        messageBehavior = new LabelBehavior(colorVisitor);
+        fieldState = new FieldState();
     }
 
     public void setWidthField(AppComponent component) {
         this.width = component;
-        fieldState.setWidth(width);
+        fieldState.setWidthBehavior(new FieldBehaviorImpl(width));
     }
 
     public void setLengthField(AppComponent component) {
         this.length = component;
-        fieldState.setLength(length);
+        FieldBehavior lengthBehavior = new FieldBehaviorImpl(length);
+        fieldState.setLengthBehavior(lengthBehavior);
+        lengthBehavior.registerObserver(this);
+    }
+
+    public void setResultComponent(AppComponent component) {
+        resultBehavior = new LabelBehaviorImpl(colorVisitor, component);
+    }
+
+    public void setMessageComponent(AppComponent component) {
+        messageBehavior = new LabelBehaviorImpl(colorVisitor, component);
     }
 
     public void setAllFieldOffState() {
         resetServiceString();
         fieldState.setFieldsOff();
+    }
+
+    // активация Number box
+    public void actionState() {
+        resetServiceString();
+        fieldState.actionState();
     }
 
     private void resetServiceString(){
@@ -72,12 +85,6 @@ public class ViewModel implements KeyActionObserver{
         return colorVisitor;
     }
 
-    // активация Number box
-    public void actionState() {
-        resetServiceString();
-        fieldState.actionState();
-    }
-
     @Override
     public void keyActionUpdate() {
         CalculatorData newData = createNewData();
@@ -91,10 +98,6 @@ public class ViewModel implements KeyActionObserver{
         return new CalculatorDataImpl(assortment, type, number, width, length, widthStatus, areaStatus);
     }
 
-    public void setResultComponent(AppComponent component) {
-        resultBehavior.setComponent(component);
-    }
-
     public void setResult(String result, boolean alert) {
         String value = result;
         if(!alert){
@@ -105,10 +108,6 @@ public class ViewModel implements KeyActionObserver{
 
     public void setMessage(String message, boolean alert) {
         messageBehavior.show(message, alert);
-    }
-
-    public void setMessageComponent(AppComponent component) {
-        messageBehavior.setComponent(component);
     }
 
     public void setAssortment(String assortment) {

@@ -29,10 +29,8 @@ class CalculatorDataImpl implements CalculatorData {
 
     private void componentsUpdate(boolean isWidth, boolean isArea){
         if(isWidth && !isArea){
-            System.out.println("test upd all");
             components.forEach(this::update);
         }else {
-            System.out.println("test upd 1");
             update(components.get(1));
         }
     }
@@ -40,7 +38,6 @@ class CalculatorDataImpl implements CalculatorData {
     private void update(AppComponent component){
         JTextField parent = (JFormattedTextField) component.getParent();
         String text = parent.getText();
-        System.out.println("test double DATA: "+text);
         if(text.equals(component.getName())) {
             text = EMPTY;
         }

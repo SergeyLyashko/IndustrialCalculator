@@ -27,13 +27,10 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     AssortmentsMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
         this.dataBaseMenuReceiver = dataBaseMenuReceiver;
-
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-
-        viewController.setAllFieldOffState();
         addListener(viewController);
     }
 
