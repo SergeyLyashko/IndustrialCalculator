@@ -26,11 +26,13 @@ public class FieldState implements State {
     @Override
     public void setLengthBehavior(FieldBehavior lengthBehavior) {
         this.lengthBehavior = lengthBehavior;
+        lengthBehavior.fieldDeactivate();
     }
 
     @Override
     public void setWidthBehavior(FieldBehavior widthBehavior) {
         this.widthBehavior = widthBehavior;
+        widthBehavior.fieldDeactivate();
     }
 
     @Override
