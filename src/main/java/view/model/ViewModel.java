@@ -13,7 +13,7 @@ import java.util.Queue;
 public class ViewModel implements KeyActionObserver{
 
     private final Visitor colorVisitor;
-    private final State fieldState;
+    private final FieldState fieldState;
     private final Controller appController;
 
     private LabelBehavior resultBehavior;
@@ -91,10 +91,10 @@ public class ViewModel implements KeyActionObserver{
         appController.setData(dataList);
     }
 
-    public CalculatorData createNewData() {
+    private CalculatorData createNewData() {
         boolean areaStatus = fieldState.isArea();
         boolean widthStatus = fieldState.isWidth();
-        return new CalculatorDataImpl(assortment, type, number, width, length, widthStatus, areaStatus);
+        return new CalculatorData(assortment, type, number, width, length, widthStatus, areaStatus);
     }
 
     public void setResult(String result, boolean alert) {

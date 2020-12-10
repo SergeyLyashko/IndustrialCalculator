@@ -1,6 +1,6 @@
 package view.model;
 
-public class FieldState implements State {
+class FieldState {
 
     private FieldBehavior lengthBehavior;
     private FieldBehavior widthBehavior;
@@ -9,20 +9,17 @@ public class FieldState implements State {
     private boolean areaStatus;
     private boolean widthStatus;
 
-    @Override
-    public void setLengthBehavior(FieldBehavior lengthBehavior) {
+    void setLengthBehavior(FieldBehavior lengthBehavior) {
         this.lengthBehavior = lengthBehavior;
         lengthBehavior.fieldDeactivate();
     }
 
-    @Override
-    public void setWidthBehavior(FieldBehavior widthBehavior) {
+    void setWidthBehavior(FieldBehavior widthBehavior) {
         this.widthBehavior = widthBehavior;
         widthBehavior.fieldDeactivate();
     }
 
-    @Override
-    public void action(){
+    void action(){
         lengthBehavior.fieldActivate();
         if(widthStatus){
             checkSelected();
@@ -37,21 +34,18 @@ public class FieldState implements State {
         }
     }
 
-    @Override
-    public void checkBoxSelect(boolean checkBoxState){
+    void checkBoxSelect(boolean checkBoxState){
         this.checkBoxSelected = checkBoxState;
         action();
     }
 
-    @Override
-    public void fieldsOff() {
+    void fieldsOff() {
         widthBehavior.fieldDeactivate();
         lengthBehavior.fieldDeactivate();
         widthStatus = false;
     }
 
-    @Override
-    public void widthOn() {
+    void widthOn() {
         widthStatus = true;
     }
 
@@ -75,11 +69,11 @@ public class FieldState implements State {
         areaStatus = false;
     }
 
-    public boolean isArea(){
+    boolean isArea(){
         return areaStatus;
     }
 
-    public boolean isWidth(){
+    boolean isWidth(){
         return widthStatus;
     }
 }
