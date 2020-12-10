@@ -1,7 +1,5 @@
 package view.model;
 
-import view.model.FieldBehaviorImpl;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
@@ -11,10 +9,10 @@ import java.util.Arrays;
 class FocusBehavior {
 
     private static final String EMPTY = "";
-    private final FieldBehaviorImpl fieldBehaviorImpl;
+    private final FieldBehavior fieldBehavior;
 
-    FocusBehavior(FieldBehaviorImpl fieldBehaviorImpl){
-        this.fieldBehaviorImpl = fieldBehaviorImpl;
+    FocusBehavior(FieldBehavior fieldBehavior){
+        this.fieldBehavior = fieldBehavior;
     }
 
     void activate(JTextField textField){
@@ -22,13 +20,13 @@ class FocusBehavior {
             @Override
             public void focusGained(FocusEvent e) {
                 fieldFocusGained(textField);
-                fieldBehaviorImpl.setFilter(textField);
-                fieldBehaviorImpl.keyActivate(textField);
+                fieldBehavior.setFilter(textField);
+                fieldBehavior.keyActivate(textField);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldBehaviorImpl.keyDeactivate(textField);
+                fieldBehavior.keyDeactivate(textField);
             }
         });
     }

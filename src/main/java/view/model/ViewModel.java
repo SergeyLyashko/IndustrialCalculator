@@ -11,9 +11,9 @@ import java.util.Queue;
 public class ViewModel implements KeyActionObserver{
 
     private final Visitor colorVisitor;
-    private final FieldState fieldState;
     private final Controller appController;
 
+    private final FieldState fieldState;
     private LabelBehaviorImpl resultBehavior;
     private LabelBehaviorImpl messageBehavior;
 
@@ -32,12 +32,12 @@ public class ViewModel implements KeyActionObserver{
 
     public void setWidthField(AppComponent component) {
         this.width = component;
-        fieldState.setWidthBehavior(new FieldBehaviorImpl(width));
+        fieldState.setWidthBehavior(new FieldBehavior(width));
     }
 
     public void setLengthField(AppComponent component) {
         this.length = component;
-        FieldBehavior lengthBehavior = new FieldBehaviorImpl(length);
+        FieldBehavior lengthBehavior = new FieldBehavior(length);
         fieldState.setLengthBehavior(lengthBehavior);
         lengthBehavior.registerObserver(this);
     }
