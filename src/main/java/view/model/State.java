@@ -4,11 +4,11 @@ public interface State {
 
     void checkBoxSelect(boolean state);
 
-    void actionState();
+    void action();
 
-    void setFieldsOff();
+    void fieldsOff();
 
-    void setWidthOn();
+    void widthOn();
 
     boolean isArea();
 

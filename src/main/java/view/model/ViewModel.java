@@ -3,7 +3,6 @@ package view.model;
 import view.Controller;
 import view.model.behavior.FieldBehaviorImpl;
 import view.model.behavior.LabelBehaviorImpl;
-import view.model.state.FieldState;
 import view.view.AppComponent;
 import view.view.MenuSelectable;
 import view.view.Visitor;
@@ -55,13 +54,13 @@ public class ViewModel implements KeyActionObserver{
 
     public void setAllFieldOffState() {
         resetServiceString();
-        fieldState.setFieldsOff();
+        fieldState.fieldsOff();
     }
 
     // активация Number box
     public void actionState() {
         resetServiceString();
-        fieldState.actionState();
+        fieldState.action();
     }
 
     private void resetServiceString(){
@@ -70,7 +69,7 @@ public class ViewModel implements KeyActionObserver{
     }
 
     public void setWidthOnState() {
-        fieldState.setWidthOn();
+        fieldState.widthOn();
     }
 
     public void checkBoxSelect(boolean state) {
