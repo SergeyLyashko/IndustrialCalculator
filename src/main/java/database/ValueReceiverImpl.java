@@ -4,11 +4,11 @@ import model.ValueReceiver;
 
 import java.sql.SQLException;
 
-public class ValueReceiverImpl implements ValueReceiver {
+class ValueReceiverImpl implements ValueReceiver {
 
     private final DetailsValue detailsValue;
 
-    public ValueReceiverImpl(Data data) {
+    ValueReceiverImpl(Data data) {
         detailsValue = new DetailsValue(data);
     }
 

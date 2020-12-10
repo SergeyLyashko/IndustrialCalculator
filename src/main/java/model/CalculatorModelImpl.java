@@ -2,7 +2,7 @@ package model;
 
 import controller.ViewObserver;
 import controller.ViewSubject;
-import detailmass.CalculatorModel;
+import controller.CalculatorModel;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;

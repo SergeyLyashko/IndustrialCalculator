@@ -11,6 +11,7 @@ public class View implements ViewObserver {
     private final ViewController viewController;
 
     public View(DataBaseMenuReceiver dataBaseMenuReceiver, Controller controller) {
+        
         ViewModel viewModel = new ViewModel(controller);
         viewController = new ViewControllerImpl(viewModel);
         new ViewDispatcher(viewController, dataBaseMenuReceiver);

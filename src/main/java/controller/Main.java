@@ -3,9 +3,8 @@ package controller;
 import database.DataBaseDispatcher;
 import model.CalculatorFactory;
 import model.ValueReceiver;
-import detailmass.CalculatorModel;
 import model.CalculatorModelImpl;
-import detailmass.CalculatorMassFactory;
+import detailmass.CalculatorFactoryImpl;
 import view.Controller;
 import view.View;
 import view.DataBaseMenuReceiver;
@@ -18,13 +17,13 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             // TODO заменить на единый интерфейс ???
+            DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             DataBaseMenuReceiver dataBaseMenuReceiver = dataBaseDispatcher.getMenuReceiver();
             ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
 
-            CalculatorFactory massFactory = new CalculatorMassFactory();
-            CalculatorModel model = new CalculatorModelImpl(valueReceiver, massFactory);
+            CalculatorFactory calculatorFactory = new CalculatorFactoryImpl();
+            CalculatorModel model = new CalculatorModelImpl(valueReceiver, calculatorFactory);
 
             Controller controller = new ControllerImpl(model);
 

@@ -3,7 +3,7 @@ package detailmass;
 import model.CalculatorFactory;
 import model.AbstractMassCalculator;
 
-public class CalculatorMassFactory implements CalculatorFactory {
+public class CalculatorFactoryImpl implements CalculatorFactory {
 
     @Override
     public AbstractMassCalculator createMassCalculator(String assortment, String type) {

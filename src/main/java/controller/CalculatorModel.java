@@ -1,6 +1,4 @@
-package detailmass;
-
-import controller.ViewSubject;
+package controller;
 
 import java.util.Queue;
 
