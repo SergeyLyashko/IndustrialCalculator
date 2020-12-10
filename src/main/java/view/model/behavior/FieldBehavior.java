@@ -8,22 +8,25 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-public class FieldBehavior {
+public class FieldBehavior implements Behavior{
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private final FocusBehavior focusBehavior;
     private final DocumentFilter defaultFilter;
     private final DigitalFilter digitalFilter;
     private final KeyBehavior keyBehavior;
+    private final AppComponent component;
 
-    public FieldBehavior(){
+    public FieldBehavior(AppComponent component){
+        this.component = component;
         focusBehavior = new FocusBehavior(this);
         defaultFilter = new DocumentFilter();
         digitalFilter = new DigitalFilter();
         keyBehavior = new KeyBehavior();
     }
 
-    public void fieldActivate(AppComponent component) {
+    @Override
+    public void fieldActivate() {
         JTextField textField = (JFormattedTextField) component.getParent();
         textField.setText(component.getName());
         textField.setEditable(true);
@@ -32,12 +35,14 @@ public class FieldBehavior {
         focusBehavior.activate(textField);
     }
 
-    public void areaActivate(AppComponent component){
+    @Override
+    public void areaActivate(){
         JTextField parent = (JFormattedTextField) component.getParent();
         parent.setText(BOX_NAME_AREA);
     }
 
-    public void areaDeactivate(AppComponent component){
+    @Override
+    public void areaDeactivate(){
         JTextField textField = (JFormattedTextField) component.getParent();
         textField.setText(component.getName());
     }
@@ -46,7 +51,8 @@ public class FieldBehavior {
         keyBehavior.fieldActivate(textField);
     }
 
-    public void fieldDeactivate(AppComponent component) {
+    @Override
+    public void fieldDeactivate() {
         JTextField parent = (JFormattedTextField) component.getParent();
         removeFilter(parent);
         parent.setText(component.getName());
