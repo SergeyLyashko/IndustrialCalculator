@@ -1,8 +1,4 @@
-package view.viewcontroller;
-
-import view.AppComponent;
-import view.MenuSelectable;
-import view.Visitor;
+package view;
 
 import java.util.List;
 
@@ -12,11 +8,11 @@ public interface ViewController {
 
     Visitor getVisitor();
 
-    void setAllFieldOffState();
+    void fieldsOff();
 
-    void setWidthOnState();
+    void widthOn();
 
-    void actionState();
+    void action();
 
     void areaCheckBoxState(boolean state);
 
@@ -28,7 +24,7 @@ public interface ViewController {
 
     void setResultComponent(AppComponent component);
 
-    void setResult(String result, boolean alert);
+    void setResult(String value, boolean alert);
 
     void setMessage(String message, boolean alert);
 

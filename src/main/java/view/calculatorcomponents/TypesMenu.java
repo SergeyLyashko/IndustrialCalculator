@@ -1,7 +1,7 @@
 package view.calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
-import view.viewcontroller.ViewController;
+import view.ViewController;
 import view.MenuSelectable;
 import view.AppComponent;
 
@@ -23,32 +23,33 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private final ViewController viewController;
-    private final DataBaseMenuReceiver dataBaseMenuReceiver;
+
+    private final ViewController controller;
+    private final DataBaseMenuReceiver menuReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
-    TypesMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
-        this.viewController = viewController;
-        this.dataBaseMenuReceiver = dataBaseMenuReceiver;
+    TypesMenu(ViewController controller, DataBaseMenuReceiver menuReceiver){
+        this.controller = controller;
+        this.menuReceiver = menuReceiver;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        addListener(viewController);
+        addListener(controller);
         clickListener();
         receiveMenu();
     }
 
-    private void addListener(ViewController viewController){
+    private void addListener(ViewController controller){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            viewController.setAllFieldOffState();
+            controller.fieldsOff();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
                     selectedItem.equalsIgnoreCase("тонколистовая") ||
                     selectedItem.equalsIgnoreCase("толстолистовая") ||
                     selectedItem.equalsIgnoreCase("рифленая(ромб)")){
-                viewController.setWidthOnState();
+                controller.widthOn();
             }
         });
     }
@@ -58,8 +59,8 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if(!connect){
-                    viewController.setMessage(NOT_DATABASE_MESSAGE, true);
-                    viewController.setResult(ERROR, true);
+                    controller.setMessage(NOT_DATABASE_MESSAGE, true);
+                    controller.setResult(ERROR, true);
                 }
             }
         });
@@ -72,7 +73,7 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
             if(menuItem.length != 0){
                 assortment = menuItem[0];
             }
-            typeMenu = dataBaseMenuReceiver.getTypeMenu(assortment);
+            typeMenu = menuReceiver.getTypeMenu(assortment);
         } catch (SQLException exception) {
             connect = false;
         }
@@ -85,14 +86,14 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         if(receiveMenu != null) {
             menu.addAll(receiveMenu);
         }
-        viewController.createMenu(menu, this);
+        controller.createMenu(menu, this);
     }
 
     @Override
-    public void addListenerMenu(MenuSelectable child){
+    public void addMenuSelectListener(MenuSelectable listener){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            child.receiveMenu(assortment, selectedItem);
+            listener.receiveMenu(assortment, selectedItem);
         });
     }
 

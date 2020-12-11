@@ -1,10 +1,10 @@
 package view.calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
-import view.viewcontroller.*;
 import view.AppComponent;
 import view.ComponentsList;
 import view.MenuSelectable;
+import view.ViewController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,8 +51,8 @@ public class CalculatorComponentsDI implements ComponentsList {
         MenuSelectable assortment = menus[0];
         MenuSelectable types = menus[1];
         MenuSelectable numbers = menus[2];
-        assortment.addListenerMenu(types);
-        assortment.addListenerMenu(numbers);
-        types.addListenerMenu(numbers);
+        assortment.addMenuSelectListener(types);
+        assortment.addMenuSelectListener(numbers);
+        types.addMenuSelectListener(numbers);
     }
 }

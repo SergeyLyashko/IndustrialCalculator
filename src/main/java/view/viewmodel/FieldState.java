@@ -2,19 +2,19 @@ package view.viewmodel;
 
 class FieldState {
 
-    private FieldBehavior lengthBehavior;
-    private FieldBehavior widthBehavior;
+    private Behavior lengthBehavior;
+    private Behavior widthBehavior;
 
     private boolean checkBoxSelected;
     private boolean areaStatus;
     private boolean widthStatus;
 
-    void setLengthBehavior(FieldBehavior lengthBehavior) {
+    void setLengthBehavior(Behavior lengthBehavior) {
         this.lengthBehavior = lengthBehavior;
         lengthBehavior.fieldDeactivate();
     }
 
-    void setWidthBehavior(FieldBehavior widthBehavior) {
+    void setWidthBehavior(Behavior widthBehavior) {
         this.widthBehavior = widthBehavior;
         widthBehavior.fieldDeactivate();
     }

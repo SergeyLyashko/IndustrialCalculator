@@ -1,6 +1,6 @@
 package view.infocomponents;
 
-import view.viewcontroller.*;
+import view.ViewController;
 import view.AppComponent;
 import view.ComponentsList;
 

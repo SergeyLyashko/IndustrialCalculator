@@ -1,7 +1,7 @@
 package view.infocomponents;
 
 import view.Host;
-import view.viewcontroller.ViewController;
+import view.ViewController;
 import view.Visitor;
 import view.AppComponent;
 

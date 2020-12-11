@@ -1,7 +1,7 @@
 package view.calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
-import view.viewcontroller.ViewController;
+import view.ViewController;
 import view.MenuSelectable;
 import view.AppComponent;
 
@@ -48,7 +48,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
                 viewController.setParameters(assortment, type, selectedItem);
             }
             if(connect){
-                viewController.actionState();
+                viewController.action();
             }
         });
     }

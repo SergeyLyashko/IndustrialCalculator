@@ -4,6 +4,7 @@ import view.Controller;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.Visitor;
+import view.fieldsbehavior.FieldBehaviorImpl;
 
 import java.util.List;
 import java.util.Queue;
@@ -30,14 +31,18 @@ public class ViewModel implements KeyActionObserver{
         fieldState = new FieldState();
     }
 
+    public Visitor getVisitor() {
+        return colorVisitor;
+    }
+
     public void setWidthField(AppComponent component) {
         this.width = component;
-        fieldState.setWidthBehavior(new FieldBehavior(width));
+        fieldState.setWidthBehavior(new FieldBehaviorImpl(width));
     }
 
     public void setLengthField(AppComponent component) {
         this.length = component;
-        FieldBehavior lengthBehavior = new FieldBehavior(length);
+        Behavior lengthBehavior = new FieldBehaviorImpl(length);
         fieldState.setLengthBehavior(lengthBehavior);
         lengthBehavior.registerObserver(this);
     }
@@ -78,10 +83,6 @@ public class ViewModel implements KeyActionObserver{
         new MenuListModel(receiveMenu, menuSelectable);
     }
 
-    public Visitor getVisitor() {
-        return colorVisitor;
-    }
-
     @Override
     public void keyActionUpdate() {
         CalculatorData newData = createNewData();
@@ -90,9 +91,7 @@ public class ViewModel implements KeyActionObserver{
     }
 
     private CalculatorData createNewData() {
-        boolean areaStatus = fieldState.isArea();
-        boolean widthStatus = fieldState.isWidth();
-        return new CalculatorData(assortment, type, number, width, length, widthStatus, areaStatus);
+        return new CalculatorData(assortment, type, number, width, length, fieldState);
     }
 
     public void setResult(String result, boolean alert) {

@@ -1,5 +1,6 @@
 package view.viewcontroller;
 
+import view.ViewController;
 import view.viewmodel.ViewModel;
 import view.AppComponent;
 import view.MenuSelectable;
@@ -26,17 +27,17 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setAllFieldOffState() {
+    public void fieldsOff() {
         viewModel.setAllFieldOffState();
     }
 
     @Override
-    public void setWidthOnState() {
+    public void widthOn() {
         viewModel.setWidthOnState();
     }
 
     @Override
-    public void actionState() {
+    public void action() {
         viewModel.actionState();
     }
 
@@ -73,8 +74,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setResult(String result, boolean alert) {
-        viewModel.setResult(result, alert);
+    public void setResult(String value, boolean alert) {
+        viewModel.setResult(value, alert);
     }
 
     @Override

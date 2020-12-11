@@ -1,4 +1,4 @@
-package view.viewmodel;
+package view.fieldsbehavior;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

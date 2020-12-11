@@ -1,7 +1,5 @@
 package view;
 
-import view.viewcontroller.ViewController;
-
 import javax.swing.*;
 import java.util.List;
 

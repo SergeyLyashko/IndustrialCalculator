@@ -1,6 +1,6 @@
 package view.calculatorcomponents;
 
-import view.viewcontroller.ViewController;
+import view.ViewController;
 import view.AppComponent;
 import javax.swing.*;
 

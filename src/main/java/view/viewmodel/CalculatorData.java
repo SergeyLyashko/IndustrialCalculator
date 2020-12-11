@@ -14,9 +14,7 @@ class CalculatorData {
     private final List<AppComponent> components;
     private final Queue<String> data;
 
-    CalculatorData(String assortment, String type, String number,
-                   AppComponent width, AppComponent length, boolean widthStatus, boolean areaStatus) {
-
+    CalculatorData(String assortment, String type, String number, AppComponent width, AppComponent length, FieldState fieldState) {
         data = new LinkedList<>();
         data.add(assortment);
         data.add(type);
@@ -24,11 +22,11 @@ class CalculatorData {
         components = new ArrayList<>();
         components.add(width);
         components.add(length);
-        componentsUpdate(widthStatus, areaStatus);
+        componentsUpdate(fieldState);
     }
 
-    private void componentsUpdate(boolean isWidth, boolean isArea){
-        if(isWidth && !isArea){
+    private void componentsUpdate(FieldState fieldState){
+        if(fieldState.isWidth() && !fieldState.isArea()){
             components.forEach(this::update);
         }else {
             update(components.get(1));

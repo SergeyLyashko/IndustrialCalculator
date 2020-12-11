@@ -1,6 +1,6 @@
 package view.settingscomponents;
 
-import view.viewcontroller.*;
+import view.ViewController;
 import view.AppComponent;
 import view.ComponentsList;
 

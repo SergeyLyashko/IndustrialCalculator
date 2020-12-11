@@ -4,7 +4,6 @@ import controller.ViewObserver;
 import view.calculatorcomponents.CalculatorComponentsDI;
 import view.infocomponents.InfoComponentsDI;
 import view.settingscomponents.SettingsComponentsDI;
-import view.viewcontroller.ViewController;
 
 public class ViewDispatcherDI implements ViewObserver {
 
