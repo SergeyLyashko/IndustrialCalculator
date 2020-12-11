@@ -1,6 +1,7 @@
 package view;
 
 import java.util.List;
+import java.util.Queue;
 
 public interface ViewController {
 
@@ -20,7 +21,7 @@ public interface ViewController {
 
     void setLength(AppComponent component);
 
-    void setParameters(String assortment, String type, String selectedItem);
+    void setSelectedItems(Queue<String> queueItems);
 
     void setResultComponent(AppComponent component);
 

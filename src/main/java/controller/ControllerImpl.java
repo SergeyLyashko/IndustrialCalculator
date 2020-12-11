@@ -14,7 +14,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void setData(CalculatorData calculatorData) {
-        Queue<String> data = calculatorData.getData();
+        Queue<String> data = calculatorData.getQueueItems();
         model.setData(data);
         model.calculation();
     }

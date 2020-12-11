@@ -5,7 +5,6 @@ import view.AppComponent;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -13,13 +12,10 @@ class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
     private final List<AppComponent> components;
-    private final Queue<String> data;
+    private final Queue<String> queueItems;
 
-    CalculatorDataImpl(String assortment, String type, String number, AppComponent width, AppComponent length, FieldState fieldState) {
-        data = new LinkedList<>();
-        data.add(assortment);
-        data.add(type);
-        data.add(number);
+    CalculatorDataImpl(Queue<String> queueItems, AppComponent width, AppComponent length, FieldState fieldState) {
+        this.queueItems = queueItems;
         components = new ArrayList<>();
         components.add(width);
         components.add(length);
@@ -36,15 +32,15 @@ class CalculatorDataImpl implements CalculatorData {
 
     private void update(AppComponent component){
         JTextField parent = (JFormattedTextField) component.getParent();
-        String text = parent.getText();
-        if(text.equals(component.getName())) {
-            text = EMPTY;
+        String textValue = parent.getText();
+        if(textValue.equals(component.getName())) {
+            textValue = EMPTY;
         }
-        data.add(text);
+        queueItems.add(textValue);
     }
 
     @Override
-    public Queue<String> getData(){
-        return data;
+    public Queue<String> getQueueItems(){
+        return queueItems;
     }
 }

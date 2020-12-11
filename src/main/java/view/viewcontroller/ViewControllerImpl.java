@@ -7,6 +7,7 @@ import view.MenuSelectable;
 import view.Visitor;
 
 import java.util.List;
+import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController {
 
@@ -57,10 +58,9 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setParameters(String assortment, String type, String number) {
-        viewModel.setAssortment(assortment);
-        viewModel.setType(type);
-        viewModel.setNumber(number);
+    public void setSelectedItems(Queue<String> queueItems) {
+        viewModel.setSelectedItems(queueItems);
+
     }
 
     @Override

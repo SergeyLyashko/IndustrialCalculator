@@ -7,6 +7,7 @@ import view.Visitor;
 import view.fieldsbehavior.FieldBehaviorImpl;
 
 import java.util.List;
+import java.util.Queue;
 
 public class ViewModel implements KeyActionObserver{
 
@@ -20,9 +21,7 @@ public class ViewModel implements KeyActionObserver{
     private AppComponent width;
     private AppComponent length;
 
-    private String assortment;
-    private String type;
-    private String number;
+    private Queue<String> queueItems;
 
     public ViewModel(Controller appController) {
         this.appController = appController;
@@ -84,9 +83,8 @@ public class ViewModel implements KeyActionObserver{
 
     @Override
     public void keyActionUpdate() {
-        appController.setData(new CalculatorDataImpl(assortment, type, number, width, length, fieldState));
+        appController.setData(new CalculatorDataImpl(queueItems, width, length, fieldState));
     }
-
 
     public void setResult(String result, boolean alert) {
         String value = result;
@@ -100,15 +98,7 @@ public class ViewModel implements KeyActionObserver{
         messageBehavior.show(message, alert);
     }
 
-    public void setAssortment(String assortment) {
-        this.assortment = assortment;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSelectedItems(Queue<String> queueItems) {
+        this.queueItems = queueItems;
     }
 }
