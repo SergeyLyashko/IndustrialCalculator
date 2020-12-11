@@ -1,4 +1,4 @@
-package view.viewcalculator;
+package view.settingscomponents;
 
 import view.viewcontroller.ViewController;
 import view.AppComponent;
@@ -6,34 +6,28 @@ import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 
-class AreaSettableCheckBox implements AppComponent, Host {
+class ToolTipsCheckBox implements AppComponent, Host {
 
     private final JCheckBox jCheckBox;
 
-    private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
-    private static final String BOX_NAME = "сложный периметр";
-    private static final int LOCATION_X = 187;
-    private static final int LOCATION_Y = 85;
+    private static final String BOX_NAME = "включить всплывающие подсказки";
+    private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
+    private static final int LOCATION_X = 15;
+    private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    AreaSettableCheckBox(ViewController viewController){
+    ToolTipsCheckBox(ViewController viewController){
         jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(false);
+        jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        setFont();
-        addHost(viewController);
-        addItemListener(viewController);
-    }
 
-    private void setFont(){
-        Font deriveFont = jCheckBox.getFont().deriveFont(10f);
-        jCheckBox.setFont(deriveFont);
+        addItemListener(viewController);
+        addHost(viewController);
     }
 
     private void addHost(ViewController viewController){
@@ -43,7 +37,7 @@ class AreaSettableCheckBox implements AppComponent, Host {
 
     private void addItemListener(ViewController viewController){
         jCheckBox.addItemListener(event ->
-                viewController.areaCheckBoxState(event.getStateChange() == ItemEvent.SELECTED));
+                ToolTipManager.sharedInstance().setEnabled(event.getStateChange() == ItemEvent.SELECTED));
     }
 
     @Override
@@ -65,5 +59,4 @@ class AreaSettableCheckBox implements AppComponent, Host {
     public JComponent getParent() {
         return jCheckBox;
     }
-
 }

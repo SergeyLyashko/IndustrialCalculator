@@ -4,9 +4,9 @@ import view.ComponentsFactory;
 import view.DataBaseMenuReceiver;
 import view.Visitor;
 import view.viewcontroller.*;
-import view.viewcalculator.CalculatorComponentsFactory;
-import view.viewinfo.InfoComponentsFactory;
-import view.viewsettings.SettingsComponentsFactory;
+import view.calculatorcomponents.CalculatorComponentsFactory;
+import view.infocomponents.InfoComponentsFactory;
+import view.settingscomponents.SettingsComponentsFactory;
 
 public class ViewDispatcherIoC {
 

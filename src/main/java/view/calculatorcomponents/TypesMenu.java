@@ -1,4 +1,4 @@
-package view.viewcalculator;
+package view.calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
 import view.viewcontroller.ViewController;
@@ -12,22 +12,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
+class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
 
-    private static final int FOCUSED_RATE = 1;
-    private static final String ASSORTMENT_HEADER = "Тип сортамента";
-    private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
+    private static final int FOCUSED_RATE = 2;
+    private static final String TYPE_HEADER = "Тип профиля";
+    private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
     private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 20;
+    private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
     private final DataBaseMenuReceiver dataBaseMenuReceiver;
+    private String assortment = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
-    AssortmentsMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
+    TypesMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
         this.dataBaseMenuReceiver = dataBaseMenuReceiver;
         jComboBox = new JComboBox<>();
@@ -36,6 +37,19 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         addListener(viewController);
         clickListener();
+    }
+
+    private void addListener(ViewController viewController){
+        jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            viewController.setAllFieldOffState();
+            if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
+                    selectedItem.equalsIgnoreCase("тонколистовая") ||
+                    selectedItem.equalsIgnoreCase("толстолистовая") ||
+                    selectedItem.equalsIgnoreCase("рифленая(ромб)")){
+                viewController.setWidthOnState();
+            }
+        });
     }
 
     private void clickListener(){
@@ -50,24 +64,23 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    private void addListener(ViewController viewController){
-        jComboBox.addActionListener(event -> viewController.setAllFieldOffState());
-    }
-
     @Override
     public void receiveMenu(String...menuItem) {
-        List<String> assortmentMenu = null;
+        List<String> typeMenu = null;
         try {
-            assortmentMenu = dataBaseMenuReceiver.getAssortmentMenu();
+            if(menuItem.length != 0){
+                assortment = menuItem[0];
+            }
+            typeMenu = dataBaseMenuReceiver.getTypeMenu(assortment);
         } catch (SQLException exception) {
             connect = false;
         }
-        createMenu(assortmentMenu);
+        createMenu(typeMenu);
     }
 
     private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
-        menu.add(ASSORTMENT_HEADER);
+        menu.add(TYPE_HEADER);
         if(receiveMenu != null) {
             menu.addAll(receiveMenu);
         }
@@ -78,18 +91,8 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     public void addListenerMenu(MenuSelectable child){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            child.receiveMenu(selectedItem, DEFAULT_MENU_VALUE);
+            child.receiveMenu(assortment, selectedItem);
         });
-    }
-
-    @Override
-    public boolean isTraversalPolicyFocused() {
-        return true;
-    }
-
-    @Override
-    public int getFocusedRate() {
-        return FOCUSED_RATE;
     }
 
     @Override
@@ -108,7 +111,17 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
+    public boolean isTraversalPolicyFocused() {
+        return true;
+    }
+
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
     public int compareTo(AppComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
-}
+ }

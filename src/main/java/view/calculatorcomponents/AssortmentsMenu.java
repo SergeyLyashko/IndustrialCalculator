@@ -1,4 +1,4 @@
-package view.viewcalculator;
+package view.calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
 import view.viewcontroller.ViewController;
@@ -12,24 +12,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
+class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
 
-    private static final int FOCUSED_RATE = 3;
-    private static final String NUMBER_HEADER = "№ профиля";
-    private static final String TOOL_TIP_TEXT = "выбор номера профиля детали";
+    private static final int FOCUSED_RATE = 1;
+    private static final String ASSORTMENT_HEADER = "Тип сортамента";
+    private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
     private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 100;
+    private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController viewController;
     private final DataBaseMenuReceiver dataBaseMenuReceiver;
-    private String assortment = DEFAULT_MENU_VALUE;
-    private String type = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
-    NumbersMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
+    AssortmentsMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
         this.dataBaseMenuReceiver = dataBaseMenuReceiver;
         jComboBox = new JComboBox<>();
@@ -38,18 +36,6 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         addListener(viewController);
         clickListener();
-    }
-
-    private void addListener(ViewController viewController){
-        jComboBox.addActionListener(event -> {
-            String selectedItem = (String) jComboBox.getSelectedItem();
-            if(!selectedItem.equals(NUMBER_HEADER)){
-                viewController.setParameters(assortment, type, selectedItem);
-            }
-            if(connect){
-                viewController.actionState();
-            }
-        });
     }
 
     private void clickListener(){
@@ -64,30 +50,46 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
+    private void addListener(ViewController viewController){
+        jComboBox.addActionListener(event -> viewController.setAllFieldOffState());
+    }
+
     @Override
     public void receiveMenu(String...menuItem) {
-        List<String> numberMenu = null;
+        List<String> assortmentMenu = null;
         try {
-            if(menuItem.length != 0) {
-                assortment = menuItem[0];
-            }
-            if(menuItem.length > 1){
-                type = menuItem[1];
-            }
-            numberMenu = dataBaseMenuReceiver.getNumberMenu(assortment, type);
+            assortmentMenu = dataBaseMenuReceiver.getAssortmentMenu();
         } catch (SQLException exception) {
             connect = false;
         }
-        createMenu(numberMenu);
+        createMenu(assortmentMenu);
     }
 
     private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
-        menu.add(NUMBER_HEADER);
+        menu.add(ASSORTMENT_HEADER);
         if(receiveMenu != null) {
             menu.addAll(receiveMenu);
         }
         viewController.createMenu(menu, this);
+    }
+
+    @Override
+    public void addListenerMenu(MenuSelectable child){
+        jComboBox.addActionListener(event -> {
+            String selectedItem = (String) jComboBox.getSelectedItem();
+            child.receiveMenu(selectedItem, DEFAULT_MENU_VALUE);
+        });
+    }
+
+    @Override
+    public boolean isTraversalPolicyFocused() {
+        return true;
+    }
+
+    @Override
+    public int getFocusedRate() {
+        return FOCUSED_RATE;
     }
 
     @Override
@@ -103,16 +105,6 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     @Override
     public JComboBox<String> getParent() {
         return jComboBox;
-    }
-
-    @Override
-    public boolean isTraversalPolicyFocused() {
-        return true;
-    }
-
-    @Override
-    public int getFocusedRate() {
-        return FOCUSED_RATE;
     }
 
     @Override

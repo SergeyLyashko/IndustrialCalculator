@@ -1,4 +1,4 @@
-package view.viewsettings;
+package view.settingscomponents;
 
 import view.viewcontroller.*;
 import view.AppComponent;
