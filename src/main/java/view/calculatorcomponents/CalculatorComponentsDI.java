@@ -24,7 +24,8 @@ public class CalculatorComponentsDI implements ComponentsList {
         MenuSelectable assortment = new AssortmentsMenu(viewController, dataBaseMenuReceiver);
         MenuSelectable types = new TypesMenu(viewController, dataBaseMenuReceiver);
         MenuSelectable numbers = new NumbersMenu(viewController, dataBaseMenuReceiver);
-        createDefaultMenu(assortment, types, numbers);
+        integration(assortment, types, numbers);
+        addListeners(assortment, types, numbers);
 
         integration(new Result(viewController));
         integration(new Message(viewController));
@@ -42,12 +43,8 @@ public class CalculatorComponentsDI implements ComponentsList {
         components.add(component);
     }
 
-    private void createDefaultMenu(MenuSelectable...menus){
-        addListeners(menus);
-        Arrays.stream(menus).forEach(element -> {
-            element.receiveMenu();
-            integration(element);
-        });
+    private void integration(MenuSelectable...menus){
+        Arrays.stream(menus).forEach(this::integration);
     }
 
     private void addListeners(MenuSelectable...menus) {

@@ -36,6 +36,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         addListener(viewController);
         clickListener();
+        receiveMenu();
     }
 
     private void clickListener(){
