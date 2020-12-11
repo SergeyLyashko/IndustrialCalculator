@@ -1,20 +1,20 @@
 package view;
 
 import controller.ViewObserver;
-import view.controller.ViewController;
-import view.controller.ViewControllerImpl;
-import view.model.ViewModel;
-import view.view.ViewDispatcher;
+import view.viewcontroller.ViewController;
+import view.viewcontroller.ViewControllerImpl;
+import view.viewmodel.ViewModel;
+import view.viewframe.ViewDispatcherIoC;
 
 public class View implements ViewObserver {
 
     private final ViewController viewController;
 
     public View(DataBaseMenuReceiver dataBaseMenuReceiver, Controller controller) {
-        
+
         ViewModel viewModel = new ViewModel(controller);
         viewController = new ViewControllerImpl(viewModel);
-        new ViewDispatcher(viewController, dataBaseMenuReceiver);
+        new ViewDispatcherIoC(viewController, dataBaseMenuReceiver);
     }
 
     @Override
