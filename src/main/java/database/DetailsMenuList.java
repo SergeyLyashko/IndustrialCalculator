@@ -35,36 +35,21 @@ class DetailsMenuList {
         this.data = data;
     }
 
-    List<String> receiveAssortmentList() {
-        try {
-            PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_PROFILES);
-            return data.getMenuList(preparedStatement, ASSORTMENT_QUERY);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    List<String> receiveAssortmentList() throws SQLException {
+        PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_PROFILES);
+        return data.getMenuList(preparedStatement, ASSORTMENT_QUERY);
     }
 
-    List<String> receiveTypeList(String assortment) {
-        try {
-            PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_TYPES);
-            data.initPreparedStatement(preparedStatement, 1, assortment);
-            return data.getMenuList(preparedStatement, TYPE_QUERY);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    List<String> receiveTypeList(String assortment) throws SQLException {
+        PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_TYPES);
+        data.initPreparedStatement(preparedStatement, 1, assortment);
+        return data.getMenuList(preparedStatement, TYPE_QUERY);
     }
 
-    List<String> receiveNumberList(String assortment, String type) {
-        try {
-            PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_NUMBERS);
-            data.initPreparedStatement(preparedStatement, 1, assortment);
-            data.initPreparedStatement(preparedStatement, 2, type);
-            return data.getMenuList(preparedStatement, NUMBER_QUERY);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    List<String> receiveNumberList(String assortment, String type) throws SQLException {
+        PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_NUMBERS);
+        data.initPreparedStatement(preparedStatement, 1, assortment);
+        data.initPreparedStatement(preparedStatement, 2, type);
+        return data.getMenuList(preparedStatement, NUMBER_QUERY);
     }
 }

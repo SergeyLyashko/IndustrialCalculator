@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatorFactory implements ComponentsFactory {
+public class CalculatorComponentsFactory implements ComponentsFactory {
 
     private final List<AppComponent> components;
     private final ViewController viewController;
 
-    public CalculatorFactory(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
+    public CalculatorComponentsFactory(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
         this.viewController = viewController;
         components = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class CalculatorFactory implements ComponentsFactory {
     private void createDefaultMenu(MenuSelectable...menus){
         addListeners(menus);
         Arrays.stream(menus).forEach(element -> {
-            element.createMenu();
+            element.receiveMenu();
             integration(element);
         });
     }

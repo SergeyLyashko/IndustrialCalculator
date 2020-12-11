@@ -4,9 +4,14 @@ import javax.swing.*;
 
 public interface MenuSelectable extends AppComponent {
 
-    void createMenu(String...menuItem);
+    String DEFAULT_MENU_VALUE = "";
+    String NOT_DATABASE_MESSAGE = "Отсутствует соединение с БД";
+    String ERROR = "error";
+
+    void receiveMenu(String...menuItem);
 
     default void addListenerMenu(MenuSelectable child){}
 
     JComboBox<String> getParent();
+
 }

@@ -6,6 +6,9 @@ import view.view.MenuSelectable;
 import view.view.AppComponent;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,6 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
     private static final String TOOL_TIP_TEXT = "выбор номера профиля детали";
-    private static final String DEFAULT_MENU_VALUE = "";
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
@@ -25,6 +27,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private final DataBaseMenuReceiver dataBaseMenuReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private String type = DEFAULT_MENU_VALUE;
+    private boolean connect = true;
 
     NumbersMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
         this.viewController = viewController;
@@ -34,34 +37,56 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         addListener(viewController);
+        clickListener();
     }
 
     private void addListener(ViewController viewController){
         jComboBox.addActionListener(event -> {
-            viewController.actionState();
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
                 viewController.setParameters(assortment, type, selectedItem);
+            }
+            if(connect){
+                viewController.actionState();
+            }
+        });
+    }
+
+    private void clickListener(){
+        jComboBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                if(!connect){
+                    viewController.setMessage(NOT_DATABASE_MESSAGE, true);
+                    viewController.setResult(ERROR, true);
+                }
             }
         });
     }
 
     @Override
-    public void createMenu(String...menuItem) {
-        if(menuItem.length != 0) {
-            assortment = menuItem[0];
+    public void receiveMenu(String...menuItem) {
+        List<String> numberMenu = null;
+        try {
+            if(menuItem.length != 0) {
+                assortment = menuItem[0];
+            }
+            if(menuItem.length > 1){
+                type = menuItem[1];
+            }
+            numberMenu = dataBaseMenuReceiver.getNumberMenu(assortment, type);
+        } catch (SQLException exception) {
+            connect = false;
         }
-        if(menuItem.length > 0){
-            type = menuItem[1];
-        }
-        List<String> numberMenu = dataBaseMenuReceiver.getNumberMenu(assortment, type);
         createMenu(numberMenu);
     }
 
     private void createMenu(List<String> receiveMenu){
         List<String> menu = new ArrayList<>();
         menu.add(NUMBER_HEADER);
-        menu.addAll(receiveMenu);
+        if(receiveMenu != null) {
+            menu.addAll(receiveMenu);
+        }
         viewController.createMenu(menu, this);
     }
 

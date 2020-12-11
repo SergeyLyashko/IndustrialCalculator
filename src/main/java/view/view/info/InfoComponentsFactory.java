@@ -7,12 +7,12 @@ import view.view.ComponentsFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoFactory implements ComponentsFactory {
+public class InfoComponentsFactory implements ComponentsFactory {
 
     private final List<AppComponent> components;
     private final ViewController viewController;
 
-    public InfoFactory(ViewController viewController) {
+    public InfoComponentsFactory(ViewController viewController) {
         this.viewController = viewController;
         components = new ArrayList<>();
         integration(new Info(viewController));
