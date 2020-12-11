@@ -2,16 +2,16 @@ package view.settingscomponents;
 
 import view.viewcontroller.*;
 import view.AppComponent;
-import view.ComponentsFactory;
+import view.ComponentsList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsComponentsFactory implements ComponentsFactory {
+public class SettingsComponentsDI implements ComponentsList {
 
     private final List<AppComponent> components;
 
-    public SettingsComponentsFactory(ViewController viewController) {
+    public SettingsComponentsDI(ViewController viewController) {
         components = new ArrayList<>();
         integration(new ColorThemeCheckBox(viewController));
         integration(new ToolTipsCheckBox(viewController));

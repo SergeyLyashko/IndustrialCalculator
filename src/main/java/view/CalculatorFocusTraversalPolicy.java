@@ -1,6 +1,4 @@
-package view.viewframe;
-
-import view.AppComponent;
+package view;
 
 import javax.swing.*;
 import java.awt.*;

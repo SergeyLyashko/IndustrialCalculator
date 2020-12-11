@@ -25,5 +25,4 @@ public interface AppComponent {
 
     default int compareTo(AppComponent component) { return 0; }
 
-    default String getData() { return null; }
 }

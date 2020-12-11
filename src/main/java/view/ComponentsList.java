@@ -2,7 +2,7 @@ package view;
 
 import java.util.List;
 
-public interface ComponentsFactory {
+public interface ComponentsList {
 
     List<AppComponent> getComponents();
 }

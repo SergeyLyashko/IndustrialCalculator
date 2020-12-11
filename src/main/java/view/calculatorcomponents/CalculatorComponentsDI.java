@@ -3,20 +3,18 @@ package view.calculatorcomponents;
 import view.DataBaseMenuReceiver;
 import view.viewcontroller.*;
 import view.AppComponent;
-import view.ComponentsFactory;
+import view.ComponentsList;
 import view.MenuSelectable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatorComponentsFactory implements ComponentsFactory {
+public class CalculatorComponentsDI implements ComponentsList {
 
     private final List<AppComponent> components;
-    private final ViewController viewController;
 
-    public CalculatorComponentsFactory(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
-        this.viewController = viewController;
+    public CalculatorComponentsDI(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
         components = new ArrayList<>();
 
         integration(new Width(viewController));

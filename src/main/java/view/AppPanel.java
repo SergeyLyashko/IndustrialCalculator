@@ -1,9 +1,5 @@
-package view.viewframe;
+package view;
 
-import view.AppComponent;
-import view.ComponentsFactory;
-import view.Host;
-import view.Visitor;
 import view.viewcontroller.ViewController;
 
 import javax.swing.*;
@@ -12,10 +8,10 @@ import java.util.List;
 class AppPanel implements Host {
 
     private final JPanel jPanel;
-    private final ComponentsFactory componentsFactory;
+    private final ComponentsList componentsList;
 
-    AppPanel(ComponentsFactory componentsFactory, ViewController viewController){
-        this.componentsFactory = componentsFactory;
+    AppPanel(ComponentsList componentsList, ViewController viewController){
+        this.componentsList = componentsList;
         jPanel = new JPanel();
         jPanel.setLayout(null);
         addComponents();
@@ -28,13 +24,13 @@ class AppPanel implements Host {
     }
 
     private void addComponents() {
-        List<AppComponent> components = componentsFactory.getComponents();
+        List<AppComponent> components = componentsList.getComponents();
         components.forEach(appComponent -> jPanel.add(appComponent.getParent()));
 
     }
 
     void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
-        List<AppComponent> components = componentsFactory.getComponents();
+        List<AppComponent> components = componentsList.getComponents();
         focusTraversalPolicy.add(components);
         focusTraversalPolicy.setFocusPolicy(this);
     }
