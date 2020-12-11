@@ -25,7 +25,8 @@ public class ViewDispatcherIoC {
         appFrame.addPanel("Настройки", settingsPanel);
         appFrame.addPanel("Справка", infoPanel);
 
-        calculatorPanel.addFocusPolicy(calculatorComponents);
+        CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy();
+        calculatorPanel.addFocusPolicy(focusTraversalPolicy);
         Visitor visitor = viewController.getVisitor();
         visitor.activate();
     }

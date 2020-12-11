@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
-    private final ArrayList<JComponent> thisOrder;
+    private ArrayList<JComponent> thisOrder;
 
-    CalculatorFocusTraversalPolicy(List<AppComponent> componentList) {
+    void add(List<AppComponent> componentList) {
         thisOrder = componentList.stream()
                 .filter(AppComponent::isTraversalPolicyFocused)
                 .sorted(AppComponent::compareTo)

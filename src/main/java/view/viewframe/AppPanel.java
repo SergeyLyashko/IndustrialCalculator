@@ -12,24 +12,30 @@ import java.util.List;
 class AppPanel implements Host {
 
     private final JPanel jPanel;
+    private final ComponentsFactory componentsFactory;
 
     AppPanel(ComponentsFactory componentsFactory, ViewController viewController){
+        this.componentsFactory = componentsFactory;
         jPanel = new JPanel();
         jPanel.setLayout(null);
-        List<AppComponent> components = componentsFactory.getComponents();
-        components.forEach(this::add);
+        addComponents();
+        addHost(viewController);
+    }
+
+    private void addHost(ViewController viewController){
         Visitor visitor = viewController.getVisitor();
         visitor.addHost(this);
     }
 
-    private void add(AppComponent component) {
-        JComponent parent = component.getParent();
-        jPanel.add(parent);
+    private void addComponents() {
+        List<AppComponent> components = componentsFactory.getComponents();
+        components.forEach(appComponent -> jPanel.add(appComponent.getParent()));
+
     }
 
-    void addFocusPolicy(ComponentsFactory componentsFactory){
+    void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
         List<AppComponent> components = componentsFactory.getComponents();
-        CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy(components);
+        focusTraversalPolicy.add(components);
         focusTraversalPolicy.setFocusPolicy(this);
     }
 
