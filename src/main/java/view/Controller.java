@@ -1,8 +1,8 @@
 package view;
 
-import java.util.Queue;
+import controller.CalculatorData;
 
 public interface Controller {
 
-    void setData(Queue<String> detailData);
+    void setData(CalculatorData data);
 }

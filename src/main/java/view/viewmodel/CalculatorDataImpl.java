@@ -1,5 +1,6 @@
 package view.viewmodel;
 
+import controller.CalculatorData;
 import view.AppComponent;
 
 import javax.swing.*;
@@ -8,13 +9,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-class CalculatorData {
+class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
     private final List<AppComponent> components;
     private final Queue<String> data;
 
-    CalculatorData(String assortment, String type, String number, AppComponent width, AppComponent length, FieldState fieldState) {
+    CalculatorDataImpl(String assortment, String type, String number, AppComponent width, AppComponent length, FieldState fieldState) {
         data = new LinkedList<>();
         data.add(assortment);
         data.add(type);
@@ -42,7 +43,8 @@ class CalculatorData {
         data.add(text);
     }
 
-    Queue<String> getData(){
+    @Override
+    public Queue<String> getData(){
         return data;
     }
 }
