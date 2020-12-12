@@ -2,6 +2,7 @@ package view.viewmodel;
 
 import controller.CalculatorData;
 import view.AppComponent;
+import view.fieldsbehavior.FieldState;
 
 import javax.swing.*;
 import java.util.ArrayList;

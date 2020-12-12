@@ -1,7 +1,6 @@
 package view.fieldsbehavior;
 
 import view.AppComponent;
-import view.viewmodel.Behavior;
 import view.viewmodel.KeyActionObserver;
 
 import javax.swing.*;
@@ -9,7 +8,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-public class FieldBehaviorImpl implements Behavior {
+class FieldBehaviorImpl implements Behavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private final FocusBehavior focusBehavior;
@@ -18,7 +17,7 @@ public class FieldBehaviorImpl implements Behavior {
     private final KeyBehavior keyBehavior;
     private final AppComponent component;
 
-    public FieldBehaviorImpl(AppComponent component){
+    FieldBehaviorImpl(AppComponent component){
         this.component = component;
         focusBehavior = new FocusBehavior(this);
         defaultFilter = new DocumentFilter();

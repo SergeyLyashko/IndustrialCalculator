@@ -1,7 +1,11 @@
-package view.viewmodel;
+package view.fieldsbehavior;
 
-class FieldState {
+import view.AppComponent;
+import view.viewmodel.KeyActionObserver;
 
+public class FieldState {
+
+    private final KeyActionObserver observer;
     private Behavior lengthBehavior;
     private Behavior widthBehavior;
 
@@ -9,17 +13,22 @@ class FieldState {
     private boolean areaStatus;
     private boolean widthStatus;
 
-    void setLengthBehavior(Behavior lengthBehavior) {
-        this.lengthBehavior = lengthBehavior;
-        lengthBehavior.fieldDeactivate();
+    public FieldState(KeyActionObserver observer) {
+        this.observer = observer;
     }
 
-    void setWidthBehavior(Behavior widthBehavior) {
-        this.widthBehavior = widthBehavior;
+    public void setLength(AppComponent length) {
+        lengthBehavior = new FieldBehaviorImpl(length);
+        lengthBehavior.fieldDeactivate();
+        lengthBehavior.registerObserver(observer);
+    }
+
+    public void setWidth(AppComponent width) {
+        this.widthBehavior = new FieldBehaviorImpl(width);
         widthBehavior.fieldDeactivate();
     }
 
-    void action(){
+    public void action(){
         lengthBehavior.fieldActivate();
         if(widthStatus){
             checkSelected();
@@ -34,18 +43,18 @@ class FieldState {
         }
     }
 
-    void checkBoxSelect(boolean checkBoxState){
+    public void checkBoxSelect(boolean checkBoxState){
         this.checkBoxSelected = checkBoxState;
         action();
     }
 
-    void fieldsOff() {
+    public void fieldsOff() {
         widthBehavior.fieldDeactivate();
         lengthBehavior.fieldDeactivate();
         widthStatus = false;
     }
 
-    void widthOn() {
+    public void widthOn() {
         widthStatus = true;
     }
 
@@ -69,11 +78,11 @@ class FieldState {
         areaStatus = false;
     }
 
-    boolean isArea(){
+    public boolean isArea(){
         return areaStatus;
     }
 
-    boolean isWidth(){
+    public boolean isWidth(){
         return widthStatus;
     }
 }

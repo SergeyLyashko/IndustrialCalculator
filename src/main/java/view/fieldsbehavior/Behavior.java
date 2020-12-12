@@ -1,4 +1,6 @@
-package view.viewmodel;
+package view.fieldsbehavior;
+
+import view.viewmodel.KeyActionObserver;
 
 public interface Behavior {
 

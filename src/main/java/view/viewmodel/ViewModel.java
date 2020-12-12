@@ -4,7 +4,7 @@ import view.Controller;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.Visitor;
-import view.fieldsbehavior.FieldBehaviorImpl;
+import view.fieldsbehavior.FieldState;
 
 import java.util.List;
 import java.util.Queue;
@@ -26,7 +26,7 @@ public class ViewModel implements KeyActionObserver{
     public ViewModel(Controller appController) {
         this.appController = appController;
         colorVisitor = new ColorChangeVisitor();
-        fieldState = new FieldState();
+        fieldState = new FieldState(this);
     }
 
     public Visitor getVisitor() {
@@ -35,22 +35,12 @@ public class ViewModel implements KeyActionObserver{
 
     public void setWidthField(AppComponent component) {
         this.width = component;
-        fieldState.setWidthBehavior(new FieldBehaviorImpl(width));
+        fieldState.setWidth(width);
     }
 
     public void setLengthField(AppComponent component) {
         this.length = component;
-        Behavior lengthBehavior = new FieldBehaviorImpl(length);
-        fieldState.setLengthBehavior(lengthBehavior);
-        lengthBehavior.registerObserver(this);
-    }
-
-    public void setResultComponent(AppComponent component) {
-        resultBehavior = new LabelBehaviorImpl(colorVisitor, component);
-    }
-
-    public void setMessageComponent(AppComponent component) {
-        messageBehavior = new LabelBehaviorImpl(colorVisitor, component);
+        fieldState.setLength(length);
     }
 
     public void setAllFieldOffState() {
@@ -79,6 +69,14 @@ public class ViewModel implements KeyActionObserver{
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
         new MenuListModel(receiveMenu, menuSelectable);
+    }
+
+    public void setResultComponent(AppComponent component) {
+        resultBehavior = new LabelBehaviorImpl(colorVisitor, component);
+    }
+
+    public void setMessageComponent(AppComponent component) {
+        messageBehavior = new LabelBehaviorImpl(colorVisitor, component);
     }
 
     @Override
