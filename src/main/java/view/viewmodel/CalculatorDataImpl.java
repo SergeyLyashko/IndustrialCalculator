@@ -2,7 +2,6 @@ package view.viewmodel;
 
 import controller.CalculatorData;
 import view.AppComponent;
-import view.fieldsbehavior.FieldState;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -15,16 +14,16 @@ class CalculatorDataImpl implements CalculatorData {
     private final List<AppComponent> components;
     private final Queue<String> queueItems;
 
-    CalculatorDataImpl(Queue<String> queueItems, AppComponent width, AppComponent length, FieldState fieldState) {
+    CalculatorDataImpl(Queue<String> queueItems, AppComponent width, AppComponent length, Behavior fieldBehavior) {
         this.queueItems = queueItems;
         components = new ArrayList<>();
         components.add(width);
         components.add(length);
-        componentsUpdate(fieldState);
+        componentsUpdate(fieldBehavior);
     }
 
-    private void componentsUpdate(FieldState fieldState){
-        if(fieldState.isWidth() && !fieldState.isArea()){
+    private void componentsUpdate(Behavior fieldBehavior){
+        if(fieldBehavior.isWidth() && !fieldBehavior.isArea()){
             components.forEach(this::update);
         }else {
             update(components.get(1));

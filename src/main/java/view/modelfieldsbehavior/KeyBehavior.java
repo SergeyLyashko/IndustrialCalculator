@@ -1,4 +1,4 @@
-package view.fieldsbehavior;
+package view.modelfieldsbehavior;
 
 import view.viewmodel.KeyActionObserver;
 import view.viewmodel.KeyActionSubject;

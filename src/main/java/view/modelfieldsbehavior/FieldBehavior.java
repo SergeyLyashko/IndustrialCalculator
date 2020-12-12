@@ -1,4 +1,4 @@
-package view.fieldsbehavior;
+package view.modelfieldsbehavior;
 
 import view.AppComponent;
 import view.viewmodel.KeyActionObserver;
@@ -8,7 +8,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
-class FieldBehaviorImpl implements Behavior {
+class FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private final FocusBehavior focusBehavior;
@@ -17,7 +17,7 @@ class FieldBehaviorImpl implements Behavior {
     private final KeyBehavior keyBehavior;
     private final AppComponent component;
 
-    FieldBehaviorImpl(AppComponent component){
+    FieldBehavior(AppComponent component){
         this.component = component;
         focusBehavior = new FocusBehavior(this);
         defaultFilter = new DocumentFilter();
@@ -25,8 +25,7 @@ class FieldBehaviorImpl implements Behavior {
         keyBehavior = new KeyBehavior();
     }
 
-    @Override
-    public void fieldActivate() {
+    void fieldActivate() {
         JTextField textField = (JFormattedTextField) component.getParent();
         textField.setText(component.getName());
         textField.setEditable(true);
@@ -35,14 +34,12 @@ class FieldBehaviorImpl implements Behavior {
         focusBehavior.activate(textField);
     }
 
-    @Override
-    public void areaActivate(){
+    void areaActivate(){
         JTextField parent = (JFormattedTextField) component.getParent();
         parent.setText(BOX_NAME_AREA);
     }
 
-    @Override
-    public void areaDeactivate(){
+    void areaDeactivate(){
         JTextField textField = (JFormattedTextField) component.getParent();
         textField.setText(component.getName());
     }
@@ -51,8 +48,7 @@ class FieldBehaviorImpl implements Behavior {
         keyBehavior.fieldActivate(textField);
     }
 
-    @Override
-    public void fieldDeactivate() {
+    void fieldDeactivate() {
         JTextField parent = (JFormattedTextField) component.getParent();
         removeFilter(parent);
         parent.setText(component.getName());
@@ -75,8 +71,7 @@ class FieldBehaviorImpl implements Behavior {
         keyBehavior.fieldDeactivate(textField);
     }
 
-    @Override
-    public void registerObserver(KeyActionObserver observer) {
+    void registerObserver(KeyActionObserver observer) {
         keyBehavior.registerObserver(observer);
     }
 }

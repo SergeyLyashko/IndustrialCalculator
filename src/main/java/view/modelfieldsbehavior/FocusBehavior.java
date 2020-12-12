@@ -1,4 +1,4 @@
-package view.fieldsbehavior;
+package view.modelfieldsbehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,9 @@ import java.util.Arrays;
 class FocusBehavior {
 
     private static final String EMPTY = "";
-    private final FieldBehaviorImpl fieldBehavior;
+    private final FieldBehavior fieldBehavior;
 
-    FocusBehavior(FieldBehaviorImpl fieldBehavior){
+    FocusBehavior(FieldBehavior fieldBehavior){
         this.fieldBehavior = fieldBehavior;
     }
 

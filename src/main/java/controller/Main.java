@@ -9,7 +9,9 @@ import view.Controller;
 import view.ViewDispatcherDI;
 import view.DataBaseMenuReceiver;
 import view.ViewController;
+import view.modelfieldsbehavior.BehaviorImpl;
 import view.viewcontroller.ViewControllerImpl;
+import view.viewmodel.Behavior;
 import view.viewmodel.ViewModel;
 
 import java.awt.*;
@@ -30,8 +32,9 @@ public class Main {
 
             Controller controller = new ControllerImpl(model);
 
-            // TODO заменить на интерфейс ???
-            ViewModel viewModel = new ViewModel(controller);
+
+            Behavior behavior = new BehaviorImpl();
+            ViewModel viewModel = new ViewModel(controller, behavior);
             ViewController viewController = new ViewControllerImpl(viewModel);
             ViewObserver observer = new ViewDispatcherDI(dataBaseMenuReceiver, viewController);
 

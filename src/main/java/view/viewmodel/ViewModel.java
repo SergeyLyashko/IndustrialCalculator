@@ -4,7 +4,6 @@ import view.Controller;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.Visitor;
-import view.fieldsbehavior.FieldState;
 
 import java.util.List;
 import java.util.Queue;
@@ -14,7 +13,7 @@ public class ViewModel implements KeyActionObserver{
     private final Visitor colorVisitor;
     private final Controller appController;
 
-    private final FieldState fieldState;
+    private final Behavior behavior;
     private LabelBehaviorImpl resultBehavior;
     private LabelBehaviorImpl messageBehavior;
 
@@ -23,10 +22,11 @@ public class ViewModel implements KeyActionObserver{
 
     private Queue<String> queueItems;
 
-    public ViewModel(Controller appController) {
+    public ViewModel(Controller appController, Behavior behavior) {
         this.appController = appController;
         colorVisitor = new ColorChangeVisitor();
-        fieldState = new FieldState(this);
+        this.behavior = behavior;
+        behavior.registerObserver(this);
     }
 
     public Visitor getVisitor() {
@@ -35,23 +35,23 @@ public class ViewModel implements KeyActionObserver{
 
     public void setWidthField(AppComponent component) {
         this.width = component;
-        fieldState.setWidth(width);
+        behavior.setWidth(width);
     }
 
     public void setLengthField(AppComponent component) {
         this.length = component;
-        fieldState.setLength(length);
+        behavior.setLength(length);
     }
 
     public void setAllFieldOffState() {
         resetServiceString();
-        fieldState.fieldsOff();
+        behavior.fieldsOff();
     }
 
     // активация Number box
     public void actionState() {
         resetServiceString();
-        fieldState.action();
+        behavior.action();
     }
 
     private void resetServiceString(){
@@ -60,11 +60,11 @@ public class ViewModel implements KeyActionObserver{
     }
 
     public void setWidthOnState() {
-        fieldState.widthOn();
+        behavior.widthOn();
     }
 
     public void checkBoxSelect(boolean state) {
-        fieldState.checkBoxSelect(state);
+        behavior.checkBoxSelect(state);
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
@@ -81,7 +81,7 @@ public class ViewModel implements KeyActionObserver{
 
     @Override
     public void keyActionUpdate() {
-        appController.setData(new CalculatorDataImpl(queueItems, width, length, fieldState));
+        appController.setData(new CalculatorDataImpl(queueItems, width, length, behavior));
     }
 
     public void setResult(String result, boolean alert) {

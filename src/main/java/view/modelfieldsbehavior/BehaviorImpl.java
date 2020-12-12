@@ -1,30 +1,28 @@
-package view.fieldsbehavior;
+package view.modelfieldsbehavior;
 
 import view.AppComponent;
+import view.viewmodel.Behavior;
 import view.viewmodel.KeyActionObserver;
 
-public class FieldState {
+public class BehaviorImpl implements Behavior {
 
-    private final KeyActionObserver observer;
-    private Behavior lengthBehavior;
-    private Behavior widthBehavior;
+    private KeyActionObserver observer;
+    private FieldBehavior lengthBehavior;
+    private FieldBehavior widthBehavior;
 
     private boolean checkBoxSelected;
     private boolean areaStatus;
     private boolean widthStatus;
 
-    public FieldState(KeyActionObserver observer) {
-        this.observer = observer;
-    }
 
     public void setLength(AppComponent length) {
-        lengthBehavior = new FieldBehaviorImpl(length);
+        lengthBehavior = new FieldBehavior(length);
         lengthBehavior.fieldDeactivate();
         lengthBehavior.registerObserver(observer);
     }
 
     public void setWidth(AppComponent width) {
-        this.widthBehavior = new FieldBehaviorImpl(width);
+        this.widthBehavior = new FieldBehavior(width);
         widthBehavior.fieldDeactivate();
     }
 
@@ -80,6 +78,11 @@ public class FieldState {
 
     public boolean isArea(){
         return areaStatus;
+    }
+
+    @Override
+    public void registerObserver(KeyActionObserver observer) {
+        this.observer = observer;
     }
 
     public boolean isWidth(){
