@@ -16,7 +16,7 @@ public class CalculatorFactoryImpl implements CalculatorFactory {
             case "Двутавр":
                 return new AssortmentMassCalculator();
             default:
-                System.out.println("test null factory");
+                System.out.println("test null factory: "+assortment);
                 return null;
         }
     }

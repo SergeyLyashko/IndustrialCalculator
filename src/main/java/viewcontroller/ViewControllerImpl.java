@@ -1,7 +1,8 @@
 package viewcontroller;
 
 import view.ViewController;
-import view.viewmodel.ViewModel;
+import view.labelbehavior.LabelBehaviorImpl;
+import view.viewmodel.ViewModelImpl;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.Visitor;
@@ -11,75 +12,76 @@ import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController {
 
-    private final ViewModel viewModel;
+    private final ViewModelImpl viewModelImpl;
+    private final Visitor colorVisitor;
 
-    public ViewControllerImpl(ViewModel viewModel){
-        this.viewModel = viewModel;
+    public ViewControllerImpl(ViewModelImpl viewModelImpl, Visitor colorVisitor){
+        this.viewModelImpl = viewModelImpl;
+        this.colorVisitor = colorVisitor;
     }
 
     @Override
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        viewModel.createMenu(receiveMenu, menuSelectable);
+        viewModelImpl.createMenu(receiveMenu, menuSelectable);
     }
 
     @Override
     public Visitor getVisitor() {
-        return viewModel.getVisitor();
+        return colorVisitor;
     }
 
     @Override
     public void fieldsOff() {
-        viewModel.setAllFieldOffState();
+        viewModelImpl.fieldsOff();
     }
 
     @Override
     public void widthOn() {
-        viewModel.setWidthOnState();
+        viewModelImpl.widthOn();
     }
 
     @Override
     public void action() {
-        viewModel.actionState();
+        viewModelImpl.action();
     }
 
     @Override
     public void setWidth(AppComponent component) {
-        viewModel.setWidthField(component);
+        viewModelImpl.setWidthField(component);
     }
 
     @Override
     public void areaCheckBoxState(boolean state) {
-        viewModel.checkBoxSelect(state);
+        viewModelImpl.checkBoxSelect(state);
     }
 
     @Override
     public void setLength(AppComponent component) {
-        viewModel.setLengthField(component);
+        viewModelImpl.setLengthField(component);
     }
 
     @Override
     public void setSelectedItems(Queue<String> queueItems) {
-        viewModel.setSelectedItems(queueItems);
-
+        viewModelImpl.setSelectedItems(queueItems);
     }
 
     @Override
     public void setResultComponent(AppComponent component) {
-        viewModel.setResultComponent(component);
+        viewModelImpl.setResultComponent(new LabelBehaviorImpl(colorVisitor, component));
     }
 
     @Override
     public void setMessageComponent(AppComponent component) {
-        viewModel.setMessageComponent(component);
+        viewModelImpl.setMessageComponent(new LabelBehaviorImpl(colorVisitor, component));
     }
 
     @Override
     public void setResult(String value, boolean alert) {
-        viewModel.setResult(value, alert);
+        viewModelImpl.setResult(value, alert);
     }
 
     @Override
     public void setMessage(String message, boolean alert) {
-        viewModel.setMessage(message, alert);
+        viewModelImpl.setMessage(message, alert);
     }
 }

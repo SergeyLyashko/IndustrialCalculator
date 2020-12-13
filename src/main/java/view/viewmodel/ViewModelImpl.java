@@ -3,34 +3,27 @@ package view.viewmodel;
 import view.Controller;
 import view.AppComponent;
 import view.MenuSelectable;
-import view.Visitor;
 
 import java.util.List;
 import java.util.Queue;
 
-public class ViewModel implements KeyActionObserver{
+public class ViewModelImpl implements KeyActionObserver{
 
-    private final Visitor colorVisitor;
     private final Controller appController;
 
     private final Behavior behavior;
-    private LabelBehaviorImpl resultBehavior;
-    private LabelBehaviorImpl messageBehavior;
+    private LabelBehavior resultBehavior;
+    private LabelBehavior messageBehavior;
 
     private AppComponent width;
     private AppComponent length;
 
     private Queue<String> queueItems;
 
-    public ViewModel(Controller appController, Behavior behavior) {
+    public ViewModelImpl(Controller appController, Behavior behavior) {
         this.appController = appController;
-        colorVisitor = new ColorChangeVisitor();
         this.behavior = behavior;
         behavior.registerObserver(this);
-    }
-
-    public Visitor getVisitor() {
-        return colorVisitor;
     }
 
     public void setWidthField(AppComponent component) {
@@ -43,13 +36,13 @@ public class ViewModel implements KeyActionObserver{
         behavior.setLength(length);
     }
 
-    public void setAllFieldOffState() {
+    public void fieldsOff() {
         resetServiceString();
         behavior.fieldsOff();
     }
 
     // активация Number box
-    public void actionState() {
+    public void action() {
         resetServiceString();
         behavior.action();
     }
@@ -59,7 +52,7 @@ public class ViewModel implements KeyActionObserver{
         messageBehavior.reset();
     }
 
-    public void setWidthOnState() {
+    public void widthOn() {
         behavior.widthOn();
     }
 
@@ -71,12 +64,12 @@ public class ViewModel implements KeyActionObserver{
         new MenuListModel(receiveMenu, menuSelectable);
     }
 
-    public void setResultComponent(AppComponent component) {
-        resultBehavior = new LabelBehaviorImpl(colorVisitor, component);
+    public void setResultComponent(LabelBehavior behavior) {
+        resultBehavior = behavior;
     }
 
-    public void setMessageComponent(AppComponent component) {
-        messageBehavior = new LabelBehaviorImpl(colorVisitor, component);
+    public void setMessageComponent(LabelBehavior behavior) {
+        messageBehavior = behavior;
     }
 
     @Override
