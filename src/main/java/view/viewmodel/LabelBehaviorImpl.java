@@ -1,8 +1,8 @@
-package view.labelbehavior;
+package view.viewmodel;
 
 import view.Visitor;
 import view.AppComponent;
-import view.viewmodel.LabelBehavior;
+import viewcontroller.LabelBehavior;
 
 import javax.swing.*;
 

@@ -1,7 +1,6 @@
 package viewcontroller;
 
 import view.ViewController;
-import view.labelbehavior.LabelBehaviorImpl;
 import view.viewmodel.ViewModelImpl;
 import view.AppComponent;
 import view.MenuSelectable;
@@ -14,6 +13,8 @@ public class ViewControllerImpl implements ViewController {
 
     private final ViewModelImpl viewModelImpl;
     private final Visitor colorVisitor;
+    private LabelBehavior messageBehavior;
+    private LabelBehavior resultBehavior;
 
     public ViewControllerImpl(ViewModelImpl viewModelImpl, Visitor colorVisitor){
         this.viewModelImpl = viewModelImpl;
@@ -26,12 +27,23 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
+    public void setResultComponent(AppComponent component) {
+        resultBehavior = viewModelImpl.getResultBehavior(colorVisitor, component);
+    }
+
+    @Override
+    public void setMessageComponent(AppComponent component) {
+        messageBehavior = viewModelImpl.getMessageBehavior(colorVisitor, component);
+    }
+
+    @Override
     public Visitor getVisitor() {
         return colorVisitor;
     }
 
     @Override
     public void fieldsOff() {
+        resetServiceString();
         viewModelImpl.fieldsOff();
     }
 
@@ -42,7 +54,13 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void action() {
+        resetServiceString();
         viewModelImpl.action();
+    }
+
+    private void resetServiceString(){
+        resultBehavior.reset();
+        messageBehavior.reset();
     }
 
     @Override
@@ -66,22 +84,16 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setResultComponent(AppComponent component) {
-        viewModelImpl.setResultComponent(new LabelBehaviorImpl(colorVisitor, component));
-    }
-
-    @Override
-    public void setMessageComponent(AppComponent component) {
-        viewModelImpl.setMessageComponent(new LabelBehaviorImpl(colorVisitor, component));
-    }
-
-    @Override
-    public void setResult(String value, boolean alert) {
-        viewModelImpl.setResult(value, alert);
+    public void setResult(String result, boolean alert) {
+        String value = result;
+        if(!alert){
+            value = result+" кг";
+        }
+        resultBehavior.show(value, alert);
     }
 
     @Override
     public void setMessage(String message, boolean alert) {
-        viewModelImpl.setMessage(message, alert);
+        messageBehavior.show(message, alert);
     }
 }
