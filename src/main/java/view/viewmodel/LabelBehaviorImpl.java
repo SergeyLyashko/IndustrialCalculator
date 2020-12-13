@@ -6,12 +6,12 @@ import viewcontroller.LabelBehavior;
 
 import javax.swing.*;
 
-public class LabelBehaviorImpl implements LabelBehavior {
+class LabelBehaviorImpl implements LabelBehavior {
 
     private final Visitor colorVisitor;
     private final AppComponent component;
 
-    public LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
+    LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
         this.component = component;
         this.colorVisitor = colorVisitor;
     }

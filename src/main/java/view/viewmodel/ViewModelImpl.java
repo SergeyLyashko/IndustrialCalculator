@@ -66,11 +66,7 @@ public class ViewModelImpl implements KeyActionObserver{
         this.queueItems = queueItems;
     }
 
-    public LabelBehavior getMessageBehavior(Visitor colorVisitor, AppComponent component) {
-        return new LabelBehaviorImpl(colorVisitor, component);
-    }
-
-    public LabelBehavior getResultBehavior(Visitor colorVisitor, AppComponent component) {
+    public LabelBehavior getBehavior(Visitor colorVisitor, AppComponent component) {
         return new LabelBehaviorImpl(colorVisitor, component);
     }
 }

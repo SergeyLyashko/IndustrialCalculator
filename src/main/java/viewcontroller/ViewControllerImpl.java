@@ -28,12 +28,12 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void setResultComponent(AppComponent component) {
-        resultBehavior = viewModelImpl.getResultBehavior(colorVisitor, component);
+        resultBehavior = viewModelImpl.getBehavior(colorVisitor, component);
     }
 
     @Override
     public void setMessageComponent(AppComponent component) {
-        messageBehavior = viewModelImpl.getMessageBehavior(colorVisitor, component);
+        messageBehavior = viewModelImpl.getBehavior(colorVisitor, component);
     }
 
     @Override
