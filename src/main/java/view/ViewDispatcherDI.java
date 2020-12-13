@@ -1,15 +1,15 @@
 package view;
 
 import controller.ViewObserver;
-import view.calculatorcomponents.CalculatorComponentsDI;
-import view.infocomponents.InfoComponentsDI;
-import view.settingscomponents.SettingsComponentsDI;
+import calculatorcomponents.CalculatorComponentsDI;
+import infocomponents.InfoComponentsDI;
+import settingscomponents.SettingsComponentsDI;
 
-public class ViewDispatcherDI implements ViewObserver {
+class ViewDispatcherDI implements ViewObserver {
 
     private final ViewController viewController;
 
-    public ViewDispatcherDI(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
+    ViewDispatcherDI(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
         this.viewController = viewController;
 
         ComponentsList calculatorComponents = new CalculatorComponentsDI(viewController, dataBaseMenuReceiver);
@@ -24,6 +24,7 @@ public class ViewDispatcherDI implements ViewObserver {
 
         CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy();
         calculatorPanel.addFocusPolicy(focusTraversalPolicy);
+
         Visitor visitor = viewController.getVisitor();
         visitor.activate();
     }

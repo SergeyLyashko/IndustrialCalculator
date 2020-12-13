@@ -1,4 +1,4 @@
-package view.calculatorcomponents;
+package calculatorcomponents;
 
 import view.DataBaseMenuReceiver;
 import view.AppComponent;

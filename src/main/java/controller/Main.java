@@ -5,14 +5,7 @@ import model.CalculatorFactory;
 import model.ValueReceiver;
 import model.CalculatorModelImpl;
 import detailmass.CalculatorFactoryImpl;
-import view.Controller;
-import view.ViewDispatcherDI;
-import view.DataBaseMenuReceiver;
-import view.ViewController;
-import view.modelfieldsbehavior.BehaviorImpl;
-import view.viewcontroller.ViewControllerImpl;
-import view.viewmodel.Behavior;
-import view.viewmodel.ViewModel;
+import view.*;
 
 import java.awt.*;
 
@@ -32,12 +25,7 @@ public class Main {
 
             Controller controller = new ControllerImpl(model);
 
-            Behavior behavior = new BehaviorImpl();
-            ViewModel viewModel = new ViewModel(controller, behavior);
-            ViewController viewController = new ViewControllerImpl(viewModel);
-            ViewObserver observer = new ViewDispatcherDI(dataBaseMenuReceiver, viewController);
-
-            model.registerObserver(observer);
+            new View(model, dataBaseMenuReceiver, controller);
 
         });
     }

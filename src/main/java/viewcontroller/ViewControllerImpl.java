@@ -1,4 +1,4 @@
-package view.viewcontroller;
+package viewcontroller;
 
 import view.ViewController;
 import view.viewmodel.ViewModel;

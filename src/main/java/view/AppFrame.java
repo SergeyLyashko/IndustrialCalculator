@@ -20,6 +20,14 @@ class AppFrame implements Serializable {
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
+        jFrame.setContentPane(jTabbedPane);
+        addPanel("Калькулятор", calculatorPanel);
+        addPanel("Настройки", settingsPanel);
+        addPanel("Справка", infoPanel);
+        addListener(jFrame);
+    }
+
+    private void addListener(JFrame jFrame){
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -27,10 +35,6 @@ class AppFrame implements Serializable {
                 System.exit(0);
             }
         });
-        jFrame.setContentPane(jTabbedPane);
-        addPanel("Калькулятор", calculatorPanel);
-        addPanel("Настройки", settingsPanel);
-        addPanel("Справка", infoPanel);
     }
 
     private void addPanel(String type, AppPanel panel){
