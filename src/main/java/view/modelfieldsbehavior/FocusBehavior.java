@@ -9,10 +9,10 @@ import java.util.Arrays;
 class FocusBehavior {
 
     private static final String EMPTY = "";
-    private final FieldBehavior fieldBehavior;
+    private final FieldBehaviorImpl fieldBehaviorImpl;
 
-    FocusBehavior(FieldBehavior fieldBehavior){
-        this.fieldBehavior = fieldBehavior;
+    FocusBehavior(FieldBehaviorImpl fieldBehaviorImpl){
+        this.fieldBehaviorImpl = fieldBehaviorImpl;
     }
 
     void activate(JTextField textField){
@@ -20,13 +20,13 @@ class FocusBehavior {
             @Override
             public void focusGained(FocusEvent e) {
                 fieldFocusGained(textField);
-                fieldBehavior.setFilter(textField);
-                fieldBehavior.keyActivate(textField);
+                fieldBehaviorImpl.setFilter(textField);
+                fieldBehaviorImpl.keyActivate(textField);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldBehavior.keyDeactivate(textField);
+                fieldBehaviorImpl.keyDeactivate(textField);
             }
         });
     }

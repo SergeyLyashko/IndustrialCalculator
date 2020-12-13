@@ -30,4 +30,8 @@ public interface ViewController {
     void setMessage(String message, boolean alert);
 
     void setMessageComponent(AppComponent component);
+
+    boolean isWidth();
+
+    boolean isArea();
 }

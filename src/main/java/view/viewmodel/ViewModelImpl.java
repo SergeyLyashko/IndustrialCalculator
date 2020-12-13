@@ -1,72 +1,41 @@
 package view.viewmodel;
 
-import view.Controller;
+import controller.CalculatorData;
 import view.AppComponent;
 import view.MenuSelectable;
+import view.ViewController;
 import view.Visitor;
+import view.modelfieldsbehavior.FieldBehaviorImpl;
 import viewcontroller.LabelBehavior;
 
 import java.util.List;
 import java.util.Queue;
 
-public class ViewModelImpl implements KeyActionObserver{
+public class ViewModelImpl {
 
-    private final Controller appController;
+    private final Visitor colorVisitor;
 
-    private final Behavior behavior;
-
-    private AppComponent width;
-    private AppComponent length;
-
-    private Queue<String> queueItems;
-
-    public ViewModelImpl(Controller appController, Behavior behavior) {
-        this.appController = appController;
-        this.behavior = behavior;
-        behavior.registerObserver(this);
+    public ViewModelImpl() {
+        colorVisitor = new ColorChangeVisitor();
     }
 
-    public void setWidthField(AppComponent component) {
-        this.width = component;
-        behavior.setWidth(width);
-    }
-
-    public void setLengthField(AppComponent component) {
-        this.length = component;
-        behavior.setLength(length);
-    }
-
-    public void fieldsOff() {
-        behavior.fieldsOff();
-    }
-
-    // активация Number box
-    public void action() {
-        behavior.action();
-    }
-
-    public void widthOn() {
-        behavior.widthOn();
-    }
-
-    public void checkBoxSelect(boolean state) {
-        behavior.checkBoxSelect(state);
+    public FieldBehaviorImpl getFieldBehavior(AppComponent component) {
+        return new FieldBehaviorImpl(component);
     }
 
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
         new MenuListModel(receiveMenu, menuSelectable);
     }
 
-    @Override
-    public void keyActionUpdate() {
-        appController.setData(new CalculatorDataImpl(queueItems, width, length, behavior));
+    public CalculatorData getData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController) {
+        return new CalculatorDataImpl(queueItems, width, length, viewController);
     }
 
-    public void setSelectedItems(Queue<String> queueItems) {
-        this.queueItems = queueItems;
-    }
-
-    public LabelBehavior getBehavior(Visitor colorVisitor, AppComponent component) {
+    public LabelBehavior getLabelBehavior(AppComponent component) {
         return new LabelBehaviorImpl(colorVisitor, component);
+    }
+
+    public Visitor getVisitor() {
+        return colorVisitor;
     }
 }
