@@ -32,7 +32,6 @@ public class Main {
 
             Controller controller = new ControllerImpl(model);
 
-
             Behavior behavior = new BehaviorImpl();
             ViewModel viewModel = new ViewModel(controller, behavior);
             ViewController viewController = new ViewControllerImpl(viewModel);

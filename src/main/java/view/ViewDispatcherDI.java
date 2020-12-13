@@ -20,10 +20,7 @@ public class ViewDispatcherDI implements ViewObserver {
         AppPanel settingsPanel = new AppPanel(settingsComponents, viewController);
         AppPanel infoPanel = new AppPanel(infoComponents, viewController);
 
-        AppFrame appFrame = new AppFrame();
-        appFrame.addPanel("Калькулятор", calculatorPanel);
-        appFrame.addPanel("Настройки", settingsPanel);
-        appFrame.addPanel("Справка", infoPanel);
+        AppFrame appFrame = new AppFrame(calculatorPanel, settingsPanel, infoPanel);
 
         CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy();
         calculatorPanel.addFocusPolicy(focusTraversalPolicy);

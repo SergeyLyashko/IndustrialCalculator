@@ -12,7 +12,7 @@ class AppFrame implements Serializable {
 
     private final JTabbedPane jTabbedPane;
 
-    AppFrame() {
+    AppFrame(AppPanel calculatorPanel, AppPanel settingsPanel, AppPanel infoPanel) {
         jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
         JFrame jFrame = new JFrame("Industrial calculator");
         jFrame.setSize(360, 220);
@@ -28,9 +28,12 @@ class AppFrame implements Serializable {
             }
         });
         jFrame.setContentPane(jTabbedPane);
+        addPanel("Калькулятор", calculatorPanel);
+        addPanel("Настройки", settingsPanel);
+        addPanel("Справка", infoPanel);
     }
 
-    void addPanel(String type, AppPanel panel){
+    private void addPanel(String type, AppPanel panel){
         Container parentContainer = panel.getParent();
         jTabbedPane.add(type, parentContainer);
     }
