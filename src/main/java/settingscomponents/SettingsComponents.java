@@ -7,11 +7,11 @@ import view.ComponentsList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsComponentsDI implements ComponentsList {
+public class SettingsComponents implements ComponentsList {
 
     private final List<AppComponent> components;
 
-    public SettingsComponentsDI(ViewController viewController) {
+    public SettingsComponents(ViewController viewController) {
         components = new ArrayList<>();
         integration(new ColorThemeCheckBox(viewController));
         integration(new ToolTipsCheckBox(viewController));

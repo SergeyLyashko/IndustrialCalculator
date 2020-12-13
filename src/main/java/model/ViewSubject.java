@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public interface ViewSubject {
 
@@ -7,5 +7,4 @@ public interface ViewSubject {
     void notifyMessageObservers(String message, boolean alert);
 
     void registerObserver(ViewObserver observer);
-
 }

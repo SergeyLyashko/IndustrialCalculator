@@ -15,10 +15,8 @@ class Length implements AppComponent, Comparable<AppComponent>  {
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 60;
-    private final ViewController viewController;
 
     Length(ViewController viewController){
-        this.viewController = viewController;
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);

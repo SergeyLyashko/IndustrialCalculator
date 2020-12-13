@@ -2,7 +2,6 @@ package viewcontroller;
 
 import controller.CalculatorData;
 import view.AppComponent;
-import view.Controller;
 import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
@@ -12,7 +11,7 @@ import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
-    private final ViewModel viewModelImpl;
+    private final ViewModel viewModel;
     private final Controller appController;
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
@@ -25,29 +24,29 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     private boolean areaStatus;
     private boolean widthStatus;
 
-    public ViewControllerImpl(ViewModel viewModelImpl, Controller controller){
-        this.viewModelImpl = viewModelImpl;
+    public ViewControllerImpl(ViewModel viewModel, Controller controller){
+        this.viewModel = viewModel;
         this.appController = controller;
     }
 
     @Override
     public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        viewModelImpl.createMenu(receiveMenu, menuSelectable);
+        viewModel.createMenu(receiveMenu, menuSelectable);
     }
 
     @Override
     public void setResultComponent(AppComponent component) {
-        this.resultBehavior = viewModelImpl.getLabelBehavior(component);
+        this.resultBehavior = viewModel.getLabelBehavior(component);
     }
 
     @Override
     public void setMessageComponent(AppComponent component) {
-        this.messageBehavior = viewModelImpl.getLabelBehavior(component);
+        this.messageBehavior = viewModel.getLabelBehavior(component);
     }
 
     @Override
     public Visitor getVisitor() {
-        return viewModelImpl.getVisitor();
+        return viewModel.getVisitor();
     }
 
     @Override
@@ -106,10 +105,12 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
         action();
     }
 
+    @Override
     public boolean isArea(){
         return areaStatus;
     }
 
+    @Override
     public boolean isWidth(){
         return widthStatus;
     }
@@ -122,14 +123,14 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void setWidth(AppComponent component) {
         this.width = component;
-        this.widthBehavior = viewModelImpl.getFieldBehavior(component);
+        this.widthBehavior = viewModel.getFieldBehavior(component);
         widthBehavior.fieldDeactivate();
     }
 
     @Override
     public void setLength(AppComponent component) {
         this.length = component;
-        this.lengthBehavior = viewModelImpl.getFieldBehavior(component);
+        this.lengthBehavior = viewModel.getFieldBehavior(component);
         lengthBehavior.fieldDeactivate();
         lengthBehavior.registerObserver(this);
     }
@@ -155,7 +156,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     @Override
     public void keyActionUpdate() {
-        CalculatorData data = viewModelImpl.getData(queueItems, width, length, this);
+        CalculatorData data = viewModel.getData(queueItems, width, length, this);
         appController.setData(data);
     }
 }

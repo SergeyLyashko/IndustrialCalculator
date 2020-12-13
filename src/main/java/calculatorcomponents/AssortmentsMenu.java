@@ -39,6 +39,10 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         receiveMenu();
     }
 
+    private void addListener(ViewController viewController){
+        jComboBox.addActionListener(event -> viewController.fieldsOff());
+    }
+
     private void clickListener(){
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
@@ -49,10 +53,6 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
                 }
             }
         });
-    }
-
-    private void addListener(ViewController viewController){
-        jComboBox.addActionListener(event -> viewController.fieldsOff());
     }
 
     @Override

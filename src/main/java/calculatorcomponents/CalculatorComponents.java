@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatorComponentsDI implements ComponentsList {
+public class CalculatorComponents implements ComponentsList {
 
     private final List<AppComponent> components;
 
-    public CalculatorComponentsDI(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
+    public CalculatorComponents(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
         components = new ArrayList<>();
 
         integration(new Width(viewController));

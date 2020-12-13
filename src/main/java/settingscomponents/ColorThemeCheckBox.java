@@ -25,7 +25,6 @@ class ColorThemeCheckBox implements AppComponent, Host {
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-
         addHost(viewController);
         addItemListener(viewController);
     }

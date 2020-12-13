@@ -1,29 +1,29 @@
 package view;
 
-import controller.ViewObserver;
-import calculatorcomponents.CalculatorComponentsDI;
+import model.ViewObserver;
+import calculatorcomponents.CalculatorComponents;
 import infocomponents.InfoComponentsDI;
-import settingscomponents.SettingsComponentsDI;
+import settingscomponents.SettingsComponents;
 
-class ViewDispatcherDI implements ViewObserver {
+public class ViewDispatcherDI implements ViewObserver {
 
     private final ViewController viewController;
 
-    ViewDispatcherDI(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
+    public ViewDispatcherDI(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
         this.viewController = viewController;
 
-        ComponentsList calculatorComponents = new CalculatorComponentsDI(viewController, dataBaseMenuReceiver);
-        ComponentsList settingsComponents = new SettingsComponentsDI(viewController);
+        ComponentsList calculatorComponents = new CalculatorComponents(viewController, dataBaseMenuReceiver);
+        ComponentsList settingsComponents = new SettingsComponents(viewController);
         ComponentsList infoComponents = new InfoComponentsDI(viewController);
 
         AppPanel calculatorPanel = new AppPanel(calculatorComponents, viewController);
         AppPanel settingsPanel = new AppPanel(settingsComponents, viewController);
         AppPanel infoPanel = new AppPanel(infoComponents, viewController);
 
-        AppFrame appFrame = new AppFrame(calculatorPanel, settingsPanel, infoPanel);
-
         CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy();
         calculatorPanel.addFocusPolicy(focusTraversalPolicy);
+
+        new AppFrame(calculatorPanel, settingsPanel, infoPanel);
 
         Visitor visitor = viewController.getVisitor();
         visitor.activate();

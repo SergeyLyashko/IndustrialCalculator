@@ -5,7 +5,14 @@ import model.CalculatorFactory;
 import model.ValueReceiver;
 import model.CalculatorModelImpl;
 import detailmass.CalculatorFactoryImpl;
-import view.*;
+import model.ViewObserver;
+import viewcontroller.Controller;
+import view.DataBaseMenuReceiver;
+import view.ViewController;
+import view.ViewDispatcherDI;
+import viewcontroller.ViewControllerImpl;
+import viewcontroller.ViewModel;
+import viewmodel.ViewModelImpl;
 
 import java.awt.*;
 
@@ -15,7 +22,6 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            // TODO заменить на единый интерфейс ???
             DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
             DataBaseMenuReceiver dataBaseMenuReceiver = dataBaseDispatcher.getMenuReceiver();
             ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
@@ -25,8 +31,10 @@ public class Main {
 
             Controller controller = new ControllerImpl(model);
 
-            new View(model, dataBaseMenuReceiver, controller);
-
+            ViewModel viewModel = new ViewModelImpl();
+            ViewController viewController = new ViewControllerImpl(viewModel, controller);
+            ViewObserver observer = new ViewDispatcherDI(dataBaseMenuReceiver, viewController);
+            model.registerObserver(observer);
         });
     }
 }

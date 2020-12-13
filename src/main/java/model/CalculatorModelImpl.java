@@ -1,7 +1,5 @@
 package model;
 
-import controller.ViewObserver;
-import controller.ViewSubject;
 import controller.CalculatorModel;
 
 import java.awt.*;

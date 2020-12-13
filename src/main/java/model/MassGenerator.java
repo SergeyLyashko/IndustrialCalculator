@@ -10,16 +10,16 @@ class MassGenerator {
     private static final String NOT_FULL_DATA_MESSAGE = "Введены не все параметры";
     private static final String TOO_BIG_NUM_MESSAGE = "Размеры за пределами здравого смысла";
     private static final String NEGATIVE_MESSAGE = "Отрицательное значение размера";
-    private static final boolean ALERT = true;
     private static final String ERROR = "error";
+    private static final boolean ALERT = true;
 
     private final double receiveValue;
     private final List<String> values;
-    private final CalculatorModelImpl calculatorModel;
+    private final ViewSubject subject;
 
-    MassGenerator(double receiveValue, CalculatorModelImpl calculatorModel) {
+    MassGenerator(double receiveValue, ViewSubject subject) {
         this.receiveValue = receiveValue;
-        this.calculatorModel = calculatorModel;
+        this.subject = subject;
         values = new ArrayList<>(2);
     }
 
@@ -50,8 +50,8 @@ class MassGenerator {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            calculatorModel.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            subject.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
+            subject.notifyResultObservers(ERROR, ALERT);
         }
         return 0;
     }
@@ -62,8 +62,8 @@ class MassGenerator {
             if(first < checkNum){
                 return true;
             }
-            calculatorModel.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            subject.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
+            subject.notifyResultObservers(ERROR, ALERT);
             return false;
         }
         return false;
@@ -71,8 +71,8 @@ class MassGenerator {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            calculatorModel.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            subject.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
+            subject.notifyResultObservers(ERROR, ALERT);
             return false;
         }
         return true;

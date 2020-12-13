@@ -7,7 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-class KeyBehavior implements KeyActionSubject {
+class KeyBehavior {
 
     private KeyActionObserver observer;
 
@@ -34,15 +34,13 @@ class KeyBehavior implements KeyActionSubject {
         Arrays.stream(parent.getKeyListeners()).forEach(parent::removeKeyListener);
     }
 
-    @Override
-    public void notifyObservers() {
+    private void notifyObservers() {
         if(observer != null){
             observer.keyActionUpdate();
         }
     }
 
-    @Override
-    public void registerObserver(KeyActionObserver keyActionObserver) {
+    void registerObserver(KeyActionObserver keyActionObserver) {
         this.observer = keyActionObserver;
     }
 }

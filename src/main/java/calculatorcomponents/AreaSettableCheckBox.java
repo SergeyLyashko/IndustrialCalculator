@@ -65,5 +65,4 @@ class AreaSettableCheckBox implements AppComponent, Host {
     public JComponent getParent() {
         return jCheckBox;
     }
-
 }

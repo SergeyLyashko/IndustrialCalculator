@@ -50,5 +50,4 @@ class DimensionLabel implements AppComponent, Host {
     public void acceptVisitor(Visitor visitor) {
         visitor.visitLabel(this);
     }
-
 }
