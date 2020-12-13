@@ -1,4 +1,6 @@
-package view.viewmodel;
+package viewmodel;
+
+import viewcontroller.KeyActionObserver;
 
 public interface KeyActionSubject {
 

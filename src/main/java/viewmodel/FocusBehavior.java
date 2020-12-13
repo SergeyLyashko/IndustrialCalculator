@@ -1,4 +1,4 @@
-package view.modelfieldsbehavior;
+package viewmodel;
 
 import javax.swing.*;
 import java.awt.*;

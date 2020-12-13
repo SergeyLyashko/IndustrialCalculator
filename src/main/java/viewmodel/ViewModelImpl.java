@@ -1,17 +1,17 @@
-package view.viewmodel;
+package viewmodel;
 
 import controller.CalculatorData;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
-import view.modelfieldsbehavior.FieldBehaviorImpl;
 import viewcontroller.LabelBehavior;
+import viewcontroller.ViewModel;
 
 import java.util.List;
 import java.util.Queue;
 
-public class ViewModelImpl {
+public class ViewModelImpl implements ViewModel {
 
     private final Visitor colorVisitor;
 

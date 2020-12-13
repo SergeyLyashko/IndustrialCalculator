@@ -1,7 +1,5 @@
 package viewcontroller;
 
-import view.viewmodel.KeyActionObserver;
-
 public interface FieldBehavior {
 
     void fieldDeactivate();

@@ -1,4 +1,4 @@
-package view.viewmodel;
+package viewmodel;
 
 import controller.CalculatorData;
 import view.AppComponent;

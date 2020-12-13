@@ -1,7 +1,6 @@
-package view.modelfieldsbehavior;
+package viewmodel;
 
-import view.viewmodel.KeyActionObserver;
-import view.viewmodel.KeyActionSubject;
+import viewcontroller.KeyActionObserver;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;

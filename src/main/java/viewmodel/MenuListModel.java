@@ -1,4 +1,4 @@
-package view.viewmodel;
+package viewmodel;
 
 import view.MenuSelectable;
 

@@ -1,16 +1,18 @@
 package viewcontroller;
 
 import controller.CalculatorData;
-import view.*;
-import view.viewmodel.KeyActionObserver;
-import view.viewmodel.ViewModelImpl;
+import view.AppComponent;
+import view.Controller;
+import view.MenuSelectable;
+import view.ViewController;
+import view.Visitor;
 
 import java.util.List;
 import java.util.Queue;
 
 public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
-    private final ViewModelImpl viewModelImpl;
+    private final ViewModel viewModelImpl;
     private final Controller appController;
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
@@ -23,7 +25,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     private boolean areaStatus;
     private boolean widthStatus;
 
-    public ViewControllerImpl(ViewModelImpl viewModelImpl, Controller controller){
+    public ViewControllerImpl(ViewModel viewModelImpl, Controller controller){
         this.viewModelImpl = viewModelImpl;
         this.appController = controller;
     }
