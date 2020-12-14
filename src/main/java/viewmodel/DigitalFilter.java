@@ -1,10 +1,21 @@
 package viewmodel;
 
+import view.AppComponent;
+import viewcontroller.Filter;
+
+import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-class DigitalFilter extends DocumentFilter {
+class DigitalFilter extends DocumentFilter implements Filter {
+
+    @Override
+    public void setFilter(AppComponent component) {
+        JTextField textField = (JFormattedTextField) component.getParent();
+        ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
+    }
 
     @Override
     public void insertString(DocumentFilter.FilterBypass fb, int offset, String str, AttributeSet attr)

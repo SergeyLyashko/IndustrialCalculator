@@ -1,18 +1,26 @@
 package viewmodel;
 
+import view.AppComponent;
 import viewcontroller.KeyActionObserver;
+import viewcontroller.KeyBehavior;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-class KeyBehavior {
+class KeyBehaviorImpl implements KeyBehavior {
 
+    private final JFormattedTextField textField;
     private KeyActionObserver observer;
 
-    void fieldActivate(JTextField parent) {
-        parent.addKeyListener(new KeyAdapter() {
+    KeyBehaviorImpl(AppComponent component) {
+        this.textField = (JFormattedTextField) component.getParent();
+    }
+
+    @Override
+    public void fieldActivate() {
+        textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
                 if(event.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -23,15 +31,15 @@ class KeyBehavior {
             @Override
             public void keyReleased(KeyEvent event) {
                 if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                    JTextField source = (JFormattedTextField) event.getSource();
-                    source.transferFocus();
+                    textField.transferFocus();
                 }
             }
         });
     }
 
-    void fieldDeactivate(JTextField parent) {
-        Arrays.stream(parent.getKeyListeners()).forEach(parent::removeKeyListener);
+    @Override
+    public void fieldDeactivate() {
+        Arrays.stream(textField.getKeyListeners()).forEach(textField::removeKeyListener);
     }
 
     private void notifyObservers() {
@@ -40,7 +48,8 @@ class KeyBehavior {
         }
     }
 
-    void registerObserver(KeyActionObserver keyActionObserver) {
+    @Override
+    public void registerKeyObserver(KeyActionObserver keyActionObserver) {
         this.observer = keyActionObserver;
     }
 }

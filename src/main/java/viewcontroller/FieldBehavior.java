@@ -10,6 +10,4 @@ public interface FieldBehavior {
 
     void areaDeactivate();
 
-    void registerObserver(KeyActionObserver observer);
-
 }

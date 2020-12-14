@@ -20,4 +20,12 @@ public interface ViewModel {
     FieldBehavior getFieldBehavior(AppComponent component);
 
     CalculatorData getData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController);
+
+    FocusBehavior getFocusBehavior(AppComponent component);
+
+    KeyBehavior getKeyBehavior(AppComponent component);
+
+    Filter getDefaultFilter();
+
+    Filter getDigitalFilter();
 }

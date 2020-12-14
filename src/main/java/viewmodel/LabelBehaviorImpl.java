@@ -10,17 +10,18 @@ class LabelBehaviorImpl implements LabelBehavior {
 
     private final Visitor colorVisitor;
     private final AppComponent component;
+    private final JLabel label;
 
     LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
         this.component = component;
+        label = (JLabel) component.getParent();
         this.colorVisitor = colorVisitor;
     }
 
     @Override
     public void show(String text, boolean alert) {
         if(component != null) {
-            JLabel parent = (JLabel) component.getParent();
-            parent.setText(text);
+            label.setText(text);
             if(alert) {
                 colorVisitor.alert(component);
             }
@@ -30,8 +31,7 @@ class LabelBehaviorImpl implements LabelBehavior {
     @Override
     public void reset(){
         if(component != null){
-            JLabel parent = (JLabel) component.getParent();
-            parent.setText(component.getName());
+            label.setText(component.getName());
             colorVisitor.reset(component);
         }
     }
