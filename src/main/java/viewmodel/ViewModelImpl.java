@@ -2,7 +2,6 @@ package viewmodel;
 
 import controller.CalculatorData;
 import view.AppComponent;
-import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
 import viewcontroller.Filter;
@@ -11,6 +10,7 @@ import viewcontroller.KeyBehavior;
 import viewcontroller.LabelBehavior;
 import viewcontroller.ViewModel;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
@@ -50,8 +50,8 @@ public class ViewModelImpl implements ViewModel {
         return digitalFilter;
     }
 
-    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        new MenuListModel(receiveMenu, menuSelectable);
+    public ComboBoxModel<String> createMenu(List<String> receiveMenu) {
+        return new MenuListModel(receiveMenu);
     }
 
     public CalculatorData getData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController) {

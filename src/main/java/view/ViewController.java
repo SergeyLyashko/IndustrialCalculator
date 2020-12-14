@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public interface ViewController {
 
-    void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable);
+    void createMenu(List<String> menuList, MenuSelectable menuSelectable);
 
     Visitor getVisitor();
 

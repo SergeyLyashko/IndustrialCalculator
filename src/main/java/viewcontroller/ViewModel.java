@@ -6,12 +6,13 @@ import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
 public interface ViewModel {
 
-    void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable);
+    ComboBoxModel<String> createMenu(List<String> receiveMenu);
 
     LabelBehavior getLabelBehavior(AppComponent component);
 

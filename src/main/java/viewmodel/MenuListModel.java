@@ -1,7 +1,5 @@
 package viewmodel;
 
-import view.MenuSelectable;
-
 import javax.swing.*;
 import java.util.List;
 
@@ -10,10 +8,8 @@ class MenuListModel extends AbstractListModel<String> implements ComboBoxModel<S
     private final List<String> receiveMenuList;
     private int selected;
 
-    MenuListModel(List<String> receiveMenuList, MenuSelectable menuSelectable){
+    MenuListModel(List<String> receiveMenuList){
         this.receiveMenuList = receiveMenuList;
-        JComboBox<String> comboBox = menuSelectable.getParent();
-        comboBox.setModel(this);
     }
 
     @Override

@@ -6,6 +6,7 @@ import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
@@ -29,8 +30,10 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     }
 
     @Override
-    public void createMenu(List<String> receiveMenu, MenuSelectable menuSelectable) {
-        viewModel.createMenu(receiveMenu, menuSelectable);
+    public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
+        ComboBoxModel<String> menu = viewModel.createMenu(menuList);
+        JComboBox<String> comboBox = menuSelectable.getParent();
+        comboBox.setModel(menu);
     }
 
     @Override
