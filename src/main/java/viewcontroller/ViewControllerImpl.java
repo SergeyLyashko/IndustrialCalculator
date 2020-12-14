@@ -9,7 +9,7 @@ import view.Visitor;
 import java.util.List;
 import java.util.Queue;
 
-public class ViewControllerImpl implements ViewController, KeyActionObserver, FocusActionObserver {
+public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     private final ViewModel viewModel;
     private final Controller appController;
@@ -21,9 +21,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
     private AppComponent width;
     private AppComponent length;
     private Queue<String> queueItems;
-    private boolean checkBoxSelected;
-    private boolean areaStatus;
-    private boolean widthStatus;
 
 
     public ViewControllerImpl(ViewModel viewModel, Controller controller){
@@ -52,32 +49,13 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
     }
 
     @Override
-    public void widthOn() {
-        widthStatus = true;
-    }
-
-    private void checkSelected(){
-        if(checkBoxSelected){
-            deactivate();
-        }else {
-            activate();
-        }
-    }
-
-    @Override
-    public void areaCheckBoxState(boolean state) {
-        this.checkBoxSelected = state;
-        action();
-    }
-
-    @Override
     public boolean isArea(){
-        return areaStatus;
+        return lengthAction.isActionState();
     }
 
     @Override
     public boolean isWidth(){
-        return widthStatus;
+        return widthAction.isActionState();
     }
 
     private void resetServiceString(){
@@ -85,72 +63,55 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
         messageBehavior.reset();
     }
 
-    private void removeFilter(AppComponent component){
-        Filter defaultFilter = viewModel.getDefaultFilter();
-        defaultFilter.setFilter(component);
-    }
-
-    private void setFilter(AppComponent component){
-        Filter digitalFilter = viewModel.getDigitalFilter();
-        digitalFilter.setFilter(component);
-    }
-
     @Override
     public void fieldsOff() {
         resetServiceString();
-        removeFilter(width);
-        removeFilter(length);
         widthAction.deactivate();
         lengthAction.deactivate();
-        widthStatus = false;
+        widthAction.setState(false);
     }
 
     @Override
     public void action() {
         resetServiceString();
-        removeFilter(length);
         lengthAction.activate();
-        if(widthStatus){
-            checkSelected();
+        if(widthAction.isActionState()){
+            checkSelectedAreaBox();
         }
     }
 
-    private void activate() {
-        removeFilter(width);
-        widthAction.activate();
-        areaDeactivate();
+    private void checkSelectedAreaBox(){
+        if(lengthAction.isActionState()){
+            widthAction.deactivate();
+            lengthAction.areaActivate();
+        }else {
+            widthAction.activate();
+            lengthAction.areaDeactivate();
+        }
     }
 
-    private void deactivate() {
-        widthAction.deactivate();
-        areaActivate();
+    @Override
+    public void areaCheckBoxState(boolean selectedState) {
+        lengthAction.setState(selectedState);
+        action();
     }
 
-    private void areaActivate(){
-        lengthAction.areaActivate();
-        areaStatus = true;
-    }
-
-    private void areaDeactivate(){
-        lengthAction.areaDeactivate();
-        areaStatus = false;
+    @Override
+    public void widthOn() {
+        widthAction.setState(true);
     }
 
     @Override
     public void setWidth(AppComponent component) {
         this.width = component;
         widthAction = new FieldsAction(viewModel, component);
-        widthAction.registerFocusObserver(this);
-        widthAction.deactivate();
     }
 
     @Override
     public void setLength(AppComponent component) {
         this.length = component;
         lengthAction = new FieldsAction(viewModel, component);
-        lengthAction.registerFocusObserver(this);
         lengthAction.registerKeyObserver(this);
-        lengthAction.deactivate();
     }
 
     @Override
@@ -176,12 +137,5 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
     public void keyActionUpdate() {
         CalculatorData data = viewModel.getData(queueItems, width, length, this);
         appController.setData(data);
-    }
-
-    @Override
-    public void focusActionUpdate(AppComponent component) {
-        setFilter(component);
-        widthAction.keyActivate();
-        lengthAction.keyActivate();
     }
 }
