@@ -13,20 +13,18 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
 
     private final ViewModel viewModel;
     private final Controller appController;
+    private FieldsAction lengthAction;
+    private FieldsAction widthAction;
+
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
-    private FieldBehavior widthFieldBehavior;
-    private FieldBehavior lengthBehavior;
     private AppComponent width;
     private AppComponent length;
     private Queue<String> queueItems;
     private boolean checkBoxSelected;
     private boolean areaStatus;
     private boolean widthStatus;
-    private FocusBehavior widthFocusBehaviorImpl;
-    private FocusBehavior lengthFocusBehaviorImpl;
-    private KeyBehavior widthKeyBehaviorImpl;
-    private KeyBehavior lengthKeyBehaviorImpl;
+
 
     public ViewControllerImpl(ViewModel viewModel, Controller controller){
         this.viewModel = viewModel;
@@ -100,28 +98,18 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
     @Override
     public void fieldsOff() {
         resetServiceString();
-        //
         removeFilter(width);
-        widthFieldBehavior.fieldDeactivate();
-        widthFocusBehaviorImpl.deactivate();
-        widthKeyBehaviorImpl.fieldDeactivate();
-        //
         removeFilter(length);
-        lengthBehavior.fieldDeactivate();
-        lengthFocusBehaviorImpl.deactivate();
-        lengthKeyBehaviorImpl.fieldDeactivate();
-
+        widthAction.deactivate();
+        lengthAction.deactivate();
         widthStatus = false;
     }
 
     @Override
     public void action() {
         resetServiceString();
-        //
         removeFilter(length);
-        lengthBehavior.fieldActivate();
-        lengthFocusBehaviorImpl.activate();
-        //
+        lengthAction.activate();
         if(widthStatus){
             checkSelected();
         }
@@ -129,59 +117,42 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
 
     private void activate() {
         removeFilter(width);
-        widthFieldBehavior.fieldActivate();
-        widthFocusBehaviorImpl.activate();
+        widthAction.activate();
         areaDeactivate();
     }
 
     private void deactivate() {
-        widthFieldBehavior.fieldDeactivate();
-        widthFocusBehaviorImpl.deactivate();
-        widthKeyBehaviorImpl.fieldDeactivate();
-
+        widthAction.deactivate();
         areaActivate();
     }
 
     private void areaActivate(){
-        lengthBehavior.areaActivate();
+        lengthAction.areaActivate();
         areaStatus = true;
     }
 
     private void areaDeactivate(){
-        lengthBehavior.areaDeactivate();
+        lengthAction.areaDeactivate();
         areaStatus = false;
     }
 
     @Override
     public void setWidth(AppComponent component) {
         this.width = component;
-        this.widthFieldBehavior = viewModel.getFieldBehavior(component);
-        this.widthFocusBehaviorImpl = viewModel.getFocusBehavior(component);
-        this.widthKeyBehaviorImpl = viewModel.getKeyBehavior(component);
-        // TODO FOCUS observer
-        widthFocusBehaviorImpl.registerFocusObserver(this);
-        //
-        widthFieldBehavior.fieldDeactivate();
-        widthFocusBehaviorImpl.deactivate();
-        widthKeyBehaviorImpl.fieldDeactivate();
+        widthAction = new FieldsAction(viewModel, component);
+        widthAction.registerFocusObserver(this);
+        widthAction.deactivate();
     }
 
     @Override
     public void setLength(AppComponent component) {
         this.length = component;
-        this.lengthBehavior = viewModel.getFieldBehavior(component);
-        this.lengthFocusBehaviorImpl = viewModel.getFocusBehavior(component);
-        this.lengthKeyBehaviorImpl = viewModel.getKeyBehavior(component);
-        // TODO KEY observer - нажатия наблюдает только длина
-        lengthKeyBehaviorImpl.registerKeyObserver(this);
-        // TODO FOCUS observer
-        lengthFocusBehaviorImpl.registerFocusObserver(this);
-        //
-        lengthBehavior.fieldDeactivate();
-        lengthFocusBehaviorImpl.deactivate();
-        lengthKeyBehaviorImpl.fieldDeactivate();
+        lengthAction = new FieldsAction(viewModel, component);
+        lengthAction.registerFocusObserver(this);
+        lengthAction.registerKeyObserver(this);
+        lengthAction.deactivate();
     }
-    
+
     @Override
     public void setSelectedItems(Queue<String> queueItems) {
         this.queueItems = queueItems;
@@ -210,7 +181,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Fo
     @Override
     public void focusActionUpdate(AppComponent component) {
         setFilter(component);
-        widthKeyBehaviorImpl.fieldActivate();
-        lengthKeyBehaviorImpl.fieldActivate();
+        widthAction.keyActivate();
+        lengthAction.keyActivate();
     }
 }

@@ -7,5 +7,4 @@ public interface KeyBehavior {
     void registerKeyObserver(KeyActionObserver observer);
 
     void fieldActivate();
-
 }

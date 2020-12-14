@@ -2,9 +2,9 @@ package viewcontroller;
 
 public interface FocusBehavior {
 
-    void deactivate();
+    void fieldDeactivate();
 
-    void activate();
+    void fieldActivate();
 
     void registerFocusObserver(FocusActionObserver observer);
 }

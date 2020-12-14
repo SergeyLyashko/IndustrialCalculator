@@ -23,7 +23,7 @@ class FocusBehaviorImpl implements FocusBehavior {
     }
 
     @Override
-    public void activate(){
+    public void fieldActivate(){
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -52,7 +52,7 @@ class FocusBehaviorImpl implements FocusBehavior {
     }
 
     @Override
-    public void deactivate() {
+    public void fieldDeactivate() {
         Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
     }
 
