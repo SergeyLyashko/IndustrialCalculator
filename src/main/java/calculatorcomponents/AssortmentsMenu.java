@@ -15,7 +15,6 @@ import java.util.List;
 class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
-
     private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";

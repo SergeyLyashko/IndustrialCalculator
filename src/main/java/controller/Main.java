@@ -5,11 +5,11 @@ import model.CalculatorFactory;
 import model.ValueReceiver;
 import model.CalculatorModelImpl;
 import detailmass.CalculatorFactoryImpl;
-import model.ViewObserver;
+import model.View;
 import viewcontroller.Controller;
 import view.DataBaseMenuReceiver;
 import view.ViewController;
-import view.ViewDispatcherDI;
+import view.ViewImpl;
 import viewcontroller.ViewControllerImpl;
 import viewcontroller.ViewModel;
 import viewmodel.ViewModelImpl;
@@ -33,8 +33,8 @@ public class Main {
 
             ViewModel viewModel = new ViewModelImpl();
             ViewController viewController = new ViewControllerImpl(viewModel, controller);
-            ViewObserver observer = new ViewDispatcherDI(dataBaseMenuReceiver, viewController);
-            model.registerObserver(observer);
+            View view = new ViewImpl(dataBaseMenuReceiver, viewController);
+            model.registerObserver(view);
         });
     }
 }

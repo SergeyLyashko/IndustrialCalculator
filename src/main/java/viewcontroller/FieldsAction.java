@@ -1,8 +1,10 @@
 package viewcontroller;
 
 import view.AppComponent;
+import viewmodel.FocusActionObserver;
+import viewmodel.KeyActionObserver;
 
-class FieldsAction implements FocusActionObserver{
+class FieldsAction implements FocusActionObserver {
 
     private final FieldBehavior fieldBehavior;
     private final FocusBehavior focusBehavior;
@@ -15,9 +17,9 @@ class FieldsAction implements FocusActionObserver{
 
     FieldsAction(ViewModel viewModel, AppComponent component) {
         this.component = component;
-        this.fieldBehavior = viewModel.getFieldBehavior(component);
-        this.focusBehavior = viewModel.getFocusBehavior(component);
-        this.keyBehavior = viewModel.getKeyBehavior(component);
+        this.fieldBehavior = viewModel.createFieldBehavior(component);
+        this.focusBehavior = viewModel.createFocusBehavior(component);
+        this.keyBehavior = viewModel.createKeyBehavior(component);
         this.defaultFilter = viewModel.getDefaultFilter();
         this.digitalFilter = viewModel.getDigitalFilter();
         focusBehavior.registerFocusObserver(this);

@@ -9,9 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
-class AreaSettableCheckBox implements AppComponent, Host {
-
-    private final JCheckBox jCheckBox;
+class SetAreaCheckBox implements AppComponent, Host {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
@@ -19,8 +17,9 @@ class AreaSettableCheckBox implements AppComponent, Host {
     private static final int LOCATION_Y = 85;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
+    private final JCheckBox jCheckBox;
 
-    AreaSettableCheckBox(ViewController viewController){
+    SetAreaCheckBox(ViewController viewController){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);

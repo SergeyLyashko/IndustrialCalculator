@@ -6,5 +6,5 @@ public interface ViewSubject {
 
     void notifyMessageObservers(String message, boolean alert);
 
-    void registerObserver(ViewObserver observer);
+    void registerObserver(View observer);
 }

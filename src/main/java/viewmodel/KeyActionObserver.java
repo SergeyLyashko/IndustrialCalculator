@@ -1,4 +1,4 @@
-package viewcontroller;
+package viewmodel;
 
 public interface KeyActionObserver {
 

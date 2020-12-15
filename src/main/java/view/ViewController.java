@@ -34,4 +34,10 @@ public interface ViewController {
     boolean isWidth();
 
     boolean isArea();
+
+    List<AppComponent> loadComponents();
+
+    void savedPreference(List<AppComponent> components);
+
+    void setToolTipState(boolean selected);
 }

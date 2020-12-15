@@ -1,7 +1,6 @@
 package viewmodel;
 
 import view.AppComponent;
-import viewcontroller.FocusActionObserver;
 import viewcontroller.FocusBehavior;
 
 import javax.swing.*;
@@ -29,13 +28,6 @@ class FocusBehaviorImpl implements FocusBehavior {
             public void focusGained(FocusEvent e) {
                 fieldFocusGained();
                 notifyObservers();
-            }
-            // TODO DEL
-            @Override
-            public void focusLost(FocusEvent e) {
-                // TODO ???
-                //fieldBehaviorImpl.keyDeactivate(textField);
-
             }
         });
     }

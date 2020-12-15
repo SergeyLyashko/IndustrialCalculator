@@ -72,5 +72,4 @@ class Info implements AppComponent, Host {
     public JComponent getParent() {
         return jLabel;
     }
-
 }

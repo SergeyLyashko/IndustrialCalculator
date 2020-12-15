@@ -4,9 +4,7 @@ import view.ViewController;
 import view.AppComponent;
 import javax.swing.*;
 
-class Width implements AppComponent, Comparable<AppComponent>  {
-
-    private final JFormattedTextField textField;
+class Width implements AppComponent, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 4;
     private static final String BOX_NAME = "введите ширину";
@@ -15,6 +13,7 @@ class Width implements AppComponent, Comparable<AppComponent>  {
     private static final int HEIGHT = 23;
     private static final int LOCATION_X = 190;
     private static final int LOCATION_Y = 20;
+    private final JFormattedTextField textField;
 
     Width(ViewController viewController){
         textField = new JFormattedTextField();
@@ -23,7 +22,6 @@ class Width implements AppComponent, Comparable<AppComponent>  {
         textField.setText(BOX_NAME);
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-
         viewController.setWidth(this);
     }
 

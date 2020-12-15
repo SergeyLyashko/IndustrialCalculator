@@ -5,6 +5,7 @@ import view.AppComponent;
 import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
+import viewmodel.KeyActionObserver;
 
 import javax.swing.*;
 import java.util.List;
@@ -31,19 +32,19 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
-        ComboBoxModel<String> menu = viewModel.createMenu(menuList);
+        ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
         JComboBox<String> comboBox = menuSelectable.getParent();
         comboBox.setModel(menu);
     }
 
     @Override
     public void setResultComponent(AppComponent component) {
-        this.resultBehavior = viewModel.getLabelBehavior(component);
+        this.resultBehavior = viewModel.createLabelBehavior(component);
     }
 
     @Override
     public void setMessageComponent(AppComponent component) {
-        this.messageBehavior = viewModel.getLabelBehavior(component);
+        this.messageBehavior = viewModel.createLabelBehavior(component);
     }
 
     @Override
@@ -54,6 +55,26 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public boolean isArea(){
         return lengthAction.isActionState();
+    }
+
+    @Override
+    public List<AppComponent> loadComponents() {
+        Preference preference = viewModel.getPreference();
+        if(preference.isSaved()){
+            return preference.loadComponents();
+        }
+        return null;
+    }
+
+    @Override
+    public void savedPreference(List<AppComponent> components) {
+        Preference preference = viewModel.getPreference();
+        preference.saveComponents(components);
+    }
+
+    @Override
+    public void setToolTipState(boolean selected) {
+        viewModel.setToolTipState(selected);
     }
 
     @Override
@@ -138,7 +159,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     @Override
     public void keyActionUpdate() {
-        CalculatorData data = viewModel.getData(queueItems, width, length, this);
+        CalculatorData data = viewModel.createData(queueItems, width, length, this);
         appController.setData(data);
     }
 }

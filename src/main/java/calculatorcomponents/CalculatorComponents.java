@@ -19,7 +19,7 @@ public class CalculatorComponents implements ComponentsList {
 
         integration(new Width(viewController));
         integration(new Length(viewController));
-        integration(new AreaSettableCheckBox(viewController));
+        integration(new SetAreaCheckBox(viewController));
 
         MenuSelectable assortment = new AssortmentsMenu(viewController, dataBaseMenuReceiver);
         MenuSelectable types = new TypesMenu(viewController, dataBaseMenuReceiver);

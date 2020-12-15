@@ -10,12 +10,11 @@ import javax.swing.*;
 class Message implements AppComponent, Host {
 
     private static final String EMPTY = "";
-    private final JLabel jLabel;
-
     private static final int LOCATION_X = 20;
     private static final int LOCATION_Y = 140;
     private static final int SIZE_X = 315;
     private static final int SIZE_Y = 15;
+    private final JLabel jLabel;
 
     Message(ViewController viewController){
         jLabel = new JLabel();

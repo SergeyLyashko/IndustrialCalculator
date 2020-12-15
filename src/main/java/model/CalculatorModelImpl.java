@@ -16,7 +16,7 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private final ValueReceiver valueReceiver;
     private final CalculatorFactory massFactory;
-    private ViewObserver observer;
+    private View observer;
     private Queue<String> detailData;
     private static final boolean ALERT = true;
     private static final boolean CALM = false;
@@ -37,7 +37,7 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void registerObserver(ViewObserver observer) {
+    public void registerObserver(View observer) {
         this.observer = observer;
     }
 

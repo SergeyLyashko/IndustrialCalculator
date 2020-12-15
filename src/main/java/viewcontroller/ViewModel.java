@@ -2,7 +2,6 @@ package viewcontroller;
 
 import controller.CalculatorData;
 import view.AppComponent;
-import view.MenuSelectable;
 import view.ViewController;
 import view.Visitor;
 
@@ -12,21 +11,25 @@ import java.util.Queue;
 
 public interface ViewModel {
 
-    ComboBoxModel<String> createMenu(List<String> receiveMenu);
+    ComboBoxModel<String> createMenuModel(List<String> receiveMenu);
 
-    LabelBehavior getLabelBehavior(AppComponent component);
+    LabelBehavior createLabelBehavior(AppComponent component);
 
     Visitor getVisitor();
 
-    FieldBehavior getFieldBehavior(AppComponent component);
+    FieldBehavior createFieldBehavior(AppComponent component);
 
-    CalculatorData getData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController);
+    CalculatorData createData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController);
 
-    FocusBehavior getFocusBehavior(AppComponent component);
+    FocusBehavior createFocusBehavior(AppComponent component);
 
-    KeyBehavior getKeyBehavior(AppComponent component);
+    KeyBehavior createKeyBehavior(AppComponent component);
 
     Filter getDefaultFilter();
 
     Filter getDigitalFilter();
+
+    Preference getPreference();
+
+    void setToolTipState(boolean selected);
 }

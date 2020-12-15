@@ -1,7 +1,6 @@
 package viewmodel;
 
 import view.AppComponent;
-import viewcontroller.KeyActionObserver;
 import viewcontroller.KeyBehavior;
 
 import javax.swing.*;

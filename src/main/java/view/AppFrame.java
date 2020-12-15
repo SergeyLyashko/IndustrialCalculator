@@ -4,13 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.Serializable;
 
-class AppFrame implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+class AppFrame implements WinCloseSubject {
 
     private final JTabbedPane jTabbedPane;
+    private WinCloseObserver observer;
 
     AppFrame(AppPanel calculatorPanel, AppPanel settingsPanel, AppPanel infoPanel) {
         jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -31,14 +29,25 @@ class AppFrame implements Serializable {
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("make save");
+                notifyObserver();
                 System.exit(0);
             }
         });
     }
 
+    private void notifyObserver() {
+        if(observer != null) {
+            observer.winCloseUpdate();
+        }
+    }
+
     private void addPanel(String type, AppPanel panel){
         Container parentContainer = panel.getParent();
         jTabbedPane.add(type, parentContainer);
+    }
+
+    @Override
+    public void registerWinCloseObserver(WinCloseObserver observer) {
+        this.observer = observer;
     }
 }

@@ -14,8 +14,6 @@ import java.util.List;
 
 class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
-    private final JComboBox<String> jComboBox;
-
     private static final int FOCUSED_RATE = 2;
     private static final String TYPE_HEADER = "Тип профиля";
     private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
@@ -24,9 +22,10 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
 
+    private String assortment = DEFAULT_MENU_VALUE;
+    private final JComboBox<String> jComboBox;
     private final ViewController controller;
     private final DataBaseMenuReceiver menuReceiver;
-    private String assortment = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
     TypesMenu(ViewController controller, DataBaseMenuReceiver menuReceiver){

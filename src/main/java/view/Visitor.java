@@ -22,4 +22,6 @@ public interface Visitor {
     void alert(AppComponent component);
 
     void reset(AppComponent component);
+
+    void raid();
 }

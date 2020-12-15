@@ -1,6 +1,6 @@
 package model;
 
-public interface ViewObserver {
+public interface View {
 
     void messageUpdate(String message, boolean alert);
 

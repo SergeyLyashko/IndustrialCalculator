@@ -16,8 +16,6 @@ import java.util.Queue;
 
 class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
 
-    private final JComboBox<String> jComboBox;
-
     private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
     private static final String TOOL_TIP_TEXT = "выбор номера профиля детали";
@@ -25,6 +23,8 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
+
+    private final JComboBox<String> jComboBox;
     private final ViewController viewController;
     private final DataBaseMenuReceiver dataBaseMenuReceiver;
     private String assortment = DEFAULT_MENU_VALUE;

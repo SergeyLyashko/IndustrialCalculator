@@ -7,11 +7,11 @@ import view.ComponentsList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoComponentsDI implements ComponentsList {
+public class InfoComponents implements ComponentsList {
 
     private final List<AppComponent> components;
 
-    public InfoComponentsDI(ViewController viewController) {
+    public InfoComponents(ViewController viewController) {
 
         AppComponent info = new Info(viewController);
         AppComponent scrollWrapper = new ScrollWrapper(viewController, info);

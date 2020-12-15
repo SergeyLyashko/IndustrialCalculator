@@ -6,6 +6,7 @@ import view.Host;
 import view.Visitor;
 
 import javax.swing.*;
+import java.io.Serializable;
 
 class DimensionLabel implements AppComponent, Host {
 

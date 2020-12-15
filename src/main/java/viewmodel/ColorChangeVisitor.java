@@ -18,7 +18,8 @@ class ColorChangeVisitor implements Visitor {
     private Color serviceStringColor;
     private final Color alertColor = Color.RED;
 
-    private void raid() {
+    @Override
+    public void raid() {
         componentsList.forEach(component -> component.acceptVisitor(this));
     }
 
@@ -70,7 +71,6 @@ class ColorChangeVisitor implements Visitor {
         foreGround = Color.BLACK;
         markerColor = Color.BLACK;
         serviceStringColor = Color.BLUE;
-        raid();
     }
 
     @Override
@@ -79,6 +79,5 @@ class ColorChangeVisitor implements Visitor {
         foreGround = Color.WHITE;
         markerColor = Color.WHITE;
         serviceStringColor = Color.GREEN;
-        raid();
     }
 }

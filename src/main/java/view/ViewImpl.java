@@ -1,32 +1,33 @@
 package view;
 
-import model.ViewObserver;
+import model.View;
 import calculatorcomponents.CalculatorComponents;
-import infocomponents.InfoComponentsDI;
+import infocomponents.InfoComponents;
 import settingscomponents.SettingsComponents;
 
-public class ViewDispatcherDI implements ViewObserver {
+public class ViewImpl implements View {
 
     private final ViewController viewController;
 
-    public ViewDispatcherDI(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
+    public ViewImpl(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
         this.viewController = viewController;
 
-        ComponentsList calculatorComponents = new CalculatorComponents(viewController, dataBaseMenuReceiver);
-        ComponentsList settingsComponents = new SettingsComponents(viewController);
-        ComponentsList infoComponents = new InfoComponentsDI(viewController);
+        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController, dataBaseMenuReceiver);
+        SettingsComponents settingsComponents = new SettingsComponents(viewController);
+        InfoComponents infoComponents = new InfoComponents(viewController);
 
         AppPanel calculatorPanel = new AppPanel(calculatorComponents, viewController);
-        AppPanel settingsPanel = new AppPanel(settingsComponents, viewController);
         AppPanel infoPanel = new AppPanel(infoComponents, viewController);
+        AppPanel settingsPanel = new AppPanel(settingsComponents, viewController);
 
         CalculatorFocusTraversalPolicy focusTraversalPolicy = new CalculatorFocusTraversalPolicy();
         calculatorPanel.addFocusPolicy(focusTraversalPolicy);
 
-        new AppFrame(calculatorPanel, settingsPanel, infoPanel);
+        AppFrame appFrame = new AppFrame(calculatorPanel, settingsPanel, infoPanel);
+        appFrame.registerWinCloseObserver(settingsComponents);
 
         Visitor visitor = viewController.getVisitor();
-        visitor.activate();
+        visitor.raid();
     }
 
     @Override

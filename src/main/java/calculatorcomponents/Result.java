@@ -7,9 +7,7 @@ import view.Visitor;
 
 import javax.swing.*;
 
-class Result implements AppComponent, Host, Comparable<AppComponent>  {
-
-    private final JLabel jLabel;
+class Result implements AppComponent, Host, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0 кг";
@@ -17,6 +15,7 @@ class Result implements AppComponent, Host, Comparable<AppComponent>  {
     private static final int LOCATION_Y = 105;
     private static final int SIZE_X = 125;
     private static final int SIZE_Y = 25;
+    private final JLabel jLabel;
 
     Result(ViewController viewController){
         jLabel = new JLabel();
