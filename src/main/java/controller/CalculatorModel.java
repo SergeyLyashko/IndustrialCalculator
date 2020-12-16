@@ -1,12 +1,15 @@
 package controller;
 
+import model.CalculatorFactory;
 import model.ViewSubject;
-
-import java.util.Queue;
 
 public interface CalculatorModel extends ViewSubject {
 
-    void setData(Queue<String> detailData);
+    void calculationMass(CalculatorFactory calculator, Detail detail);
 
-    void calculation();
+    CalculatorFactory getCalculator(String assortment, String type);
+
+    DataValueParser getDataParser();
+
+    Detail getDetail(double dataBaseValue, double[] parseData);
 }

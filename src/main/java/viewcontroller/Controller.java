@@ -1,8 +1,11 @@
 package viewcontroller;
 
 import controller.CalculatorData;
+import model.View;
 
 public interface Controller {
 
-    void setData(CalculatorData data);
+    void setCalculatorData(CalculatorData data);
+
+    void registerObserver(View view);
 }

@@ -160,6 +160,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void keyActionUpdate() {
         CalculatorData data = viewModel.createData(queueItems, width, length, this);
-        appController.setData(data);
+        appController.setCalculatorData(data);
     }
 }

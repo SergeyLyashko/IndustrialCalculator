@@ -1,81 +1,58 @@
 package model;
 
 import controller.CalculatorModel;
+import controller.DataValueParser;
+import controller.Detail;
+import detailmass.CalculatorFactoryImpl;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.Queue;
 
 public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
-    private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
-    private static final String ERROR = "error";
-
-    private final ValueReceiver valueReceiver;
-    private final CalculatorFactory massFactory;
-    private View observer;
-    private Queue<String> detailData;
-    private static final boolean ALERT = true;
     private static final boolean CALM = false;
-
-    public CalculatorModelImpl(ValueReceiver valueReceiver, CalculatorFactory massFactory) {
-        this.valueReceiver = valueReceiver;
-        this.massFactory = massFactory;
-    }
+    private View viewObserver;
 
     @Override
     public void notifyResultObservers(String mass, boolean alert) {
-        observer.resultUpdate(mass, alert);
+        viewObserver.resultUpdate(mass, alert);
     }
 
     @Override
     public void notifyMessageObservers(String message, boolean alert) {
-        observer.messageUpdate(message, alert);
+        viewObserver.messageUpdate(message, alert);
     }
 
     @Override
     public void registerObserver(View observer) {
-        this.observer = observer;
+        this.viewObserver = observer;
     }
 
     @Override
-    public void setData(Queue<String> detailData) {
-        this.detailData = detailData;
-    }
-
-    @Override
-    public void calculation() {
-        String assortment = detailData.poll();
-        String type = detailData.poll();
-        String number = detailData.poll();
-        AbstractMassCalculator massCalculator = massFactory.createMassCalculator(assortment, type);
-        double value = receiveValue(assortment, type, number);
-        MassGenerator generator = createGenerator(value);
-        double mass = generator.generateMass(massCalculator);
+    public void calculationMass(CalculatorFactory calculator, Detail detail) {
+        AbstractMassCalculator massCalculator = calculator.createMassCalculator();
+        massCalculator.setDetail(detail);
+        double mass = massCalculator.calculationMass();
         if(mass > 0) {
             notifyResult(mass);
         }
     }
 
-    private double receiveValue(String assortment, String type, String number){
-        try {
-            return valueReceiver.getValue(assortment, type, number);
-        } catch (SQLException exception) {
-            notifyMessageObservers(NOT_DATABASE_MESSAGE, ALERT);
-            notifyResultObservers(ERROR, ALERT);
-        }
-        return 0;
+    @Override
+    public CalculatorFactory getCalculator(String assortment, String type) {
+        return new CalculatorFactoryImpl(assortment, type);
     }
 
-    private MassGenerator createGenerator(double receiveValue){
-        MassGenerator massGenerator = new MassGenerator(receiveValue, this);
-        while (!detailData.isEmpty()){
-            massGenerator.addData(detailData.poll());
-        }
-        return massGenerator;
+    @Override
+    public DataValueParser getDataParser() {
+        return new DataValueParserImpl(this);
+    }
+
+    @Override
+    public Detail getDetail(double dataBaseValue, double[] parseData) {
+        return new DetailImpl(dataBaseValue, parseData);
     }
 
     private void notifyResult(double mass){

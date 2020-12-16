@@ -1,9 +1,11 @@
 package model;
 
+import controller.DataValueParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class MassGenerator {
+class DataValueParserImpl implements DataValueParser {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
@@ -13,26 +15,26 @@ class MassGenerator {
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
 
-    private final double receiveValue;
     private final List<String> values;
     private final ViewSubject subject;
 
-    MassGenerator(double receiveValue, ViewSubject subject) {
-        this.receiveValue = receiveValue;
+    DataValueParserImpl(ViewSubject subject) {
         this.subject = subject;
         values = new ArrayList<>(2);
     }
 
-    void addData(String data) {
+    @Override
+    public void addData(String data) {
         values.add(data);
     }
 
-    double generateMass(AbstractMassCalculator massCalculator){
+    @Override
+    public double[] parseData(){
         double[] parseValues = this.values.stream().mapToDouble(this::parse).toArray();
         if(parseValues.length > 0 && isValid(parseValues)){
-            massCalculator.setDetail(new Detail(receiveValue, parseValues));
+            return parseValues;
         }
-        return massCalculator.calculationMass();
+        return null;
     }
 
     private boolean isValid(double[] values){

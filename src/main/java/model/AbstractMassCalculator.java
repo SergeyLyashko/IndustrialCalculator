@@ -1,5 +1,7 @@
 package model;
 
+import controller.Detail;
+
 public abstract class AbstractMassCalculator {
 
     // Плотность стали марки Ст3 7,85e-6 кг/мм3 = 7850 кг/м3

@@ -1,10 +1,8 @@
 package controller;
 
 import database.DataBaseDispatcher;
-import model.CalculatorFactory;
 import model.ValueReceiver;
 import model.CalculatorModelImpl;
-import detailmass.CalculatorFactoryImpl;
 import model.View;
 import viewcontroller.Controller;
 import view.DataBaseMenuReceiver;
@@ -26,15 +24,15 @@ public class Main {
             DataBaseMenuReceiver dataBaseMenuReceiver = dataBaseDispatcher.getMenuReceiver();
             ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
 
-            CalculatorFactory calculatorFactory = new CalculatorFactoryImpl();
-            CalculatorModel model = new CalculatorModelImpl(valueReceiver, calculatorFactory);
-
-            Controller controller = new ControllerImpl(model);
+            CalculatorModel model = new CalculatorModelImpl();
+            Controller controller = new ControllerImpl(model, valueReceiver);
 
             ViewModel viewModel = new ViewModelImpl();
             ViewController viewController = new ViewControllerImpl(viewModel, controller);
             View view = new ViewImpl(dataBaseMenuReceiver, viewController);
+
             model.registerObserver(view);
+            controller.registerObserver(view);
         });
     }
 }
