@@ -33,7 +33,7 @@ import calcmassview.base.Reset;
  */
 @ToolTips(getToolTipDescription = "")
 @ColorTheme()
-class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
+public class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,9 +49,9 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
     }
     
     @Override
-    public void setComponents(ArrayList<JComponent> components){
+    public void changeComponents(ArrayList<JComponent> components){
         List<JComponent> componentsFiltred = componentsFilterForChangeTheme(components);
-        createColorTheme(componentsFiltred);
+        changeTheme(componentsFiltred);
     }
     
     private List<JComponent> componentsFilterForChangeTheme(ArrayList<JComponent> components){
@@ -64,7 +64,7 @@ class ColorThemeCheckBox extends JCheckBox implements CheckBoxSelectable, Serial
                 .collect(Collectors.toList());        
     }
     
-    private void createColorTheme(List<JComponent> components){
+    private void changeTheme(List<JComponent> components){
         this.theme = new ColorThemeChanger(components);
         theme.doDark();
     }

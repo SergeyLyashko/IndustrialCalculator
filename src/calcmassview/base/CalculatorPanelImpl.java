@@ -55,6 +55,10 @@ public class CalculatorPanelImpl extends JPanel implements CalculatorPanel, Item
         super.setLayout(null);
         super.setFocusCycleRoot(true);
     }
+
+    public CalculatorPanelImpl(MenuListReceiveService menuListReceiver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     // создание компонентов окна приложения
     private void addComponents(){        

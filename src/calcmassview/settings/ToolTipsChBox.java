@@ -30,7 +30,7 @@ import javax.swing.JComponent;
  */
 @ToolTips(getToolTipDescription = "")
 @ColorTheme()
-class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
+public class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializable, ToolTips, ColorTheme {
 
     private static final long serialVersionUID = 1L;
     
@@ -47,7 +47,7 @@ class ToolTipsChBox extends JCheckBox implements CheckBoxSelectable, Serializabl
     }
     
     @Override
-    public void setComponents(ArrayList<JComponent> components){
+    public void changeComponents(ArrayList<JComponent> components){
         List<JComponent> componentsFiltred = componentsFilterForToolTips(components);
         createToolTips(componentsFiltred);
     }

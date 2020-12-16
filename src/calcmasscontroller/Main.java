@@ -16,9 +16,9 @@
 package calcmasscontroller;
 
 import calcdatabase.DataBaseDispatcher;
-import calcmassview.ViewServiceDispatcher;
+import calcmassview.ViewDispatcher;
 import javax.swing.SwingUtilities;
-import calcmassview.info.Info;
+import calcmassview.Info;
 import calcmassmodel.ModelServiceDispatcher;
 import details.MassCalculatorFactory;
 import calcmassmodel.ModelService;
@@ -37,7 +37,7 @@ public class Main {
             ControllerService controller = new CalculatorControllerImpl(model);
             
             Info info = new InfoImpl();
-            ViewService view = new ViewServiceDispatcher(info, controller);
+            ViewService view = new ViewDispatcher(info, controller);
             
             new DataBaseDispatcher(model, view);
             MassCalculatorFactory massFactory = new MassCalculatorFactory();

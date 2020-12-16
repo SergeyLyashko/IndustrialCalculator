@@ -13,35 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview;
+package app;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Korvin
  */
-public class CalculatorFrame extends JFrame implements Serializable {
+class AppFrame extends JFrame implements Serializable {
     
     private static final long serialVersionUID = 1L;    
     
-    public CalculatorFrame(ViewServiceDispatcher view){
+    AppFrame(JPanel panel){
         super("Industrial calculator");
         super.setBounds(300, 300, 360, 220);
         super.setResizable(false);
         super.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        super.getContentPane().add(view, BorderLayout.CENTER);
+        super.getContentPane().add(panel, BorderLayout.CENTER);
         super.setVisible(true);
-        savePreferencesForExit(view);
+        savePreferencesForExit(panel);
     }
     
     // закрытие приложения
-    private void savePreferencesForExit(ViewServiceDispatcher view){
-        this.addWindowListener(new WindowListener() {
+    private void savePreferencesForExit(JPanel panel){
+        super.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {}
 

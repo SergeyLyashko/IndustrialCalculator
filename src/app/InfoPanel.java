@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.info;
+package app;
 
+import calcmassview.Info;
 import calcmassview.settings.ColorTheme;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,39 +35,36 @@ import javax.swing.ScrollPaneConstants;
  * @author Sergei Lyashko
  */
 @ColorTheme()
-public class InfoPanel extends JPanel implements Serializable, ColorTheme {
+class InfoPanel extends JPanel implements Serializable, ColorTheme {
     
     private static final long serialVersionUID = 1L;
     
-    private final JLabel informationText;
-    private final ArrayList<JComponent> components;
-    
-    public InfoPanel(ArrayList<JComponent> components, Info info){
+    private final Info info;
+
+    InfoPanel(Info info) {
         super.setLayout(new BorderLayout());        
-        this.informationText = (JLabel) info;
-        this.components = components;
-        addComponents();
+        this.info = info;
     }
     
-    private void addComponents(){        
-        setInfoTextParameters(informationText);
-        components.add(informationText);
-        
-        JScrollPane scrollPane = new JScrollPane(informationText);
-        setScrollPaneParameters(scrollPane);
-        components.add(scrollPane.getViewport());
-        
-        super.add(scrollPane, BorderLayout.CENTER);
+    List<JComponent> createComponents(){
+        JLabel informationText = formattedReceiveText();
+        JScrollPane scrollPane = createScrollPane(informationText);        
+        super.add(scrollPane, BorderLayout.CENTER);        
+        return Stream.of(informationText, scrollPane.getViewport()).collect(Collectors.toList());
     }
     
-    private void setInfoTextParameters(JLabel htmlText){
+    private JLabel formattedReceiveText(){
+        JLabel htmlText = info.receiveInfo();
         Dimension dimension = new Dimension(250, 510);
         htmlText.setPreferredSize(dimension);
+        return htmlText;
     }
     
-    private void setScrollPaneParameters(JScrollPane scrollPane){
+    private JScrollPane createScrollPane(JLabel text){
+        JScrollPane scrollPane = new JScrollPane(text);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        return scrollPane;
     }
 
     @Override

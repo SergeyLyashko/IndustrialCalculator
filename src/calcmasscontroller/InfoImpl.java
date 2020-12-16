@@ -15,7 +15,7 @@
  */
 package calcmasscontroller;
 
-import calcmassview.info.Info;
+import calcmassview.Info;
 import calcmassview.settings.ColorTheme;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;

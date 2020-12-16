@@ -22,9 +22,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JComponent;
 
 /**
@@ -35,25 +37,24 @@ public class Preference implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private final String saveFileName = "save.calc";
-    private Preference savedPreferences;
-    private transient FileInputStream fileInputStream;
+    private static final String SAVED_FILE_NAME = "save.calc";    
+    private static transient FileInputStream fileInputStream;
     
-    private ArrayList<JComponent> components;
+    private static List<JComponent> components;
     
     /**
      * Сохранение настроек
-     * @param components
+     * @param savedComponents
      */
-    public void save(ArrayList<JComponent> components){
-        this.components = components;
+    public void save(List<JComponent> savedComponents){
+        components = savedComponents.stream().collect(Collectors.toList());
         FileOutputStream newFile = createSaveFile();
         savePreferenceToFile(newFile);
     }
     
     private FileOutputStream createSaveFile() {
         try {
-            return new FileOutputStream(saveFileName);
+            return new FileOutputStream(SAVED_FILE_NAME);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,36 +71,37 @@ public class Preference implements Serializable {
         }
     }
     
-    public boolean isSaved(){
-        return findFile();
-    }
-    
-    private boolean findFile(){
+    public static boolean isSaved(){
         try {
-            fileInputStream = new FileInputStream(saveFileName);
+            readSavedFile();
             return true;
         } catch (FileNotFoundException ex) {
             return false;
-        }        
+        }
     }
     
-    public ArrayList<JComponent> loadSavedComponents(){
-        extractPreferences();
-        return savedPreferences.getComponents();
+    private static FileInputStream readSavedFile() throws FileNotFoundException{
+        return new FileInputStream(SAVED_FILE_NAME);
+    }
+    
+    public static List<JComponent> loadSavedComponents(){
+        readComponentsFromFile();
+        return Collections.unmodifiableList(components);
     }
     
     // 
-    private void extractPreferences(){
+    private static void readComponentsFromFile(){
         try {
             ObjectInputStream input = new ObjectInputStream(fileInputStream);
-            this.savedPreferences = (Preference)input.readObject();
+            Preference readObject = (Preference) input.readObject();
+            components = readObject.getComponents();
             input.close();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Preference.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    private ArrayList<JComponent> getComponents(){
-        return components;
+    private List<JComponent> getComponents(){
+        return Collections.unmodifiableList(components);
     }
 }

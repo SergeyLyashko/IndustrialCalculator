@@ -32,6 +32,6 @@ public interface CheckBoxSelectable {
      */
     public void actionChooser(ItemEvent event);
     
-    public void setComponents(ArrayList<JComponent> components);
+    public void changeComponents(ArrayList<JComponent> components);
     
 }

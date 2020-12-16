@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package calcmassview.settings;
+package app;
 
+import calcmassview.settings.CheckBoxSelectable;
+import calcmassview.settings.ColorTheme;
+import calcmassview.settings.ColorThemeCheckBox;
+import calcmassview.settings.ToolTipsChBox;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -31,32 +38,29 @@ import javax.swing.JPanel;
 public class SettingsPanel extends JPanel implements ItemListener, Serializable, ColorTheme {
 
     private static final long serialVersionUID = 1L;
-    private final ColorThemeCheckBox themeChBox;
-    private final ToolTipsChBox toolTipsChBox;
-    
-    public SettingsPanel(ArrayList<JComponent> components){
+
+    public SettingsPanel() {
         super.setLayout(null);
-        themeChBox = new ColorThemeCheckBox();
-        components.add(themeChBox);
-        toolTipsChBox = new ToolTipsChBox();
-        components.add(toolTipsChBox);
-        this.addToolTipBox(components);
-        this.addThemeBox(components);
     }
     
-    // чек-бокс цветовой темы оформления
-    private void addThemeBox(ArrayList<JComponent> components){        
-        themeChBox.setComponents(components);        
+    public List<JComponent> createComponents(){
+        JCheckBox themeCheckBox = createThemeCheckBox();
+        JCheckBox toolTipsCheckBox = createToolTipsCheckBox();
+        return Stream.of(themeCheckBox, toolTipsCheckBox).collect(Collectors.toList());
+    }
+    
+    private JCheckBox createThemeCheckBox(){
+        ColorThemeCheckBox themeChBox = new ColorThemeCheckBox();
         themeChBox.addItemListener(this);
-        super.add(themeChBox);             
+        super.add(themeChBox);
+        return themeChBox;
     }
     
-    // чек-бокс всплывающих подсказок
-    private void addToolTipBox(ArrayList<JComponent> components){
-        components.add(this);        
-        toolTipsChBox.setComponents(components);
+    private JCheckBox createToolTipsCheckBox() {
+        ToolTipsChBox toolTipsChBox = new ToolTipsChBox();
         toolTipsChBox.addItemListener(this);
-        super.add(toolTipsChBox); 
+        super.add(toolTipsChBox);
+        return toolTipsChBox;
     }
     
     @Override
