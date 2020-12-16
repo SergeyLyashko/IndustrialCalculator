@@ -1,9 +1,9 @@
 package view;
 
 import model.View;
-import calculatorcomponents.CalculatorComponents;
-import infocomponents.InfoComponents;
-import settingscomponents.SettingsComponents;
+import viewcomponents.calculator.CalculatorComponents;
+import viewcomponents.info.InfoComponents;
+import viewcomponents.settings.SettingsComponents;
 
 public class ViewImpl implements View {
 

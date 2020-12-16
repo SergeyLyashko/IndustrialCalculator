@@ -1,4 +1,4 @@
-package settingscomponents;
+package viewcomponents.settings;
 
 import view.ViewController;
 import view.AppComponent;
@@ -9,19 +9,20 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
-class ToolTipsCheckBox implements AppComponent, Host, Serializable {
+class ColorThemeCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final JCheckBox jCheckBox;
-    private static final String BOX_NAME = "включить всплывающие подсказки";
-    private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
+
+    private static final String BOX_NAME = "темная тема оформления";
+    private static final String TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private static final int LOCATION_X = 15;
-    private static final int LOCATION_Y = 60;
+    private static final int LOCATION_Y = 35;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    ToolTipsCheckBox(){
+    ColorThemeCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
@@ -37,7 +38,12 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void checkBoxStateChecked(ViewController viewController){
-        viewController.setToolTipState(jCheckBox.isSelected());
+        Visitor visitor = viewController.getVisitor();
+        if(jCheckBox.isSelected()){
+            visitor.activate();
+        }else {
+            visitor.deactivate();
+        }
     }
 
     private void addHost(ViewController viewController){
@@ -46,7 +52,15 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void addItemListener(ViewController viewController){
-        jCheckBox.addItemListener(event -> viewController.setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
+        Visitor visitor = viewController.getVisitor();
+        jCheckBox.addItemListener(event -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                visitor.activate();
+            } else {
+                visitor.deactivate();
+            }
+            visitor.raid();
+        });
     }
 
     @Override

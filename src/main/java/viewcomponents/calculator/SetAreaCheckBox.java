@@ -1,4 +1,4 @@
-package calculatorcomponents;
+package viewcomponents.calculator;
 
 import view.ViewController;
 import view.AppComponent;

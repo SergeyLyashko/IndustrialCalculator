@@ -1,4 +1,4 @@
-package infocomponents;
+package viewcomponents.info;
 
 import view.ViewController;
 import view.AppComponent;
