@@ -1,6 +1,5 @@
 package database;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,8 +43,8 @@ class DetailParametersListCreator {
      * @throws SQLException
      */
     List<String> createAssortmentList() throws SQLException {
-        PreparedStatement preparedStatement = executor.getPreparedStatement(PROFILES_SQL_QUERY);
-        return createList(preparedStatement, ASSORTMENT_QUERY);
+        return executor.executorQuery(PROFILES_SQL_QUERY,
+                resultSet -> create(resultSet, ASSORTMENT_QUERY));
     }
 
     /**
@@ -56,9 +55,9 @@ class DetailParametersListCreator {
      * @throws SQLException
      */
     List<String> createTypeList(String assortment) throws SQLException {
-        PreparedStatement preparedStatement = executor.getPreparedStatement(TYPES_SQL_QUERY);
-        executor.initPreparedStatement(preparedStatement, 1, assortment);
-        return createList(preparedStatement, TYPE_QUERY);
+        return executor.executorQuery(TYPES_SQL_QUERY,
+                resultSet -> create(resultSet, TYPE_QUERY),
+                assortment);
     }
 
     /**
@@ -70,18 +69,16 @@ class DetailParametersListCreator {
      * @throws SQLException
      */
     List<String> createNumberList(String assortment, String type) throws SQLException {
-        PreparedStatement preparedStatement = executor.getPreparedStatement(NUMBERS_SQL_QUERY);
-        executor.initPreparedStatement(preparedStatement, 1, assortment);
-        executor.initPreparedStatement(preparedStatement, 2, type);
-        return createList(preparedStatement, NUMBER_QUERY);
+        return executor.executorQuery(NUMBERS_SQL_QUERY,
+                resultSet -> create(resultSet, NUMBER_QUERY),
+                assortment, type);
     }
 
     /*
      * Created list for combo-boxes menu
      */
-    private List<String> createList(PreparedStatement preparedStatement, String query) throws SQLException {
+    private List<String> create(ResultSet resultSet, String query) throws SQLException {
         List<String> menuList = new ArrayList<>();
-        ResultSet resultSet = this.executor.getResultSet(preparedStatement);
         while(resultSet.next()){
             String elementMenu = resultSet.getString(query);
             menuList.add(elementMenu);

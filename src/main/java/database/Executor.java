@@ -17,15 +17,19 @@ class Executor {
         }
     }
 
-    void initPreparedStatement(PreparedStatement preparedStatement, int index, String field) throws SQLException {
-        preparedStatement.setString(index, field);
+    <T> T executorQuery(String sqlQuery, ResultHandler<T> resultHandler, String...parametersStatement) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        statementInit(preparedStatement, parametersStatement);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        T value = resultHandler.handle(resultSet);
+        resultSet.close();
+        preparedStatement.close();
+        return value;
     }
 
-    PreparedStatement getPreparedStatement(String sqlQuery) throws SQLException {
-        return connection.prepareStatement(sqlQuery);
-    }
-
-    ResultSet getResultSet(PreparedStatement preparedStatement) throws SQLException {
-        return preparedStatement.executeQuery();
+    private void statementInit(PreparedStatement preparedStatement, String...parametersStatement) throws SQLException {
+        for(int index=1; index<=parametersStatement.length; index++){
+            preparedStatement.setString(index, parametersStatement[index-1]);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package database;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -34,11 +32,8 @@ class DetailsValue {
      * @throws SQLException
      */
     double getValue(String assortment, String type, String number) throws SQLException {
-        PreparedStatement preparedStatement = executor.getPreparedStatement(SQL_QUERY_VALUE);
-        preparedStatement.setString(1, assortment);
-        preparedStatement.setString(2, type);
-        preparedStatement.setString(3, number);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        return resultSet.getDouble(VALUE);
+        return executor.executorQuery(SQL_QUERY_VALUE,
+                resultSet -> resultSet.getDouble(VALUE),
+                assortment, type, number);
     }
 }
