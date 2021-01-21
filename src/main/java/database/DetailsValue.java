@@ -4,9 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *
+ */
 class DetailsValue {
 
-    // SQL запрос значения из базы данных
     private static final String SQL_QUERY_VALUE = "select AreaCut_Value from "
             + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
             + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
@@ -17,19 +19,25 @@ class DetailsValue {
             + "ProfileNumbers.ProfileNumberName = ?";
 
     private static final String VALUE = "AreaCut_Value";
-    private final Data data;
+    private final Executor executor;
 
-    DetailsValue(Data data) {
-        this.data = data;
+    DetailsValue(Executor executor) {
+        this.executor = executor;
     }
 
+    /**
+     * Get detail's value for calculation mass
+     * @param assortment assortment detail's name
+     * @param type type detail's name
+     * @param number number of profile detail's name
+     * @return detail's value
+     * @throws SQLException
+     */
     double getValue(String assortment, String type, String number) throws SQLException {
-        PreparedStatement preparedStatement = data.getPreparedStatement(SQL_QUERY_VALUE);
-        // передача значений входных параметров
+        PreparedStatement preparedStatement = executor.getPreparedStatement(SQL_QUERY_VALUE);
         preparedStatement.setString(1, assortment);
         preparedStatement.setString(2, type);
         preparedStatement.setString(3, number);
-        // регистрация возвращаемого параметра
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.getDouble(VALUE);
     }

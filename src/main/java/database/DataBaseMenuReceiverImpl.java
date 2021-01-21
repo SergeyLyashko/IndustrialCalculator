@@ -7,24 +7,24 @@ import java.util.List;
 
 class DataBaseMenuReceiverImpl implements DataBaseMenuReceiver {
 
-    private final DetailsMenuList detailsMenuList;
+    private final DetailParametersListCreator detailParametersListCreator;
 
-    DataBaseMenuReceiverImpl(Data data) {
-        detailsMenuList = new DetailsMenuList(data);
+    DataBaseMenuReceiverImpl(Executor executor) {
+        detailParametersListCreator = new DetailParametersListCreator(executor);
     }
 
     @Override
     public List<String> getAssortmentMenu() throws SQLException {
-        return detailsMenuList.receiveAssortmentList();
+        return detailParametersListCreator.createAssortmentList();
     }
 
     @Override
     public List<String> getTypeMenu(String assortment) throws SQLException {
-        return detailsMenuList.receiveTypeList(assortment);
+        return detailParametersListCreator.createTypeList(assortment);
     }
 
     @Override
     public List<String> getNumberMenu(String assortment, String type) throws SQLException {
-        return detailsMenuList.receiveNumberList(assortment, type);
+        return detailParametersListCreator.createNumberList(assortment, type);
     }
 }

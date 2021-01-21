@@ -5,19 +5,19 @@ import view.DataBaseMenuReceiver;
 
 public class DataBaseDispatcher {
 
-    private final Data data;
+    private final Executor executor;
 
     public DataBaseDispatcher(){
-        data = new Data();
+        executor = new Executor();
         Connector connector = new Connector();
-        data.addConnection(connector);
+        executor.addConnection(connector);
     }
 
     public DataBaseMenuReceiver getMenuReceiver(){
-        return new DataBaseMenuReceiverImpl(data);
+        return new DataBaseMenuReceiverImpl(executor);
     }
 
     public ValueReceiver getValueReceiver() {
-        return new ValueReceiverImpl(data);
+        return new ValueReceiverImpl(executor);
     }
 }

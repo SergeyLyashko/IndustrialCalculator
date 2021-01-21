@@ -8,8 +8,8 @@ class ValueReceiverImpl implements ValueReceiver {
 
     private final DetailsValue detailsValue;
 
-    ValueReceiverImpl(Data data) {
-        detailsValue = new DetailsValue(data);
+    ValueReceiverImpl(Executor executor) {
+        detailsValue = new DetailsValue(executor);
     }
 
     @Override
