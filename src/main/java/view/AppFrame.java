@@ -4,11 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 class AppFrame implements WinCloseSubject {
 
     private final JTabbedPane jTabbedPane;
-    private WinCloseObserver observer;
+    private final List<WinCloseObserver> observers;
 
     AppFrame(AppPanel calculatorPanel, AppPanel settingsPanel, AppPanel infoPanel) {
         jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -23,6 +25,7 @@ class AppFrame implements WinCloseSubject {
         addPanel("Настройки", settingsPanel);
         addPanel("Справка", infoPanel);
         addListener(jFrame);
+        observers = new ArrayList<>();
     }
 
     private void addListener(JFrame jFrame){
@@ -36,8 +39,8 @@ class AppFrame implements WinCloseSubject {
     }
 
     private void notifyObserver() {
-        if(observer != null) {
-            observer.winCloseUpdate();
+        if(!observers.isEmpty()) {
+            observers.forEach(WinCloseObserver::winCloseUpdate);
         }
     }
 
@@ -48,6 +51,6 @@ class AppFrame implements WinCloseSubject {
 
     @Override
     public void registerWinCloseObserver(WinCloseObserver observer) {
-        this.observer = observer;
+        observers.add(observer);
     }
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * DAO parameters & values of details
  */
-class DatabaseQuery {
+class DetailsDAO {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
@@ -42,8 +42,9 @@ class DatabaseQuery {
 
     private final Executor executor;
 
-    DatabaseQuery(Executor executor) {
-        this.executor = executor;
+    DetailsDAO(Connector connector) {
+        this.executor = new Executor();
+        executor.addConnection(connector);
     }
 
     /**
@@ -108,5 +109,9 @@ class DatabaseQuery {
         return executor.executorQuery(VALUE_SQL_QUERY,
                 resultSet -> resultSet.getDouble(VALUE_QUERY),
                 assortment, type, number);
+    }
+
+    void connectionClose() {
+        executor.connectionClose();
     }
 }

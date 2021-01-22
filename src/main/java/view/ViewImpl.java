@@ -25,6 +25,7 @@ public class ViewImpl implements View {
 
         AppFrame appFrame = new AppFrame(calculatorPanel, settingsPanel, infoPanel);
         appFrame.registerWinCloseObserver(settingsComponents);
+        appFrame.registerWinCloseObserver(dataReceiver);
 
         Visitor visitor = viewController.getVisitor();
         visitor.raid();

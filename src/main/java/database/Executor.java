@@ -32,4 +32,15 @@ class Executor {
             preparedStatement.setString(index, parametersStatement[index-1]);
         }
     }
+
+    /**
+     * Close database connection
+     */
+    void connectionClose() {
+        try {
+            connection.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 }

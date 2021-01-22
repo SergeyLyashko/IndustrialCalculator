@@ -7,32 +7,34 @@ import java.util.List;
 
 public class DataBaseReceiver implements DataReceiver {
 
-    private final DatabaseQuery databaseQuery;
+    private final DetailsDAO detailsDAO;
 
     public DataBaseReceiver(){
-        Executor executor = new Executor();
-        Connector connector = new Connector();
-        executor.addConnection(connector);
-        databaseQuery = new DatabaseQuery(executor);
+        this.detailsDAO = new DetailsDAO(new Connector());
     }
 
     @Override
     public List<String> getAssortmentMenu() throws SQLException {
-        return databaseQuery.createAssortmentList();
+        return detailsDAO.createAssortmentList();
     }
 
     @Override
     public List<String> getTypeMenu(String assortment) throws SQLException {
-        return databaseQuery.createTypeList(assortment);
+        return detailsDAO.createTypeList(assortment);
     }
 
     @Override
     public List<String> getNumberMenu(String assortment, String type) throws SQLException {
-        return databaseQuery.createNumberList(assortment, type);
+        return detailsDAO.createNumberList(assortment, type);
     }
 
     @Override
     public double getValue(String assortment, String type, String number) throws SQLException {
-        return databaseQuery.getValue(assortment, type, number);
+        return detailsDAO.getValue(assortment, type, number);
+    }
+
+    @Override
+    public void winCloseUpdate() {
+        detailsDAO.connectionClose();
     }
 }
