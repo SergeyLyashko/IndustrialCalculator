@@ -1,9 +1,9 @@
 package controller;
 
 import model.CalculatorFactory;
-import model.ValueReceiver;
 import model.View;
 import model.ViewSubject;
+import view.DataReceiver;
 import viewcontroller.Controller;
 
 import java.sql.SQLException;
@@ -15,12 +15,12 @@ public class ControllerImpl implements Controller, ViewSubject {
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
     private final CalculatorModel model;
-    private final ValueReceiver valueReceiver;
+    private final DataReceiver dataReceiver;
     private View viewObserver;
 
-    public ControllerImpl(CalculatorModel model, ValueReceiver valueReceiver) {
+    public ControllerImpl(CalculatorModel model, DataReceiver dataReceiver) {
         this.model = model;
-        this.valueReceiver = valueReceiver;
+        this.dataReceiver = dataReceiver;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ControllerImpl implements Controller, ViewSubject {
 
     private double receiveDataBaseValue(String assortment, String type, String number) {
         try {
-            return valueReceiver.getValue(assortment, type, number);
+            return dataReceiver.getValue(assortment, type, number);
         } catch (SQLException exception) {
             notifyMessageObservers(NOT_DATABASE_MESSAGE, ALERT);
             notifyResultObservers(ERROR, ALERT);

@@ -1,6 +1,6 @@
 package viewcomponents.calculator;
 
-import view.DataBaseMenuReceiver;
+import view.DataReceiver;
 import view.AppComponent;
 import view.ComponentsList;
 import view.MenuSelectable;
@@ -14,16 +14,16 @@ public class CalculatorComponents implements ComponentsList {
 
     private final List<AppComponent> components;
 
-    public CalculatorComponents(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver) {
+    public CalculatorComponents(ViewController viewController, DataReceiver dataReceiver) {
         components = new ArrayList<>();
 
         integration(new Width(viewController));
         integration(new Length(viewController));
         integration(new SetAreaCheckBox(viewController));
 
-        MenuSelectable assortment = new AssortmentsMenu(viewController, dataBaseMenuReceiver);
-        MenuSelectable types = new TypesMenu(viewController, dataBaseMenuReceiver);
-        MenuSelectable numbers = new NumbersMenu(viewController, dataBaseMenuReceiver);
+        MenuSelectable assortment = new AssortmentsMenu(viewController, dataReceiver);
+        MenuSelectable types = new TypesMenu(viewController, dataReceiver);
+        MenuSelectable numbers = new NumbersMenu(viewController, dataReceiver);
         integration(assortment, types, numbers);
         addListeners(assortment, types, numbers);
 

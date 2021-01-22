@@ -9,10 +9,10 @@ public class ViewImpl implements View {
 
     private final ViewController viewController;
 
-    public ViewImpl(DataBaseMenuReceiver dataBaseMenuReceiver, ViewController viewController) {
+    public ViewImpl(DataReceiver dataReceiver, ViewController viewController) {
         this.viewController = viewController;
 
-        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController, dataBaseMenuReceiver);
+        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController, dataReceiver);
         SettingsComponents settingsComponents = new SettingsComponents(viewController);
         InfoComponents infoComponents = new InfoComponents(viewController);
 

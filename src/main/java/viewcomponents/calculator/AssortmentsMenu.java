@@ -1,6 +1,6 @@
 package viewcomponents.calculator;
 
-import view.DataBaseMenuReceiver;
+import view.DataReceiver;
 import view.ViewController;
 import view.MenuSelectable;
 import view.AppComponent;
@@ -23,10 +23,10 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private final ViewController controller;
-    private final DataBaseMenuReceiver menuReceiver;
+    private final DataReceiver menuReceiver;
     private boolean connect = true;
 
-    AssortmentsMenu(ViewController controller, DataBaseMenuReceiver menuReceiver){
+    AssortmentsMenu(ViewController controller, DataReceiver menuReceiver){
         this.controller = controller;
         this.menuReceiver = menuReceiver;
         jComboBox = new JComboBox<>();

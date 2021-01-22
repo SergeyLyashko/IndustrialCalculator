@@ -6,13 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created list of parameters of details for menu combo-boxes
+ *
  */
-class DetailParametersListCreator {
+class DatabaseQuery {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
     private static final String NUMBER_QUERY = "ProfileNumberName";
+    private static final String VALUE_QUERY = "AreaCut_Value";
+
+    private static final String VALUE_SQL_QUERY = "select AreaCut_Value from "
+            + "Profiles, ProfileTypes, ProfileNumbers, NumberValues "
+            + "where Profiles.Profile_ID = ProfileTypes.Profile_ID and "
+            + "ProfileTypes.ProfileType_ID = ProfileNumbers.ProfileType_ID and "
+            + "ProfileNumbers.ProfileNumber_ID = NumberValues.Number_ID and "
+            + "Profiles.ProfileName = ? and "
+            + "ProfileTypes.ProfileTypeName = ? and "
+            + "ProfileNumbers.ProfileNumberName = ?";
 
     private static final String PROFILES_SQL_QUERY =
             "select ProfileName from Profiles";
@@ -32,7 +42,7 @@ class DetailParametersListCreator {
 
     private final Executor executor;
 
-    DetailParametersListCreator(Executor executor) {
+    DatabaseQuery(Executor executor) {
         this.executor = executor;
     }
 
@@ -84,5 +94,19 @@ class DetailParametersListCreator {
             menuList.add(elementMenu);
         }
         return menuList;
+    }
+
+    /**
+     * Get detail's value for calculation mass
+     * @param assortment assortment detail's name
+     * @param type type detail's name
+     * @param number number of profile detail's name
+     * @return detail's value
+     * @throws SQLException
+     */
+    double getValue(String assortment, String type, String number) throws SQLException {
+        return executor.executorQuery(VALUE_SQL_QUERY,
+                resultSet -> resultSet.getDouble(VALUE_QUERY),
+                assortment, type, number);
     }
 }

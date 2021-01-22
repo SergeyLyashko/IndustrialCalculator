@@ -1,6 +1,6 @@
 package viewcomponents.calculator;
 
-import view.DataBaseMenuReceiver;
+import view.DataReceiver;
 import view.ViewController;
 import view.MenuSelectable;
 import view.AppComponent;
@@ -26,14 +26,14 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
     private final ViewController viewController;
-    private final DataBaseMenuReceiver dataBaseMenuReceiver;
+    private final DataReceiver dataReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private String type = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
-    NumbersMenu(ViewController viewController, DataBaseMenuReceiver dataBaseMenuReceiver){
+    NumbersMenu(ViewController viewController, DataReceiver dataReceiver){
         this.viewController = viewController;
-        this.dataBaseMenuReceiver = dataBaseMenuReceiver;
+        this.dataReceiver = dataReceiver;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
@@ -86,7 +86,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
             if(menuItem.length > 1){
                 type = menuItem[1];
             }
-            numberMenu = dataBaseMenuReceiver.getNumberMenu(assortment, type);
+            numberMenu = dataReceiver.getNumberMenu(assortment, type);
         } catch (SQLException exception) {
             connect = false;
         }

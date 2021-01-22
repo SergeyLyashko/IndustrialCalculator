@@ -1,11 +1,10 @@
 package controller;
 
-import database.DataBaseDispatcher;
-import model.ValueReceiver;
+import database.DataBaseReceiver;
 import model.CalculatorModelImpl;
 import model.View;
 import viewcontroller.Controller;
-import view.DataBaseMenuReceiver;
+import view.DataReceiver;
 import view.ViewController;
 import view.ViewImpl;
 import viewcontroller.ViewControllerImpl;
@@ -20,16 +19,14 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            DataBaseDispatcher dataBaseDispatcher = new DataBaseDispatcher();
-            DataBaseMenuReceiver dataBaseMenuReceiver = dataBaseDispatcher.getMenuReceiver();
-            ValueReceiver valueReceiver = dataBaseDispatcher.getValueReceiver();
+            DataReceiver dataReceiver = new DataBaseReceiver();
 
             CalculatorModel model = new CalculatorModelImpl();
-            Controller controller = new ControllerImpl(model, valueReceiver);
+            Controller controller = new ControllerImpl(model, dataReceiver);
 
             ViewModel viewModel = new ViewModelImpl();
             ViewController viewController = new ViewControllerImpl(viewModel, controller);
-            View view = new ViewImpl(dataBaseMenuReceiver, viewController);
+            View view = new ViewImpl(dataReceiver, viewController);
 
             model.registerObserver(view);
             controller.registerObserver(view);
