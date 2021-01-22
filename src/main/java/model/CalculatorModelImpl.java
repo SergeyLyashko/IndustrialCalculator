@@ -3,7 +3,7 @@ package model;
 import controller.CalculatorModel;
 import controller.DataValueParser;
 import controller.Detail;
-import details.CalculatorFactoryImpl;
+import calculators.CalculatorFactoryImpl;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;

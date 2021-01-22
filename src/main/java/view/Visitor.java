@@ -1,8 +1,5 @@
 package view;
 
-import view.AppComponent;
-import view.Host;
-
 public interface Visitor {
 
     void addHost(Host host);

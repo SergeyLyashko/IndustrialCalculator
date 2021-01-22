@@ -51,11 +51,6 @@ class FieldsAction implements FocusActionObserver {
         focusBehavior.fieldActivate();
     }
 
-    void keyActivate(){
-        setFilter();
-        keyBehavior.fieldActivate();
-    }
-
     void areaActivate(){
         fieldBehavior.areaActivate();
     }

@@ -1,4 +1,4 @@
-package details;
+package calculators;
 
 import model.CalculatorFactory;
 import model.AbstractMassCalculator;
@@ -24,7 +24,7 @@ public class CalculatorFactoryImpl implements CalculatorFactory {
             case "Двутавр":
                 return new AssortmentMassCalculator();
             default:
-                System.out.println("test null factory: "+assortment);
+                //System.out.println("test null factory: "+assortment);
                 return null;
         }
     }
@@ -43,7 +43,7 @@ public class CalculatorFactoryImpl implements CalculatorFactory {
             case "Резиновая пластина":
                 return new SheetRubberMassCalculator();
             default:
-                System.out.println("test null type factory");
+                //System.out.println("test null type factory");
                 return null;
         }
     }

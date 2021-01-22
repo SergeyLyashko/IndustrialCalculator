@@ -1,4 +1,4 @@
-package details;
+package calculators;
 
 import model.AbstractMassCalculator;
 

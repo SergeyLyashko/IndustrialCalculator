@@ -1,13 +1,14 @@
-package details;
+package calculators;
 
 import model.AbstractMassCalculator;
+import static java.lang.Math.PI;
 
-class RiffledSteelSheetMassCalculator extends AbstractMassCalculator {
+class CircleSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculationMass() {
         double dataBaseValue = super.getDataBaseValue();
         double fieldsValue = super.getFieldsValue();
-        return fieldsValue / 1000000 * dataBaseValue;
+        return DENSITY_STEEL * fieldsValue * (dataBaseValue * dataBaseValue) / 4 * PI;
     }
 }
