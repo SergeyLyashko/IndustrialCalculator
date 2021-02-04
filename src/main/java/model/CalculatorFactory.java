@@ -2,5 +2,5 @@ package model;
 
 public interface CalculatorFactory {
 
-    AbstractMassCalculator createMassCalculator();
+    AbstractMassCalculator createMassCalculator(String assortment, String type);
 }

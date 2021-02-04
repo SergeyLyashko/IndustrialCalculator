@@ -29,11 +29,11 @@ public class ControllerImpl implements Controller, ViewSubject {
         String assortment = data.poll();
         String type = data.poll();
         String number = data.poll();
-        CalculatorFactory calculator = model.getCalculator(assortment, type);
+        CalculatorFactory calculator = model.getCalculator();
         double dataBaseValue = receiveDataBaseValue(assortment, type, number);
         double[] parseData = parseData(data);
-        Detail detailImpl = model.getDetail(dataBaseValue, parseData);
-        model.calculationMass(calculator, detailImpl);
+        Detail detail = model.getDetail(dataBaseValue, parseData);
+        model.calculationMass(calculator, detail, assortment, type);
     }
 
     private double[] parseData(Queue<String> data) {

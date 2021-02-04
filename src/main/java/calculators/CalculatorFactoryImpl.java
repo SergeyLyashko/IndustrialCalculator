@@ -5,20 +5,12 @@ import model.AbstractMassCalculator;
 
 public class CalculatorFactoryImpl implements CalculatorFactory {
 
-    private final String assortment;
-    private final String type;
-
-    public CalculatorFactoryImpl(String assortment, String type) {
-        this.assortment = assortment;
-        this.type = type;
-    }
-
     @Override
-    public AbstractMassCalculator createMassCalculator() {
+    public AbstractMassCalculator createMassCalculator(String assortment, String type) {
         switch(assortment){
             case "Лист":
             case "Другое":
-                return selectedType();
+                return selectedType(type);
             case "Швеллер":
             case "Уголок":
             case "Двутавр":
@@ -29,7 +21,7 @@ public class CalculatorFactoryImpl implements CalculatorFactory {
         }
     }
 
-    private AbstractMassCalculator selectedType(){
+    private AbstractMassCalculator selectedType(String type){
         switch (type){
             case "рифленая(ромб)":
                 return new RiffledSteelSheetMassCalculator();

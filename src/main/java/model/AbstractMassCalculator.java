@@ -11,7 +11,7 @@ public abstract class AbstractMassCalculator {
 
     private Detail detail;
 
-    protected void setDetail(Detail detail){
+    public void setDetail(Detail detail){
         this.detail = detail;
     }
 

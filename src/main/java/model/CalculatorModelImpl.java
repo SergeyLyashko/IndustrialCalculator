@@ -31,8 +31,8 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void calculationMass(CalculatorFactory calculator, Detail detail) {
-        AbstractMassCalculator massCalculator = calculator.createMassCalculator();
+    public void calculationMass(CalculatorFactory calculator, Detail detail, String assortment, String type) {
+        AbstractMassCalculator massCalculator = calculator.createMassCalculator(assortment, type);
         massCalculator.setDetail(detail);
         double mass = massCalculator.calculationMass();
         if(mass > 0) {
@@ -41,8 +41,8 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public CalculatorFactory getCalculator(String assortment, String type) {
-        return new CalculatorFactoryImpl(assortment, type);
+    public CalculatorFactory getCalculator() {
+        return new CalculatorFactoryImpl();
     }
 
     @Override

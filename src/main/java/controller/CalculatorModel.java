@@ -5,9 +5,9 @@ import model.ViewSubject;
 
 public interface CalculatorModel extends ViewSubject {
 
-    void calculationMass(CalculatorFactory calculator, Detail detail);
+    void calculationMass(CalculatorFactory calculator, Detail detail, String assortment, String type);
 
-    CalculatorFactory getCalculator(String assortment, String type);
+    CalculatorFactory getCalculator();
 
     DataValueParser getDataParser();
 
