@@ -11,7 +11,7 @@ class Executor {
 
     void addConnection(Connector connector) {
         try {
-            connection = connector.getConnection();
+            this.connection = connector.getConnection();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

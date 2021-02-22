@@ -58,7 +58,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     public void receiveMenu(String...menuItem) {
         List<String> assortmentMenu = null;
         try {
-            assortmentMenu = menuReceiver.getAssortmentMenu();
+            assortmentMenu = menuReceiver.createAssortmentMenu();
         } catch (SQLException exception) {
             connect = false;
         }

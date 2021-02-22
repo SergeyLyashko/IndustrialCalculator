@@ -72,7 +72,7 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
             if(menuItem.length != 0){
                 assortment = menuItem[0];
             }
-            typeMenu = menuReceiver.getTypeMenu(assortment);
+            typeMenu = menuReceiver.createTypeMenu(assortment);
         } catch (SQLException exception) {
             connect = false;
         }

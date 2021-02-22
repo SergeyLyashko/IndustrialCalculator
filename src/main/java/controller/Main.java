@@ -1,6 +1,6 @@
 package controller;
 
-import database.DataBaseReceiver;
+import database.DetailsDAO;
 import model.CalculatorModelImpl;
 import model.View;
 import viewcontroller.Controller;
@@ -19,7 +19,7 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            DataReceiver dataReceiver = new DataBaseReceiver();
+            DataReceiver dataReceiver = new DetailsDAO();
 
             CalculatorModel model = new CalculatorModelImpl();
             Controller controller = new ControllerImpl(model, dataReceiver);

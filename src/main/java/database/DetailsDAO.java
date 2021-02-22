@@ -1,5 +1,7 @@
 package database;
 
+import view.DataReceiver;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * DAO parameters & values of details
  */
-class DetailsDAO {
+public class DetailsDAO implements DataReceiver {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
@@ -42,9 +44,9 @@ class DetailsDAO {
 
     private final Executor executor;
 
-    DetailsDAO(Connector connector) {
+    public DetailsDAO() {
         this.executor = new Executor();
-        executor.addConnection(connector);
+        executor.addConnection(new Connector());
     }
 
     /**
@@ -53,7 +55,8 @@ class DetailsDAO {
      * @return List of assortments detail's menu
      * @throws SQLException
      */
-    List<String> createAssortmentList() throws SQLException {
+    @Override
+    public List<String> createAssortmentMenu() throws SQLException {
         return executor.executorQuery(PROFILES_SQL_QUERY,
                 resultSet -> create(resultSet, ASSORTMENT_QUERY));
     }
@@ -65,7 +68,8 @@ class DetailsDAO {
      * @return List of type detail's menu
      * @throws SQLException
      */
-    List<String> createTypeList(String assortment) throws SQLException {
+    @Override
+    public List<String> createTypeMenu(String assortment) throws SQLException {
         return executor.executorQuery(TYPES_SQL_QUERY,
                 resultSet -> create(resultSet, TYPE_QUERY),
                 assortment);
@@ -79,7 +83,8 @@ class DetailsDAO {
      * @return detail's number of detail's profile
      * @throws SQLException
      */
-    List<String> createNumberList(String assortment, String type) throws SQLException {
+    @Override
+    public List<String> createNumberMenu(String assortment, String type) throws SQLException {
         return executor.executorQuery(NUMBERS_SQL_QUERY,
                 resultSet -> create(resultSet, NUMBER_QUERY),
                 assortment, type);
@@ -105,13 +110,15 @@ class DetailsDAO {
      * @return detail's value
      * @throws SQLException
      */
-    double getValue(String assortment, String type, String number) throws SQLException {
+    @Override
+    public double getValue(String assortment, String type, String number) throws SQLException {
         return executor.executorQuery(VALUE_SQL_QUERY,
                 resultSet -> resultSet.getDouble(VALUE_QUERY),
                 assortment, type, number);
     }
 
-    void connectionClose() {
+    @Override
+    public void winCloseUpdate() {
         executor.connectionClose();
     }
 }

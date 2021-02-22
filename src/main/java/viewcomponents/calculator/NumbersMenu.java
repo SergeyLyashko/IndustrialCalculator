@@ -86,7 +86,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
             if(menuItem.length > 1){
                 type = menuItem[1];
             }
-            numberMenu = dataReceiver.getNumberMenu(assortment, type);
+            numberMenu = dataReceiver.createNumberMenu(assortment, type);
         } catch (SQLException exception) {
             connect = false;
         }
