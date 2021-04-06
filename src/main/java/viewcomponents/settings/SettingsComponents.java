@@ -2,13 +2,13 @@ package viewcomponents.settings;
 
 import view.ViewController;
 import view.AppComponent;
-import view.ComponentsList;
+import view.CalculatorComponents;
 import view.WinCloseObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsComponents implements ComponentsList, WinCloseObserver {
+public class SettingsComponents implements CalculatorComponents, WinCloseObserver {
 
     private final List<AppComponent> components;
     private final ViewController viewController;

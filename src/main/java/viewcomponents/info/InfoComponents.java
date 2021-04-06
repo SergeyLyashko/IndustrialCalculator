@@ -2,12 +2,12 @@ package viewcomponents.info;
 
 import view.ViewController;
 import view.AppComponent;
-import view.ComponentsList;
+import view.CalculatorComponents;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoComponents implements ComponentsList {
+public class InfoComponents implements CalculatorComponents {
 
     private final List<AppComponent> components;
 

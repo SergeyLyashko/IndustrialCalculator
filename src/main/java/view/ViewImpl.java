@@ -1,8 +1,7 @@
 package view;
 
 import model.View;
-import org.springframework.beans.factory.annotation.Autowired;
-import viewcomponents.calculator.CalculatorComponents;
+import viewcomponents.calculator.CalculatorComponentsImpl;
 import viewcomponents.info.InfoComponents;
 import viewcomponents.settings.SettingsComponents;
 
@@ -19,7 +18,7 @@ public class ViewImpl implements View {
     public ViewImpl(/*DataReceiver dataReceiver, */ViewController viewController) {
         this.viewController = viewController;
 
-        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController/*, dataReceiver*/);
+        CalculatorComponentsImpl calculatorComponents = new CalculatorComponentsImpl(/*viewController, dataReceiver*/);
         SettingsComponents settingsComponents = new SettingsComponents(viewController);
         InfoComponents infoComponents = new InfoComponents(viewController);
 

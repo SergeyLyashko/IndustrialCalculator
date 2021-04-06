@@ -6,10 +6,10 @@ import java.util.List;
 class AppPanel implements Host {
 
     private final JPanel jPanel;
-    private final ComponentsList componentsList;
+    private final CalculatorComponents calculatorComponents;
 
-    AppPanel(ComponentsList componentsList, ViewController viewController){
-        this.componentsList = componentsList;
+    AppPanel(CalculatorComponents calculatorComponents, ViewController viewController){
+        this.calculatorComponents = calculatorComponents;
         jPanel = new JPanel();
         jPanel.setLayout(null);
         addComponents();
@@ -22,13 +22,13 @@ class AppPanel implements Host {
     }
 
     private void addComponents() {
-        List<AppComponent> components = componentsList.getComponents();
+        List<AppComponent> components = calculatorComponents.getComponents();
         components.forEach(appComponent -> jPanel.add(appComponent.getParent()));
 
     }
 
     void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
-        List<AppComponent> components = componentsList.getComponents();
+        List<AppComponent> components = calculatorComponents.getComponents();
         focusTraversalPolicy.add(components);
         focusTraversalPolicy.setFocusPolicy(this);
     }

@@ -3,16 +3,17 @@ package viewcomponents.calculator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
-import view.ComponentsList;
+import view.CalculatorComponents;
 import view.MenuSelectable;
-import view.ViewController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatorComponents implements ComponentsList, InitializingBean {
+@Service("calculatorComponents")
+public class CalculatorComponentsImpl implements CalculatorComponents, InitializingBean {
 
     private final List<AppComponent> components;
     //private DataReceiver dataReceiver;
@@ -27,6 +28,8 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
     private AppComponent width;
     private AppComponent length;
     private AppComponent areaCheckBox;
+    private AppComponent result;
+    private AppComponent message;
 
     @Autowired
     @Qualifier("assortmentsMenu")
@@ -64,6 +67,18 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
         this.areaCheckBox = areaCheckBox;
     }
 
+    @Autowired
+    @Qualifier("result")
+    public void setResult(AppComponent result){
+        this.result = result;
+    }
+
+    @Autowired
+    @Qualifier("message")
+    public void setMessage(AppComponent message){
+        this.message = message;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         integration(width);
@@ -72,9 +87,12 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
 
         integration(assortment, types, numbers);
         addListeners(assortment, types, numbers);
+
+        integration(result);
+        integration(message);
     }
 
-    public CalculatorComponents(ViewController viewController/*, DataReceiver dataReceiver*/) {
+    public CalculatorComponentsImpl(/*ViewController viewController, DataReceiver dataReceiver*/) {
         components = new ArrayList<>();
 
         //integration(new Width(viewController));
@@ -87,10 +105,11 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
         //integration(assortment, types, numbers);
         //addListeners(assortment, types, numbers);
 
-        integration(new Result(viewController));
-        integration(new Message(viewController));
-        integration(new DimensionLabel(viewController,320, 22));
-        integration(new DimensionLabel(viewController, 320, 62));
+        //integration(new Result(viewController));
+        //integration(new Message(viewController));
+        // TODO написать инициализацию !
+        //integration(new DimensionLabel(viewController,320, 22));
+        //integration(new DimensionLabel(viewController, 320, 62));
     }
 
     @Override
