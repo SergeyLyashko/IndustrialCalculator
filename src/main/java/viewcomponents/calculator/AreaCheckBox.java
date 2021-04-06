@@ -1,5 +1,8 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
 import view.Host;
@@ -9,7 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
-class SetAreaCheckBox implements AppComponent, Host {
+@Component("areaCheckBox")
+class AreaCheckBox implements AppComponent, Host, InitializingBean {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
@@ -19,13 +23,26 @@ class SetAreaCheckBox implements AppComponent, Host {
     private static final int HEIGHT = 20;
     private final JCheckBox jCheckBox;
 
-    SetAreaCheckBox(ViewController viewController){
+    private ViewController viewController;
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    AreaCheckBox(/*ViewController viewController*/){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
         setFont();
+        //addHost(viewController);
+        //addItemListener(viewController);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
         addHost(viewController);
         addItemListener(viewController);
     }

@@ -3,7 +3,6 @@ package viewcomponents.calculator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import view.DataReceiver;
 import view.AppComponent;
 import view.ComponentsList;
 import view.MenuSelectable;
@@ -25,6 +24,9 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
     private MenuSelectable assortment;
     private MenuSelectable types;
     private MenuSelectable numbers;
+    private AppComponent width;
+    private AppComponent length;
+    private AppComponent areaCheckBox;
 
     @Autowired
     @Qualifier("assortmentsMenu")
@@ -44,8 +46,30 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
         this.numbers = numbers;
     }
 
+    @Autowired
+    @Qualifier("width")
+    public void setWidth(AppComponent width){
+        this.width = width;
+    }
+
+    @Autowired
+    @Qualifier("length")
+    public void setLength(AppComponent length){
+        this.length = length;
+    }
+
+    @Autowired
+    @Qualifier("length")
+    public void setAreaCheckBox(AppComponent areaCheckBox){
+        this.areaCheckBox = areaCheckBox;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
+        integration(width);
+        integration(length);
+        integration(areaCheckBox);
+
         integration(assortment, types, numbers);
         addListeners(assortment, types, numbers);
     }
@@ -53,9 +77,9 @@ public class CalculatorComponents implements ComponentsList, InitializingBean {
     public CalculatorComponents(ViewController viewController/*, DataReceiver dataReceiver*/) {
         components = new ArrayList<>();
 
-        integration(new Width(viewController));
-        integration(new Length(viewController));
-        integration(new SetAreaCheckBox(viewController));
+        //integration(new Width(viewController));
+        //integration(new Length(viewController));
+        //integration(new AreaCheckBox(viewController));
 
         //MenuSelectable assortment = new AssortmentsMenu(/*viewController, dataReceiver*/);
         //MenuSelectable types = new TypesMenu(/*viewController, dataReceiver*/);

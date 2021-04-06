@@ -1,10 +1,14 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
 import javax.swing.*;
 
-class Width implements AppComponent, Comparable<AppComponent> {
+@Component("width")
+class Width implements AppComponent, Comparable<AppComponent>, InitializingBean {
 
     private static final int FOCUSED_RATE = 4;
     private static final String BOX_NAME = "введите ширину";
@@ -15,14 +19,26 @@ class Width implements AppComponent, Comparable<AppComponent> {
     private static final int LOCATION_Y = 20;
     private final JFormattedTextField textField;
 
-    Width(ViewController viewController){
+    private ViewController viewController;
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        viewController.setWidth(this);
+    }
+
+    Width(/*ViewController viewController*/){
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setText(BOX_NAME);
         textField.setToolTipText(TOOL_TIP_TEXT);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
-        viewController.setWidth(this);
+        //viewController.setWidth(this);
     }
 
     @Override
