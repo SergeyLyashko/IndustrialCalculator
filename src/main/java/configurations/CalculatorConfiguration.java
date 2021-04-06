@@ -8,6 +8,8 @@ import view.CalculatorComponents;
 import view.DataReceiver;
 import view.ViewController;
 import viewcomponents.calculator.CalculatorComponentsImpl;
+import viewcomponents.info.InfoComponents;
+import viewcomponents.settings.SettingsComponents;
 import viewcontroller.ViewControllerImpl;
 
 @ComponentScan(basePackages = {"viewcomponents.calculator"})
@@ -27,6 +29,16 @@ public class CalculatorConfiguration {
     @Bean
     public CalculatorComponents calculatorComponents(){
         return new CalculatorComponentsImpl();
+    }
+
+    @Bean
+    public CalculatorComponents settingsComponents(){
+        return new SettingsComponents();
+    }
+
+    @Bean
+    public CalculatorComponents infoComponents(){
+        return new InfoComponents();
     }
 
 }

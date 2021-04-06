@@ -1,5 +1,8 @@
 package viewcomponents.info;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import view.ViewController;
 import view.AppComponent;
 import view.CalculatorComponents;
@@ -7,12 +10,20 @@ import view.CalculatorComponents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoComponents implements CalculatorComponents {
+@Service("infoComponents")
+public class InfoComponents implements CalculatorComponents, InitializingBean {
 
-    private final List<AppComponent> components;
+    private List<AppComponent> components;
 
-    public InfoComponents(ViewController viewController) {
+    private ViewController viewController;
 
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
         AppComponent info = new Info(viewController);
         AppComponent scrollWrapper = new ScrollWrapper(viewController, info);
 
@@ -21,6 +32,18 @@ public class InfoComponents implements CalculatorComponents {
 
         components = new ArrayList<>();
         components.add(scrollWrapper);
+    }
+
+    public InfoComponents(/*ViewController viewController*/) {
+        /*
+        AppComponent info = new Info(viewController);
+        AppComponent scrollWrapper = new ScrollWrapper(viewController, info);
+
+        info.integrationToPanel();
+        scrollWrapper.integrationToPanel();
+
+        components = new ArrayList<>();
+        components.add(scrollWrapper);*/
     }
 
     @Override
