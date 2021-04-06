@@ -19,7 +19,7 @@ public class ViewImpl implements View {
         this.viewController = viewController;
 
         CalculatorComponentsImpl calculatorComponents = new CalculatorComponentsImpl(/*viewController, dataReceiver*/);
-        SettingsComponents settingsComponents = new SettingsComponents(viewController);
+        SettingsComponents settingsComponents = new SettingsComponents(/*viewController*/);
         InfoComponents infoComponents = new InfoComponents(viewController);
 
         AppPanel calculatorPanel = new AppPanel(calculatorComponents, viewController);
