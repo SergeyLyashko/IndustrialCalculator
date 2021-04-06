@@ -1,24 +1,22 @@
 package viewcomponents.info;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import view.ViewController;
 import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-public class ScrollWrapper implements AppComponent, Host, InitializingBean {
+public class ScrollWrapper implements AppComponent, Host {
 
     private final JScrollPane scrollPane;
     private JViewport viewport;
     private Visitor colorVisitor;
-    private ViewController viewController;
     private AppComponent info;
 
     @Autowired
@@ -27,34 +25,22 @@ public class ScrollWrapper implements AppComponent, Host, InitializingBean {
     }
 
     @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
-    @Autowired
     @Qualifier("info")
     public void setInfo(AppComponent info){
         this.info = info;
     }
 
-    public ScrollWrapper(/*ViewController viewController, AppComponent appComponent*/){
+    public ScrollWrapper(){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setSize(new Dimension(350, 165));
-        //addHost(viewController);
-        //wrap(appComponent);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        addHost(viewController);
-        wrap(info);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         colorVisitor.addHost(this);
+        wrap(info);
     }
 
     private void wrap(AppComponent content){

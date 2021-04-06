@@ -1,10 +1,10 @@
 package view;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("appFrame")
-public class AppFrame implements WinCloseSubject, InitializingBean {
+public class AppFrame implements WinCloseSubject {
 
-    private final JTabbedPane jTabbedPane;
-    private final List<WinCloseObserver> observers;
+    private JTabbedPane jTabbedPane;
+    private List<WinCloseObserver> observers;
     private AppPanel calculatorPanel;
     private AppPanel settingsPanel;
     private AppPanel infoPanel;
@@ -39,14 +39,8 @@ public class AppFrame implements WinCloseSubject, InitializingBean {
         this.infoPanel = infoPanel;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        addPanel("Калькулятор", calculatorPanel);
-        addPanel("Настройки", settingsPanel);
-        addPanel("Справка", infoPanel);
-    }
-
-    public AppFrame(/*AppPanel calculatorPanel, AppPanel settingsPanel, AppPanel infoPanel*/) {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
         JFrame jFrame = new JFrame("Industrial calculator");
         jFrame.setSize(370, 230);
@@ -55,9 +49,9 @@ public class AppFrame implements WinCloseSubject, InitializingBean {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         jFrame.setContentPane(jTabbedPane);
-        //addPanel("Калькулятор", calculatorPanel);
-        //addPanel("Настройки", settingsPanel);
-        //addPanel("Справка", infoPanel);
+        addPanel("Калькулятор", calculatorPanel);
+        addPanel("Настройки", settingsPanel);
+        addPanel("Справка", infoPanel);
         addListener(jFrame);
         observers = new ArrayList<>();
     }
@@ -76,6 +70,7 @@ public class AppFrame implements WinCloseSubject, InitializingBean {
         if(!observers.isEmpty()) {
             observers.forEach(WinCloseObserver::winCloseUpdate);
         }
+        System.exit(0);
     }
 
     private void addPanel(String type, AppPanel panel){
@@ -83,6 +78,7 @@ public class AppFrame implements WinCloseSubject, InitializingBean {
         jTabbedPane.add(type, parentContainer);
     }
 
+    // TODO написать spring @PreDestroy
     @Override
     public void registerWinCloseObserver(WinCloseObserver observer) {
         observers.add(observer);

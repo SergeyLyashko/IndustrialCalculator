@@ -33,12 +33,6 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
         view.messageUpdate(message, alert);
     }
 
-    /*
-    @Override
-    public void registerObserver(View observer) {
-        this.view = observer;
-    }*/
-
     @Override
     public void calculationMass(CalculatorFactory calculator, Detail detail, String assortment, String type) {
         AbstractMassCalculator massCalculator = calculator.createMassCalculator(assortment, type);

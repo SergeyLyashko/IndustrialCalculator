@@ -3,8 +3,6 @@ package viewcontroller;
 import controller.CalculatorData;
 import view.AppComponent;
 import view.ViewController;
-import view.Visitor;
-
 import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
@@ -14,8 +12,6 @@ public interface ViewModel {
     ComboBoxModel<String> createMenuModel(List<String> receiveMenu);
 
     LabelBehavior createLabelBehavior(AppComponent component);
-
-    //Visitor getVisitor();
 
     FieldBehavior createFieldBehavior(AppComponent component);
 

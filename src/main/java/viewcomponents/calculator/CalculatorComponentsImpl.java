@@ -1,7 +1,6 @@
 package viewcomponents.calculator;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -11,20 +10,15 @@ import view.AppComponent;
 import view.CalculatorComponents;
 import view.MenuSelectable;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service("calculatorComponents")
-public class CalculatorComponentsImpl implements CalculatorComponents, InitializingBean, ApplicationContextAware {
+public class CalculatorComponentsImpl implements CalculatorComponents, ApplicationContextAware {
 
     private final List<AppComponent> components;
-    //private DataReceiver dataReceiver;
-    /*
-    @Autowired
-    public void setDataReceiver(DataReceiver dataReceiver){
-        this.dataReceiver = dataReceiver;
-    }*/
     private MenuSelectable assortment;
     private MenuSelectable types;
     private MenuSelectable numbers;
@@ -66,7 +60,7 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
     }
 
     @Autowired
-    @Qualifier("length")
+    @Qualifier("areaCheckBox")
     public void setAreaCheckBox(AppComponent areaCheckBox){
         this.areaCheckBox = areaCheckBox;
     }
@@ -83,8 +77,8 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
         this.message = message;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         integration(width);
         integration(length);
         integration(areaCheckBox);
@@ -102,24 +96,8 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
         integration(dimensionLength);
     }
 
-    public CalculatorComponentsImpl(/*ViewController viewController, DataReceiver dataReceiver*/) {
+    public CalculatorComponentsImpl() {
         components = new ArrayList<>();
-
-        //integration(new Width(viewController));
-        //integration(new Length(viewController));
-        //integration(new AreaCheckBox(viewController));
-
-        //MenuSelectable assortment = new AssortmentsMenu(/*viewController, dataReceiver*/);
-        //MenuSelectable types = new TypesMenu(/*viewController, dataReceiver*/);
-        //MenuSelectable numbers = new NumbersMenu(/*viewController, dataReceiver*/);
-        //integration(assortment, types, numbers);
-        //addListeners(assortment, types, numbers);
-
-        //integration(new Result(viewController));
-        //integration(new Message(viewController));
-        // TODO написать инициализацию !
-        //integration(new DimensionLabel(viewController,320, 22));
-        //integration(new DimensionLabel(viewController, 320, 62));
     }
 
     @Override

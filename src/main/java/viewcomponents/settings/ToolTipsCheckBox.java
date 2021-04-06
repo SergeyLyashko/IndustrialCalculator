@@ -40,18 +40,13 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
 
     @Override
     public void addController(ViewController viewController) {
-        addHost(viewController);
+        colorVisitor.addHost(this);
         addItemListener(viewController);
         checkBoxStateChecked(viewController);
     }
 
     private void checkBoxStateChecked(ViewController viewController){
         viewController.setToolTipState(jCheckBox.isSelected());
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     private void addItemListener(ViewController viewController){

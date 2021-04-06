@@ -1,19 +1,18 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import view.ViewController;
 import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("dimension")
 @Scope("prototype")
-class DimensionLabel implements AppComponent, Host, InitializingBean {
+class DimensionLabel implements AppComponent, Host {
 
     private static final String DEFAULT_VIEW = "mm";
     private static final int SIZE_X = 25;
@@ -21,8 +20,6 @@ class DimensionLabel implements AppComponent, Host, InitializingBean {
     private final JLabel jLabel;
     private int locationX;
     private int locationY;
-
-    //private ViewController viewController;
     private Visitor colorVisitor;
 
     @Autowired
@@ -30,37 +27,22 @@ class DimensionLabel implements AppComponent, Host, InitializingBean {
         this.colorVisitor = colorVisitor;
     }
 
-    /*
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }*/
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        //ddHost(viewController);
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         colorVisitor.addHost(this);
     }
 
-    DimensionLabel(/*ViewController viewController, int locationX, int locationY*/){
+    DimensionLabel(){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
-        //this.locationX = locationX;
-        //this.locationY = locationY;
-        //addHost(viewController);
     }
 
     @Override
     public void setLocation(int locationX, int locationY){
         this.locationX = locationX;
         this.locationY = locationY;
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     @Override

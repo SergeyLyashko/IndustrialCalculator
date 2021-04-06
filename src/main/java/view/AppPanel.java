@@ -1,28 +1,23 @@
 package view;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.util.List;
 
 @Component("appPanel")
-public class AppPanel implements Host, InitializingBean {
+public class AppPanel implements Host {
 
     private final JPanel jPanel;
     private final CalculatorComponents calculatorComponents;
-    private ViewController viewController;
     private Visitor colorVisitor;
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        addHost(viewController);
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
+        colorVisitor.addHost(this);
+        addComponents();
     }
 
     @Autowired
@@ -30,17 +25,10 @@ public class AppPanel implements Host, InitializingBean {
         this.colorVisitor = colorVisitor;
     }
 
-    public AppPanel(CalculatorComponents calculatorComponents/*, ViewController viewController*/){
+    public AppPanel(CalculatorComponents calculatorComponents){
         this.calculatorComponents = calculatorComponents;
         jPanel = new JPanel();
         jPanel.setLayout(null);
-        addComponents();
-        //addHost(viewController);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     private void addComponents() {

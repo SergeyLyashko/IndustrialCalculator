@@ -7,8 +7,6 @@ public interface ViewController {
 
     void createMenu(List<String> menuList, MenuSelectable menuSelectable);
 
-    //Visitor getVisitor();
-
     void fieldsOff();
 
     void widthOn();

@@ -1,6 +1,5 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.ViewController;
@@ -8,10 +7,11 @@ import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("message")
-class Message implements AppComponent, Host, InitializingBean {
+class Message implements AppComponent, Host {
 
     private static final String EMPTY = "";
     private static final int LOCATION_X = 20;
@@ -33,24 +33,17 @@ class Message implements AppComponent, Host, InitializingBean {
         this.viewController = viewController;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         viewController.setMessageComponent(this);
-        addHost(viewController);
+        colorVisitor.addHost(this);
     }
 
-    Message(/*ViewController viewController*/){
+    Message(){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        //viewController.setMessageComponent(this);
-        //addHost(viewController);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     @Override

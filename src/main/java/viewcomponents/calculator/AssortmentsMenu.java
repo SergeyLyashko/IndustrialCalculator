@@ -1,6 +1,5 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.DataReceiver;
@@ -8,6 +7,7 @@ import view.ViewController;
 import view.MenuSelectable;
 import view.AppComponent;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("assortmentsMenu")
-class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>, InitializingBean {
+class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
     private static final int FOCUSED_RATE = 1;
@@ -40,23 +40,18 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>, Initi
         this.viewController = viewController;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         addListener(viewController);
         clickListener();
         receiveMenu();
     }
 
-    AssortmentsMenu(/*ViewController controller, DataReceiver dataReceiver*/){
-        //this.viewController = viewController;
-        //this.dataReceiver = dataReceiver;
+    AssortmentsMenu(){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        //addListener(viewController);
-        //clickListener();
-        //receiveMenu();
     }
 
     private void addListener(ViewController viewController){

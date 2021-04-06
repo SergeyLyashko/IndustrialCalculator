@@ -1,6 +1,5 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.ViewController;
@@ -8,12 +7,13 @@ import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
 @Component("areaCheckBox")
-class AreaCheckBox implements AppComponent, Host, InitializingBean {
+class AreaCheckBox implements AppComponent, Host {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
@@ -36,31 +36,24 @@ class AreaCheckBox implements AppComponent, Host, InitializingBean {
         this.viewController = viewController;
     }
 
-    AreaCheckBox(/*ViewController viewController*/){
+    AreaCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(false);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        setFont();
-        //addHost(viewController);
-        //addItemListener(viewController);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        addHost(viewController);
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
+        setFont();
+        colorVisitor.addHost(this);
         addItemListener(viewController);
     }
 
     private void setFont(){
         Font deriveFont = jCheckBox.getFont().deriveFont(10f);
         jCheckBox.setFont(deriveFont);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     private void addItemListener(ViewController viewController){

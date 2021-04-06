@@ -1,14 +1,15 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
+
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("length")
-class Length implements AppComponent, Comparable<AppComponent>, InitializingBean {
+class Length implements AppComponent, Comparable<AppComponent> {
 
     private final JFormattedTextField textField;
     private static final int FOCUSED_RATE = 5;
@@ -26,18 +27,17 @@ class Length implements AppComponent, Comparable<AppComponent>, InitializingBean
         this.viewController = viewController;
     }
 
-    Length(/*ViewController viewController*/){
+    Length(){
         textField = new JFormattedTextField();
         textField.setSize(WIDTH, HEIGHT);
         textField.setEditable(false);
         textField.setText(BOX_NAME);
         textField.setHorizontalAlignment(JFormattedTextField.RIGHT);
         textField.setToolTipText(TOOL_TIP_TEXT);
-        //viewController.setLength(this);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         viewController.setLength(this);
     }
 

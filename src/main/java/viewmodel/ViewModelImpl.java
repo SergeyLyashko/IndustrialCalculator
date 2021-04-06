@@ -26,7 +26,6 @@ public class ViewModelImpl implements ViewModel {
     }
 
     public ViewModelImpl() {
-        //colorVisitor = new ColorChangeVisitor();
         defaultFilter = new DefaultFilter();
         digitalFilter = new DigitalFilter();
         preference = new PreferenceImpl();
@@ -78,9 +77,4 @@ public class ViewModelImpl implements ViewModel {
     public LabelBehavior createLabelBehavior(AppComponent component) {
         return new LabelBehaviorImpl(colorVisitor, component);
     }
-
-    /*
-    public Visitor getVisitor() {
-        return colorVisitor;
-    }*/
 }

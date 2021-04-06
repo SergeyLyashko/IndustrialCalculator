@@ -1,36 +1,29 @@
 package viewcomponents.info;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.Host;
-import view.ViewController;
 import view.Visitor;
 import view.AppComponent;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info implements AppComponent, Host, InitializingBean {
+public class Info implements AppComponent, Host {
 
     private final JLabel jLabel;
     private Visitor colorVisitor;
-    private ViewController viewController;
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){
         this.colorVisitor = colorVisitor;
     }
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        addHost(viewController);
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
+        colorVisitor.addHost(this);
     }
 
     private static final String TEXT =
@@ -62,16 +55,10 @@ public class Info implements AppComponent, Host, InitializingBean {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    public Info(/*ViewController viewController*/){
+    public Info(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));
-        //addHost(viewController);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     @Override

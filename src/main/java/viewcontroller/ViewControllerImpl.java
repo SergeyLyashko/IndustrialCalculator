@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.ViewController;
-import view.Visitor;
 import viewmodel.KeyActionObserver;
 
 import javax.swing.*;
@@ -37,12 +36,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
         this.calculatorController = calculatorController;
     }
 
-    /*
-    public ViewControllerImpl(ViewModel viewModel, Controller controller){
-        this.viewModel = viewModel;
-        this.appController = controller;
-    }*/
-
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
         ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
@@ -59,12 +52,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     public void setMessageComponent(AppComponent component) {
         this.messageBehavior = viewModel.createLabelBehavior(component);
     }
-
-    /*
-    @Override
-    public Visitor getVisitor() {
-        return viewModel.getVisitor();
-    }*/
 
     @Override
     public boolean isArea(){

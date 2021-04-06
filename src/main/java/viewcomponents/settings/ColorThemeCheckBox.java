@@ -2,11 +2,11 @@ package viewcomponents.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import view.ViewController;
 import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
@@ -39,15 +39,14 @@ public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
     }
 
-    @Override
-    public void addController(ViewController viewController) {
-        addHost(viewController);
-        addItemListener(viewController);
-        checkBoxStateChecked(viewController);
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
+        colorVisitor.addHost(this);
+        addItemListener();
+        checkBoxStateChecked();
     }
 
-    private void checkBoxStateChecked(ViewController viewController){
-        //Visitor colorVisitor = viewController.getVisitor();
+    private void checkBoxStateChecked(){
         if(jCheckBox.isSelected()){
             colorVisitor.activate();
         }else {
@@ -55,13 +54,7 @@ public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
         }
     }
 
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
-    }
-
-    private void addItemListener(ViewController viewController){
-        //Visitor colorVisitor = viewController.getVisitor();
+    private void addItemListener(){
         jCheckBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 colorVisitor.activate();

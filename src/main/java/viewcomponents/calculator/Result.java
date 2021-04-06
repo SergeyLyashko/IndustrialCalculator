@@ -1,6 +1,5 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.ViewController;
@@ -8,10 +7,11 @@ import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("result")
-class Result implements AppComponent, Host, Comparable<AppComponent>, InitializingBean {
+class Result implements AppComponent, Host, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0 кг";
@@ -34,25 +34,18 @@ class Result implements AppComponent, Host, Comparable<AppComponent>, Initializi
         this.viewController = viewController;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void afterPropertiesSet() throws Exception {
         viewController.setResultComponent(this);
-        addHost(viewController);
+        colorVisitor.addHost(this);
     }
 
-    Result(/*ViewController viewController*/){
+    Result(){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setText(DEFAULT_VIEW);
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        //viewController.setResultComponent(this);
-        //addHost(viewController);
-    }
-
-    private void addHost(ViewController viewController){
-        //Visitor visitor = viewController.getVisitor();
-        colorVisitor.addHost(this);
     }
 
     @Override

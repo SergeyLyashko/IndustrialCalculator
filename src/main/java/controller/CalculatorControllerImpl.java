@@ -35,11 +35,6 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     public void setView(View view){
         this.view = view;
     }
-    /*
-    public CalculatorControllerImpl(CalculatorModel model, DataReceiver dataReceiver) {
-        this.model = model;
-        this.dataReceiver = dataReceiver;
-    }*/
 
     @Override
     public void setCalculatorData(CalculatorData calculatorData) {
@@ -81,10 +76,4 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     public void notifyMessageObservers(String message, boolean alert) {
         view.messageUpdate(message, alert);
     }
-
-    /*
-    @Override
-    public void registerObserver(View observer) {
-        this.view = observer;
-    }*/
 }
