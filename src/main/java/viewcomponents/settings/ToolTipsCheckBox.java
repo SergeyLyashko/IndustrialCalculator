@@ -23,7 +23,7 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private Visitor colorVisitor;
+    private transient Visitor colorVisitor;
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){

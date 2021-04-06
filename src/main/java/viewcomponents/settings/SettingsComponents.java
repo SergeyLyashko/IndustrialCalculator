@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 import view.ViewController;
 import view.AppComponent;
 import view.CalculatorComponents;
-import view.WinCloseObserver;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("settingsComponents")
-public class SettingsComponents implements CalculatorComponents, WinCloseObserver {
+public class SettingsComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
     private ViewController viewController;
@@ -61,8 +61,10 @@ public class SettingsComponents implements CalculatorComponents, WinCloseObserve
         return components;
     }
 
-    @Override
-    public void winCloseUpdate() {
-        viewController.savedPreference(components);
+    @PreDestroy
+    private void winClose() {
+        System.out.println("destroy");
+        // TODO написать сохранение настроек
+        //viewController.savedPreference(components);
     }
 }

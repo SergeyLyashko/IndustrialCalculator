@@ -7,16 +7,11 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component("appFrame")
-public class AppFrame implements WinCloseSubject {
+public class AppFrame {
 
     private JTabbedPane jTabbedPane;
-    private List<WinCloseObserver> observers;
     private AppPanel calculatorPanel;
     private AppPanel settingsPanel;
     private AppPanel infoPanel;
@@ -52,35 +47,10 @@ public class AppFrame implements WinCloseSubject {
         addPanel("Калькулятор", calculatorPanel);
         addPanel("Настройки", settingsPanel);
         addPanel("Справка", infoPanel);
-        addListener(jFrame);
-        observers = new ArrayList<>();
-    }
-
-    private void addListener(JFrame jFrame){
-        jFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                notifyObserver();
-                System.exit(0);
-            }
-        });
-    }
-
-    private void notifyObserver() {
-        if(!observers.isEmpty()) {
-            observers.forEach(WinCloseObserver::winCloseUpdate);
-        }
-        System.exit(0);
     }
 
     private void addPanel(String type, AppPanel panel){
         Container parentContainer = panel.getParent();
         jTabbedPane.add(type, parentContainer);
-    }
-
-    // TODO написать spring @PreDestroy
-    @Override
-    public void registerWinCloseObserver(WinCloseObserver observer) {
-        observers.add(observer);
     }
 }

@@ -3,6 +3,7 @@ package database;
 import org.springframework.stereotype.Service;
 import view.DataReceiver;
 
+import javax.annotation.PreDestroy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -119,8 +120,8 @@ public class DetailsDAO implements DataReceiver {
                 assortment, type, number);
     }
 
-    @Override
-    public void winCloseUpdate() {
+    @PreDestroy
+    private void winClose() {
         executor.connectionClose();
     }
 }

@@ -3,7 +3,7 @@ package view;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DataReceiver extends WinCloseObserver {
+public interface DataReceiver {
 
     List<String> createAssortmentMenu() throws SQLException;
 
@@ -12,5 +12,4 @@ public interface DataReceiver extends WinCloseObserver {
     List<String> createNumberMenu(String assortment, String type) throws SQLException;
 
     double getValue(String assortment, String type, String number) throws SQLException;
-
 }

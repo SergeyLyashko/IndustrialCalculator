@@ -17,7 +17,7 @@ public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     private static final long serialVersionUID = 1L;
 
     private final JCheckBox jCheckBox;
-    private Visitor colorVisitor;
+    private transient Visitor colorVisitor;
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){

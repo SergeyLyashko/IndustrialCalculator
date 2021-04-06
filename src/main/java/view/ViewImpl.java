@@ -14,13 +14,6 @@ public class ViewImpl implements View {
         this.viewController = viewController;
     }
 
-    public ViewImpl() {
-        // TODO исправить внедрение интерфейса
-        //appFrame.registerWinCloseObserver(settingsComponents);
-        // TODO исправить внедрение интерфейса
-        //appFrame.registerWinCloseObserver(dataReceiver);
-    }
-
     @Override
     public void messageUpdate(String message, boolean alert) {
         viewController.setMessage(message, alert);
