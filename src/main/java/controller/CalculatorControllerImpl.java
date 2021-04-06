@@ -4,30 +4,42 @@ import model.CalculatorFactory;
 import model.View;
 import model.ViewSubject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import view.DataReceiver;
-import viewcontroller.Controller;
+import viewcontroller.CalculatorController;
 
 import java.sql.SQLException;
 import java.util.Queue;
 
-public class ControllerImpl implements Controller, ViewSubject {
+@Service("calculatorController")
+public class CalculatorControllerImpl implements CalculatorController, ViewSubject {
 
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
-    private final CalculatorModel model;
+    private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
-    private View viewObserver;
+    private View view;
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
         this.dataReceiver = dataReceiver;
     }
 
-    public ControllerImpl(CalculatorModel model/*, DataReceiver dataReceiver*/) {
-        this.model = model;
-        //this.dataReceiver = dataReceiver;
+    @Autowired
+    public void setCalculatorModel(CalculatorModel calculatorModel){
+        this.calculatorModel = calculatorModel;
     }
+
+    @Autowired
+    public void setView(View view){
+        this.view = view;
+    }
+    /*
+    public CalculatorControllerImpl(CalculatorModel model, DataReceiver dataReceiver) {
+        this.model = model;
+        this.dataReceiver = dataReceiver;
+    }*/
 
     @Override
     public void setCalculatorData(CalculatorData calculatorData) {
@@ -35,15 +47,15 @@ public class ControllerImpl implements Controller, ViewSubject {
         String assortment = data.poll();
         String type = data.poll();
         String number = data.poll();
-        CalculatorFactory calculator = model.getCalculator();
+        CalculatorFactory calculator = calculatorModel.getCalculator();
         double dataBaseValue = receiveDataBaseValue(assortment, type, number);
         double[] parseData = parseData(data);
-        Detail detail = model.getDetail(dataBaseValue, parseData);
-        model.calculationMass(calculator, detail, assortment, type);
+        Detail detail = calculatorModel.getDetail(dataBaseValue, parseData);
+        calculatorModel.calculationMass(calculator, detail, assortment, type);
     }
 
     private double[] parseData(Queue<String> data) {
-        DataValueParser dataValueParser = model.getDataParser();
+        DataValueParser dataValueParser = calculatorModel.getDataParser();
         while (!data.isEmpty()){
             dataValueParser.addData(data.poll());
         }
@@ -62,16 +74,17 @@ public class ControllerImpl implements Controller, ViewSubject {
 
     @Override
     public void notifyResultObservers(String mass, boolean alert) {
-        viewObserver.resultUpdate(mass, alert);
+        view.resultUpdate(mass, alert);
     }
 
     @Override
     public void notifyMessageObservers(String message, boolean alert) {
-        viewObserver.messageUpdate(message, alert);
+        view.messageUpdate(message, alert);
     }
 
+    /*
     @Override
     public void registerObserver(View observer) {
-        this.viewObserver = observer;
-    }
+        this.view = observer;
+    }*/
 }

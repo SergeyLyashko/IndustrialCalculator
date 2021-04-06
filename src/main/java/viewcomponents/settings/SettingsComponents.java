@@ -2,6 +2,7 @@ package viewcomponents.settings;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import view.ViewController;
@@ -17,10 +18,24 @@ public class SettingsComponents implements CalculatorComponents, WinCloseObserve
 
     private List<AppComponent> components;
     private ViewController viewController;
+    private AppComponent colorThemeCheckBox;
+    private AppComponent toolTipsCheckBox;
 
     @Autowired
     public void setViewController(ViewController viewController){
         this.viewController = viewController;
+    }
+
+    @Autowired
+    @Qualifier("colorThemeBox")
+    public void setColorThemeCheckBox(AppComponent colorThemeCheckBox){
+        this.colorThemeCheckBox = colorThemeCheckBox;
+    }
+
+    @Autowired
+    @Qualifier("toolTipsBox")
+    public void setToolTipsCheckBox(AppComponent toolTipsCheckBox){
+        this.toolTipsCheckBox = toolTipsCheckBox;
     }
 
     @Override
@@ -28,8 +43,8 @@ public class SettingsComponents implements CalculatorComponents, WinCloseObserve
         List<AppComponent> saved = viewController.loadComponents();
         if(saved == null){
             components = new ArrayList<>();
-            integration(new ColorThemeCheckBox());
-            integration(new ToolTipsCheckBox());
+            integration(/*new ColorThemeCheckBox()*/colorThemeCheckBox);
+            integration(/*new ToolTipsCheckBox()*/toolTipsCheckBox);
         }else {
             saved.forEach(component -> component.addController(viewController));
             components = saved;

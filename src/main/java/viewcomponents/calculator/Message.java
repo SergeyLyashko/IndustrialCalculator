@@ -2,6 +2,7 @@ package viewcomponents.calculator;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
 import view.Host;
@@ -9,6 +10,7 @@ import view.Visitor;
 
 import javax.swing.*;
 
+@Component("message")
 class Message implements AppComponent, Host, InitializingBean {
 
     private static final String EMPTY = "";
@@ -19,6 +21,12 @@ class Message implements AppComponent, Host, InitializingBean {
     private final JLabel jLabel;
 
     private ViewController viewController;
+    private Visitor colorVisitor;
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
 
     @Autowired
     public void setViewController(ViewController viewController){
@@ -41,8 +49,8 @@ class Message implements AppComponent, Host, InitializingBean {
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     @Override

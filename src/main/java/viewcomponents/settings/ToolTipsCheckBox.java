@@ -1,5 +1,7 @@
 package viewcomponents.settings;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
 import view.Host;
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
+@Component("toolTipsBox")
 class ToolTipsCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,6 +23,12 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
+    private Visitor colorVisitor;
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
 
     ToolTipsCheckBox(){
         jCheckBox = new JCheckBox();
@@ -41,8 +50,8 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     private void addItemListener(ViewController viewController){

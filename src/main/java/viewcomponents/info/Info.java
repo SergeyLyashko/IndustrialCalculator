@@ -1,5 +1,8 @@
 package viewcomponents.info;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.Host;
 import view.ViewController;
 import view.Visitor;
@@ -8,9 +11,27 @@ import view.AppComponent;
 import javax.swing.*;
 import java.awt.*;
 
-class Info implements AppComponent, Host {
+@Component("info")
+public class Info implements AppComponent, Host, InitializingBean {
 
     private final JLabel jLabel;
+    private Visitor colorVisitor;
+    private ViewController viewController;
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        addHost(viewController);
+    }
 
     private static final String TEXT =
             "<html>"+
@@ -41,16 +62,16 @@ class Info implements AppComponent, Host {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    Info(ViewController viewController){
+    public Info(/*ViewController viewController*/){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));
-        addHost(viewController);
+        //addHost(viewController);
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     @Override

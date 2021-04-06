@@ -15,7 +15,7 @@ public interface ViewModel {
 
     LabelBehavior createLabelBehavior(AppComponent component);
 
-    Visitor getVisitor();
+    //Visitor getVisitor();
 
     FieldBehavior createFieldBehavior(AppComponent component);
 

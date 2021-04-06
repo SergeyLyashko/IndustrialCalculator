@@ -24,6 +24,12 @@ class AreaCheckBox implements AppComponent, Host, InitializingBean {
     private final JCheckBox jCheckBox;
 
     private ViewController viewController;
+    private Visitor colorVisitor;
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
 
     @Autowired
     public void setViewController(ViewController viewController){
@@ -53,8 +59,8 @@ class AreaCheckBox implements AppComponent, Host, InitializingBean {
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     private void addItemListener(ViewController viewController){

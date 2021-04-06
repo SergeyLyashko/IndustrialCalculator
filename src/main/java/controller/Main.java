@@ -1,15 +1,11 @@
 package controller;
 
 import configurations.CalculatorConfiguration;
-import database.DetailsDAO;
-import model.CalculatorModelImpl;
-import model.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import viewcontroller.Controller;
-import view.DataReceiver;
+import view.Visitor;
+import viewcontroller.CalculatorController;
 import view.ViewController;
-import view.ViewImpl;
 import viewcontroller.ViewControllerImpl;
 import viewcontroller.ViewModel;
 import viewmodel.ViewModelImpl;
@@ -24,16 +20,18 @@ public class Main {
 
             //DataReceiver dataReceiver = new DetailsDAO();
             ApplicationContext context = new AnnotationConfigApplicationContext(CalculatorConfiguration.class);
+            Visitor colorized = context.getBean("colorVisitor", Visitor.class);
+            colorized.raid();
 
-            CalculatorModel model = new CalculatorModelImpl();
-            Controller controller = new ControllerImpl(model/*, dataReceiver*/);
+            //CalculatorModel model = new CalculatorModelImpl();
+            //CalculatorController controller = new CalculatorControllerImpl(/*model, dataReceiver*/);
 
-            ViewModel viewModel = new ViewModelImpl();
-            ViewController viewController = new ViewControllerImpl(/*viewModel, controller*/);
-            View view = new ViewImpl(/*dataReceiver, */viewController);
+            //ViewModel viewModel = new ViewModelImpl();
+            //ViewController viewController = new ViewControllerImpl(/*viewModel, controller*/);
+            //View view = new ViewImpl(/*dataReceiver, viewController*/);
 
-            model.registerObserver(view);
-            controller.registerObserver(view);
+            //model.registerObserver(view);
+            //controller.registerObserver(view);
         });
     }
 }

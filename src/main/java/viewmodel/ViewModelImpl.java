@@ -1,6 +1,8 @@
 package viewmodel;
 
 import controller.CalculatorData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.ViewController;
 import view.Visitor;
@@ -10,15 +12,21 @@ import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
+@Service("viewModel")
 public class ViewModelImpl implements ViewModel {
 
-    private final Visitor colorVisitor;
+    private Visitor colorVisitor;
     private final Filter defaultFilter;
     private final Filter digitalFilter;
     private final Preference preference;
 
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
+
     public ViewModelImpl() {
-        colorVisitor = new ColorChangeVisitor();
+        //colorVisitor = new ColorChangeVisitor();
         defaultFilter = new DefaultFilter();
         digitalFilter = new DigitalFilter();
         preference = new PreferenceImpl();
@@ -71,7 +79,8 @@ public class ViewModelImpl implements ViewModel {
         return new LabelBehaviorImpl(colorVisitor, component);
     }
 
+    /*
     public Visitor getVisitor() {
         return colorVisitor;
-    }
+    }*/
 }

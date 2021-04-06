@@ -1,5 +1,6 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.DataReceiver;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("typesMenu")
-class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
+class TypesMenu implements MenuSelectable, Comparable<AppComponent>, InitializingBean {
 
     private static final int FOCUSED_RATE = 2;
     private static final String TYPE_HEADER = "Тип профиля";
@@ -41,6 +42,13 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         this.viewController = viewController;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        addListener(viewController);
+        clickListener();
+        receiveMenu();
+    }
+
     TypesMenu(/*ViewController controller, DataReceiver dataReceiver*/){
         //this.controller = controller;
         //this.dataReceiver = dataReceiver;
@@ -48,9 +56,9 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        addListener(viewController);
-        clickListener();
-        receiveMenu();
+        //addListener(viewController);
+        //clickListener();
+        //receiveMenu();
     }
 
     private void addListener(ViewController controller){

@@ -1,12 +1,15 @@
 package view;
 
+import org.springframework.stereotype.Service;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
+@Service("focusPolicy")
+public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
     private ArrayList<JComponent> thisOrder;
 
@@ -18,7 +21,7 @@ class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    void setFocusPolicy(AppPanel panel){
+    public void setFocusPolicy(AppPanel panel){
         JComponent parent = panel.getParent();
         parent.setFocusCycleRoot(true);
         parent.setFocusTraversalPolicy(this);

@@ -22,16 +22,24 @@ class DimensionLabel implements AppComponent, Host, InitializingBean {
     private int locationX;
     private int locationY;
 
-    private ViewController viewController;
+    //private ViewController viewController;
+    private Visitor colorVisitor;
 
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
+
+    /*
     @Autowired
     public void setViewController(ViewController viewController){
         this.viewController = viewController;
-    }
+    }*/
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        addHost(viewController);
+        //ddHost(viewController);
+        colorVisitor.addHost(this);
     }
 
     DimensionLabel(/*ViewController viewController, int locationX, int locationY*/){
@@ -44,9 +52,15 @@ class DimensionLabel implements AppComponent, Host, InitializingBean {
         //addHost(viewController);
     }
 
+    @Override
+    public void setLocation(int locationX, int locationY){
+        this.locationX = locationX;
+        this.locationY = locationY;
+    }
+
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     @Override

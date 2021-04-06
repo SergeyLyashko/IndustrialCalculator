@@ -1,5 +1,7 @@
 package viewcomponents.settings;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
 import view.Host;
@@ -9,11 +11,18 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
-class ColorThemeCheckBox implements AppComponent, Host, Serializable {
+@Component("colorThemeBox")
+public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final JCheckBox jCheckBox;
+    private Visitor colorVisitor;
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
 
     private static final String BOX_NAME = "темная тема оформления";
     private static final String TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
@@ -22,7 +31,7 @@ class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    ColorThemeCheckBox(){
+    public ColorThemeCheckBox(){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
@@ -38,28 +47,28 @@ class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void checkBoxStateChecked(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
+        //Visitor colorVisitor = viewController.getVisitor();
         if(jCheckBox.isSelected()){
-            visitor.activate();
+            colorVisitor.activate();
         }else {
-            visitor.deactivate();
+            colorVisitor.deactivate();
         }
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     private void addItemListener(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
+        //Visitor colorVisitor = viewController.getVisitor();
         jCheckBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
-                visitor.activate();
+                colorVisitor.activate();
             } else {
-                visitor.deactivate();
+                colorVisitor.deactivate();
             }
-            visitor.raid();
+            colorVisitor.raid();
         });
     }
 

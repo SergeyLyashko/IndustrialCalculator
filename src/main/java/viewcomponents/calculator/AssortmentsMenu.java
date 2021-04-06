@@ -1,5 +1,6 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.DataReceiver;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("assortmentsMenu")
-class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
+class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>, InitializingBean {
 
     private final JComboBox<String> jComboBox;
     private static final int FOCUSED_RATE = 1;
@@ -39,6 +40,13 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         this.viewController = viewController;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        addListener(viewController);
+        clickListener();
+        receiveMenu();
+    }
+
     AssortmentsMenu(/*ViewController controller, DataReceiver dataReceiver*/){
         //this.viewController = viewController;
         //this.dataReceiver = dataReceiver;
@@ -46,9 +54,9 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        addListener(viewController);
-        clickListener();
-        receiveMenu();
+        //addListener(viewController);
+        //clickListener();
+        //receiveMenu();
     }
 
     private void addListener(ViewController viewController){

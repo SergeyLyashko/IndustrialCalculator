@@ -4,31 +4,40 @@ import controller.CalculatorModel;
 import controller.DataValueParser;
 import controller.Detail;
 import calculators.CalculatorFactoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.text.DecimalFormat;
 
+@Service("calculatorModel")
 public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
-    private View viewObserver;
+    private View view;
+
+    @Autowired
+    public void setView(View view){
+        this.view = view;
+    }
 
     @Override
     public void notifyResultObservers(String mass, boolean alert) {
-        viewObserver.resultUpdate(mass, alert);
+        view.resultUpdate(mass, alert);
     }
 
     @Override
     public void notifyMessageObservers(String message, boolean alert) {
-        viewObserver.messageUpdate(message, alert);
+        view.messageUpdate(message, alert);
     }
 
+    /*
     @Override
     public void registerObserver(View observer) {
-        this.viewObserver = observer;
-    }
+        this.view = observer;
+    }*/
 
     @Override
     public void calculationMass(CalculatorFactory calculator, Detail detail, String assortment, String type) {

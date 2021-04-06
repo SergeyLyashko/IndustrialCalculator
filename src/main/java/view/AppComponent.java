@@ -26,4 +26,6 @@ public interface AppComponent {
     default int compareTo(AppComponent component) { return 0; }
 
     default void addController(ViewController viewController) {}
+
+    default void setLocation(int locationX, int locationY){}
 }

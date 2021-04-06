@@ -17,7 +17,7 @@ import java.util.Queue;
 public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     private ViewModel viewModel;
-    private Controller controller;
+    private CalculatorController calculatorController;
     private FieldsAction lengthAction;
     private FieldsAction widthAction;
 
@@ -33,8 +33,8 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     }
 
     @Autowired
-    public void setController(Controller controller){
-        this.controller = controller;
+    public void setCalculatorController(CalculatorController calculatorController){
+        this.calculatorController = calculatorController;
     }
 
     /*
@@ -60,10 +60,11 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
         this.messageBehavior = viewModel.createLabelBehavior(component);
     }
 
+    /*
     @Override
     public Visitor getVisitor() {
         return viewModel.getVisitor();
-    }
+    }*/
 
     @Override
     public boolean isArea(){
@@ -173,6 +174,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void keyActionUpdate() {
         CalculatorData data = viewModel.createData(queueItems, width, length, this);
-        controller.setCalculatorData(data);
+        calculatorController.setCalculatorData(data);
     }
 }

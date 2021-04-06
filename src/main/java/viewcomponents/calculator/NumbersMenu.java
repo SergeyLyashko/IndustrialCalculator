@@ -1,5 +1,6 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import view.DataReceiver;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Queue;
 
 @Component("numbersMenu")
-class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
+class NumbersMenu implements MenuSelectable, Comparable<AppComponent>, InitializingBean {
 
     private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
@@ -44,6 +45,13 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         this.viewController = viewController;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        addListener(viewController);
+        clickListener();
+        receiveMenu();
+    }
+
     NumbersMenu(/*ViewController viewController, DataReceiver dataReceiver*/){
         //this.viewController = viewController;
         //this.dataReceiver = dataReceiver;
@@ -51,9 +59,9 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        addListener(viewController);
-        clickListener();
-        receiveMenu();
+        //addListener(viewController);
+        //clickListener();
+        //receiveMenu();
     }
 
     private void addListener(ViewController viewController){

@@ -1,8 +1,11 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.CalculatorComponents;
@@ -13,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service("calculatorComponents")
-public class CalculatorComponentsImpl implements CalculatorComponents, InitializingBean {
+public class CalculatorComponentsImpl implements CalculatorComponents, InitializingBean, ApplicationContextAware {
 
     private final List<AppComponent> components;
     //private DataReceiver dataReceiver;
@@ -30,6 +33,7 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
     private AppComponent areaCheckBox;
     private AppComponent result;
     private AppComponent message;
+    private ApplicationContext applicationContext;
 
     @Autowired
     @Qualifier("assortmentsMenu")
@@ -90,6 +94,12 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
 
         integration(result);
         integration(message);
+        AppComponent dimensionWidth = applicationContext.getBean("dimension", AppComponent.class);
+        dimensionWidth.setLocation(320, 22);
+        AppComponent dimensionLength = applicationContext.getBean("dimension", AppComponent.class);
+        dimensionLength.setLocation(320, 62);
+        integration(dimensionWidth);
+        integration(dimensionLength);
     }
 
     public CalculatorComponentsImpl(/*ViewController viewController, DataReceiver dataReceiver*/) {
@@ -133,5 +143,10 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Initializ
         assortment.addMenuSelectListener(types);
         assortment.addMenuSelectListener(numbers);
         types.addMenuSelectListener(numbers);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

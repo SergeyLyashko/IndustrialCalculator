@@ -1,5 +1,6 @@
 package viewmodel;
 
+import org.springframework.stereotype.Service;
 import view.Host;
 import view.Visitor;
 import view.AppComponent;
@@ -9,7 +10,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-class ColorChangeVisitor implements Visitor {
+@Service("colorVisitor")
+public class ColorVisitor implements Visitor {
 
     private final List<Host> componentsList = new CopyOnWriteArrayList<>();
     private Color backGround;

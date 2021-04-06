@@ -1,24 +1,46 @@
 package view;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.util.List;
 
-class AppPanel implements Host {
+@Component("appPanel")
+public class AppPanel implements Host, InitializingBean {
 
     private final JPanel jPanel;
     private final CalculatorComponents calculatorComponents;
+    private ViewController viewController;
+    private Visitor colorVisitor;
 
-    AppPanel(CalculatorComponents calculatorComponents, ViewController viewController){
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        addHost(viewController);
+    }
+
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
+
+    public AppPanel(CalculatorComponents calculatorComponents/*, ViewController viewController*/){
         this.calculatorComponents = calculatorComponents;
         jPanel = new JPanel();
         jPanel.setLayout(null);
         addComponents();
-        addHost(viewController);
+        //addHost(viewController);
     }
 
     private void addHost(ViewController viewController){
-        Visitor visitor = viewController.getVisitor();
-        visitor.addHost(this);
+        //Visitor visitor = viewController.getVisitor();
+        colorVisitor.addHost(this);
     }
 
     private void addComponents() {
@@ -27,7 +49,7 @@ class AppPanel implements Host {
 
     }
 
-    void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
+    public void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
         List<AppComponent> components = calculatorComponents.getComponents();
         focusTraversalPolicy.add(components);
         focusTraversalPolicy.setFocusPolicy(this);
