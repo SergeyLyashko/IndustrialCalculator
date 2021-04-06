@@ -1,5 +1,7 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.DataReceiver;
 import view.ViewController;
 import view.MenuSelectable;
@@ -14,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+@Component("numbersMenu")
 class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 3;
@@ -25,15 +28,25 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int HEIGHT = 23;
 
     private final JComboBox<String> jComboBox;
-    private final ViewController viewController;
-    private final DataReceiver dataReceiver;
+    private ViewController viewController;
+    private DataReceiver dataReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private String type = DEFAULT_MENU_VALUE;
     private boolean connect = true;
 
-    NumbersMenu(ViewController viewController, DataReceiver dataReceiver){
-        this.viewController = viewController;
+    @Autowired
+    public void setDataReceiver(DataReceiver dataReceiver){
         this.dataReceiver = dataReceiver;
+    }
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    NumbersMenu(/*ViewController viewController, DataReceiver dataReceiver*/){
+        //this.viewController = viewController;
+        //this.dataReceiver = dataReceiver;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);

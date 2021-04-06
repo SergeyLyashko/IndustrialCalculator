@@ -1,5 +1,7 @@
 package viewcomponents.calculator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import view.DataReceiver;
 import view.ViewController;
 import view.MenuSelectable;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("assortmentsMenu")
 class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
@@ -22,18 +25,28 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private final ViewController controller;
-    private final DataReceiver menuReceiver;
+    private ViewController viewController;
+    private DataReceiver dataReceiver;
     private boolean connect = true;
 
-    AssortmentsMenu(ViewController controller, DataReceiver menuReceiver){
-        this.controller = controller;
-        this.menuReceiver = menuReceiver;
+    @Autowired
+    public void setDataReceiver(DataReceiver dataReceiver){
+        this.dataReceiver = dataReceiver;
+    }
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
+
+    AssortmentsMenu(/*ViewController controller, DataReceiver dataReceiver*/){
+        //this.viewController = viewController;
+        //this.dataReceiver = dataReceiver;
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        addListener(controller);
+        addListener(viewController);
         clickListener();
         receiveMenu();
     }
@@ -47,8 +60,8 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if(!connect){
-                    controller.setMessage(NOT_DATABASE_MESSAGE, true);
-                    controller.setResult(ERROR, true);
+                    viewController.setMessage(NOT_DATABASE_MESSAGE, true);
+                    viewController.setResult(ERROR, true);
                 }
             }
         });
@@ -58,7 +71,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     public void receiveMenu(String...menuItem) {
         List<String> assortmentMenu = null;
         try {
-            assortmentMenu = menuReceiver.createAssortmentMenu();
+            assortmentMenu = dataReceiver.createAssortmentMenu();
         } catch (SQLException exception) {
             connect = false;
         }
@@ -71,7 +84,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         if(receiveMenu != null) {
             menu.addAll(receiveMenu);
         }
-        controller.createMenu(menu, this);
+        viewController.createMenu(menu, this);
     }
 
     @Override

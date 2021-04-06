@@ -1,5 +1,6 @@
 package database;
 
+import org.springframework.stereotype.Service;
 import view.DataReceiver;
 
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * DAO parameters & values of details
  */
+@Service("dataReceiver")
 public class DetailsDAO implements DataReceiver {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";

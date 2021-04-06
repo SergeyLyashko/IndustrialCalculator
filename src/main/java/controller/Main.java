@@ -1,8 +1,11 @@
 package controller;
 
+import configurations.CalculatorConfiguration;
 import database.DetailsDAO;
 import model.CalculatorModelImpl;
 import model.View;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import viewcontroller.Controller;
 import view.DataReceiver;
 import view.ViewController;
@@ -19,14 +22,15 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            DataReceiver dataReceiver = new DetailsDAO();
+            //DataReceiver dataReceiver = new DetailsDAO();
+            ApplicationContext context = new AnnotationConfigApplicationContext(CalculatorConfiguration.class);
 
             CalculatorModel model = new CalculatorModelImpl();
-            Controller controller = new ControllerImpl(model, dataReceiver);
+            Controller controller = new ControllerImpl(model/*, dataReceiver*/);
 
             ViewModel viewModel = new ViewModelImpl();
-            ViewController viewController = new ViewControllerImpl(viewModel, controller);
-            View view = new ViewImpl(dataReceiver, viewController);
+            ViewController viewController = new ViewControllerImpl(/*viewModel, controller*/);
+            View view = new ViewImpl(/*dataReceiver, */viewController);
 
             model.registerObserver(view);
             controller.registerObserver(view);

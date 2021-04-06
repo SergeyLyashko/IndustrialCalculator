@@ -1,6 +1,7 @@
 package view;
 
 import model.View;
+import org.springframework.beans.factory.annotation.Autowired;
 import viewcomponents.calculator.CalculatorComponents;
 import viewcomponents.info.InfoComponents;
 import viewcomponents.settings.SettingsComponents;
@@ -8,11 +9,17 @@ import viewcomponents.settings.SettingsComponents;
 public class ViewImpl implements View {
 
     private final ViewController viewController;
+    //private DataReceiver dataReceiver;
+    /*
+    @Autowired
+    public void setDataReceiver(DataReceiver dataReceiver){
+        this.dataReceiver = dataReceiver;
+    }*/
 
-    public ViewImpl(DataReceiver dataReceiver, ViewController viewController) {
+    public ViewImpl(/*DataReceiver dataReceiver, */ViewController viewController) {
         this.viewController = viewController;
 
-        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController, dataReceiver);
+        CalculatorComponents calculatorComponents = new CalculatorComponents(viewController/*, dataReceiver*/);
         SettingsComponents settingsComponents = new SettingsComponents(viewController);
         InfoComponents infoComponents = new InfoComponents(viewController);
 
@@ -25,7 +32,8 @@ public class ViewImpl implements View {
 
         AppFrame appFrame = new AppFrame(calculatorPanel, settingsPanel, infoPanel);
         appFrame.registerWinCloseObserver(settingsComponents);
-        appFrame.registerWinCloseObserver(dataReceiver);
+        // TODO исправить внедрение интерфейса
+        //appFrame.registerWinCloseObserver(dataReceiver);
 
         Visitor visitor = viewController.getVisitor();
         visitor.raid();

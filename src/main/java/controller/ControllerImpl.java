@@ -3,6 +3,7 @@ package controller;
 import model.CalculatorFactory;
 import model.View;
 import model.ViewSubject;
+import org.springframework.beans.factory.annotation.Autowired;
 import view.DataReceiver;
 import viewcontroller.Controller;
 
@@ -15,12 +16,17 @@ public class ControllerImpl implements Controller, ViewSubject {
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
     private final CalculatorModel model;
-    private final DataReceiver dataReceiver;
+    private DataReceiver dataReceiver;
     private View viewObserver;
 
-    public ControllerImpl(CalculatorModel model, DataReceiver dataReceiver) {
-        this.model = model;
+    @Autowired
+    public void setDataReceiver(DataReceiver dataReceiver){
         this.dataReceiver = dataReceiver;
+    }
+
+    public ControllerImpl(CalculatorModel model/*, DataReceiver dataReceiver*/) {
+        this.model = model;
+        //this.dataReceiver = dataReceiver;
     }
 
     @Override

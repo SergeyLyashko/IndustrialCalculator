@@ -1,6 +1,8 @@
 package viewcontroller;
 
 import controller.CalculatorData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.ViewController;
@@ -11,10 +13,11 @@ import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
+@Service("viewController")
 public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
-    private final ViewModel viewModel;
-    private final Controller appController;
+    private ViewModel viewModel;
+    private Controller controller;
     private FieldsAction lengthAction;
     private FieldsAction widthAction;
 
@@ -24,11 +27,21 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     private AppComponent length;
     private Queue<String> queueItems;
 
+    @Autowired
+    public void setViewModel(ViewModel viewModel){
+        this.viewModel = viewModel;
+    }
 
+    @Autowired
+    public void setController(Controller controller){
+        this.controller = controller;
+    }
+
+    /*
     public ViewControllerImpl(ViewModel viewModel, Controller controller){
         this.viewModel = viewModel;
         this.appController = controller;
-    }
+    }*/
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
@@ -160,6 +173,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void keyActionUpdate() {
         CalculatorData data = viewModel.createData(queueItems, width, length, this);
-        appController.setCalculatorData(data);
+        controller.setCalculatorData(data);
     }
 }
