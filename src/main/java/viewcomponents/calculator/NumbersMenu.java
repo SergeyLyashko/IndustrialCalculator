@@ -18,13 +18,11 @@ import java.util.List;
 import java.util.Queue;
 
 @Component("numbersMenu")
-class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
+public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
     private static final String TOOL_TIP_TEXT = "выбор номера профиля детали";
-    private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 100;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
 
@@ -52,11 +50,12 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         receiveMenu();
     }
 
-    NumbersMenu(){
+    public NumbersMenu(int locationX, int locationY){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
     }
 
     private void addListener(ViewController viewController){
@@ -119,17 +118,7 @@ class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public int getLocationX() {
-        return LOCATION_X;
-    }
-
-    @Override
-    public int getLocationY() {
-        return LOCATION_Y;
-    }
-
-    @Override
-    public JComboBox<String> getParent() {
+    public JComboBox<String> getComponentParent() {
         return jComboBox;
     }
 

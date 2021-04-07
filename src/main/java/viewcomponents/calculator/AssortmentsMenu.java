@@ -16,14 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("assortmentsMenu")
-class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
+public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
     private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
-    private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 20;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
     private ViewController viewController;
@@ -47,11 +45,12 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
         receiveMenu();
     }
 
-    AssortmentsMenu(){
+    public AssortmentsMenu(int locationX, int locationY){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
     }
 
     private void addListener(ViewController viewController){
@@ -109,17 +108,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public int getLocationX() {
-        return LOCATION_X;
-    }
-
-    @Override
-    public int getLocationY() {
-        return LOCATION_Y;
-    }
-
-    @Override
-    public JComboBox<String> getParent() {
+    public JComboBox<String> getComponentParent() {
         return jComboBox;
     }
 

@@ -12,15 +12,13 @@ import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
 @Component("toolTipsBox")
-class ToolTipsCheckBox implements AppComponent, Host, Serializable {
+public class ToolTipsCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final JCheckBox jCheckBox;
     private static final String BOX_NAME = "включить всплывающие подсказки";
     private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
-    private static final int LOCATION_X = 15;
-    private static final int LOCATION_Y = 60;
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
     private transient Visitor colorVisitor;
@@ -30,12 +28,13 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
         this.colorVisitor = colorVisitor;
     }
 
-    ToolTipsCheckBox(){
+    public ToolTipsCheckBox(int locationX, int locationY){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);
         jCheckBox.setText(BOX_NAME);
         jCheckBox.setToolTipText(TOOL_TIP_TEXT);
+        jCheckBox.setLocation(locationX, locationY);
     }
 
     @Override
@@ -54,22 +53,12 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     }
 
     @Override
-    public int getLocationX() {
-        return LOCATION_X;
-    }
-
-    @Override
-    public int getLocationY() {
-        return LOCATION_Y;
-    }
-
-    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visitComponent(this);
     }
 
     @Override
-    public JComponent getParent() {
+    public JComponent getComponentParent() {
         return jCheckBox;
     }
 }

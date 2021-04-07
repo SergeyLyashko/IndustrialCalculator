@@ -39,7 +39,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
         ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
-        JComboBox<String> comboBox = menuSelectable.getParent();
+        JComboBox<String> comboBox = menuSelectable.getComponentParent();
         comboBox.setModel(menu);
     }
 

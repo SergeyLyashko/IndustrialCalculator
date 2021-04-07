@@ -1,10 +1,7 @@
 package viewcomponents.calculator;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.CalculatorComponents;
@@ -16,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service("calculatorComponents")
-public class CalculatorComponentsImpl implements CalculatorComponents, ApplicationContextAware {
+public class CalculatorComponentsImpl implements CalculatorComponents {
 
     private final List<AppComponent> components;
     private MenuSelectable assortment;
@@ -27,7 +24,8 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Applicati
     private AppComponent areaCheckBox;
     private AppComponent result;
     private AppComponent message;
-    private ApplicationContext applicationContext;
+    private AppComponent dimensionWidth;
+    private AppComponent dimensionLength;
 
     @Autowired
     @Qualifier("assortmentsMenu")
@@ -77,6 +75,18 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Applicati
         this.message = message;
     }
 
+    @Autowired
+    @Qualifier("dimensionWidth")
+    public void setDimensionWidth(AppComponent dimensionWidth){
+        this.dimensionWidth = dimensionWidth;
+    }
+
+    @Autowired
+    @Qualifier("dimensionLength")
+    public void setDimensionLength(AppComponent dimensionLength){
+        this.dimensionLength = dimensionLength;
+    }
+
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
         integration(width);
@@ -88,10 +98,7 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Applicati
 
         integration(result);
         integration(message);
-        AppComponent dimensionWidth = applicationContext.getBean("dimension", AppComponent.class);
-        dimensionWidth.setLocation(320, 22);
-        AppComponent dimensionLength = applicationContext.getBean("dimension", AppComponent.class);
-        dimensionLength.setLocation(320, 62);
+
         integration(dimensionWidth);
         integration(dimensionLength);
     }
@@ -110,7 +117,6 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Applicati
     }
 
     private void integration(AppComponent component) {
-        component.integrationToPanel();
         components.add(component);
     }
 
@@ -121,10 +127,5 @@ public class CalculatorComponentsImpl implements CalculatorComponents, Applicati
         assortment.addMenuSelectListener(types);
         assortment.addMenuSelectListener(numbers);
         types.addMenuSelectListener(numbers);
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }

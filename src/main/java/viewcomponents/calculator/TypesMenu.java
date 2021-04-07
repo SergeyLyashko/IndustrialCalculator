@@ -16,13 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("typesMenu")
-class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
+public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 2;
     private static final String TYPE_HEADER = "Тип профиля";
     private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
-    private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 60;
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
 
@@ -49,11 +47,12 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         receiveMenu();
     }
 
-    TypesMenu(){
+    public TypesMenu(int locationX, int locationY){
         jComboBox = new JComboBox<>();
         jComboBox.setSize(WIDTH, HEIGHT);
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
     }
 
     private void addListener(){
@@ -113,17 +112,7 @@ class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public int getLocationX() {
-        return LOCATION_X;
-    }
-
-    @Override
-    public int getLocationY() {
-        return LOCATION_Y;
-    }
-
-    @Override
-    public JComboBox<String> getParent() {
+    public JComboBox<String> getComponentParent() {
         return jComboBox;
     }
 

@@ -62,22 +62,12 @@ public class Info implements AppComponent, Host {
     }
 
     @Override
-    public int getLocationX() {
-        return 0;
-    }
-
-    @Override
-    public int getLocationY() {
-        return 0;
-    }
-
-    @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visitLabel(this);
     }
 
     @Override
-    public JComponent getParent() {
+    public JComponent getComponentParent() {
         return jLabel;
     }
 }

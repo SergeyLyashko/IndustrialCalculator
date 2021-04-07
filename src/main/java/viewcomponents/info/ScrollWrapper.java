@@ -45,17 +45,7 @@ public class ScrollWrapper implements AppComponent, Host {
 
     private void wrap(AppComponent content){
         viewport = scrollPane.getViewport();
-        viewport.add(content.getParent());
-    }
-
-    @Override
-    public int getLocationX() {
-        return 0;
-    }
-
-    @Override
-    public int getLocationY() {
-        return 0;
+        viewport.add(content.getComponentParent());
     }
 
     @Override
@@ -69,7 +59,7 @@ public class ScrollWrapper implements AppComponent, Host {
     }
 
     @Override
-    public JComponent getParent() {
+    public JComponent getComponentParent() {
         return scrollPane;
     }
 }

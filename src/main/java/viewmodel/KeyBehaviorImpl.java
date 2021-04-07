@@ -14,7 +14,7 @@ class KeyBehaviorImpl implements KeyBehavior {
     private KeyActionObserver observer;
 
     KeyBehaviorImpl(AppComponent component) {
-        this.textField = (JFormattedTextField) component.getParent();
+        this.textField = (JFormattedTextField) component.getComponentParent();
     }
 
     @Override

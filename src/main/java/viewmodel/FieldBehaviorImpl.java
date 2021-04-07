@@ -14,7 +14,7 @@ class FieldBehaviorImpl implements FieldBehavior {
 
     FieldBehaviorImpl(AppComponent component){
         name = component.getName();
-        textField = (JFormattedTextField) component.getParent();
+        textField = (JFormattedTextField) component.getComponentParent();
     }
 
     @Override

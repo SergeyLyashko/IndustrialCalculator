@@ -17,12 +17,12 @@ public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
         thisOrder = componentList.stream()
                 .filter(AppComponent::isTraversalPolicyFocused)
                 .sorted(AppComponent::compareTo)
-                .map(AppComponent::getParent)
+                .map(AppComponent::getComponentParent)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void setFocusPolicy(AppPanel panel){
-        JComponent parent = panel.getParent();
+        JComponent parent = panel.getComponentParent();
         parent.setFocusCycleRoot(true);
         parent.setFocusTraversalPolicy(this);
     }

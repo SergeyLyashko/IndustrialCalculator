@@ -14,7 +14,7 @@ class LabelBehaviorImpl implements LabelBehavior {
 
     LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
         this.component = component;
-        label = (JLabel) component.getParent();
+        label = (JLabel) component.getComponentParent();
         this.colorVisitor = colorVisitor;
     }
 

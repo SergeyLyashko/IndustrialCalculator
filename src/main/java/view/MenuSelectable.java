@@ -12,5 +12,5 @@ public interface MenuSelectable extends AppComponent {
 
     default void addMenuSelectListener(MenuSelectable listener){}
 
-    JComboBox<String> getParent();
+    JComboBox<String> getComponentParent();
 }

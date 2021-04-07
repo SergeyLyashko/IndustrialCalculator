@@ -18,7 +18,7 @@ class FocusBehaviorImpl implements FocusBehavior {
 
     FocusBehaviorImpl(AppComponent component) {
         this.component = component;
-        this.textField = (JFormattedTextField) component.getParent();
+        this.textField = (JFormattedTextField) component.getComponentParent();
     }
 
     @Override

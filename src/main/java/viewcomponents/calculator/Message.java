@@ -11,11 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("message")
-class Message implements AppComponent, Host {
+public class Message implements AppComponent, Host {
 
     private static final String EMPTY = "";
-    private static final int LOCATION_X = 20;
-    private static final int LOCATION_Y = 140;
     private static final int SIZE_X = 315;
     private static final int SIZE_Y = 15;
     private final JLabel jLabel;
@@ -39,25 +37,16 @@ class Message implements AppComponent, Host {
         colorVisitor.addHost(this);
     }
 
-    Message(){
+    public Message(int locationX, int locationY){
         jLabel = new JLabel();
         jLabel.setSize(SIZE_X, SIZE_Y);
         jLabel.setVisible(true);
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel.setLocation(locationX, locationY);
     }
 
     @Override
-    public int getLocationX() {
-        return LOCATION_X;
-    }
-
-    @Override
-    public int getLocationY() {
-        return LOCATION_Y;
-    }
-
-    @Override
-    public JComponent getParent() {
+    public JComponent getComponentParent() {
         return jLabel;
     }
 

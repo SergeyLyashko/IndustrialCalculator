@@ -14,14 +14,7 @@ import java.util.List;
 public class InfoComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
-    private AppComponent info;
     private AppComponent scrollWrapper;
-
-    @Autowired
-    @Qualifier("info")
-    public void setInfo(AppComponent info){
-        this.info = info;
-    }
 
     @Autowired
     @Qualifier("scroller")
@@ -31,9 +24,6 @@ public class InfoComponents implements CalculatorComponents {
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        info.integrationToPanel();
-        scrollWrapper.integrationToPanel();
-
         components = new ArrayList<>();
         components.add(scrollWrapper);
     }

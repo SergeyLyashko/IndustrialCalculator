@@ -50,7 +50,7 @@ public class AppFrame {
     }
 
     private void addPanel(String type, AppPanel panel){
-        Container parentContainer = panel.getParent();
+        Container parentContainer = panel.getComponentParent();
         jTabbedPane.add(type, parentContainer);
     }
 }

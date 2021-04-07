@@ -8,5 +8,5 @@ public interface Host {
 
     default JComponent getScrollViewPort(){ return null; }
 
-    JComponent getParent();
+    JComponent getComponentParent();
 }

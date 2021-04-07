@@ -32,20 +32,20 @@ public class ColorVisitor implements Visitor {
 
     @Override
     public void visitComponent(Host host) {
-        JComponent parent = host.getParent();
+        JComponent parent = host.getComponentParent();
         parent.setBackground(backGround);
         parent.setForeground(foreGround);
     }
 
     @Override
     public void visitServiceLabel(Host host) {
-        JComponent parent = host.getParent();
+        JComponent parent = host.getComponentParent();
         parent.setForeground(serviceStringColor);
     }
 
     @Override
     public void visitLabel(Host host) {
-        JComponent parent = host.getParent();
+        JComponent parent = host.getComponentParent();
         parent.setForeground(markerColor);
     }
 
@@ -57,13 +57,13 @@ public class ColorVisitor implements Visitor {
 
     @Override
     public void alert(AppComponent component) {
-        JComponent parent = component.getParent();
+        JComponent parent = component.getComponentParent();
         parent.setForeground(alertColor);
     }
 
     @Override
     public void reset(AppComponent component) {
-        JComponent parent = component.getParent();
+        JComponent parent = component.getComponentParent();
         parent.setForeground(serviceStringColor);
     }
 

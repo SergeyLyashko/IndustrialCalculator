@@ -52,7 +52,6 @@ public class SettingsComponents implements CalculatorComponents {
 
     private void integration(AppComponent component) {
         component.addController(viewController);
-        component.integrationToPanel();
         components.add(component);
     }
 

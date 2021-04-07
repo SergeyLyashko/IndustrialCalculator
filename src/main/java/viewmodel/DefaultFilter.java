@@ -14,7 +14,7 @@ class DefaultFilter extends DocumentFilter implements Filter, Serializable {
 
     @Override
     public void setFilter(AppComponent component) {
-        JTextField textField = (JFormattedTextField) component.getParent();
+        JTextField textField = (JFormattedTextField) component.getComponentParent();
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
     }
 }

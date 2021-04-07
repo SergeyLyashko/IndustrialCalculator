@@ -37,7 +37,7 @@ class CalculatorDataImpl implements CalculatorData {
     }
 
     private void update(AppComponent component){
-        JTextField parent = (JFormattedTextField) component.getParent();
+        JTextField parent = (JFormattedTextField) component.getComponentParent();
         String textValue = parent.getText();
         if(textValue.equals(component.getName())) {
             textValue = EMPTY;

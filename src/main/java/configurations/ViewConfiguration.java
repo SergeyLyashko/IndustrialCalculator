@@ -3,6 +3,7 @@ package configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import view.*;
 import viewcomponents.calculator.CalculatorComponentsImpl;
 import viewcomponents.info.InfoComponents;
@@ -12,8 +13,9 @@ import viewcontroller.ViewModel;
 import viewmodel.ColorVisitor;
 import viewmodel.ViewModelImpl;
 
-@ComponentScan(basePackages = {"viewcomponents.calculator", "viewcomponents.settings", "viewcomponents.info"})
+@ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info"})
 @Configuration
+@Import({ViewComponentsCalculatorConfiguration.class, SettingsComponentsCalculatorConfiguration.class})
 public class ViewConfiguration {
 
     @Bean

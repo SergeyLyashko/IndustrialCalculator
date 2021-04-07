@@ -33,7 +33,7 @@ public class AppPanel implements Host {
 
     private void addComponents() {
         List<AppComponent> components = calculatorComponents.getComponents();
-        components.forEach(appComponent -> jPanel.add(appComponent.getParent()));
+        components.forEach(appComponent -> jPanel.add(appComponent.getComponentParent()));
 
     }
 
@@ -49,7 +49,7 @@ public class AppPanel implements Host {
     }
 
     @Override
-    public JComponent getParent() {
+    public JComponent getComponentParent() {
         return jPanel;
     }
 }
