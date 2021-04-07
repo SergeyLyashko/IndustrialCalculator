@@ -16,19 +16,10 @@ import java.util.Queue;
 public class ViewModelImpl implements ViewModel {
 
     private Visitor colorVisitor;
-    private final Filter defaultFilter;
-    private final Filter digitalFilter;
-    private final Preference preference;
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){
         this.colorVisitor = colorVisitor;
-    }
-
-    public ViewModelImpl() {
-        defaultFilter = new DefaultFilter();
-        digitalFilter = new DigitalFilter();
-        preference = new PreferenceImpl();
     }
 
     public FieldBehavior createFieldBehavior(AppComponent component) {
@@ -43,21 +34,6 @@ public class ViewModelImpl implements ViewModel {
     @Override
     public KeyBehavior createKeyBehavior(AppComponent component) {
         return new KeyBehaviorImpl(component);
-    }
-
-    @Override
-    public Filter getDefaultFilter() {
-        return defaultFilter;
-    }
-
-    @Override
-    public Filter getDigitalFilter() {
-        return digitalFilter;
-    }
-
-    @Override
-    public Preference getPreference() {
-        return preference;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package viewcontroller;
 
 import controller.CalculatorData;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.MenuSelectable;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.util.Queue;
 
 @Service("viewController")
-public class ViewControllerImpl implements ViewController, KeyActionObserver {
+public class ViewControllerImpl implements ViewController, KeyActionObserver, ApplicationContextAware {
 
     private ViewModel viewModel;
     private CalculatorController calculatorController;
@@ -25,6 +28,8 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     private AppComponent width;
     private AppComponent length;
     private Queue<String> queueItems;
+    private Preference preference;
+    private ApplicationContext applicationContext;
 
     @Autowired
     public void setViewModel(ViewModel viewModel){
@@ -34,6 +39,11 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Autowired
     public void setCalculatorController(CalculatorController calculatorController){
         this.calculatorController = calculatorController;
+    }
+
+    @Autowired
+    public void setPreference(Preference preference){
+        this.preference = preference;
     }
 
     @Override
@@ -60,7 +70,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     @Override
     public List<AppComponent> loadComponents() {
-        Preference preference = viewModel.getPreference();
+        //Preference preference = viewModel.getPreference();
         if(preference.isSaved()){
             return preference.loadComponents();
         }
@@ -69,7 +79,7 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
 
     @Override
     public void savedPreference(List<AppComponent> components) {
-        Preference preference = viewModel.getPreference();
+        //Preference preference = viewModel.getPreference();
         preference.saveComponents(components);
     }
 
@@ -129,13 +139,17 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     @Override
     public void setWidth(AppComponent component) {
         this.width = component;
-        widthAction = new FieldsAction(viewModel, component);
+        FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
+        fieldsAction.setComponent(component);
+        widthAction = fieldsAction;
     }
 
     @Override
     public void setLength(AppComponent component) {
         this.length = component;
-        lengthAction = new FieldsAction(viewModel, component);
+        FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
+        fieldsAction.setComponent(component);
+        lengthAction = fieldsAction;
         lengthAction.registerKeyObserver(this);
     }
 
@@ -162,5 +176,10 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver {
     public void keyActionUpdate() {
         CalculatorData data = viewModel.createData(queueItems, width, length, this);
         calculatorController.setCalculatorData(data);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

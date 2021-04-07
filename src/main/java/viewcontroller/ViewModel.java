@@ -21,11 +21,5 @@ public interface ViewModel {
 
     KeyBehavior createKeyBehavior(AppComponent component);
 
-    Filter getDefaultFilter();
-
-    Filter getDigitalFilter();
-
-    Preference getPreference();
-
     void setToolTipState(boolean selected);
 }

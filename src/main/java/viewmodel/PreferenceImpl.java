@@ -1,5 +1,6 @@
 package viewmodel;
 
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewcontroller.Preference;
 
@@ -7,7 +8,8 @@ import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
-class PreferenceImpl implements Serializable, Preference {
+@Service("preference")
+public class PreferenceImpl implements Serializable, Preference {
 
     private static final long serialVersionUID = 1L;
 

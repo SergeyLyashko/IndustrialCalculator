@@ -7,7 +7,7 @@ import view.MenuSelectable;
 import viewcomponents.calculator.*;
 
 @Configuration
-public class ViewComponentsCalculatorConfiguration {
+public class ViewCalculatorConfiguration {
 
     @Bean
     public AppComponent areaCheckBox(){

@@ -1,5 +1,6 @@
 package viewmodel;
 
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewcontroller.Filter;
 
@@ -9,7 +10,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-class DigitalFilter extends DocumentFilter implements Filter {
+@Service("digitalFilter")
+public class DigitalFilter extends DocumentFilter implements Filter {
 
     @Override
     public void setFilter(AppComponent component) {

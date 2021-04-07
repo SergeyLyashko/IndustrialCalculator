@@ -7,7 +7,7 @@ import viewcomponents.settings.ColorThemeCheckBox;
 import viewcomponents.settings.ToolTipsCheckBox;
 
 @Configuration
-public class SettingsComponentsCalculatorConfiguration {
+public class ViewSettingsConfiguration {
 
     @Bean
     public AppComponent colorThemeBox(){

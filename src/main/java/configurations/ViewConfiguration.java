@@ -9,28 +9,15 @@ import viewcomponents.calculator.CalculatorComponentsImpl;
 import viewcomponents.info.InfoComponents;
 import viewcomponents.settings.SettingsComponents;
 import viewcontroller.ViewControllerImpl;
-import viewcontroller.ViewModel;
-import viewmodel.ColorVisitor;
-import viewmodel.ViewModelImpl;
 
-@ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info"})
+@ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info", "viewcontroller"})
 @Configuration
-@Import({ViewComponentsCalculatorConfiguration.class, SettingsComponentsCalculatorConfiguration.class})
+@Import({ViewCalculatorConfiguration.class, ViewSettingsConfiguration.class, ViewModelConfiguration.class})
 public class ViewConfiguration {
 
     @Bean
     public ViewController viewController(){
         return new ViewControllerImpl();
-    }
-
-    @Bean
-    public ViewModel viewModel(){
-        return new ViewModelImpl();
-    }
-
-    @Bean
-    public Visitor colorVisitor(){
-        return new ColorVisitor();
     }
 
     @Bean

@@ -1,27 +1,49 @@
 package viewcontroller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewmodel.FocusActionObserver;
 import viewmodel.KeyActionObserver;
 
-class FieldsAction implements FocusActionObserver {
+@Service("fieldsAction")
+@Scope("prototype")
+public class FieldsAction implements FocusActionObserver {
 
-    private final FieldBehavior fieldBehavior;
-    private final FocusBehavior focusBehavior;
-    private final KeyBehavior keyBehavior;
-    private final Filter defaultFilter;
-    private final Filter digitalFilter;
-    private final AppComponent component;
+    private FieldBehavior fieldBehavior;
+    private FocusBehavior focusBehavior;
+    private KeyBehavior keyBehavior;
+    private Filter defaultFilter;
+    private Filter digitalFilter;
+    private AppComponent component;
+    private ViewModel viewModel;
 
     private boolean actionState;
 
-    FieldsAction(ViewModel viewModel, AppComponent component) {
+    @Autowired
+    public void setViewModel(ViewModel viewModel){
+        this.viewModel = viewModel;
+    }
+
+    @Autowired
+    @Qualifier("defaultFilter")
+    public void setDefaultFilter(Filter defaultFilter){
+        this.defaultFilter = defaultFilter;
+    }
+
+    @Autowired
+    @Qualifier("digitalFilter")
+    public void setDigitalFilter(Filter digitalFilter){
+        this.digitalFilter = digitalFilter;
+    }
+
+    public void setComponent(AppComponent component){
         this.component = component;
         this.fieldBehavior = viewModel.createFieldBehavior(component);
         this.focusBehavior = viewModel.createFocusBehavior(component);
         this.keyBehavior = viewModel.createKeyBehavior(component);
-        this.defaultFilter = viewModel.getDefaultFilter();
-        this.digitalFilter = viewModel.getDigitalFilter();
         focusBehavior.registerFocusObserver(this);
         deactivate();
     }
