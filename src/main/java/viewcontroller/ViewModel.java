@@ -10,7 +10,5 @@ public interface ViewModel {
 
     FieldBehavior createFieldBehavior(AppComponent component);
 
-    FocusBehavior createFocusBehavior(AppComponent component);
-
     void setToolTipState(boolean selected);
 }

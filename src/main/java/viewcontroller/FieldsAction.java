@@ -46,13 +46,16 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     public void setComponent(AppComponent component){
         this.component = component;
         this.fieldBehavior = viewModel.createFieldBehavior(component);
-        this.focusBehavior = viewModel.createFocusBehavior(component);
 
-        KeyBehavior behavior = applicationContext.getBean("keyBehavior", KeyBehavior.class);
-        behavior.setComponent(component);
-        this.keyBehavior = behavior;
+        FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
+        focusBehaviorBean.setComponent(component);
+        focusBehaviorBean.registerFocusObserver(this);
+        this.focusBehavior = focusBehaviorBean;
 
-        focusBehavior.registerFocusObserver(this);
+        KeyBehavior keyBehaviorBean = applicationContext.getBean("keyBehavior", KeyBehavior.class);
+        keyBehaviorBean.setComponent(component);
+        this.keyBehavior = keyBehaviorBean;
+
         deactivate();
     }
 

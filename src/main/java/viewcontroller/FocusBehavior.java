@@ -1,5 +1,6 @@
 package viewcontroller;
 
+import view.AppComponent;
 import viewmodel.FocusActionObserver;
 
 public interface FocusBehavior {
@@ -9,4 +10,6 @@ public interface FocusBehavior {
     void fieldActivate();
 
     void registerFocusObserver(FocusActionObserver observer);
+
+    void setComponent(AppComponent component);
 }

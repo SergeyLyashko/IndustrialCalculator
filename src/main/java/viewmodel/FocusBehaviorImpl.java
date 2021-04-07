@@ -1,5 +1,7 @@
 package viewmodel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewcontroller.FocusBehavior;
 
@@ -9,14 +11,17 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
 
-class FocusBehaviorImpl implements FocusBehavior {
+@Service("focusBehavior")
+@Scope("prototype")
+public class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
-    private final JFormattedTextField textField;
-    private final AppComponent component;
+    private JFormattedTextField textField;
+    private AppComponent component;
     private FocusActionObserver observer;
 
-    FocusBehaviorImpl(AppComponent component) {
+    @Override
+    public void setComponent(AppComponent component){
         this.component = component;
         this.textField = (JFormattedTextField) component.getComponentParent();
     }
