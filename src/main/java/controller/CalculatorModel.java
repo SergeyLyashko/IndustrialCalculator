@@ -6,7 +6,7 @@ public interface CalculatorModel extends ViewSubject {
 
     void calculationMass(Detail detail, String assortment, String type);
 
-    DataValueParser getDataParser();
+    //DataValueParser getDataParser();
 
-    Detail getDetail(double dataBaseValue, double[] parseData);
+    Detail createDetail(double dataBaseValue, double[] fieldsValue);
 }

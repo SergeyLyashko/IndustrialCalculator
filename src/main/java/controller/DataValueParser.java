@@ -1,8 +1,8 @@
 package controller;
 
+import java.util.Queue;
+
 public interface DataValueParser {
 
-    void addData(String data);
-
-    double[] parseData();
+    double[] parseData(Queue<String> data);
 }

@@ -1,7 +1,6 @@
 package model;
 
 import controller.CalculatorModel;
-import controller.DataValueParser;
 import controller.Detail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,13 +54,8 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public DataValueParser getDataParser() {
-        return new DataValueParserImpl(this);
-    }
-
-    @Override
-    public Detail getDetail(double dataBaseValue, double[] parseData) {
-        return new DetailImpl(dataBaseValue, parseData);
+    public Detail createDetail(double dataBaseValue, double[] fieldsValue) {
+        return new DetailImpl(dataBaseValue, fieldsValue);
     }
 
     private void notifyResult(double mass){

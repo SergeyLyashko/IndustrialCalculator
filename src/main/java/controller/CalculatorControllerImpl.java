@@ -19,6 +19,12 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
     private CalculatorView calculatorView;
+    private DataValueParser dataValueParser;
+
+    @Autowired
+    public void setDataValueParser(DataValueParser dataValueParser){
+        this.dataValueParser = dataValueParser;
+    }
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
@@ -42,17 +48,9 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
         String type = data.poll();
         String number = data.poll();
         double dataBaseValue = receiveDataBaseValue(assortment, type, number);
-        double[] parseData = parseData(data);
-        Detail detail = calculatorModel.getDetail(dataBaseValue, parseData);
+        double[] parseData = dataValueParser.parseData(data);
+        Detail detail = calculatorModel.createDetail(dataBaseValue, parseData);
         calculatorModel.calculationMass(detail, assortment, type);
-    }
-
-    private double[] parseData(Queue<String> data) {
-        DataValueParser dataValueParser = calculatorModel.getDataParser();
-        while (!data.isEmpty()){
-            dataValueParser.addData(data.poll());
-        }
-        return dataValueParser.parseData();
     }
 
     private double receiveDataBaseValue(String assortment, String type, String number) {

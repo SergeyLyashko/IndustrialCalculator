@@ -1,11 +1,14 @@
 package model;
 
+import controller.CalculatorModel;
 import controller.DataValueParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
 
-class DataValueParserImpl implements DataValueParser {
+@Service("dataValueParser")
+public class DataValueParserImpl implements DataValueParser {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
@@ -15,22 +18,16 @@ class DataValueParserImpl implements DataValueParser {
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
 
-    private final List<String> values;
-    private final ViewSubject subject;
+    private CalculatorModel calculatorModel;
 
-    DataValueParserImpl(ViewSubject subject) {
-        this.subject = subject;
-        values = new ArrayList<>(2);
+    @Autowired
+    public void setCalculatorModel(CalculatorModel calculatorModel){
+        this.calculatorModel = calculatorModel;
     }
 
     @Override
-    public void addData(String data) {
-        values.add(data);
-    }
-
-    @Override
-    public double[] parseData(){
-        double[] parseValues = this.values.stream().mapToDouble(this::parse).toArray();
+    public double[] parseData(Queue<String> data){
+        double[] parseValues = data.stream().mapToDouble(this::parse).toArray();
         if(parseValues.length > 0 && isValid(parseValues)){
             return parseValues;
         }
@@ -52,8 +49,8 @@ class DataValueParserImpl implements DataValueParser {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            subject.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
-            subject.notifyResultObservers(ERROR, ALERT);
+            calculatorModel.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
+            calculatorModel.notifyResultObservers(ERROR, ALERT);
         }
         return 0;
     }
@@ -64,8 +61,8 @@ class DataValueParserImpl implements DataValueParser {
             if(first < checkNum){
                 return true;
             }
-            subject.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
-            subject.notifyResultObservers(ERROR, ALERT);
+            calculatorModel.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
+            calculatorModel.notifyResultObservers(ERROR, ALERT);
             return false;
         }
         return false;
@@ -73,8 +70,8 @@ class DataValueParserImpl implements DataValueParser {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            subject.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
-            subject.notifyResultObservers(ERROR, ALERT);
+            calculatorModel.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
+            calculatorModel.notifyResultObservers(ERROR, ALERT);
             return false;
         }
         return true;
