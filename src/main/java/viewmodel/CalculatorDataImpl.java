@@ -1,48 +1,64 @@
 package viewmodel;
 
 import controller.CalculatorData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.ViewController;
 
 import javax.swing.*;
 import java.util.*;
 
-class CalculatorDataImpl implements CalculatorData {
+@Service("calculatorData")
+public class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
-    private final List<AppComponent> components;
-    private final Queue<String> queueItems;
     private Queue<String> data;
+    private AppComponent width;
+    private AppComponent length;
+    private ViewController controller;
 
-    CalculatorDataImpl(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController controller) {
-        this.queueItems = queueItems;
-        components = new ArrayList<>();
-        components.add(width);
-        components.add(length);
-        createData();
-        componentsUpdate(controller);
+    @Autowired
+    @Qualifier("width")
+    public void setWidth(AppComponent width){
+        this.width = width;
     }
 
-    private void createData(){
+    @Autowired
+    @Qualifier("length")
+    public void setLength(AppComponent length){
+        this.length = length;
+    }
+
+    @Autowired
+    public void setController(ViewController controller){
+        this.controller = controller;
+    }
+
+    @Override
+    public void addData(Queue<String> queueItems){
         data = new LinkedList<>();
         data.addAll(queueItems);
+        addFieldsContain();
     }
 
-    private void componentsUpdate(ViewController controller){
+    private void addFieldsContain(){
         if(controller.isWidth() && !controller.isArea()){
-            components.forEach(this::update);
-        }else {
-            update(components.get(1));
+            String containWidth = getFieldsContain(width);
+            data.add(containWidth);
         }
+        String containLength = getFieldsContain(length);
+        data.add(containLength);
     }
 
-    private void update(AppComponent component){
+    private String getFieldsContain(AppComponent component){
         JTextField parent = (JFormattedTextField) component.getComponentParent();
         String textValue = parent.getText();
         if(textValue.equals(component.getName())) {
             textValue = EMPTY;
         }
-        data.add(textValue);
+        return textValue;
     }
 
     @Override

@@ -1,14 +1,11 @@
 package viewmodel;
 
-import controller.CalculatorData;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
-import view.ViewController;
 import viewcontroller.*;
 
 import javax.swing.*;
 import java.util.List;
-import java.util.Queue;
 
 @Service("viewModel")
 public class ViewModelImpl implements ViewModel {
@@ -30,9 +27,5 @@ public class ViewModelImpl implements ViewModel {
 
     public ComboBoxModel<String> createMenuModel(List<String> menuList) {
         return new MenuListModel(menuList);
-    }
-
-    public CalculatorData createData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController) {
-        return new CalculatorDataImpl(queueItems, width, length, viewController);
     }
 }

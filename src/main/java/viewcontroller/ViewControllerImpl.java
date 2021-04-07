@@ -5,6 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.MenuSelectable;
@@ -25,11 +26,16 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
 
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
-    private AppComponent width;
-    private AppComponent length;
     private Queue<String> queueItems;
     private Preference preference;
     private ApplicationContext applicationContext;
+    private CalculatorData calculatorData;
+
+    @Lazy
+    @Autowired
+    public void setCalculatorData(CalculatorData calculatorData){
+        this.calculatorData = calculatorData;
+    }
 
     @Autowired
     public void setViewModel(ViewModel viewModel){
@@ -142,7 +148,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
 
     @Override
     public void setWidth(AppComponent component) {
-        this.width = component;
         FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
         fieldsAction.setComponent(component);
         widthAction = fieldsAction;
@@ -150,7 +155,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
 
     @Override
     public void setLength(AppComponent component) {
-        this.length = component;
         FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
         fieldsAction.setComponent(component);
         lengthAction = fieldsAction;
@@ -178,8 +182,8 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
 
     @Override
     public void keyActionUpdate() {
-        CalculatorData data = viewModel.createData(queueItems, width, length, this);
-        calculatorController.setCalculatorData(data);
+        calculatorData.addData(queueItems);
+        calculatorController.setCalculatorData(calculatorData);
     }
 
     @Override
