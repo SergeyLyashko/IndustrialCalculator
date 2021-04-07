@@ -1,7 +1,10 @@
 package viewcontroller;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
@@ -10,7 +13,7 @@ import viewmodel.KeyActionObserver;
 
 @Service("fieldsAction")
 @Scope("prototype")
-public class FieldsAction implements FocusActionObserver {
+public class FieldsAction implements FocusActionObserver, ApplicationContextAware {
 
     private FieldBehavior fieldBehavior;
     private FocusBehavior focusBehavior;
@@ -21,6 +24,7 @@ public class FieldsAction implements FocusActionObserver {
     private ViewModel viewModel;
 
     private boolean actionState;
+    private ApplicationContext applicationContext;
 
     @Autowired
     public void setViewModel(ViewModel viewModel){
@@ -43,7 +47,11 @@ public class FieldsAction implements FocusActionObserver {
         this.component = component;
         this.fieldBehavior = viewModel.createFieldBehavior(component);
         this.focusBehavior = viewModel.createFocusBehavior(component);
-        this.keyBehavior = viewModel.createKeyBehavior(component);
+
+        KeyBehavior behavior = applicationContext.getBean("keyBehavior", KeyBehavior.class);
+        behavior.setComponent(component);
+        this.keyBehavior = behavior;
+
         focusBehavior.registerFocusObserver(this);
         deactivate();
     }
@@ -93,5 +101,10 @@ public class FieldsAction implements FocusActionObserver {
     public void focusActionUpdate(AppComponent component) {
         setFilter();
         keyBehavior.fieldActivate();
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

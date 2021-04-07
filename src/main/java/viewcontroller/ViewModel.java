@@ -17,7 +17,5 @@ public interface ViewModel {
 
     FocusBehavior createFocusBehavior(AppComponent component);
 
-    KeyBehavior createKeyBehavior(AppComponent component);
-
     void setToolTipState(boolean selected);
 }

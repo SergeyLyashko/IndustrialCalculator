@@ -1,5 +1,6 @@
 package viewcontroller;
 
+import view.AppComponent;
 import viewmodel.KeyActionObserver;
 
 public interface KeyBehavior {
@@ -9,4 +10,6 @@ public interface KeyBehavior {
     void registerKeyObserver(KeyActionObserver observer);
 
     void fieldActivate();
+
+    void setComponent(AppComponent component);
 }

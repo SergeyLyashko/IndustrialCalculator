@@ -23,11 +23,6 @@ public class ViewModelImpl implements ViewModel {
     }
 
     @Override
-    public KeyBehavior createKeyBehavior(AppComponent component) {
-        return new KeyBehaviorImpl(component);
-    }
-
-    @Override
     public void setToolTipState(boolean selected) {
         ToolTipManager toolTipManager = ToolTipManager.sharedInstance();
         toolTipManager.setEnabled(selected);

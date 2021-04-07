@@ -1,5 +1,7 @@
 package viewmodel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewcontroller.KeyBehavior;
 
@@ -8,12 +10,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-class KeyBehaviorImpl implements KeyBehavior {
+@Service("keyBehavior")
+@Scope("prototype")
+public class KeyBehaviorImpl implements KeyBehavior {
 
-    private final JFormattedTextField textField;
+    private JFormattedTextField textField;
     private KeyActionObserver observer;
 
-    KeyBehaviorImpl(AppComponent component) {
+    @Override
+    public void setComponent(AppComponent component){
         this.textField = (JFormattedTextField) component.getComponentParent();
     }
 
