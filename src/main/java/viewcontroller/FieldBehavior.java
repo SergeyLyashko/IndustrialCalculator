@@ -1,5 +1,7 @@
 package viewcontroller;
 
+import view.AppComponent;
+
 public interface FieldBehavior {
 
     void fieldDeactivate();
@@ -9,5 +11,7 @@ public interface FieldBehavior {
     void areaActivate();
 
     void areaDeactivate();
+
+    void setComponent(AppComponent component);
 
 }

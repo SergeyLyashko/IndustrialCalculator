@@ -21,15 +21,9 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     private Filter defaultFilter;
     private Filter digitalFilter;
     private AppComponent component;
-    private ViewModel viewModel;
 
     private boolean actionState;
     private ApplicationContext applicationContext;
-
-    @Autowired
-    public void setViewModel(ViewModel viewModel){
-        this.viewModel = viewModel;
-    }
 
     @Autowired
     @Qualifier("defaultFilter")
@@ -45,7 +39,10 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
 
     public void setComponent(AppComponent component){
         this.component = component;
-        this.fieldBehavior = viewModel.createFieldBehavior(component);
+
+        FieldBehavior fieldBehaviorBean = applicationContext.getBean("fieldBehavior", FieldBehavior.class);
+        fieldBehaviorBean.setComponent(component);
+        this.fieldBehavior = fieldBehaviorBean;
 
         FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         focusBehaviorBean.setComponent(component);

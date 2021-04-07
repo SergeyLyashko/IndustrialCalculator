@@ -1,19 +1,24 @@
 package viewmodel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import view.AppComponent;
 import viewcontroller.FieldBehavior;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Service("fieldBehavior")
+@Scope("prototype")
 class FieldBehaviorImpl implements FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
-    private final JFormattedTextField textField;
-    private final String name;
+    private JFormattedTextField textField;
+    private String name;
 
-    FieldBehaviorImpl(AppComponent component){
-        name = component.getName();
+    @Override
+    public void setComponent(AppComponent component){
+        this.name = component.getName();
         textField = (JFormattedTextField) component.getComponentParent();
     }
 
