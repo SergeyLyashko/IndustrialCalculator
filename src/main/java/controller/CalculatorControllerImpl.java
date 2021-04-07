@@ -1,7 +1,7 @@
 package controller;
 
 import model.CalculatorFactory;
-import model.View;
+import model.CalculatorView;
 import model.ViewSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     private static final boolean ALERT = true;
     private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
-    private View view;
+    private CalculatorView calculatorView;
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
@@ -32,8 +32,8 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     }
 
     @Autowired
-    public void setView(View view){
-        this.view = view;
+    public void setView(CalculatorView calculatorView){
+        this.calculatorView = calculatorView;
     }
 
     @Override
@@ -69,11 +69,11 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
 
     @Override
     public void notifyResultObservers(String mass, boolean alert) {
-        view.resultUpdate(mass, alert);
+        calculatorView.resultUpdate(mass, alert);
     }
 
     @Override
     public void notifyMessageObservers(String message, boolean alert) {
-        view.messageUpdate(message, alert);
+        calculatorView.messageUpdate(message, alert);
     }
 }

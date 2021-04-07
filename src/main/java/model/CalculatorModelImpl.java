@@ -16,21 +16,21 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
-    private View view;
+    private CalculatorView calculatorView;
 
     @Autowired
-    public void setView(View view){
-        this.view = view;
+    public void setView(CalculatorView calculatorView){
+        this.calculatorView = calculatorView;
     }
 
     @Override
     public void notifyResultObservers(String mass, boolean alert) {
-        view.resultUpdate(mass, alert);
+        calculatorView.resultUpdate(mass, alert);
     }
 
     @Override
     public void notifyMessageObservers(String message, boolean alert) {
-        view.messageUpdate(message, alert);
+        calculatorView.messageUpdate(message, alert);
     }
 
     @Override

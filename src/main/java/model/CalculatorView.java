@@ -1,6 +1,6 @@
 package model;
 
-public interface View {
+public interface CalculatorView {
 
     void messageUpdate(String message, boolean alert);
 
