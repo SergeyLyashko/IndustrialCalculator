@@ -1,21 +1,31 @@
 package viewmodel;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import view.Visitor;
 import view.AppComponent;
 import viewcontroller.LabelBehavior;
 
 import javax.swing.*;
 
-class LabelBehaviorImpl implements LabelBehavior {
+@Service("labelBehavior")
+@Scope("prototype")
+public class LabelBehaviorImpl implements LabelBehavior {
 
-    private final Visitor colorVisitor;
-    private final AppComponent component;
-    private final JLabel label;
+    private Visitor colorVisitor;
+    private AppComponent component;
+    private JLabel label;
 
-    LabelBehaviorImpl(Visitor colorVisitor, AppComponent component) {
+    @Autowired
+    public void setColorVisitor(Visitor colorVisitor){
+        this.colorVisitor = colorVisitor;
+    }
+
+    @Override
+    public void setComponent(AppComponent component){
         this.component = component;
         label = (JLabel) component.getComponentParent();
-        this.colorVisitor = colorVisitor;
     }
 
     @Override

@@ -11,8 +11,6 @@ public interface ViewModel {
 
     ComboBoxModel<String> createMenuModel(List<String> receiveMenu);
 
-    LabelBehavior createLabelBehavior(AppComponent component);
-
     FieldBehavior createFieldBehavior(AppComponent component);
 
     CalculatorData createData(Queue<String> queueItems, AppComponent width, AppComponent length, ViewController viewController);

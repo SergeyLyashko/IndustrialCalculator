@@ -55,12 +55,16 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
 
     @Override
     public void setResultComponent(AppComponent component) {
-        this.resultBehavior = viewModel.createLabelBehavior(component);
+        LabelBehavior labelBehavior = applicationContext.getBean("labelBehavior", LabelBehavior.class);
+        labelBehavior.setComponent(component);
+        this.resultBehavior = labelBehavior;
     }
 
     @Override
     public void setMessageComponent(AppComponent component) {
-        this.messageBehavior = viewModel.createLabelBehavior(component);
+        LabelBehavior labelBehavior = applicationContext.getBean("labelBehavior", LabelBehavior.class);
+        labelBehavior.setComponent(component);
+        this.messageBehavior = labelBehavior;
     }
 
     @Override

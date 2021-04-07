@@ -10,7 +10,7 @@ import viewcomponents.info.InfoComponents;
 import viewcomponents.settings.SettingsComponents;
 import viewcontroller.ViewControllerImpl;
 
-@ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info", "viewcontroller"})
+@ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info", "viewcontroller", "viewmodel"})
 @Configuration
 @Import({ViewCalculatorConfiguration.class, ViewSettingsConfiguration.class, ViewModelConfiguration.class})
 public class ViewConfiguration {
