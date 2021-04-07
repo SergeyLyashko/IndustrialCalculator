@@ -2,7 +2,9 @@ package calculators;
 
 import model.CalculatorFactory;
 import model.AbstractMassCalculator;
+import org.springframework.stereotype.Service;
 
+@Service("calculatorFactory")
 public class CalculatorFactoryImpl implements CalculatorFactory {
 
     @Override

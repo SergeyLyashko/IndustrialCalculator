@@ -3,7 +3,6 @@ package model;
 import controller.CalculatorModel;
 import controller.DataValueParser;
 import controller.Detail;
-import calculators.CalculatorFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,18 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
     private CalculatorView calculatorView;
+    private DecimalFormat decimalFormat;
+    private CalculatorFactory calculatorFactory;
+
+    @Autowired
+    public void setCalculatorFactory(CalculatorFactory calculatorFactory){
+        this.calculatorFactory = calculatorFactory;
+    }
+
+    @Autowired
+    public void setDecimalFormat(DecimalFormat decimalFormat){
+        this.decimalFormat = decimalFormat;
+    }
 
     @Autowired
     public void setView(CalculatorView calculatorView){
@@ -34,18 +45,13 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void calculationMass(CalculatorFactory calculator, Detail detail, String assortment, String type) {
-        AbstractMassCalculator massCalculator = calculator.createMassCalculator(assortment, type);
+    public void calculationMass(Detail detail, String assortment, String type) {
+        AbstractMassCalculator massCalculator = calculatorFactory.createMassCalculator(assortment, type);
         massCalculator.setDetail(detail);
         double mass = massCalculator.calculationMass();
         if(mass > 0) {
             notifyResult(mass);
         }
-    }
-
-    @Override
-    public CalculatorFactory getCalculator() {
-        return new CalculatorFactoryImpl();
     }
 
     @Override
@@ -59,20 +65,16 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     private void notifyResult(double mass){
-        String formattedResult = formatDoubleToString(mass);
+        String formattedResult = decimalFormat.format(mass);
         setResultToSystemClipboard(formattedResult);
         notifyResultObservers(formattedResult, CALM);
         notifyMessageObservers(RESULT_MESSAGE, CALM);
     }
 
-    //форматирование строки результата
-    private String formatDoubleToString(double value){
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        return decimalFormat.format(value);
-    }
-
     // метод копирования в буфер обмена при выводе результата
     private void setResultToSystemClipboard(String value){
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(value), null);
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(new StringSelection(value), null);
     }
 }

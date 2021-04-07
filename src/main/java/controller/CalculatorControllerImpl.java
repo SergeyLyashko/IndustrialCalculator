@@ -1,6 +1,5 @@
 package controller;
 
-import model.CalculatorFactory;
 import model.CalculatorView;
 import model.ViewSubject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +41,10 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
         String assortment = data.poll();
         String type = data.poll();
         String number = data.poll();
-        CalculatorFactory calculator = calculatorModel.getCalculator();
         double dataBaseValue = receiveDataBaseValue(assortment, type, number);
         double[] parseData = parseData(data);
         Detail detail = calculatorModel.getDetail(dataBaseValue, parseData);
-        calculatorModel.calculationMass(calculator, detail, assortment, type);
+        calculatorModel.calculationMass(detail, assortment, type);
     }
 
     private double[] parseData(Queue<String> data) {

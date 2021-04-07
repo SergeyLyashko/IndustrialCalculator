@@ -1,8 +1,10 @@
 package configurations;
 
+import calculators.CalculatorFactoryImpl;
 import controller.CalculatorControllerImpl;
 import controller.CalculatorModel;
 import database.DetailsDAO;
+import model.CalculatorFactory;
 import model.CalculatorModelImpl;
 import model.CalculatorView;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,7 @@ import view.*;
 import viewcontroller.CalculatorController;
 
 @Configuration
-@Import(ViewConfiguration.class)
+@Import({ViewConfiguration.class, ModelConfiguration.class})
 public class CalculatorConfiguration {
 
     @Bean
@@ -33,5 +35,10 @@ public class CalculatorConfiguration {
     @Bean
     public CalculatorController calculatorController(){
         return new CalculatorControllerImpl();
+    }
+
+    @Bean
+    public CalculatorFactory calculatorFactory(){
+        return new CalculatorFactoryImpl();
     }
 }
