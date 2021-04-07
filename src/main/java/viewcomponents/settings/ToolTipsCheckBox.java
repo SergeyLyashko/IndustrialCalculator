@@ -7,6 +7,7 @@ import view.AppComponent;
 import view.Host;
 import view.Visitor;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.Serializable;
@@ -22,10 +23,16 @@ public class ToolTipsCheckBox implements AppComponent, Host, Serializable {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
     private transient Visitor colorVisitor;
+    private ViewController viewController;
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){
         this.colorVisitor = colorVisitor;
+    }
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
     }
 
     public ToolTipsCheckBox(int locationX, int locationY){
@@ -37,8 +44,8 @@ public class ToolTipsCheckBox implements AppComponent, Host, Serializable {
         jCheckBox.setLocation(locationX, locationY);
     }
 
-    @Override
-    public void addController(ViewController viewController) {
+    @PostConstruct
+    private void afterPropertiesSet() {
         colorVisitor.addHost(this);
         addItemListener(viewController);
         checkBoxStateChecked(viewController);

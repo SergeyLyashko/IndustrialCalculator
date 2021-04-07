@@ -13,7 +13,4 @@ public interface AppComponent {
     default int getFocusedRate(){ return 0; }
 
     default int compareTo(AppComponent component) { return 0; }
-
-    default void addController(ViewController viewController) {}
-
 }

@@ -9,7 +9,6 @@ import view.MenuSelectable;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service("calculatorComponents")
@@ -89,18 +88,18 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        integration(width);
-        integration(length);
-        integration(areaCheckBox);
+        components.add(width);
+        components.add(length);
+        components.add(areaCheckBox);
+        components.add(assortment);
+        components.add(types);
+        components.add(numbers);
+        components.add(result);
+        components.add(message);
+        components.add(dimensionWidth);
+        components.add(dimensionLength);
 
-        integration(assortment, types, numbers);
         addListeners(assortment, types, numbers);
-
-        integration(result);
-        integration(message);
-
-        integration(dimensionWidth);
-        integration(dimensionLength);
     }
 
     public CalculatorComponentsImpl() {
@@ -110,14 +109,6 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
     @Override
     public List<AppComponent> getComponents(){
         return components;
-    }
-
-    private void integration(MenuSelectable...menus){
-        Arrays.stream(menus).forEach(this::integration);
-    }
-
-    private void integration(AppComponent component) {
-        components.add(component);
     }
 
     private void addListeners(MenuSelectable...menus) {

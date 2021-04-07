@@ -42,17 +42,11 @@ public class SettingsComponents implements CalculatorComponents {
         List<AppComponent> saved = viewController.loadComponents();
         if(saved == null){
             components = new ArrayList<>();
-            integration(colorThemeCheckBox);
-            integration(toolTipsCheckBox);
+            components.add(colorThemeCheckBox);
+            components.add(toolTipsCheckBox);
         }else {
-            saved.forEach(component -> component.addController(viewController));
             components = saved;
         }
-    }
-
-    private void integration(AppComponent component) {
-        component.addController(viewController);
-        components.add(component);
     }
 
     @Override
