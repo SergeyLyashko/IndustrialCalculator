@@ -17,7 +17,7 @@ public interface ViewController extends KeyActionObserver {
 
     void areaCheckBoxState(boolean state);
 
-    void setSelectedItems(Queue<String> queueItems);
+    void addSelectedItems(Queue<String> queueItems);
 
     void setResult(String value, boolean alert);
 

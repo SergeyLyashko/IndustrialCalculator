@@ -17,13 +17,13 @@ public class ViewControllerImpl implements ViewController {
 
     private ViewModel viewModel;
     private CalculatorController calculatorController;
-    private FieldsAction lengthAction;
-    private FieldsAction widthAction;
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
-    private Queue<String> queueItems;
     private Preference preference;
     private CalculatorData calculatorData;
+
+    private FieldsAction lengthAction;
+    private FieldsAction widthAction;
 
     @Autowired
     @Qualifier("messageBehavior")
@@ -136,8 +136,13 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void setSelectedItems(Queue<String> queueItems) {
-        this.queueItems = queueItems;
+    public void addSelectedItems(Queue<String> selectedItems) {
+        calculatorData.add(selectedItems);
+    }
+
+    @Override
+    public void keyActionUpdate() {
+        calculatorController.calculation(calculatorData);
     }
 
     @Override
@@ -152,12 +157,6 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public void setMessage(String message, boolean alert) {
         messageBehavior.show(message, alert);
-    }
-
-    @Override
-    public void keyActionUpdate() {
-        calculatorData.addData(queueItems);
-        calculatorController.setCalculatorData(calculatorData);
     }
 
     @Override

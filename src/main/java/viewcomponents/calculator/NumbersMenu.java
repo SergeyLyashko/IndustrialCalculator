@@ -31,7 +31,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private DataReceiver dataReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
     private String type = DEFAULT_MENU_VALUE;
-    private boolean connect = true;
+    private boolean isConnect = true;
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
@@ -63,9 +63,9 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
                 Queue<String> selectedItems = collectSelectedItems(selectedItem);
-                viewController.setSelectedItems(selectedItems);
+                viewController.addSelectedItems(selectedItems);
             }
-            if(connect){
+            if(isConnect){
                 viewController.action();
             }
         });
@@ -83,7 +83,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if(!connect){
+                if(!isConnect){
                     viewController.setMessage(NOT_DATABASE_MESSAGE, true);
                     viewController.setResult(ERROR, true);
                 }
@@ -103,7 +103,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
             }
             numberMenu = dataReceiver.createNumberMenu(assortment, type);
         } catch (SQLException exception) {
-            connect = false;
+            isConnect = false;
         }
         createMenu(numberMenu);
     }

@@ -42,7 +42,7 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     }
 
     @Override
-    public void setCalculatorData(CalculatorData calculatorData) {
+    public void calculation(CalculatorData calculatorData) {
         Queue<String> data = calculatorData.getData();
         String assortment = data.poll();
         String type = data.poll();

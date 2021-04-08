@@ -37,9 +37,9 @@ public class CalculatorDataImpl implements CalculatorData {
     }
 
     @Override
-    public void addData(Queue<String> queueItems){
+    public void add(Queue<String> selectedMenuItems){
         data = new LinkedList<>();
-        data.addAll(queueItems);
+        data.addAll(selectedMenuItems);
         addFieldsContain();
     }
 

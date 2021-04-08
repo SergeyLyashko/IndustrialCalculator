@@ -6,5 +6,5 @@ public interface CalculatorData {
 
     Queue<String> getData();
 
-    void addData(Queue<String> queueItems);
+    void add(Queue<String> selectedMenuItems);
 }
