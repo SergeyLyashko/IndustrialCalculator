@@ -1,9 +1,10 @@
 package viewcomponents.calculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import view.ViewController;
 import view.AppComponent;
+import viewcontroller.FieldsAction;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -18,16 +19,17 @@ public class Width implements AppComponent, Comparable<AppComponent> {
     private static final int HEIGHT = 23;
     private final JFormattedTextField textField;
 
-    private ViewController viewController;
+    private FieldsAction fieldsAction;
 
     @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
+    @Qualifier("widthAction")
+    public void setFieldsAction(FieldsAction fieldsAction){
+        this.fieldsAction = fieldsAction;
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
-        viewController.setWidth(this);
+    private void afterPropertiesSet() {
+        fieldsAction.setComponent(this);
     }
 
     public Width(int locationX, int locationY){

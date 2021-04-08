@@ -64,7 +64,7 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         this.actionState = status;
     }
 
-    void registerKeyObserver(KeyActionObserver observer){
+    public void registerKeyObserver(KeyActionObserver observer){
         keyBehavior.registerKeyObserver(observer);
     }
 

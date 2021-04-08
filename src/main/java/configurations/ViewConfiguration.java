@@ -8,6 +8,7 @@ import view.*;
 import viewcomponents.calculator.CalculatorComponentsImpl;
 import viewcomponents.info.InfoComponents;
 import viewcomponents.settings.SettingsComponents;
+import viewcontroller.FieldsAction;
 import viewcontroller.ViewControllerImpl;
 
 @ComponentScan(basePackages = {"viewcomponents.settings", "viewcomponents.info", "viewcontroller", "viewmodel"})
@@ -60,5 +61,15 @@ public class ViewConfiguration {
     @Bean
     public AppFrame appFrame(){
         return new AppFrame();
+    }
+
+    @Bean
+    public FieldsAction widthAction(){
+        return new FieldsAction();
+    }
+
+    @Bean
+    public FieldsAction lengthAction(){
+        return new FieldsAction();
     }
 }

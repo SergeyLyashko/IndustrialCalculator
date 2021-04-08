@@ -1,9 +1,11 @@
 package viewcomponents.calculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import view.ViewController;
 import view.AppComponent;
+import viewcontroller.FieldsAction;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -19,6 +21,13 @@ public class Length implements AppComponent, Comparable<AppComponent> {
     private static final int HEIGHT = 23;
 
     private ViewController viewController;
+    private FieldsAction fieldsAction;
+
+    @Autowired
+    @Qualifier("lengthAction")
+    public void setFieldsAction(FieldsAction fieldsAction){
+        this.fieldsAction = fieldsAction;
+    }
 
     @Autowired
     public void setViewController(ViewController viewController){
@@ -36,8 +45,9 @@ public class Length implements AppComponent, Comparable<AppComponent> {
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
-        viewController.setLength(this);
+    private void afterPropertiesSet() {
+        fieldsAction.setComponent(this);
+        fieldsAction.registerKeyObserver(viewController);
     }
 
     @Override

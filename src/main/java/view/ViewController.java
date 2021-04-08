@@ -1,9 +1,11 @@
 package view;
 
+import viewmodel.KeyActionObserver;
+
 import java.util.List;
 import java.util.Queue;
 
-public interface ViewController {
+public interface ViewController extends KeyActionObserver {
 
     void createMenu(List<String> menuList, MenuSelectable menuSelectable);
 
@@ -14,10 +16,6 @@ public interface ViewController {
     void action();
 
     void areaCheckBoxState(boolean state);
-
-    void setWidth(AppComponent component);
-
-    void setLength(AppComponent component);
 
     void setSelectedItems(Queue<String> queueItems);
 

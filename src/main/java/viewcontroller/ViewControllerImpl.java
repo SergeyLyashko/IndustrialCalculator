@@ -3,6 +3,7 @@ package viewcontroller;
 import controller.CalculatorData;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
@@ -10,14 +11,12 @@ import org.springframework.stereotype.Service;
 import view.AppComponent;
 import view.MenuSelectable;
 import view.ViewController;
-import viewmodel.KeyActionObserver;
-
 import javax.swing.*;
 import java.util.List;
 import java.util.Queue;
 
 @Service("viewController")
-public class ViewControllerImpl implements ViewController, KeyActionObserver, ApplicationContextAware {
+public class ViewControllerImpl implements ViewController, ApplicationContextAware {
 
     private ViewModel viewModel;
     private CalculatorController calculatorController;
@@ -30,6 +29,18 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
     private Preference preference;
     private ApplicationContext applicationContext;
     private CalculatorData calculatorData;
+
+    @Autowired
+    @Qualifier("widthAction")
+    public void setWidthAction(FieldsAction widthAction){
+        this.widthAction = widthAction;
+    }
+
+    @Autowired
+    @Qualifier("lengthAction")
+    public void setLengthAction(FieldsAction lengthAction){
+        this.lengthAction = lengthAction;
+    }
 
     @Lazy
     @Autowired
@@ -144,21 +155,6 @@ public class ViewControllerImpl implements ViewController, KeyActionObserver, Ap
     @Override
     public void widthOn() {
         widthAction.setState(true);
-    }
-
-    @Override
-    public void setWidth(AppComponent component) {
-        FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
-        fieldsAction.setComponent(component);
-        widthAction = fieldsAction;
-    }
-
-    @Override
-    public void setLength(AppComponent component) {
-        FieldsAction fieldsAction = applicationContext.getBean("fieldsAction", FieldsAction.class);
-        fieldsAction.setComponent(component);
-        lengthAction = fieldsAction;
-        lengthAction.registerKeyObserver(this);
     }
 
     @Override
