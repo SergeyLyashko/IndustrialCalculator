@@ -1,14 +1,19 @@
 package viewmodel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import javax.swing.*;
 import java.util.List;
 
-class MenuListModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+@Service("menuModel")
+@Scope("prototype")
+public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
-    private final List<String> receiveMenuList;
+    private List<String> receiveMenuList;
     private int selected;
 
-    MenuListModel(List<String> receiveMenuList){
+    public void addMenuList(List<String> receiveMenuList){
         this.receiveMenuList = receiveMenuList;
     }
 

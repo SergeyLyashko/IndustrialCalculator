@@ -44,6 +44,7 @@ public class ViewModelConfiguration {
         return new LabelBehaviorImpl();
     }
 
+    ///TODO
     @Bean
     public FieldBehavior widthBehavior(){
         return new FieldBehaviorImpl();

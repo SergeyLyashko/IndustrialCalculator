@@ -83,21 +83,6 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public List<AppComponent> loadComponents() {
-        //Preference preference = viewModel.getPreference();
-        if(preference.isSaved()){
-            return preference.loadComponents();
-        }
-        return null;
-    }
-
-    @Override
-    public void savedPreference(List<AppComponent> components) {
-        //Preference preference = viewModel.getPreference();
-        preference.saveComponents(components);
-    }
-
-    @Override
     public void setToolTipState(boolean selected) {
         viewModel.setToolTipState(selected);
     }
@@ -173,5 +158,20 @@ public class ViewControllerImpl implements ViewController {
     public void keyActionUpdate() {
         calculatorData.addData(queueItems);
         calculatorController.setCalculatorData(calculatorData);
+    }
+
+    @Override
+    public List<AppComponent> loadComponents() {
+        //Preference preference = viewModel.getPreference();
+        if(preference.isSaved()){
+            return preference.loadComponents();
+        }
+        return null;
+    }
+
+    @Override
+    public void savedPreference(List<AppComponent> components) {
+        //Preference preference = viewModel.getPreference();
+        preference.saveComponents(components);
     }
 }

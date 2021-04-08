@@ -17,12 +17,10 @@ public class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
     private JFormattedTextField textField;
-    private AppComponent component;
     private FocusActionObserver observer;
 
     @Override
     public void setComponent(AppComponent component){
-        this.component = component;
         this.textField = (JFormattedTextField) component.getComponentParent();
     }
 
