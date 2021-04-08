@@ -1,11 +1,14 @@
 package database;
 
+import org.springframework.stereotype.Service;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-class Connector {
+@Service("databaseConnector")
+public class DatabaseConnector {
 
     private static final String DRIVER_PREFIX = "jdbc:sqlite:";
     private static final String SOURCE = "/data/database/calculator.db";

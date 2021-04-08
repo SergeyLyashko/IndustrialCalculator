@@ -7,17 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ExecutorTest {
+public class DatabaseExecutorTest {
 
     private static final Connection mockConnection = mock(Connection.class);
 
     @Test
     public void addConnection() throws SQLException, ClassNotFoundException {
-        Connector mockConnector = mock(Connector.class);
-        when(mockConnector.getConnection()).thenReturn(mockConnection);
+        DatabaseConnector mockDatabaseConnector = mock(DatabaseConnector.class);
+        when(mockDatabaseConnector.getConnection()).thenReturn(mockConnection);
     }
 
     @Test

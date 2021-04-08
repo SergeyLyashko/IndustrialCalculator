@@ -3,7 +3,9 @@ package configurations;
 import calculators.CalculatorFactoryImpl;
 import controller.CalculatorControllerImpl;
 import controller.CalculatorModel;
+import database.DatabaseConnector;
 import database.DetailsDAO;
+import database.DatabaseExecutor;
 import model.CalculatorFactory;
 import model.CalculatorModelImpl;
 import model.CalculatorView;
@@ -20,6 +22,16 @@ public class CalculatorConfiguration {
     @Bean
     public DataReceiver dataReceiver(){
         return new DetailsDAO();
+    }
+
+    @Bean
+    public DatabaseExecutor executor(){
+        return new DatabaseExecutor();
+    }
+
+    @Bean
+    public DatabaseConnector databaseConnector(){
+        return new DatabaseConnector();
     }
 
     @Bean

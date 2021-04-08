@@ -1,17 +1,20 @@
 package database;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class Executor {
+@Service("databaseExecutor")
+public class DatabaseExecutor {
 
     private Connection connection;
 
-    void addConnection(Connector connector) {
+    void addConnection(DatabaseConnector databaseConnector) {
         try {
-            this.connection = connector.getConnection();
+            this.connection = databaseConnector.getConnection();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

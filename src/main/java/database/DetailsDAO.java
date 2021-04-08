@@ -1,8 +1,10 @@
 package database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import view.DataReceiver;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,11 +47,22 @@ public class DetailsDAO implements DataReceiver {
                     + "Profiles.ProfileName = ? and "
                     + "ProfileTypes.ProfileTypeName = ?";
 
-    private final Executor executor;
+    private DatabaseExecutor databaseExecutor;
+    private DatabaseConnector databaseConnector;
 
-    public DetailsDAO() {
-        this.executor = new Executor();
-        executor.addConnection(new Connector());
+    @Autowired
+    public void setDatabaseConnector(DatabaseConnector databaseConnector){
+        this.databaseConnector = databaseConnector;
+    }
+
+    @Autowired
+    public void setDatabaseExecutor(DatabaseExecutor databaseExecutor){
+        this.databaseExecutor = databaseExecutor;
+    }
+
+    @PostConstruct
+    private void afterPropertiesSet() {
+        databaseExecutor.addConnection(databaseConnector);
     }
 
     /**
@@ -60,7 +73,7 @@ public class DetailsDAO implements DataReceiver {
      */
     @Override
     public List<String> createAssortmentMenu() throws SQLException {
-        return executor.executorQuery(PROFILES_SQL_QUERY,
+        return databaseExecutor.executorQuery(PROFILES_SQL_QUERY,
                 resultSet -> create(resultSet, ASSORTMENT_QUERY));
     }
 
@@ -73,7 +86,7 @@ public class DetailsDAO implements DataReceiver {
      */
     @Override
     public List<String> createTypeMenu(String assortment) throws SQLException {
-        return executor.executorQuery(TYPES_SQL_QUERY,
+        return databaseExecutor.executorQuery(TYPES_SQL_QUERY,
                 resultSet -> create(resultSet, TYPE_QUERY),
                 assortment);
     }
@@ -88,7 +101,7 @@ public class DetailsDAO implements DataReceiver {
      */
     @Override
     public List<String> createNumberMenu(String assortment, String type) throws SQLException {
-        return executor.executorQuery(NUMBERS_SQL_QUERY,
+        return databaseExecutor.executorQuery(NUMBERS_SQL_QUERY,
                 resultSet -> create(resultSet, NUMBER_QUERY),
                 assortment, type);
     }
@@ -115,13 +128,13 @@ public class DetailsDAO implements DataReceiver {
      */
     @Override
     public double getValue(String assortment, String type, String number) throws SQLException {
-        return executor.executorQuery(VALUE_SQL_QUERY,
+        return databaseExecutor.executorQuery(VALUE_SQL_QUERY,
                 resultSet -> resultSet.getDouble(VALUE_QUERY),
                 assortment, type, number);
     }
 
     @PreDestroy
     private void winClose() {
-        executor.connectionClose();
+        databaseExecutor.connectionClose();
     }
 }

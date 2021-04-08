@@ -44,7 +44,7 @@ public class AreaCheckBox implements AppComponent, Host {
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         setFont();
         colorVisitor.addHost(this);
         addItemListener(viewController);
