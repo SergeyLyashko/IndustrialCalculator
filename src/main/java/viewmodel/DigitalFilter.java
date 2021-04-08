@@ -14,7 +14,7 @@ import javax.swing.text.DocumentFilter;
 public class DigitalFilter extends DocumentFilter implements Filter {
 
     @Override
-    public void setFilter(AppComponent component) {
+    public void activateFilter(AppComponent component) {
         JTextField textField = (JFormattedTextField) component.getComponentParent();
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
     }

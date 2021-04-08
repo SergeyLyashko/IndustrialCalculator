@@ -3,10 +3,7 @@ package configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import view.Visitor;
-import viewcontroller.Filter;
-import viewcontroller.LabelBehavior;
-import viewcontroller.Preference;
-import viewcontroller.ViewModel;
+import viewcontroller.*;
 import viewmodel.*;
 
 @Configuration
@@ -45,5 +42,15 @@ public class ViewModelConfiguration {
     @Bean
     public LabelBehavior resultBehavior(){
         return new LabelBehaviorImpl();
+    }
+
+    @Bean
+    public FieldBehavior widthBehavior(){
+        return new FieldBehaviorImpl();
+    }
+
+    @Bean
+    public FieldBehavior lengthBehavior(){
+        return new FieldBehaviorImpl();
     }
 }

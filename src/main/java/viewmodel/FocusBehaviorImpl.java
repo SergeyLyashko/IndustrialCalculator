@@ -44,7 +44,7 @@ public class FocusBehaviorImpl implements FocusBehavior {
 
     private void notifyObservers() {
         if(observer != null){
-            observer.focusActionUpdate(component);
+            observer.focusActionUpdate();
         }
     }
 

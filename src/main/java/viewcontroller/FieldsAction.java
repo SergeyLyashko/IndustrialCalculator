@@ -69,14 +69,14 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     }
 
     void deactivate(){
-        removeFilter();
+        defaultFilter.activateFilter(component);
         fieldBehavior.fieldDeactivate();
         focusBehavior.fieldDeactivate();
         keyBehavior.fieldDeactivate();
     }
 
     void activate(){
-        removeFilter();
+        defaultFilter.activateFilter(component);
         fieldBehavior.fieldActivate();
         focusBehavior.fieldActivate();
     }
@@ -89,17 +89,9 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         fieldBehavior.areaDeactivate();
     }
 
-    private void removeFilter(){
-        defaultFilter.setFilter(component);
-    }
-
-    private void setFilter(){
-        digitalFilter.setFilter(component);
-    }
-
     @Override
-    public void focusActionUpdate(AppComponent component) {
-        setFilter();
+    public void focusActionUpdate() {
+        digitalFilter.activateFilter(component);
         keyBehavior.fieldActivate();
     }
 
