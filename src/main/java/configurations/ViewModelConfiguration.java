@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import view.Visitor;
 import viewcontroller.Filter;
+import viewcontroller.LabelBehavior;
 import viewcontroller.Preference;
 import viewcontroller.ViewModel;
 import viewmodel.*;
@@ -34,5 +35,15 @@ public class ViewModelConfiguration {
     @Bean
     public Preference preference(){
         return new PreferenceImpl();
+    }
+
+    @Bean
+    public LabelBehavior messageBehavior(){
+        return new LabelBehaviorImpl();
+    }
+
+    @Bean
+    public LabelBehavior resultBehavior(){
+        return new LabelBehaviorImpl();
     }
 }

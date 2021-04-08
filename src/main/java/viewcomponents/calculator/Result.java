@@ -1,11 +1,12 @@
 package viewcomponents.calculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import view.ViewController;
 import view.AppComponent;
 import view.Host;
 import view.Visitor;
+import viewcontroller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -18,23 +19,24 @@ public class Result implements AppComponent, Host, Comparable<AppComponent> {
     private static final int SIZE_X = 125;
     private static final int SIZE_Y = 25;
     private final JLabel jLabel;
-
-    private ViewController viewController;
     private Visitor colorVisitor;
+
+    private LabelBehavior labelBehavior;
+
+    @Autowired
+    @Qualifier("resultBehavior")
+    public void setLabelBehavior(LabelBehavior labelBehavior){
+        this.labelBehavior = labelBehavior;
+    }
 
     @Autowired
     public void setColorVisitor(Visitor colorVisitor){
         this.colorVisitor = colorVisitor;
     }
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
-        viewController.setResultComponent(this);
+    private void afterPropertiesSet() {
+        labelBehavior.setComponent(this);
         colorVisitor.addHost(this);
     }
 

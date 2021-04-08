@@ -1,11 +1,8 @@
 package viewcontroller;
 
 import controller.CalculatorData;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import view.AppComponent;
@@ -16,19 +13,29 @@ import java.util.List;
 import java.util.Queue;
 
 @Service("viewController")
-public class ViewControllerImpl implements ViewController, ApplicationContextAware {
+public class ViewControllerImpl implements ViewController {
 
     private ViewModel viewModel;
     private CalculatorController calculatorController;
     private FieldsAction lengthAction;
     private FieldsAction widthAction;
-
     private LabelBehavior messageBehavior;
     private LabelBehavior resultBehavior;
     private Queue<String> queueItems;
     private Preference preference;
-    private ApplicationContext applicationContext;
     private CalculatorData calculatorData;
+
+    @Autowired
+    @Qualifier("messageBehavior")
+    public void setMessageBehavior(LabelBehavior messageBehavior){
+        this.messageBehavior = messageBehavior;
+    }
+
+    @Autowired
+    @Qualifier("resultBehavior")
+    public void setResultBehavior(LabelBehavior resultBehavior){
+        this.resultBehavior = resultBehavior;
+    }
 
     @Autowired
     @Qualifier("widthAction")
@@ -68,20 +75,6 @@ public class ViewControllerImpl implements ViewController, ApplicationContextAwa
         ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
         JComboBox<String> comboBox = menuSelectable.getComponentParent();
         comboBox.setModel(menu);
-    }
-
-    @Override
-    public void setResultComponent(AppComponent component) {
-        LabelBehavior labelBehavior = applicationContext.getBean("labelBehavior", LabelBehavior.class);
-        labelBehavior.setComponent(component);
-        this.resultBehavior = labelBehavior;
-    }
-
-    @Override
-    public void setMessageComponent(AppComponent component) {
-        LabelBehavior labelBehavior = applicationContext.getBean("labelBehavior", LabelBehavior.class);
-        labelBehavior.setComponent(component);
-        this.messageBehavior = labelBehavior;
     }
 
     @Override
@@ -180,10 +173,5 @@ public class ViewControllerImpl implements ViewController, ApplicationContextAwa
     public void keyActionUpdate() {
         calculatorData.addData(queueItems);
         calculatorController.setCalculatorData(calculatorData);
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }

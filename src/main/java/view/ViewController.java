@@ -19,13 +19,9 @@ public interface ViewController extends KeyActionObserver {
 
     void setSelectedItems(Queue<String> queueItems);
 
-    void setResultComponent(AppComponent component);
-
     void setResult(String value, boolean alert);
 
     void setMessage(String message, boolean alert);
-
-    void setMessageComponent(AppComponent component);
 
     boolean isWidth();
 
