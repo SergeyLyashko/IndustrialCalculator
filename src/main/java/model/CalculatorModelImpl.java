@@ -16,12 +16,6 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     private static final boolean CALM = false;
     private CalculatorView calculatorView;
     private DecimalFormat decimalFormat;
-    private CalculatorFactory calculatorFactory;
-
-    @Autowired
-    public void setCalculatorFactory(CalculatorFactory calculatorFactory){
-        this.calculatorFactory = calculatorFactory;
-    }
 
     @Autowired
     public void setDecimalFormat(DecimalFormat decimalFormat){
@@ -44,10 +38,9 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void calculationMass(Detail detail, String assortment, String type) {
-        AbstractMassCalculator massCalculator = calculatorFactory.createMassCalculator(assortment, type);
-        massCalculator.setDetail(detail);
-        double mass = massCalculator.calculationMass();
+    public void calculationMass(Detail detail, AbstractMassCalculator abstractMassCalculator) {
+        abstractMassCalculator.setDetail(detail);
+        double mass = abstractMassCalculator.calculationMass();
         if(mass > 0) {
             notifyResult(mass);
         }
@@ -57,6 +50,7 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     public Detail createDetail(double dataBaseValue, double[] fieldsValue) {
         return new DetailImpl(dataBaseValue, fieldsValue);
     }
+
 
     private void notifyResult(double mass){
         String formattedResult = decimalFormat.format(mass);

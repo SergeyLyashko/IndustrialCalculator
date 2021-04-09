@@ -127,7 +127,7 @@ public class DetailsDAO implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public double getValue(String assortment, String type, String number) throws SQLException {
+    public double receiveValue(String assortment, String type, String number) throws SQLException {
         return databaseExecutor.executorQuery(VALUE_SQL_QUERY,
                 resultSet -> resultSet.getDouble(VALUE_QUERY),
                 assortment, type, number);

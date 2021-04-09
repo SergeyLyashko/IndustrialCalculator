@@ -12,9 +12,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 @Component("numbersMenu")
 public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
@@ -91,7 +89,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
-                Queue<String> selectedItems = collectSelectedMenuItems(selectedItem);
+                Map<String, String> selectedItems = collectSelectedMenuItems(selectedItem);
                 viewController.addSelectedItems(selectedItems);
             }
             if(isConnect){
@@ -112,12 +110,12 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    private Queue<String> collectSelectedMenuItems(String number){
-        // TODO create List
-        Queue<String> data = new LinkedList<>();
-        data.add(assortment);
-        data.add(type);
-        data.add(number);
+    // TODO optimized !
+    private Map<String, String> collectSelectedMenuItems(String number){
+        Map<String, String> data = new HashMap<>();
+        data.put("assortment", assortment);
+        data.put("type", type);
+        data.put("number", number);
         return data;
     }
 

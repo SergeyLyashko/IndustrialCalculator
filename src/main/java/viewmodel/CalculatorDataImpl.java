@@ -14,10 +14,10 @@ import java.util.*;
 public class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
-    private Queue<String> data;
     private AppComponent width;
     private AppComponent length;
     private ViewController controller;
+    private Map<String, String> selectedMenuItems;
 
     @Autowired
     @Qualifier("width")
@@ -37,19 +37,19 @@ public class CalculatorDataImpl implements CalculatorData {
     }
 
     @Override
-    public void add(Queue<String> selectedMenuItems){
-        // TODO create List ??
-        data = new LinkedList<>();
-        data.addAll(selectedMenuItems);
+    public void add(Map<String, String> selectedMenuItems){
+        this.selectedMenuItems = selectedMenuItems;
     }
 
-    private void addFieldsContain(){
+    private List<String> receiveFieldsValue(){
+        LinkedList<String> data = new LinkedList<>();
         if(controller.isWidth() && !controller.isArea()){
             String containWidth = getFieldsContain(width);
             data.add(containWidth);
         }
         String containLength = getFieldsContain(length);
         data.add(containLength);
+        return data;
     }
 
     private String getFieldsContain(AppComponent component){
@@ -62,8 +62,12 @@ public class CalculatorDataImpl implements CalculatorData {
     }
 
     @Override
-    public Queue<String> getData(){
-        addFieldsContain();
-        return data;
+    public List<String> getFieldsData(){
+        return receiveFieldsValue();
+    }
+
+    @Override
+    public Map<String, String> getSelectedMenuItems(){
+        return selectedMenuItems;
     }
 }

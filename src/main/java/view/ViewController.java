@@ -3,7 +3,7 @@ package view;
 import viewmodel.KeyActionObserver;
 
 import java.util.List;
-import java.util.Queue;
+import java.util.Map;
 
 public interface ViewController extends KeyActionObserver {
 
@@ -17,7 +17,7 @@ public interface ViewController extends KeyActionObserver {
 
     void areaCheckBoxState(boolean state);
 
-    void addSelectedItems(Queue<String> queueItems);
+    void addSelectedItems(Map<String, String> queueItems);
 
     void setResult(String value, boolean alert);
 

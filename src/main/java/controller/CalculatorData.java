@@ -1,10 +1,13 @@
 package controller;
 
-import java.util.Queue;
+import java.util.List;
+import java.util.Map;
 
 public interface CalculatorData {
 
-    Queue<String> getData();
+    List<String> getFieldsData();
 
-    void add(Queue<String> selectedMenuItems);
+    Map<String, String> getSelectedMenuItems();
+
+    void add(Map<String, String> selectedMenuItems);
 }

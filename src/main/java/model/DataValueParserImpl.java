@@ -5,7 +5,7 @@ import controller.DataValueParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Queue;
+import java.util.List;
 
 @Service("dataValueParser")
 public class DataValueParserImpl implements DataValueParser {
@@ -26,7 +26,7 @@ public class DataValueParserImpl implements DataValueParser {
     }
 
     @Override
-    public double[] parseData(Queue<String> data){
+    public double[] parseData(List<String> data){
         double[] parseValues = data.stream().mapToDouble(this::parse).toArray();
         if(parseValues.length > 0 && isValid(parseValues)){
             return parseValues;

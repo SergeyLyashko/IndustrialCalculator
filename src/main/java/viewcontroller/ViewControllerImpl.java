@@ -10,7 +10,7 @@ import view.MenuSelectable;
 import view.ViewController;
 import javax.swing.*;
 import java.util.List;
-import java.util.Queue;
+import java.util.Map;
 
 @Service("viewController")
 public class ViewControllerImpl implements ViewController {
@@ -136,7 +136,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void addSelectedItems(Queue<String> selectedItems) {
+    public void addSelectedItems(Map<String, String> selectedItems) {
         calculatorData.add(selectedItems);
     }
 

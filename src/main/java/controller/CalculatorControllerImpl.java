@@ -1,5 +1,7 @@
 package controller;
 
+import model.AbstractMassCalculator;
+import model.CalculatorFactory;
 import model.CalculatorView;
 import model.ViewSubject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,8 @@ import view.DataReceiver;
 import viewcontroller.CalculatorController;
 
 import java.sql.SQLException;
-import java.util.Queue;
+import java.util.List;
+import java.util.Map;
 
 @Service("calculatorController")
 public class CalculatorControllerImpl implements CalculatorController, ViewSubject {
@@ -20,6 +23,12 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     private DataReceiver dataReceiver;
     private CalculatorView calculatorView;
     private DataValueParser dataValueParser;
+    private CalculatorFactory calculatorFactory;
+
+    @Autowired
+    public void setCalculatorFactory(CalculatorFactory calculatorFactory){
+        this.calculatorFactory = calculatorFactory;
+    }
 
     @Autowired
     public void setDataValueParser(DataValueParser dataValueParser){
@@ -43,19 +52,29 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
 
     @Override
     public void calculation(CalculatorData calculatorData) {
-        Queue<String> data = calculatorData.getData();
-        String assortment = data.poll();
-        String type = data.poll();
-        String number = data.poll();
-        double dataBaseValue = receiveDataBaseValue(assortment, type, number);
+        List<String> data = calculatorData.getFieldsData();
+        Map<String, String> selectedMenuItems = calculatorData.getSelectedMenuItems();
+
+        double dataBaseValue = receiveDataBaseValue(selectedMenuItems);
         double[] parseData = dataValueParser.parseData(data);
+
+        AbstractMassCalculator abstractMassCalculator = getCalculator(selectedMenuItems);
         Detail detail = calculatorModel.createDetail(dataBaseValue, parseData);
-        calculatorModel.calculationMass(detail, assortment, type);
+        calculatorModel.calculationMass(detail, abstractMassCalculator);
     }
 
-    private double receiveDataBaseValue(String assortment, String type, String number) {
+    private AbstractMassCalculator getCalculator(Map<String, String> menuItems){
+        String assortment = menuItems.get("assortment");
+        String type = menuItems.get("type");
+        return calculatorFactory.createMassCalculator(assortment, type);
+    }
+
+    private double receiveDataBaseValue(Map<String, String> menuItems) {
+        String assortment = menuItems.get("assortment");
+        String type = menuItems.get("type");
+        String number = menuItems.get("number");
         try {
-            return dataReceiver.getValue(assortment, type, number);
+            return dataReceiver.receiveValue(assortment, type, number);
         } catch (SQLException exception) {
             notifyMessageObservers(NOT_DATABASE_MESSAGE, ALERT);
             notifyResultObservers(ERROR, ALERT);

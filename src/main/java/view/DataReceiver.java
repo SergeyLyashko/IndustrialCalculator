@@ -11,5 +11,5 @@ public interface DataReceiver {
 
     List<String> receiveNumberMenu(String assortment, String type) throws SQLException;
 
-    double getValue(String assortment, String type, String number) throws SQLException;
+    double receiveValue(String assortment, String type, String number) throws SQLException;
 }
