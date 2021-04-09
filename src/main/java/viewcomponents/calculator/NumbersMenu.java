@@ -12,7 +12,6 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -60,18 +59,15 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void createMenuModel(List<String> receivableMenu){
-        // TODO create List
-        List<String> menu = new ArrayList<>();
-        menu.add(NUMBER_HEADER);
-        if(receivableMenu != null) {
-            menu.addAll(receivableMenu);
+        if(receivableMenu == null){
+            receivableMenu = new LinkedList<>();
         }
-        viewController.createMenu(menu, this);
+        receivableMenu.add(0, NUMBER_HEADER);
+        viewController.createMenu(receivableMenu, this);
     }
 
     private List<String> receiveMenuList() {
         try {
-            // TODO receive List
             return dataReceiver.receiveNumberMenu(assortment, type);
         } catch (SQLException exception) {
             isConnect = false;
@@ -95,7 +91,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
-                Queue<String> selectedItems = collectSelectedItems(selectedItem);
+                Queue<String> selectedItems = collectSelectedMenuItems(selectedItem);
                 viewController.addSelectedItems(selectedItems);
             }
             if(isConnect){
@@ -116,7 +112,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    private Queue<String> collectSelectedItems(String number){
+    private Queue<String> collectSelectedMenuItems(String number){
         // TODO create List
         Queue<String> data = new LinkedList<>();
         data.add(assortment);

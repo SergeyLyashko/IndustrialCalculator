@@ -38,6 +38,7 @@ public class CalculatorDataImpl implements CalculatorData {
 
     @Override
     public void add(Queue<String> selectedMenuItems){
+        // TODO create List ??
         data = new LinkedList<>();
         data.addAll(selectedMenuItems);
     }

@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -110,7 +110,7 @@ public class DetailsDAO implements DataReceiver {
      * Created list for combo-boxes menu
      */
     private List<String> create(ResultSet resultSet, String query) throws SQLException {
-        List<String> menuList = new ArrayList<>();
+        List<String> menuList = new LinkedList<>();
         while(resultSet.next()){
             String elementMenu = resultSet.getString(query);
             menuList.add(elementMenu);

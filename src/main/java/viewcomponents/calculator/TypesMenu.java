@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component("typesMenu")
@@ -58,7 +58,6 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private List<String> receiveMenu() {
         try {
-            // TODO create List
             return dataReceiver.receiveTypeMenu(assortment);
         } catch (SQLException exception) {
             isConnect = false;
@@ -76,13 +75,11 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void createMenuModel(List<String> receivableMenu){
-        // TODO create List
-        List<String> menu = new ArrayList<>();
-        menu.add(TYPE_HEADER);
-        if(receivableMenu != null) {
-            menu.addAll(receivableMenu);
+        if(receivableMenu == null){
+            receivableMenu = new LinkedList<>();
         }
-        viewController.createMenu(menu, this);
+        receivableMenu.add(0, TYPE_HEADER);
+        viewController.createMenu(receivableMenu, this);
     }
 
     private void addActionListener(){

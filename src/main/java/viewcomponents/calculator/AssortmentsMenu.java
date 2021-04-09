@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component("assortmentsMenu")
@@ -78,7 +79,6 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
 
     private List<String> receiveMenu() {
         try {
-            // TODO create list
             return dataReceiver.receiveAssortmentMenu();
         } catch (SQLException exception) {
             isConnect = false;
@@ -87,13 +87,11 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     }
 
     private void createMenuModel(List<String> receivableMenu){
-        // TODO create List
-        List<String> menu = new ArrayList<>();
-        menu.add(ASSORTMENT_HEADER);
-        if(receivableMenu != null) {
-            menu.addAll(receivableMenu);
+        if(receivableMenu == null){
+            receivableMenu = new LinkedList<>();
         }
-        viewController.createMenu(menu, this);
+        receivableMenu.add(0, ASSORTMENT_HEADER);
+        viewController.createMenu(receivableMenu, this);
     }
 
     @Override
