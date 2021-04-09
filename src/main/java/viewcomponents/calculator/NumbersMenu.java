@@ -33,6 +33,14 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private String type = DEFAULT_MENU_VALUE;
     private boolean isConnect = true;
 
+    public NumbersMenu(int locationX, int locationY){
+        jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+        jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
+    }
+
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
         this.dataReceiver = dataReceiver;
@@ -44,21 +52,46 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
-        addListener(viewController);
-        clickListener();
-        receiveMenu();
+    private void afterPropertiesSet() {
+        addActionListener();
+        addClickListener();
+        List<String> receivableMenu = receiveMenuList();
+        createMenuModel(receivableMenu);
     }
 
-    public NumbersMenu(int locationX, int locationY){
-        jComboBox = new JComboBox<>();
-        jComboBox.setSize(WIDTH, HEIGHT);
-        jComboBox.setSelectedIndex(-1);
-        jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        jComboBox.setLocation(locationX, locationY);
+    private void createMenuModel(List<String> receivableMenu){
+        // TODO create List
+        List<String> menu = new ArrayList<>();
+        menu.add(NUMBER_HEADER);
+        if(receivableMenu != null) {
+            menu.addAll(receivableMenu);
+        }
+        viewController.createMenu(menu, this);
     }
 
-    private void addListener(ViewController viewController){
+    private List<String> receiveMenuList() {
+        try {
+            // TODO receive List
+            return dataReceiver.receiveNumberMenu(assortment, type);
+        } catch (SQLException exception) {
+            isConnect = false;
+        }
+        return null;
+    }
+
+    @Override
+    public void setMenuItems(String...menuItem) {
+        if(menuItem.length != 0) {
+            assortment = menuItem[0];
+        }
+        if(menuItem.length > 1){
+            type = menuItem[1];
+        }
+        List<String> receivableMenuList = receiveMenuList();
+        createMenuModel(receivableMenuList);
+    }
+
+    private void addActionListener(){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             if(!selectedItem.equals(NUMBER_HEADER)){
@@ -71,15 +104,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    private Queue<String> collectSelectedItems(String number){
-        Queue<String> data = new LinkedList<>();
-        data.add(assortment);
-        data.add(type);
-        data.add(number);
-        return data;
-    }
-
-    private void clickListener(){
+    private void addClickListener(){
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
@@ -91,30 +116,13 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    @Override
-    public void receiveMenu(String...menuItem) {
-        List<String> numberMenu = null;
-        try {
-            if(menuItem.length != 0) {
-                assortment = menuItem[0];
-            }
-            if(menuItem.length > 1){
-                type = menuItem[1];
-            }
-            numberMenu = dataReceiver.createNumberMenu(assortment, type);
-        } catch (SQLException exception) {
-            isConnect = false;
-        }
-        createMenu(numberMenu);
-    }
-
-    private void createMenu(List<String> receiveMenu){
-        List<String> menu = new ArrayList<>();
-        menu.add(NUMBER_HEADER);
-        if(receiveMenu != null) {
-            menu.addAll(receiveMenu);
-        }
-        viewController.createMenu(menu, this);
+    private Queue<String> collectSelectedItems(String number){
+        // TODO create List
+        Queue<String> data = new LinkedList<>();
+        data.add(assortment);
+        data.add(type);
+        data.add(number);
+        return data;
     }
 
     @Override

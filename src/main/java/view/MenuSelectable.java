@@ -8,7 +8,7 @@ public interface MenuSelectable extends AppComponent {
     String NOT_DATABASE_MESSAGE = "Отсутствует соединение с БД";
     String ERROR = "error";
 
-    void receiveMenu(String...menuItem);
+    void setMenuItems(String...menuItem);
 
     default void addMenuSelectListener(MenuSelectable listener){}
 

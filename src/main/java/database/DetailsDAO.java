@@ -72,7 +72,7 @@ public class DetailsDAO implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> createAssortmentMenu() throws SQLException {
+    public List<String> receiveAssortmentMenu() throws SQLException {
         return databaseExecutor.executorQuery(PROFILES_SQL_QUERY,
                 resultSet -> create(resultSet, ASSORTMENT_QUERY));
     }
@@ -85,7 +85,7 @@ public class DetailsDAO implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> createTypeMenu(String assortment) throws SQLException {
+    public List<String> receiveTypeMenu(String assortment) throws SQLException {
         return databaseExecutor.executorQuery(TYPES_SQL_QUERY,
                 resultSet -> create(resultSet, TYPE_QUERY),
                 assortment);
@@ -100,7 +100,7 @@ public class DetailsDAO implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> createNumberMenu(String assortment, String type) throws SQLException {
+    public List<String> receiveNumberMenu(String assortment, String type) throws SQLException {
         return databaseExecutor.executorQuery(NUMBERS_SQL_QUERY,
                 resultSet -> create(resultSet, NUMBER_QUERY),
                 assortment, type);

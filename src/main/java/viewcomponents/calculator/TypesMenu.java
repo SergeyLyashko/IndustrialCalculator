@@ -28,7 +28,15 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     private final JComboBox<String> jComboBox;
     private ViewController viewController;
     private DataReceiver dataReceiver;
-    private boolean connect = true;
+    private boolean isConnect = true;
+
+    public TypesMenu(int locationX, int locationY){
+        jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+        jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
+    }
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
@@ -42,20 +50,42 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        addListener();
-        clickListener();
-        receiveMenu();
+        addActionListener();
+        addClickListener();
+        List<String> receivableMenu = receiveMenu();
+        createMenuModel(receivableMenu);
     }
 
-    public TypesMenu(int locationX, int locationY){
-        jComboBox = new JComboBox<>();
-        jComboBox.setSize(WIDTH, HEIGHT);
-        jComboBox.setSelectedIndex(-1);
-        jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        jComboBox.setLocation(locationX, locationY);
+    private List<String> receiveMenu() {
+        try {
+            // TODO create List
+            return dataReceiver.receiveTypeMenu(assortment);
+        } catch (SQLException exception) {
+            isConnect = false;
+        }
+        return null;
     }
 
-    private void addListener(){
+    @Override
+    public void setMenuItems(String...menuItem) {
+        if(menuItem.length != 0){
+            assortment = menuItem[0];
+        }
+        List<String> receivableMenuList = receiveMenu();
+        createMenuModel(receivableMenuList);
+    }
+
+    private void createMenuModel(List<String> receivableMenu){
+        // TODO create List
+        List<String> menu = new ArrayList<>();
+        menu.add(TYPE_HEADER);
+        if(receivableMenu != null) {
+            menu.addAll(receivableMenu);
+        }
+        viewController.createMenu(menu, this);
+    }
+
+    private void addActionListener(){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
             viewController.fieldsOff();
@@ -68,11 +98,11 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    private void clickListener(){
+    private void addClickListener(){
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if(!connect){
+                if(!isConnect){
                     viewController.setMessage(NOT_DATABASE_MESSAGE, true);
                     viewController.setResult(ERROR, true);
                 }
@@ -81,33 +111,10 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     @Override
-    public void receiveMenu(String...menuItem) {
-        List<String> typeMenu = null;
-        try {
-            if(menuItem.length != 0){
-                assortment = menuItem[0];
-            }
-            typeMenu = dataReceiver.createTypeMenu(assortment);
-        } catch (SQLException exception) {
-            connect = false;
-        }
-        createMenu(typeMenu);
-    }
-
-    private void createMenu(List<String> receiveMenu){
-        List<String> menu = new ArrayList<>();
-        menu.add(TYPE_HEADER);
-        if(receiveMenu != null) {
-            menu.addAll(receiveMenu);
-        }
-        viewController.createMenu(menu, this);
-    }
-
-    @Override
     public void addMenuSelectListener(MenuSelectable listener){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            listener.receiveMenu(assortment, selectedItem);
+            listener.setMenuItems(assortment, selectedItem);
         });
     }
 

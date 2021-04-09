@@ -26,7 +26,15 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     private static final int HEIGHT = 23;
     private ViewController viewController;
     private DataReceiver dataReceiver;
-    private boolean connect = true;
+    private boolean isConnect = true;
+
+    public AssortmentsMenu(int locationX, int locationY){
+        jComboBox = new JComboBox<>();
+        jComboBox.setSize(WIDTH, HEIGHT);
+        jComboBox.setSelectedIndex(-1);
+        jComboBox.setToolTipText(TOOL_TIP_TEXT);
+        jComboBox.setLocation(locationX, locationY);
+    }
 
     @Autowired
     public void setDataReceiver(DataReceiver dataReceiver){
@@ -42,15 +50,8 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     private void afterPropertiesSet() throws Exception {
         addListener(viewController);
         clickListener();
-        receiveMenu();
-    }
-
-    public AssortmentsMenu(int locationX, int locationY){
-        jComboBox = new JComboBox<>();
-        jComboBox.setSize(WIDTH, HEIGHT);
-        jComboBox.setSelectedIndex(-1);
-        jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        jComboBox.setLocation(locationX, locationY);
+        List<String> receivableMenu = receiveMenu();
+        createMenuModel(receivableMenu);
     }
 
     private void addListener(ViewController viewController){
@@ -61,7 +62,7 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if(!connect){
+                if(!isConnect){
                     viewController.setMessage(NOT_DATABASE_MESSAGE, true);
                     viewController.setResult(ERROR, true);
                 }
@@ -70,21 +71,27 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     }
 
     @Override
-    public void receiveMenu(String...menuItem) {
-        List<String> assortmentMenu = null;
-        try {
-            assortmentMenu = dataReceiver.createAssortmentMenu();
-        } catch (SQLException exception) {
-            connect = false;
-        }
-        createMenu(assortmentMenu);
+    public void setMenuItems(String...menuItem) {
+        List<String> receivableMenu = receiveMenu();
+        createMenuModel(receivableMenu);
     }
 
-    private void createMenu(List<String> receiveMenu){
+    private List<String> receiveMenu() {
+        try {
+            // TODO create list
+            return dataReceiver.receiveAssortmentMenu();
+        } catch (SQLException exception) {
+            isConnect = false;
+        }
+        return null;
+    }
+
+    private void createMenuModel(List<String> receivableMenu){
+        // TODO create List
         List<String> menu = new ArrayList<>();
         menu.add(ASSORTMENT_HEADER);
-        if(receiveMenu != null) {
-            menu.addAll(receiveMenu);
+        if(receivableMenu != null) {
+            menu.addAll(receivableMenu);
         }
         viewController.createMenu(menu, this);
     }
@@ -93,7 +100,7 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     public void addMenuSelectListener(MenuSelectable listener){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            listener.receiveMenu(selectedItem, DEFAULT_MENU_VALUE);
+            listener.setMenuItems(selectedItem, DEFAULT_MENU_VALUE);
         });
     }
 

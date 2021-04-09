@@ -40,7 +40,6 @@ public class CalculatorDataImpl implements CalculatorData {
     public void add(Queue<String> selectedMenuItems){
         data = new LinkedList<>();
         data.addAll(selectedMenuItems);
-        addFieldsContain();
     }
 
     private void addFieldsContain(){
@@ -63,6 +62,7 @@ public class CalculatorDataImpl implements CalculatorData {
 
     @Override
     public Queue<String> getData(){
+        addFieldsContain();
         return data;
     }
 }
