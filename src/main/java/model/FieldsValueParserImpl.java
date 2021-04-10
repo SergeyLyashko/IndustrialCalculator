@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("fieldsParser")
-public class FieldsValueParserImpl implements FieldsParser {
+class FieldsValueParserImpl implements FieldsParser {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;

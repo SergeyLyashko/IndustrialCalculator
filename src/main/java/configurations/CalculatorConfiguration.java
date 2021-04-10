@@ -2,10 +2,9 @@ package configurations;
 
 import calculators.DetailConfiguration;
 import controller.CalculatorControllerImpl;
-import controller.CalculatorModel;
 import database.DatabaseConfiguration;
-import model.CalculatorModelImpl;
 import model.CalculatorView;
+import model.ModelConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -22,11 +21,6 @@ public class CalculatorConfiguration {
     @Bean
     public CalculatorView calculatorView(){
         return new CalculatorViewImpl();
-    }
-
-    @Bean
-    public CalculatorModel calculatorModel(){
-        return new CalculatorModelImpl();
     }
 
     @Bean

@@ -9,7 +9,7 @@ import java.awt.datatransfer.StringSelection;
 import java.text.DecimalFormat;
 
 @Service("calculatorModel")
-public class CalculatorModelImpl implements CalculatorModel {
+class CalculatorModelImpl implements CalculatorModel {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;

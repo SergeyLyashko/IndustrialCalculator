@@ -1,7 +1,7 @@
-package configurations;
+package model;
 
+import controller.CalculatorModel;
 import controller.FieldsParser;
-import model.FieldsValueParserImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +9,11 @@ import java.text.DecimalFormat;
 
 @Configuration
 public class ModelConfiguration {
+
+    @Bean
+    public CalculatorModel calculatorModel(){
+        return new CalculatorModelImpl();
+    }
 
     @Bean
     public DecimalFormat decimalFormat(){
@@ -19,4 +24,5 @@ public class ModelConfiguration {
     public FieldsParser fieldsParser(){
         return new FieldsValueParserImpl();
     }
+
 }
