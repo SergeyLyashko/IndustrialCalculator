@@ -1,5 +1,6 @@
 package configurations;
 
+import calculators.DetailConfiguration;
 import controller.CalculatorControllerImpl;
 import controller.CalculatorModel;
 import database.DatabaseConnector;
@@ -14,7 +15,7 @@ import view.*;
 import viewcontroller.CalculatorController;
 
 @Configuration
-@Import({ViewConfiguration.class, ModelConfiguration.class, DetailCalculatorConfiguration.class})
+@Import({ViewConfiguration.class, ModelConfiguration.class, DetailConfiguration.class})
 public class CalculatorConfiguration {
 
     @Bean

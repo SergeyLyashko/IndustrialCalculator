@@ -1,12 +1,11 @@
-package configurations;
+package calculators;
 
-import calculators.*;
 import model.AbstractMassCalculator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DetailCalculatorConfiguration {
+public class DetailConfiguration {
 
     @Bean(name = {"Лист тонколистовая", "Лист толстолистовая"})
     public AbstractMassCalculator sheetSteelMassCalculator(){

@@ -4,7 +4,7 @@ import model.AbstractMassCalculator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SheetSteelMassCalculator extends AbstractMassCalculator {
+class SheetSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculation() {

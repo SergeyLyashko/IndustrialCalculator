@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import static java.lang.Math.PI;
 
 @Component
-public class CircleSteelMassCalculator extends AbstractMassCalculator {
+class CircleSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculation() {
