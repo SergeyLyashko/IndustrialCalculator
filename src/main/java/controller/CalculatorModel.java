@@ -1,9 +1,8 @@
 package controller;
 
 import model.AbstractMassCalculator;
-import model.ViewSubject;
 
-public interface CalculatorModel extends ViewSubject {
+public interface CalculatorModel {
 
     void executeCalculation(AbstractMassCalculator abstractMassCalculator);
 }

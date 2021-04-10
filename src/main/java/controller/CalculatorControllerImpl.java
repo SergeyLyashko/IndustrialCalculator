@@ -2,7 +2,6 @@ package controller;
 
 import model.AbstractMassCalculator;
 import model.CalculatorView;
-import model.ViewSubject;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("calculatorController")
-public class CalculatorControllerImpl implements CalculatorController, ViewSubject, ApplicationContextAware {
+public class CalculatorControllerImpl implements CalculatorController, ApplicationContextAware {
 
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
@@ -82,19 +81,10 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
         try {
             return dataReceiver.receiveValue(assortment, type, number);
         } catch (SQLException exception) {
-            notifyMessageObservers(NOT_DATABASE_MESSAGE, ALERT);
-            notifyResultObservers(ERROR, ALERT);
+            calculatorView.messageUpdate(NOT_DATABASE_MESSAGE, ALERT);
+            calculatorView.resultUpdate(ERROR, ALERT);
+
         }
         return 0;
-    }
-
-    @Override
-    public void notifyResultObservers(String mass, boolean alert) {
-        calculatorView.resultUpdate(mass, alert);
-    }
-
-    @Override
-    public void notifyMessageObservers(String message, boolean alert) {
-        calculatorView.messageUpdate(message, alert);
     }
 }

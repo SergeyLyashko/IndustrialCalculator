@@ -1,6 +1,5 @@
 package model;
 
-import controller.CalculatorModel;
 import controller.FieldsParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,11 @@ public class FieldsValueParserImpl implements FieldsParser {
     private static final String NEGATIVE_MESSAGE = "Отрицательное значение размера";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
-
-    private CalculatorModel calculatorModel;
+    private CalculatorView calculatorView;
 
     @Autowired
-    public void setCalculatorModel(CalculatorModel calculatorModel){
-        this.calculatorModel = calculatorModel;
+    public void setView(CalculatorView calculatorView){
+        this.calculatorView = calculatorView;
     }
 
     @Override
@@ -49,8 +47,8 @@ public class FieldsValueParserImpl implements FieldsParser {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            calculatorModel.notifyMessageObservers(NOT_FULL_DATA_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            calculatorView.messageUpdate(NOT_FULL_DATA_MESSAGE, ALERT);
+            calculatorView.resultUpdate(ERROR, ALERT);
         }
         return 0;
     }
@@ -61,8 +59,8 @@ public class FieldsValueParserImpl implements FieldsParser {
             if(first < checkNum){
                 return true;
             }
-            calculatorModel.notifyMessageObservers(TOO_BIG_NUM_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            calculatorView.messageUpdate(TOO_BIG_NUM_MESSAGE, ALERT);
+            calculatorView.resultUpdate(ERROR, ALERT);
             return false;
         }
         return false;
@@ -70,8 +68,8 @@ public class FieldsValueParserImpl implements FieldsParser {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            calculatorModel.notifyMessageObservers(NEGATIVE_MESSAGE, ALERT);
-            calculatorModel.notifyResultObservers(ERROR, ALERT);
+            calculatorView.messageUpdate(NEGATIVE_MESSAGE, ALERT);
+            calculatorView.resultUpdate(ERROR, ALERT);
             return false;
         }
         return true;

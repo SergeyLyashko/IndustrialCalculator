@@ -9,31 +9,21 @@ import java.awt.datatransfer.StringSelection;
 import java.text.DecimalFormat;
 
 @Service("calculatorModel")
-public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
+public class CalculatorModelImpl implements CalculatorModel {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
-    private CalculatorView calculatorView;
     private DecimalFormat decimalFormat;
-
-    @Autowired
-    public void setDecimalFormat(DecimalFormat decimalFormat){
-        this.decimalFormat = decimalFormat;
-    }
+    private CalculatorView calculatorView;
 
     @Autowired
     public void setView(CalculatorView calculatorView){
         this.calculatorView = calculatorView;
     }
 
-    @Override
-    public void notifyResultObservers(String mass, boolean alert) {
-        calculatorView.resultUpdate(mass, alert);
-    }
-
-    @Override
-    public void notifyMessageObservers(String message, boolean alert) {
-        calculatorView.messageUpdate(message, alert);
+    @Autowired
+    public void setDecimalFormat(DecimalFormat decimalFormat){
+        this.decimalFormat = decimalFormat;
     }
 
     @Override
@@ -46,8 +36,8 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     private void notifyObservers(String result){
-        notifyResultObservers(result, CALM);
-        notifyMessageObservers(RESULT_MESSAGE, CALM);
+        calculatorView.resultUpdate(result, CALM);
+        calculatorView.messageUpdate(RESULT_MESSAGE, CALM);
         setResultToSystemClipboard(result);
     }
 
