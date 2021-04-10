@@ -1,9 +1,12 @@
 package calculators;
 
 import model.AbstractMassCalculator;
+import org.springframework.stereotype.Component;
+
 import static java.lang.Math.PI;
 
-class CircleSteelMassCalculator extends AbstractMassCalculator {
+@Component
+public class CircleSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculation() {

@@ -1,7 +1,6 @@
 package calculators;
 
 import model.AbstractMassCalculator;
-import model.CalculatorFactory;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,8 +1,10 @@
 package calculators;
 
 import model.AbstractMassCalculator;
+import org.springframework.stereotype.Component;
 
-class AssortmentMassCalculator extends AbstractMassCalculator {
+@Component
+public class AssortmentMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculation() {

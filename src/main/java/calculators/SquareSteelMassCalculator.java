@@ -1,8 +1,10 @@
 package calculators;
 
 import model.AbstractMassCalculator;
+import org.springframework.stereotype.Component;
 
-class SquareSteelMassCalculator extends AbstractMassCalculator {
+@Component
+public class SquareSteelMassCalculator extends AbstractMassCalculator {
 
     @Override
     public double calculation() {

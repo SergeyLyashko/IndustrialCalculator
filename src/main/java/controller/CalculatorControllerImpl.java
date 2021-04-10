@@ -1,10 +1,12 @@
 package controller;
 
 import model.AbstractMassCalculator;
-import model.CalculatorFactory;
 import model.CalculatorView;
 import model.ViewSubject;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import view.DataReceiver;
 import viewcontroller.CalculatorController;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("calculatorController")
-public class CalculatorControllerImpl implements CalculatorController, ViewSubject {
+public class CalculatorControllerImpl implements CalculatorController, ViewSubject, ApplicationContextAware {
 
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
@@ -23,11 +25,11 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     private DataReceiver dataReceiver;
     private CalculatorView calculatorView;
     private FieldsParser fieldsValue;
-    private CalculatorFactory calculatorFactory;
+    private ApplicationContext applicationContext;
 
-    @Autowired
-    public void setCalculatorFactory(CalculatorFactory calculatorFactory){
-        this.calculatorFactory = calculatorFactory;
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Autowired
@@ -65,10 +67,12 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
         calculatorModel.executeCalculation(abstractMassCalculator);
     }
 
+    // TODO optimize it !
     private AbstractMassCalculator getCalculator(Map<String, String> menuItems){
         String assortment = menuItems.get("assortment");
         String type = menuItems.get("type");
-        return calculatorFactory.createMassCalculator(assortment, type);
+        String bean = assortment+" "+type;
+        return applicationContext.getBean(bean, AbstractMassCalculator.class);
     }
 
     private double receiveDataBaseValue(Map<String, String> menuItems) {
