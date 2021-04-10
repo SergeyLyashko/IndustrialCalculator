@@ -22,7 +22,7 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
     private CalculatorView calculatorView;
-    private DataValueParser dataValueParser;
+    private FieldsParser fieldsValue;
     private CalculatorFactory calculatorFactory;
 
     @Autowired
@@ -31,8 +31,8 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
     }
 
     @Autowired
-    public void setDataValueParser(DataValueParser dataValueParser){
-        this.dataValueParser = dataValueParser;
+    public void setFieldsValue(FieldsParser fieldsValue){
+        this.fieldsValue = fieldsValue;
     }
 
     @Autowired
@@ -56,11 +56,13 @@ public class CalculatorControllerImpl implements CalculatorController, ViewSubje
         Map<String, String> selectedMenuItems = calculatorData.getSelectedMenuItems();
 
         double dataBaseValue = receiveDataBaseValue(selectedMenuItems);
-        double[] parseData = dataValueParser.parseData(data);
+        double[] parseData = fieldsValue.parseData(data);
 
         AbstractMassCalculator abstractMassCalculator = getCalculator(selectedMenuItems);
-        Detail detail = calculatorModel.createDetail(dataBaseValue, parseData);
-        calculatorModel.calculationMass(detail, abstractMassCalculator);
+        abstractMassCalculator.setDataBaseValue(dataBaseValue);
+        abstractMassCalculator.setFieldsValue(parseData);
+
+        calculatorModel.executeCalculation(abstractMassCalculator);
     }
 
     private AbstractMassCalculator getCalculator(Map<String, String> menuItems){

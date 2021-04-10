@@ -1,7 +1,7 @@
 package configurations;
 
-import controller.DataValueParser;
-import model.DataValueParserImpl;
+import controller.FieldsParser;
+import model.FieldsValueParserImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +16,7 @@ public class ModelConfiguration {
     }
 
     @Bean
-    public DataValueParser dataValueParser(){
-        return new DataValueParserImpl();
+    public FieldsParser fieldsParser(){
+        return new FieldsValueParserImpl();
     }
 }

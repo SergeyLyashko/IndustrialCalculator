@@ -1,7 +1,6 @@
 package model;
 
 import controller.CalculatorModel;
-import controller.Detail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,25 +37,18 @@ public class CalculatorModelImpl implements CalculatorModel, ViewSubject {
     }
 
     @Override
-    public void calculationMass(Detail detail, AbstractMassCalculator abstractMassCalculator) {
-        abstractMassCalculator.setDetail(detail);
-        double mass = abstractMassCalculator.calculationMass();
+    public void executeCalculation(AbstractMassCalculator abstractMassCalculator) {
+        double mass = abstractMassCalculator.calculation();
         if(mass > 0) {
-            notifyResult(mass);
+            String formattedResult = decimalFormat.format(mass);
+            notifyObservers(formattedResult);
         }
     }
 
-    @Override
-    public Detail createDetail(double dataBaseValue, double[] fieldsValue) {
-        return new DetailImpl(dataBaseValue, fieldsValue);
-    }
-
-
-    private void notifyResult(double mass){
-        String formattedResult = decimalFormat.format(mass);
-        setResultToSystemClipboard(formattedResult);
-        notifyResultObservers(formattedResult, CALM);
+    private void notifyObservers(String result){
+        notifyResultObservers(result, CALM);
         notifyMessageObservers(RESULT_MESSAGE, CALM);
+        setResultToSystemClipboard(result);
     }
 
     // метод копирования в буфер обмена при выводе результата

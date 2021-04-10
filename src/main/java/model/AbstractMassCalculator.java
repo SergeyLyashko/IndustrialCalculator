@@ -1,6 +1,6 @@
 package model;
 
-import controller.Detail;
+import java.util.Arrays;
 
 public abstract class AbstractMassCalculator {
 
@@ -9,19 +9,24 @@ public abstract class AbstractMassCalculator {
     // Плотность резины ГОСТ 7338-90 лист ТМКЩ 1.25e-7 кг/мм3 = 125 кг/м3
     protected static final double DENSITY_RUBBER = 1.25e-6;
 
-    private Detail detail;
-
-    public void setDetail(Detail detail){
-        this.detail = detail;
-    }
+    private double dataBaseValue;
+    private double reduceFieldsValue;
 
     protected double getFieldsValue(){
-        return detail.getFieldsValue();
+        return reduceFieldsValue;
     }
 
     protected double getDataBaseValue(){
-        return detail.getDataBaseValue();
+        return dataBaseValue;
     }
 
-    protected abstract double calculationMass();
+    public void setDataBaseValue(double dataBaseValue) {
+        this.dataBaseValue = dataBaseValue;
+    }
+
+    public void setFieldsValue(double[] values) {
+        this.reduceFieldsValue = Arrays.stream(values).reduce(1, (acc, element) -> acc * element);
+    }
+
+    protected abstract double calculation();
 }

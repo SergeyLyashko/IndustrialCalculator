@@ -88,7 +88,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private void addActionListener(){
         jComboBox.addActionListener(event -> {
             String selectedItem = (String) jComboBox.getSelectedItem();
-            if(!selectedItem.equals(NUMBER_HEADER)){
+            if(selectedItem != null && !selectedItem.equals(NUMBER_HEADER)){
                 Map<String, String> selectedItems = collectSelectedMenuItems(selectedItem);
                 viewController.addSelectedItems(selectedItems);
             }

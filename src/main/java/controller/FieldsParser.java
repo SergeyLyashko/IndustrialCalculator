@@ -2,7 +2,7 @@ package controller;
 
 import java.util.List;
 
-public interface DataValueParser {
+public interface FieldsParser {
 
     double[] parseData(List<String> data);
 }

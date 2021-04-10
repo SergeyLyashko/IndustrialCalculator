@@ -1,14 +1,14 @@
 package model;
 
 import controller.CalculatorModel;
-import controller.DataValueParser;
+import controller.FieldsParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("dataValueParser")
-public class DataValueParserImpl implements DataValueParser {
+@Service("fieldsParser")
+public class FieldsValueParserImpl implements FieldsParser {
 
     // максимально возможное значение введенного или вычисляемого числа
     private static final double MAX_NUMBER = Double.MAX_VALUE;
