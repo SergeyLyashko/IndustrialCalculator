@@ -24,6 +24,7 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
     private static final int HEIGHT = 23;
 
     private final JComboBox<String> jComboBox;
+    private final HashMap<String, String> data;
     private ViewController viewController;
     private DataReceiver dataReceiver;
     private String assortment = DEFAULT_MENU_VALUE;
@@ -36,6 +37,10 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         jComboBox.setSelectedIndex(-1);
         jComboBox.setToolTipText(TOOL_TIP_TEXT);
         jComboBox.setLocation(locationX, locationY);
+        this.data = new HashMap<>(3);
+        data.put("assortment", assortment);
+        data.put("type", type);
+        data.put("number", DEFAULT_MENU_VALUE);
     }
 
     @Autowired
@@ -110,12 +115,10 @@ public class NumbersMenu implements MenuSelectable, Comparable<AppComponent> {
         });
     }
 
-    // TODO optimized !
     private Map<String, String> collectSelectedMenuItems(String number){
-        Map<String, String> data = new HashMap<>();
-        data.put("assortment", assortment);
-        data.put("type", type);
-        data.put("number", number);
+        data.replace("assortment", assortment);
+        data.replace("type", type);
+        data.replace("number", number);
         return data;
     }
 
