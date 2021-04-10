@@ -3,9 +3,7 @@ package configurations;
 import calculators.DetailConfiguration;
 import controller.CalculatorControllerImpl;
 import controller.CalculatorModel;
-import database.DatabaseConnector;
-import database.DetailsDAO;
-import database.DatabaseExecutor;
+import database.DatabaseConfiguration;
 import model.CalculatorModelImpl;
 import model.CalculatorView;
 import org.springframework.context.annotation.Bean;
@@ -15,23 +13,11 @@ import view.*;
 import viewcontroller.CalculatorController;
 
 @Configuration
-@Import({ViewConfiguration.class, ModelConfiguration.class, DetailConfiguration.class})
+@Import({ViewConfiguration.class,
+        ModelConfiguration.class,
+        DetailConfiguration.class,
+        DatabaseConfiguration.class})
 public class CalculatorConfiguration {
-
-    @Bean
-    public DataReceiver dataReceiver(){
-        return new DetailsDAO();
-    }
-
-    @Bean
-    public DatabaseExecutor executor(){
-        return new DatabaseExecutor();
-    }
-
-    @Bean
-    public DatabaseConnector databaseConnector(){
-        return new DatabaseConnector();
-    }
 
     @Bean
     public CalculatorView calculatorView(){

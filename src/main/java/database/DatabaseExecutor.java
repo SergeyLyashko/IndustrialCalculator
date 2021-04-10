@@ -7,8 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Service("databaseExecutor")
-public class DatabaseExecutor {
+@Service
+class DatabaseExecutor {
 
     private Connection connection;
 

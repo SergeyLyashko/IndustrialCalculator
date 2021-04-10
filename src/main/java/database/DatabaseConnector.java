@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Service("databaseConnector")
-public class DatabaseConnector {
+@Service
+class DatabaseConnector {
 
     private static final String DRIVER_PREFIX = "jdbc:sqlite:";
     private static final String SOURCE = "/data/database/calculator.db";
