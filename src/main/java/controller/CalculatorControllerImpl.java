@@ -1,13 +1,13 @@
 package controller;
 
 import model.AbstractMassCalculator;
-import model.CalculatorView;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import view.DataReceiver;
+import view.ViewController;
 import viewcontroller.CalculatorController;
 
 import java.sql.SQLException;
@@ -22,9 +22,14 @@ public class CalculatorControllerImpl implements CalculatorController, Applicati
     private static final boolean ALERT = true;
     private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
-    private CalculatorView calculatorView;
     private FieldsParser fieldsValue;
     private ApplicationContext applicationContext;
+    private ViewController viewController;
+
+    @Autowired
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -44,11 +49,6 @@ public class CalculatorControllerImpl implements CalculatorController, Applicati
     @Autowired
     public void setCalculatorModel(CalculatorModel calculatorModel){
         this.calculatorModel = calculatorModel;
-    }
-
-    @Autowired
-    public void setView(CalculatorView calculatorView){
-        this.calculatorView = calculatorView;
     }
 
     @Override
@@ -81,9 +81,8 @@ public class CalculatorControllerImpl implements CalculatorController, Applicati
         try {
             return dataReceiver.receiveValue(assortment, type, number);
         } catch (SQLException exception) {
-            calculatorView.messageUpdate(NOT_DATABASE_MESSAGE, ALERT);
-            calculatorView.resultUpdate(ERROR, ALERT);
-
+            viewController.setMessage(NOT_DATABASE_MESSAGE, ALERT);
+            viewController.setResult(ERROR, ALERT);
         }
         return 0;
     }

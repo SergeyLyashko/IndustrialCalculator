@@ -3,6 +3,7 @@ package model;
 import controller.CalculatorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import view.ViewController;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -14,11 +15,11 @@ class CalculatorModelImpl implements CalculatorModel {
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
     private DecimalFormat decimalFormat;
-    private CalculatorView calculatorView;
+    private ViewController viewController;
 
     @Autowired
-    public void setView(CalculatorView calculatorView){
-        this.calculatorView = calculatorView;
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
     }
 
     @Autowired
@@ -36,8 +37,8 @@ class CalculatorModelImpl implements CalculatorModel {
     }
 
     private void notifyObservers(String result){
-        calculatorView.resultUpdate(result, CALM);
-        calculatorView.messageUpdate(RESULT_MESSAGE, CALM);
+        viewController.setResult(result, CALM);
+        viewController.setMessage(RESULT_MESSAGE, CALM);
         setResultToSystemClipboard(result);
     }
 

@@ -3,6 +3,7 @@ package model;
 import controller.FieldsParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import view.ViewController;
 
 import java.util.List;
 
@@ -16,11 +17,11 @@ class FieldsValueParserImpl implements FieldsParser {
     private static final String NEGATIVE_MESSAGE = "Отрицательное значение размера";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
-    private CalculatorView calculatorView;
+    private ViewController viewController;
 
     @Autowired
-    public void setView(CalculatorView calculatorView){
-        this.calculatorView = calculatorView;
+    public void setViewController(ViewController viewController){
+        this.viewController = viewController;
     }
 
     @Override
@@ -47,8 +48,8 @@ class FieldsValueParserImpl implements FieldsParser {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            calculatorView.messageUpdate(NOT_FULL_DATA_MESSAGE, ALERT);
-            calculatorView.resultUpdate(ERROR, ALERT);
+            viewController.setMessage(NOT_FULL_DATA_MESSAGE, ALERT);
+            viewController.setResult(ERROR, ALERT);
         }
         return 0;
     }
@@ -59,8 +60,8 @@ class FieldsValueParserImpl implements FieldsParser {
             if(first < checkNum){
                 return true;
             }
-            calculatorView.messageUpdate(TOO_BIG_NUM_MESSAGE, ALERT);
-            calculatorView.resultUpdate(ERROR, ALERT);
+            viewController.setMessage(TOO_BIG_NUM_MESSAGE, ALERT);
+            viewController.setResult(ERROR, ALERT);
             return false;
         }
         return false;
@@ -68,8 +69,8 @@ class FieldsValueParserImpl implements FieldsParser {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            calculatorView.messageUpdate(NEGATIVE_MESSAGE, ALERT);
-            calculatorView.resultUpdate(ERROR, ALERT);
+            viewController.setMessage(NEGATIVE_MESSAGE, ALERT);
+            viewController.setResult(ERROR, ALERT);
             return false;
         }
         return true;

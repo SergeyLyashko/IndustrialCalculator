@@ -1,6 +1,5 @@
 package view;
 
-import model.CalculatorView;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -13,11 +12,6 @@ import viewmodel.ViewModelConfiguration;
 @Import({ViewCalculatorConfiguration.class, ViewSettingsConfiguration.class, ViewModelConfiguration.class,
         ViewInfoConfiguration.class})
 public class ViewConfiguration {
-
-    @Bean
-    public CalculatorView calculatorView(){
-        return new CalculatorViewImpl();
-    }
 
     @Bean
     public CalculatorFocusTraversalPolicy focusTraversalPolicy(){
