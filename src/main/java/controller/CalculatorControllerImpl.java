@@ -20,11 +20,20 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
+    private static final String ASSORTMENT = "assortment";
+    private static final String TYPE = "type";
+    private static final String NUMBER = "number";
+
     private CalculatorModel calculatorModel;
     private DataReceiver dataReceiver;
     private FieldsParser fieldsValue;
     private ApplicationContext applicationContext;
     private ViewController viewController;
+    private final StringBuilder beanNameBuilder;
+
+    CalculatorControllerImpl() {
+        beanNameBuilder = new StringBuilder();
+    }
 
     @Autowired
     public void setViewController(ViewController viewController){
@@ -66,18 +75,21 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
         calculatorModel.executeCalculation(abstractMassCalculator);
     }
 
-    // TODO optimize it !
     private AbstractMassCalculator getCalculator(Map<String, String> menuItems){
-        String assortment = menuItems.get("assortment");
-        String type = menuItems.get("type");
-        String bean = assortment+" "+type;
+        beanNameBuilder.delete(0, beanNameBuilder.length());
+        String assortment = menuItems.get(ASSORTMENT);
+        String type = menuItems.get(TYPE);
+        String bean = beanNameBuilder.append(assortment)
+                .append(" ")
+                .append(type)
+                .toString();
         return applicationContext.getBean(bean, AbstractMassCalculator.class);
     }
 
     private double receiveDataBaseValue(Map<String, String> menuItems) {
-        String assortment = menuItems.get("assortment");
-        String type = menuItems.get("type");
-        String number = menuItems.get("number");
+        String assortment = menuItems.get(ASSORTMENT);
+        String type = menuItems.get(TYPE);
+        String number = menuItems.get(NUMBER);
         try {
             return dataReceiver.receiveValue(assortment, type, number);
         } catch (SQLException exception) {
