@@ -19,7 +19,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     private FocusBehavior focusBehavior;
     private KeyBehavior keyBehavior;
     private Filter defaultFilter;
-    private Filter digitalFilter;
     private AppComponent component;
 
     private boolean actionState;
@@ -29,12 +28,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     @Qualifier("defaultFilter")
     public void setDefaultFilter(Filter defaultFilter){
         this.defaultFilter = defaultFilter;
-    }
-
-    @Autowired
-    @Qualifier("digitalFilter")
-    public void setDigitalFilter(Filter digitalFilter){
-        this.digitalFilter = digitalFilter;
     }
 
     public void setComponent(AppComponent component){
@@ -91,7 +84,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
 
     @Override
     public void focusActionUpdate() {
-        digitalFilter.activateFilter(component);
         keyBehavior.fieldActivate();
     }
 

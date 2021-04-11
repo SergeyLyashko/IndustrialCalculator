@@ -1,9 +1,13 @@
 package viewmodel;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import viewcomponents.common.AppComponent;
+import viewcontroller.Filter;
 import viewcontroller.FocusBehavior;
+import viewcontroller.KeyBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +22,18 @@ class FocusBehaviorImpl implements FocusBehavior {
     private static final String EMPTY = "";
     private JFormattedTextField textField;
     private FocusActionObserver observer;
+    private Filter digitalFilter;
+    private AppComponent component;
+
+    @Autowired
+    @Qualifier("digitalFilter")
+    public void setDigitalFilter(Filter digitalFilter){
+        this.digitalFilter = digitalFilter;
+    }
 
     @Override
     public void setComponent(AppComponent component){
+        this.component = component;
         this.textField = (JFormattedTextField) component.getComponentParent();
     }
 
@@ -29,12 +42,14 @@ class FocusBehaviorImpl implements FocusBehavior {
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
+                digitalFilter.activateFilter(component);
                 fieldFocusGained();
                 notifyObservers();
             }
         });
     }
 
+    // TODO
     @Override
     public void registerFocusObserver(FocusActionObserver observer){
         this.observer = observer;
