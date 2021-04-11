@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("calculatorController")
-public class CalculatorControllerImpl implements CalculatorController, ApplicationContextAware {
+class CalculatorControllerImpl implements CalculatorController, ApplicationContextAware {
 
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
