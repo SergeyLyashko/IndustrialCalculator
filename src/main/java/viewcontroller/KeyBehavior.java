@@ -1,6 +1,6 @@
 package viewcontroller;
 
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewmodel.KeyActionObserver;
 
 public interface KeyBehavior {

@@ -1,7 +1,7 @@
 package viewmodel;
 
 import org.springframework.stereotype.Service;
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewcontroller.Filter;
 
 import javax.swing.*;

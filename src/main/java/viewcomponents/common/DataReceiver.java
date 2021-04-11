@@ -1,4 +1,4 @@
-package view;
+package viewcomponents.common;
 
 import java.sql.SQLException;
 import java.util.List;

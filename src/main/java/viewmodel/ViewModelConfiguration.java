@@ -4,7 +4,7 @@ import controller.CalculatorData;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import view.Visitor;
+import viewcomponents.common.Visitor;
 import viewcontroller.*;
 
 @ComponentScan(basePackages = {"viewmodel"})

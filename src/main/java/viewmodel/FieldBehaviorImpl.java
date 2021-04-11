@@ -2,7 +2,7 @@ package viewmodel;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewcontroller.FieldBehavior;
 
 import javax.swing.*;

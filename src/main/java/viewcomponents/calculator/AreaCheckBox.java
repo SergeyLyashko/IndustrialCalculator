@@ -2,10 +2,10 @@ package viewcomponents.calculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import view.ViewController;
-import view.AppComponent;
-import view.Host;
-import view.Visitor;
+import viewcomponents.common.ViewController;
+import viewcomponents.common.AppComponent;
+import viewcomponents.common.Host;
+import viewcomponents.common.Visitor;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;

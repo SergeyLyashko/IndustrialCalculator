@@ -1,13 +1,13 @@
 package viewmodel;
 
 import org.springframework.stereotype.Service;
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewcontroller.Preference;
 
 import java.io.*;
 import java.util.List;
 import java.util.Objects;
-// TODO ??????????
+// TODO saving
 @Service("preference")
 class PreferenceImpl implements Serializable, Preference {
 

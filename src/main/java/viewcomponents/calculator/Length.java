@@ -3,8 +3,8 @@ package viewcomponents.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import view.ViewController;
-import view.AppComponent;
+import viewcomponents.common.ViewController;
+import viewcomponents.common.AppComponent;
 import viewcontroller.FieldsAction;
 
 import javax.annotation.PostConstruct;

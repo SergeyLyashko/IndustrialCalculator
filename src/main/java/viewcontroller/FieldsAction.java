@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewmodel.FocusActionObserver;
 import viewmodel.KeyActionObserver;
 

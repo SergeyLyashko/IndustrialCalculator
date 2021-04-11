@@ -1,4 +1,4 @@
-package view;
+package viewcomponents.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import viewmodel.ViewModelConfiguration;
 @Configuration
 @Import({ViewCalculatorConfiguration.class, ViewSettingsConfiguration.class, ViewModelConfiguration.class,
         ViewInfoConfiguration.class})
-public class ViewConfiguration {
+public class CommonViewConfiguration {
 
     @Bean
     public CalculatorFocusTraversalPolicy focusTraversalPolicy(){

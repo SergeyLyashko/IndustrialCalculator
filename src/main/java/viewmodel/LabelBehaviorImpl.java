@@ -2,8 +2,8 @@ package viewmodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import view.Visitor;
-import view.AppComponent;
+import viewcomponents.common.Visitor;
+import viewcomponents.common.AppComponent;
 import viewcontroller.LabelBehavior;
 
 import javax.swing.*;

@@ -2,7 +2,7 @@ package database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import view.DataReceiver;
+import viewcomponents.common.DataReceiver;
 
 @Configuration
 public class DatabaseConfiguration {

@@ -2,10 +2,10 @@ package viewcomponents.calculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import view.DataReceiver;
-import view.ViewController;
-import view.MenuSelectable;
-import view.AppComponent;
+import viewcomponents.common.DataReceiver;
+import viewcomponents.common.ViewController;
+import viewcomponents.common.MenuSelectable;
+import viewcomponents.common.AppComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;

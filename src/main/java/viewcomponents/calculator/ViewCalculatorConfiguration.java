@@ -2,9 +2,9 @@ package viewcomponents.calculator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import view.AppComponent;
-import view.CalculatorComponents;
-import view.MenuSelectable;
+import viewcomponents.common.AppComponent;
+import viewcomponents.common.CalculatorComponents;
+import viewcomponents.common.MenuSelectable;
 
 @Configuration
 public class ViewCalculatorConfiguration {

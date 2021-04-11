@@ -1,6 +1,6 @@
 package viewcontroller;
 
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 
 import java.util.List;
 

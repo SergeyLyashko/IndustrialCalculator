@@ -1,6 +1,6 @@
 package viewcontroller;
 
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 import viewmodel.FocusActionObserver;
 
 public interface FocusBehavior {

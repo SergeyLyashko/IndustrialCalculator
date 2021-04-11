@@ -1,9 +1,9 @@
 package viewmodel;
 
 import org.springframework.stereotype.Service;
-import view.Host;
-import view.Visitor;
-import view.AppComponent;
+import viewcomponents.common.Host;
+import viewcomponents.common.Visitor;
+import viewcomponents.common.AppComponent;
 
 import javax.swing.*;
 import java.awt.*;

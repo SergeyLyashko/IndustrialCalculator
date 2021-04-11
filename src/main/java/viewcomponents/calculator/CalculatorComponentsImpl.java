@@ -3,9 +3,9 @@ package viewcomponents.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import view.AppComponent;
-import view.CalculatorComponents;
-import view.MenuSelectable;
+import viewcomponents.common.AppComponent;
+import viewcomponents.common.CalculatorComponents;
+import viewcomponents.common.MenuSelectable;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;

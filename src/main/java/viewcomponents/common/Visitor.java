@@ -1,4 +1,4 @@
-package view;
+package viewcomponents.common;
 
 public interface Visitor {
 

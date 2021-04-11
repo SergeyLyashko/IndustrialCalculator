@@ -2,9 +2,9 @@ package viewcomponents.info;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import view.Host;
-import view.Visitor;
-import view.AppComponent;
+import viewcomponents.common.Host;
+import viewcomponents.common.Visitor;
+import viewcomponents.common.AppComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;

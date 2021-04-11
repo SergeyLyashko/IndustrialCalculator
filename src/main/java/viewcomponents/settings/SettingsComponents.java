@@ -3,9 +3,9 @@ package viewcomponents.settings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import view.ViewController;
-import view.AppComponent;
-import view.CalculatorComponents;
+import viewcomponents.common.ViewController;
+import viewcomponents.common.AppComponent;
+import viewcomponents.common.CalculatorComponents;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

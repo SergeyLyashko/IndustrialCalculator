@@ -1,6 +1,6 @@
 package viewcontroller;
 
-import view.AppComponent;
+import viewcomponents.common.AppComponent;
 
 public interface Filter {
 

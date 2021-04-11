@@ -2,7 +2,7 @@ package configurations;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-import view.Visitor;
+import viewcomponents.common.Visitor;
 
 import java.awt.*;
 
