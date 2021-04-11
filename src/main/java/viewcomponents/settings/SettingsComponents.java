@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("settingsComponents")
-public class SettingsComponents implements CalculatorComponents {
+class SettingsComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
     private ViewController viewController;

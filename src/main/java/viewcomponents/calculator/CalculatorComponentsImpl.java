@@ -11,8 +11,8 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("calculatorComponents")
-public class CalculatorComponentsImpl implements CalculatorComponents {
+@Service
+class CalculatorComponentsImpl implements CalculatorComponents {
 
     private final List<AppComponent> components;
     private MenuSelectable assortment;
@@ -86,8 +86,12 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
         this.dimensionLength = dimensionLength;
     }
 
+    public CalculatorComponentsImpl() {
+        components = new ArrayList<>();
+    }
+
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         components.add(width);
         components.add(length);
         components.add(areaCheckBox);
@@ -100,10 +104,6 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
         components.add(dimensionLength);
 
         addListeners(assortment, types, numbers);
-    }
-
-    public CalculatorComponentsImpl() {
-        components = new ArrayList<>();
     }
 
     @Override

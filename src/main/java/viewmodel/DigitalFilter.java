@@ -11,7 +11,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 @Service("digitalFilter")
-public class DigitalFilter extends DocumentFilter implements Filter {
+class DigitalFilter extends DocumentFilter implements Filter {
 
     @Override
     public void activateFilter(AppComponent component) {

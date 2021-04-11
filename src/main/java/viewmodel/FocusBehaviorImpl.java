@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Service("focusBehavior")
 @Scope("prototype")
-public class FocusBehaviorImpl implements FocusBehavior {
+class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
     private JFormattedTextField textField;

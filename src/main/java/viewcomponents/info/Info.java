@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info implements AppComponent, Host {
+class Info implements AppComponent, Host {
 
     private final JLabel jLabel;
     private Visitor colorVisitor;
@@ -55,7 +55,7 @@ public class Info implements AppComponent, Host {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    public Info(){
+    Info(){
         jLabel = new JLabel();
         jLabel.setText(TEXT);
         jLabel.setPreferredSize(new Dimension(250, 500));

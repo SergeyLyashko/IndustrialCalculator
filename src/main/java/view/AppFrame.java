@@ -1,38 +1,19 @@
 package view;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-import java.awt.*;
+import java.util.List;
 
 @Component("appFrame")
-public class AppFrame {
+class AppFrame implements ApplicationContextAware {
 
     private JTabbedPane jTabbedPane;
-    private AppPanel calculatorPanel;
-    private AppPanel settingsPanel;
-    private AppPanel infoPanel;
-
-    @Autowired
-    @Qualifier("calculatorPanel")
-    public void setCalculatorPanel(AppPanel calculatorPanel){
-        this.calculatorPanel = calculatorPanel;
-    }
-
-    @Autowired
-    @Qualifier("settingsPanel")
-    public void setSettingsPanel(AppPanel settingsPanel){
-        this.settingsPanel = settingsPanel;
-    }
-
-    @Autowired
-    @Qualifier("infoPanel")
-    public void setInfoPanel(AppPanel infoPanel){
-        this.infoPanel = infoPanel;
-    }
+    private ApplicationContext applicationContext;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
@@ -44,13 +25,22 @@ public class AppFrame {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         jFrame.setContentPane(jTabbedPane);
-        addPanel("Калькулятор", calculatorPanel);
-        addPanel("Настройки", settingsPanel);
-        addPanel("Справка", infoPanel);
+        addPanel("Калькулятор");
+        addPanel("Настройки");
+        addPanel("Справка");
     }
 
-    private void addPanel(String type, AppPanel panel){
-        Container parentContainer = panel.getComponentParent();
-        jTabbedPane.add(type, parentContainer);
+    private void addPanel(String type){
+        AppPanel appPanelBean = applicationContext.getBean(type, AppPanel.class);
+        JComponent componentParent = appPanelBean.getComponentParent();
+        CalculatorComponents calculatorComponentsBean = applicationContext.getBean(type+" компоненты", CalculatorComponents.class);
+        List<AppComponent> components = calculatorComponentsBean.getComponents();
+        components.forEach(appComponent -> componentParent.add(appComponent.getComponentParent()));
+        jTabbedPane.add(type, componentParent);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

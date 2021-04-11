@@ -10,7 +10,7 @@ import java.awt.*;
 
 @Service("fieldBehavior")
 @Scope("prototype")
-public class FieldBehaviorImpl implements FieldBehavior {
+class FieldBehaviorImpl implements FieldBehavior {
 
     private static final String BOX_NAME_AREA = "введите площадь";
     private JFormattedTextField textField;

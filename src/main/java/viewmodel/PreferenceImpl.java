@@ -7,9 +7,9 @@ import viewcontroller.Preference;
 import java.io.*;
 import java.util.List;
 import java.util.Objects;
-
+// TODO ??????????
 @Service("preference")
-public class PreferenceImpl implements Serializable, Preference {
+class PreferenceImpl implements Serializable, Preference {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,13 +1,20 @@
-package configurations;
+package viewmodel;
 
+import controller.CalculatorData;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import view.Visitor;
 import viewcontroller.*;
-import viewmodel.*;
 
+@ComponentScan(basePackages = {"viewmodel"})
 @Configuration
 public class ViewModelConfiguration {
+
+    @Bean
+    public CalculatorData calculatorData(){
+        return new CalculatorDataImpl();
+    }
 
     @Bean
     public Visitor colorVisitor(){
@@ -42,15 +49,5 @@ public class ViewModelConfiguration {
     @Bean
     public LabelBehavior resultBehavior(){
         return new LabelBehaviorImpl();
-    }
-
-    @Bean
-    public FieldBehavior widthBehavior(){
-        return new FieldBehaviorImpl();
-    }
-
-    @Bean
-    public FieldBehavior lengthBehavior(){
-        return new FieldBehaviorImpl();
     }
 }

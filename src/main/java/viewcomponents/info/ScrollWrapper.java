@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-public class ScrollWrapper implements AppComponent, Host {
+class ScrollWrapper implements AppComponent, Host {
 
     private final JScrollPane scrollPane;
     private JViewport viewport;
@@ -30,7 +30,7 @@ public class ScrollWrapper implements AppComponent, Host {
         this.info = info;
     }
 
-    public ScrollWrapper(){
+    ScrollWrapper(){
         scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

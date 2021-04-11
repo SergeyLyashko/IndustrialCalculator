@@ -12,7 +12,7 @@ import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
 @Component("colorThemeBox")
-public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
+class ColorThemeCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    public ColorThemeCheckBox(int locationX, int locationY){
+    ColorThemeCheckBox(int locationX, int locationY){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);

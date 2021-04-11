@@ -10,8 +10,9 @@ import javax.swing.text.DocumentFilter;
 import java.io.Serializable;
 
 @Service("defaultFilter")
-public class DefaultFilter extends DocumentFilter implements Filter, Serializable {
+class DefaultFilter extends DocumentFilter implements Filter, Serializable {
 
+    // TODO ???
     private static final long serialVersionUID = 1L;
 
     @Override

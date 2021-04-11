@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 @Service("keyBehavior")
 @Scope("prototype")
-public class KeyBehaviorImpl implements KeyBehavior {
+class KeyBehaviorImpl implements KeyBehavior {
 
     private JFormattedTextField textField;
     private KeyActionObserver observer;

@@ -13,7 +13,7 @@ import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
 @Component("toolTipsBox")
-public class ToolTipsCheckBox implements AppComponent, Host, Serializable {
+class ToolTipsCheckBox implements AppComponent, Host, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class ToolTipsCheckBox implements AppComponent, Host, Serializable {
         this.viewController = viewController;
     }
 
-    public ToolTipsCheckBox(int locationX, int locationY){
+    ToolTipsCheckBox(int locationX, int locationY){
         jCheckBox = new JCheckBox();
         jCheckBox.setSelected(true);
         jCheckBox.setSize(WIDTH, HEIGHT);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("infoComponents")
-public class InfoComponents implements CalculatorComponents {
+class InfoComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
     private AppComponent scrollWrapper;

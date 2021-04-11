@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service("colorVisitor")
-public class ColorVisitor implements Visitor {
+class ColorVisitor implements Visitor {
 
     private final List<Host> componentsList = new CopyOnWriteArrayList<>();
     private Color backGround;

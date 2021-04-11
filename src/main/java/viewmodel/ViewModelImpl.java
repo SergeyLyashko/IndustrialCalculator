@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.util.List;
 
 @Service("viewModel")
-public class ViewModelImpl implements ViewModel, ApplicationContextAware {
+class ViewModelImpl implements ViewModel, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -20,6 +20,7 @@ public class ViewModelImpl implements ViewModel, ApplicationContextAware {
         toolTipManager.setEnabled(selected);
     }
 
+    @Override
     public ComboBoxModel<String> createMenuModel(List<String> menuList) {
         MenuModel menuModel = applicationContext.getBean("menuModel", MenuModel.class);
         menuModel.addMenuList(menuList);

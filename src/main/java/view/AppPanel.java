@@ -5,19 +5,16 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-import java.util.List;
 
-@Component("appPanel")
+@Component
 public class AppPanel implements Host {
 
     private final JPanel jPanel;
-    private final CalculatorComponents calculatorComponents;
     private Visitor colorVisitor;
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         colorVisitor.addHost(this);
-        addComponents();
     }
 
     @Autowired
@@ -25,22 +22,9 @@ public class AppPanel implements Host {
         this.colorVisitor = colorVisitor;
     }
 
-    public AppPanel(CalculatorComponents calculatorComponents){
-        this.calculatorComponents = calculatorComponents;
+    public AppPanel(){
         jPanel = new JPanel();
         jPanel.setLayout(null);
-    }
-
-    private void addComponents() {
-        List<AppComponent> components = calculatorComponents.getComponents();
-        components.forEach(appComponent -> jPanel.add(appComponent.getComponentParent()));
-
-    }
-
-    public void addFocusPolicy(CalculatorFocusTraversalPolicy focusTraversalPolicy){
-        List<AppComponent> components = calculatorComponents.getComponents();
-        focusTraversalPolicy.add(components);
-        focusTraversalPolicy.setFocusPolicy(this);
     }
 
     @Override

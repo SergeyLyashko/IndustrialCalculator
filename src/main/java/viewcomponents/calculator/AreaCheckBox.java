@@ -12,8 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
-@Component("areaCheckBox")
-public class AreaCheckBox implements AppComponent, Host {
+@Component
+class AreaCheckBox implements AppComponent, Host {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";

@@ -8,12 +8,12 @@ import java.util.List;
 
 @Service("menuModel")
 @Scope("prototype")
-public class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+class MenuModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
     private List<String> receiveMenuList;
     private int selected;
 
-    public void addMenuList(List<String> receiveMenuList){
+    void addMenuList(List<String> receiveMenuList){
         this.receiveMenuList = receiveMenuList;
     }
 

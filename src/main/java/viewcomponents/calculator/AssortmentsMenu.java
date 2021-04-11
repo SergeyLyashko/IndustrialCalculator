@@ -12,12 +12,11 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-@Component("assortmentsMenu")
-public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
+@Component
+class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     private final JComboBox<String> jComboBox;
     private static final int FOCUSED_RATE = 1;
@@ -48,7 +47,7 @@ public class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent>
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         addListener(viewController);
         clickListener();
         List<String> receivableMenu = receiveMenu();

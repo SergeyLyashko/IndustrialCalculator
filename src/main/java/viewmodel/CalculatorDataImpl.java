@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.util.*;
 
 @Service("calculatorData")
-public class CalculatorDataImpl implements CalculatorData {
+class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
     private AppComponent width;

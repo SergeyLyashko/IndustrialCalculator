@@ -1,13 +1,17 @@
-package configurations;
+package viewcomponents.settings;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import view.AppComponent;
-import viewcomponents.settings.ColorThemeCheckBox;
-import viewcomponents.settings.ToolTipsCheckBox;
+import view.CalculatorComponents;
 
 @Configuration
 public class ViewSettingsConfiguration {
+
+    @Bean(name = "Настройки компоненты")
+    public CalculatorComponents settingsComponents(){
+        return new SettingsComponents();
+    }
 
     @Bean
     public AppComponent colorThemeBox(){
