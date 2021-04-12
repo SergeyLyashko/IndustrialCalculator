@@ -38,7 +38,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         this.component = component;
 
         FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
-        focusBehaviorBean.setComponent(component);
         focusBehaviorBean.registerFocusObserver(this);
         this.focusBehavior = focusBehaviorBean;
 
@@ -61,14 +60,14 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     void deactivate(){
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldDeactivate(component);
-        focusBehavior.fieldDeactivate();
+        focusBehavior.fieldDeactivate(component);
         keyBehavior.fieldDeactivate(component);
     }
 
     void activate(){
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldActivate(component);
-        focusBehavior.fieldActivate();
+        focusBehavior.fieldActivate(component);
     }
 
     void areaActivate(){
@@ -79,7 +78,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         fieldBehavior.areaDeactivate(component);
     }
 
-    // TODO
     @Override
     public void focusActionUpdate() {
         keyBehavior.fieldActivate(component);

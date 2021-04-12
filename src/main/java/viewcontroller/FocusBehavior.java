@@ -5,11 +5,10 @@ import viewmodel.FocusActionObserver;
 
 public interface FocusBehavior {
 
-    void fieldDeactivate();
+    void fieldDeactivate(AppComponent component);
 
-    void fieldActivate();
+    void fieldActivate(AppComponent component);
 
     void registerFocusObserver(FocusActionObserver observer);
 
-    void setComponent(AppComponent component);
 }

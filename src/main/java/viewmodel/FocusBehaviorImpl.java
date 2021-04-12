@@ -19,10 +19,8 @@ import java.util.Arrays;
 class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
-    private JFormattedTextField textField;
     private FocusActionObserver observer;
     private Filter digitalFilter;
-    private AppComponent component;
 
     @Autowired
     @Qualifier("digitalFilter")
@@ -31,24 +29,18 @@ class FocusBehaviorImpl implements FocusBehavior {
     }
 
     @Override
-    public void setComponent(AppComponent component){
-        this.component = component;
-        this.textField = (JFormattedTextField) component.getComponentParent();
-    }
-
-    @Override
-    public void fieldActivate(){
+    public void fieldActivate(AppComponent component){
+        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 digitalFilter.activateFilter(component);
-                fieldFocusGained();
+                fieldFocusGained(textField);
                 notifyObservers();
             }
         });
     }
 
-    // TODO
     @Override
     public void registerFocusObserver(FocusActionObserver observer){
         this.observer = observer;
@@ -61,11 +53,12 @@ class FocusBehaviorImpl implements FocusBehavior {
     }
 
     @Override
-    public void fieldDeactivate() {
+    public void fieldDeactivate(AppComponent component) {
+        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
     }
 
-    private void fieldFocusGained() {
+    private void fieldFocusGained(JFormattedTextField textField) {
         textField.setForeground(Color.BLACK);
         textField.setText(EMPTY);
     }
