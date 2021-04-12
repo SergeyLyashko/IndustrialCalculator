@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import viewcomponents.common.AppComponent;
 import viewcontroller.Filter;
 import viewcontroller.FocusBehavior;
-import viewcontroller.KeyBehavior;
 
 import javax.swing.*;
 import java.awt.*;

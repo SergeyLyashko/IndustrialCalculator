@@ -82,6 +82,7 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         fieldBehavior.areaDeactivate();
     }
 
+    // TODO
     @Override
     public void focusActionUpdate() {
         keyBehavior.fieldActivate();
