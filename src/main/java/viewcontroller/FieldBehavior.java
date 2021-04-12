@@ -4,14 +4,12 @@ import viewcomponents.common.AppComponent;
 
 public interface FieldBehavior {
 
-    void fieldDeactivate();
+    void fieldDeactivate(AppComponent component);
 
-    void fieldActivate();
+    void fieldActivate(AppComponent component);
 
-    void areaActivate();
+    void areaActivate(AppComponent component);
 
-    void areaDeactivate();
-
-    void setComponent(AppComponent component);
+    void areaDeactivate(AppComponent component);
 
 }

@@ -30,12 +30,13 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         this.defaultFilter = defaultFilter;
     }
 
+    @Autowired
+    public void setFieldBehavior(FieldBehavior fieldBehavior){
+        this.fieldBehavior = fieldBehavior;
+    }
+
     public void setComponent(AppComponent component){
         this.component = component;
-
-        FieldBehavior fieldBehaviorBean = applicationContext.getBean("fieldBehavior", FieldBehavior.class);
-        fieldBehaviorBean.setComponent(component);
-        this.fieldBehavior = fieldBehaviorBean;
 
         FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         focusBehaviorBean.setComponent(component);
@@ -63,23 +64,23 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
 
     void deactivate(){
         defaultFilter.activateFilter(component);
-        fieldBehavior.fieldDeactivate();
+        fieldBehavior.fieldDeactivate(component);
         focusBehavior.fieldDeactivate();
         keyBehavior.fieldDeactivate();
     }
 
     void activate(){
         defaultFilter.activateFilter(component);
-        fieldBehavior.fieldActivate();
+        fieldBehavior.fieldActivate(component);
         focusBehavior.fieldActivate();
     }
 
     void areaActivate(){
-        fieldBehavior.areaActivate();
+        fieldBehavior.areaActivate(component);
     }
 
     void areaDeactivate(){
-        fieldBehavior.areaDeactivate();
+        fieldBehavior.areaDeactivate(component);
     }
 
     // TODO

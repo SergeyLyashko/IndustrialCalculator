@@ -50,4 +50,9 @@ public class ViewModelConfiguration {
     public LabelBehavior resultBehavior(){
         return new LabelBehaviorImpl();
     }
+
+    @Bean
+    public FieldBehavior fieldBehavior(){
+        return new FieldBehaviorImpl();
+    }
 }
