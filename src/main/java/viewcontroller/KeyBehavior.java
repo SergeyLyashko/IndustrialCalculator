@@ -5,11 +5,10 @@ import viewmodel.KeyActionObserver;
 
 public interface KeyBehavior {
 
-    void fieldDeactivate();
+    void fieldDeactivate(AppComponent component);
 
     void registerKeyObserver(KeyActionObserver observer);
 
-    void fieldActivate();
+    void fieldActivate(AppComponent component);
 
-    void setComponent(AppComponent component);
 }

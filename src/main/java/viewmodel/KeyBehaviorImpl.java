@@ -14,16 +14,11 @@ import java.util.Arrays;
 @Scope("prototype")
 class KeyBehaviorImpl implements KeyBehavior {
 
-    private JFormattedTextField textField;
     private KeyActionObserver observer;
 
     @Override
-    public void setComponent(AppComponent component){
-        this.textField = (JFormattedTextField) component.getComponentParent();
-    }
-
-    @Override
-    public void fieldActivate() {
+    public void fieldActivate(AppComponent component) {
+        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
@@ -42,7 +37,8 @@ class KeyBehaviorImpl implements KeyBehavior {
     }
 
     @Override
-    public void fieldDeactivate() {
+    public void fieldDeactivate(AppComponent component) {
+        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         Arrays.stream(textField.getKeyListeners()).forEach(textField::removeKeyListener);
     }
 

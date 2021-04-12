@@ -6,12 +6,13 @@ import org.springframework.stereotype.Component;
 import viewcomponents.common.ViewController;
 import viewcomponents.common.AppComponent;
 import viewcontroller.FieldsAction;
+import viewmodel.KeyActionObserver;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("length")
-public class Length implements AppComponent, Comparable<AppComponent> {
+public class Length implements AppComponent, Comparable<AppComponent>, KeyActionObserver {
 
     private final JFormattedTextField textField;
     private static final int FOCUSED_RATE = 5;
@@ -47,7 +48,12 @@ public class Length implements AppComponent, Comparable<AppComponent> {
     @PostConstruct
     private void afterPropertiesSet() {
         fieldsAction.setComponent(this);
-        fieldsAction.registerKeyObserver(viewController);
+        fieldsAction.registerKeyObserver(this);
+    }
+
+    @Override
+    public void keyActionUpdate() {
+        viewController.keyActionUpdate();
     }
 
     @Override
