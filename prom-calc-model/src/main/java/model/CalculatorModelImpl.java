@@ -3,7 +3,7 @@ package model;
 import controller.CalculatorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import viewcomponents.common.ViewController;
+import components.common.ViewController;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;

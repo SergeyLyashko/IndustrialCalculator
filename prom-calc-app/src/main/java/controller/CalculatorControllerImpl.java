@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import viewcomponents.common.DataReceiver;
-import viewcomponents.common.ViewController;
-import viewcontroller.CalculatorController;
+import components.common.DataReceiver;
+import components.common.ViewController;
+import controller.CalculatorController;
 
 import java.sql.SQLException;
 import java.util.List;

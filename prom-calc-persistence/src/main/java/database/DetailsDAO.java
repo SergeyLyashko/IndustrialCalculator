@@ -2,7 +2,7 @@ package database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import viewcomponents.common.DataReceiver;
+import components.common.DataReceiver;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
