@@ -12,27 +12,19 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("result")
-public class Result implements AppComponent, Host, Comparable<AppComponent> {
+public class Result extends JLabel implements AppComponent, Host, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0 кг";
     private static final int SIZE_X = 125;
     private static final int SIZE_Y = 25;
-    private final JLabel jLabel;
-    private Visitor colorVisitor;
 
-    private LabelBehavior labelBehavior;
+    @Autowired
+    private Visitor colorVisitor;
 
     @Autowired
     @Qualifier("resultBehavior")
-    public void setLabelBehavior(LabelBehavior labelBehavior){
-        this.labelBehavior = labelBehavior;
-    }
-
-    @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
+    private LabelBehavior labelBehavior;
 
     @PostConstruct
     private void afterPropertiesSet() {
@@ -41,17 +33,16 @@ public class Result implements AppComponent, Host, Comparable<AppComponent> {
     }
 
     public Result(int locationX, int locationY){
-        jLabel = new JLabel();
-        jLabel.setSize(SIZE_X, SIZE_Y);
-        jLabel.setVisible(true);
-        jLabel.setText(DEFAULT_VIEW);
-        jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel.setLocation(locationX, locationY);
+        super.setSize(SIZE_X, SIZE_Y);
+        super.setVisible(true);
+        super.setText(DEFAULT_VIEW);
+        super.setHorizontalAlignment(SwingConstants.RIGHT);
+        super.setLocation(locationX, locationY);
     }
 
     @Override
     public JComponent getComponentParent() {
-        return jLabel;
+        return this;
     }
 
     @Override

@@ -16,36 +16,27 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component("typesMenu")
-public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
+public class TypesMenu extends JComboBox<String> implements MenuSelectable, Comparable<AppComponent> {
 
     private static final int FOCUSED_RATE = 2;
     private static final String TYPE_HEADER = "Тип профиля";
     private static final String TOOL_TIP_TEXT = "выбор типа профиля детали";
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-
     private String assortment = DEFAULT_MENU_VALUE;
-    private final JComboBox<String> jComboBox;
-    private ViewController viewController;
-    private DataReceiver dataReceiver;
     private boolean isConnect = true;
 
+    @Autowired
+    private ViewController viewController;
+    @Autowired
+    private DataReceiver dataReceiver;
+
+
     public TypesMenu(int locationX, int locationY){
-        jComboBox = new JComboBox<>();
-        jComboBox.setSize(WIDTH, HEIGHT);
-        jComboBox.setSelectedIndex(-1);
-        jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        jComboBox.setLocation(locationX, locationY);
-    }
-
-    @Autowired
-    public void setDataReceiver(DataReceiver dataReceiver){
-        this.dataReceiver = dataReceiver;
-    }
-
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
+        super.setSize(WIDTH, HEIGHT);
+        super.setSelectedIndex(-1);
+        super.setToolTipText(TOOL_TIP_TEXT);
+        super.setLocation(locationX, locationY);
     }
 
     @PostConstruct
@@ -83,8 +74,8 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void addActionListener(){
-        jComboBox.addActionListener(event -> {
-            String selectedItem = (String) jComboBox.getSelectedItem();
+        super.addActionListener(event -> {
+            String selectedItem = (String) super.getSelectedItem();
             viewController.fieldsOff();
             if(selectedItem.equalsIgnoreCase("резиновая пластина") ||
                     selectedItem.equalsIgnoreCase("тонколистовая") ||
@@ -96,12 +87,12 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void addClickListener(){
-        jComboBox.addMouseListener(new MouseAdapter() {
+        super.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if(!isConnect){
                     viewController.setMessage(NOT_DATABASE_MESSAGE, true);
-                    viewController.setResult(ERROR, true);
+                    viewController.setResult(MenuSelectable.ERROR, true);
                 }
             }
         });
@@ -109,15 +100,15 @@ public class TypesMenu implements MenuSelectable, Comparable<AppComponent> {
 
     @Override
     public void addMenuSelectListener(MenuSelectable listener){
-        jComboBox.addActionListener(event -> {
-            String selectedItem = (String) jComboBox.getSelectedItem();
+        super.addActionListener(event -> {
+            String selectedItem = (String) super.getSelectedItem();
             listener.setMenuItems(assortment, selectedItem);
         });
     }
 
     @Override
     public JComboBox<String> getComponentParent() {
-        return jComboBox;
+        return this;
     }
 
     @Override

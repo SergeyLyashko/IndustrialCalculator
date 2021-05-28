@@ -13,34 +13,24 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 
 @Component
-class AreaCheckBox implements AppComponent, Host {
+public class AreaCheckBox extends JCheckBox implements AppComponent, Host {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private final JCheckBox jCheckBox;
 
+    @Autowired
     private ViewController viewController;
+    @Autowired
     private Visitor colorVisitor;
 
-    @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
-
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
     public AreaCheckBox(int locationX, int locationY){
-        jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(false);
-        jCheckBox.setSize(WIDTH, HEIGHT);
-        jCheckBox.setText(BOX_NAME);
-        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        jCheckBox.setLocation(locationX, locationY);
+        super.setSelected(false);
+        super.setSize(WIDTH, HEIGHT);
+        super.setText(BOX_NAME);
+        super.setToolTipText(TOOL_TIP_TEXT);
+        super.setLocation(locationX, locationY);
     }
 
     @PostConstruct
@@ -51,12 +41,12 @@ class AreaCheckBox implements AppComponent, Host {
     }
 
     private void setFont(){
-        Font deriveFont = jCheckBox.getFont().deriveFont(10f);
-        jCheckBox.setFont(deriveFont);
+        Font deriveFont = super.getFont().deriveFont(10f);
+        super.setFont(deriveFont);
     }
 
     private void addItemListener(ViewController viewController){
-        jCheckBox.addItemListener(event ->
+        super.addItemListener(event ->
                 viewController.areaCheckBoxState(event.getStateChange() == ItemEvent.SELECTED));
     }
 
@@ -67,6 +57,6 @@ class AreaCheckBox implements AppComponent, Host {
 
     @Override
     public JComponent getComponentParent() {
-        return jCheckBox;
+        return this;
     }
 }

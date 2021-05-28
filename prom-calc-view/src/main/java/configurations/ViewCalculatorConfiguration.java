@@ -1,5 +1,6 @@
-package components.calculator;
+package configurations;
 
+import components.calculator.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import components.common.AppComponent;

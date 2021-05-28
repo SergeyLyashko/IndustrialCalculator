@@ -3,7 +3,7 @@ package components.common;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import components.calculator.ViewCalculatorConfiguration;
+import configurations.ViewCalculatorConfiguration;
 import components.info.ViewInfoConfiguration;
 import components.settings.ViewSettingsConfiguration;
 import model.ViewModelConfiguration;

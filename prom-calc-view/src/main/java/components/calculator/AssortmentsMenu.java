@@ -16,34 +16,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
+public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable, Comparable<AppComponent> {
 
-    private final JComboBox<String> jComboBox;
     private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
     private static final String TOOL_TIP_TEXT = "выбор сортамента детали";
     private static final int WIDTH = 155;
     private static final int HEIGHT = 23;
-    private ViewController viewController;
-    private DataReceiver dataReceiver;
     private boolean isConnect = true;
 
+    @Autowired
+    private ViewController viewController;
+    @Autowired
+    private DataReceiver dataReceiver;
+
+
     public AssortmentsMenu(int locationX, int locationY){
-        jComboBox = new JComboBox<>();
-        jComboBox.setSize(WIDTH, HEIGHT);
-        jComboBox.setSelectedIndex(-1);
-        jComboBox.setToolTipText(TOOL_TIP_TEXT);
-        jComboBox.setLocation(locationX, locationY);
-    }
-
-    @Autowired
-    public void setDataReceiver(DataReceiver dataReceiver){
-        this.dataReceiver = dataReceiver;
-    }
-
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
+        super.setSize(WIDTH, HEIGHT);
+        super.setSelectedIndex(-1);
+        super.setToolTipText(TOOL_TIP_TEXT);
+        super.setLocation(locationX, locationY);
     }
 
     @PostConstruct
@@ -55,16 +47,16 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
     }
 
     private void addListener(ViewController viewController){
-        jComboBox.addActionListener(event -> viewController.fieldsOff());
+        super.addActionListener(event -> viewController.fieldsOff());
     }
 
     private void clickListener(){
-        jComboBox.addMouseListener(new MouseAdapter() {
+        super.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if(!isConnect){
                     viewController.setMessage(NOT_DATABASE_MESSAGE, true);
-                    viewController.setResult(ERROR, true);
+                    viewController.setResult(MenuSelectable.ERROR, true);
                 }
             }
         });
@@ -95,8 +87,8 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     @Override
     public void addMenuSelectListener(MenuSelectable listener){
-        jComboBox.addActionListener(event -> {
-            String selectedItem = (String) jComboBox.getSelectedItem();
+        super.addActionListener(event -> {
+            String selectedItem = (String) super.getSelectedItem();
             listener.setMenuItems(selectedItem, DEFAULT_MENU_VALUE);
         });
     }
@@ -113,7 +105,7 @@ class AssortmentsMenu implements MenuSelectable, Comparable<AppComponent> {
 
     @Override
     public JComboBox<String> getComponentParent() {
-        return jComboBox;
+        return this;
     }
 
     @Override

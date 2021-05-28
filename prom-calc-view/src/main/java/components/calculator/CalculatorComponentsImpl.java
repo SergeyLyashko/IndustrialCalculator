@@ -12,79 +12,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-class CalculatorComponentsImpl implements CalculatorComponents {
+public class CalculatorComponentsImpl implements CalculatorComponents {
 
     private final List<AppComponent> components;
-    private MenuSelectable assortment;
-    private MenuSelectable types;
-    private MenuSelectable numbers;
-    private AppComponent width;
-    private AppComponent length;
-    private AppComponent areaCheckBox;
-    private AppComponent result;
-    private AppComponent message;
-    private AppComponent dimensionWidth;
-    private AppComponent dimensionLength;
-
     @Autowired
     @Qualifier("assortmentsMenu")
-    public void setAssortment(MenuSelectable assortment){
-        this.assortment = assortment;
-    }
+    private MenuSelectable assortment;
 
     @Autowired
     @Qualifier("typesMenu")
-    public void setTypes(MenuSelectable types){
-        this.types = types;
-    }
+    private MenuSelectable types;
 
     @Autowired
     @Qualifier("numbersMenu")
-    public void setNumbers(MenuSelectable numbers){
-        this.numbers = numbers;
-    }
+    private MenuSelectable numbers;
 
     @Autowired
     @Qualifier("width")
-    public void setWidth(AppComponent width){
-        this.width = width;
-    }
+    private AppComponent width;
 
     @Autowired
     @Qualifier("length")
-    public void setLength(AppComponent length){
-        this.length = length;
-    }
+    private AppComponent length;
 
     @Autowired
     @Qualifier("areaCheckBox")
-    public void setAreaCheckBox(AppComponent areaCheckBox){
-        this.areaCheckBox = areaCheckBox;
-    }
+    private AppComponent areaCheckBox;
 
     @Autowired
     @Qualifier("result")
-    public void setResult(AppComponent result){
-        this.result = result;
-    }
+    private AppComponent result;
 
     @Autowired
     @Qualifier("message")
-    public void setMessage(AppComponent message){
-        this.message = message;
-    }
+    private AppComponent message;
 
     @Autowired
     @Qualifier("dimensionWidth")
-    public void setDimensionWidth(AppComponent dimensionWidth){
-        this.dimensionWidth = dimensionWidth;
-    }
+    private AppComponent dimensionWidth;
 
     @Autowired
     @Qualifier("dimensionLength")
-    public void setDimensionLength(AppComponent dimensionLength){
-        this.dimensionLength = dimensionLength;
-    }
+    private AppComponent dimensionLength;
 
     public CalculatorComponentsImpl() {
         components = new ArrayList<>();
