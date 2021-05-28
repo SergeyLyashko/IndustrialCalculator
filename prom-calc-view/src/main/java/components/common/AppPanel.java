@@ -7,9 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component
-public class AppPanel implements Host {
+public class AppPanel extends JPanel implements Host {
 
-    private final JPanel jPanel;
     private Visitor colorVisitor;
 
     @PostConstruct
@@ -23,8 +22,7 @@ public class AppPanel implements Host {
     }
 
     public AppPanel(){
-        jPanel = new JPanel();
-        jPanel.setLayout(null);
+        super.setLayout(null);
     }
 
     @Override
@@ -34,6 +32,6 @@ public class AppPanel implements Host {
 
     @Override
     public JComponent getComponentParent() {
-        return jPanel;
+        return this;
     }
 }

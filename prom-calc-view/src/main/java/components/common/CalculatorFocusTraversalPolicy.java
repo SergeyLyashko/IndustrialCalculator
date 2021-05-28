@@ -12,23 +12,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("focusPolicy")
-class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
+public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
     private ArrayList<JComponent> thisOrder;
-    private AppPanel appPanel;
-    private CalculatorComponents calculatorComponents;
 
     @Autowired
     @Qualifier("Калькулятор")
-    public void setAppPanel(AppPanel appPanel){
-        this.appPanel = appPanel;
-    }
+    private AppPanel appPanel;
 
     @Autowired
     @Qualifier("Калькулятор компоненты")
-    public void setCalculatorComponents(CalculatorComponents calculatorComponents){
-        this.calculatorComponents = calculatorComponents;
-    }
+    private CalculatorComponents calculatorComponents;
 
     @PostConstruct
     private void afterPropertiesSet() {

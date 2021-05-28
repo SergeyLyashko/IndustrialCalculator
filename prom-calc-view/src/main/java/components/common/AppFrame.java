@@ -10,20 +10,20 @@ import javax.swing.*;
 import java.util.List;
 
 @Component("appFrame")
-class AppFrame implements ApplicationContextAware {
+public class AppFrame extends JFrame implements ApplicationContextAware {
 
     private final JTabbedPane jTabbedPane;
     private ApplicationContext applicationContext;
 
-    AppFrame(){
+    public AppFrame(){
+        super("Industrial calculator");
+        super.setSize(370, 230);
+        super.setLocationByPlatform(true);
+        super.setResizable(false);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super.setVisible(true);
         jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        JFrame jFrame = new JFrame("Industrial calculator");
-        jFrame.setSize(370, 230);
-        jFrame.setLocationByPlatform(true);
-        jFrame.setResizable(false);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setVisible(true);
-        jFrame.setContentPane(jTabbedPane);
+        super.setContentPane(jTabbedPane);
     }
 
     @PostConstruct
