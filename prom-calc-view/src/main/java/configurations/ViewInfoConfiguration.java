@@ -1,5 +1,8 @@
-package components.info;
+package configurations;
 
+import components.info.Info;
+import components.info.InfoComponents;
+import components.info.ScrollWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import components.common.AppComponent;

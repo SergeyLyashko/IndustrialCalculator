@@ -11,15 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-class Info implements AppComponent, Host {
-
-    private final JLabel jLabel;
-    private Visitor colorVisitor;
+public class Info extends JLabel implements AppComponent, Host {
 
     @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
+    private Visitor colorVisitor;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
@@ -55,10 +50,9 @@ class Info implements AppComponent, Host {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    Info(){
-        jLabel = new JLabel();
-        jLabel.setText(TEXT);
-        jLabel.setPreferredSize(new Dimension(250, 500));
+    public Info(){
+        super.setText(TEXT);
+        super.setPreferredSize(new Dimension(250, 500));
     }
 
     @Override
@@ -68,6 +62,6 @@ class Info implements AppComponent, Host {
 
     @Override
     public JComponent getComponentParent() {
-        return jLabel;
+        return this;
     }
 }

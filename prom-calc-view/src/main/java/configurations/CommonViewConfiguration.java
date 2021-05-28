@@ -6,7 +6,6 @@ import components.common.CalculatorFocusTraversalPolicy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import components.info.ViewInfoConfiguration;
 import components.settings.ViewSettingsConfiguration;
 import model.ViewModelConfiguration;
 

@@ -11,16 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("infoComponents")
-class InfoComponents implements CalculatorComponents {
+public class InfoComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
-    private AppComponent scrollWrapper;
 
     @Autowired
     @Qualifier("scroller")
-    public void setScrollWrapper(AppComponent scrollWrapper){
-        this.scrollWrapper = scrollWrapper;
-    }
+    private AppComponent scrollWrapper;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {

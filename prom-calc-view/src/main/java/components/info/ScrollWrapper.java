@@ -12,29 +12,21 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-class ScrollWrapper implements AppComponent, Host {
+public class ScrollWrapper extends JScrollPane implements AppComponent, Host {
 
-    private final JScrollPane scrollPane;
     private JViewport viewport;
-    private Visitor colorVisitor;
-    private AppComponent info;
 
     @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
+    private Visitor colorVisitor;
 
     @Autowired
     @Qualifier("info")
-    public void setInfo(AppComponent info){
-        this.info = info;
-    }
+    private AppComponent info;
 
-    ScrollWrapper(){
-        scrollPane = new JScrollPane();
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setSize(new Dimension(350, 165));
+    public ScrollWrapper(){
+        super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        super.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        super.setSize(new Dimension(350, 165));
     }
 
     @PostConstruct
@@ -44,7 +36,7 @@ class ScrollWrapper implements AppComponent, Host {
     }
 
     private void wrap(AppComponent content){
-        viewport = scrollPane.getViewport();
+        viewport = super.getViewport();
         viewport.add(content.getComponentParent());
     }
 
@@ -60,6 +52,6 @@ class ScrollWrapper implements AppComponent, Host {
 
     @Override
     public JComponent getComponentParent() {
-        return scrollPane;
+        return this;
     }
 }
