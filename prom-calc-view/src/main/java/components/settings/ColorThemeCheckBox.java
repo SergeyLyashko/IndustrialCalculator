@@ -9,33 +9,24 @@ import components.common.Visitor;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-import java.io.Serializable;
 
 @Component("colorThemeBox")
-class ColorThemeCheckBox implements AppComponent, Host, Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private final JCheckBox jCheckBox;
-    private transient Visitor colorVisitor;
+public class ColorThemeCheckBox extends JCheckBox implements AppComponent, Host {
 
     @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
+    private transient Visitor colorVisitor;
 
     private static final String BOX_NAME = "темная тема оформления";
     private static final String TOOL_TIP_TEXT = "включить/отключить темную тему приложения";
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    ColorThemeCheckBox(int locationX, int locationY){
-        jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(true);
-        jCheckBox.setSize(WIDTH, HEIGHT);
-        jCheckBox.setText(BOX_NAME);
-        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        jCheckBox.setLocation(locationX, locationY);
+    public ColorThemeCheckBox(int locationX, int locationY){
+        super.setSelected(true);
+        super.setSize(WIDTH, HEIGHT);
+        super.setText(BOX_NAME);
+        super.setToolTipText(TOOL_TIP_TEXT);
+        super.setLocation(locationX, locationY);
     }
 
     @PostConstruct
@@ -46,7 +37,7 @@ class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void checkBoxStateChecked(){
-        if(jCheckBox.isSelected()){
+        if(this.isSelected()){
             colorVisitor.activate();
         }else {
             colorVisitor.deactivate();
@@ -54,7 +45,7 @@ class ColorThemeCheckBox implements AppComponent, Host, Serializable {
     }
 
     private void addItemListener(){
-        jCheckBox.addItemListener(event -> {
+        super.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 colorVisitor.activate();
             } else {
@@ -71,6 +62,6 @@ class ColorThemeCheckBox implements AppComponent, Host, Serializable {
 
     @Override
     public JComponent getComponentParent() {
-        return jCheckBox;
+        return this;
     }
 }

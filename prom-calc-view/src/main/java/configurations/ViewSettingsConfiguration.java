@@ -1,5 +1,8 @@
-package components.settings;
+package configurations;
 
+import components.settings.ColorThemeCheckBox;
+import components.settings.SettingsComponents;
+import components.settings.ToolTipsCheckBox;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import components.common.AppComponent;

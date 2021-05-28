@@ -10,49 +10,38 @@ import components.common.Visitor;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-import java.io.Serializable;
 
 @Component("toolTipsBox")
-class ToolTipsCheckBox implements AppComponent, Host, Serializable {
+public class ToolTipsCheckBox extends JCheckBox implements AppComponent, Host {
 
-    private static final long serialVersionUID = 1L;
-
-    private final JCheckBox jCheckBox;
     private static final String BOX_NAME = "включить всплывающие подсказки";
     private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-    private transient Visitor colorVisitor;
+
+    @Autowired
+    private Visitor colorVisitor;
+
+    @Autowired
     private ViewController viewController;
 
-    @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
-
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
-    ToolTipsCheckBox(int locationX, int locationY){
-        jCheckBox = new JCheckBox();
-        jCheckBox.setSelected(true);
-        jCheckBox.setSize(WIDTH, HEIGHT);
-        jCheckBox.setText(BOX_NAME);
-        jCheckBox.setToolTipText(TOOL_TIP_TEXT);
-        jCheckBox.setLocation(locationX, locationY);
+    public ToolTipsCheckBox(int locationX, int locationY){
+        super.setSelected(true);
+        super.setSize(WIDTH, HEIGHT);
+        super.setText(BOX_NAME);
+        super.setToolTipText(TOOL_TIP_TEXT);
+        super.setLocation(locationX, locationY);
     }
 
     @PostConstruct
     private void afterPropertiesSet() {
         colorVisitor.addHost(this);
-        viewController.setToolTipState(jCheckBox.isSelected());
+        viewController.setToolTipState(this.isSelected());
         addItemListener();
     }
 
     private void addItemListener(){
-        jCheckBox.addItemListener(event -> viewController
+        super.addItemListener(event -> viewController
                 .setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
     }
 
@@ -63,6 +52,6 @@ class ToolTipsCheckBox implements AppComponent, Host, Serializable {
 
     @Override
     public JComponent getComponentParent() {
-        return jCheckBox;
+        return this;
     }
 }

@@ -13,29 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("settingsComponents")
-class SettingsComponents implements CalculatorComponents {
+public class SettingsComponents implements CalculatorComponents {
 
     private List<AppComponent> components;
-    private ViewController viewController;
-    private AppComponent colorThemeCheckBox;
-    private AppComponent toolTipsCheckBox;
 
     @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
+    private ViewController viewController;
 
     @Autowired
     @Qualifier("colorThemeBox")
-    public void setColorThemeCheckBox(AppComponent colorThemeCheckBox){
-        this.colorThemeCheckBox = colorThemeCheckBox;
-    }
+    private AppComponent colorThemeCheckBox;
 
     @Autowired
     @Qualifier("toolTipsBox")
-    public void setToolTipsCheckBox(AppComponent toolTipsCheckBox){
-        this.toolTipsCheckBox = toolTipsCheckBox;
-    }
+    private AppComponent toolTipsCheckBox;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
