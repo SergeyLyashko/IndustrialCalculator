@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.Filter;
 import controller.FocusBehavior;
 
@@ -20,16 +20,12 @@ class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
     private FocusActionObserver observer;
-    private Filter digitalFilter;
-
     @Autowired
     @Qualifier("digitalFilter")
-    public void setDigitalFilter(Filter digitalFilter){
-        this.digitalFilter = digitalFilter;
-    }
+    private Filter digitalFilter;
 
     @Override
-    public void fieldActivate(AppComponent component){
+    public void fieldActivate(UiComponent component){
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.addFocusListener(new FocusAdapter() {
             @Override
@@ -53,7 +49,7 @@ class FocusBehaviorImpl implements FocusBehavior {
     }
 
     @Override
-    public void fieldDeactivate(AppComponent component) {
+    public void fieldDeactivate(UiComponent component) {
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
     }

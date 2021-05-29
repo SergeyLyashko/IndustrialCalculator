@@ -3,7 +3,7 @@ package ui.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 
 import javax.annotation.PostConstruct;
@@ -28,16 +28,16 @@ public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
     @PostConstruct
     private void afterPropertiesSet() {
-        List<AppComponent> components = calculatorComponents.getComponents();
+        List<UiComponent> components = calculatorComponents.getComponents();
         add(components);
         setFocusPolicy(appPanel);
     }
 
-    private void add(List<AppComponent> componentList) {
+    private void add(List<UiComponent> componentList) {
         thisOrder = componentList.stream()
-                .filter(AppComponent::isTraversalPolicyFocused)
-                .sorted(AppComponent::compareTo)
-                .map(AppComponent::getComponentParent)
+                .filter(UiComponent::isTraversalPolicyFocused)
+                .sorted(UiComponent::compareTo)
+                .map(UiComponent::getComponentParent)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

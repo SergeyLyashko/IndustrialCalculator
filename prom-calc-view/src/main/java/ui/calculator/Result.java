@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 import controller.LabelBehavior;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("result")
-public class Result extends JLabel implements AppComponent, Host, Comparable<AppComponent> {
+public class Result extends JLabel implements UiComponent, Host, Comparable<UiComponent> {
 
     private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0 кг";
@@ -66,7 +66,7 @@ public class Result extends JLabel implements AppComponent, Host, Comparable<App
     }
 
     @Override
-    public int compareTo(AppComponent o) {
+    public int compareTo(UiComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
 }

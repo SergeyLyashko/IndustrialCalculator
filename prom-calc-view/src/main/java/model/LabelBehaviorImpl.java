@@ -3,7 +3,7 @@ package model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ui.Visitor;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.LabelBehavior;
 
 import javax.swing.*;
@@ -11,17 +11,13 @@ import javax.swing.*;
 @Service("labelBehavior")
 public class LabelBehaviorImpl implements LabelBehavior {
 
+    @Autowired
     private Visitor colorVisitor;
-    private AppComponent component;
+    private UiComponent component;
     private JLabel label;
 
-    @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
-    }
-
     @Override
-    public void setComponent(AppComponent component){
+    public void setComponent(UiComponent component){
         this.component = component;
         label = (JLabel) component.getComponentParent();
     }

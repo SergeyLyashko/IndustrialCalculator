@@ -16,9 +16,9 @@ public interface Visitor {
 
     void visitScroll(Host host);
 
-    void alert(AppComponent component);
+    void alert(UiComponent component);
 
-    void reset(AppComponent component);
+    void reset(UiComponent component);
 
     void raid();
 }

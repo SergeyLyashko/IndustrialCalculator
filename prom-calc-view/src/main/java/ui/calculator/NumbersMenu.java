@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import database.DataReceiver;
 import controller.ViewController;
 import ui.MenuSelectable;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @Component("numbersMenu")
-public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Comparable<AppComponent> {
+public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
 
     private static final int FOCUSED_RATE = 3;
     private static final String NUMBER_HEADER = "№ профиля";
@@ -129,7 +129,7 @@ public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Co
     }
 
     @Override
-    public int compareTo(AppComponent o) {
+    public int compareTo(UiComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
 }

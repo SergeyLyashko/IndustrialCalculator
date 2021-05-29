@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import controller.ViewController;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 
@@ -11,9 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-
+/*
 @Component
-public class AreaCheckBox extends JCheckBox implements AppComponent, Host {
+public class AreaCheckBox extends JCheckBox implements UiComponent, Host {
 
     private static final String TOOL_TIP_TEXT = "расчет массы детали по задаваемой площади детали";
     private static final String BOX_NAME = "сложный периметр";
@@ -60,3 +60,4 @@ public class AreaCheckBox extends JCheckBox implements AppComponent, Host {
         return this;
     }
 }
+*/

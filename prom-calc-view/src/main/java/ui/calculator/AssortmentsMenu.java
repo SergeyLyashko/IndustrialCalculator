@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import database.DataReceiver;
 import controller.ViewController;
 import ui.MenuSelectable;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable, Comparable<AppComponent> {
+public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
 
     private static final int FOCUSED_RATE = 1;
     private static final String ASSORTMENT_HEADER = "Тип сортамента";
@@ -109,7 +109,7 @@ public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable
     }
 
     @Override
-    public int compareTo(AppComponent o) {
+    public int compareTo(UiComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
 }

@@ -2,16 +2,16 @@ package ui.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-
+/*
 @Component("colorThemeBox")
-public class ColorThemeCheckBox extends JCheckBox implements AppComponent, Host {
+public class ColorThemeCheckBox extends JCheckBox implements UiComponent, Host {
 
     @Autowired
     private transient Visitor colorVisitor;
@@ -30,7 +30,7 @@ public class ColorThemeCheckBox extends JCheckBox implements AppComponent, Host 
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         colorVisitor.addHost(this);
         addItemListener();
         checkBoxStateChecked();
@@ -65,3 +65,5 @@ public class ColorThemeCheckBox extends JCheckBox implements AppComponent, Host 
         return this;
     }
 }
+
+ */

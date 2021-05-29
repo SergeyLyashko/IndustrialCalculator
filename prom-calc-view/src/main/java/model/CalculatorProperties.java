@@ -2,21 +2,22 @@ package model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import ui.AppComponent;
-import controller.Preference;
+import ui.UiComponent;
+//import controller.Preference;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
-
+/*
 public class CalculatorProperties implements Preference {
 
     private static final String SAVED_FILE_NAME = "app.properties";
     private static final String DEFAULT_VALUE = "on";
     private static final String COLOR_MODE = "colorMode";
     private static final String TOOL_TIPS_MODE = "toolTipsMode";
-    private AppComponent colorThemeBox;
-    private AppComponent toolTipsBox;
+    private UiComponent colorThemeBox;
+    private UiComponent toolTipsBox;
     private Properties properties;
 
     @Autowired
@@ -26,13 +27,13 @@ public class CalculatorProperties implements Preference {
 
     @Autowired
     @Qualifier("colorThemeBox")
-    public void setColorThemeBox(AppComponent colorThemeBox){
+    public void setColorThemeBox(UiComponent colorThemeBox){
         this.colorThemeBox = colorThemeBox;
     }
 
     @Autowired
     @Qualifier("toolTipsBox")
-    public void setToolTipsBox(AppComponent toolTipsBox){
+    public void setToolTipsBox(UiComponent toolTipsBox){
         this.toolTipsBox = toolTipsBox;
     }
 
@@ -52,7 +53,22 @@ public class CalculatorProperties implements Preference {
     }
 
     @Override
+    public List<UiComponent> loadComponents() {
+        return null;
+    }
+
+    @Override
+    public void saveComponents(List<UiComponent> components) {
+
+    }
+
+    @Override
+    public boolean isSaved() {
+        return false;
+    }
+
+    @Override
     public void save() {
 
     }
-}
+}*/

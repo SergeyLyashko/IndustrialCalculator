@@ -2,7 +2,7 @@ package ui;
 
 import javax.swing.*;
 
-public interface MenuSelectable extends AppComponent {
+public interface MenuSelectable extends UiComponent {
 
     String DEFAULT_MENU_VALUE = "";
     String NOT_DATABASE_MESSAGE = "Отсутствует соединение с БД";

@@ -2,7 +2,7 @@ package model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.KeyBehavior;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ class KeyBehaviorImpl implements KeyBehavior {
     private KeyActionObserver observer;
 
     @Override
-    public void fieldActivate(AppComponent component) {
+    public void fieldActivate(UiComponent component) {
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.addKeyListener(new KeyAdapter() {
             @Override
@@ -37,7 +37,7 @@ class KeyBehaviorImpl implements KeyBehavior {
     }
 
     @Override
-    public void fieldDeactivate(AppComponent component) {
+    public void fieldDeactivate(UiComponent component) {
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         Arrays.stream(textField.getKeyListeners()).forEach(textField::removeKeyListener);
     }

@@ -1,11 +1,12 @@
 package controller;
 
+import model.CalculatorData;
 import model.KeyActionObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.MenuSelectable;
 
 import javax.swing.*;
@@ -17,16 +18,16 @@ public class ViewControllerImpl implements KeyActionObserver, ViewController {
 
     @Autowired
     private ViewModel viewModel;
-    @Autowired
-    private CalculatorController calculatorController;
+    //@Autowired
+    //private CalculatorController calculatorController;
     @Autowired
     @Qualifier("messageBehavior")
     private LabelBehavior messageBehavior;
     @Autowired
     @Qualifier("resultBehavior")
     private LabelBehavior resultBehavior;
-    @Autowired
-    private Preference preference;
+    //@Autowired
+    //private Preference preference;
     @Lazy
     @Autowired
     private CalculatorData calculatorData;
@@ -104,12 +105,12 @@ public class ViewControllerImpl implements KeyActionObserver, ViewController {
 
     @Override
     public void addSelectedItems(Map<String, String> selectedItems) {
-        calculatorData.add(selectedItems);
+        //calculatorData.add(selectedItems);
     }
 
     @Override
     public void keyActionUpdate() {
-        calculatorController.calculation(calculatorData);
+        //calculatorController.calculation(calculatorData);
     }
 
     @Override
@@ -127,7 +128,7 @@ public class ViewControllerImpl implements KeyActionObserver, ViewController {
     }
 
     @Override
-    public List<AppComponent> loadComponents() {
+    public List<UiComponent> loadComponents() {
         // TODO !!!
         //Preference preference = viewModel.getPreference();
         /*if(preference.isSaved()){
@@ -137,7 +138,7 @@ public class ViewControllerImpl implements KeyActionObserver, ViewController {
     }
 
     @Override
-    public void savedPreference(List<AppComponent> components) {
+    public void savedPreference(List<UiComponent> components) {
         //Preference preference = viewModel.getPreference();
         // TODO !!!
         //preference.saveComponents(components);

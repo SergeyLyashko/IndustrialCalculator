@@ -1,7 +1,7 @@
 package model;
 
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import java.io.*;
 import java.util.List;
@@ -14,10 +14,10 @@ class PreferenceImpl implements Serializable /*, Preference*/ {
 
     private static final String SAVED_FILE_NAME = "save.calc";
     private transient static FileInputStream fileInputStream;
-    private List<AppComponent> components;
+    private List<UiComponent> components;
 
     //@Override
-    public void saveComponents(List<AppComponent> savedComponents){
+    public void saveComponents(List<UiComponent> savedComponents){
         this.components = savedComponents;
         save();
     }
@@ -75,7 +75,7 @@ class PreferenceImpl implements Serializable /*, Preference*/ {
     }
 
     //@Override
-    public List<AppComponent> loadComponents(){
+    public List<UiComponent> loadComponents(){
         readSavedComponents();
         return components;
     }

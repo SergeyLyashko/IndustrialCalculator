@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 import ui.MenuSelectable;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class CalculatorComponentsImpl implements CalculatorComponents {
 
-    private final List<AppComponent> components;
+    private final List<UiComponent> components;
     @Autowired
     @Qualifier("assortmentsMenu")
     private MenuSelectable assortment;
@@ -29,31 +29,31 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
 
     @Autowired
     @Qualifier("width")
-    private AppComponent width;
+    private UiComponent width;
 
     @Autowired
     @Qualifier("length")
-    private AppComponent length;
+    private UiComponent length;
 
     @Autowired
     @Qualifier("areaCheckBox")
-    private AppComponent areaCheckBox;
+    private UiComponent areaCheckBox;
 
     @Autowired
     @Qualifier("result")
-    private AppComponent result;
+    private UiComponent result;
 
     @Autowired
     @Qualifier("message")
-    private AppComponent message;
+    private UiComponent message;
 
     @Autowired
     @Qualifier("dimensionWidth")
-    private AppComponent dimensionWidth;
+    private UiComponent dimensionWidth;
 
     @Autowired
     @Qualifier("dimensionLength")
-    private AppComponent dimensionLength;
+    private UiComponent dimensionLength;
 
     public CalculatorComponentsImpl() {
         components = new ArrayList<>();
@@ -76,7 +76,7 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
     }
 
     @Override
-    public List<AppComponent> getComponents(){
+    public List<UiComponent> getComponents(){
         return components;
     }
 

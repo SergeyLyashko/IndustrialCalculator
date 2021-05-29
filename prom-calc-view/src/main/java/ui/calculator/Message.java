@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 import controller.LabelBehavior;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("message")
-public class Message extends JLabel implements AppComponent, Host {
+public class Message extends JLabel implements UiComponent, Host {
 
     private static final String EMPTY = "";
     private static final int SIZE_X = 315;

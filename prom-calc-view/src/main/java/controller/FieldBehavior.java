@@ -1,15 +1,15 @@
 package controller;
 
-import ui.AppComponent;
+import ui.UiComponent;
 
 public interface FieldBehavior {
 
-    void fieldDeactivate(AppComponent component);
+    void fieldDeactivate(UiComponent component);
 
-    void fieldActivate(AppComponent component);
+    void fieldActivate(UiComponent component);
 
-    void areaActivate(AppComponent component);
+    void areaActivate(UiComponent component);
 
-    void areaDeactivate(AppComponent component);
+    void areaDeactivate(UiComponent component);
 
 }

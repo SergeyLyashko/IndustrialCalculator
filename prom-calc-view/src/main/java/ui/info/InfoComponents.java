@@ -3,7 +3,7 @@ package ui.info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 
 import javax.annotation.PostConstruct;
@@ -13,11 +13,11 @@ import java.util.List;
 @Service("infoComponents")
 public class InfoComponents implements CalculatorComponents {
 
-    private List<AppComponent> components;
+    private List<UiComponent> components;
 
     @Autowired
     @Qualifier("scroller")
-    private AppComponent scrollWrapper;
+    private UiComponent scrollWrapper;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
@@ -26,7 +26,7 @@ public class InfoComponents implements CalculatorComponents {
     }
 
     @Override
-    public List<AppComponent> getComponents(){
+    public List<UiComponent> getComponents(){
         return components;
     }
 }

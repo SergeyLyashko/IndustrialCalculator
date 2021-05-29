@@ -1,6 +1,6 @@
 package ui.calculator;
 
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 import ui.MenuSelectable;
 import org.springframework.context.annotation.Bean;
@@ -13,39 +13,39 @@ public class CalculatorUiConfiguration {
     public CalculatorComponents calculatorComponents(){
         return new CalculatorComponentsImpl();
     }
-
+    /*
     @Bean
-    public AppComponent areaCheckBox(){
+    public UiComponent areaCheckBox(){
         return new AreaCheckBox(187, 85);
-    }
+    }*/
 
-    @Bean
-    public AppComponent length(){
+    @Bean(name = "length")
+    public UiComponent length(){
         return new Length(190, 60);
     }
 
     @Bean
-    public AppComponent dimensionWidth(){
+    public UiComponent dimensionWidth(){
         return new DimensionLabel(320, 22);
     }
 
     @Bean
-    public AppComponent dimensionLength(){
+    public UiComponent dimensionLength(){
         return new DimensionLabel(320, 62);
     }
 
     @Bean
-    public AppComponent message(){
+    public UiComponent message(){
         return new Message(20,140);
     }
 
     @Bean
-    public AppComponent result(){
+    public UiComponent result(){
         return new Result(190, 105);
     }
 
-    @Bean
-    public AppComponent width(){
+    @Bean(name = "width")
+    public UiComponent width(){
         return new Width(190, 20);
     }
 

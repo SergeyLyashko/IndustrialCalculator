@@ -1,8 +1,8 @@
 package controller;
 
-import ui.AppComponent;
+import ui.UiComponent;
 
 public interface Filter {
 
-    void activateFilter(AppComponent component);
+    void activateFilter(UiComponent component);
 }

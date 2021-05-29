@@ -4,7 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +39,7 @@ public class AppFrame extends JFrame implements ApplicationContextAware {
         AppPanel appPanelBean = applicationContext.getBean(type, AppPanel.class);
         JComponent componentParent = appPanelBean.getComponentParent();
         CalculatorComponents componentsBean = applicationContext.getBean(type+" компоненты", CalculatorComponents.class);
-        List<AppComponent> components = componentsBean.getComponents();
+        List<UiComponent> components = componentsBean.getComponents();
         components.forEach(appComponent -> componentParent.add(appComponent.getComponentParent()));
         jTabbedPane.add(type, componentParent);
     }

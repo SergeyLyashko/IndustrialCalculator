@@ -1,9 +1,9 @@
-package model;
+package ui.settings;
 
 import org.springframework.stereotype.Service;
 import ui.Host;
 import ui.Visitor;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,13 +56,13 @@ class ColorVisitor implements Visitor {
     }
 
     @Override
-    public void alert(AppComponent component) {
+    public void alert(UiComponent component) {
         JComponent parent = component.getComponentParent();
         parent.setForeground(alertColor);
     }
 
     @Override
-    public void reset(AppComponent component) {
+    public void reset(UiComponent component) {
         JComponent parent = component.getComponentParent();
         parent.setForeground(serviceStringColor);
     }

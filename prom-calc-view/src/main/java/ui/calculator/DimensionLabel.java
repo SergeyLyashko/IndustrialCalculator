@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 
 @Component("dimension")
 @Scope("prototype")
-public class DimensionLabel extends JLabel implements AppComponent, Host {
+public class DimensionLabel extends JLabel implements UiComponent, Host {
 
     private static final String DEFAULT_VIEW = "mm";
     private static final int SIZE_X = 25;

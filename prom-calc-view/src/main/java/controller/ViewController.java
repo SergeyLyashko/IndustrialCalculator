@@ -1,6 +1,6 @@
 package controller;
 
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.MenuSelectable;
 
 import java.util.List;
@@ -28,9 +28,9 @@ public interface ViewController {
 
     boolean isArea();
 
-    List<AppComponent> loadComponents();
+    List<UiComponent> loadComponents();
 
-    void savedPreference(List<AppComponent> components);
+    void savedPreference(List<UiComponent> components);
 
     void setToolTipState(boolean selected);
 

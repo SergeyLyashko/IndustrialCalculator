@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ui.Host;
 import ui.Visitor;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info extends JLabel implements AppComponent, Host {
+public class Info extends JLabel implements UiComponent, Host {
 
     @Autowired
     private Visitor colorVisitor;

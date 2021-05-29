@@ -3,7 +3,7 @@ package ui.info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-public class ScrollWrapper extends JScrollPane implements AppComponent, Host {
+public class ScrollWrapper extends JScrollPane implements UiComponent, Host {
 
     private JViewport viewport;
 
@@ -21,7 +21,7 @@ public class ScrollWrapper extends JScrollPane implements AppComponent, Host {
 
     @Autowired
     @Qualifier("info")
-    private AppComponent info;
+    private UiComponent info;
 
     public ScrollWrapper(){
         super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -35,7 +35,7 @@ public class ScrollWrapper extends JScrollPane implements AppComponent, Host {
         wrap(info);
     }
 
-    private void wrap(AppComponent content){
+    private void wrap(UiComponent content){
         viewport = super.getViewport();
         viewport.add(content.getComponentParent());
     }

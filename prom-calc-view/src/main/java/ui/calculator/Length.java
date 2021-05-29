@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import controller.ViewController;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.FieldsAction;
 import model.KeyActionObserver;
 
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("length")
-public class Length extends JFormattedTextField implements AppComponent, Comparable<AppComponent>, KeyActionObserver {
+public class Length extends JFormattedTextField implements UiComponent, Comparable<UiComponent>, KeyActionObserver {
 
     private static final int FOCUSED_RATE = 5;
     private static final String BOX_NAME = "введите длину";
@@ -68,7 +68,7 @@ public class Length extends JFormattedTextField implements AppComponent, Compara
     }
 
     @Override
-    public int compareTo(AppComponent o) {
+    public int compareTo(UiComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
 }

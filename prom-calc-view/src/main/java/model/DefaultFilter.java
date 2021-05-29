@@ -1,22 +1,18 @@
 package model;
 
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.Filter;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
-import java.io.Serializable;
 
 @Service("defaultFilter")
-class DefaultFilter extends DocumentFilter implements Filter, Serializable {
-
-    // TODO ???
-    private static final long serialVersionUID = 1L;
+class DefaultFilter extends DocumentFilter implements Filter {
 
     @Override
-    public void activateFilter(AppComponent component) {
+    public void activateFilter(UiComponent component) {
         JTextField textField = (JFormattedTextField) component.getComponentParent();
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
     }

@@ -1,6 +1,6 @@
 package controller;
 
-import ui.AppComponent;
+import ui.UiComponent;
 
 public interface LabelBehavior {
 
@@ -8,5 +8,5 @@ public interface LabelBehavior {
 
     void show(String value, boolean alert);
 
-    void setComponent(AppComponent component);
+    void setComponent(UiComponent component);
 }

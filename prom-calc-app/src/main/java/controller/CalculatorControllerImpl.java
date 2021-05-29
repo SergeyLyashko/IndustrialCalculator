@@ -1,6 +1,7 @@
 package controller;
 
 import model.AbstractMassCalculator;
+import model.CalculatorData;
 import model.CalculatorModel;
 import model.FieldsParser;
 import org.springframework.beans.BeansException;

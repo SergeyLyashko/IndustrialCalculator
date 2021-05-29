@@ -1,7 +1,7 @@
 package model;
 
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.FieldBehavior;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ class FieldBehaviorImpl implements FieldBehavior {
     private static final String BOX_NAME_AREA = "введите площадь";
 
     @Override
-    public void fieldActivate(AppComponent component) {
+    public void fieldActivate(UiComponent component) {
         String name = component.getName();
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.setText(name);
@@ -23,20 +23,20 @@ class FieldBehaviorImpl implements FieldBehavior {
     }
 
     @Override
-    public void areaActivate(AppComponent component){
+    public void areaActivate(UiComponent component){
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.setText(BOX_NAME_AREA);
     }
 
     @Override
-    public void areaDeactivate(AppComponent component){
+    public void areaDeactivate(UiComponent component){
         String name = component.getName();
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.setText(name);
     }
 
     @Override
-    public void fieldDeactivate(AppComponent component) {
+    public void fieldDeactivate(UiComponent component) {
         String name = component.getName();
         JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
         textField.setText(name);

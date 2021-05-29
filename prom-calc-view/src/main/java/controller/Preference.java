@@ -1,14 +1,19 @@
 package controller;
 
+import ui.UiComponent;
+
+import java.util.List;
+/*
 public interface Preference {
-    /*
-    List<AppComponent> loadComponents();
 
-    void saveComponents(List<AppComponent> components);
+    List<UiComponent> loadComponents();
 
-    boolean isSaved();*/
+    void saveComponents(List<UiComponent> components);
+
+    boolean isSaved();
 
     void save();
 
     void loadProperties();
 }
+*/

@@ -3,16 +3,16 @@ package ui.settings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import controller.ViewController;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.Host;
 import ui.Visitor;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-
+/*
 @Component("toolTipsBox")
-public class ToolTipsCheckBox extends JCheckBox implements AppComponent, Host {
+public class ToolTipsCheckBox extends JCheckBox implements UiComponent, Host {
 
     private static final String BOX_NAME = "включить всплывающие подсказки";
     private static final String TOOL_TIP_TEXT = "включение/отключение всплывающих подсказок";
@@ -21,7 +21,6 @@ public class ToolTipsCheckBox extends JCheckBox implements AppComponent, Host {
 
     @Autowired
     private Visitor colorVisitor;
-
     @Autowired
     private ViewController viewController;
 
@@ -55,3 +54,4 @@ public class ToolTipsCheckBox extends JCheckBox implements AppComponent, Host {
         return this;
     }
 }
+*/

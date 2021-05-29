@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import controller.ViewController;
-import ui.AppComponent;
+import ui.UiComponent;
 import ui.CalculatorComponents;
 
 import javax.annotation.PostConstruct;
@@ -15,22 +15,22 @@ import java.util.List;
 @Service("settingsComponents")
 public class SettingsComponents implements CalculatorComponents {
 
-    private List<AppComponent> components;
+    private List<UiComponent> components;
 
     @Autowired
     private ViewController viewController;
 
     @Autowired
     @Qualifier("colorThemeBox")
-    private AppComponent colorThemeCheckBox;
+    private UiComponent colorThemeCheckBox;
 
     @Autowired
     @Qualifier("toolTipsBox")
-    private AppComponent toolTipsCheckBox;
+    private UiComponent toolTipsCheckBox;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        List<AppComponent> saved = viewController.loadComponents();
+        List<UiComponent> saved = viewController.loadComponents();
         if(saved == null){
             components = new ArrayList<>();
             components.add(colorThemeCheckBox);
@@ -41,7 +41,7 @@ public class SettingsComponents implements CalculatorComponents {
     }
 
     @Override
-    public List<AppComponent> getComponents(){
+    public List<UiComponent> getComponents(){
         return components;
     }
 

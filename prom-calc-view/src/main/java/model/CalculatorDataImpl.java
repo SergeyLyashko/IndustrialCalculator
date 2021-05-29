@@ -1,11 +1,10 @@
 package model;
 
-import controller.CalculatorData;
 import controller.ViewController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 
 import javax.swing.*;
 import java.util.*;
@@ -14,27 +13,16 @@ import java.util.*;
 class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
-    private AppComponent width;
-    private AppComponent length;
+    @Autowired
+    @Qualifier("width")
+    private UiComponent width;
+    @Autowired
+    @Qualifier("length")
+    private UiComponent length;
+    @Autowired
     private ViewController controller;
     private Map<String, String> selectedMenuItems;
 
-    @Autowired
-    @Qualifier("width")
-    public void setWidth(AppComponent width){
-        this.width = width;
-    }
-
-    @Autowired
-    @Qualifier("length")
-    public void setLength(AppComponent length){
-        this.length = length;
-    }
-
-    @Autowired
-    public void setController(ViewController controller){
-        this.controller = controller;
-    }
 
     @Override
     public void add(Map<String, String> selectedMenuItems){
@@ -52,7 +40,7 @@ class CalculatorDataImpl implements CalculatorData {
         return data;
     }
 
-    private String getFieldsContain(AppComponent component){
+    private String getFieldsContain(UiComponent component){
         JTextField parent = (JFormattedTextField) component.getComponentParent();
         String textValue = parent.getText();
         if(textValue.equals(component.getName())) {

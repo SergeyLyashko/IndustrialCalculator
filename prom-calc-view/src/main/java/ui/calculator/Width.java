@@ -3,14 +3,14 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.AppComponent;
+import ui.UiComponent;
 import controller.FieldsAction;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("width")
-public class Width extends JFormattedTextField implements AppComponent, Comparable<AppComponent> {
+public class Width extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {
 
     private static final int FOCUSED_RATE = 4;
     private static final String BOX_NAME = "введите ширину";
@@ -57,7 +57,7 @@ public class Width extends JFormattedTextField implements AppComponent, Comparab
     }
 
     @Override
-    public int compareTo(AppComponent o) {
+    public int compareTo(UiComponent o) {
         return this.getFocusedRate() - o.getFocusedRate();
     }
 }

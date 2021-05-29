@@ -2,7 +2,7 @@ package ui;
 
 import javax.swing.*;
 
-public interface AppComponent {
+public interface UiComponent {
 
     JComponent getComponentParent();
 
@@ -12,5 +12,5 @@ public interface AppComponent {
 
     default int getFocusedRate(){ return 0; }
 
-    default int compareTo(AppComponent component) { return 0; }
+    default int compareTo(UiComponent component) { return 0; }
 }

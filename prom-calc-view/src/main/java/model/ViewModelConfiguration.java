@@ -1,13 +1,9 @@
 package model;
 
-import controller.CalculatorData;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import ui.Visitor;
 import controller.*;
-
-import java.util.Properties;
 
 @ComponentScan(basePackages = {"model"})
 @Configuration
@@ -16,11 +12,6 @@ public class ViewModelConfiguration {
     @Bean
     public CalculatorData calculatorData(){
         return new CalculatorDataImpl();
-    }
-
-    @Bean
-    public Visitor colorVisitor(){
-        return new ColorVisitor();
     }
 
     @Bean
@@ -52,9 +43,9 @@ public class ViewModelConfiguration {
     public FieldBehavior fieldBehavior(){
         return new FieldBehaviorImpl();
     }
-
+    /*
     @Bean
     public Properties properties(){
         return new Properties();
-    }
+    }*/
 }

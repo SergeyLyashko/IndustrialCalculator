@@ -1,14 +1,14 @@
 package controller;
 
-import ui.AppComponent;
+import ui.UiComponent;
 import model.KeyActionObserver;
 
 public interface KeyBehavior {
 
-    void fieldDeactivate(AppComponent component);
+    void fieldDeactivate(UiComponent component);
 
     void registerKeyObserver(KeyActionObserver observer);
 
-    void fieldActivate(AppComponent component);
+    void fieldActivate(UiComponent component);
 
 }

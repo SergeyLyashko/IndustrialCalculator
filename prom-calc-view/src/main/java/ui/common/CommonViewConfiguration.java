@@ -1,5 +1,6 @@
 package ui.common;
 
+import controller.ViewControllerConfiguration;
 import ui.settings.CalculatorSettingsConfiguration;
 import ui.info.ViewInfoConfiguration;
 import ui.calculator.CalculatorUiConfiguration;
@@ -9,8 +10,8 @@ import org.springframework.context.annotation.Import;
 import model.ViewModelConfiguration;
 
 @Configuration
-@Import({CalculatorUiConfiguration.class, CalculatorSettingsConfiguration.class, ViewModelConfiguration.class,
-        ViewInfoConfiguration.class})
+@Import({CalculatorUiConfiguration.class, CalculatorSettingsConfiguration.class, ViewControllerConfiguration.class,
+        ViewModelConfiguration.class,  ViewInfoConfiguration.class})
 public class CommonViewConfiguration {
 
     @Bean

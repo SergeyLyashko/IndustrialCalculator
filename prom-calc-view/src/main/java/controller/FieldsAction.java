@@ -7,11 +7,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ui.AppComponent;
+import ui.UiComponent;
 import model.FocusActionObserver;
 import model.KeyActionObserver;
 
-@Service("fieldsAction")
+@Service
 @Scope("prototype")
 public class FieldsAction implements FocusActionObserver, ApplicationContextAware {
 
@@ -22,11 +22,11 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
     @Autowired
     @Qualifier("defaultFilter")
     private Filter defaultFilter;
-    private AppComponent component;
+    private UiComponent component;
     private boolean actionState;
     private ApplicationContext applicationContext;
 
-    public void setComponent(AppComponent component){
+    public void setComponent(UiComponent component){
         this.component = component;
 
         FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
