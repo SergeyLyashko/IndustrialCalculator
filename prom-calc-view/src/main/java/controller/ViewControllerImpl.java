@@ -1,5 +1,7 @@
 package controller;
 
+import model.KeyActionObserver;
+import model.ViewController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -12,62 +14,29 @@ import java.util.List;
 import java.util.Map;
 
 @Service("viewController")
-public class ViewControllerImpl implements ViewController {
+public class ViewControllerImpl implements KeyActionObserver, ViewController {
 
+    @Autowired
     private ViewModel viewModel;
+    @Autowired
     private CalculatorController calculatorController;
-    private LabelBehavior messageBehavior;
-    private LabelBehavior resultBehavior;
-    private Preference preference;
-    private CalculatorData calculatorData;
-
-    private FieldsAction lengthAction;
-    private FieldsAction widthAction;
-
     @Autowired
     @Qualifier("messageBehavior")
-    public void setMessageBehavior(LabelBehavior messageBehavior){
-        this.messageBehavior = messageBehavior;
-    }
-
+    private LabelBehavior messageBehavior;
     @Autowired
     @Qualifier("resultBehavior")
-    public void setResultBehavior(LabelBehavior resultBehavior){
-        this.resultBehavior = resultBehavior;
-    }
-
+    private LabelBehavior resultBehavior;
     @Autowired
-    @Qualifier("widthAction")
-    public void setWidthAction(FieldsAction widthAction){
-        this.widthAction = widthAction;
-    }
-
-    @Autowired
-    @Qualifier("lengthAction")
-    public void setLengthAction(FieldsAction lengthAction){
-        this.lengthAction = lengthAction;
-    }
-
+    private Preference preference;
     @Lazy
     @Autowired
-    public void setCalculatorData(CalculatorData calculatorData){
-        this.calculatorData = calculatorData;
-    }
-
+    private CalculatorData calculatorData;
     @Autowired
-    public void setViewModel(ViewModel viewModel){
-        this.viewModel = viewModel;
-    }
-
+    @Qualifier("lengthAction")
+    private FieldsAction lengthAction;
     @Autowired
-    public void setCalculatorController(CalculatorController calculatorController){
-        this.calculatorController = calculatorController;
-    }
-
-    @Autowired
-    public void setPreference(Preference preference){
-        this.preference = preference;
-    }
+    @Qualifier("widthAction")
+    private FieldsAction widthAction;
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {

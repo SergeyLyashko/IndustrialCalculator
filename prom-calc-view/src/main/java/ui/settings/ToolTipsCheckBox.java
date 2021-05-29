@@ -2,7 +2,7 @@ package ui.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import controller.ViewController;
+import model.ViewController;
 import ui.AppComponent;
 import ui.Host;
 import ui.Visitor;

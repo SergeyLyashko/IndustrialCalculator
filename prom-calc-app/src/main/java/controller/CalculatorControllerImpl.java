@@ -1,7 +1,9 @@
 package controller;
 
 import model.AbstractMassCalculator;
+import model.CalculatorModel;
 import model.FieldsParser;
+import model.ViewController;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

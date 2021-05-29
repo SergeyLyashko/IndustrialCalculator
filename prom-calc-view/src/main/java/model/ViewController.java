@@ -1,6 +1,5 @@
-package controller;
+package model;
 
-import model.KeyActionObserver;
 import ui.AppComponent;
 import ui.MenuSelectable;
 

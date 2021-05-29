@@ -1,6 +1,5 @@
 package model;
 
-import controller.CalculatorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +12,12 @@ class CalculatorModelImpl implements CalculatorModel {
 
     private static final String RESULT_MESSAGE = "Результат скопирован в буфер обмена";
     private static final boolean CALM = false;
+
+    @Autowired
     private DecimalFormat decimalFormat;
-    private ViewController viewController;
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
-    @Autowired
-    public void setDecimalFormat(DecimalFormat decimalFormat){
-        this.decimalFormat = decimalFormat;
-    }
+    //@Autowired
+    //private ViewController viewController;
 
     @Override
     public void executeCalculation(AbstractMassCalculator abstractMassCalculator) {
@@ -36,8 +29,8 @@ class CalculatorModelImpl implements CalculatorModel {
     }
 
     private void notifyObservers(String result){
-        viewController.setResult(result, CALM);
-        viewController.setMessage(RESULT_MESSAGE, CALM);
+        //viewController.setResult(result, CALM);
+        //viewController.setMessage(RESULT_MESSAGE, CALM);
         setResultToSystemClipboard(result);
     }
 

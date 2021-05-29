@@ -1,6 +1,5 @@
 package model;
 
-import controller.CalculatorModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

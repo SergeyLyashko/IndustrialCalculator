@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import database.DataReceiver;
-import controller.ViewController;
+import model.ViewController;
 import ui.MenuSelectable;
 import ui.AppComponent;
 
