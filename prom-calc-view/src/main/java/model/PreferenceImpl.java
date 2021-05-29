@@ -1,7 +1,7 @@
 package model;
 
 import org.springframework.stereotype.Service;
-import components.common.AppComponent;
+import ui.AppComponent;
 
 import java.io.*;
 import java.util.List;

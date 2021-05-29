@@ -1,11 +1,11 @@
 package model;
 
 import controller.CalculatorData;
+import controller.ViewController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import components.common.AppComponent;
-import components.common.ViewController;
+import ui.AppComponent;
 
 import javax.swing.*;
 import java.util.*;

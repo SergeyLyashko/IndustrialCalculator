@@ -2,7 +2,7 @@ package model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import components.common.AppComponent;
+import ui.AppComponent;
 import controller.KeyBehavior;
 
 import javax.swing.*;

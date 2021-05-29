@@ -1,9 +1,9 @@
 package model;
 
 import org.springframework.stereotype.Service;
-import components.common.Host;
-import components.common.Visitor;
-import components.common.AppComponent;
+import ui.Host;
+import ui.Visitor;
+import ui.AppComponent;
 
 import javax.swing.*;
 import java.awt.*;

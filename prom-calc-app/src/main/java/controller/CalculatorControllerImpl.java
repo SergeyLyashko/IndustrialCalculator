@@ -1,14 +1,13 @@
 package controller;
 
 import model.AbstractMassCalculator;
+import model.FieldsParser;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import components.common.DataReceiver;
-import components.common.ViewController;
-import controller.CalculatorController;
+import database.DataReceiver;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,15 +1,15 @@
 package configurations;
 
-import components.common.AppFrame;
-import components.common.AppPanel;
-import components.common.CalculatorFocusTraversalPolicy;
+import ui.common.AppFrame;
+import ui.common.AppPanel;
+import ui.common.CalculatorFocusTraversalPolicy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import model.ViewModelConfiguration;
 
 @Configuration
-@Import({ViewCalculatorConfiguration.class, ViewSettingsConfiguration.class, ViewModelConfiguration.class,
+@Import({CalculatorComponentConfiguration.class, CalculatorSettingsConfiguration.class, ViewModelConfiguration.class,
         ViewInfoConfiguration.class})
 public class CommonViewConfiguration {
 

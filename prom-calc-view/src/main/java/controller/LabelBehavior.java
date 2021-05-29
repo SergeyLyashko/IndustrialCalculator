@@ -1,6 +1,6 @@
 package controller;
 
-import components.common.AppComponent;
+import ui.AppComponent;
 
 public interface LabelBehavior {
 

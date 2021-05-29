@@ -2,14 +2,13 @@ package database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import components.common.DataReceiver;
 
 @Configuration
 public class DatabaseConfiguration {
 
     @Bean
     public DataReceiver dataReceiver(){
-        return new DetailsDAO();
+        return new DataReceiverImpl();
     }
 
     @Bean

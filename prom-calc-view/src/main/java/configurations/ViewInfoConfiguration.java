@@ -1,12 +1,12 @@
 package configurations;
 
-import components.info.Info;
-import components.info.InfoComponents;
-import components.info.ScrollWrapper;
+import ui.info.Info;
+import ui.info.InfoComponents;
+import ui.info.ScrollWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import components.common.AppComponent;
-import components.common.CalculatorComponents;
+import ui.AppComponent;
+import ui.CalculatorComponents;
 
 @Configuration
 public class ViewInfoConfiguration {

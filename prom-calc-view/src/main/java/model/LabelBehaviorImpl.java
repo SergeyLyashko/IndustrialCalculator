@@ -2,8 +2,8 @@ package model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import components.common.Visitor;
-import components.common.AppComponent;
+import ui.Visitor;
+import ui.AppComponent;
 import controller.LabelBehavior;
 
 import javax.swing.*;

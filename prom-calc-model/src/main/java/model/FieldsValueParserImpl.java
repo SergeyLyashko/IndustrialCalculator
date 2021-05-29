@@ -1,9 +1,7 @@
 package model;
 
-import controller.FieldsParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import components.common.ViewController;
 
 import java.util.List;
 

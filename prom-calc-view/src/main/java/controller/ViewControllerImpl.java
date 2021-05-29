@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import components.common.AppComponent;
-import components.common.MenuSelectable;
-import components.common.ViewController;
+import ui.AppComponent;
+import ui.MenuSelectable;
+
 import javax.swing.*;
 import java.util.List;
 import java.util.Map;

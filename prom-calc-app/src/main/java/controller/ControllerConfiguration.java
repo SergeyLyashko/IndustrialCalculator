@@ -2,10 +2,6 @@ package controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import components.common.ViewController;
-import controller.CalculatorController;
-import controller.FieldsAction;
-import controller.ViewControllerImpl;
 
 @Configuration
 public class ControllerConfiguration {
