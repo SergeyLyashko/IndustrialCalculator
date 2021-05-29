@@ -15,12 +15,9 @@ class FieldsValueParserImpl implements FieldsParser {
     private static final String NEGATIVE_MESSAGE = "Отрицательное значение размера";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
-    private ViewController viewController;
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
+    //@Autowired
+    //private ViewController viewController;
 
     @Override
     public double[] parseData(List<String> data){
@@ -46,8 +43,8 @@ class FieldsValueParserImpl implements FieldsParser {
         if(value != null && !value.isEmpty()){
             return Double.parseDouble(value);
         }else {
-            viewController.setMessage(NOT_FULL_DATA_MESSAGE, ALERT);
-            viewController.setResult(ERROR, ALERT);
+            //viewController.setMessage(NOT_FULL_DATA_MESSAGE, ALERT);
+            //viewController.setResult(ERROR, ALERT);
         }
         return 0;
     }
@@ -58,8 +55,8 @@ class FieldsValueParserImpl implements FieldsParser {
             if(first < checkNum){
                 return true;
             }
-            viewController.setMessage(TOO_BIG_NUM_MESSAGE, ALERT);
-            viewController.setResult(ERROR, ALERT);
+            //viewController.setMessage(TOO_BIG_NUM_MESSAGE, ALERT);
+            //viewController.setResult(ERROR, ALERT);
             return false;
         }
         return false;
@@ -67,8 +64,8 @@ class FieldsValueParserImpl implements FieldsParser {
 
     private boolean isValidOneValue(double value){
         if(value < 0){
-            viewController.setMessage(NEGATIVE_MESSAGE, ALERT);
-            viewController.setResult(ERROR, ALERT);
+            //viewController.setMessage(NEGATIVE_MESSAGE, ALERT);
+            //viewController.setResult(ERROR, ALERT);
             return false;
         }
         return true;
