@@ -1,14 +1,13 @@
-package configurations;
+package ui.calculator;
 
-import ui.calculator.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import ui.AppComponent;
 import ui.CalculatorComponents;
 import ui.MenuSelectable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CalculatorComponentConfiguration {
+public class CalculatorUiConfiguration {
 
     @Bean(name = "Калькулятор компоненты")
     public CalculatorComponents calculatorComponents(){

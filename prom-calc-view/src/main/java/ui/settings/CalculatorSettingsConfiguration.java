@@ -1,4 +1,4 @@
-package configurations;
+package ui.settings;
 
 import ui.settings.ColorThemeCheckBox;
 import ui.settings.SettingsComponents;

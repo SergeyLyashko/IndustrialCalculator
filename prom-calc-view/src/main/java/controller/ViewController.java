@@ -1,6 +1,8 @@
 package controller;
 
 import model.KeyActionObserver;
+import ui.AppComponent;
+import ui.MenuSelectable;
 
 import java.util.List;
 import java.util.Map;

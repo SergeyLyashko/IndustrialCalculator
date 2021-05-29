@@ -1,4 +1,4 @@
-package configurations;
+package ui.info;
 
 import ui.info.Info;
 import ui.info.InfoComponents;
