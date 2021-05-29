@@ -3,7 +3,7 @@ package ui.calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import model.ViewController;
+import controller.ViewController;
 import ui.AppComponent;
 import controller.FieldsAction;
 import model.KeyActionObserver;

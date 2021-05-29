@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import ui.AppComponent;
 import ui.MenuSelectable;
@@ -6,7 +6,7 @@ import ui.MenuSelectable;
 import java.util.List;
 import java.util.Map;
 
-public interface ViewController extends KeyActionObserver {
+public interface ViewController {
 
     void createMenu(List<String> menuList, MenuSelectable menuSelectable);
 
@@ -33,4 +33,6 @@ public interface ViewController extends KeyActionObserver {
     void savedPreference(List<AppComponent> components);
 
     void setToolTipState(boolean selected);
+
+    void keyActionUpdate();
 }

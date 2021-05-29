@@ -1,8 +1,5 @@
 package ui;
 
-import ui.AppComponent;
-import ui.Host;
-
 public interface Visitor {
 
     void addHost(Host host);

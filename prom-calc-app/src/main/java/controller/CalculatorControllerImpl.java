@@ -3,7 +3,6 @@ package controller;
 import model.AbstractMassCalculator;
 import model.CalculatorModel;
 import model.FieldsParser;
-import model.ViewController;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,40 +24,22 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     private static final String TYPE = "type";
     private static final String NUMBER = "number";
 
+    @Autowired
     private CalculatorModel calculatorModel;
+    @Autowired
     private DataReceiver dataReceiver;
-    private FieldsParser fieldsValue;
+    @Autowired
+    private FieldsParser fieldsParser;
     private ApplicationContext applicationContext;
-    private ViewController viewController;
     private final StringBuilder beanNameBuilder;
 
     CalculatorControllerImpl() {
         beanNameBuilder = new StringBuilder();
     }
 
-    @Autowired
-    public void setViewController(ViewController viewController){
-        this.viewController = viewController;
-    }
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-    }
-
-    @Autowired
-    public void setFieldsValue(FieldsParser fieldsValue){
-        this.fieldsValue = fieldsValue;
-    }
-
-    @Autowired
-    public void setDataReceiver(DataReceiver dataReceiver){
-        this.dataReceiver = dataReceiver;
-    }
-
-    @Autowired
-    public void setCalculatorModel(CalculatorModel calculatorModel){
-        this.calculatorModel = calculatorModel;
     }
 
     @Override
@@ -67,7 +48,7 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
         Map<String, String> selectedMenuItems = calculatorData.getSelectedMenuItems();
 
         double dataBaseValue = receiveDataBaseValue(selectedMenuItems);
-        double[] parseData = fieldsValue.parseData(data);
+        double[] parseData = fieldsParser.parseData(data);
 
         AbstractMassCalculator abstractMassCalculator = getCalculator(selectedMenuItems);
         abstractMassCalculator.setDataBaseValue(dataBaseValue);
@@ -94,8 +75,8 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
         try {
             return dataReceiver.receiveValue(assortment, type, number);
         } catch (SQLException exception) {
-            viewController.setMessage(NOT_DATABASE_MESSAGE, ALERT);
-            viewController.setResult(ERROR, ALERT);
+            //viewController.setMessage(NOT_DATABASE_MESSAGE, ALERT);
+            //viewController.setResult(ERROR, ALERT);
         }
         return 0;
     }

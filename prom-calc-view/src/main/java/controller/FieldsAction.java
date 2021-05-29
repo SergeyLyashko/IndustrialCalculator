@@ -15,24 +15,16 @@ import model.KeyActionObserver;
 @Scope("prototype")
 public class FieldsAction implements FocusActionObserver, ApplicationContextAware {
 
-    private FieldBehavior fieldBehavior;
     private FocusBehavior focusBehavior;
     private KeyBehavior keyBehavior;
+    @Autowired
+    private FieldBehavior fieldBehavior;
+    @Autowired
+    @Qualifier("defaultFilter")
     private Filter defaultFilter;
     private AppComponent component;
     private boolean actionState;
     private ApplicationContext applicationContext;
-
-    @Autowired
-    @Qualifier("defaultFilter")
-    public void setDefaultFilter(Filter defaultFilter){
-        this.defaultFilter = defaultFilter;
-    }
-
-    @Autowired
-    public void setFieldBehavior(FieldBehavior fieldBehavior){
-        this.fieldBehavior = fieldBehavior;
-    }
 
     public void setComponent(AppComponent component){
         this.component = component;
