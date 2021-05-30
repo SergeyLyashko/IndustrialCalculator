@@ -26,7 +26,7 @@ public class ScrollWrapper extends JScrollPane implements UiComponent, Host {
     public ScrollWrapper(){
         super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         super.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        super.setSize(new Dimension(350, 165));
+        super.setSize(new Dimension(370, 165));
     }
 
     @PostConstruct
