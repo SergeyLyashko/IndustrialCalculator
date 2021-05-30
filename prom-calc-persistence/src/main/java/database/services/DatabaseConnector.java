@@ -11,7 +11,7 @@ import java.sql.SQLException;
 class DatabaseConnector {
 
     private static final String DRIVER_PREFIX = "jdbc:sqlite:";
-    private static final String SOURCE = "/data/database/calculator.db";
+    private static final String SOURCE = "/database/calculator.db";
 
     /**
      * Выполняет соединение с базой данных,

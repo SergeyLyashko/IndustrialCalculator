@@ -105,7 +105,7 @@ public class ViewControllerImpl implements KeyActionObserver, ViewController {
 
     @Override
     public void addSelectedItems(Map<String, String> selectedItems) {
-        //calculatorData.add(selectedItems);
+        calculatorData.add(selectedItems);
     }
 
     @Override
