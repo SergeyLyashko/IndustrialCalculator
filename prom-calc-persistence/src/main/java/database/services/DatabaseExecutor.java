@@ -1,5 +1,6 @@
-package database;
+package database.services;
 
+import database.ResultHandler;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;

@@ -1,5 +1,6 @@
-package database;
+package database.services;
 
+import database.ResultHandler;
 import org.junit.Test;
 
 import java.sql.Connection;

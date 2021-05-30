@@ -1,5 +1,7 @@
-package database;
+package database.services;
 
+import database.ResultHandler;
+import database.services.DatabaseExecutor;
 import org.junit.Test;
 
 import java.sql.SQLException;

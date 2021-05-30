@@ -2,7 +2,7 @@ package configurations;
 
 import calculators.DetailConfiguration;
 import controller.ControllerConfiguration;
-import database.DatabaseConfiguration;
+import database.services.DatabaseConfiguration;
 import model.ModelConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

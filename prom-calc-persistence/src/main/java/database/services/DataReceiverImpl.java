@@ -1,5 +1,6 @@
-package database;
+package database.services;
 
+import database.DataReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
