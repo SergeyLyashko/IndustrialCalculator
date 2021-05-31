@@ -13,7 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.*;
-
+/*
 @Component("numbersMenu")
 public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
 
@@ -94,6 +94,13 @@ public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Co
         });
     }
 
+    private Map<String, String> collectSelectedMenuItems(String number){
+        data.replace("assortment", assortment);
+        data.replace("type", type);
+        data.replace("number", number);
+        return data;
+    }
+
     private void addClickListener(){
         super.addMouseListener(new MouseAdapter() {
             @Override
@@ -104,13 +111,6 @@ public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Co
                 }
             }
         });
-    }
-
-    private Map<String, String> collectSelectedMenuItems(String number){
-        data.replace("assortment", assortment);
-        data.replace("type", type);
-        data.replace("number", number);
-        return data;
     }
 
     @Override
@@ -124,12 +124,13 @@ public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Co
     }
 
     @Override
-    public int getFocusedRate() {
+    public int getFocusRate() {
         return FOCUSED_RATE;
     }
 
     @Override
     public int compareTo(UiComponent o) {
-        return this.getFocusedRate() - o.getFocusedRate();
+        return this.getFocusRate() - o.getFocusRate();
     }
 }
+*/

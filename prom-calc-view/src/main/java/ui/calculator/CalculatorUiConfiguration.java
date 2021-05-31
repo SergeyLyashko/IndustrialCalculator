@@ -1,5 +1,8 @@
 package ui.calculator;
 
+import controller.ViewController;
+import database.DataReceiver;
+import org.springframework.beans.factory.annotation.Autowired;
 import ui.UiComponent;
 import ui.CalculatorComponents;
 import ui.MenuSelectable;
@@ -8,6 +11,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CalculatorUiConfiguration {
+
+    @Autowired
+    private ViewController viewController;
+    @Autowired
+    private DataReceiver dataReceiver;
 
     @Bean(name = "Калькулятор компоненты")
     public CalculatorComponents calculatorComponents(){
@@ -49,6 +57,7 @@ public class CalculatorUiConfiguration {
         return new Width(190, 20);
     }
 
+    /*
     @Bean
     public MenuSelectable numbersMenu(){
         return new NumbersMenu(20, 100);
@@ -62,5 +71,33 @@ public class CalculatorUiConfiguration {
     @Bean
     public MenuSelectable typesMenu(){
         return new TypesMenu(20, 60);
+    }
+    */
+
+    @Bean(name = "assortmentsMenu")
+    public MenuSelectable assortmentMenu(){
+        String toolTipText = "выбор сортамента детали";
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 20, 1);
+        MenuBox.ProfileType.ASSORTMENTS.receiveMenu(menuBox, dataReceiver, viewController);
+        MenuBox.ProfileType.ASSORTMENTS.addActionListener(menuBox, viewController);
+        return menuBox;
+    }
+
+    @Bean(name = "typesMenu")
+    public MenuSelectable typesMenu(){
+        String toolTipText = "выбор типа профиля детали";
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 60, 2);
+        MenuBox.ProfileType.TYPES.receiveMenu(menuBox, dataReceiver, viewController);
+        MenuBox.ProfileType.TYPES.addActionListener(menuBox, viewController);
+        return menuBox;
+    }
+
+    @Bean(name = "numbersMenu")
+    public MenuSelectable numbersMenu(){
+        String toolTipText = "выбор номера профиля детали";
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 100, 3);
+        MenuBox.ProfileType.NUMBERS.receiveMenu(menuBox, dataReceiver, viewController);
+        MenuBox.ProfileType.NUMBERS.addActionListener(menuBox, viewController);
+        return menuBox;
     }
 }

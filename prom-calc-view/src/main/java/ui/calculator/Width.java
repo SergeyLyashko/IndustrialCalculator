@@ -52,12 +52,12 @@ public class Width extends JFormattedTextField implements UiComponent, Comparabl
     }
 
     @Override
-    public int getFocusedRate() {
+    public int getFocusRate() {
         return FOCUSED_RATE;
     }
 
     @Override
     public int compareTo(UiComponent o) {
-        return this.getFocusedRate() - o.getFocusedRate();
+        return this.getFocusRate() - o.getFocusRate();
     }
 }

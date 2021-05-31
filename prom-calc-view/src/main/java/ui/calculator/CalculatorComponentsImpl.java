@@ -72,14 +72,14 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
         components.add(dimensionWidth);
         components.add(dimensionLength);
 
-        addListeners(assortment, types, numbers);
+        //addListeners(assortment, types, numbers);
     }
 
     @Override
     public List<UiComponent> getComponents(){
         return components;
     }
-
+    /*
     private void addListeners(MenuSelectable...menus) {
         MenuSelectable assortment = menus[0];
         MenuSelectable types = menus[1];
@@ -87,5 +87,5 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
         assortment.addMenuSelectListener(types);
         assortment.addMenuSelectListener(numbers);
         types.addMenuSelectListener(numbers);
-    }
+    }*/
 }

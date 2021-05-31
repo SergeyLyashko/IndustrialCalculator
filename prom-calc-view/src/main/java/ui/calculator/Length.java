@@ -63,12 +63,12 @@ public class Length extends JFormattedTextField implements UiComponent, Comparab
     }
 
     @Override
-    public int getFocusedRate() {
+    public int getFocusRate() {
         return FOCUSED_RATE;
     }
 
     @Override
     public int compareTo(UiComponent o) {
-        return this.getFocusedRate() - o.getFocusedRate();
+        return this.getFocusRate() - o.getFocusRate();
     }
 }

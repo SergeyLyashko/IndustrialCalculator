@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+/*
 @Component
 public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
 
@@ -48,6 +48,14 @@ public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable
 
     private void addListener(ViewController viewController){
         super.addActionListener(event -> viewController.fieldsOff());
+    }
+
+    @Override
+    public void addMenuSelectListener(MenuSelectable listener){
+        super.addActionListener(event -> {
+            String selectedItem = (String) super.getSelectedItem();
+            listener.setMenuItems(selectedItem, DEFAULT_MENU_VALUE);
+        });
     }
 
     private void clickListener(){
@@ -85,13 +93,7 @@ public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable
         viewController.createMenu(receivableMenu, this);
     }
 
-    @Override
-    public void addMenuSelectListener(MenuSelectable listener){
-        super.addActionListener(event -> {
-            String selectedItem = (String) super.getSelectedItem();
-            listener.setMenuItems(selectedItem, DEFAULT_MENU_VALUE);
-        });
-    }
+
 
     @Override
     public boolean isTraversalPolicyFocused() {
@@ -99,7 +101,7 @@ public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable
     }
 
     @Override
-    public int getFocusedRate() {
+    public int getFocusRate() {
         return FOCUSED_RATE;
     }
 
@@ -110,6 +112,6 @@ public class AssortmentsMenu extends JComboBox<String> implements MenuSelectable
 
     @Override
     public int compareTo(UiComponent o) {
-        return this.getFocusedRate() - o.getFocusedRate();
+        return this.getFocusRate() - o.getFocusRate();
     }
-}
+}*/

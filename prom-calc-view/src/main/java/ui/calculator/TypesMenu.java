@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+/*
 @Component("typesMenu")
 public class TypesMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
 
@@ -40,7 +40,7 @@ public class TypesMenu extends JComboBox<String> implements MenuSelectable, Comp
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         addActionListener();
         addClickListener();
         List<String> receivableMenu = receiveMenu();
@@ -117,12 +117,12 @@ public class TypesMenu extends JComboBox<String> implements MenuSelectable, Comp
     }
 
     @Override
-    public int getFocusedRate() {
+    public int getFocusRate() {
         return FOCUSED_RATE;
     }
 
     @Override
     public int compareTo(UiComponent o) {
-        return this.getFocusedRate() - o.getFocusedRate();
+        return this.getFocusRate() - o.getFocusRate();
     }
- }
+ }*/
