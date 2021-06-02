@@ -15,17 +15,18 @@ import java.util.List;
 public class CalculatorComponentsImpl implements CalculatorComponents {
 
     private final List<UiComponent> components;
+
     @Autowired
-    @Qualifier("assortmentsMenu")
-    private MenuSelectable assortment;
+    @Qualifier("numbersMenu")
+    private MenuSelectable numbers;
 
     @Autowired
     @Qualifier("typesMenu")
     private MenuSelectable types;
 
     @Autowired
-    @Qualifier("numbersMenu")
-    private MenuSelectable numbers;
+    @Qualifier("assortmentsMenu")
+    private MenuSelectable assortment;
 
     @Autowired
     @Qualifier("width")

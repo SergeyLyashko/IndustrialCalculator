@@ -17,10 +17,6 @@ public class CalculatorUiConfiguration {
     @Autowired
     private DataReceiver dataReceiver;
 
-    @Bean(name = "Калькулятор компоненты")
-    public CalculatorComponents calculatorComponents(){
-        return new CalculatorComponentsImpl();
-    }
     /*
     @Bean
     public UiComponent areaCheckBox(){
@@ -74,12 +70,12 @@ public class CalculatorUiConfiguration {
     }
     */
 
-    @Bean(name = "assortmentsMenu")
-    public MenuSelectable assortmentMenu(){
-        String toolTipText = "выбор сортамента детали";
-        MenuBox menuBox = new MenuBox(toolTipText, 20, 20, 1);
-        MenuBox.ProfileType.ASSORTMENTS.receiveMenu(menuBox, dataReceiver, viewController);
-        MenuBox.ProfileType.ASSORTMENTS.addActionListener(menuBox, viewController);
+    @Bean(name = "numbersMenu")
+    public MenuSelectable numbersMenu(){
+        String toolTipText = "выбор номера профиля детали";
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 100, 3);
+        MenuBox.ProfileType.NUMBERS.receiveMenu(dataReceiver, viewController, menuBox);
+        //MenuBox.ProfileType.NUMBERS.addActionListener();
         return menuBox;
     }
 
@@ -87,17 +83,22 @@ public class CalculatorUiConfiguration {
     public MenuSelectable typesMenu(){
         String toolTipText = "выбор типа профиля детали";
         MenuBox menuBox = new MenuBox(toolTipText, 20, 60, 2);
-        MenuBox.ProfileType.TYPES.receiveMenu(menuBox, dataReceiver, viewController);
-        MenuBox.ProfileType.TYPES.addActionListener(menuBox, viewController);
+        MenuBox.ProfileType.TYPES.receiveMenu(dataReceiver, viewController, menuBox, numbersMenu());
+        //MenuBox.ProfileType.TYPES.addActionListener(dataReceiver, viewController, menuBox, numbersMenu());
         return menuBox;
     }
 
-    @Bean(name = "numbersMenu")
-    public MenuSelectable numbersMenu(){
-        String toolTipText = "выбор номера профиля детали";
-        MenuBox menuBox = new MenuBox(toolTipText, 20, 100, 3);
-        MenuBox.ProfileType.NUMBERS.receiveMenu(menuBox, dataReceiver, viewController);
-        MenuBox.ProfileType.NUMBERS.addActionListener(menuBox, viewController);
+    @Bean(name = "assortmentsMenu")
+    public MenuSelectable assortmentMenu(){
+        String toolTipText = "выбор сортамента детали";
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 20, 1);
+        MenuBox.ProfileType.ASSORTMENTS.receiveMenu(dataReceiver, viewController, menuBox, typesMenu(), numbersMenu());
+        //MenuBox.ProfileType.ASSORTMENTS.addActionListener(dataReceiver, viewController, menuBox, typesMenu(), numbersMenu());
         return menuBox;
+    }
+
+    @Bean(name = "Калькулятор компоненты")
+    public CalculatorComponents calculatorComponents(){
+        return new CalculatorComponentsImpl();
     }
 }
