@@ -4,25 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("dimension")
 @Scope("prototype")
-public class DimensionLabel extends JLabel implements UiComponent, Host {
+public class DimensionLabel extends JLabel implements UiComponent, Colorizeble {
 
     private static final String DEFAULT_VIEW = "mm";
     private static final int SIZE_X = 25;
     private static final int SIZE_Y = 20;
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorChanger;
 
     @PostConstruct
     private void afterPropertiesSet() {
-        colorVisitor.addHost(this);
+        colorChanger.addColorizebleComponent(this);
     }
 
     public DimensionLabel(int locationX, int locationY){
@@ -38,7 +38,7 @@ public class DimensionLabel extends JLabel implements UiComponent, Host {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitLabel(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeLabelColor(this);
     }
 }

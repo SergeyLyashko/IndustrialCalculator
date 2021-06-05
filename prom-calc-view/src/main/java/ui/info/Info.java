@@ -2,8 +2,8 @@ package ui.info;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
@@ -11,14 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info extends JLabel implements UiComponent, Host {
+public class Info extends JLabel implements UiComponent, Colorizeble {
 
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorColorChanger;
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        colorVisitor.addHost(this);
+        colorColorChanger.addColorizebleComponent(this);
     }
 
     private static final String TEXT =
@@ -56,8 +56,8 @@ public class Info extends JLabel implements UiComponent, Host {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitLabel(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeLabelColor(this);
     }
 
     @Override

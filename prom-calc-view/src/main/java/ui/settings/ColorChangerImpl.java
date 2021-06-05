@@ -1,8 +1,8 @@
 package ui.settings;
 
 import org.springframework.stereotype.Service;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 import ui.UiComponent;
 
 import javax.swing.*;
@@ -10,10 +10,14 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@Service("colorVisitor")
-class ColorVisitor implements Visitor {
+/**
+ * Change color theme of UI
+ * @author Sergey Lyashko
+ */
+@Service("colorChanger")
+class ColorChangerImpl implements ColorChanger {
 
-    private final List<Host> componentsList = new CopyOnWriteArrayList<>();
+    private final List<Colorizeble> componentsList = new CopyOnWriteArrayList<>();
     private Color backGround;
     private Color foreGround;
     private Color markerColor;
@@ -21,54 +25,54 @@ class ColorVisitor implements Visitor {
     private final Color alertColor = Color.RED;
 
     @Override
-    public void raid() {
+    public void componentsRecolor() {
         componentsList.forEach(component -> component.acceptVisitor(this));
     }
 
     @Override
-    public void addHost(Host host) {
-        componentsList.add(host);
+    public void addColorizebleComponent(Colorizeble colorizeble) {
+        componentsList.add(colorizeble);
     }
 
     @Override
-    public void visitComponent(Host host) {
-        JComponent parent = host.getComponentParent();
+    public void changeComponentColor(Colorizeble colorizeble) {
+        JComponent parent = colorizeble.getComponentParent();
         parent.setBackground(backGround);
         parent.setForeground(foreGround);
     }
 
     @Override
-    public void visitServiceLabel(Host host) {
-        JComponent parent = host.getComponentParent();
+    public void changeServiceLabelColor(Colorizeble colorizeble) {
+        JComponent parent = colorizeble.getComponentParent();
         parent.setForeground(serviceStringColor);
     }
 
     @Override
-    public void visitLabel(Host host) {
-        JComponent parent = host.getComponentParent();
+    public void changeLabelColor(Colorizeble colorizeble) {
+        JComponent parent = colorizeble.getComponentParent();
         parent.setForeground(markerColor);
     }
 
     @Override
-    public void visitScroll(Host host) {
-        JComponent scrollViewPort = host.getScrollViewPort();
+    public void changeScrollColor(Colorizeble colorizeble) {
+        JComponent scrollViewPort = colorizeble.getScrollViewPort();
         scrollViewPort.setBackground(backGround);
     }
 
     @Override
-    public void alert(UiComponent component) {
+    public void setAlertColor(UiComponent component) {
         JComponent parent = component.getComponentParent();
         parent.setForeground(alertColor);
     }
 
     @Override
-    public void reset(UiComponent component) {
+    public void setDefaultColor(UiComponent component) {
         JComponent parent = component.getComponentParent();
         parent.setForeground(serviceStringColor);
     }
 
     @Override
-    public void deactivate() {
+    public void activateLightScheme() {
         backGround = new Color(250, 236, 229);
         foreGround = Color.BLACK;
         markerColor = Color.BLACK;
@@ -76,7 +80,7 @@ class ColorVisitor implements Visitor {
     }
 
     @Override
-    public void activate() {
+    public void activateDarkScheme() {
         backGround = Color.BLACK;
         foreGround = Color.WHITE;
         markerColor = Color.WHITE;

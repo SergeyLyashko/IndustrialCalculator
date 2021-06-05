@@ -4,22 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 import controller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("message")
-public class Message extends JLabel implements UiComponent, Host {
+public class Message extends JLabel implements UiComponent, Colorizeble {
 
     private static final String EMPTY = "";
     private static final int SIZE_X = 315;
     private static final int SIZE_Y = 15;
 
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorChanger;
 
     @Autowired
     @Qualifier("messageBehavior")
@@ -28,7 +28,7 @@ public class Message extends JLabel implements UiComponent, Host {
     @PostConstruct
     private void afterPropertiesSet() {
         labelBehavior.setComponent(this);
-        colorVisitor.addHost(this);
+        colorChanger.addColorizebleComponent(this);
     }
 
     public Message(int locationX, int locationY){
@@ -44,8 +44,8 @@ public class Message extends JLabel implements UiComponent, Host {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitServiceLabel(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeServiceLabelColor(this);
     }
 
     @Override

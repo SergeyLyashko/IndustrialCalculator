@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 import controller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component("result")
-public class Result extends JLabel implements UiComponent, Host, Comparable<UiComponent> {
+public class Result extends JLabel implements UiComponent, Colorizeble, Comparable<UiComponent> {
 
     private static final int FOCUSED_RATE = 6;
     private static final String DEFAULT_VIEW = "0.0 кг";
@@ -20,7 +20,7 @@ public class Result extends JLabel implements UiComponent, Host, Comparable<UiCo
     private static final int SIZE_Y = 25;
 
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorChanger;
 
     @Autowired
     @Qualifier("resultBehavior")
@@ -29,7 +29,7 @@ public class Result extends JLabel implements UiComponent, Host, Comparable<UiCo
     @PostConstruct
     private void afterPropertiesSet() {
         labelBehavior.setComponent(this);
-        colorVisitor.addHost(this);
+        colorChanger.addColorizebleComponent(this);
     }
 
     public Result(int locationX, int locationY){
@@ -56,8 +56,8 @@ public class Result extends JLabel implements UiComponent, Host, Comparable<UiCo
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitServiceLabel(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeServiceLabelColor(this);
     }
 
     @Override

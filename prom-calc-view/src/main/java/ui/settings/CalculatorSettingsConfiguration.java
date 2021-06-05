@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ui.UiComponent;
 import ui.CalculatorComponents;
-import ui.Visitor;
+import ui.ColorChanger;
 
 @Configuration
 public class CalculatorSettingsConfiguration {
@@ -20,16 +20,16 @@ public class CalculatorSettingsConfiguration {
     }
 
     @Bean
-    public Visitor colorVisitor(){
-        return new ColorVisitor();
+    public ColorChanger colorChanger(){
+        return new ColorChangerImpl();
     }
 
     @Bean(name = "colorThemeBox")
     public UiComponent colorThemeBox(){
         String boxTitle = "темная тема оформления";
         String toolTipText = "включить/отключить темную тему приложения";
-        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 35, colorVisitor());
-        CheckBox.TypeBox.COLOR_THEME.addItemListener(checkBox, viewController, colorVisitor());
+        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 35, colorChanger());
+        CheckBox.TypeBox.COLOR_THEME.addItemListener(checkBox, viewController, colorChanger());
         return checkBox;
     }
 
@@ -37,8 +37,8 @@ public class CalculatorSettingsConfiguration {
     public UiComponent toolTipsBox(){
         String boxTitle = "включить всплывающие подсказки";
         String toolTipText = "включение/отключение всплывающих подсказок";
-        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 60, colorVisitor());
-        CheckBox.TypeBox.TOOL_TIPS.addItemListener(checkBox, viewController, colorVisitor());
+        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 60, colorChanger());
+        CheckBox.TypeBox.TOOL_TIPS.addItemListener(checkBox, viewController, colorChanger());
         return checkBox;
     }
 
@@ -46,9 +46,9 @@ public class CalculatorSettingsConfiguration {
     public UiComponent areaCheckBox(){
         String boxTitle = "сложный периметр";
         String toolTipText = "расчет массы детали по задаваемой площади детали";
-        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 187, 85, colorVisitor());
+        CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 187, 85, colorChanger());
         checkBox.setFont(checkBox.getFont().deriveFont(10f));
-        CheckBox.TypeBox.AREA.addItemListener(checkBox, viewController, colorVisitor());
+        CheckBox.TypeBox.AREA.addItemListener(checkBox, viewController, colorChanger());
         return checkBox;
     }
 }

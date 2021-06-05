@@ -2,25 +2,25 @@ package ui.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component
-public class AppPanel extends JPanel implements Host {
+public class AppPanel extends JPanel implements Colorizeble {
 
-    private Visitor colorVisitor;
+    private ColorChanger colorColorChanger;
 
     @PostConstruct
     private void afterPropertiesSet() {
-        colorVisitor.addHost(this);
+        colorColorChanger.addColorizebleComponent(this);
     }
 
     @Autowired
-    public void setColorVisitor(Visitor colorVisitor){
-        this.colorVisitor = colorVisitor;
+    public void setColorVisitor(ColorChanger colorColorChanger){
+        this.colorColorChanger = colorColorChanger;
     }
 
     public AppPanel(){
@@ -28,8 +28,8 @@ public class AppPanel extends JPanel implements Host {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitComponent(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeComponentColor(this);
     }
 
     @Override

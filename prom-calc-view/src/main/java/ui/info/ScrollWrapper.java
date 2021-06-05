@@ -4,20 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-public class ScrollWrapper extends JScrollPane implements UiComponent, Host {
+public class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
 
     private JViewport viewport;
 
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorColorChanger;
 
     @Autowired
     @Qualifier("info")
@@ -31,7 +31,7 @@ public class ScrollWrapper extends JScrollPane implements UiComponent, Host {
 
     @PostConstruct
     private void afterPropertiesSet() throws Exception {
-        colorVisitor.addHost(this);
+        colorColorChanger.addColorizebleComponent(this);
         wrap(info);
     }
 
@@ -41,8 +41,8 @@ public class ScrollWrapper extends JScrollPane implements UiComponent, Host {
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitScroll(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeScrollColor(this);
     }
 
     @Override

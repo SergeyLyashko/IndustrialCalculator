@@ -4,36 +4,40 @@ import controller.ViewController;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
+import ui.Colorizeble;
+import ui.ColorChanger;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 
+/**
+ * Check boxes in panels
+ * @author Sergey Lyashko
+ */
 @Component
 @Scope("prototype")
-public class CheckBox extends JCheckBox implements UiComponent, Host {
+class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
 
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
 
-    public CheckBox(String boxTitle, String toolTipText, int locationX, int locationY, Visitor colorVisitor){
+    CheckBox(String boxTitle, String toolTipText, int locationX, int locationY, ColorChanger colorChanger){
         super(boxTitle);
         super.setSelected(true);
         super.setSize(WIDTH, HEIGHT);
         super.setToolTipText(toolTipText);
         super.setLocation(locationX, locationY);
-        colorVisitor.addHost(this);
+        colorChanger.addColorizebleComponent(this);
         if(super.isSelected()){
-            colorVisitor.activate();
+            colorChanger.activateDarkScheme();
         }else {
-            colorVisitor.deactivate();
+            colorChanger.activateLightScheme();
         }
     }
 
     @Override
-    public void acceptVisitor(Visitor visitor) {
-        visitor.visitComponent(this);
+    public void acceptVisitor(ColorChanger colorChanger) {
+        colorChanger.changeComponentColor(this);
     }
 
     @Override
@@ -41,34 +45,34 @@ public class CheckBox extends JCheckBox implements UiComponent, Host {
         return this;
     }
 
-    public enum TypeBox {
+    enum TypeBox {
         COLOR_THEME {
             @Override
-            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor colorVisitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger) {
                 checkBox.addItemListener(event -> {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
-                        colorVisitor.activate();
+                        colorChanger.activateDarkScheme();
                     } else {
-                        colorVisitor.deactivate();
+                        colorChanger.activateLightScheme();
                     }
-                    colorVisitor.raid();
+                    colorChanger.componentsRecolor();
                 });
             }
         },
         TOOL_TIPS {
             @Override
-            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger) {
                 checkBox.addItemListener(event -> viewController
                         .setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
             }
         },
         AREA{
             @Override
-            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger) {
                 checkBox.addItemListener(event ->
                         viewController.areaCheckBoxState(event.getStateChange() == ItemEvent.SELECTED));
             }
         };
-        abstract void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor);
+        abstract void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger);
     }
 }

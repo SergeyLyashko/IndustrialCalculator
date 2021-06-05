@@ -2,7 +2,7 @@ package model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ui.Visitor;
+import ui.ColorChanger;
 import ui.UiComponent;
 import controller.LabelBehavior;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 public class LabelBehaviorImpl implements LabelBehavior {
 
     @Autowired
-    private Visitor colorVisitor;
+    private ColorChanger colorChanger;
     private UiComponent component;
     private JLabel label;
 
@@ -27,7 +27,7 @@ public class LabelBehaviorImpl implements LabelBehavior {
         if(component != null) {
             label.setText(text);
             if(alert) {
-                colorVisitor.alert(component);
+                colorChanger.setAlertColor(component);
             }
         }
     }
@@ -36,7 +36,7 @@ public class LabelBehaviorImpl implements LabelBehavior {
     public void reset(){
         if(component != null){
             label.setText(component.getName());
-            colorVisitor.reset(component);
+            colorChanger.setDefaultColor(component);
         }
     }
 }

@@ -1,15 +1,5 @@
 package ui.settings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import controller.ViewController;
-import ui.UiComponent;
-import ui.Host;
-import ui.Visitor;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
-import java.awt.event.ItemEvent;
 /*
 @Component("toolTipsBox")
 public class ToolTipsCheckBox extends JCheckBox implements UiComponent, Host {
