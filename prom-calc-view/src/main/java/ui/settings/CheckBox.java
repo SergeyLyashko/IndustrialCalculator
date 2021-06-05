@@ -1,7 +1,6 @@
 package ui.settings;
 
 import controller.ViewController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
@@ -17,10 +16,6 @@ public class CheckBox extends JCheckBox implements UiComponent, Host {
 
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
-
-    // TODO !!
-    @Autowired
-    private static ViewController viewController;
 
     public CheckBox(String boxTitle, String toolTipText, int locationX, int locationY, Visitor colorVisitor){
         super(boxTitle);
@@ -49,7 +44,7 @@ public class CheckBox extends JCheckBox implements UiComponent, Host {
     public enum TypeBox {
         COLOR_THEME {
             @Override
-            void addItemListener(CheckBox checkBox, Visitor colorVisitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor colorVisitor) {
                 checkBox.addItemListener(event -> {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
                         colorVisitor.activate();
@@ -62,18 +57,18 @@ public class CheckBox extends JCheckBox implements UiComponent, Host {
         },
         TOOL_TIPS {
             @Override
-            void addItemListener(CheckBox checkBox, Visitor visitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor) {
                 checkBox.addItemListener(event -> viewController
                         .setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
             }
         },
         AREA{
             @Override
-            void addItemListener(CheckBox checkBox, Visitor visitor) {
+            void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor) {
                 checkBox.addItemListener(event ->
                         viewController.areaCheckBoxState(event.getStateChange() == ItemEvent.SELECTED));
             }
         };
-        abstract void addItemListener(CheckBox checkBox, Visitor visitor);
+        abstract void addItemListener(CheckBox checkBox, ViewController viewController, Visitor visitor);
     }
 }
