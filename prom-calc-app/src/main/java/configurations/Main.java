@@ -13,7 +13,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
 
             GenericApplicationContext context = new AnnotationConfigApplicationContext(CalculatorConfiguration.class);
-            ColorChanger colorized = context.getBean("colorVisitor", ColorChanger.class);
+            ColorChanger colorized = context.getBean("colorChanger", ColorChanger.class);
             colorized.componentsRecolor();
             context.registerShutdownHook();
 
