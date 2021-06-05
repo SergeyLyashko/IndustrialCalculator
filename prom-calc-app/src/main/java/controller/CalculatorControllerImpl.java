@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import database.DataReceiver;
+import database.MenuListProducer;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +28,7 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     @Autowired
     private CalculatorModel calculatorModel;
     @Autowired
-    private DataReceiver dataReceiver;
+    private MenuListProducer menuListProducer;
     @Autowired
     private FieldsParser fieldsParser;
     private ApplicationContext applicationContext;
@@ -74,7 +74,7 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
         String type = menuItems.get(TYPE);
         String number = menuItems.get(NUMBER);
         try {
-            return dataReceiver.receiveValue(assortment, type, number);
+            return menuListProducer.produceMenuItemsValue(assortment, type, number);
         } catch (SQLException exception) {
             //viewController.setMessage(NOT_DATABASE_MESSAGE, ALERT);
             //viewController.setResult(ERROR, ALERT);

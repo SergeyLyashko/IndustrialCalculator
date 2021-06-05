@@ -1,18 +1,5 @@
 package ui.calculator;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import database.DataReceiver;
-import controller.ViewController;
-import ui.MenuSelectable;
-import ui.UiComponent;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.util.*;
 /*
 @Component("numbersMenu")
 public class NumbersMenu extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {

@@ -12,7 +12,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DataReceiverImplTest {
+public class MenuListProducerImplTest {
 
     @Test
     public void createAssortmentMenu() throws SQLException {

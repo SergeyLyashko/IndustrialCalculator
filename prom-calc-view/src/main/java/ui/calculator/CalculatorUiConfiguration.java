@@ -1,7 +1,7 @@
 package ui.calculator;
 
 import controller.ViewController;
-import database.DataReceiver;
+import database.MenuListProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import ui.UiComponent;
 import ui.CalculatorComponents;
@@ -15,13 +15,7 @@ public class CalculatorUiConfiguration {
     @Autowired
     private ViewController viewController;
     @Autowired
-    private DataReceiver dataReceiver;
-
-    /*
-    @Bean
-    public UiComponent areaCheckBox(){
-        return new AreaCheckBox(187, 85);
-    }*/
+    private MenuListProducer menuListProducer;
 
     @Bean(name = "length")
     public UiComponent length(){
@@ -53,47 +47,27 @@ public class CalculatorUiConfiguration {
         return new Width(190, 20);
     }
 
-    /*
-    @Bean
-    public MenuSelectable numbersMenu(){
-        return new NumbersMenu(20, 100);
-    }
-
-    @Bean
-    public MenuSelectable assortmentsMenu(){
-        return new AssortmentsMenu(20, 20);
-    }
-
-    @Bean
-    public MenuSelectable typesMenu(){
-        return new TypesMenu(20, 60);
-    }
-    */
-
     @Bean(name = "numbersMenu")
     public MenuSelectable numbersMenu(){
         String toolTipText = "выбор номера профиля детали";
-        MenuBox menuBox = new MenuBox(toolTipText, 20, 100, 3);
-        MenuBox.ProfileType.NUMBERS.receiveMenu(dataReceiver, viewController, menuBox);
-        //MenuBox.ProfileType.NUMBERS.addActionListener();
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 100, MenuBox.FocusRate.THIRD);
+        MenuBox.ProfileType.NUMBERS.createMenuBox(menuListProducer, viewController, menuBox);
         return menuBox;
     }
 
     @Bean(name = "typesMenu")
     public MenuSelectable typesMenu(){
         String toolTipText = "выбор типа профиля детали";
-        MenuBox menuBox = new MenuBox(toolTipText, 20, 60, 2);
-        MenuBox.ProfileType.TYPES.receiveMenu(dataReceiver, viewController, menuBox, numbersMenu());
-        //MenuBox.ProfileType.TYPES.addActionListener(dataReceiver, viewController, menuBox, numbersMenu());
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 60, MenuBox.FocusRate.SECOND);
+        MenuBox.ProfileType.TYPES.createMenuBox(menuListProducer, viewController, menuBox, numbersMenu());
         return menuBox;
     }
 
     @Bean(name = "assortmentsMenu")
     public MenuSelectable assortmentMenu(){
         String toolTipText = "выбор сортамента детали";
-        MenuBox menuBox = new MenuBox(toolTipText, 20, 20, 1);
-        MenuBox.ProfileType.ASSORTMENTS.receiveMenu(dataReceiver, viewController, menuBox, typesMenu(), numbersMenu());
-        //MenuBox.ProfileType.ASSORTMENTS.addActionListener(dataReceiver, viewController, menuBox, typesMenu(), numbersMenu());
+        MenuBox menuBox = new MenuBox(toolTipText, 20, 20, MenuBox.FocusRate.FIRST);
+        MenuBox.ProfileType.ASSORTMENTS.createMenuBox(menuListProducer, viewController, menuBox, typesMenu(), numbersMenu());
         return menuBox;
     }
 

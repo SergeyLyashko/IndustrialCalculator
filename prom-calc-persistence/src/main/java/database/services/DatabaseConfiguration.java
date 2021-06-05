@@ -1,6 +1,6 @@
 package database.services;
 
-import database.DataReceiver;
+import database.MenuListProducer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class DatabaseConfiguration {
 
     @Bean
-    public DataReceiver dataReceiver(){
-        return new DataReceiverImpl();
+    public MenuListProducer dataReceiver(){
+        return new MenuListProducerImpl();
     }
 
     @Bean

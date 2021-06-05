@@ -1,6 +1,6 @@
 package database.services;
 
-import database.DataReceiver;
+import database.MenuListProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * DAO parameters & values of details
  */
 @Service("dataReceiver")
-class DataReceiverImpl implements DataReceiver {
+class MenuListProducerImpl implements MenuListProducer {
 
     private static final String ASSORTMENT_QUERY = "ProfileName";
     private static final String TYPE_QUERY = "ProfileTypeName";
@@ -72,7 +72,7 @@ class DataReceiverImpl implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> receiveAssortmentMenu() throws SQLException {
+    public List<String> produceAssortments() throws SQLException {
         return databaseExecutor.executorQuery(PROFILES_SQL_QUERY,
                 resultSet -> create(resultSet, ASSORTMENT_QUERY));
     }
@@ -85,7 +85,7 @@ class DataReceiverImpl implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> receiveTypeMenu(String assortment) throws SQLException {
+    public List<String> produceTypes(String assortment) throws SQLException {
         return databaseExecutor.executorQuery(TYPES_SQL_QUERY,
                 resultSet -> create(resultSet, TYPE_QUERY),
                 assortment);
@@ -100,7 +100,7 @@ class DataReceiverImpl implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public List<String> receiveNumberMenu(String assortment, String type) throws SQLException {
+    public List<String> produceNumbers(String assortment, String type) throws SQLException {
         return databaseExecutor.executorQuery(NUMBERS_SQL_QUERY,
                 resultSet -> create(resultSet, NUMBER_QUERY),
                 assortment, type);
@@ -127,7 +127,7 @@ class DataReceiverImpl implements DataReceiver {
      * @throws SQLException
      */
     @Override
-    public double receiveValue(String assortment, String type, String number) throws SQLException {
+    public double produceMenuItemsValue(String assortment, String type, String number) throws SQLException {
         return databaseExecutor.executorQuery(VALUE_SQL_QUERY,
                 resultSet -> resultSet.getDouble(VALUE_QUERY),
                 assortment, type, number);
