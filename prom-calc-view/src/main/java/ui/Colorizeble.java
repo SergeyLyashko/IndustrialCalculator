@@ -2,11 +2,9 @@ package ui;
 
 import javax.swing.*;
 
-public interface Colorizeble {
+public interface Colorizeble extends UiComponent {
 
-    void acceptVisitor(ColorChanger colorChanger);
+    void acceptColorChanger(ColorChanger colorChanger);
 
     default JComponent getScrollViewPort(){ return null; }
-
-    JComponent getComponentParent();
 }

@@ -10,7 +10,7 @@ import controller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-
+/*
 @Component("result")
 public class Result extends JLabel implements UiComponent, Colorizeble, Comparable<UiComponent> {
 
@@ -56,7 +56,7 @@ public class Result extends JLabel implements UiComponent, Colorizeble, Comparab
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeServiceLabelColor(this);
     }
 
@@ -70,3 +70,4 @@ public class Result extends JLabel implements UiComponent, Colorizeble, Comparab
         return this.getFocusRate() - o.getFocusRate();
     }
 }
+*/

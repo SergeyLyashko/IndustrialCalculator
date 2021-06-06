@@ -41,7 +41,7 @@ public class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeb
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeScrollColor(this);
     }
 

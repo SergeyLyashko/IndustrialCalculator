@@ -26,7 +26,7 @@ class ColorChangerImpl implements ColorChanger {
 
     @Override
     public void componentsRecolor() {
-        componentsList.forEach(component -> component.acceptVisitor(this));
+        componentsList.forEach(component -> component.acceptColorChanger(this));
     }
 
     @Override

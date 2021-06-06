@@ -9,7 +9,7 @@ import ui.ColorChanger;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-
+/*
 @Component("dimension")
 @Scope("prototype")
 public class DimensionLabel extends JLabel implements UiComponent, Colorizeble {
@@ -38,7 +38,8 @@ public class DimensionLabel extends JLabel implements UiComponent, Colorizeble {
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeLabelColor(this);
     }
 }
+*/

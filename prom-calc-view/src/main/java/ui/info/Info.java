@@ -56,7 +56,7 @@ public class Info extends JLabel implements UiComponent, Colorizeble {
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeLabelColor(this);
     }
 

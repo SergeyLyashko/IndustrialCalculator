@@ -10,7 +10,7 @@ import controller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-
+/*
 @Component("message")
 public class Message extends JLabel implements UiComponent, Colorizeble {
 
@@ -44,7 +44,7 @@ public class Message extends JLabel implements UiComponent, Colorizeble {
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeServiceLabelColor(this);
     }
 
@@ -53,3 +53,4 @@ public class Message extends JLabel implements UiComponent, Colorizeble {
         return EMPTY;
     }
 }
+*/

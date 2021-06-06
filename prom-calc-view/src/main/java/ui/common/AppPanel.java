@@ -4,13 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ui.Colorizeble;
 import ui.ColorChanger;
+import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component
-public class AppPanel extends JPanel implements Colorizeble {
+public class AppPanel extends JPanel implements UiComponent, Colorizeble {
 
+    @Autowired
     private ColorChanger colorColorChanger;
 
     @PostConstruct
@@ -18,17 +20,12 @@ public class AppPanel extends JPanel implements Colorizeble {
         colorColorChanger.addColorizebleComponent(this);
     }
 
-    @Autowired
-    public void setColorVisitor(ColorChanger colorColorChanger){
-        this.colorColorChanger = colorColorChanger;
-    }
-
     public AppPanel(){
         super.setLayout(null);
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeComponentColor(this);
     }
 

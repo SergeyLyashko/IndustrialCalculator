@@ -1,15 +1,19 @@
 package ui.calculator;
 
 import controller.FieldsAction;
+import controller.LabelBehavior;
 import controller.ViewController;
 import database.MenuListProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import ui.ColorChanger;
 import ui.UiComponent;
 import ui.CalculatorComponents;
 import ui.MenuSelectable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.swing.*;
 
 @Configuration
 public class CalculatorUiConfiguration {
@@ -24,6 +28,14 @@ public class CalculatorUiConfiguration {
     @Autowired
     @Qualifier("lengthAction")
     private FieldsAction lengthAction;
+    @Autowired
+    private ColorChanger colorChanger;
+    @Autowired
+    @Qualifier("messageBehavior")
+    private LabelBehavior messageBehavior;
+    @Autowired
+    @Qualifier("resultBehavior")
+    private LabelBehavior resultBehavior;
 
     @Bean(name = "width")
     public UiComponent width(){
@@ -45,22 +57,36 @@ public class CalculatorUiConfiguration {
 
     @Bean
     public UiComponent dimensionWidth(){
-        return new DimensionLabel(320, 22);
+        String defaultText = "mm";
+        TextLabel textLabel = new TextLabel(defaultText, 320, 22, 25, 20, SwingConstants.RIGHT);
+        TextLabel.Type.DIMENSION_WIDTH.addColorChanger(textLabel, colorChanger);
+        return textLabel;
     }
 
     @Bean
     public UiComponent dimensionLength(){
-        return new DimensionLabel(320, 62);
+        String defaultText = "mm";
+        TextLabel textLabel = new TextLabel(defaultText, 320, 62, 25, 20, SwingConstants.RIGHT);
+        TextLabel.Type.DIMENSION_LENGTH.addColorChanger(textLabel, colorChanger);
+        return textLabel;
     }
 
     @Bean
     public UiComponent message(){
-        return new Message(20,140);
+        String defaultText = "";
+        TextLabel textLabel = new TextLabel(defaultText, 20, 140, 315, 15, SwingConstants.CENTER);
+        TextLabel.Type.MESSAGE.addColorChanger(textLabel, colorChanger);
+        TextLabel.Type.MESSAGE.addBehavior(textLabel, messageBehavior);
+        return textLabel;
     }
 
     @Bean
     public UiComponent result(){
-        return new Result(190, 105);
+        String defaultText = "0.0 кг";
+        TextLabel textLabel = new TextLabel(defaultText, 190, 105, 125, 25, SwingConstants.RIGHT);
+        TextLabel.Type.RESULT.addColorChanger(textLabel, colorChanger);
+        TextLabel.Type.RESULT.addBehavior(textLabel, resultBehavior);
+        return textLabel;
     }
 
     @Bean(name = "numbersMenu")

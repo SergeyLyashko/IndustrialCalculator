@@ -36,7 +36,7 @@ class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
     }
 
     @Override
-    public void acceptVisitor(ColorChanger colorChanger) {
+    public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeComponentColor(this);
     }
 
