@@ -9,15 +9,27 @@ import ui.UiComponent;
 
 import javax.swing.*;
 
+/**
+ * Parameters details value input fields
+ * @author Sergey Lyashko
+ */
 @Component
-public class FieldValue extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {
+class FieldValue extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {
 
     private static final int WIDTH_SIZE = 125;
     private static final int HEIGHT_SIZE = 23;
     private final FocusRate focusRate;
     private final String fieldTitle;
 
-    public FieldValue(String fieldDescription, String toolTipText, int locationX, int locationY, FocusRate focusRate) {
+    /**
+     * Constructor for create value field
+     * @param fieldDescription inside field text description
+     * @param toolTipText tooltip this field
+     * @param locationX X-location on UI panel
+     * @param locationY Y-location on UI panel
+     * @param focusRate rate for focus traversal policy on panel
+     */
+    FieldValue(String fieldDescription, String toolTipText, int locationX, int locationY, FocusRate focusRate) {
         super.setSize(WIDTH_SIZE, HEIGHT_SIZE);
         super.setEditable(false);
         super.setText(fieldDescription);
@@ -78,6 +90,13 @@ public class FieldValue extends JFormattedTextField implements UiComponent, Comp
                 fieldValue.addKeyActionUpdate(viewController::keyActionUpdate);
             }
         };
+
+        /**
+         * Add component for action in fields
+         * @param fieldValue fields for action
+         * @param viewController
+         * @param fieldsAction
+         */
         abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction);
     }
 }
