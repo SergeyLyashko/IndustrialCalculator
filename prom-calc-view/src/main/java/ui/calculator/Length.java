@@ -10,7 +10,7 @@ import model.KeyActionObserver;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-
+/*
 @Component("length")
 public class Length extends JFormattedTextField implements UiComponent, Comparable<UiComponent>, KeyActionObserver {
 
@@ -72,3 +72,4 @@ public class Length extends JFormattedTextField implements UiComponent, Comparab
         return this.getFocusRate() - o.getFocusRate();
     }
 }
+*/

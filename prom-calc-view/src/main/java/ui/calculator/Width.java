@@ -8,7 +8,7 @@ import controller.FieldsAction;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
-
+/*
 @Component("width")
 public class Width extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {
 
@@ -61,3 +61,4 @@ public class Width extends JFormattedTextField implements UiComponent, Comparabl
         return this.getFocusRate() - o.getFocusRate();
     }
 }
+ */

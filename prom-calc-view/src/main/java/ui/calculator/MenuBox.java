@@ -65,7 +65,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, Comparable<Ui
 
     @Override
     public int compareTo(UiComponent component) {
-        return focusRate.getFocusRate() - component.getFocusRate();
+        return focusRate.getRate() - component.getFocusRate();
     }
 
     enum FocusRate{
@@ -74,10 +74,10 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, Comparable<Ui
         THIRD(3);
 
         @Getter
-        private final int focusRate;
+        private final int rate;
 
-        FocusRate(int focusRate) {
-            this.focusRate = focusRate;
+        FocusRate(int rate) {
+            this.rate = rate;
         }
     }
 
