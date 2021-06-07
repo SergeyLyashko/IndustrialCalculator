@@ -3,13 +3,15 @@ package ui.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ui.FocusPolicy;
 import ui.UiComponent;
-import ui.CalculatorComponents;
+import ui.PanelComponents;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,21 +25,25 @@ public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
     private AppPanel appPanel;
 
     @Autowired
-    @Qualifier("Калькулятор компоненты")
-    private CalculatorComponents calculatorComponents;
+    @Qualifier("Калькулятор конфигурация")
+    private PanelComponents calculatorPanelComponents;
 
     @PostConstruct
     private void afterPropertiesSet() {
-        List<UiComponent> components = calculatorComponents.getComponents();
-        add(components);
+        List<FocusPolicy> focusableComponents = calculatorPanelComponents.getFocusableComponents();
+        add(focusableComponents);
         setFocusPolicy(appPanel);
     }
 
-    private void add(List<UiComponent> componentList) {
-        thisOrder = componentList.stream()
+    private void add(List<FocusPolicy> focusPolicyList) {
+        /*thisOrder = componentList.stream()
                 .filter(UiComponent::isTraversalPolicyFocused)
                 .sorted(UiComponent::compareTo)
                 .map(UiComponent::getComponentParent)
+                .collect(Collectors.toCollection(ArrayList::new));*/
+        thisOrder = focusPolicyList.stream()
+                .sorted(Comparator.comparing(FocusPolicy::getFocusRate))
+                .map(FocusPolicy::getComponentParent)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

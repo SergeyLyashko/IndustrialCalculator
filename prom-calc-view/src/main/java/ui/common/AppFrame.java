@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
-import ui.CalculatorComponents;
+import ui.PanelComponents;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -35,13 +35,14 @@ public class AppFrame extends JFrame implements ApplicationContextAware {
         addPanel("Справка");
     }
 
-    private void addPanel(String type){
-        AppPanel appPanelBean = applicationContext.getBean(type, AppPanel.class);
+    private void addPanel(String panelTitle){
+        AppPanel appPanelBean = applicationContext.getBean(panelTitle, AppPanel.class);
         JComponent componentParent = appPanelBean.getComponentParent();
-        CalculatorComponents componentsBean = applicationContext.getBean(type+" компоненты", CalculatorComponents.class);
-        List<UiComponent> components = componentsBean.getComponents();
+        //CalculatorComponents componentsBean = applicationContext.getBean(panelTitle+" компоненты", CalculatorComponents.class);
+        PanelComponents calculatorComponents = applicationContext.getBean(panelTitle + " конфигурация", PanelComponents.class);
+        List<UiComponent> components = calculatorComponents.getPanelComponents();
         components.forEach(appComponent -> componentParent.add(appComponent.getComponentParent()));
-        jTabbedPane.add(type, componentParent);
+        jTabbedPane.add(panelTitle, componentParent);
     }
 
     @Override

@@ -5,6 +5,7 @@ import controller.ViewController;
 import lombok.Getter;
 import model.KeyActionObserver;
 import org.springframework.stereotype.Component;
+import ui.FocusPolicy;
 import ui.UiComponent;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import javax.swing.*;
  * @author Sergey Lyashko
  */
 @Component
-class FieldValue extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {
+class FieldValue extends JFormattedTextField implements UiComponent/*, Comparable<UiComponent>*/, FocusPolicy {
 
     private static final int WIDTH_SIZE = 125;
     private static final int HEIGHT_SIZE = 23;
@@ -49,7 +50,7 @@ class FieldValue extends JFormattedTextField implements UiComponent, Comparable<
     public JComponent getComponentParent() {
         return this;
     }
-
+    /*
     @Override
     public boolean isTraversalPolicyFocused() {
         return true;
@@ -58,10 +59,15 @@ class FieldValue extends JFormattedTextField implements UiComponent, Comparable<
     @Override
     public int compareTo(UiComponent component) {
         return focusRate.getRate() - component.getFocusRate();
-    }
+    }*/
 
     private void addKeyActionUpdate(KeyActionObserver keyActionObserver) {
         keyActionObserver.keyActionUpdate();
+    }
+
+    @Override
+    public int getFocusRate() {
+        return focusRate.getRate();
     }
 
     enum FocusRate{

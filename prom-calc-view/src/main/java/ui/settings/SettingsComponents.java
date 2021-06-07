@@ -1,17 +1,6 @@
 package ui.settings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import controller.ViewController;
-import ui.UiComponent;
-import ui.CalculatorComponents;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.util.ArrayList;
-import java.util.List;
-
+/*
 @Service("settingsComponents")
 public class SettingsComponents implements CalculatorComponents {
 
@@ -52,3 +41,4 @@ public class SettingsComponents implements CalculatorComponents {
         //viewController.savedPreference(components);
     }
 }
+*/

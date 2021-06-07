@@ -1,16 +1,6 @@
 package ui.calculator;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import ui.UiComponent;
-import ui.CalculatorComponents;
-import ui.MenuSelectable;
-
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-
+/*
 @Service
 public class CalculatorComponentsImpl implements CalculatorComponents {
 
@@ -72,21 +62,10 @@ public class CalculatorComponentsImpl implements CalculatorComponents {
         components.add(message);
         components.add(dimensionWidth);
         components.add(dimensionLength);
-
-        //addListeners(assortment, types, numbers);
     }
 
     @Override
     public List<UiComponent> getComponents(){
         return components;
     }
-    /*
-    private void addListeners(MenuSelectable...menus) {
-        MenuSelectable assortment = menus[0];
-        MenuSelectable types = menus[1];
-        MenuSelectable numbers = menus[2];
-        assortment.addMenuSelectListener(types);
-        assortment.addMenuSelectListener(numbers);
-        types.addMenuSelectListener(numbers);
-    }*/
-}
+}*/

@@ -1,10 +1,12 @@
 package ui.calculator;
 
 import controller.LabelBehavior;
+import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.ColorChanger;
 import ui.Colorizeble;
+import ui.FocusPolicy;
 import ui.UiComponent;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ import java.util.Arrays;
  */
 @Component
 @Scope("prototype")
-class TextLabel extends JLabel implements UiComponent, Colorizeble {
+class TextLabel extends JLabel implements UiComponent, Colorizeble, FocusPolicy {
 
     private final String defaultText;
 
@@ -31,6 +33,11 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble {
         super.setVisible(true);
         super.setHorizontalAlignment(swingConstants);
         this.defaultText = defaultText;
+    }
+
+    @Override
+    public int getFocusRate() {
+        return Type.RESULT.getFocusRate();
     }
 
     @Override
@@ -117,14 +124,13 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble {
         RESULT{
 
             private TextLabel textLabel;
-            private final int rate = 6;
+            @Getter
+            private final int focusRate = 6;
 
             @Override
             void addColorChanger(TextLabel textLabel, ColorChanger colorChanger) {
                 this.textLabel = textLabel;
                 colorChanger.addColorizebleComponent(textLabel);
-                // TODO проверить после активации расчетов
-                actionComponent();
             }
 
             @Override
@@ -138,31 +144,6 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble {
                     colorChanger.changeServiceLabelColor(textLabel);
                 }
             }
-
-            private void actionComponent(){
-
-                new UiComponent() {
-                    @Override
-                    public JComponent getComponentParent() {
-                        return textLabel;
-                    }
-
-                    @Override
-                    public boolean isTraversalPolicyFocused() {
-                        return true;
-                    }
-
-                    @Override
-                    public int getFocusRate() {
-                        return rate;
-                    }
-
-                    @Override
-                    public int compareTo(UiComponent component) {
-                        return rate - component.getFocusRate();
-                    }
-                };
-            }
         };
 
         static void changeColor(ColorChanger colorChanger) {
@@ -172,5 +153,9 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble {
         abstract void addColorChanger(TextLabel textLabel, ColorChanger colorChanger);
         abstract void addBehavior(TextLabel textLabel, LabelBehavior labelBehavior);
         abstract void change(ColorChanger colorChanger);
+
+        public int getFocusRate(){
+            return RESULT.getFocusRate();
+        }
     }
 }

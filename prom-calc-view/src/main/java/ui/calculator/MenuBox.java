@@ -5,6 +5,7 @@ import database.MenuListProducer;
 import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ui.FocusPolicy;
 import ui.MenuSelectable;
 import ui.UiComponent;
 
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @Component
 @Scope("prototype")
-class MenuBox extends JComboBox<String> implements MenuSelectable, Comparable<UiComponent> {
+class MenuBox extends JComboBox<String> implements MenuSelectable/*, Comparable<UiComponent> */, FocusPolicy {
 
     private static final String NOT_DATABASE_MESSAGE = "Отсутствует соединение с БД";
     private static final String ERROR = "error";
@@ -59,6 +60,11 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, Comparable<Ui
     }
 
     @Override
+    public int getFocusRate() {
+        return focusRate.getRate();
+    }
+    /*
+    @Override
     public boolean isTraversalPolicyFocused() {
         return true;
     }
@@ -66,7 +72,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, Comparable<Ui
     @Override
     public int compareTo(UiComponent component) {
         return focusRate.getRate() - component.getFocusRate();
-    }
+    }*/
 
     enum FocusRate{
         FIRST(1),

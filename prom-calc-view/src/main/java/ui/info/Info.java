@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ui.Colorizeble;
 import ui.ColorChanger;
-import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info extends JLabel implements UiComponent, Colorizeble {
+public class Info extends JLabel implements Colorizeble {
 
     @Autowired
     private ColorChanger colorColorChanger;

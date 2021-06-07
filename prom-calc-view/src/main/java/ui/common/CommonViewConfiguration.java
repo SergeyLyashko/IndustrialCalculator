@@ -1,17 +1,17 @@
 package ui.common;
 
 import controller.ViewControllerConfiguration;
-import ui.settings.CalculatorSettingsConfiguration;
-import ui.info.ViewInfoConfiguration;
-import ui.calculator.CalculatorUiConfiguration;
+import ui.settings.SettingsConfiguration;
+import ui.info.InfoConfiguration;
+import ui.calculator.CalculatorConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import model.ViewModelConfiguration;
 
 @Configuration
-@Import({CalculatorUiConfiguration.class, CalculatorSettingsConfiguration.class, ViewControllerConfiguration.class,
-        ViewModelConfiguration.class,  ViewInfoConfiguration.class})
+@Import({CalculatorConfiguration.class, SettingsConfiguration.class, ViewControllerConfiguration.class,
+        ViewModelConfiguration.class,  InfoConfiguration.class})
 public class CommonViewConfiguration {
 
     @Bean
