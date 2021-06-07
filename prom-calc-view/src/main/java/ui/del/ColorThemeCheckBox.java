@@ -1,4 +1,4 @@
-package ui.settings;
+package ui.del;
 
 /*
 @Component("colorThemeBox")

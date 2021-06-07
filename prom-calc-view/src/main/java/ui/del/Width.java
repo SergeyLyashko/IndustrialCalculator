@@ -1,4 +1,4 @@
-package ui.calculator;
+package ui.del;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

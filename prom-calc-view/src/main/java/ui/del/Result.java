@@ -1,4 +1,4 @@
-package ui.calculator;
+package ui.del;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,18 +11,19 @@ import controller.LabelBehavior;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 /*
-@Component("message")
-public class Message extends JLabel implements UiComponent, Colorizeble {
+@Component("result")
+public class Result extends JLabel implements UiComponent, Colorizeble, Comparable<UiComponent> {
 
-    private static final String EMPTY = "";
-    private static final int SIZE_X = 315;
-    private static final int SIZE_Y = 15;
+    private static final int FOCUSED_RATE = 6;
+    private static final String DEFAULT_VIEW = "0.0 кг";
+    private static final int SIZE_X = 125;
+    private static final int SIZE_Y = 25;
 
     @Autowired
     private ColorChanger colorChanger;
 
     @Autowired
-    @Qualifier("messageBehavior")
+    @Qualifier("resultBehavior")
     private LabelBehavior labelBehavior;
 
     @PostConstruct
@@ -31,10 +32,11 @@ public class Message extends JLabel implements UiComponent, Colorizeble {
         colorChanger.addColorizebleComponent(this);
     }
 
-    public Message(int locationX, int locationY){
+    public Result(int locationX, int locationY){
         super.setSize(SIZE_X, SIZE_Y);
         super.setVisible(true);
-        super.setHorizontalAlignment(SwingConstants.CENTER);
+        super.setText(DEFAULT_VIEW);
+        super.setHorizontalAlignment(SwingConstants.RIGHT);
         super.setLocation(locationX, locationY);
     }
 
@@ -44,13 +46,28 @@ public class Message extends JLabel implements UiComponent, Colorizeble {
     }
 
     @Override
+    public String getName() {
+        return DEFAULT_VIEW;
+    }
+
+    @Override
+    public boolean isTraversalPolicyFocused() {
+        return true;
+    }
+
+    @Override
     public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeServiceLabelColor(this);
     }
 
     @Override
-    public String getName() {
-        return EMPTY;
+    public int getFocusRate() {
+        return FOCUSED_RATE;
+    }
+
+    @Override
+    public int compareTo(UiComponent o) {
+        return this.getFocusRate() - o.getFocusRate();
     }
 }
 */

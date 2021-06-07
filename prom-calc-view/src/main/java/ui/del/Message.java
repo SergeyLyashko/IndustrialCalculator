@@ -1,34 +1,40 @@
-package ui.calculator;
+package ui.del;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
 import ui.Colorizeble;
 import ui.ColorChanger;
+import controller.LabelBehavior;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 /*
-@Component("dimension")
-@Scope("prototype")
-public class DimensionLabel extends JLabel implements UiComponent, Colorizeble {
+@Component("message")
+public class Message extends JLabel implements UiComponent, Colorizeble {
 
-    private static final String DEFAULT_VIEW = "mm";
-    private static final int SIZE_X = 25;
-    private static final int SIZE_Y = 20;
+    private static final String EMPTY = "";
+    private static final int SIZE_X = 315;
+    private static final int SIZE_Y = 15;
+
     @Autowired
     private ColorChanger colorChanger;
 
+    @Autowired
+    @Qualifier("messageBehavior")
+    private LabelBehavior labelBehavior;
+
     @PostConstruct
     private void afterPropertiesSet() {
+        labelBehavior.setComponent(this);
         colorChanger.addColorizebleComponent(this);
     }
 
-    public DimensionLabel(int locationX, int locationY){
+    public Message(int locationX, int locationY){
         super.setSize(SIZE_X, SIZE_Y);
         super.setVisible(true);
-        super.setText(DEFAULT_VIEW);
+        super.setHorizontalAlignment(SwingConstants.CENTER);
         super.setLocation(locationX, locationY);
     }
 
@@ -39,7 +45,12 @@ public class DimensionLabel extends JLabel implements UiComponent, Colorizeble {
 
     @Override
     public void acceptColorChanger(ColorChanger colorChanger) {
-        colorChanger.changeLabelColor(this);
+        colorChanger.changeServiceLabelColor(this);
+    }
+
+    @Override
+    public String getName() {
+        return EMPTY;
     }
 }
 */

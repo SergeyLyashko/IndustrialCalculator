@@ -10,6 +10,14 @@ import ui.UiComponent;
 import javax.swing.*;
 import java.util.Arrays;
 
+/**
+ * Text labels on calculator panel.
+ * This label display service info:
+ *      - dimension of value fields;
+ *      - result of calculation;
+ *      - service messages.
+ * @author Sergey Lyashko
+ */
 @Component
 @Scope("prototype")
 class TextLabel extends JLabel implements UiComponent, Colorizeble {
@@ -115,7 +123,7 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble {
             void addColorChanger(TextLabel textLabel, ColorChanger colorChanger) {
                 this.textLabel = textLabel;
                 colorChanger.addColorizebleComponent(textLabel);
-                // TODO ???
+                // TODO проверить после активации расчетов
                 actionComponent();
             }
 
