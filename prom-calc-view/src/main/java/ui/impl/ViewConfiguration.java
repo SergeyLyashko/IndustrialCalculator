@@ -1,10 +1,10 @@
 package ui.impl;
 
-import controller.ViewControllerConfiguration;
+import controller.impl.ViewControllerConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import model.ViewModelConfiguration;
+import model.impl.ViewModelConfiguration;
 
 @Configuration
 @Import({CalculatorConfiguration.class, SettingsConfiguration.class, ViewControllerConfiguration.class,

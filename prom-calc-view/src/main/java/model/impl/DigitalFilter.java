@@ -1,8 +1,8 @@
-package model;
+package model.impl;
 
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import controller.Filter;
+import model.Filter;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;

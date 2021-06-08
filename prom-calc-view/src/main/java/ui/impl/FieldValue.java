@@ -1,6 +1,6 @@
 package ui.impl;
 
-import controller.FieldsAction;
+import controller.impl.FieldsAction;
 import controller.ViewController;
 import lombok.Getter;
 import model.KeyActionObserver;

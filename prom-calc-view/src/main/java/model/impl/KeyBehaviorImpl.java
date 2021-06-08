@@ -1,9 +1,10 @@
-package model;
+package model.impl;
 
+import model.KeyActionObserver;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import controller.KeyBehavior;
+import model.KeyBehavior;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;

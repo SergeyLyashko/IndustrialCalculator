@@ -1,15 +1,15 @@
-package model;
+package model.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ui.ColorChanger;
 import ui.UiComponent;
-import controller.LabelBehavior;
+import model.LabelBehavior;
 
 import javax.swing.*;
 
 @Service("labelBehavior")
-public class LabelBehaviorImpl implements LabelBehavior {
+class LabelBehaviorImpl implements LabelBehavior {
 
     @Autowired
     private ColorChanger colorChanger;

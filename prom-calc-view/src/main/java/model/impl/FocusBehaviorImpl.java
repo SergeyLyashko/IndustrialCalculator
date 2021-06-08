@@ -1,12 +1,13 @@
-package model;
+package model.impl;
 
+import model.FocusActionObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import controller.Filter;
-import controller.FocusBehavior;
+import model.Filter;
+import model.FocusBehavior;
 
 import javax.swing.*;
 import java.awt.*;

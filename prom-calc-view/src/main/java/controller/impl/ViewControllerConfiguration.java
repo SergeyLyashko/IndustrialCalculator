@@ -1,5 +1,6 @@
-package controller;
+package controller.impl;
 
+import controller.ViewController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

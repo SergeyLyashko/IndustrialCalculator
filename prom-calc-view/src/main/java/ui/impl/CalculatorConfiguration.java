@@ -1,7 +1,7 @@
 package ui.impl;
 
-import controller.FieldsAction;
-import controller.LabelBehavior;
+import controller.impl.FieldsAction;
+import model.LabelBehavior;
 import controller.ViewController;
 import database.MenuListProducer;
 import org.springframework.beans.factory.annotation.Autowired;

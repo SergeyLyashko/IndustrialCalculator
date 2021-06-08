@@ -1,7 +1,10 @@
-package controller;
+package controller.impl;
 
+import controller.ViewController;
 import model.CalculatorData;
 import model.KeyActionObserver;
+import model.LabelBehavior;
+import model.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -14,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("viewController")
-public class ViewControllerImpl implements KeyActionObserver, ViewController {
+class ViewControllerImpl implements KeyActionObserver, ViewController {
 
     @Autowired
     private ViewModel viewModel;

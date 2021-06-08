@@ -1,6 +1,6 @@
 package ui.impl;
 
-import controller.LabelBehavior;
+import model.LabelBehavior;
 import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

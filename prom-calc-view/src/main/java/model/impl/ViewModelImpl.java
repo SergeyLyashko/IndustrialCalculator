@@ -1,10 +1,10 @@
-package model;
+package model.impl;
 
+import model.ViewModel;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import controller.*;
 
 import javax.swing.*;
 import java.util.List;

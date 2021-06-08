@@ -1,8 +1,8 @@
-package model;
+package model.impl;
 
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import controller.FieldBehavior;
+import model.FieldBehavior;
 
 import javax.swing.*;
 import java.awt.*;

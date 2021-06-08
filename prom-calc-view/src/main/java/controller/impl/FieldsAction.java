@@ -1,5 +1,6 @@
-package controller;
+package controller.impl;
 
+import model.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,8 +9,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import model.FocusActionObserver;
-import model.KeyActionObserver;
 
 @Service
 @Scope("prototype")
