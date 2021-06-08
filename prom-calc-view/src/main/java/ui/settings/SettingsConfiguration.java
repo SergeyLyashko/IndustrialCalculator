@@ -18,11 +18,6 @@ public class SettingsConfiguration implements PanelComponents {
 
     @Autowired
     private ViewController viewController;
-    /*
-    @Bean(name = "Настройки компоненты")
-    public CalculatorComponents settingsComponents(){
-        return new SettingsComponents();
-    }*/
 
     @Bean
     public ColorChanger colorChanger(){

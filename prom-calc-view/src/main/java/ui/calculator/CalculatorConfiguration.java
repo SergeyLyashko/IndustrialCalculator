@@ -142,12 +142,6 @@ public class CalculatorConfiguration implements PanelComponents {
         return menuBox;
     }
 
-    /*
-    @Bean(name = "Калькулятор компоненты")
-    public CalculatorComponents calculatorComponents(){
-        return new CalculatorComponentsImpl();
-    }*/
-
     @Override
     public List<UiComponent> getPanelComponents(){
         return panelComponents;

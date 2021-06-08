@@ -1,4 +1,4 @@
-package ui.info;
+package ui.del;
 
 /*
 @Service("infoComponents")

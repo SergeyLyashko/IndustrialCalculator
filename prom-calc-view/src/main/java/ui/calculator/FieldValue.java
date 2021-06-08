@@ -15,7 +15,7 @@ import javax.swing.*;
  * @author Sergey Lyashko
  */
 @Component
-class FieldValue extends JFormattedTextField implements UiComponent/*, Comparable<UiComponent>*/, FocusPolicy {
+class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy {
 
     private static final int WIDTH_SIZE = 125;
     private static final int HEIGHT_SIZE = 23;
@@ -50,16 +50,6 @@ class FieldValue extends JFormattedTextField implements UiComponent/*, Comparabl
     public JComponent getComponentParent() {
         return this;
     }
-    /*
-    @Override
-    public boolean isTraversalPolicyFocused() {
-        return true;
-    }
-
-    @Override
-    public int compareTo(UiComponent component) {
-        return focusRate.getRate() - component.getFocusRate();
-    }*/
 
     private void addKeyActionUpdate(KeyActionObserver keyActionObserver) {
         keyActionObserver.keyActionUpdate();

@@ -13,12 +13,6 @@ public class InfoConfiguration implements PanelComponents {
 
     private final List<UiComponent> panelComponents = new ArrayList<>();
 
-    /*
-    @Bean(name = "Справка компоненты")
-    public CalculatorComponents infoComponents(){
-        return new InfoComponents();
-    }*/
-
     @Bean
     public UiComponent scroller(){
         ScrollWrapper scrollWrapper = new ScrollWrapper();

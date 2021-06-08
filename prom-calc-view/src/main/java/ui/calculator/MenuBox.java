@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Component
 @Scope("prototype")
-class MenuBox extends JComboBox<String> implements MenuSelectable/*, Comparable<UiComponent> */, FocusPolicy {
+class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
 
     private static final String NOT_DATABASE_MESSAGE = "Отсутствует соединение с БД";
     private static final String ERROR = "error";
@@ -63,16 +63,6 @@ class MenuBox extends JComboBox<String> implements MenuSelectable/*, Comparable<
     public int getFocusRate() {
         return focusRate.getRate();
     }
-    /*
-    @Override
-    public boolean isTraversalPolicyFocused() {
-        return true;
-    }
-
-    @Override
-    public int compareTo(UiComponent component) {
-        return focusRate.getRate() - component.getFocusRate();
-    }*/
 
     enum FocusRate{
         FIRST(1),

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ui.FocusPolicy;
-import ui.UiComponent;
 import ui.PanelComponents;
 
 import javax.annotation.PostConstruct;
@@ -36,11 +35,6 @@ public class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
     }
 
     private void add(List<FocusPolicy> focusPolicyList) {
-        /*thisOrder = componentList.stream()
-                .filter(UiComponent::isTraversalPolicyFocused)
-                .sorted(UiComponent::compareTo)
-                .map(UiComponent::getComponentParent)
-                .collect(Collectors.toCollection(ArrayList::new));*/
         thisOrder = focusPolicyList.stream()
                 .sorted(Comparator.comparing(FocusPolicy::getFocusRate))
                 .map(FocusPolicy::getComponentParent)
