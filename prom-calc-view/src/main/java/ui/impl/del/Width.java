@@ -1,13 +1,5 @@
-package ui.del;
+package ui.impl.del;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import ui.UiComponent;
-import controller.FieldsAction;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
 /*
 @Component("width")
 public class Width extends JFormattedTextField implements UiComponent, Comparable<UiComponent> {

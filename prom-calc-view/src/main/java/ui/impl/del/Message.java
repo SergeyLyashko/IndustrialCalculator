@@ -1,15 +1,5 @@
-package ui.del;
+package ui.impl.del;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import ui.UiComponent;
-import ui.Colorizeble;
-import ui.ColorChanger;
-import controller.LabelBehavior;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
 /*
 @Component("message")
 public class Message extends JLabel implements UiComponent, Colorizeble {

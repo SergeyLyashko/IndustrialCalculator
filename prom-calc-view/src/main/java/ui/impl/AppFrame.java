@@ -1,23 +1,23 @@
-package ui.common;
+package ui.impl;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import ui.UiComponent;
 import ui.PanelComponents;
+import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.util.List;
 
 @Component("appFrame")
-public class AppFrame extends JFrame implements ApplicationContextAware {
+class AppFrame extends JFrame implements ApplicationContextAware {
 
     private final JTabbedPane jTabbedPane;
     private ApplicationContext applicationContext;
 
-    public AppFrame(){
+    AppFrame(){
         super("Industrial calculator");
         super.setSize(370, 230);
         super.setLocationByPlatform(true);

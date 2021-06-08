@@ -1,4 +1,4 @@
-package ui.calculator;
+package ui.impl;
 
 import controller.ViewController;
 import database.MenuListProducer;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.FocusPolicy;
 import ui.MenuSelectable;
-import ui.UiComponent;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

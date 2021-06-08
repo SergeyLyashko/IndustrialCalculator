@@ -1,4 +1,4 @@
-package ui.common;
+package ui.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component
-public class AppPanel extends JPanel implements UiComponent, Colorizeble {
+class AppPanel extends JPanel implements UiComponent, Colorizeble {
 
     @Autowired
     private ColorChanger colorColorChanger;
@@ -20,7 +20,7 @@ public class AppPanel extends JPanel implements UiComponent, Colorizeble {
         colorColorChanger.addColorizebleComponent(this);
     }
 
-    public AppPanel(){
+    AppPanel(){
         super.setLayout(null);
     }
 

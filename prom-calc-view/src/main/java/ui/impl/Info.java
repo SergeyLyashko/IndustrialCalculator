@@ -1,4 +1,4 @@
-package ui.info;
+package ui.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("info")
-public class Info extends JLabel implements Colorizeble {
+class Info extends JLabel implements Colorizeble {
 
     @Autowired
     private ColorChanger colorColorChanger;
@@ -49,7 +49,7 @@ public class Info extends JLabel implements Colorizeble {
                     " <font size=-2>Contacts: 9llllepulla@gmail.com";
 
 
-    public Info(){
+    Info(){
         super.setText(TEXT);
         super.setPreferredSize(new Dimension(250, 500));
     }

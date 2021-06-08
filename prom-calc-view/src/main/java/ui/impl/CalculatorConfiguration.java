@@ -1,4 +1,4 @@
-package ui.calculator;
+package ui.impl;
 
 import controller.FieldsAction;
 import controller.LabelBehavior;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import ui.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ui.settings.CheckBox;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;

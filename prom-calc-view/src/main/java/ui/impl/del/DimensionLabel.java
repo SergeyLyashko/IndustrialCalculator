@@ -1,14 +1,5 @@
-package ui.del;
+package ui.impl.del;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import ui.UiComponent;
-import ui.Colorizeble;
-import ui.ColorChanger;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
 /*
 @Component("dimension")
 @Scope("prototype")

@@ -1,4 +1,4 @@
-package ui.settings;
+package ui.impl;
 
 import org.springframework.stereotype.Service;
 import ui.Colorizeble;

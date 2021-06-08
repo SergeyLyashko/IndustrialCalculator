@@ -1,15 +1,5 @@
-package ui.del;
+package ui.impl.del;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import controller.ViewController;
-import ui.UiComponent;
-import controller.FieldsAction;
-import model.KeyActionObserver;
-
-import javax.annotation.PostConstruct;
-import javax.swing.*;
 /*
 @Component("length")
 public class Length extends JFormattedTextField implements UiComponent, Comparable<UiComponent>, KeyActionObserver {

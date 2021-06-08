@@ -1,9 +1,6 @@
-package ui.common;
+package ui.impl;
 
 import controller.ViewControllerConfiguration;
-import ui.settings.SettingsConfiguration;
-import ui.info.InfoConfiguration;
-import ui.calculator.CalculatorConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -12,7 +9,7 @@ import model.ViewModelConfiguration;
 @Configuration
 @Import({CalculatorConfiguration.class, SettingsConfiguration.class, ViewControllerConfiguration.class,
         ViewModelConfiguration.class,  InfoConfiguration.class})
-public class CommonViewConfiguration {
+public class ViewConfiguration {
 
     @Bean
     public CalculatorFocusTraversalPolicy focusTraversalPolicy(){

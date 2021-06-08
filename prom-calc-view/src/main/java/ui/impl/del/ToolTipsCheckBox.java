@@ -1,4 +1,4 @@
-package ui.del;
+package ui.impl.del;
 
 /*
 @Component("toolTipsBox")

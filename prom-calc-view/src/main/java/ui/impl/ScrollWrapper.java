@@ -1,4 +1,4 @@
-package ui.info;
+package ui.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-public class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
+class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
 
     private JViewport viewport;
 
@@ -23,7 +23,7 @@ public class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeb
     @Qualifier("info")
     private UiComponent info;
 
-    public ScrollWrapper(){
+    ScrollWrapper(){
         super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         super.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         super.setSize(new Dimension(368, 173));

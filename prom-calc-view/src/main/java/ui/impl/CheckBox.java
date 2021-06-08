@@ -1,4 +1,4 @@
-package ui.settings;
+package ui.impl;
 
 import controller.ViewController;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +16,7 @@ import java.awt.event.ItemEvent;
  */
 @Component
 @Scope("prototype")
-public class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
+class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
 
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;

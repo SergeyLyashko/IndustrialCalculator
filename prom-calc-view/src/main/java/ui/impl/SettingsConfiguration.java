@@ -1,4 +1,4 @@
-package ui.settings;
+package ui.impl;
 
 import controller.ViewController;
 import org.springframework.beans.factory.annotation.Autowired;
