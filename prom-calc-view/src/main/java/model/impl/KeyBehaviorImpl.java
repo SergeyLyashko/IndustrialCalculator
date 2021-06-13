@@ -4,13 +4,13 @@ import model.KeyActionObserver;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
-import model.KeyBehavior;
+//import model.KeyBehavior;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
-
+/*
 @Service("keyBehavior")
 @Scope("prototype")
 class KeyBehaviorImpl implements KeyBehavior {
@@ -54,3 +54,4 @@ class KeyBehaviorImpl implements KeyBehavior {
         this.observer = keyActionObserver;
     }
 }
+*/

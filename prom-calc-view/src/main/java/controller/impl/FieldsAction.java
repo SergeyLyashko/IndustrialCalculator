@@ -15,7 +15,7 @@ import ui.UiComponent;
 public class FieldsAction implements FocusActionObserver, ApplicationContextAware {
 
     private FocusBehavior focusBehavior;
-    private KeyBehavior keyBehavior;
+    //private KeyBehavior keyBehavior;
     @Autowired
     private FieldBehavior fieldBehavior;
     @Autowired
@@ -32,7 +32,7 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         focusBehaviorBean.registerFocusObserver(this);
         this.focusBehavior = focusBehaviorBean;
 
-        this.keyBehavior = applicationContext.getBean("keyBehavior", KeyBehavior.class);
+        //this.keyBehavior = applicationContext.getBean("keyBehavior", KeyBehavior.class);
         deactivate();
     }
 
@@ -44,15 +44,11 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         this.actionState = status;
     }
 
-    public void registerKeyObserver(KeyActionObserver observer){
-        keyBehavior.registerKeyObserver(observer);
-    }
-
     void deactivate(){
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldDeactivate(component);
         focusBehavior.fieldDeactivate(component);
-        keyBehavior.fieldDeactivate(component);
+        //keyBehavior.fieldDeactivate(component);
     }
 
     void activate(){
@@ -71,7 +67,7 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
 
     @Override
     public void focusActionUpdate() {
-        keyBehavior.fieldActivate(component);
+        //keyBehavior.fieldActivate(component);
     }
 
     @Override

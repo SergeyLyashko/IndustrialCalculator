@@ -1,8 +1,7 @@
 package model;
 
 import ui.UiComponent;
-import model.KeyActionObserver;
-
+/*
 public interface KeyBehavior {
 
     void fieldDeactivate(UiComponent component);
@@ -12,3 +11,4 @@ public interface KeyBehavior {
     void fieldActivate(UiComponent component);
 
 }
+*/

@@ -7,11 +7,11 @@ import java.text.DecimalFormat;
 
 @Configuration
 public class ModelConfiguration {
-
+    /*
     @Bean
     public CalculatorModel calculatorModel(){
         return new CalculatorModelImpl();
-    }
+    }*/
 
     @Bean
     public DecimalFormat decimalFormat(){

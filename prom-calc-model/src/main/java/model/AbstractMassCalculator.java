@@ -28,5 +28,5 @@ public abstract class AbstractMassCalculator {
         this.reduceFieldsValue = Arrays.stream(values).reduce(1, (acc, element) -> acc * element);
     }
 
-    protected abstract double calculation();
+    public abstract double calculation();
 }

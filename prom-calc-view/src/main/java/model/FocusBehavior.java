@@ -1,7 +1,6 @@
 package model;
 
 import ui.UiComponent;
-import model.FocusActionObserver;
 
 public interface FocusBehavior {
 

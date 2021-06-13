@@ -1,7 +1,7 @@
 package model.impl;
 
 import controller.ViewController;
-import model.CalculatorData;
+//import model.CalculatorData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -9,21 +9,21 @@ import ui.UiComponent;
 
 import javax.swing.*;
 import java.util.*;
-
+/*
 @Service("calculatorData")
 class CalculatorDataImpl implements CalculatorData {
 
     private static final String EMPTY = "";
-    @Autowired
-    @Qualifier("width")
-    private UiComponent width;
-    @Autowired
-    @Qualifier("length")
-    private UiComponent length;
+    //@Autowired
+    //@Qualifier("width")
+    //private UiComponent width;
+    //@Autowired
+    //@Qualifier("length")
+    //private UiComponent length;
     @Autowired
     private ViewController controller;
-    private Map<String, String> selectedMenuItems;
 
+    private Map<String, String> selectedMenuItems;
 
     @Override
     public void add(Map<String, String> selectedMenuItems){
@@ -39,6 +39,7 @@ class CalculatorDataImpl implements CalculatorData {
         String containLength = getFieldsContain(length);
         data.add(containLength);
         return data;
+        return null;
     }
 
     private String getFieldsContain(UiComponent component){
@@ -60,3 +61,4 @@ class CalculatorDataImpl implements CalculatorData {
         return selectedMenuItems;
     }
 }
+*/

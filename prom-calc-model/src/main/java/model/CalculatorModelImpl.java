@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.text.DecimalFormat;
-
+/*
 @Service("calculatorModel")
 class CalculatorModelImpl implements CalculatorModel {
 
@@ -41,3 +41,4 @@ class CalculatorModelImpl implements CalculatorModel {
                 .setContents(new StringSelection(value), null);
     }
 }
+*/

@@ -1,7 +1,7 @@
 package controller.impl;
 
+import controller.CalculatorController;
 import controller.ViewController;
-import model.CalculatorData;
 import model.KeyActionObserver;
 import model.LabelBehavior;
 import model.ViewModel;
@@ -13,27 +13,31 @@ import ui.UiComponent;
 import ui.MenuSelectable;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 @Service("viewController")
 class ViewControllerImpl implements KeyActionObserver, ViewController {
 
+    private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
+    private static final String ERROR = "error";
+    private static final boolean ALERT = true;
+
     @Autowired
     private ViewModel viewModel;
-    //@Autowired
-    //private CalculatorController calculatorController;
+    @Autowired
+    private CalculatorController calculatorController;
+    @Lazy
     @Autowired
     @Qualifier("messageBehavior")
     private LabelBehavior messageBehavior;
+    @Lazy
     @Autowired
     @Qualifier("resultBehavior")
     private LabelBehavior resultBehavior;
     //@Autowired
     //private Preference preference;
-    @Lazy
-    @Autowired
-    private CalculatorData calculatorData;
     @Autowired
     @Qualifier("lengthAction")
     private FieldsAction lengthAction;
@@ -108,12 +112,17 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
 
     @Override
     public void addSelectedItems(Map<String, String> selectedItems) {
-        calculatorData.add(selectedItems);
+        //calculatorData.add(selectedItems);
     }
 
     @Override
     public void keyActionUpdate() {
-        //calculatorController.calculation(calculatorData);
+        try {
+            calculatorController.calculation(/*calculatorData*/);
+        } catch (SQLException exception) {
+            setMessage(NOT_DATABASE_MESSAGE, ALERT);
+            setResult(ERROR, ALERT);
+        }
     }
 
     @Override

@@ -1,18 +1,14 @@
 package configurations;
 
 import calculators.DetailConfiguration;
-import controller.ControllerConfiguration;
+import controller.impl.ViewControllerConfiguration;
 import database.services.DatabaseConfiguration;
 import model.ModelConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import ui.impl.ViewConfiguration;
 
-@ComponentScan(basePackages = {"viewcontroller"})
 @Configuration
-@Import({ViewConfiguration.class, ModelConfiguration.class, DetailConfiguration.class, DatabaseConfiguration.class,
-        ControllerConfiguration.class})
+@Import({DatabaseConfiguration.class, ModelConfiguration.class, DetailConfiguration.class, ViewControllerConfiguration.class})
 public class CalculatorConfiguration {
 
 }

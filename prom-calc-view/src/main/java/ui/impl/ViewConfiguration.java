@@ -1,14 +1,13 @@
 package ui.impl;
 
 import controller.impl.ViewControllerConfiguration;
+import model.impl.ViewModelConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import model.impl.ViewModelConfiguration;
 
 @Configuration
-@Import({CalculatorConfiguration.class, SettingsConfiguration.class, ViewControllerConfiguration.class,
-        ViewModelConfiguration.class,  InfoConfiguration.class})
+@Import({ViewModelConfiguration.class, CalculatorConfiguration.class, SettingsConfiguration.class,  InfoConfiguration.class, })
 public class ViewConfiguration {
 
     @Bean

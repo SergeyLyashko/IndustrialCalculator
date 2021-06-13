@@ -4,21 +4,28 @@ import controller.impl.FieldsAction;
 import controller.ViewController;
 import lombok.Getter;
 import model.KeyActionObserver;
+import model.impl.Data;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.FocusPolicy;
 import ui.UiComponent;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 /**
  * Parameters details value input fields
  * @author Sergey Lyashko
  */
 @Component
+@Scope("prototype")
 class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy {
 
     private static final int WIDTH_SIZE = 125;
     private static final int HEIGHT_SIZE = 23;
+    private static final String EMPTY = "";
     private final FocusRate focusRate;
     private final String fieldTitle;
 
@@ -78,12 +85,73 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
             void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction) {
                 fieldsAction.setComponent(fieldValue);
             }
+
+            @Override
+            void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer) {
+                fieldValue.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent event) {
+                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                            System.out.println("width press");
+                        }
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent event) {
+                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                            // TODO !!!
+                            String textValue = fieldValue.getText();
+                            if(textValue.equals(fieldValue.getName())) {
+                                textValue = EMPTY;
+                            }
+                            data.setWidthData(textValue);
+
+                            fieldValue.transferFocus();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            void fieldDeactivate(FieldValue fieldValue) {
+                Arrays.stream(fieldValue.getKeyListeners()).forEach(fieldValue::removeKeyListener);
+            }
         },
         LENGTH{
             @Override
             void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction) {
                 fieldsAction.setComponent(fieldValue);
-                fieldValue.addKeyActionUpdate(viewController::keyActionUpdate);
+            }
+
+            @Override
+            void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer) {
+                fieldValue.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent event) {
+                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                            System.out.println("length press");
+                        }
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent event) {
+                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                            // TODO !!!
+                            String textValue = fieldValue.getText();
+                            if(textValue.equals(fieldValue.getName())) {
+                                textValue = EMPTY;
+                            }
+                            data.setLengthData(textValue);
+                            observer.keyActionUpdate();
+                            fieldValue.transferFocus();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            void fieldDeactivate(FieldValue fieldValue) {
+                Arrays.stream(fieldValue.getKeyListeners()).forEach(fieldValue::removeKeyListener);
             }
         };
 
@@ -94,5 +162,9 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
          * @param fieldsAction
          */
         abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction);
+
+        abstract void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer);
+
+        abstract void fieldDeactivate(FieldValue fieldValue);
     }
 }

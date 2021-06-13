@@ -1,6 +1,7 @@
 package ui.impl;
 
 import controller.ViewController;
+import model.impl.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,8 @@ public class SettingsConfiguration implements PanelComponents {
 
     @Autowired
     private ViewController viewController;
+    @Autowired
+    private Data data;
 
     @Bean
     public ColorChanger colorChanger(){
@@ -29,7 +32,7 @@ public class SettingsConfiguration implements PanelComponents {
         String boxTitle = "темная тема оформления";
         String toolTipText = "включить/отключить темную тему приложения";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 35, colorChanger());
-        CheckBox.TypeBox.COLOR_THEME.addItemListener(checkBox, viewController, colorChanger());
+        CheckBox.TypeBox.COLOR_THEME.addItemListener(checkBox, viewController, colorChanger(), data);
         panelComponents.add(checkBox);
         return checkBox;
     }
@@ -39,7 +42,7 @@ public class SettingsConfiguration implements PanelComponents {
         String boxTitle = "включить всплывающие подсказки";
         String toolTipText = "включение/отключение всплывающих подсказок";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 60, colorChanger());
-        CheckBox.TypeBox.TOOL_TIPS.addItemListener(checkBox, viewController, colorChanger());
+        CheckBox.TypeBox.TOOL_TIPS.addItemListener(checkBox, viewController, colorChanger(), data);
         panelComponents.add(checkBox);
         return checkBox;
     }
