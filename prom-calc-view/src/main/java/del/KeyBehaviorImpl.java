@@ -1,4 +1,4 @@
-package model.impl;
+package del;
 
 import model.KeyActionObserver;
 import org.springframework.context.annotation.Scope;
