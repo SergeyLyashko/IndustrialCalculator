@@ -8,6 +8,6 @@ public interface FocusBehavior {
 
     void fieldActivate(UiComponent component);
 
-    void registerFocusObserver(FocusActionObserver observer);
+    //void registerFocusObserver(FocusActionObserver observer);
 
 }

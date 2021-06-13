@@ -4,7 +4,6 @@ import ui.UiComponent;
 import ui.MenuSelectable;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ViewController {
 
@@ -16,9 +15,7 @@ public interface ViewController {
 
     void action();
 
-    void areaCheckBoxState(boolean state);
-
-    void addSelectedItems(Map<String, String> queueItems);
+    void areaActivate();
 
     void setResult(String value, boolean alert);
 
@@ -26,13 +23,11 @@ public interface ViewController {
 
     boolean isWidth();
 
-    boolean isArea();
-
     List<UiComponent> loadComponents();
 
     void savedPreference(List<UiComponent> components);
 
     void setToolTipState(boolean selected);
 
-    void keyActionUpdate();
+    void areaDeactivate();
 }

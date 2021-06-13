@@ -133,7 +133,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
             private void addActionListener(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox) {
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedType = assortmentMenuBox.getSelectedItem();
-                    data.setType(selectedType); // TODO !!!
+                    data.setType(selectedType);
                     viewController.fieldsOff();
                     if(selectedType.equalsIgnoreCase("резиновая пластина") ||
                             selectedType.equalsIgnoreCase("тонколистовая") ||
@@ -169,9 +169,8 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedNumber = assortmentMenuBox.getSelectedItem();
                     if(selectedNumber != null && !selectedNumber.equals(numberHeader)){
-                        data.setNumber(selectedNumber); // TODO !!!!
+                        data.setNumber(selectedNumber);
                         TYPE_VALUE_DATA.replace("number", selectedNumber);
-                        viewController.addSelectedItems(TYPE_VALUE_DATA);
                     }
                     if(isConnect){
                         viewController.action();

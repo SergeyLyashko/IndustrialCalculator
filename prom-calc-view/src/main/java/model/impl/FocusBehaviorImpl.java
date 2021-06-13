@@ -1,6 +1,5 @@
 package model.impl;
 
-import model.FocusActionObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -20,7 +19,6 @@ import java.util.Arrays;
 class FocusBehaviorImpl implements FocusBehavior {
 
     private static final String EMPTY = "";
-    private FocusActionObserver observer;
     @Autowired
     @Qualifier("digitalFilter")
     private Filter digitalFilter;
@@ -33,20 +31,8 @@ class FocusBehaviorImpl implements FocusBehavior {
             public void focusGained(FocusEvent e) {
                 digitalFilter.activateFilter(component);
                 fieldFocusGained(textField);
-                notifyObservers();
             }
         });
-    }
-
-    @Override
-    public void registerFocusObserver(FocusActionObserver observer){
-        this.observer = observer;
-    }
-
-    private void notifyObservers() {
-        if(observer != null){
-            observer.focusActionUpdate();
-        }
     }
 
     @Override

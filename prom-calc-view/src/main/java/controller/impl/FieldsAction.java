@@ -12,27 +12,21 @@ import ui.UiComponent;
 
 @Service
 @Scope("prototype")
-public class FieldsAction implements FocusActionObserver, ApplicationContextAware {
+public class FieldsAction implements ApplicationContextAware {
 
-    private FocusBehavior focusBehavior;
-    //private KeyBehavior keyBehavior;
     @Autowired
     private FieldBehavior fieldBehavior;
     @Autowired
     @Qualifier("defaultFilter")
     private Filter defaultFilter;
+    private FocusBehavior focusBehavior;
     private UiComponent component;
     private boolean actionState;
     private ApplicationContext applicationContext;
 
     public void setComponent(UiComponent component){
         this.component = component;
-
-        FocusBehavior focusBehaviorBean = applicationContext.getBean("focusBehavior", FocusBehavior.class);
-        focusBehaviorBean.registerFocusObserver(this);
-        this.focusBehavior = focusBehaviorBean;
-
-        //this.keyBehavior = applicationContext.getBean("keyBehavior", KeyBehavior.class);
+        this.focusBehavior = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         deactivate();
     }
 
@@ -40,7 +34,7 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         return actionState;
     }
 
-    void setState(boolean status){
+    void setAreaActionState(boolean status){
         this.actionState = status;
     }
 
@@ -48,7 +42,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldDeactivate(component);
         focusBehavior.fieldDeactivate(component);
-        //keyBehavior.fieldDeactivate(component);
     }
 
     void activate(){
@@ -63,11 +56,6 @@ public class FieldsAction implements FocusActionObserver, ApplicationContextAwar
 
     void areaDeactivate(){
         fieldBehavior.areaDeactivate(component);
-    }
-
-    @Override
-    public void focusActionUpdate() {
-        //keyBehavior.fieldActivate(component);
     }
 
     @Override

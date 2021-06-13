@@ -58,10 +58,6 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
         return this;
     }
 
-    private void addKeyActionUpdate(KeyActionObserver keyActionObserver) {
-        keyActionObserver.keyActionUpdate();
-    }
-
     @Override
     public int getFocusRate() {
         return focusRate.getRate();
@@ -99,22 +95,15 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
                     @Override
                     public void keyReleased(KeyEvent event) {
                         if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                            // TODO !!!
                             String textValue = fieldValue.getText();
                             if(textValue.equals(fieldValue.getName())) {
                                 textValue = EMPTY;
                             }
                             data.setWidthData(textValue);
-
                             fieldValue.transferFocus();
                         }
                     }
                 });
-            }
-
-            @Override
-            void fieldDeactivate(FieldValue fieldValue) {
-                Arrays.stream(fieldValue.getKeyListeners()).forEach(fieldValue::removeKeyListener);
             }
         },
         LENGTH{
@@ -136,7 +125,6 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
                     @Override
                     public void keyReleased(KeyEvent event) {
                         if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                            // TODO !!!
                             String textValue = fieldValue.getText();
                             if(textValue.equals(fieldValue.getName())) {
                                 textValue = EMPTY;
@@ -147,11 +135,6 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
                         }
                     }
                 });
-            }
-
-            @Override
-            void fieldDeactivate(FieldValue fieldValue) {
-                Arrays.stream(fieldValue.getKeyListeners()).forEach(fieldValue::removeKeyListener);
             }
         };
 
@@ -164,7 +147,5 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
         abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction);
 
         abstract void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer);
-
-        abstract void fieldDeactivate(FieldValue fieldValue);
     }
 }

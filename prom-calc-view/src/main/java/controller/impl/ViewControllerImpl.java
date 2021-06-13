@@ -15,7 +15,6 @@ import ui.MenuSelectable;
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @Service("viewController")
 class ViewControllerImpl implements KeyActionObserver, ViewController {
@@ -53,11 +52,6 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
     }
 
     @Override
-    public boolean isArea(){
-        return lengthAction.isActionState();
-    }
-
-    @Override
     public void setToolTipState(boolean selected) {
         viewModel.setToolTipState(selected);
     }
@@ -77,7 +71,7 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
         resetServiceString();
         widthAction.deactivate();
         lengthAction.deactivate();
-        widthAction.setState(false);
+        widthAction.setAreaActionState(false);
     }
 
     @Override
@@ -100,25 +94,26 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
     }
 
     @Override
-    public void areaCheckBoxState(boolean selectedState) {
-        lengthAction.setState(selectedState);
+    public void areaActivate() {
+        lengthAction.setAreaActionState(true);
+        action();
+    }
+
+    @Override
+    public void areaDeactivate() {
+        lengthAction.setAreaActionState(false);
         action();
     }
 
     @Override
     public void widthOn() {
-        widthAction.setState(true);
-    }
-
-    @Override
-    public void addSelectedItems(Map<String, String> selectedItems) {
-        //calculatorData.add(selectedItems);
+        widthAction.setAreaActionState(true);
     }
 
     @Override
     public void keyActionUpdate() {
         try {
-            calculatorController.calculation(/*calculatorData*/);
+            calculatorController.calculation();
         } catch (SQLException exception) {
             setMessage(NOT_DATABASE_MESSAGE, ALERT);
             setResult(ERROR, ALERT);
