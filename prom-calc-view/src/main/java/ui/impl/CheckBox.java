@@ -73,7 +73,7 @@ class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
                 checkBox.setSelected(false);
                 checkBox.addItemListener(event -> {
                     if(event.getStateChange() == ItemEvent.SELECTED){
-                        data.setArea(true);
+                        data.setComplexArea(true);
                         viewController.areaActivate();
                     } else {
                         viewController.areaDeactivate();

@@ -24,7 +24,7 @@ public class Data {
     private String lengthData;
     @Getter
     @Setter
-    private boolean isArea;
+    private boolean isComplexArea;
 
     public Data(){}
 
@@ -36,7 +36,7 @@ public class Data {
                 ", number='" + number + '\'' +
                 ", widthData='" + widthData + '\'' +
                 ", lengthData='" + lengthData + '\'' +
-                ", isArea=" + isArea +
+                ", isArea=" + isComplexArea +
                 '}';
     }
 }

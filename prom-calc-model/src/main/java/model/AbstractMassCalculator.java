@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractMassCalculator {
 
@@ -24,8 +24,8 @@ public abstract class AbstractMassCalculator {
         this.dataBaseValue = dataBaseValue;
     }
 
-    public void setFieldsValue(double[] values) {
-        this.reduceFieldsValue = Arrays.stream(values).reduce(1, (acc, element) -> acc * element);
+    public void setFieldsValue(List<Double> values) {
+        this.reduceFieldsValue = values.stream().reduce((double)1, (acc, element) -> acc * element);
     }
 
     public abstract double calculation();

@@ -48,12 +48,7 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
 
     @Override
     public void calculation() throws SQLException {
-        System.out.println("calculation!");
-
-        List<String> dataList = new ArrayList<>();
-        dataList.add(data.getWidthData());
-        dataList.add(data.getLengthData());
-        double[] parseData = fieldsParser.parseData(dataList);
+        List<Double> parseData = fieldsParser.parseData(data);
         System.out.println(data.toString());
         double dataBaseValue = receiveDataBaseValue();
 
