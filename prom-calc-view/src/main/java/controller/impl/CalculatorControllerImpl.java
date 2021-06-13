@@ -32,10 +32,9 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     private ViewController controller;
     @Autowired
     private DecimalFormat decimalFormat;
-    private ApplicationContext applicationContext;
     @Autowired
     private Data data;
-
+    private ApplicationContext applicationContext;
     private final StringBuilder beanNameBuilder;
 
     CalculatorControllerImpl() {

@@ -12,15 +12,10 @@ public class ModelConfiguration {
     public CalculatorModel calculatorModel(){
         return new CalculatorModelImpl();
     }*/
-
+    /*
     @Bean
     public DecimalFormat decimalFormat(){
         return new DecimalFormat("#.###");
-    }
-
-    @Bean
-    public FieldsParser fieldsParser(){
-        return new FieldsValueParserImpl();
-    }
+    }*/
 
 }

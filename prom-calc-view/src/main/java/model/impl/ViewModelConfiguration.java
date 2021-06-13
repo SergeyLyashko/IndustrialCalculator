@@ -5,9 +5,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.DecimalFormat;
+
 @ComponentScan(basePackages = {"model.impl"})
 @Configuration
 public class ViewModelConfiguration {
+
+    @Bean
+    public FieldsParser fieldsParser(){
+        return new FieldsValueParserImpl();
+    }
+
+    @Bean
+    public DecimalFormat decimalFormat(){
+        return new DecimalFormat("#.###");
+    }
 
     @Bean
     public Data data(){
