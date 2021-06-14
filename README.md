@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿#### Tech: Java 8, Swing, Spring Framework, SQLite3 database.
 
 ### Калькулятор расчета массы различных видов сортамента по Российским ГОСТам.
@@ -10,7 +9,7 @@
 - 2 поля ввода значений ширины и длины детали;
 - чек-бокс выбора сложного периметра.
 ###### ![режим по умолчанию](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/default_dark.jpg?raw=true)
-###### И не акивные элементы:
+###### И не активные элементы:
 ###### строка вывода результата расчета и строка вывода служебной информации
 ###### ![рабочий режим](https://github.com/SergeyLyashko/IndustrialCalculator/blob/master/src/screenshots/work_1.jpg?raw=true)
 
@@ -40,7 +39,7 @@
 ###### Швеллеры стальные горячекатаные [ГОСТ 8240-97](http://docs.cntd.ru/document/gost-8240-97).
 =======
 =======
-﻿#### Tech: Java 8, Swing, Spring Framework, SQLite3 database.
+#### Tech: Java 8, Swing, Spring Framework, SQLite3 database.
 
 #### Калькулятор расчета массы различных видов сортамента по Российским ГОСТам.
 Приложение состоит из основного окна с тремя вкладками:
@@ -78,4 +77,3 @@
 ###### Сталь горячетканная квадратная [ГОСТ 2591-51](http://docs.cntd.ru/document/1200109199).
 ###### Листы стальные с ромбическим рифлением [ГОСТ 8568-77](http://docs.cntd.ru/document/1200005122).
 ###### Швеллеры стальные горячекатаные [ГОСТ 8240-97](http://docs.cntd.ru/document/gost-8240-97).
->>>>>>> Spring
