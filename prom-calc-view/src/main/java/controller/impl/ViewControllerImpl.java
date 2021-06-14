@@ -2,6 +2,7 @@ package controller.impl;
 
 import controller.CalculatorController;
 import controller.ViewController;
+import model.DataManager;
 import model.KeyActionObserver;
 import model.LabelBehavior;
 import model.ViewModel;
@@ -43,6 +44,8 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
     @Autowired
     @Qualifier("widthAction")
     private FieldsAction widthAction;
+    @Autowired
+    private DataManager dataManager;
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
@@ -56,11 +59,6 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
         viewModel.setToolTipState(selected);
     }
 
-    @Override
-    public boolean isWidth(){
-        return widthAction.isActionState();
-    }
-
     private void resetServiceString(){
         resultBehavior.reset();
         messageBehavior.reset();
@@ -71,20 +69,19 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
         resetServiceString();
         widthAction.deactivate();
         lengthAction.deactivate();
-        widthAction.setAreaActionState(false);
     }
 
     @Override
     public void action() {
         resetServiceString();
         lengthAction.activate();
-        if(widthAction.isActionState()){
+        if(dataManager.haveWidth()){
             checkSelectedAreaBox();
         }
     }
 
     private void checkSelectedAreaBox(){
-        if(lengthAction.isActionState()){
+        if(dataManager.isAreaOn()){
             widthAction.deactivate();
             lengthAction.areaActivate();
         }else {
@@ -94,20 +91,8 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
     }
 
     @Override
-    public void areaActivate() {
-        lengthAction.setAreaActionState(true);
-        action();
-    }
-
-    @Override
-    public void areaDeactivate() {
-        lengthAction.setAreaActionState(false);
-        action();
-    }
-
-    @Override
-    public void widthOn() {
-        widthAction.setAreaActionState(true);
+    public void widthCheck() {
+        dataManager.checkDataWidth();
     }
 
     @Override

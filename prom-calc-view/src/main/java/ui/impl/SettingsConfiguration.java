@@ -1,7 +1,7 @@
 package ui.impl;
 
 import controller.ViewController;
-import model.impl.Data;
+import model.DataManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class SettingsConfiguration implements PanelComponents {
     @Autowired
     private ViewController viewController;
     @Autowired
-    private Data data;
+    private DataManager data;
 
     @Bean
     public ColorChanger colorChanger(){

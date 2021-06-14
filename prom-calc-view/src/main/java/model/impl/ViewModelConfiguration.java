@@ -12,8 +12,8 @@ import java.text.DecimalFormat;
 public class ViewModelConfiguration {
 
     @Bean
-    public FieldsParser fieldsParser(){
-        return new FieldsValueParserImpl();
+    public DataManager dataManager(){
+        return new DataManagerImpl();
     }
 
     @Bean

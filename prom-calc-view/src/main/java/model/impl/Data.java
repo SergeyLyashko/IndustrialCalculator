@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Data {
+class Data {
 
     @Setter
     @Getter
@@ -25,8 +25,11 @@ public class Data {
     @Getter
     @Setter
     private boolean isComplexArea;
+    @Getter
+    @Setter
+    private boolean isDetailHaveWidth;
 
-    public Data(){}
+    Data(){}
 
     @Override
     public String toString() {
@@ -36,7 +39,8 @@ public class Data {
                 ", number='" + number + '\'' +
                 ", widthData='" + widthData + '\'' +
                 ", lengthData='" + lengthData + '\'' +
-                ", isArea=" + isComplexArea +
+                ", isComplexArea=" + isComplexArea +
+                ", isDetailHaveWidth=" + isDetailHaveWidth +
                 '}';
     }
 }

@@ -1,12 +1,5 @@
 package calculators;
 
-import model.AbstractMassCalculator;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class SheetSteelMassCalculatorTest {
 /*
     private Detail mockDetail;

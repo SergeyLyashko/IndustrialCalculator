@@ -21,21 +21,12 @@ public class FieldsAction implements ApplicationContextAware {
     private Filter defaultFilter;
     private FocusBehavior focusBehavior;
     private UiComponent component;
-    private boolean actionState;
     private ApplicationContext applicationContext;
 
     public void setComponent(UiComponent component){
         this.component = component;
         this.focusBehavior = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         deactivate();
-    }
-
-    boolean isActionState(){
-        return actionState;
-    }
-
-    void setAreaActionState(boolean status){
-        this.actionState = status;
     }
 
     void deactivate(){

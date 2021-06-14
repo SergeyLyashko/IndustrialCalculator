@@ -1,7 +1,7 @@
 package ui.impl;
 
 import controller.ViewController;
-import model.impl.Data;
+import model.DataManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.UiComponent;
@@ -49,7 +49,7 @@ class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
     public enum TypeBox {
         COLOR_THEME {
             @Override
-            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, Data data) {
+            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, DataManager data) {
                 checkBox.addItemListener(event -> {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
                         colorChanger.activateDarkScheme();
@@ -62,26 +62,21 @@ class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
         },
         TOOL_TIPS {
             @Override
-            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, Data data) {
-                checkBox.addItemListener(event -> viewController
-                        .setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
+            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, DataManager data) {
+                checkBox.addItemListener(event -> viewController.setToolTipState(event.getStateChange() == ItemEvent.SELECTED));
             }
         },
         AREA{
             @Override
-            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, Data data) {
+            public void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, DataManager data) {
                 checkBox.setSelected(false);
                 checkBox.addItemListener(event -> {
-                    if(event.getStateChange() == ItemEvent.SELECTED){
-                        data.setComplexArea(true);
-                        viewController.areaActivate();
-                    } else {
-                        viewController.areaDeactivate();
-                    }
+                    data.setIsComplexArea(event.getStateChange() == ItemEvent.SELECTED);
+                    viewController.action();
                 });
             }
         };
 
-        public abstract void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, Data data);
+        public abstract void addItemListener(CheckBox checkBox, ViewController viewController, ColorChanger colorChanger, DataManager dataManager);
     }
 }

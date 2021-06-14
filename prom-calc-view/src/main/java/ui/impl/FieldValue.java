@@ -3,8 +3,8 @@ package ui.impl;
 import controller.impl.FieldsAction;
 import controller.ViewController;
 import lombok.Getter;
+import model.DataManager;
 import model.KeyActionObserver;
-import model.impl.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.FocusPolicy;
@@ -13,7 +13,6 @@ import ui.UiComponent;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 
 /**
  * Parameters details value input fields
@@ -83,17 +82,10 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
             }
 
             @Override
-            void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer) {
+            void fieldActivate(FieldValue fieldValue, DataManager data, KeyActionObserver observer) {
                 fieldValue.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent event) {
-                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                            System.out.println("width press");
-                        }
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent event) {
                         if(event.getKeyCode() == KeyEvent.VK_ENTER) {
                             String textValue = fieldValue.getText();
                             if(textValue.equals(fieldValue.getName())) {
@@ -113,17 +105,10 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
             }
 
             @Override
-            void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer) {
+            void fieldActivate(FieldValue fieldValue, DataManager data, KeyActionObserver observer) {
                 fieldValue.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent event) {
-                        if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                            System.out.println("length press");
-                        }
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent event) {
                         if(event.getKeyCode() == KeyEvent.VK_ENTER) {
                             String textValue = fieldValue.getText();
                             if(textValue.equals(fieldValue.getName())) {
@@ -146,6 +131,6 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
          */
         abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction);
 
-        abstract void fieldActivate(FieldValue fieldValue, Data data, KeyActionObserver observer);
+        abstract void fieldActivate(FieldValue fieldValue, DataManager dataManager, KeyActionObserver observer);
     }
 }

@@ -3,7 +3,7 @@ package ui.impl;
 import controller.ViewController;
 import database.MenuListProducer;
 import lombok.Getter;
-import model.impl.Data;
+import model.DataManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.FocusPolicy;
@@ -81,7 +81,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
 
         ASSORTMENTS{
             @Override
-            void createMenuBox(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
                 MenuSelectable typeMenuBox = menuBoxes[1];
                 MenuSelectable numberMenuBox = menuBoxes[2];
@@ -98,11 +98,13 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 addActionListener(data, menuListProducer, viewController, assortmentMenuBox, typeMenuBox, numberMenuBox);
             }
 
-            private void addActionListener(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox, MenuSelectable numberMenuBox) {
+            private void addActionListener(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox, MenuSelectable numberMenuBox) {
                 assortmentMenuBox.addActionListener(event -> {
                     viewController.fieldsOff();
                     String selectedAssortment = assortmentMenuBox.getSelectedItem();
-                    data.setAssortment(selectedAssortment); // TODO !!!
+
+                    data.setAssortment(selectedAssortment);
+
                     TYPE_VALUE_DATA.replace("assortment", selectedAssortment);
                     TYPE_VALUE_DATA.replace("type", "Тип профиля");
                     TYPE_VALUE_DATA.replace("number", "№ профиля");
@@ -114,7 +116,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
 
         TYPES{
             @Override
-            void createMenuBox(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
                 MenuSelectable typeMenuBox = menuBoxes[1];
 
@@ -130,17 +132,14 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 addActionListener(data, menuListProducer, viewController, assortmentMenuBox, typeMenuBox);
             }
 
-            private void addActionListener(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox) {
+            private void addActionListener(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox) {
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedType = assortmentMenuBox.getSelectedItem();
+
                     data.setType(selectedType);
+
                     viewController.fieldsOff();
-                    if(selectedType.equalsIgnoreCase("резиновая пластина") ||
-                            selectedType.equalsIgnoreCase("тонколистовая") ||
-                            selectedType.equalsIgnoreCase("толстолистовая") ||
-                            selectedType.equalsIgnoreCase("рифленая(ромб)")){
-                        viewController.widthOn();
-                    }
+                    viewController.widthCheck();
                     TYPE_VALUE_DATA.replace("type", selectedType);
                     ProfileType.NUMBERS.createMenuBox(data, menuListProducer, viewController, typeMenuBox);
                 });
@@ -149,7 +148,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
 
         NUMBERS{
             @Override
-            void createMenuBox(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
 
                 List<String> numbersMenu = new LinkedList<>();
@@ -164,12 +163,14 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 addActionListener(data, viewController, assortmentMenuBox);
             }
 
-            private void addActionListener(Data data, ViewController viewController, MenuSelectable assortmentMenuBox) {
+            private void addActionListener(DataManager data, ViewController viewController, MenuSelectable assortmentMenuBox) {
                 String numberHeader = "№ профиля";
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedNumber = assortmentMenuBox.getSelectedItem();
                     if(selectedNumber != null && !selectedNumber.equals(numberHeader)){
+
                         data.setNumber(selectedNumber);
+
                         TYPE_VALUE_DATA.replace("number", selectedNumber);
                     }
                     if(isConnect){
@@ -212,6 +213,6 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
          * @param viewController
          * @param menuBoxes parents menu boxes whichever selected items
          */
-        abstract void createMenuBox(Data data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes);
+        abstract void createMenuBox(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes);
     }
 }

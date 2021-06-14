@@ -2,9 +2,8 @@ package controller.impl;
 
 import controller.CalculatorController;
 import controller.ViewController;
-import model.AbstractMassCalculator;
-import model.FieldsParser;
-import model.impl.Data;
+import calculators.AbstractMassCalculator;
+import model.DataManager;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +15,6 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("calculatorController")
@@ -27,13 +25,11 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     @Autowired
     private MenuListProducer menuListProducer;
     @Autowired
-    private FieldsParser fieldsParser;
+    private DataManager dataManager;
     @Autowired
     private ViewController controller;
     @Autowired
     private DecimalFormat decimalFormat;
-    @Autowired
-    private Data data;
     private ApplicationContext applicationContext;
     private final StringBuilder beanNameBuilder;
 
@@ -48,8 +44,7 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
 
     @Override
     public void calculation() throws SQLException {
-        List<Double> parseData = fieldsParser.parseData(data);
-        System.out.println(data.toString());
+        List<Double> parseData = dataManager.parseData();
         double dataBaseValue = receiveDataBaseValue();
 
         AbstractMassCalculator abstractMassCalculator = getCalculator();
@@ -82,8 +77,10 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
 
     private AbstractMassCalculator getCalculator(){
         beanNameBuilder.delete(0, beanNameBuilder.length());
-        String assortment = data.getAssortment();
-        String type = data.getType();
+
+        String assortment = dataManager.getDataAssortment();
+        String type = dataManager.getDataType();
+
         String bean = beanNameBuilder.append(assortment)
                 .append(" ")
                 .append(type)
@@ -92,9 +89,9 @@ class CalculatorControllerImpl implements CalculatorController, ApplicationConte
     }
 
     private double receiveDataBaseValue() throws SQLException {
-        String assortment = data.getAssortment();
-        String type = data.getType();
-        String number = data.getNumber();
+        String assortment = dataManager.getDataAssortment();
+        String type = dataManager.getDataType();
+        String number = dataManager.getDataNumber();
         return menuListProducer.produceMenuItemsValue(assortment, type, number);
     }
 }

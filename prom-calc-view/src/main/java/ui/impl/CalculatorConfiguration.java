@@ -1,11 +1,11 @@
 package ui.impl;
 
 import controller.impl.FieldsAction;
+import model.DataManager;
 import model.KeyActionObserver;
 import model.LabelBehavior;
 import controller.ViewController;
 import database.MenuListProducer;
-import model.impl.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -42,7 +42,7 @@ public class CalculatorConfiguration implements PanelComponents {
     @Qualifier("resultBehavior")
     private LabelBehavior resultBehavior;
     @Autowired
-    private Data data;
+    private DataManager dataManager;
     @Autowired
     private KeyActionObserver observer;
 
@@ -52,7 +52,7 @@ public class CalculatorConfiguration implements PanelComponents {
         String toolTipText = "расчет массы детали по задаваемой площади детали";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 187, 85, colorChanger);
         checkBox.setFont(checkBox.getFont().deriveFont(10f));
-        CheckBox.TypeBox.AREA.addItemListener(checkBox, viewController, colorChanger, data);
+        CheckBox.TypeBox.AREA.addItemListener(checkBox, viewController, colorChanger, dataManager);
         panelComponents.add(checkBox);
         return checkBox;
     }
@@ -63,7 +63,7 @@ public class CalculatorConfiguration implements PanelComponents {
         String toolTip = "поле ввода ширины детали";
         FieldValue fieldValue = new FieldValue(description, toolTip, 190, 20, FieldValue.FocusRate.FOURTH);
         FieldValue.Type.WIDTH.setActionComponent(fieldValue, viewController, widthAction);
-        FieldValue.Type.WIDTH.fieldActivate(fieldValue, data, observer);
+        FieldValue.Type.WIDTH.fieldActivate(fieldValue, dataManager, observer);
         panelComponents.add(fieldValue);
         focusableComponents.add(fieldValue);
         return fieldValue;
@@ -75,7 +75,7 @@ public class CalculatorConfiguration implements PanelComponents {
         String toolTip = "поле ввода длины детали";
         FieldValue fieldValue = new FieldValue(description, toolTip, 190, 60, FieldValue.FocusRate.FIFTH);
         FieldValue.Type.LENGTH.setActionComponent(fieldValue, viewController, lengthAction);
-        FieldValue.Type.LENGTH.fieldActivate(fieldValue, data, observer);
+        FieldValue.Type.LENGTH.fieldActivate(fieldValue, dataManager, observer);
         panelComponents.add(fieldValue);
         focusableComponents.add(fieldValue);
         return fieldValue;
@@ -124,7 +124,7 @@ public class CalculatorConfiguration implements PanelComponents {
     public MenuSelectable numbersMenu(){
         String toolTipText = "выбор номера профиля детали";
         MenuBox menuBox = new MenuBox(toolTipText, 20, 100, MenuBox.FocusRate.THIRD);
-        MenuBox.ProfileType.NUMBERS.createMenuBox(data, menuListProducer, viewController, menuBox);
+        MenuBox.ProfileType.NUMBERS.createMenuBox(dataManager, menuListProducer, viewController, menuBox);
         panelComponents.add(menuBox);
         focusableComponents.add(menuBox);
         return menuBox;
@@ -134,7 +134,7 @@ public class CalculatorConfiguration implements PanelComponents {
     public MenuSelectable typesMenu(){
         String toolTipText = "выбор типа профиля детали";
         MenuBox menuBox = new MenuBox(toolTipText, 20, 60, MenuBox.FocusRate.SECOND);
-        MenuBox.ProfileType.TYPES.createMenuBox(data, menuListProducer, viewController, menuBox, numbersMenu());
+        MenuBox.ProfileType.TYPES.createMenuBox(dataManager, menuListProducer, viewController, menuBox, numbersMenu());
         panelComponents.add(menuBox);
         focusableComponents.add(menuBox);
         return menuBox;
@@ -144,7 +144,7 @@ public class CalculatorConfiguration implements PanelComponents {
     public MenuSelectable assortmentMenu(){
         String toolTipText = "выбор сортамента детали";
         MenuBox menuBox = new MenuBox(toolTipText, 20, 20, MenuBox.FocusRate.FIRST);
-        MenuBox.ProfileType.ASSORTMENTS.createMenuBox(data, menuListProducer, viewController, menuBox, typesMenu(), numbersMenu());
+        MenuBox.ProfileType.ASSORTMENTS.createMenuBox(dataManager, menuListProducer, viewController, menuBox, typesMenu(), numbersMenu());
         panelComponents.add(menuBox);
         focusableComponents.add(menuBox);
         return menuBox;

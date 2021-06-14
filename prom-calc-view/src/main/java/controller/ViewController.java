@@ -11,17 +11,13 @@ public interface ViewController {
 
     void fieldsOff();
 
-    void widthOn();
+    void widthCheck();
 
     void action();
-
-    void areaActivate();
 
     void setResult(String value, boolean alert);
 
     void setMessage(String message, boolean alert);
-
-    boolean isWidth();
 
     List<UiComponent> loadComponents();
 
@@ -29,5 +25,4 @@ public interface ViewController {
 
     void setToolTipState(boolean selected);
 
-    void areaDeactivate();
 }

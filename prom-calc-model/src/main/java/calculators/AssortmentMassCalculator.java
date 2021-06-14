@@ -1,6 +1,5 @@
 package calculators;
 
-import model.AbstractMassCalculator;
 import org.springframework.stereotype.Component;
 
 @Component
