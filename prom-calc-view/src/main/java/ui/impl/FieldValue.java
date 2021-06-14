@@ -1,6 +1,6 @@
 package ui.impl;
 
-import controller.impl.FieldsAction;
+import controller.FieldAction;
 import controller.ViewController;
 import lombok.Getter;
 import model.DataManager;
@@ -53,7 +53,7 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 
@@ -77,7 +77,7 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
     enum Type {
         WIDTH{
             @Override
-            void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction) {
+            void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldAction fieldsAction) {
                 fieldsAction.setComponent(fieldValue);
             }
 
@@ -100,7 +100,7 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
         },
         LENGTH{
             @Override
-            void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction) {
+            void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldAction fieldsAction) {
                 fieldsAction.setComponent(fieldValue);
             }
 
@@ -129,7 +129,7 @@ class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy
          * @param viewController
          * @param fieldsAction
          */
-        abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldsAction fieldsAction);
+        abstract void setActionComponent(FieldValue fieldValue, ViewController viewController, FieldAction fieldsAction);
 
         abstract void fieldActivate(FieldValue fieldValue, DataManager dataManager, KeyActionObserver observer);
     }

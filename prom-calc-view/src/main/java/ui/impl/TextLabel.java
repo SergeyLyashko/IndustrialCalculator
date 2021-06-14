@@ -41,7 +41,7 @@ class TextLabel extends JLabel implements UiComponent, Colorizeble, FocusPolicy 
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 

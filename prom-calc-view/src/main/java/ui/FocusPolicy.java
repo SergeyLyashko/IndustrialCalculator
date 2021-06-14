@@ -6,5 +6,5 @@ public interface FocusPolicy {
 
     int getFocusRate();
 
-    JComponent getComponentParent();
+    JComponent getComponent();
 }

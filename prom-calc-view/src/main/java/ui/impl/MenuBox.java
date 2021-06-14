@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +54,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
     }
 
     @Override
-    public JComboBox<String> getComponentParent() {
+    public JComboBox<String> getComponent() {
         return this;
     }
 
@@ -81,7 +80,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
 
         ASSORTMENTS{
             @Override
-            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
                 MenuSelectable typeMenuBox = menuBoxes[1];
                 MenuSelectable numberMenuBox = menuBoxes[2];
@@ -92,75 +91,72 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 } catch (SQLException exception) {
                     isConnect = false;
                 }
-                assortmentMenu.add(0, TYPE_VALUE_DATA.get("assortment"));
+                assortmentMenu.add(0, dataManager.getDataAssortment());
+
                 ProfileType.createMenuModel(assortmentMenuBox, viewController, assortmentMenu);
                 ProfileType.clickListener(assortmentMenuBox, viewController);
-                addActionListener(data, menuListProducer, viewController, assortmentMenuBox, typeMenuBox, numberMenuBox);
+                addActionListener(dataManager, menuListProducer, viewController, assortmentMenuBox, typeMenuBox, numberMenuBox);
             }
 
-            private void addActionListener(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox, MenuSelectable numberMenuBox) {
+            private void addActionListener(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox, MenuSelectable numberMenuBox) {
                 assortmentMenuBox.addActionListener(event -> {
                     viewController.fieldsOff();
                     String selectedAssortment = assortmentMenuBox.getSelectedItem();
 
-                    data.setAssortment(selectedAssortment);
+                    dataManager.setAssortment(selectedAssortment);
+                    dataManager.setType("Тип профиля");
+                    dataManager.setNumber("№ профиля");
 
-                    TYPE_VALUE_DATA.replace("assortment", selectedAssortment);
-                    TYPE_VALUE_DATA.replace("type", "Тип профиля");
-                    TYPE_VALUE_DATA.replace("number", "№ профиля");
-                    ProfileType.TYPES.createMenuBox(data, menuListProducer, viewController, typeMenuBox, numberMenuBox);
-                    ProfileType.NUMBERS.createMenuBox(data, menuListProducer, viewController, numberMenuBox);
+                    ProfileType.TYPES.createMenuBox(dataManager, menuListProducer, viewController, typeMenuBox, numberMenuBox);
+                    ProfileType.NUMBERS.createMenuBox(dataManager, menuListProducer, viewController, numberMenuBox);
                 });
             }
         },
 
         TYPES{
             @Override
-            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
                 MenuSelectable typeMenuBox = menuBoxes[1];
 
                 List<String> typesMenu = new LinkedList<>();
                 try {
-                    typesMenu = menuListProducer.produceTypes(TYPE_VALUE_DATA.get("assortment"));
+                    typesMenu = menuListProducer.produceTypes(dataManager.getDataAssortment());
                 } catch (SQLException exception) {
                     isConnect = false;
                 }
                 typesMenu.add(0, "Тип профиля");
                 ProfileType.createMenuModel(assortmentMenuBox, viewController, typesMenu);
                 ProfileType.clickListener(assortmentMenuBox, viewController);
-                addActionListener(data, menuListProducer, viewController, assortmentMenuBox, typeMenuBox);
+                addActionListener(dataManager, menuListProducer, viewController, assortmentMenuBox, typeMenuBox);
             }
 
-            private void addActionListener(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox) {
+            private void addActionListener(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable assortmentMenuBox, MenuSelectable typeMenuBox) {
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedType = assortmentMenuBox.getSelectedItem();
-
-                    data.setType(selectedType);
-
+                    dataManager.setType(selectedType);
                     viewController.fieldsOff();
                     viewController.widthCheck();
-                    TYPE_VALUE_DATA.replace("type", selectedType);
-                    ProfileType.NUMBERS.createMenuBox(data, menuListProducer, viewController, typeMenuBox);
+                    ProfileType.NUMBERS.createMenuBox(dataManager, menuListProducer, viewController, typeMenuBox);
                 });
             }
         },
 
         NUMBERS{
             @Override
-            void createMenuBox(DataManager data, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
+            void createMenuBox(DataManager dataManager, MenuListProducer menuListProducer, ViewController viewController, MenuSelectable... menuBoxes) {
                 MenuSelectable assortmentMenuBox = menuBoxes[0];
 
                 List<String> numbersMenu = new LinkedList<>();
                 try {
-                    numbersMenu = menuListProducer.produceNumbers(TYPE_VALUE_DATA.get("assortment"), TYPE_VALUE_DATA.get("type"));
+                    numbersMenu = menuListProducer.produceNumbers(dataManager.getDataAssortment(), dataManager.getDataType());
                 } catch (SQLException exception) {
                     isConnect = false;
                 }
                 numbersMenu.add(0, "№ профиля");
                 ProfileType.createMenuModel(assortmentMenuBox, viewController, numbersMenu);
                 ProfileType.clickListener(assortmentMenuBox, viewController);
-                addActionListener(data, viewController, assortmentMenuBox);
+                addActionListener(dataManager, viewController, assortmentMenuBox);
             }
 
             private void addActionListener(DataManager data, ViewController viewController, MenuSelectable assortmentMenuBox) {
@@ -168,10 +164,7 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 assortmentMenuBox.addActionListener(event -> {
                     String selectedNumber = assortmentMenuBox.getSelectedItem();
                     if(selectedNumber != null && !selectedNumber.equals(numberHeader)){
-
                         data.setNumber(selectedNumber);
-
-                        TYPE_VALUE_DATA.replace("number", selectedNumber);
                     }
                     if(isConnect){
                         viewController.action();
@@ -179,14 +172,6 @@ class MenuBox extends JComboBox<String> implements MenuSelectable, FocusPolicy {
                 });
             }
         };
-
-        // <type, value>
-        private static final HashMap<String, String> TYPE_VALUE_DATA = new HashMap<>(3);
-        static {
-            TYPE_VALUE_DATA.put("assortment", "Тип сортамента");
-            TYPE_VALUE_DATA.put("type", "Тип профиля");
-            TYPE_VALUE_DATA.put("number", "№ профиля");
-        }
 
         private static void clickListener(MenuSelectable menuBox, ViewController viewController){
             menuBox.addMouseListener(new MouseAdapter() {

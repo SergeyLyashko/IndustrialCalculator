@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 
 public interface MenuSelectable extends UiComponent {
 
-    JComboBox<String> getComponentParent();
+    JComboBox<String> getComponent();
 
     String getSelectedItem();
 

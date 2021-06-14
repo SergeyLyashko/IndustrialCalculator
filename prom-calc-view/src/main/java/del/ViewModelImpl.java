@@ -1,6 +1,5 @@
-package model.impl;
+package del;
 
-import model.ViewModel;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.util.List;
-
+/*
 @Service("viewModel")
 class ViewModelImpl implements ViewModel, ApplicationContextAware {
 
@@ -22,7 +21,7 @@ class ViewModelImpl implements ViewModel, ApplicationContextAware {
 
     @Override
     public ComboBoxModel<String> createMenuModel(List<String> menuList) {
-        MenuModel menuModel = applicationContext.getBean("menuModel", MenuModel.class);
+        MenuModelImpl menuModel = applicationContext.getBean("menuModel", MenuModelImpl.class);
         menuModel.addMenuList(menuList);
         return menuModel;
     }
@@ -32,3 +31,4 @@ class ViewModelImpl implements ViewModel, ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 }
+*/

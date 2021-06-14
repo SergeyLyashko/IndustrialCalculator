@@ -42,7 +42,7 @@ class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 

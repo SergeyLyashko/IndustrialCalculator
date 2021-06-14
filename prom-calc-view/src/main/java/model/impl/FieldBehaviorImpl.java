@@ -15,7 +15,7 @@ class FieldBehaviorImpl implements FieldBehavior {
     @Override
     public void fieldActivate(UiComponent component) {
         String name = component.getName();
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         textField.setText(name);
         textField.setEditable(true);
         textField.setForeground(Color.GRAY);
@@ -24,21 +24,21 @@ class FieldBehaviorImpl implements FieldBehavior {
 
     @Override
     public void areaActivate(UiComponent component){
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         textField.setText(BOX_NAME_AREA);
     }
 
     @Override
     public void areaDeactivate(UiComponent component){
         String name = component.getName();
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         textField.setText(name);
     }
 
     @Override
     public void fieldDeactivate(UiComponent component) {
         String name = component.getName();
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         textField.setText(name);
         textField.setEditable(false);
         textField.setForeground(Color.GRAY);

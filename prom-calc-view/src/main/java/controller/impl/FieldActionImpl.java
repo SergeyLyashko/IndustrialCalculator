@@ -1,5 +1,6 @@
 package controller.impl;
 
+import controller.FieldAction;
 import model.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import ui.UiComponent;
 
 @Service
 @Scope("prototype")
-public class FieldsAction implements ApplicationContextAware {
+class FieldActionImpl implements FieldAction, ApplicationContextAware {
 
     @Autowired
     private FieldBehavior fieldBehavior;
@@ -23,29 +24,34 @@ public class FieldsAction implements ApplicationContextAware {
     private UiComponent component;
     private ApplicationContext applicationContext;
 
+    @Override
     public void setComponent(UiComponent component){
         this.component = component;
         this.focusBehavior = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         deactivate();
     }
 
-    void deactivate(){
+    @Override
+    public void deactivate(){
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldDeactivate(component);
         focusBehavior.fieldDeactivate(component);
     }
 
-    void activate(){
+    @Override
+    public void activate(){
         defaultFilter.activateFilter(component);
         fieldBehavior.fieldActivate(component);
         focusBehavior.fieldActivate(component);
     }
 
-    void areaActivate(){
+    @Override
+    public void areaActivate(){
         fieldBehavior.areaActivate(component);
     }
 
-    void areaDeactivate(){
+    @Override
+    public void areaDeactivate(){
         fieldBehavior.areaDeactivate(component);
     }
 

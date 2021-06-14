@@ -27,11 +27,6 @@ public class ViewModelConfiguration {
     }
 
     @Bean
-    public ViewModel viewModel(){
-        return new ViewModelImpl();
-    }
-
-    @Bean
     public Filter defaultFilter(){
         return new DefaultFilter();
     }

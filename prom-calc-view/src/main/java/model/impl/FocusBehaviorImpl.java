@@ -25,7 +25,7 @@ class FocusBehaviorImpl implements FocusBehavior {
 
     @Override
     public void fieldActivate(UiComponent component){
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -37,7 +37,7 @@ class FocusBehaviorImpl implements FocusBehavior {
 
     @Override
     public void fieldDeactivate(UiComponent component) {
-        JFormattedTextField textField = (JFormattedTextField) component.getComponentParent();
+        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
         Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
     }
 

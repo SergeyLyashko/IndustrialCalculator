@@ -1,6 +1,6 @@
 package ui.impl;
 
-import controller.impl.FieldsAction;
+import controller.FieldAction;
 import model.DataManager;
 import model.KeyActionObserver;
 import model.LabelBehavior;
@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Lazy;
 import ui.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +30,10 @@ public class CalculatorConfiguration implements PanelComponents {
     private MenuListProducer menuListProducer;
     @Autowired
     @Qualifier("widthAction")
-    private FieldsAction widthAction;
+    private FieldAction widthAction;
     @Autowired
     @Qualifier("lengthAction")
-    private FieldsAction lengthAction;
+    private FieldAction lengthAction;
     @Autowired
     private ColorChanger colorChanger;
     @Autowired
@@ -45,6 +47,13 @@ public class CalculatorConfiguration implements PanelComponents {
     private DataManager dataManager;
     @Autowired
     private KeyActionObserver observer;
+
+    @PostConstruct
+    private void dataInit(){
+        dataManager.setAssortment("Тип сортамента");
+        dataManager.setType("Тип профиля");
+        dataManager.setNumber("№ профиля");
+    }
 
     @Bean(name = "areaCheckBox")
     public UiComponent areaCheckBox(){

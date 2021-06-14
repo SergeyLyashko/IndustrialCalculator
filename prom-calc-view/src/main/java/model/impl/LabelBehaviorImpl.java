@@ -21,7 +21,7 @@ class LabelBehaviorImpl implements LabelBehavior {
     @Override
     public void setComponent(UiComponent component){
         this.component = component;
-        label = (JLabel) component.getComponentParent();
+        label = (JLabel) component.getComponent();
     }
 
     @Override

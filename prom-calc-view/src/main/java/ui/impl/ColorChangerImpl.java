@@ -36,20 +36,20 @@ class ColorChangerImpl implements ColorChanger {
 
     @Override
     public void changeComponentColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponentParent();
+        JComponent parent = colorizeble.getComponent();
         parent.setBackground(backGround);
         parent.setForeground(foreGround);
     }
 
     @Override
     public void changeServiceLabelColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponentParent();
+        JComponent parent = colorizeble.getComponent();
         parent.setForeground(serviceStringColor);
     }
 
     @Override
     public void changeLabelColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponentParent();
+        JComponent parent = colorizeble.getComponent();
         parent.setForeground(markerColor);
     }
 
@@ -61,13 +61,13 @@ class ColorChangerImpl implements ColorChanger {
 
     @Override
     public void setAlertColor(UiComponent component) {
-        JComponent parent = component.getComponentParent();
+        JComponent parent = component.getComponent();
         parent.setForeground(alertColor);
     }
 
     @Override
     public void setDefaultColor(UiComponent component) {
-        JComponent parent = component.getComponentParent();
+        JComponent parent = component.getComponent();
         parent.setForeground(serviceStringColor);
     }
 

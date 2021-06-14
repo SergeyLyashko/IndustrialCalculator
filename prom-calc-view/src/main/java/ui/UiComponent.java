@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public interface UiComponent {
 
-    JComponent getComponentParent();
+    JComponent getComponent();
 
     default String getName(){ return  null; }
 }

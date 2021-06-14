@@ -15,7 +15,7 @@ class DigitalFilter extends DocumentFilter implements Filter {
 
     @Override
     public void activateFilter(UiComponent component) {
-        JTextField textField = (JFormattedTextField) component.getComponentParent();
+        JTextField textField = (JFormattedTextField) component.getComponent();
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
     }
 

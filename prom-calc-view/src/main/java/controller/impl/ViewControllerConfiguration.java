@@ -1,6 +1,7 @@
 package controller.impl;
 
 import controller.CalculatorController;
+import controller.FieldAction;
 import controller.ViewController;
 import model.impl.ViewModelConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +24,12 @@ public class ViewControllerConfiguration {
     }
 
     @Bean
-    public FieldsAction widthAction(){
-        return new FieldsAction();
+    public FieldAction widthAction(){
+        return new FieldActionImpl();
     }
 
     @Bean
-    public FieldsAction lengthAction(){
-        return new FieldsAction();
+    public FieldAction lengthAction(){
+        return new FieldActionImpl();
     }
 }

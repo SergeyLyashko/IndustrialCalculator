@@ -15,10 +15,8 @@ import java.awt.*;
 class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
 
     private JViewport viewport;
-
     @Autowired
     private ColorChanger colorColorChanger;
-
     @Autowired
     @Qualifier("info")
     private UiComponent info;
@@ -30,14 +28,14 @@ class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
     }
 
     @PostConstruct
-    private void afterPropertiesSet() throws Exception {
+    private void afterPropertiesSet() {
         colorColorChanger.addColorizebleComponent(this);
         wrap(info);
     }
 
     private void wrap(UiComponent content){
         viewport = super.getViewport();
-        viewport.add(content.getComponentParent());
+        viewport.add(content.getComponent());
     }
 
     @Override
@@ -51,7 +49,7 @@ class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 }

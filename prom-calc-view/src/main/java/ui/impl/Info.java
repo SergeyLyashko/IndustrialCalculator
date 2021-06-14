@@ -60,7 +60,7 @@ class Info extends JLabel implements Colorizeble {
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 }

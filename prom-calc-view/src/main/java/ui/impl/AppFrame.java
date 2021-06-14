@@ -37,11 +37,10 @@ class AppFrame extends JFrame implements ApplicationContextAware {
 
     private void addPanel(String panelTitle){
         AppPanel appPanelBean = applicationContext.getBean(panelTitle, AppPanel.class);
-        JComponent componentParent = appPanelBean.getComponentParent();
-        //CalculatorComponents componentsBean = applicationContext.getBean(panelTitle+" компоненты", CalculatorComponents.class);
+        JComponent componentParent = appPanelBean.getComponent();
         PanelComponents calculatorComponents = applicationContext.getBean(panelTitle + " конфигурация", PanelComponents.class);
         List<UiComponent> components = calculatorComponents.getPanelComponents();
-        components.forEach(appComponent -> componentParent.add(appComponent.getComponentParent()));
+        components.forEach(appComponent -> componentParent.add(appComponent.getComponent()));
         jTabbedPane.add(panelTitle, componentParent);
     }
 

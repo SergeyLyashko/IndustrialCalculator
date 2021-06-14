@@ -1,13 +1,14 @@
 package controller.impl;
 
 import controller.CalculatorController;
+import controller.FieldAction;
 import controller.ViewController;
-import model.DataManager;
-import model.KeyActionObserver;
-import model.LabelBehavior;
-import model.ViewModel;
+import model.*;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ui.UiComponent;
@@ -18,14 +19,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service("viewController")
-class ViewControllerImpl implements KeyActionObserver, ViewController {
+class ViewControllerImpl implements KeyActionObserver, ViewController, ApplicationContextAware {
 
     private static final String NOT_DATABASE_MESSAGE = "Значение не найдено в БД";
     private static final String ERROR = "error";
     private static final boolean ALERT = true;
 
-    @Autowired
-    private ViewModel viewModel;
     @Autowired
     private CalculatorController calculatorController;
     @Lazy
@@ -40,23 +39,33 @@ class ViewControllerImpl implements KeyActionObserver, ViewController {
     //private Preference preference;
     @Autowired
     @Qualifier("lengthAction")
-    private FieldsAction lengthAction;
+    private FieldAction lengthAction;
     @Autowired
     @Qualifier("widthAction")
-    private FieldsAction widthAction;
+    private FieldAction widthAction;
     @Autowired
     private DataManager dataManager;
+    private ApplicationContext applicationContext;
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
-        ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
-        JComboBox<String> comboBox = menuSelectable.getComponentParent();
-        comboBox.setModel(menu);
+        //ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
+        MenuModel menuModel = applicationContext.getBean("menuModel", MenuModel.class);
+        menuModel.addMenuList(menuList);
+        JComboBox<String> comboBox = menuSelectable.getComponent();
+        comboBox.setModel(menuModel.getModel());
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Override
     public void setToolTipState(boolean selected) {
-        viewModel.setToolTipState(selected);
+        //viewModel.setToolTipState(selected);
+        ToolTipManager toolTipManager = ToolTipManager.sharedInstance();
+        toolTipManager.setEnabled(selected);
     }
 
     private void resetServiceString(){

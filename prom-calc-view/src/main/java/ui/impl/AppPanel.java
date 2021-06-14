@@ -30,7 +30,7 @@ class AppPanel extends JPanel implements UiComponent, Colorizeble {
     }
 
     @Override
-    public JComponent getComponentParent() {
+    public JComponent getComponent() {
         return this;
     }
 }
