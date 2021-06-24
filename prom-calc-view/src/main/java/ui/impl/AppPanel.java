@@ -27,8 +27,4 @@ class AppPanel extends JPanel implements Colorizeble {
     public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeComponentColor(this);
     }
-
-    public JComponent getComponent() {
-        return this;
-    }
 }

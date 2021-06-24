@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import javax.swing.*;
+
 @Configuration
 @Import({ViewModelConfiguration.class, CalculatorConfiguration.class, SettingsConfiguration.class,  InfoConfiguration.class, })
 public class ViewConfiguration {
@@ -15,17 +17,17 @@ public class ViewConfiguration {
     }
 
     @Bean(name = "Калькулятор")
-    public AppPanel calculatorPanel(){
+    public JPanel calculatorPanel(){
         return new AppPanel();
     }
 
     @Bean(name = "Настройки")
-    public AppPanel settingsPanel(){
+    public JPanel settingsPanel(){
         return new AppPanel();
     }
 
     @Bean(name = "Справка")
-    public AppPanel infoPanel(){
+    public JPanel infoPanel(){
         return new AppPanel();
     }
 

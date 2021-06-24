@@ -21,7 +21,7 @@ class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
 
     @Autowired
     @Qualifier("Калькулятор")
-    private AppPanel appPanel;
+    private JPanel appPanel;
 
     @Autowired
     @Qualifier("Калькулятор конфигурация")
@@ -41,10 +41,9 @@ class CalculatorFocusTraversalPolicy extends FocusTraversalPolicy {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private void setFocusPolicy(AppPanel panel){
-        JComponent parent = panel.getComponent();
-        parent.setFocusCycleRoot(true);
-        parent.setFocusTraversalPolicy(this);
+    private void setFocusPolicy(JPanel panel){
+        panel.setFocusCycleRoot(true);
+        panel.setFocusTraversalPolicy(this);
     }
 
     @Override
