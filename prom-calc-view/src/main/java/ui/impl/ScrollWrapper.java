@@ -42,9 +42,4 @@ class ScrollWrapper extends JScrollPane implements Colorizeble {
     public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeComponentColor(viewport);
     }
-
-    @Override
-    public JComponent getComponent() {
-        return viewport;
-    }
 }

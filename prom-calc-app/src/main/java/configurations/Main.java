@@ -14,9 +14,8 @@ public class Main {
 
             GenericApplicationContext context = new AnnotationConfigApplicationContext(CalculatorConfiguration.class);
             ColorChanger colorized = context.getBean("colorChanger", ColorChanger.class);
-            colorized.componentsRecolor();
+            colorized.activateDarkScheme();
             context.registerShutdownHook();
-
         });
     }
 }

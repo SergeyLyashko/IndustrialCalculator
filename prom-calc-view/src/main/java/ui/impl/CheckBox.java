@@ -28,21 +28,11 @@ class CheckBox extends JCheckBox implements Colorizeble {
         super.setToolTipText(toolTipText);
         super.setLocation(locationX, locationY);
         colorChanger.addColorizebleComponent(this);
-        if(super.isSelected()){
-            colorChanger.activateDarkScheme();
-        }else {
-            colorChanger.activateLightScheme();
-        }
     }
 
     @Override
     public void acceptColorChanger(ColorChanger colorChanger) {
         colorChanger.changeComponentColor(this);
-    }
-
-    @Override
-    public JComponent getComponent() {
-        return this;
     }
 
     public enum TypeBox {
@@ -55,7 +45,6 @@ class CheckBox extends JCheckBox implements Colorizeble {
                     } else {
                         colorChanger.activateLightScheme();
                     }
-                    colorChanger.componentsRecolor();
                 });
             }
         },

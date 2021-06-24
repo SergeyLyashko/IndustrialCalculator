@@ -17,7 +17,7 @@ public interface ColorChanger {
 
     /**
      * Change color theme
-     * @param //colorizeble component, implementation of the Colorizeble interface
+     * @param component, implementation of the Colorizeble interface
      */
     void changeComponentColor(JComponent component);
 
@@ -54,9 +54,4 @@ public interface ColorChanger {
      * @param component
      */
     void setDefaultColor(JComponent component);
-
-    /**
-     * Recolor all colorizeble component
-     */
-    void componentsRecolor();
 }

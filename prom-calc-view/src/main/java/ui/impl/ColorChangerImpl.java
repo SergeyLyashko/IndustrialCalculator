@@ -24,11 +24,6 @@ class ColorChangerImpl implements ColorChanger {
     private final Color alertColor = Color.RED;
 
     @Override
-    public void componentsRecolor() {
-        componentsList.forEach(component -> component.acceptColorChanger(this));
-    }
-
-    @Override
     public void addColorizebleComponent(Colorizeble colorizeble) {
         componentsList.add(colorizeble);
     }
@@ -69,6 +64,7 @@ class ColorChangerImpl implements ColorChanger {
         foreGround = Color.BLACK;
         markerColor = Color.BLACK;
         serviceStringColor = Color.BLUE;
+        componentsList.forEach(component -> component.acceptColorChanger(this));
     }
 
     @Override
@@ -77,5 +73,6 @@ class ColorChangerImpl implements ColorChanger {
         foreGround = Color.WHITE;
         markerColor = Color.WHITE;
         serviceStringColor = Color.GREEN;
+        componentsList.forEach(component -> component.acceptColorChanger(this));
     }
 }
