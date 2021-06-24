@@ -1,6 +1,5 @@
 package ui.impl;
 
-import controller.impl.ViewControllerConfiguration;
 import model.impl.ViewModelConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

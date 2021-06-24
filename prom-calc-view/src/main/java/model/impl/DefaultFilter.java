@@ -1,7 +1,6 @@
 package model.impl;
 
 import org.springframework.stereotype.Service;
-import ui.UiComponent;
 import model.Filter;
 
 import javax.swing.*;
@@ -12,8 +11,9 @@ import javax.swing.text.DocumentFilter;
 class DefaultFilter extends DocumentFilter implements Filter {
 
     @Override
-    public void activateFilter(UiComponent component) {
-        JTextField textField = (JFormattedTextField) component.getComponent();
-        ((AbstractDocument) textField.getDocument()).setDocumentFilter(this);
+    public void activateFilter(JComponent component) {
+        if(component instanceof JFormattedTextField){
+            ((AbstractDocument) ((JFormattedTextField)component).getDocument()).setDocumentFilter(this);
+        }
     }
 }

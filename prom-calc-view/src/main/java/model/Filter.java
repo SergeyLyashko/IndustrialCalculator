@@ -1,8 +1,8 @@
 package model;
 
-import ui.UiComponent;
+import javax.swing.*;
 
 public interface Filter {
 
-    void activateFilter(UiComponent component);
+    void activateFilter(JComponent component);
 }

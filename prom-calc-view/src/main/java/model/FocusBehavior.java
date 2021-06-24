@@ -1,10 +1,10 @@
 package model;
 
-import ui.UiComponent;
+import javax.swing.*;
 
 public interface FocusBehavior {
 
-    void fieldDeactivate(UiComponent component);
+    void fieldDeactivate(JComponent component);
 
-    void fieldActivate(UiComponent component);
+    void fieldActivate(JComponent component);
 }

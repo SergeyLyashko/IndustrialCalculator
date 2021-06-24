@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import ui.UiComponent;
 import ui.MenuSelectable;
 
 import javax.swing.*;
@@ -49,7 +48,6 @@ class ViewControllerImpl implements KeyActionObserver, ViewController, Applicati
 
     @Override
     public void createMenu(List<String> menuList, MenuSelectable menuSelectable) {
-        //ComboBoxModel<String> menu = viewModel.createMenuModel(menuList);
         MenuModel menuModel = applicationContext.getBean("menuModel", MenuModel.class);
         menuModel.addMenuList(menuList);
         JComboBox<String> comboBox = menuSelectable.getComponent();
@@ -63,7 +61,6 @@ class ViewControllerImpl implements KeyActionObserver, ViewController, Applicati
 
     @Override
     public void setToolTipState(boolean selected) {
-        //viewModel.setToolTipState(selected);
         ToolTipManager toolTipManager = ToolTipManager.sharedInstance();
         toolTipManager.setEnabled(selected);
     }
@@ -129,7 +126,7 @@ class ViewControllerImpl implements KeyActionObserver, ViewController, Applicati
     }
 
     @Override
-    public List<UiComponent> loadComponents() {
+    public List<JComponent> loadComponents() {
         // TODO !!!
         //Preference preference = viewModel.getPreference();
         /*if(preference.isSaved()){
@@ -139,7 +136,7 @@ class ViewControllerImpl implements KeyActionObserver, ViewController, Applicati
     }
 
     @Override
-    public void savedPreference(List<UiComponent> components) {
+    public void savedPreference(List<JComponent> components) {
         //Preference preference = viewModel.getPreference();
         // TODO !!!
         //preference.saveComponents(components);

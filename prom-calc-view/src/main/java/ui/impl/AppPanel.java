@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ui.Colorizeble;
 import ui.ColorChanger;
-import ui.UiComponent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 
 @Component
-class AppPanel extends JPanel implements UiComponent, Colorizeble {
+class AppPanel extends JPanel implements Colorizeble {
 
     @Autowired
     private ColorChanger colorColorChanger;

@@ -3,7 +3,6 @@ package ui.impl;
 import org.springframework.stereotype.Service;
 import ui.Colorizeble;
 import ui.ColorChanger;
-import ui.UiComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,40 +34,33 @@ class ColorChangerImpl implements ColorChanger {
     }
 
     @Override
-    public void changeComponentColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponent();
-        parent.setBackground(backGround);
-        parent.setForeground(foreGround);
+    public void changeComponentColor(JComponent component) {
+        if(component instanceof JViewport){
+            component.setBackground(backGround);
+        }else {
+            component.setBackground(backGround);
+            component.setForeground(foreGround);
+        }
     }
 
     @Override
-    public void changeServiceLabelColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponent();
-        parent.setForeground(serviceStringColor);
+    public void changeServiceLabelColor(JComponent component) {
+        component.setForeground(serviceStringColor);
     }
 
     @Override
-    public void changeLabelColor(Colorizeble colorizeble) {
-        JComponent parent = colorizeble.getComponent();
-        parent.setForeground(markerColor);
+    public void changeLabelColor(JComponent component) {
+        component.setForeground(markerColor);
     }
 
     @Override
-    public void changeScrollColor(Colorizeble colorizeble) {
-        JComponent scrollViewPort = colorizeble.getScrollViewPort();
-        scrollViewPort.setBackground(backGround);
+    public void setAlertColor(JComponent component) {
+        component.setForeground(alertColor);
     }
 
     @Override
-    public void setAlertColor(UiComponent component) {
-        JComponent parent = component.getComponent();
-        parent.setForeground(alertColor);
-    }
-
-    @Override
-    public void setDefaultColor(UiComponent component) {
-        JComponent parent = component.getComponent();
-        parent.setForeground(serviceStringColor);
+    public void setDefaultColor(JComponent component) {
+        component.setForeground(serviceStringColor);
     }
 
     @Override

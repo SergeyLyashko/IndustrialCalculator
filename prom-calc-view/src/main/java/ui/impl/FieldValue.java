@@ -8,7 +8,6 @@ import model.KeyActionObserver;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ui.FocusPolicy;
-import ui.UiComponent;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -20,7 +19,7 @@ import java.awt.event.KeyEvent;
  */
 @Component
 @Scope("prototype")
-class FieldValue extends JFormattedTextField implements UiComponent, FocusPolicy {
+class FieldValue extends JFormattedTextField implements FocusPolicy {
 
     private static final int WIDTH_SIZE = 125;
     private static final int HEIGHT_SIZE = 23;

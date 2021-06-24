@@ -9,7 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ui.UiComponent;
+
+import javax.swing.*;
 
 @Service
 @Scope("prototype")
@@ -21,11 +22,11 @@ class FieldActionImpl implements FieldAction, ApplicationContextAware {
     @Qualifier("defaultFilter")
     private Filter defaultFilter;
     private FocusBehavior focusBehavior;
-    private UiComponent component;
+    private JComponent component;
     private ApplicationContext applicationContext;
 
     @Override
-    public void setComponent(UiComponent component){
+    public void setComponent(JComponent component){
         this.component = component;
         this.focusBehavior = applicationContext.getBean("focusBehavior", FocusBehavior.class);
         deactivate();

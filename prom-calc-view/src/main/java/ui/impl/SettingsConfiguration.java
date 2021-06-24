@@ -5,17 +5,17 @@ import model.DataManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ui.UiComponent;
 import ui.PanelComponents;
 import ui.ColorChanger;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration("Настройки конфигурация")
 public class SettingsConfiguration implements PanelComponents {
 
-    private final List<UiComponent> panelComponents = new ArrayList<>();
+    private final List<JComponent> panelComponents = new ArrayList<>();
 
     @Autowired
     private ViewController viewController;
@@ -28,7 +28,7 @@ public class SettingsConfiguration implements PanelComponents {
     }
 
     @Bean(name = "colorThemeBox")
-    public UiComponent colorThemeBox(){
+    public JComponent colorThemeBox(){
         String boxTitle = "темная тема оформления";
         String toolTipText = "включить/отключить темную тему приложения";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 35, colorChanger());
@@ -38,7 +38,7 @@ public class SettingsConfiguration implements PanelComponents {
     }
 
     @Bean(name = "toolTipsBox")
-    public UiComponent toolTipsBox(){
+    public JComponent toolTipsBox(){
         String boxTitle = "включить всплывающие подсказки";
         String toolTipText = "включение/отключение всплывающих подсказок";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 15, 60, colorChanger());
@@ -48,7 +48,7 @@ public class SettingsConfiguration implements PanelComponents {
     }
 
     @Override
-    public List<UiComponent> getPanelComponents(){
+    public List<JComponent> getPanelComponents(){
         return panelComponents;
     }
 }

@@ -1,5 +1,7 @@
 package ui;
 
+import javax.swing.*;
+
 /**
  * Interface for change color scheme of app.
  * Visitor pattern realization.
@@ -15,21 +17,21 @@ public interface ColorChanger {
 
     /**
      * Change color theme
-     * @param colorizeble component, implementation of the Colorizeble interface
+     * @param //colorizeble component, implementation of the Colorizeble interface
      */
-    void changeComponentColor(Colorizeble colorizeble);
+    void changeComponentColor(JComponent component);
 
     /**
      * Change color of service label component, implementation of the Colorizeble interface
-     * @param colorizeble component, implementation of the Colorizeble interface
+     * @param component, implementation of the Colorizeble interface
      */
-    void changeServiceLabelColor(Colorizeble colorizeble);
+    void changeServiceLabelColor(JComponent component);
 
     /**
      * Change color of usual label component, implementation of the Colorizeble interface
-     * @param colorizeble component, implementation of the Colorizeble interface
+     * @param component, implementation of the Colorizeble interface
      */
-    void changeLabelColor(Colorizeble colorizeble);
+    void changeLabelColor(JComponent component);
 
     /**
      * Activation light color theme on UI app
@@ -42,22 +44,16 @@ public interface ColorChanger {
     void activateDarkScheme();
 
     /**
-     * Change color of scroll pane of info panel
-     * @param colorizeble component, implementation of the Colorizeble interface
-     */
-    void changeScrollColor(Colorizeble colorizeble);
-
-    /**
      * Painted component in red color
      * @param component
      */
-    void setAlertColor(UiComponent component);
+    void setAlertColor(JComponent component);
 
     /**
      * Painted component in default color
      * @param component
      */
-    void setDefaultColor(UiComponent component);
+    void setDefaultColor(JComponent component);
 
     /**
      * Recolor all colorizeble component

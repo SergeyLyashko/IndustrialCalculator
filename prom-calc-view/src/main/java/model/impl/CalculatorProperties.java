@@ -2,7 +2,6 @@ package model.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import ui.UiComponent;
 //import controller.Preference;
 
 import java.io.FileInputStream;

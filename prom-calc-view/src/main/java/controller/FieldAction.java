@@ -1,10 +1,10 @@
 package controller;
 
-import ui.UiComponent;
+import javax.swing.*;
 
 public interface FieldAction {
 
-    void setComponent(UiComponent component);
+    void setComponent(JComponent component);
 
     void deactivate();
 

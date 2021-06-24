@@ -21,7 +21,7 @@ import java.util.List;
 @Configuration("Калькулятор конфигурация")
 public class CalculatorConfiguration implements PanelComponents {
 
-    private final List<UiComponent> panelComponents = new ArrayList<>();
+    private final List<JComponent> panelComponents = new ArrayList<>();
     private final List<FocusPolicy> focusableComponents = new ArrayList<>();
 
     @Autowired
@@ -56,7 +56,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean(name = "areaCheckBox")
-    public UiComponent areaCheckBox(){
+    public JComponent areaCheckBox(){
         String boxTitle = "сложный периметр";
         String toolTipText = "расчет массы детали по задаваемой площади детали";
         CheckBox checkBox = new CheckBox(boxTitle, toolTipText, 187, 85, colorChanger);
@@ -67,7 +67,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean(name = "width")
-    public UiComponent width(){
+    public JComponent width(){
         String description = "введите ширину";
         String toolTip = "поле ввода ширины детали";
         FieldValue fieldValue = new FieldValue(description, toolTip, 190, 20, FieldValue.FocusRate.FOURTH);
@@ -79,7 +79,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean(name = "length")
-    public UiComponent length(){
+    public JComponent length(){
         String description = "введите длину";
         String toolTip = "поле ввода длины детали";
         FieldValue fieldValue = new FieldValue(description, toolTip, 190, 60, FieldValue.FocusRate.FIFTH);
@@ -91,7 +91,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean
-    public UiComponent dimensionWidth(){
+    public JComponent dimensionWidth(){
         String defaultText = "mm";
         TextLabel textLabel = new TextLabel(defaultText, 320, 22, 25, 20, SwingConstants.RIGHT);
         TextLabel.Type.DIMENSION_WIDTH.addColorChanger(textLabel, colorChanger);
@@ -100,7 +100,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean
-    public UiComponent dimensionLength(){
+    public JComponent dimensionLength(){
         String defaultText = "mm";
         TextLabel textLabel = new TextLabel(defaultText, 320, 62, 25, 20, SwingConstants.RIGHT);
         TextLabel.Type.DIMENSION_LENGTH.addColorChanger(textLabel, colorChanger);
@@ -109,7 +109,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean
-    public UiComponent message(){
+    public JComponent message(){
         String defaultText = "";
         TextLabel textLabel = new TextLabel(defaultText, 20, 140, 315, 15, SwingConstants.CENTER);
         TextLabel.Type.MESSAGE.addColorChanger(textLabel, colorChanger);
@@ -119,7 +119,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Bean
-    public UiComponent result(){
+    public JComponent result(){
         String defaultText = "0.0 кг";
         TextLabel textLabel = new TextLabel(defaultText, 190, 105, 125, 25, SwingConstants.RIGHT);
         TextLabel.Type.RESULT.addColorChanger(textLabel, colorChanger);
@@ -160,7 +160,7 @@ public class CalculatorConfiguration implements PanelComponents {
     }
 
     @Override
-    public List<UiComponent> getPanelComponents(){
+    public List<JComponent> getPanelComponents(){
         return panelComponents;
     }
 

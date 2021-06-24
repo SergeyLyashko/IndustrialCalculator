@@ -3,7 +3,6 @@ package ui.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.UiComponent;
 import ui.Colorizeble;
 import ui.ColorChanger;
 
@@ -12,14 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component("scroller")
-class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
+class ScrollWrapper extends JScrollPane implements Colorizeble {
 
     private JViewport viewport;
     @Autowired
     private ColorChanger colorColorChanger;
     @Autowired
     @Qualifier("info")
-    private UiComponent info;
+    private JComponent info;
 
     ScrollWrapper(){
         super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -27,29 +26,25 @@ class ScrollWrapper extends JScrollPane implements UiComponent, Colorizeble {
         super.setSize(new Dimension(368, 173));
     }
 
+    @SuppressWarnings("unused")
     @PostConstruct
     private void afterPropertiesSet() {
         colorColorChanger.addColorizebleComponent(this);
         wrap(info);
     }
 
-    private void wrap(UiComponent content){
+    private void wrap(JComponent component){
         viewport = super.getViewport();
-        viewport.add(content.getComponent());
+        viewport.add(component);
     }
 
     @Override
     public void acceptColorChanger(ColorChanger colorChanger) {
-        colorChanger.changeScrollColor(this);
-    }
-
-    @Override
-    public JComponent getScrollViewPort(){
-        return viewport;
+        colorChanger.changeComponentColor(viewport);
     }
 
     @Override
     public JComponent getComponent() {
-        return this;
+        return viewport;
     }
 }

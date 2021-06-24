@@ -1,6 +1,6 @@
 package model;
 
-import ui.UiComponent;
+import javax.swing.*;
 
 public interface LabelBehavior {
 
@@ -8,5 +8,5 @@ public interface LabelBehavior {
 
     void show(String value, boolean alert);
 
-    void setComponent(UiComponent component);
+    void setComponent(JComponent component);
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import ui.ColorChanger;
 import ui.Colorizeble;
 import ui.FocusPolicy;
-import ui.UiComponent;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -22,7 +21,7 @@ import java.util.Arrays;
  */
 @Component
 @Scope("prototype")
-class TextLabel extends JLabel implements UiComponent, Colorizeble, FocusPolicy {
+class TextLabel extends JLabel implements Colorizeble, FocusPolicy {
 
     private final String defaultText;
 

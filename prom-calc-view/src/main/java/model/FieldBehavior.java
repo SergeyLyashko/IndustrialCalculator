@@ -1,15 +1,15 @@
 package model;
 
-import ui.UiComponent;
+import javax.swing.*;
 
 public interface FieldBehavior {
 
-    void fieldDeactivate(UiComponent component);
+    void fieldDeactivate(JComponent component);
 
-    void fieldActivate(UiComponent component);
+    void fieldActivate(JComponent component);
 
-    void areaActivate(UiComponent component);
+    void areaActivate(JComponent component);
 
-    void areaDeactivate(UiComponent component);
+    void areaDeactivate(JComponent component);
 
 }

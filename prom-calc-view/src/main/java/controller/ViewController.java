@@ -1,8 +1,8 @@
 package controller;
 
-import ui.UiComponent;
 import ui.MenuSelectable;
 
+import javax.swing.*;
 import java.util.List;
 
 public interface ViewController {
@@ -19,9 +19,9 @@ public interface ViewController {
 
     void setMessage(String message, boolean alert);
 
-    List<UiComponent> loadComponents();
+    List<JComponent> loadComponents();
 
-    void savedPreference(List<UiComponent> components);
+    void savedPreference(List<JComponent> components);
 
     void setToolTipState(boolean selected);
 

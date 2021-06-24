@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ui.UiComponent;
 import model.Filter;
 import model.FocusBehavior;
 
@@ -24,21 +23,25 @@ class FocusBehaviorImpl implements FocusBehavior {
     private Filter digitalFilter;
 
     @Override
-    public void fieldActivate(UiComponent component){
-        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
-        textField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                digitalFilter.activateFilter(component);
-                fieldFocusGained(textField);
-            }
-        });
+    public void fieldActivate(JComponent component){
+        if(component instanceof JFormattedTextField){
+            JFormattedTextField textField = (JFormattedTextField) component;
+            textField.addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    digitalFilter.activateFilter(component);
+                    fieldFocusGained(textField);
+                }
+            });
+        }
     }
 
     @Override
-    public void fieldDeactivate(UiComponent component) {
-        JFormattedTextField textField = (JFormattedTextField) component.getComponent();
-        Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
+    public void fieldDeactivate(JComponent component) {
+        if(component instanceof JFormattedTextField){
+            JFormattedTextField textField = (JFormattedTextField) component;
+            Arrays.stream(textField.getFocusListeners()).forEach(textField::removeFocusListener);
+        }
     }
 
     private void fieldFocusGained(JFormattedTextField textField) {

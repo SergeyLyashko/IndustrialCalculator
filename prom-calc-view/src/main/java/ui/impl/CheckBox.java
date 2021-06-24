@@ -4,7 +4,6 @@ import controller.ViewController;
 import model.DataManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ui.UiComponent;
 import ui.Colorizeble;
 import ui.ColorChanger;
 
@@ -17,7 +16,7 @@ import java.awt.event.ItemEvent;
  */
 @Component
 @Scope("prototype")
-class CheckBox extends JCheckBox implements UiComponent, Colorizeble {
+class CheckBox extends JCheckBox implements Colorizeble {
 
     private static final int WIDTH = 320;
     private static final int HEIGHT = 20;
